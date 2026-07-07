@@ -80,6 +80,16 @@ class NodeBrain:
         q = query.lower()
         return [e for e in self.read_all() if q in (e.content + " " + " ".join(e.tags)).lower()]
 
+    def bump(self, param: str, by: int = 1) -> int:
+        """Increment one of the core brain parameters from ARD_RGL_7025
+        (Runs_Completed, Patterns_Recognized, Verifications_Performed,
+        Issues_Found, Human_Reviews_Triggered, Human_Interactions, …). This is
+        how a local brain's stats genuinely grow with use."""
+        cur = int(self.meta["parameters"].get(param, 0) or 0)
+        self.meta["parameters"][param] = cur + by
+        self._save_meta()
+        return cur + by
+
 
 class Memory:
     """The whole brain: all node brains + the Master Log + cross-node search."""

@@ -44,6 +44,68 @@ from .models import _now
 SB_ROOT = os.environ.get("SB_ROOT", ".sourceborn")
 ENGINE = SourcebornEngine(root=SB_ROOT)
 SNAP_DIR = os.path.join(SB_ROOT, "_snapshots")
+CHAT_DIR = os.path.join(SB_ROOT, "chats")
+
+
+def _save_chat(question: str, payload: dict, kind: str = "ask") -> str:
+    """Persist one full exchange to disk — every chat is stored and can be
+    reopened later with its complete walk, holds, and node findings."""
+    os.makedirs(CHAT_DIR, exist_ok=True)
+    cid = re.sub(r"[^0-9]", "", _now()) + "-" + str(len(os.listdir(CHAT_DIR)) % 1000)
+    o = payload.get("output") or {}
+    rec = {"id": cid, "at": _now(), "kind": kind, "question": question[:400],
+           "model": payload.get("model", ""), "answer": (o.get("answer") or "")[:800],
+           "confidence": o.get("confidence", ""),
+           "classification": o.get("classification", ""),
+           "hold_count": (payload.get("walk") or {}).get("hold_count", 0),
+           "node_count": (payload.get("walk") or {}).get("node_count", 0),
+           "payload": payload}
+    with open(os.path.join(CHAT_DIR, cid + ".json"), "w", encoding="utf-8") as f:
+        json.dump(rec, f, ensure_ascii=False)
+    ENGINE.memory.master_log({"event": "chat_stored", "chat": cid, "kind": kind})
+    return cid
+
+
+def _list_chats(limit: int = 60) -> list[dict]:
+    if not os.path.isdir(CHAT_DIR):
+        return []
+    out = []
+    for fn in sorted(os.listdir(CHAT_DIR), reverse=True)[:limit]:
+        if not fn.endswith(".json"):
+            continue
+        try:
+            with open(os.path.join(CHAT_DIR, fn), encoding="utf-8") as f:
+                d = json.load(f)
+            out.append({k: d.get(k, "") for k in
+                        ("id", "at", "kind", "question", "model", "confidence",
+                         "classification", "hold_count", "node_count")})
+        except Exception:
+            continue
+    return out
+
+
+def _get_chat(cid: str) -> dict | None:
+    fp = os.path.join(CHAT_DIR, re.sub(r"[^0-9-]", "", cid) + ".json")
+    if not os.path.exists(fp):
+        return None
+    with open(fp, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _master_log_tail(n: int = 40) -> list[dict]:
+    """The sacred Master Log, newest first — every write, merge, human decision."""
+    p = ENGINE.memory.master_log_path
+    if not os.path.exists(p):
+        return []
+    with open(p, encoding="utf-8") as f:
+        lines = f.readlines()[-n:]
+    out = []
+    for ln in reversed(lines):
+        try:
+            out.append(json.loads(ln))
+        except Exception:
+            continue
+    return out
 
 
 def _ingest_text(name: str, text: str) -> dict:
@@ -284,7 +346,7 @@ details[open]>summary:before{content:"\25be  "}
 <div class=grid>
 <!-- LEFT: read-only — history + library (memories, pyramid, reports, node brains) -->
 <nav class=side>
-  <div class=card><div class=k>History</div><div class=hist id=hist><span class=muted>empty</span></div></div>
+  <div class=card><div class=k>Chats &middot; stored <span class=num id=chatn></span></div><div class=hist id=hist><span class=muted>empty</span></div></div>
   <div class=card>
     <details class=acc open><summary>Library</summary>
       <div class=sec>
@@ -298,7 +360,8 @@ details[open]>summary:before{content:"\25be  "}
       <details class=acc><summary>Engine pyramid</summary><div class=sec><div class=pyr id=pyr></div></div></details>
       <details class=acc><summary>Reports &amp; snapshots</summary><div class=sec>
         <div class=hactions><button class="btn sm" onclick=loadReport()>Memory report</button>
-          <button class="btn sm" onclick=saveSnapshot()>Save snapshot</button></div>
+          <button class="btn sm" onclick=saveSnapshot()>Save snapshot</button>
+          <button class="btn sm" onclick=loadMasterLog()>Master log</button></div>
         <div class=status id=repstat style="margin-top:6px"></div>
         <div id=snaps style="margin-top:6px"></div>
       </div></details>
@@ -400,9 +463,24 @@ function drawPyr(firedStages,counts){
   html+='<div class=plvl style="width:100%;opacity:.65">URR · 25 verification gates</div>';
   document.getElementById('pyr').innerHTML=html;
 }
-function drawHist(){
+async function drawHist(){
   const h=document.getElementById('hist');
-  h.innerHTML=HIST.length?HIST.slice(0,12).map((q,i)=>`<a onclick="document.getElementById('q').value=${JSON.stringify(q).replace(/"/g,'&quot;')}">${esc(q.slice(0,60))}</a>`).join(''):'<span class=muted>empty</span>';
+  try{
+    const list=await (await fetch('/chats')).json();
+    const n=document.getElementById('chatn'); if(n)n.textContent=list.length||'';
+    if(list.length){
+      h.innerHTML=list.slice(0,20).map(c=>'<a onclick="openChat(\''+esc(c.id)+'\')">'+esc((c.question||'').slice(0,56))+'<br><span class=muted style="font-size:11px">'+esc((c.at||'').slice(5,16))+' · '+esc(c.model||'')+' · '+esc(c.confidence||'')+(c.hold_count?' · '+c.hold_count+' held':'')+'</span></a>').join('');
+      return;
+    }
+  }catch(e){}
+  h.innerHTML=HIST.length?HIST.slice(0,12).map((q,i)=>`<a onclick="document.getElementById('q').value=${JSON.stringify(q).replace(/"/g,'&quot;')}">${esc(q.slice(0,60))}</a>`).join(''):'<span class=muted>empty — every ask is stored here</span>';
+}
+async function openChat(id){        // reopen a stored chat with its full walk
+  try{const d=await (await fetch('/chat?id='+encodeURIComponent(id))).json();
+    if(d&&d.payload){LASTQ=d.question||'';
+      const q=document.getElementById('q'); if(q)q.value=d.question||'';
+      render(d.payload); window.scrollTo({top:0,behavior:'smooth'});}
+  }catch(e){}
 }
 function busy(on){
   const go=document.getElementById('go'),ic=document.getElementById('goico'),lb=document.getElementById('golbl');
@@ -536,17 +614,29 @@ function confWhy(d){const o=d.output||{}; if((''+o.confidence).toLowerCase()!=='
   const holds=(d.walk&&d.walk.holds)||[];
   if(holds.length)return 'Low because '+holds.length+' node'+(holds.length>1?'s':'')+' held — e.g. '+esc(holds[0].why)+' Clear it in the review queue to raise confidence.';
   return 'Low — doubt bit or an open gap; see the node walk below.';}
-function walkRow(s){return '<div class=lane><span class="vd '+s.verdict+'">●</span> <b>'+esc(s.sb_id)+'</b> '+esc(s.sb_name)+' → '+esc(s.urr_id)+': <b>'+esc(s.verdict)+'</b>'+(s.memory_written?' <span class=memok>memory ✓</span>':'')+'<br><span class=muted style="margin-left:18px">'+esc(s.why)+'</span></div>';}
+function walkRow(s){return '<div class=lane><span class="vd '+s.verdict+'">●</span> <b>'+esc(s.sb_id)+'</b> '+esc(s.sb_name)+': <b>'+esc(s.verdict)+'</b>'+(s.memory_written?' <span class=memok>memory ✓</span>':'')+'<br><span class=muted style="margin-left:18px">'+esc(s.why)+'</span></div>';}
 function walkCard(d){const w=d.walk; if(!w||!w.steps)return '';
-  const holds=w.steps.filter(s=>s.verdict==='hold'), passes=w.steps.filter(s=>s.verdict!=='hold');
-  // Holds are what need you — show them. Passes are folded so 70 'Clear' rows
-  // don't bury the signal (open the details to see them all).
-  const head=holds.length
-    ?('<div class=muted style="margin-bottom:6px">Held — these need you:</div>'+holds.map(walkRow).join(''))
-    :'<div class=lane><span class="vd pass">●</span> All '+w.node_count+' nodes cleared — no holds.</div>';
-  const rest=passes.length
-    ?('<details style="margin-top:8px"><summary>'+passes.length+' nodes passed (show all)</summary>'+passes.map(walkRow).join('')+'</details>'):'';
-  return '<div class=card><div class=k>Node walk · SB ↔ URR <span class=num>'+w.node_count+' nodes · '+w.hold_count+' holds</span></div>'+head+rest+'</div>';}
+  const byId={}; w.steps.forEach(s=>{byId[s.sb_id]=s;});
+  const blocks=w.blocks||[];
+  if(!blocks.length){    // older payloads: holds first, passes folded
+    const holds=w.steps.filter(s=>s.verdict==='hold'), passes=w.steps.filter(s=>s.verdict!=='hold');
+    const head=holds.length?holds.map(walkRow).join(''):'<div class=lane><span class="vd pass">●</span> All '+w.node_count+' nodes cleared.</div>';
+    const rest=passes.length?('<details style="margin-top:8px"><summary>'+passes.length+' nodes passed</summary>'+passes.map(walkRow).join('')+'</details>'):'';
+    return '<div class=card><div class=k>Node walk <span class=num>'+w.node_count+' nodes · '+w.hold_count+' holds</span></div>'+head+rest+'</div>';}
+  // The ARD_RGL_7025 sequential chart: SB block ⇒ its URR gate (6+1 grouping).
+  const seen=new Set(); let html='';
+  blocks.forEach(b=>{
+    const fresh=b.sb.filter(id=>!seen.has(id)); fresh.forEach(id=>seen.add(id));
+    const nodes=fresh.map(id=>byId[id]).filter(Boolean);
+    const nHeld=nodes.filter(s=>s.verdict==='hold').length;
+    const range=b.sb.length>1?(b.sb[0]+' → '+b.sb[b.sb.length-1]):b.sb[0];
+    const bad=b.verdict==='hold'||nHeld>0;
+    html+='<details'+(bad?' open':'')+'><summary><span class="vd '+(bad?'hold':'pass')+'">●</span> <b>'+esc(range)+'</b> ⇒ <b>'+esc(b.gate)+'</b> '+esc(b.name)+' — <b class="'+(b.verdict==='hold'?'hl':'gd')+'">'+esc(b.verdict)+'</b>'+(nHeld?' · '+nHeld+' node hold':'')+'</summary>'+
+      nodes.map(walkRow).join('')+
+      '<div class="lane muted">↩ Intake+Parameters+New Scope → memory: '+esc(b.intake||'')+
+      (b.issues&&b.issues.length?' · <span class=hl>'+esc(b.issues.join('; '))+'</span>':'')+'</div></details>';
+  });
+  return '<div class=card><div class=k>Node walk · sequential chart (SB block ⇒ URR gate) <span class=num>'+w.node_count+' SB · '+(w.urr_count||0)+' URR · '+w.hold_count+' holds</span></div>'+html+'</div>';}
 function auditCard(d){const L=(d.output||{}).lanes||{}, a=L.audit; if(!a)return '';
   const row=(k,v)=>'<div class=lane><b>'+esc(k)+'</b> '+esc(v)+'</div>';
   let h=row('Document',(L.domain||{}).label||'numeric / financial');
@@ -638,6 +728,15 @@ function downloadReport(fmt){
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([body],{type:mime}));
   a.download='sourceborn-report.'+ext;a.click();
 }
+async function loadMasterLog(){
+  const st=document.getElementById('repstat');st.textContent='loading…';
+  try{const list=await (await fetch('/masterlog?n=80')).json();
+    document.getElementById('out').innerHTML='<div class="card fade"><div class=k>Master log · sacred, append-only <span class=num>'+list.length+' latest</span></div>'+
+      (list.map(e=>{const rest=Object.entries(e).filter(([k])=>k!=='at'&&k!=='event').map(([k,v])=>k+'='+(typeof v==='object'?JSON.stringify(v):v)).join(' ').slice(0,120);
+        return '<div class=lane><span class=muted>'+esc((e.at||'').slice(5))+'</span> <b>'+esc(e.event||'?')+'</b> <span class=muted>'+esc(rest)+'</span></div>';}).join('')||'<span class=muted>empty</span>')+'</div>';
+    st.textContent='';
+  }catch(e){st.textContent='error'}
+}
 async function loadReport(){
   const st=document.getElementById('repstat');st.textContent='loading…';
   try{const d=await (await fetch('/memory/report')).json();renderReport(d,'Memory report (live)');st.textContent='';}
@@ -694,9 +793,12 @@ function _sel(name,opts,val){return '<select id=bs_'+name+'>'+opts.map(o=>'<opti
 function _chk(name,val){return '<label class=switch><input type=checkbox id=bs_'+name+(val?' checked':'')+'><span class=track></span> '+name.replace(/_/g,' ')+'</label>'}
 async function brainDetail(id){
   const d=await (await fetch('/brain?id='+encodeURIComponent(id))).json(); const c=d.config; if(!c)return;
+  const P=(d.memory&&d.memory.parameters)||{};
+  const specKeys=Object.keys(P).filter(k=>/^[A-Z]/.test(k)&&(typeof P[k]!=='object'));
   document.getElementById('out').innerHTML='<div class="card fade"><div class=k>Brain '+esc(c.node_id)+' — '+esc(c.name)+'</div>'+
     '<div class=lane>kind: '+esc(c.kind)+' · stage: '+c.stage+' · pyramid (Node→Main→Sub→Micro): '+esc(JSON.stringify(c.pyramid))+'</div>'+
     '<div class=lane>role: '+esc(c.role)+'</div>'+
+    '<div class=lane><b>Brain parameters (grow with use)</b><br>'+(specKeys.length?specKeys.map(k=>'<span class=tag>'+esc(k)+' · '+esc(''+P[k])+'</span>').join(' '):'<span class=muted>no runs through this brain yet</span>')+'</div>'+
     '<div class=bset>risk '+_sel('risk_level',['low','medium','high'],c.risk_level)+
       ' &nbsp; write '+_sel('write_policy',['every_visit','on_finding','checkpoint'],c.write_policy)+'</div>'+
     '<div class=bset>'+_chk('urr_gate',c.urr_gate)+_chk('human_review',c.human_review)+_chk('weekly_update',c.weekly_update)+_chk('can_generate_parameters',c.can_generate_parameters)+'</div>'+
@@ -776,6 +878,17 @@ class Handler(BaseHTTPRequestHandler):
                                         "reply": reply[:400]}).encode(), "application/json")
         elif path == "/memory/report":
             self._send(200, json.dumps(_memory_report()).encode(), "application/json")
+        elif path == "/chats":
+            self._send(200, json.dumps(_list_chats()).encode(), "application/json")
+        elif path == "/chat":
+            d = _get_chat((qs.get("id") or [""])[0])
+            if d is None:
+                self._send(404, b'{"error":"no such chat"}', "application/json")
+            else:
+                self._send(200, json.dumps(d).encode(), "application/json")
+        elif path == "/masterlog":
+            n = min(200, int((qs.get("n") or ["40"])[0] or 40))
+            self._send(200, json.dumps(_master_log_tail(n)).encode(), "application/json")
         elif path == "/library":
             self._send(200, json.dumps(_library()).encode(), "application/json")
         elif path == "/snapshots":
@@ -888,14 +1001,15 @@ class Handler(BaseHTTPRequestHandler):
                 return
             model = get_model(name)
             walk = ENGINE.run_walk(question, model=model)
-            self._send(200, self._walk_payload(walk["result"], walk, model.name),
-                       "application/json")
+            payload = self._walk_dict(walk["result"], walk, model.name)
+            payload["chat_id"] = _save_chat(question, payload, "ask")
+            self._send(200, json.dumps(payload).encode(), "application/json")
         except Exception as exc:
             self._send(500, json.dumps({"error": str(exc)}).encode(), "application/json")
 
     # -- shared payload + actions -----------------------------------------
     @staticmethod
-    def _walk_payload(res, walk, model_name: str, extra: dict | None = None) -> bytes:
+    def _walk_dict(res, walk, model_name: str, extra: dict | None = None) -> dict:
         payload = {
             "output": asdict(res.output),
             "micro_questions": res.micro_questions,
@@ -908,7 +1022,12 @@ class Handler(BaseHTTPRequestHandler):
         }
         if extra:
             payload.update(extra)
-        return json.dumps(payload).encode()
+        return payload
+
+    @classmethod
+    def _walk_payload(cls, res, walk, model_name: str,
+                      extra: dict | None = None) -> bytes:
+        return json.dumps(cls._walk_dict(res, walk, model_name, extra)).encode()
 
     def _upload(self, data: dict) -> None:
         """Phase 1: review an uploaded file. Extract text (stdlib), run the
@@ -952,10 +1071,11 @@ class Handler(BaseHTTPRequestHandler):
         model = get_model(data.get("model", "offline"))
         ask = f"Review this uploaded file '{filename}' and respond:\n\n{text}"
         walk = ENGINE.run_walk(ask, model=model)
-        self._send(200, self._walk_payload(
+        payload = self._walk_dict(
             walk["result"], walk, model.name,
-            {"upload": {"filename": filename, "chars": len(text), "note": note}}),
-            "application/json")
+            {"upload": {"filename": filename, "chars": len(text), "note": note}})
+        payload["chat_id"] = _save_chat(f"file: {filename}", payload, "upload")
+        self._send(200, json.dumps(payload).encode(), "application/json")
 
     def _review(self, data: dict) -> None:
         """Human review queue: approve / add data / re-loop a held node."""
@@ -963,7 +1083,13 @@ class Handler(BaseHTTPRequestHandler):
         action = (data.get("action") or "").strip()
         node_id = (data.get("id") or "").strip()
         extra = (data.get("data") or "").strip()
+        # Every human decision lands in that node's brain (Human Override
+        # Ledger, per the core: Human_Interactions / Human_Decisions).
+        if node_id:
+            ENGINE.memory.brain(node_id).bump("Human_Interactions")
         if action == "approve":
+            if node_id:
+                ENGINE.memory.brain(node_id).bump("Human_Decisions")
             ENGINE.memory.master_log({"event": "human_approve", "node": node_id})
             self._send(200, json.dumps({"ok": True, "resolved": node_id}).encode(),
                        "application/json")
@@ -977,8 +1103,9 @@ class Handler(BaseHTTPRequestHandler):
             walk = ENGINE.run_walk(question, model=model, live_override=extra)
         else:
             walk = ENGINE.run_walk(question, model=model, live_override=extra or None)
-        self._send(200, self._walk_payload(walk["result"], walk, model.name),
-                   "application/json")
+        payload = self._walk_dict(walk["result"], walk, model.name)
+        payload["chat_id"] = _save_chat(question, payload, f"review-{action}")
+        self._send(200, json.dumps(payload).encode(), "application/json")
 
     def _ask_local(self, question: str, data: dict) -> None:
         """On-device (browser-GPU) lane — two phases, so the prompt never reaches
@@ -1011,8 +1138,9 @@ class Handler(BaseHTTPRequestHandler):
         # phase 2 — frame the on-device draft through the full walk
         walk = ENGINE.run_walk(question, model=LocalBridgeModel(str(local_answer)),
                                live_override=NO_LIVE)
-        self._send(200, self._walk_payload(walk["result"], walk, "local"),
-                   "application/json")
+        payload = self._walk_dict(walk["result"], walk, "local")
+        payload["chat_id"] = _save_chat(question, payload, "ask-local")
+        self._send(200, json.dumps(payload).encode(), "application/json")
 
 
 def _maybe_ingest_on_boot() -> None:
