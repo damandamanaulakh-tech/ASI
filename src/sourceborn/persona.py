@@ -92,14 +92,27 @@ class Persona:
         self.save()
         return ex.example_id
 
-    def recall(self, query: str, limit: int = 3) -> list[Example]:
-        """Cheap keyword recall over the user's own examples (muscle memory)."""
-        q = set(query.lower().split())
-        scored = [
-            (len(q & set((e.question + " " + e.answer).lower().split())), e)
-            for e in self.examples
-        ]
-        scored = [s for s in scored if s[0] > 0]
+    _STOP = {"the", "a", "an", "and", "or", "to", "of", "in", "on", "is", "it",
+             "for", "with", "that", "this", "what", "how", "why", "was", "are",
+             "be", "as", "at", "by", "my", "me", "i", "you", "your", "we", "do"}
+
+    def recall(self, query: str, limit: int = 5) -> list[Example]:
+        """Recall over the user's own examples (muscle memory). Scores by
+        normalized significant-word overlap so a long fed file can't outrank a
+        truly similar short one — the fed corpus genuinely weighs in."""
+        q = {w for w in query.lower().split() if w not in self._STOP and len(w) > 2}
+        if not q:
+            return []
+        scored = []
+        for e in self.examples:
+            blob = {w for w in (e.question + " " + e.answer).lower().split()
+                    if w not in self._STOP and len(w) > 2}
+            if not blob:
+                continue
+            hits = q & blob
+            if hits:
+                # overlap weighted toward covering the QUESTION's words
+                scored.append((len(hits) / len(q) + 0.1 * len(hits), e))
         scored.sort(key=lambda s: s[0], reverse=True)
         return [e for _, e in scored[:limit]]
 

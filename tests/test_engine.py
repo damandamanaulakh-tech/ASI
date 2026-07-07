@@ -467,7 +467,8 @@ def test_brain_parameters_grow_with_use():
     eng.run_walk("first ask")
     eng.run_walk("second ask")
     assert eng.memory.brain("SB-20").meta["parameters"]["Runs_Completed"] == 2
-    assert eng.memory.brain("URR-10").meta["parameters"]["Verifications_Performed"] == 2
+    # per walk: 1 block-gate verification + 70 matrix reviews = 71; two walks = 142
+    assert eng.memory.brain("URR-10").meta["parameters"]["Verifications_Performed"] == 142
     # feed-back into memory: block nodes hold the URR intake download
     tags = [t for e in eng.memory.brain("SB-33").read_all() for t in e.tags]
     assert "urr_intake" in tags and "node_finding" in tags
@@ -487,6 +488,95 @@ def test_chat_store_roundtrip():
     assert chats[0]["question"] == "test question"
     full = srv._get_chat(cid)
     assert full["payload"]["output"]["answer"] == "direct answer"
+
+
+def test_matrix_70x25_no_skips():
+    # "every ask must go through each 70 SB and 70x25 URR without any skip"
+    from sourceborn.urr_matrix import MATRIX
+    assert len(MATRIX) == 25
+    eng = _engine()
+    w = eng.run_walk("why does the small idea win?")["walk"]
+    m = w["matrix"]
+    assert m["per_node"] == 25 and m["total"] == 70 * 25   # 1,750 micro-reviews
+    for s in w["steps"]:                                    # every node carries its row
+        assert s["matrix_pass"] + len(s["matrix_flags"]) == 25
+    # every URR brain performed the full sweep (70 matrix + its gate work)
+    for i in range(1, 26):
+        p = eng.memory.brain(f"URR-{i:02d}").meta["parameters"]
+        assert p.get("Verifications_Performed", 0) >= 70
+
+
+def test_matrix_flags_real_issues():
+    from sourceborn.node_work import Finding, WalkContext
+    from sourceborn.urr_matrix import review_node
+    ctx = WalkContext(raw_text="a claim", ladder_conf="Low", classification="Claim")
+    flags = review_node("SB-24", Finding("this is always guaranteed and obviously true"), ctx)
+    assert flags.get("URR-10") == "absolutes"               # Doubt filter bites
+    clean = review_node("SB-01", Finding("raw source locked untouched: 7 chars"), ctx)
+    assert "URR-10" not in clean
+
+
+def test_pyramid_files_every_finding():
+    # Pyramid of Thought (doc numbers): every node's finding is filed
+    # Main -> Sub -> Micro; brains roll the tree up over time.
+    eng = _engine()
+    eng.run_walk("prove with current data that the small idea wins")
+    for sid in ("SB-02", "SB-20", "SB-29", "SB-54", "SB-67"):
+        fe = [e for e in eng.memory.brain(sid).read_all()
+              if "node_finding" in e.tags][0]
+        assert fe.pyramid["main"], f"{sid} finding not filed into Main"
+    meta = eng.memory.brain("SB-20").meta["pyramid"]
+    assert meta["main"]                                     # rolled up into the brain
+
+
+def test_unfiled_queue_holds_user_words_and_parks():
+    # "when some data not fitting in existing parameter... human review help there"
+    eng = _engine()
+    eng.run_walk("my zeropoint resonance hypothesis about consciousness")
+    items = [u["item"] for u in eng.unfiled.list()]
+    assert any(w in items for w in ("zeropoint", "resonance", "consciousness",
+                                    "hypothesis"))
+    first = eng.unfiled.list()[0]
+    before = len(eng.unfiled.list())
+    eng.unfiled.park(first["node"], first["item"])
+    assert len(eng.unfiled.list()) == before - 1            # parked, not lost
+
+
+def test_brain_export_import_keeps_data_forever():
+    import importlib, os, tempfile
+    os.environ["SB_ROOT"] = tempfile.mkdtemp(prefix="sb_keep_")
+    import sourceborn.server as srv
+    importlib.reload(srv)
+    srv.ENGINE.run_walk("remember this forever")
+    before = srv.ENGINE.memory.stats()["total_memory_entries"]
+    assert before > 0
+    backup = srv._export_brain()                            # download the whole brain
+    import base64 as b64mod
+    os.environ["SB_ROOT"] = tempfile.mkdtemp(prefix="sb_restore_")
+    importlib.reload(srv)                                   # fresh empty instance
+    assert srv.ENGINE.memory.stats()["total_memory_entries"] == 0
+    out = srv._import_brain(b64mod.b64encode(backup).decode())
+    assert out.get("ok") and out["files_restored"] > 0
+    assert srv.ENGINE.memory.stats()["total_memory_entries"] == before
+
+
+def test_wisdom_bank_richer():
+    from sourceborn.wisdom import SEED_WISDOM
+    assert len(SEED_WISDOM) >= 20
+    sources = {w.source for w in SEED_WISDOM}
+    for s in ("Bhagavad Gita", "Quran", "Tao Te Ching", "Guru Granth Sahib",
+              "Gospel", "Rumi", "Kabir", "Marcus Aurelius"):
+        assert s in sources
+
+
+def test_persona_recall_normalized():
+    import tempfile
+    from sourceborn.persona import Persona
+    p = Persona(root=tempfile.mkdtemp(prefix="sb_p_"))
+    p.learn("small idea wins against big teams", "hollow beats weight")
+    p.learn("x " * 400 + "small", "a very long unrelated file " + "y " * 400)
+    got = p.recall("why does the small idea win?")
+    assert got and "against big teams" in got[0].question   # similar beats long
 
 
 def _run_all():
