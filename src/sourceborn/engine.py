@@ -38,7 +38,10 @@ from .memory import Memory
 from .models import (
     GapItem, MemoryEntry, Output, PointZero, ProofItem, RawSource, TraceEntry, URRPacket,
 )
-from .nodes import SB_NODES, URR_NODES, sb_by_id
+from .node_work import (Finding, SB_WORK, SUPPORT_CHECKS, URR_CHECKS, URRReview,
+                        WalkContext)
+from .nodes import (FINAL_BLOCK_SB, FINAL_BLOCK_URR, SB_NODES, URR_NODES,
+                    WALK_BLOCKS, sb_by_id)
 from .parameters import COMPARISON_AXES, PARAMETER_BANK
 from .persona import Persona
 from .wisdom import WisdomBank
@@ -492,6 +495,25 @@ class SourcebornEngine:
             self._t("SB-69", "long_term_memory_lock", "passed",
                     note="example bank +1")
 
+        # Stash the run's working state so run_walk can drive every node's OWN
+        # work from real data (ARD_RGL_7025: every node does its own job).
+        from . import scheduler as _sched
+        self._ctx = {
+            "raw_text": raw_text, "origin": origin, "answer": out.answer,
+            "channels": channels, "domain": dom, "audit": audit, "core": core,
+            "matched": matched, "ledger": ledger, "ladder_conf": ladder_conf,
+            "live": live, "doubt": doubt, "witness": blind,
+            "falsifier": out.falsifier, "fuel": fuel_item,
+            "connections": connections, "merge": merge, "halts": halts,
+            "gaps": gaps, "anchor_note": anchor_note,
+            "anchor_on_target": on_target, "non_resolution": non_resolution,
+            "embodied_ok": embodied_ok, "safety_blocked": verdict.blocked,
+            "safety_reasons": verdict.reasons, "private_doc": private_doc,
+            "classification": out.classification, "confidence": out.confidence,
+            "evidence_tag": out.evidence_tag,
+            "weekly_due": _sched.due(self.memory.root),
+        }
+
         return RunResult(out, micro, matched, list(self.trace), gaps, proofs, halts)
 
     # -- RGL: Recursive Genesis Loop ---------------------------------------
@@ -602,74 +624,139 @@ class SourcebornEngine:
 
     def run_walk(self, raw_text: str, model: BaseModel | None = None,
                  live_override: str | None = None) -> dict:
-        """Walk the fired SB checkpoints one by one. After each SB node a URR
-        review verifies *that* node, then the node downloads the URR intake into
-        its own memory before the walk advances — your loop, literally:
+        """The real ARD_RGL_7025 walk — the 6+1 sequential arrow chart:
 
-            SB-N -> URR-N (review + verdict) -> SB-N absorbs intake -> SB-N+1
+            SB-01..08 → URR-08 (Entry Verification, first gate)
+            SB-09..14 → URR-09 (Human Layer) … blocks of six …
+            SB-69..70 → URR-19..25 (the Final 6+1 Block → Human Final Gate)
 
-        Auto-run, review-after: nothing pauses; every URR *hold* is collected in
-        ``holds`` for the human review queue (approve / add data / re-loop).
+        Every SB point runs ITS OWN job on the run context and writes ITS OWN
+        finding into ITS OWN local brain — no shared stamp. Every URR gate runs
+        ITS OWN verification role over its block, then returns Intake +
+        Parameters + New Scope which each block node downloads into memory
+        (the spec's Feed-Back into Memory). URR-01..07 run as the support
+        layer on their trigger areas. Brain parameters from the core document
+        (Runs_Completed, Verifications_Performed, Issues_Found, …) update on
+        every pass, so each brain's storage genuinely grows with use.
         """
         res = self.run(raw_text, model=model, live_override=live_override)
+        rc = getattr(self, "_ctx", {})
+        ctx = WalkContext(**rc)
+        ctx.memory_stats = self.memory.stats()
+        # Dot-connection inputs: cross-brain memory hits + similar past asks.
+        try:
+            key = " ".join(w for w in raw_text.split()[:4] if len(w) > 3) or raw_text[:24]
+            ctx.memory_hits = [(nid, (e.content or "")[:80])
+                               for nid, e in self.memory.search(key)[:8]]
+        except Exception:
+            ctx.memory_hits = []
+        try:
+            ctx.recall_matches = [ex.question[:80] for ex in self.persona.recall(raw_text)][:5]
+        except Exception:
+            ctx.recall_matches = []
+
         steps: list[NodeStep] = []
         holds: list[dict] = []
-        seen: set[str] = set()
-        urr_n = 0
-        for t in res.trace:
-            if not t.node_id.startswith("SB-") or t.node_id in seen:
-                continue
-            seen.add(t.node_id)
-            urr_n += 1
-            urr_id = f"URR-{urr_n:02d}"
-            forced_hold = t.status in ("held", "gap_open") or bool(t.halt)
-            # URR review of THIS node's output (its trace note)
-            packet = self.urr_micropass(urr_id, t.node_id, t.note or t.action,
-                                        live=live_override)
-            verdict = "hold" if (forced_hold or packet.halt_triggered) else "pass"
-            why = self._walk_why(t, packet)
-            # SB node downloads the URR intake into its own memory (your "->Memory")
-            self.memory.write(t.node_id, MemoryEntry(
-                node_id=t.node_id, raw_source_id="",
-                content=f"URR intake [{verdict}]: {why}",
-                parameters={"urr_id": urr_id, "verdict": verdict},
-                tags=["urr_intake"]), name="URR Intake Download")
-            cfg = self.brains.get(t.node_id)
-            step = NodeStep(
-                sb_id=t.node_id, sb_name=(cfg.name if cfg else t.action),
-                action=t.action, urr_id=urr_id, verdict=verdict,
-                halt=packet.halt_type or t.halt, why=why,
-                memory_written=True, can_loop_back=(verdict == "hold"))
-            steps.append(step)
-            if verdict == "hold":
-                holds.append({"sb_id": step.sb_id, "name": step.sb_name,
-                              "urr_id": urr_id, "why": why, "halt": step.halt,
-                              "ask": self._walk_ask(t.node_id, step.halt, step.sb_name)})
-        # FULL PYRAMID — every remaining SB node runs its URR pass on the final
-        # answer and downloads the intake into its own brain, so ALL nodes fire
-        # and the pyramid learns each run. Rule-based => no extra model/web cost
-        # (live sentinel avoids re-grounding; evidence was already gated at URR-08).
-        answer = res.output.answer if res.output else raw_text
-        for nid, cfg in self.brains.configs.items():
-            if not nid.startswith("SB-") or nid in seen:
-                continue
-            seen.add(nid)
-            urr_n += 1
-            urr_id = f"URR-{urr_n:02d}"
-            packet = self.urr_micropass(urr_id, nid, answer, live="grounded@URR-08")
-            verdict = "hold" if packet.halt_triggered else "pass"
-            why = f"{cfg.name}: checked the answer from its station — {verdict}"
-            self.memory.write(nid, MemoryEntry(
-                node_id=nid, raw_source_id="",
-                content=f"URR intake [{verdict}]: {why}",
-                parameters={"urr_id": urr_id, "verdict": verdict},
-                tags=["urr_intake"]), name="URR Intake Download")
+        blocks: list[dict] = []
+        findings: dict[str, Finding] = {}
+
+        def run_sb(sb_id: str, gate: str) -> None:
+            cfg = self.brains.get(sb_id)
+            name = cfg.name if cfg else sb_id
+            try:
+                f = SB_WORK[sb_id](ctx)
+            except Exception as exc:                 # a node must never kill the walk
+                f = Finding(f"node error: {exc}", halt=HaltType.LOGIC.value)
+            findings[sb_id] = f
+            # THIS node's own finding goes into THIS node's brain.
+            self.memory.write(sb_id, MemoryEntry(
+                node_id=sb_id, raw_source_id="", content=f.text[:500],
+                parameters=f.params, tags=["node_finding"]), name=name)
+            self.memory.brain(sb_id).bump("Runs_Completed")
+            if f.params:
+                self.memory.brain(sb_id).bump("Patterns_Recognized")
+            ctx.run_writes += 1
+            verdict = "hold" if f.halt else "pass"
+            if f.halt:
+                ctx.holds_so_far.append(f"{sb_id}: {f.text[:60]}")
+                holds.append({"sb_id": sb_id, "name": name, "urr_id": gate,
+                              "why": f.text[:180], "halt": f.halt,
+                              "ask": self._walk_ask(sb_id, f.halt, name)})
             steps.append(NodeStep(
-                sb_id=nid, sb_name=cfg.name, action="pyramid_verify",
-                urr_id=urr_id, verdict=verdict, halt=packet.halt_type, why=why,
+                sb_id=sb_id, sb_name=name, action="node_work", urr_id=gate,
+                verdict=verdict, halt=f.halt, why=f.text[:220],
                 memory_written=True, can_loop_back=(verdict == "hold")))
+
+        def run_urr(urr_id: str, block_sb: tuple[str, ...]) -> URRReview:
+            review = URR_CHECKS[urr_id](ctx, findings)
+            ub = self.memory.brain(urr_id, review.name)
+            ub.bump("Verifications_Performed")
+            if review.issues:
+                ub.bump("Issues_Found", len(review.issues))
+            if review.verdict == "hold":
+                ub.bump("Human_Reviews_Triggered")
+            self.memory.write(urr_id, MemoryEntry(
+                node_id=urr_id, raw_source_id="",
+                content=f"[{review.verdict}] {review.intake}"[:400],
+                parameters={"issues": review.issues, "scope": review.new_scope},
+                tags=["urr_review"]), name=review.name)
+            ctx.run_writes += 1
+            # Feed-Back into Memory: every block node downloads the URR intake.
+            for sb_id in block_sb:
+                self.memory.write(sb_id, MemoryEntry(
+                    node_id=sb_id, raw_source_id="",
+                    content=f"URR intake [{review.verdict}] from {urr_id}: "
+                            f"{review.intake}"[:300],
+                    parameters={"urr_id": urr_id, "verdict": review.verdict,
+                                "new_scope": review.new_scope},
+                    tags=["urr_intake"]), name="URR Intake Download")
+                ctx.run_writes += 1
+            if review.verdict == "hold":
+                ctx.holds_so_far.append(f"{urr_id}: {'; '.join(review.issues)[:60]}")
+                halt = (HaltType.SAFETY.value if urr_id in ("URR-14", "URR-19")
+                        else HaltType.EVIDENCE.value)
+                holds.append({"sb_id": urr_id, "name": review.name,
+                              "urr_id": urr_id,
+                              "why": "; ".join(review.issues)[:180], "halt": halt,
+                              "ask": self._walk_ask(urr_id, halt, review.name)})
+            blocks.append({"gate": urr_id, "name": review.name,
+                           "sb": list(block_sb), "verdict": review.verdict,
+                           "issues": review.issues, "intake": review.intake,
+                           "new_scope": review.new_scope})
+            return review
+
+        # ---- the main sequential line (6+1 grouping) ----------------------
+        for gate, block_sb in WALK_BLOCKS:
+            for sb_id in block_sb:
+                run_sb(sb_id, gate)
+            run_urr(gate, block_sb)
+            # support layer triggers (per the spec's summary table)
+            if gate == "URR-09":                      # after Stage 1-2
+                for uid in ("URR-01", "URR-02", "URR-03", "URR-04", "URR-05"):
+                    note, issues = SUPPORT_CHECKS[uid](ctx)
+                    ub = self.memory.brain(uid)
+                    ub.bump("Verifications_Performed")
+                    if issues:
+                        ub.bump("Issues_Found", len(issues))
+            if gate == "URR-14":                      # after Stage 4-5
+                for uid in ("URR-06", "URR-07"):
+                    note, issues = SUPPORT_CHECKS[uid](ctx)
+                    ub = self.memory.brain(uid)
+                    ub.bump("Verifications_Performed")
+                    if issues:
+                        ub.bump("Issues_Found", len(issues))
+
+        # ---- closing: SB-69..70 then the Final 6+1 Block (URR-19..25) -----
+        for sb_id in FINAL_BLOCK_SB:
+            run_sb(sb_id, "URR-25")
+        for urr_id in FINAL_BLOCK_URR:
+            run_urr(urr_id, FINAL_BLOCK_SB)
+
         self.memory.master_log({"event": "walk_complete",
-                                "nodes": len(steps), "holds": len(holds)})
+                                "nodes": len(steps), "urr_gates": len(blocks),
+                                "holds": len(holds)})
         return {"result": res, "walk": {
             "steps": [asdict(s) for s in steps], "holds": holds,
-            "node_count": len(steps), "hold_count": len(holds)}}
+            "blocks": blocks,
+            "node_count": len(steps), "hold_count": len(holds),
+            "urr_count": len(blocks)}}

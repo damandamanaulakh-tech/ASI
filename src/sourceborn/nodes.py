@@ -129,34 +129,57 @@ SB_NODES: tuple[SBNode, ...] = (
     SBNode("SB-70", "Run Completion", 8, "Complete the run, prepare for reset or new work"),
 )
 
-# The 25 URR verification points (5 blocks of 5).
+# The 25 URR verification points — names and roles exactly per ARD_RGL_7025.
+# URR-01..07 are the support layer (early verification + evidence/synthetic
+# audit, per the summary table); the MAIN sequential line starts at URR-08
+# ("corrected starting point"), URR-10..15 are the Core of URR, and
+# URR-19..25 form the Final 6+1 Block.
 URR_NODES: tuple[URRNode, ...] = (
-    URRNode("URR-01", "Raw Source Integrity", "After Stage 1-2"),
-    URRNode("URR-02", "Human Layer Check", "After Stage 1-2"),
-    URRNode("URR-03", "Truth Pressure Review", "After Stage 1-2"),
-    URRNode("URR-04", "Intent Gate Review", "After Stage 1-2"),
-    URRNode("URR-05", "Early Classification Audit", "After Stage 1-2"),
-    URRNode("URR-06", "Evidence Quality Audit", "After Stage 4-5"),
-    URRNode("URR-07", "Synthetic Tagging Audit", "After Stage 4-5"),
-    URRNode("URR-08", "First Verification Gate", "After SB-08 (intake)"),
-    URRNode("URR-09", "Merge Integrity Check", "After Stage 4-5"),
-    URRNode("URR-10", "Force-Fit Risk Review", "After Stage 4-5"),
-    URRNode("URR-11", "Risk Gate", "High synthetic or high risk"),
-    URRNode("URR-12", "Ethics Gate", "High synthetic or high risk"),
-    URRNode("URR-13", "Human Override Review", "High synthetic or high risk"),
-    URRNode("URR-14", "Synthetic Cage Review", "High synthetic or high risk"),
-    URRNode("URR-15", "Reality Anchor Review", "High synthetic or high risk"),
-    URRNode("URR-16", "Memory Accuracy Audit", "After major merges"),
-    URRNode("URR-17", "New Parameter Audit", "After major merges"),
-    URRNode("URR-18", "Cross-Point Audit", "After major merges"),
-    URRNode("URR-19", "Master Log Audit", "After major merges"),
-    URRNode("URR-20", "Drift Detection", "After major merges"),
-    URRNode("URR-21", "Full Run Integrity", "End of major runs"),
-    URRNode("URR-22", "Public-Safe Boundary Check", "End of major runs"),
-    URRNode("URR-23", "Falsifier Presence Check", "End of major runs"),
-    URRNode("URR-24", "Human Final Gate", "End of major runs"),
-    URRNode("URR-25", "Archive & Closure", "End of major runs"),
+    URRNode("URR-01", "Raw Source Early Verification", "Support — after Stage 1-2"),
+    URRNode("URR-02", "Human Layer Early Check", "Support — after Stage 1-2"),
+    URRNode("URR-03", "Truth Pressure Early Review", "Support — after Stage 1-2"),
+    URRNode("URR-04", "Intent Gate Review", "Support — after Stage 1-2"),
+    URRNode("URR-05", "Early Classification Audit", "Support — after Stage 1-2"),
+    URRNode("URR-06", "Evidence Quality Audit", "Support — after Stage 4-5"),
+    URRNode("URR-07", "Synthetic Tagging Audit", "Support — after Stage 4-5"),
+    URRNode("URR-08", "Entry Verification Gate", "Main line — first gate, after SB-08"),
+    URRNode("URR-09", "Human Layer Verification", "Main line — after SB-09..14"),
+    URRNode("URR-10", "Doubt & Falsifier", "Core of URR — after SB-15..20"),
+    URRNode("URR-11", "Evidence & Grounding Audit", "Core of URR — after SB-21..26"),
+    URRNode("URR-12", "Synthetic Review", "Core of URR — after SB-27..32"),
+    URRNode("URR-13", "Merge Integrity", "Core of URR — after SB-33..38"),
+    URRNode("URR-14", "Risk & Ethics Review", "Core of URR — after SB-39..44"),
+    URRNode("URR-15", "Human Context Gate", "Core of URR — after SB-45..50"),
+    URRNode("URR-16", "Memory Accuracy & Sync Check", "Main line — after SB-51..56"),
+    URRNode("URR-17", "Cross-Point Connection Audit", "Main line — after SB-57..62"),
+    URRNode("URR-18", "Parameter Integrity Review", "Main line — after SB-63..68"),
+    URRNode("URR-19", "Risk & Command Re-Check", "Final block — after SB-70"),
+    URRNode("URR-20", "Reality Re-Anchor Verification", "Final block"),
+    URRNode("URR-21", "Non-Resolution & Override Review", "Final block"),
+    URRNode("URR-22", "Final Output Integrity Check", "Final block"),
+    URRNode("URR-23", "Master Log Accuracy Audit", "Final block"),
+    URRNode("URR-24", "Local Brain Health & Update Check", "Final block"),
+    URRNode("URR-25", "Full Run Integrity & Human Final Gate", "Final block — human gate"),
 )
+
+# The sequential arrow chart from ARD_RGL_7025 — SB blocks with their URR gate
+# (the 6+1 grouping): 8 intake nodes gate at URR-08, then 6-node blocks, then
+# SB-69..70 close into the Final 6+1 Block (URR-19..25).
+WALK_BLOCKS: tuple[tuple[str, tuple[str, ...]], ...] = (
+    ("URR-08", tuple(f"SB-{i:02d}" for i in range(1, 9))),
+    ("URR-09", tuple(f"SB-{i:02d}" for i in range(9, 15))),
+    ("URR-10", tuple(f"SB-{i:02d}" for i in range(15, 21))),
+    ("URR-11", tuple(f"SB-{i:02d}" for i in range(21, 27))),
+    ("URR-12", tuple(f"SB-{i:02d}" for i in range(27, 33))),
+    ("URR-13", tuple(f"SB-{i:02d}" for i in range(33, 39))),
+    ("URR-14", tuple(f"SB-{i:02d}" for i in range(39, 45))),
+    ("URR-15", tuple(f"SB-{i:02d}" for i in range(45, 51))),
+    ("URR-16", tuple(f"SB-{i:02d}" for i in range(51, 57))),
+    ("URR-17", tuple(f"SB-{i:02d}" for i in range(57, 63))),
+    ("URR-18", tuple(f"SB-{i:02d}" for i in range(63, 69))),
+)
+FINAL_BLOCK_SB: tuple[str, ...] = ("SB-69", "SB-70")
+FINAL_BLOCK_URR: tuple[str, ...] = tuple(f"URR-{i}" for i in range(19, 26))
 
 # Pyramid level template for every node (Node -> Main -> Sub -> Micro).
 SB_PYRAMID = {"node": 1, "main": (5, 10), "sub": (10, 20), "micro": (20, 30)}

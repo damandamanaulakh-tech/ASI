@@ -416,6 +416,79 @@ def test_prose_claim_still_uses_lenses():
     assert res.output.lanes["domain"]["domain"] == "prose"
 
 
+def test_walk_follows_7025_sequential_chart():
+    # The exact arrow chart from ARD_RGL_7025: first gate URR-08 after SB-01..08,
+    # then 6-node blocks, closing with the Final 6+1 Block (URR-19..25).
+    eng = _engine()
+    w = eng.run_walk("why does the small idea win?")["walk"]
+    assert w["node_count"] == 70                       # every SB point works
+    assert w["urr_count"] == 18                        # 11 main gates + final 7
+    blocks = w["blocks"]
+    assert blocks[0]["gate"] == "URR-08"               # corrected starting point
+    assert blocks[0]["sb"][0] == "SB-01" and blocks[0]["sb"][-1] == "SB-08"
+    assert blocks[1]["gate"] == "URR-09" and blocks[1]["sb"] == [
+        "SB-09", "SB-10", "SB-11", "SB-12", "SB-13", "SB-14"]
+    assert [b["gate"] for b in blocks[-7:]] == [
+        "URR-19", "URR-20", "URR-21", "URR-22", "URR-23", "URR-24", "URR-25"]
+    assert "Human Final Gate" in blocks[-1]["name"]
+
+
+def test_every_node_does_its_own_work():
+    # No shared stamp: all 70 SB findings are distinct, and specific nodes
+    # produce exactly their spec'd job.
+    eng = _engine()
+    w = eng.run_walk("prove with current data that the small idea wins")["walk"]
+    whys = {s["sb_id"]: s["why"] for s in w["steps"]}
+    assert len(set(whys.values())) == 70               # 70 nodes, 70 findings
+    assert "sha256" in whys["SB-04"]                   # Raw Source Preservation
+    assert "opposite" in whys["SB-48"].lower()         # Apostatic Inversion
+    assert "walls hit" in whys["SB-54"]                # Critical Logic Wall
+    assert "breakthrough score" in whys["SB-67"]       # Breakthrough Lock
+    assert "kernel" in whys["SB-49"]                   # Heuristic Simplification
+
+
+def test_urr_gates_have_distinct_roles():
+    from sourceborn.nodes import URR_NODES
+    names = {n.urr_id: n.name for n in URR_NODES}
+    assert names["URR-08"] == "Entry Verification Gate"
+    assert names["URR-10"] == "Doubt & Falsifier"      # Core of URR
+    assert names["URR-15"] == "Human Context Gate"
+    assert names["URR-25"] == "Full Run Integrity & Human Final Gate"
+    eng = _engine()
+    blocks = eng.run_walk("why does the small idea win?")["walk"]["blocks"]
+    intakes = [b["intake"] for b in blocks]
+    assert len(set(intakes)) >= 15                     # each gate verifies ITS thing
+
+
+def test_brain_parameters_grow_with_use():
+    # ARD_RGL_7025 brain parameters (Runs_Completed, Verifications_Performed)
+    # must genuinely accumulate run over run.
+    eng = _engine()
+    eng.run_walk("first ask")
+    eng.run_walk("second ask")
+    assert eng.memory.brain("SB-20").meta["parameters"]["Runs_Completed"] == 2
+    assert eng.memory.brain("URR-10").meta["parameters"]["Verifications_Performed"] == 2
+    # feed-back into memory: block nodes hold the URR intake download
+    tags = [t for e in eng.memory.brain("SB-33").read_all() for t in e.tags]
+    assert "urr_intake" in tags and "node_finding" in tags
+
+
+def test_chat_store_roundtrip():
+    import importlib, os, tempfile
+    os.environ["SB_ROOT"] = tempfile.mkdtemp(prefix="sb_chat_")
+    import sourceborn.server as srv
+    importlib.reload(srv)
+    payload = {"output": {"answer": "direct answer", "confidence": "Medium",
+                          "classification": "Review Only"},
+               "model": "offline", "walk": {"hold_count": 0, "node_count": 70}}
+    cid = srv._save_chat("test question", payload, "ask")
+    chats = srv._list_chats()
+    assert chats and chats[0]["id"] == cid
+    assert chats[0]["question"] == "test question"
+    full = srv._get_chat(cid)
+    assert full["payload"]["output"]["answer"] == "direct answer"
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0
