@@ -36,12 +36,15 @@ from .halt_map import loop_for_halt
 from .llm import BaseModel, default_model
 from .memory import Memory
 from .models import (
-    GapItem, MemoryEntry, Output, PointZero, ProofItem, RawSource, TraceEntry, URRPacket,
+    GapItem, MemoryEntry, Output, PointZero, ProofItem, RawSource, TraceEntry,
+    URRPacket, _now,
 )
 from .node_work import (Finding, SB_WORK, SUPPORT_CHECKS, URR_CHECKS, URRReview,
                         WalkContext)
 from .nodes import (FINAL_BLOCK_SB, FINAL_BLOCK_URR, SB_NODES, URR_NODES,
                     WALK_BLOCKS, sb_by_id)
+from .pyramid import UnfiledQueue, file_finding, file_urr, unfiled_from_input
+from .urr_matrix import MATRIX, review_node
 from .parameters import COMPARISON_AXES, PARAMETER_BANK
 from .persona import Persona
 from .wisdom import WisdomBank
@@ -79,6 +82,8 @@ class NodeStep:
     why: str
     memory_written: bool
     can_loop_back: bool
+    matrix_pass: int = 0                    # of the 25 URR filters (70×25 matrix)
+    matrix_flags: list[str] = field(default_factory=list)   # "URR-10:absolutes"
 
 
 class SourcebornEngine:
@@ -95,6 +100,7 @@ class SourcebornEngine:
         self.model = model or default_model()
         # live-fact hook (the "eyes"): Tavily if TAVILY_API_KEY set, else no-op.
         self.grounding = grounding or default_grounding()
+        self.unfiled = UnfiledQueue(root)   # pyramid items awaiting the human
         self.trace: list[TraceEntry] = []
 
     # -- helpers -----------------------------------------------------------
@@ -659,19 +665,37 @@ class SourcebornEngine:
         holds: list[dict] = []
         blocks: list[dict] = []
         findings: dict[str, Finding] = {}
+        matrix_by_urr: dict[str, int] = {}
+        matrix_flagged: list[dict] = []
+        matrix_total_flags = 0
 
         def run_sb(sb_id: str, gate: str) -> None:
+            nonlocal matrix_total_flags
             cfg = self.brains.get(sb_id)
             name = cfg.name if cfg else sb_id
+            node = sb_by_id(sb_id)
             try:
                 f = SB_WORK[sb_id](ctx)
             except Exception as exc:                 # a node must never kill the walk
                 f = Finding(f"node error: {exc}", halt=HaltType.LOGIC.value)
             findings[sb_id] = f
+            # 70×25 matrix: ALL 25 URR filters review THIS node's finding.
+            flags = review_node(sb_id, f, ctx)
+            matrix_total_flags += len(flags)
+            for uid, code in flags.items():
+                matrix_by_urr[uid] = matrix_by_urr.get(uid, 0) + 1
+                if len(matrix_flagged) < 60:
+                    matrix_flagged.append({"sb": sb_id, "urr": uid, "code": code})
+            # Pyramid of Thought: file the finding (Main → Sub → Micro).
+            pyr = file_finding(node.stage if node else 8, f.text, f.params)
+            params = dict(f.params)
+            if flags:
+                params["urr_matrix_flags"] = flags
+            params["matrix_pass"] = len(MATRIX) - len(flags)
             # THIS node's own finding goes into THIS node's brain.
             self.memory.write(sb_id, MemoryEntry(
                 node_id=sb_id, raw_source_id="", content=f.text[:500],
-                parameters=f.params, tags=["node_finding"]), name=name)
+                parameters=params, pyramid=pyr, tags=["node_finding"]), name=name)
             self.memory.brain(sb_id).bump("Runs_Completed")
             if f.params:
                 self.memory.brain(sb_id).bump("Patterns_Recognized")
@@ -685,7 +709,9 @@ class SourcebornEngine:
             steps.append(NodeStep(
                 sb_id=sb_id, sb_name=name, action="node_work", urr_id=gate,
                 verdict=verdict, halt=f.halt, why=f.text[:220],
-                memory_written=True, can_loop_back=(verdict == "hold")))
+                memory_written=True, can_loop_back=(verdict == "hold"),
+                matrix_pass=len(MATRIX) - len(flags),
+                matrix_flags=[f"{u}:{c}" for u, c in flags.items()]))
 
         def run_urr(urr_id: str, block_sb: tuple[str, ...]) -> URRReview:
             review = URR_CHECKS[urr_id](ctx, findings)
@@ -725,6 +751,10 @@ class SourcebornEngine:
                            "new_scope": review.new_scope})
             return review
 
+        # The USER's words the pyramid cannot park yet → the human review
+        # queue at SB-02 (where input is separated). Never discarded.
+        self.unfiled.add("SB-02", unfiled_from_input(raw_text), _now())
+
         # ---- the main sequential line (6+1 grouping) ----------------------
         for gate, block_sb in WALK_BLOCKS:
             for sb_id in block_sb:
@@ -752,11 +782,39 @@ class SourcebornEngine:
         for urr_id in FINAL_BLOCK_URR:
             run_urr(urr_id, FINAL_BLOCK_SB)
 
+        # ---- 70×25 matrix close-out: each URR brain records ITS sweep -----
+        urr_names = {n.urr_id: n.name for n in URR_NODES}
+        n_nodes = len(steps)
+        for uid in MATRIX:
+            nflags = matrix_by_urr.get(uid, 0)
+            ub = self.memory.brain(uid, urr_names.get(uid, uid))
+            ub.bump("Verifications_Performed", n_nodes)
+            if nflags:
+                ub.bump("Issues_Found", nflags)
+            codes = sorted({m["code"] for m in matrix_flagged if m["urr"] == uid})
+            self.memory.write(uid, MemoryEntry(
+                node_id=uid, raw_source_id="",
+                content=f"matrix sweep over {n_nodes} nodes: "
+                        f"{n_nodes - nflags} pass, {nflags} flagged"
+                        + (f" ({', '.join(codes[:4])})" if codes else ""),
+                parameters={"flagged": nflags},
+                pyramid=file_urr(urr_names.get(uid, uid),
+                                 "flag" if nflags else "pass", codes),
+                tags=["urr_matrix"]), name=urr_names.get(uid, uid))
+            ctx.run_writes += 1
+
         self.memory.master_log({"event": "walk_complete",
                                 "nodes": len(steps), "urr_gates": len(blocks),
+                                "matrix_reviews": n_nodes * len(MATRIX),
+                                "matrix_flags": matrix_total_flags,
                                 "holds": len(holds)})
         return {"result": res, "walk": {
             "steps": [asdict(s) for s in steps], "holds": holds,
             "blocks": blocks,
+            "matrix": {"per_node": len(MATRIX),
+                       "total": n_nodes * len(MATRIX),
+                       "flags": matrix_total_flags,
+                       "by_urr": matrix_by_urr,
+                       "flagged": matrix_flagged},
             "node_count": len(steps), "hold_count": len(holds),
             "urr_count": len(blocks)}}

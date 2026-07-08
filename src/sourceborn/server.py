@@ -92,6 +92,62 @@ def _get_chat(cid: str) -> dict | None:
         return json.load(f)
 
 
+def _export_brain() -> bytes:
+    """The whole brain as one zip — brains, chats, master log, persona, wisdom,
+    snapshots. "It must store data, always n keep forever": even on a host with
+    an ephemeral disk, the user can download the full state and restore it."""
+    import io
+    import zipfile
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        for base, _dirs, files in os.walk(SB_ROOT):
+            for fn in files:
+                p = os.path.join(base, fn)
+                z.write(p, os.path.relpath(p, SB_ROOT))
+    return buf.getvalue()
+
+
+def _import_brain(b64: str) -> dict:
+    """Restore a previously exported brain zip into SB_ROOT (merge/overwrite)."""
+    import io
+    import zipfile
+    raw = base64.b64decode(b64)
+    if len(raw) > 200 * 1024 * 1024:
+        return {"error": "backup too large"}
+    n = 0
+    with zipfile.ZipFile(io.BytesIO(raw)) as z:
+        for info in z.infolist():
+            name = info.filename
+            if name.startswith("/") or ".." in name or info.is_dir():
+                continue
+            dest = os.path.join(SB_ROOT, name)
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            with open(dest, "wb") as f:
+                f.write(z.read(info))
+            n += 1
+    ENGINE.memory._brains.clear()          # drop cached metas; reload from disk
+    ENGINE.persona._load()
+    ENGINE.memory.master_log({"event": "brain_restored", "files": n})
+    return {"ok": True, "files_restored": n}
+
+
+def _persist_status() -> dict:
+    """How much history this brain holds and since when — so data loss from an
+    unmounted disk is visible immediately, not discovered weeks later."""
+    oldest = ""
+    p = ENGINE.memory.master_log_path
+    if os.path.exists(p):
+        with open(p, encoding="utf-8") as f:
+            first = f.readline().strip()
+        try:
+            oldest = json.loads(first).get("at", "")
+        except Exception:
+            oldest = ""
+    chats = len(os.listdir(CHAT_DIR)) if os.path.isdir(CHAT_DIR) else 0
+    return {"root": SB_ROOT, "oldest_record": oldest, "chats": chats,
+            **ENGINE.memory.stats()}
+
+
 def _master_log_tail(n: int = 40) -> list[dict]:
     """The sacred Master Log, newest first — every write, merge, human decision."""
     p = ENGINE.memory.master_log_path
@@ -340,6 +396,7 @@ details[open]>summary:before{content:"\25be  "}
     <span class=pill id=mpill><span class=pdot id=pdot></span> <b id=mname>offline</b></span>
     <span class=pill>brains <b id=bpill>95</b></span>
     <span class=pill id=wpill>weekly <b>&mdash;</b></span>
+    <span class=pill id=ppill title="stored memory — if this resets after a deploy, mount a persistent disk at .sourceborn">memory <b>&mdash;</b></span>
   </div>
 </header>
 
@@ -361,7 +418,10 @@ details[open]>summary:before{content:"\25be  "}
       <details class=acc><summary>Reports &amp; snapshots</summary><div class=sec>
         <div class=hactions><button class="btn sm" onclick=loadReport()>Memory report</button>
           <button class="btn sm" onclick=saveSnapshot()>Save snapshot</button>
-          <button class="btn sm" onclick=loadMasterLog()>Master log</button></div>
+          <button class="btn sm" onclick=loadMasterLog()>Master log</button>
+          <button class="btn sm" onclick=loadUnfiled()>Unfiled</button></div>
+        <div class=hactions style="margin-top:6px"><a class="btn sm" href="/export" download>⬇ Backup brain</a>
+          <label class="btn sm" style="display:inline-flex;align-items:center;cursor:pointer">⬆ Restore<input type=file id=restorefile accept=".zip" style="display:none" onchange=restoreBrain()></label></div>
         <div class=status id=repstat style="margin-top:6px"></div>
         <div id=snaps style="margin-top:6px"></div>
       </div></details>
@@ -447,6 +507,10 @@ fetch('/health').then(r=>r.json()).then(d=>{
   document.getElementById('bpill').textContent=d.brains||95;
   const set=d.weekly&&d.weekly.last_weekly_update;
   document.getElementById('wpill').innerHTML='weekly <b>'+(set?'active':'due')+'</b>';
+});
+fetch('/persist').then(r=>r.json()).then(p=>{
+  const el=document.getElementById('ppill'); if(!el)return;
+  el.innerHTML='memory <b>'+(p.total_memory_entries||0)+'</b>'+(p.oldest_record?' <span class=muted>since '+esc(p.oldest_record.slice(0,10))+'</span>':'');
 }); drawPyr(new Set(),{}); drawHist(); loadLibrary(); initLocalPicker();
 document.getElementById('examples').innerHTML=EXAMPLES.map(e=>'<span class=chip>'+esc(e)+'</span>').join('');
 document.querySelectorAll('#examples .chip').forEach((c,i)=>c.onclick=()=>{
@@ -614,7 +678,16 @@ function confWhy(d){const o=d.output||{}; if((''+o.confidence).toLowerCase()!=='
   const holds=(d.walk&&d.walk.holds)||[];
   if(holds.length)return 'Low because '+holds.length+' node'+(holds.length>1?'s':'')+' held — e.g. '+esc(holds[0].why)+' Clear it in the review queue to raise confidence.';
   return 'Low — doubt bit or an open gap; see the node walk below.';}
-function walkRow(s){return '<div class=lane><span class="vd '+s.verdict+'">●</span> <b>'+esc(s.sb_id)+'</b> '+esc(s.sb_name)+': <b>'+esc(s.verdict)+'</b>'+(s.memory_written?' <span class=memok>memory ✓</span>':'')+'<br><span class=muted style="margin-left:18px">'+esc(s.why)+'</span></div>';}
+function walkRow(s){
+  const mp=(s.matrix_pass!=null)?(' <span class="'+((s.matrix_flags||[]).length?'hl':'muted')+'" style="font-size:11px">URR '+s.matrix_pass+'/25'+((s.matrix_flags||[]).length?' ⚑'+s.matrix_flags.length:'')+'</span>'):'';
+  const fl=(s.matrix_flags&&s.matrix_flags.length)?('<br><span class=hl style="margin-left:18px;font-size:11.5px">⚑ '+esc(s.matrix_flags.join(' · '))+'</span>'):'';
+  return '<div class=lane><span class="vd '+s.verdict+'">●</span> <b>'+esc(s.sb_id)+'</b> '+esc(s.sb_name)+': <b>'+esc(s.verdict)+'</b>'+mp+(s.memory_written?' <span class=memok>memory ✓</span>':'')+'<br><span class=muted style="margin-left:18px">'+esc(s.why)+'</span>'+fl+'</div>';}
+function matrixCard(d){const m=(d.walk||{}).matrix; if(!m)return '';
+  const by=Object.entries(m.by_urr||{}).sort((a,b)=>b[1]-a[1]);
+  return '<div class=card><div class=k>70×25 URR matrix — no skips <span class=num>'+m.total+' micro-reviews</span></div>'+
+    '<div class=lane>every node reviewed by all '+m.per_node+' URR filters: <b class=gd>'+(m.total-m.flags)+' pass</b>'+(m.flags?' · <b class=hl>'+m.flags+' flagged</b>':' · 0 flags')+'</div>'+
+    (by.length?('<div class=lane><b>flags by filter</b> '+by.map(([u,n])=>'<span class=tag>'+esc(u)+' ×'+n+'</span>').join(' ')+'</div>'):'')+
+    ((m.flagged||[]).length?('<details><summary>flagged details ('+m.flagged.length+')</summary>'+m.flagged.map(f=>'<div class=lane><b>'+esc(f.sb)+'</b> ⚑ '+esc(f.urr)+' · '+esc(f.code)+'</div>').join('')+'</details>'):'')+'</div>';}
 function walkCard(d){const w=d.walk; if(!w||!w.steps)return '';
   const byId={}; w.steps.forEach(s=>{byId[s.sb_id]=s;});
   const blocks=w.blocks||[];
@@ -687,7 +760,7 @@ function render(d){
       (confWhy(d)?'<div class=why>'+confWhy(d)+'</div>':'')+
       '<div class=fals>falsifier · '+esc(o.falsifier)+'</div>'+
       '<div class=hactions><button class="btn sm" onclick="speak()">🔊 Read aloud</button><button class="btn sm" onclick="downloadReport(\'md\')">⬇ Markdown</button><button class="btn sm" onclick="downloadReport(\'csv\')">⬇ CSV</button></div></div>'+
-    auditCard(d)+walkCard(d)+reviewQueue(d)+
+    auditCard(d)+walkCard(d)+matrixCard(d)+reviewQueue(d)+
     '<div class=card><div class=k>Eternal example & wisdom match</div>'+m+'</div>'+
     '<div class=card><div class=k>Core Gate · human layer (SB-10)</div>'+
       '<div class=lane>dominant lens: <b>'+esc((lanes.human_layer||{}).dominant_lens||'—')+'</b></div>'+
@@ -727,6 +800,34 @@ function downloadReport(fmt){
   }
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([body],{type:mime}));
   a.download='sourceborn-report.'+ext;a.click();
+}
+async function loadUnfiled(){
+  const st=document.getElementById('repstat');st.textContent='loading…';
+  try{const list=await (await fetch('/unfiled')).json();
+    document.getElementById('out').innerHTML='<div class="card fade"><div class=k>Unfiled — your words the pyramid could not park <span class=num>'+list.length+'</span></div>'+
+      '<div class=muted style="margin-bottom:8px">Human review helps here: park each into a brain category, or leave it to incubate. Nothing is discarded.</div>'+
+      (list.map(u=>'<div class=lane><b>'+esc(u.item)+'</b> <span class=muted>from '+esc(u.node)+' · '+esc((u.at||'').slice(5,16))+'</span> '+
+        '<button class="btn sm" onclick="parkItem(\''+esc(u.node)+'\',\''+esc(u.item)+'\',\'sub\')">Park as Sub</button> '+
+        '<button class="btn sm" onclick="parkItem(\''+esc(u.node)+'\',\''+esc(u.item)+'\',\'micro\')">Park as Micro</button></div>').join('')||'<span class=muted>queue is empty — everything parked</span>')+'</div>';
+    st.textContent='';
+  }catch(e){st.textContent='error'}
+}
+async function parkItem(node,item,level){
+  try{await fetch('/pyramid/park',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({node,item,level})});
+    loadUnfiled();}catch(e){}
+}
+async function restoreBrain(){
+  const inp=document.getElementById('restorefile'); const f=inp.files&&inp.files[0]; if(!f)return;
+  const st=document.getElementById('repstat'); st.textContent='restoring…';
+  const fr=new FileReader();
+  fr.onload=async()=>{
+    try{const b64=(''+fr.result).split(',')[1]||'';
+      const d=await (await fetch('/import',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({b64})})).json();
+      st.textContent=d.ok?('restored '+d.files_restored+' files ✓'):('error: '+(d.error||''));
+      drawHist(); loadBrains();
+    }catch(e){st.textContent='restore error'}
+  };
+  fr.readAsDataURL(f);
 }
 async function loadMasterLog(){
   const st=document.getElementById('repstat');st.textContent='loading…';
@@ -889,6 +990,19 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/masterlog":
             n = min(200, int((qs.get("n") or ["40"])[0] or 40))
             self._send(200, json.dumps(_master_log_tail(n)).encode(), "application/json")
+        elif path == "/export":
+            data = _export_brain()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/zip")
+            self.send_header("Content-Disposition",
+                             'attachment; filename="sourceborn-brain.zip"')
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+        elif path == "/persist":
+            self._send(200, json.dumps(_persist_status()).encode(), "application/json")
+        elif path == "/unfiled":
+            self._send(200, json.dumps(ENGINE.unfiled.list()).encode(), "application/json")
         elif path == "/library":
             self._send(200, json.dumps(_library()).encode(), "application/json")
         elif path == "/snapshots":
@@ -956,6 +1070,37 @@ class Handler(BaseHTTPRequestHandler):
             return
         if self.path == "/upload":
             self._upload(data)
+            return
+        if self.path == "/import":
+            b64 = (data.get("b64") or "").strip()
+            if not b64:
+                self._send(400, b'{"error":"no backup data"}', "application/json")
+                return
+            try:
+                self._send(200, json.dumps(_import_brain(b64)).encode(),
+                           "application/json")
+            except Exception as exc:
+                self._send(400, json.dumps({"error": f"restore failed: {exc}"}).encode(),
+                           "application/json")
+            return
+        if self.path == "/pyramid/park":
+            node = (data.get("node") or "").strip()
+            item = (data.get("item") or "").strip()
+            level = (data.get("level") or "sub").strip()
+            cat = (data.get("category") or item).strip()
+            if not (node and item):
+                self._send(400, b'{"error":"need node and item"}', "application/json")
+                return
+            b = ENGINE.memory.brain(node)
+            if cat not in b.meta["pyramid"].setdefault(level, []):
+                b.meta["pyramid"][level].append(cat)
+            b.bump("Human_Interactions")
+            b._save_meta()
+            ENGINE.unfiled.park(node, item)
+            ENGINE.memory.master_log({"event": "human_parked", "node": node,
+                                      "item": item, "level": level, "as": cat})
+            self._send(200, json.dumps({"ok": True, "left": len(ENGINE.unfiled.list())}).encode(),
+                       "application/json")
             return
         if self.path == "/brains/update":
             self._send(200, json.dumps(ENGINE.brains.weekly_update()).encode(),
