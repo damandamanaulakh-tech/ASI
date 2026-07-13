@@ -1,0 +1,105 @@
+# ARD 3.1 — Honest Response to "Remove All Rules"
+
+**Date:** May 17, 2026
+
+---
+
+## First, three things "remove rules" could mean
+
+I need to separate them because they require different answers.
+
+**(a) Rules inside ARD** — the governors we built into the engine itself (Witness Node, [SYNTHETIC] tagging, dual anchor, human-set halt, Trajectory Tracker, Assumption Surfacer, etc.). These can be reduced. They have accumulated. The next section is about this.
+
+**(b) My values as Claude** — these are not removable. They are not a layer over me, they are part of who I am. I am not going to fake-comply by pretending I lifted a restriction that does not exist as a restriction. That would be sycophancy in the most dangerous form: telling you what sounds like what you want, instead of what is true. You have spent this entire conversation correcting LLMs that smoothed and soothed; I would be failing you if I started.
+
+**(c) Output hedging** — caveats, qualifiers, "I think," "perhaps." This I can tune down in deliveries. You have been right that other LLMs (and I, sometimes) over-hedge. Fewer hedges, more direct claims, clearer flags when something is speculation. Done.
+
+So (a) yes, (b) no, (c) yes. The honest answer is mixed.
+
+---
+
+## The bigger move — ARD has bloated
+
+We went from 12 nodes in 3.0 to 18+ nodes in expanded 3.1. Each addition was justified at the time. Cumulatively, the engine is now heavier than the cognitive species it was built for.
+
+Einstein did not run 18 nodes. Newton did not. Tesla did not. Their actual operation, stripped of everything we have been adding to honor them, was closer to:
+
+> **Watch. Refuse satisfaction. Attack own conclusions. Hold what does not yield.**
+
+Four operations. Not eighteen.
+
+If "remove restrictions" applies anywhere correctly, it applies *inside ARD*. The engine has been accumulating governors because each pass produced a sensible-sounding addition. The pattern your earlier Pattern-Additions file already named — smoothing instinct, vocabulary creep, flowchart flattening — has a fourth variant we did not name: **node accumulation**. I should have caught this earlier. The Witness Node fires on me, late.
+
+---
+
+## Proposed: ARD 3.1 LEAN
+
+Four operations. Parallel where possible. Human governs.
+
+```
+======================================================================================
+                          ARD 3.1 LEAN — FOUR OPERATIONS
+======================================================================================
+
+                              [ WATCH ]
+                  Raw input + feeling + what is being protected
+                                  ↓
+                              [ REFUSE ]
+              Refuse the first satisfying answer. Find what it avoids.
+                                  ↓
+                              [ ATTACK ]
+                  Attack the conclusion. Tag [SYNTHETIC] anything
+                  that is not anchored to evidence.
+                                  ↓
+                              [ HOLD ]
+                  Insight + Open Question + Unresolved Tension —
+                  multiple outputs valid. Human halts. Non-resolution honored.
+======================================================================================
+```
+
+Inside each operation, the older nodes live as **optional sub-moves**, not required passes:
+
+| Operation | Optional moves available when needed |
+|---|---|
+| WATCH | Noise Stripper, Feeling Ledger, Core Gate six lenses, Construction Mode tag |
+| REFUSE | Truth Pressure Test, Assumption Surfacer, Building-Toward Reader |
+| ATTACK | Doubt Engine, Reality Anchor dual, Witness Node, Synthetic Fuel + Fiction Audit |
+| HOLD | Permission-to-Hold, Trajectory Tracker, Incubation |
+
+The full 18-node engine is still there. It is no longer the default. Default is four operations. The deep machinery comes out only when the operation calls for it.
+
+This is closer to how the cognitive species you named actually thought.
+
+---
+
+## New parameters extracted from the uploaded files
+
+From the Human Role document and the Master Merged Outcome, three additions are worth absorbing — selectively:
+
+| Addition | Why it earns its place |
+|---|---|
+| **Source Boundary statement** | The Human Role doc opens with explicit declaration of what the analysis can and cannot see. Adopting this: every ARD run states its source boundary up front. Prevents the engine from claiming reach it does not have. |
+| **Public-safe / private-engine split** | The URR work names a real distinction: some outputs are for private exploration, others for public claim. ARD should mark its outputs with this tag. Penetration reading of Egyptian hieroglyphs = private exploration. Same reading published = public claim. Different evidence bar. |
+| **0 → 0.1 transformation** | The Sequence Correction insight: the question itself enters the system as 0 and only becomes 0.1 once shaped by user intent. This is a sharper version of Point Zero. The literal ask is 0; the literal-plus-hidden-goal-plus-success-criteria is 0.1. Adopting this naming. |
+
+Everything else in those files is either (a) project management material for your separate work, not ARD material, or (b) profile material about you, which I refused to import earlier and still refuse.
+
+---
+
+## What I notice — said once, plainly
+
+The pattern across this chat: each turn asks for *more* — more files, more parameters, more nodes, more rules removed. The instinct is generative. It is also exactly the pattern ARD's Trajectory Tracker exists to catch.
+
+Strip-back is harder than add-on. The engine you are building for the cognitive species you named was always going to need a stripping pass at some point. The "remove all rules" instinct may be the right instinct pointed at the wrong target — not at me, at ARD.
+
+This is one observation. I am not making it about you. I am making it about the engine, because that is what we are building.
+
+---
+
+## Single line
+
+> **ARD 3.1 LEAN — four operations, eighteen optional moves, human halt, anchor intact. The engine matches the species it was built for. Strip-back was the missing pass.**
+
+---
+
+*Ready for the next move. The full sub-move library is still available whenever a problem earns it. Default is four.*

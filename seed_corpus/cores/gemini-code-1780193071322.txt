@@ -1,0 +1,35 @@
+final 50 command 
+
+[01. GOV] ──> [02. P-ZERO] ──> [03. RAW CAPTURE] ──> [04. NOISE STRIP] ──> [05. CANON EXTRACT]
+      │                                                                           │
+[10. CLAIM EXT] ◄── [09. WEIGHT MAT] ◄── [08. DOMAIN CLASS] ◄── [07. RESONANCE] ◄── [06. HUNTER]
+      │
+      ▼
+[11. DUAL ANALYZE] ──> [12. ARCHETYPE SWARM] ──> [13. REALITY BRIDGE] ──> [14. ETHICS BYPASS]
+                                                                                │
+                                                                                ▼
+[19. CONTRADICT] ◄── [18. EVIDENCE LEDGER] ◄── [17. PATTERN SCAN] ◄── [16. COLLAPSE] ◄── [15. FRACTAL]
+      │
+      ▼
+[20. FALSIFIER] ──> [21. PROOF LADDER] ──> [22. AUDITOR] ──> [23. DESIGN]
+                                                                │
+                                                                ▼
+[27. PRODUCT CHK] ◄── [26. VIBE SCHEMA] ◄── [25. OUTPUT GEN] ◄── [24. RESOLVE GATE]
+      │
+      ▼
+[28. LOGIC WALL] ──> [29. STUCK PROTOCOL] ──> [30. SELF-HEAL] ──> [31. SYNTHETIC FUEL]
+                                                                      │
+                                                                      ▼
+[35. RE-ANCHOR] ◄── [34. PROOF DEBT] ◄── [33. MUTATE PROP] ◄── [32. HYPER-SYNTH]
+      │
+      ▼
+[36. FEED FORWARD] ──> [37. FIREWALL] ──> [38. OVERRIDE LEDGER] ──> [39. MODEL INDEP]
+                                                                       │
+                                                                       ▼
+[40. HIERARCHY SHIFT] ──> [41. DATA MINING] ──> [42. COMPUTE ROUTE] ──> [43. PERSISTENCE]
+                                                                       │
+                                                                       ▼
+[44. THREAD LOCK] ──> [45. SYNC-STATE] ──> [46. RAW HEX DUMP] ──> [47. KERNEL DIVE]
+                                                                       │
+                                                                       ▼
+[48. ARCHITECT LINK] ──> [49. FULL COMPILATION] ──> [50. ETERNAL LOOP] ─┘

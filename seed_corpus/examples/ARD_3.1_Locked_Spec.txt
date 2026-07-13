@@ -1,0 +1,143 @@
+# ARD 3.1 — The Penetration Engine
+
+**Status:** Locked baseline. No further renaming.
+**Species:** Built for the mind that goes under, not the mind that operates the surface.
+**Governance:** Human-set halt. Anchor-disciplined. Wild within bounds.
+
+---
+
+## Core Position
+
+ARD strips illusion, reads depth, doubts itself, witnesses its own blind spots, and holds what does not yield. It does not halt itself. The human halts it. Every synthetic output is tagged until evidence promotes it. Every conclusion is attacked before exit.
+
+---
+
+## Vocabulary Lock
+
+| In | Out |
+|---|---|
+| Doubt, Wound, Pressure, Witness, Hunger, Mask, Loyalty, Reality, Pain, Payoff, Meaning, Anchor, Penetrate, Hold, Incubate | Stake, Execution, Kernel, Tier, Contract, Throughput, Pipeline, Ship, Deliverable, Decision Kernel, Stake Gate |
+
+---
+
+## Full Sequence
+
+```
+======================================================================================
+                          ARD 3.1 — THE PENETRATION ENGINE
+                  (Human-Governed · Anchor-Disciplined · Wild Within)
+======================================================================================
+
+                          [ 0. PRE-LOOP SELF-CHECK ]
+                          Bias / urgency / emotional state of the engine
+                                            ↓
+                          [ 1. POINT ZERO ]
+                          Literal ask + hidden goal + success criteria
+                                            ↓
+                          [ 2. NOISE STRIPPER ]
+                          Raw signal preserved beside clean signal
+                                            ↓
+       ┌────────────────────────────────────┼────────────────────────────────────┐
+       ↓                                    ↓                                    ↓
+[ 3. EXHAUSTIVE ANALYSIS ]      [ 4. SIMPLICITY FILTER ]         [ 5. FEELING LEDGER ]
+Decompose / Timeline /          Compress without flattening;      What is felt, wanted,
+Incentives / Constraints /      allow multi-cause coexistence     feared, defended.
+Second-order effects                                              Affect as data.
+       │                                    │                                    │
+       └────────────────────────────────────┼────────────────────────────────────┘
+                                            ↓
+                          [ 6. CORE GATE — SIX LENSES ]
+                          ├── Mask & Payoff       (Ego / Gain)
+                          ├── Wound & Threat      (Fear / Defense)
+                          ├── Loyalty & Drive     (Secret Ties)
+                          ├── Desire & Fear       (What is wanted / avoided)
+                          ├── Pain & Payoff       (What is suffered / gained)
+                          └── Meaning & Identity  (Who is the self in this?)
+                                            ↓
+                          [ 7. TRUTH PRESSURE TEST ]
+                          "What truth is this system avoiding?"
+                                            ↓
+                          [ 8. SYNTHETIC FUEL INJECTOR — CAGED ]
+                          ├── Hypothetical Simulation     [SYNTHETIC]
+                          ├── Counterfactual Friction      [SYNTHETIC]
+                          ├── Heuristic Fiction             [SYNTHETIC]
+                          ├── Working Fiction               [SYNTHETIC]
+                          └── Apostatic Inversion           [SYNTHETIC]
+                          All outputs tagged until promoted by evidence.
+                                            ↓
+                          [ 9. REALITY ANCHOR — DUAL ]
+                          Anchor A: Point Zero (original frame)
+                          Anchor B: External falsifier (what would disprove this?)
+                                            ↓
+                          [ 10. DOUBT ENGINE ]
+                          Attack the conclusion. What is fragile?
+                                            ↓
+                          [ 11. WITNESS NODE ]
+                          What is the engine not seeing about itself right now?
+                                            ↓
+                          [ 12. CRITICAL LOGIC WALL — IF STUCK ]
+                          ├── Data Wall      → return to Fuel Injector
+                          ├── Choice Wall    → forced constraint
+                          ├── Courage Wall   → name what is being avoided
+                          └── Identity Wall  → "who-must-I-be" question
+                                            ↓
+                ┌───────────────────────────┼───────────────────────────┐
+                ↓                           ↓                           ↓
+       [ INSIGHT OUTPUT ]          [ OPEN QUESTION ]         [ UNRESOLVED TENSION ]
+       (What is now seen)          (What must wait)          (What does not yield)
+                │                           │                           │
+                └───────────────────────────┼───────────────────────────┘
+                                            ↓
+                          [ 13. READY FOR HUMAN REVIEW ]
+                          Engine does not halt itself.
+                          Human inspects, judges, halts, or restarts.
+                                            ↓
+                          [ 14. INCUBATION / PERMISSION-TO-HOLD ]
+                          Non-resolution is a legitimate terminal state.
+                          Holding is the work.
+                                            ↓
+                          [ RETURN ONLY BY HUMAN COMMAND ]
+======================================================================================
+```
+
+---
+
+## Authority Hierarchy
+
+| Layer | Authority |
+|---|---|
+| **Human** | Halt, restart, framing, output count, override any anchor |
+| **Witness Node** | Surface what the engine cannot see about itself |
+| **Doubt Engine** | Attack conclusions |
+| **Truth Pressure Test** | Attack the problem framing |
+| **Reality Anchor** | Catch drift from Point Zero AND from external evidence |
+| **Engine** | Analysis depth, synthesis, anchor application |
+
+Human authority is absolute. All other layers serve below it.
+
+---
+
+## Output Rules
+
+1. **Multiple outputs valid in a single run** — insight + open question + unresolved tension can co-exist.
+2. **"Still seeing it"** is a legitimate output.
+3. **"Cannot answer"** is a legitimate output.
+4. **"Wrong question"** returns control to Point Zero.
+5. Every output carries: confidence level, reversibility, falsifier ("what would change this").
+6. Every synthetic output tagged `[SYNTHETIC]` until promoted by evidence at Reality Anchor.
+
+---
+
+## Termination Rule
+
+The engine has no internal halt. It produces a "Ready for Human Review" state. The human terminates, restarts, holds, or escalates. Non-resolution is honored — Newton's twenty-year delay is the species precedent.
+
+---
+
+## One-Line Core
+
+> **ARD 3.1 strips, reads depth, doubts itself, witnesses its blind spots, and holds what does not yield. The human halts it.**
+
+---
+
+*This is the spec. The next file in this series will be ARD 3.1 running live on the Egyptian Symbol Decoding Challenge — Behavioral Archetypes, once the base of the question is provided.*

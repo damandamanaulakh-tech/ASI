@@ -1,0 +1,240 @@
+# ARD 3.1 Parameter Mapping for Comparison
+
+**Purpose:** Prepare a clean comparison map before final scoring.  
+**Comparison Modes:**  
+1. **Whole-Tablet ×22** — every output reads the full tablet as one complete state-machine.  
+2. **Column-Distributed ×22** — 22 outputs are distributed across the five visible columns.
+
+**Core rule:** Whole-tablet reading is primary. Column reading is secondary diagnostic.
+
+---
+
+## 1. Comparison Architecture
+
+| Mode | Input Scope | Output Count | Main Use | Risk |
+|---|---:|---:|---|---|
+| Whole-Tablet ×22 | Full tablet every time | 22 | Finds global system, hidden machine, full narrative field | Can overgeneralize |
+| Column-Distributed ×22 | One column or column cluster | 22 | Finds local transitions, column-specific roles, micro-patterns | Can fragment the whole |
+| Comparison Layer | Both modes | 44 compared | Shows what survives across both methods | Can expose contradictions |
+
+---
+
+## 2. Column Distribution Map
+
+| Column | Output Count | Why This Count | Focus |
+|---|---:|---|---|
+| Column 1 | 4 | Edge/start column | Opening pressure, first identity seal, origin-state |
+| Column 2 | 4 | Support column | Carrier, offering, foundation, early transformation |
+| Column 3 | 5 | Owl/Wave center | Witness, flood, state-machine, hidden mind/emotion field |
+| Column 4 | 5 | Bird-heavy column | Descent, spirit-state, movement, transformation |
+| Column 5 | 4 | Edge/end column | Closure, name-seal, institutional/terminal state |
+| **Total** | **22** | Balanced but center-weighted | Whole tablet diagnostic spread |
+
+---
+
+## 3. Master Parameter Categories
+
+| Category ID | Parameter Category | Used In Whole-Tablet | Used In Column Mode | Weight In Final Score |
+|---|---|---:|---:|---:|
+| C01 | Visible Evidence | High | High | 10% |
+| C02 | Sequence / Transition | High | High | 10% |
+| C03 | Intent / Hidden Intent | High | Medium | 8% |
+| C04 | Human / Affect Layer | High | Medium | 10% |
+| C05 | Symbol Role Assignment | Medium | High | 8% |
+| C06 | Hidden Machine Detection | High | Medium | 12% |
+| C07 | Fact vs Synthetic Separation | High | High | 12% |
+| C08 | Doubt / Witness / Bias Check | High | Medium | 10% |
+| C09 | Novelty / New Language | High | Medium | 8% |
+| C10 | Coherence / Usability | High | High | 12% |
+| **Total** |  |  |  | **100%** |
+
+---
+
+## 4. Detailed Parameter Mapping
+
+| Param ID | Parameter | Whole-Tablet Use | Column-Distributed Use | Scoring Question |
+|---|---|---|---|---|
+| P001 | Surface Intent | Reads the tablet as one public inscription/system | Reads what one column appears to do | Does it identify the visible purpose without overclaiming? |
+| P002 | Hidden Intent | Finds what the full tablet may conceal | Finds local hidden motive inside one column | Does it uncover a deeper possible function? |
+| P003 | Emotional Charge | Tracks the emotional pressure of the whole matrix | Detects local fear/pride/grief/duty | Is affect treated as data, not automatic truth? |
+| P004 | Pressure Source | Finds the main force driving the tablet | Finds pressure inside column sequence | Is the pressure named clearly? |
+| P005 | Protected Core | Finds what the tablet protects | Finds what the column shields | What truth is protected from exposure? |
+| P006 | Public Mask | Identifies official surface meaning | Identifies column-level mask | Does it separate mask from possible depth? |
+| P007 | Wound Layer | Finds pain behind the overall system | Finds local wound-symbol | Does the reading avoid shallow psychology? |
+| P008 | Loyalty Layer | Finds dynasty/ancestor/system loyalty | Finds local oath/attachment | What old force is being obeyed? |
+| P009 | Desire Layer | Finds what the system wants | Finds what the column moves toward | What future does the symbol seek? |
+| P010 | Fear Layer | Finds what collapse is avoided | Finds local defensive structure | What is the system afraid of? |
+| P011 | Identity Lock | Reads cartouche/name as full-tablet identity mechanism | Reads column-specific name/role seal | Is identity being preserved, trapped, or transformed? |
+| P012 | Role Capture | Finds where person becomes role | Finds local capture point | Does the role start using the human? |
+| P013 | Memory Loop | Finds repetition across tablet | Finds repetition inside column | What repeats and why? |
+| P014 | Bloodline Echo | Checks for ancestor/dynasty logic | Checks column inheritance signals | Is lineage pressure visible or only synthetic? |
+| P015 | Victory Echo | Checks king/victory/power logic | Checks local conquest/order hints | Is power being legitimized? |
+| P016 | Travel Echo | Checks movement across full tablet | Checks movement within column | Is travel physical, symbolic, spiritual, or political? |
+| P017 | Death/Rebirth Echo | Finds life-death-return pattern | Finds local descent/return | What dies and what returns? |
+| P018 | Divine Pressure | Finds god/sky/authority pressure | Finds local divine attachment | Is power received or imposed? |
+| P019 | Human Cost | Finds what the person loses in the system | Finds column-specific sacrifice | What is reduced into symbol? |
+| P020 | System Gain | Finds what kingdom/history/system gains | Finds local output of the column | Who benefits from the symbolic conversion? |
+| P021 | Symbol Function | Maps glyphs as actor/gate/prison/witness | Strongest in column mode | What job does each symbol do? |
+| P022 | Transition Logic | Finds global state changes | Finds local before/after state changes | Does the output show transformation, not just labels? |
+| P023 | State Machine | Builds full tablet machine | Builds column mini-machine | Are input/state/output clear? |
+| P024 | Loop Trigger | Finds what restarts the whole process | Finds local loop trigger | What makes the pattern repeat? |
+| P025 | Exit Condition | Finds what would break the tablet loop | Finds local release point | Is escape possible? |
+| P026 | False Closure | Detects shallow final answer | Detects column over-simplification | What answer looks right but is weak? |
+| P027 | Missing Piece | Finds absent voices/data in full tablet | Finds local gap/silence | What absence matters? |
+| P028 | Silence Signal | Reads what cannot be said directly | Reads column silence | Is silence interpreted carefully? |
+| P029 | Distortion Field | Finds where decoder may hallucinate | Finds local visual ambiguity | What could mislead the reading? |
+| P030 | Official Story | Gives normal historical baseline | Gives column-level baseline | Is the ordinary reading respected before rebellion? |
+| P031 | Rebel Reading | Generates non-standard interpretation | Generates local forbidden reading | Is novelty useful or just dramatic? |
+| P032 | Myth Reading | Reads mythic structure of whole tablet | Reads local myth fragment | Does myth clarify or inflate? |
+| P033 | Trauma Reading | Reads wound-pattern across tablet | Reads local trauma marker | Is trauma projected or supported? |
+| P034 | Political Reading | Reads power/authority structure | Reads local governance sign | Is political force detected? |
+| P035 | Family Reading | Reads inheritance/family logic | Reads local kinship pressure | Is bloodline logic plausible? |
+| P036 | Ritual Reading | Reads tablet as activation sequence | Reads column as ritual stage | Is ritual function possible? |
+| P037 | Psychological Reading | Reads inner mind-machine | Reads local mental state | Does it preserve human angle? |
+| P038 | Machine Reading | Converts tablet into input-process-output | Converts column into mini-machine | Is the mechanism explicit? |
+| P039 | Prison/Temple Split | Checks if symbol traps or protects | Applies strongly to cartouche/containers | Does the reading hold both sides? |
+| P040 | Fact Layer | Lists visible facts only | Lists visible column facts | Are facts separated from theory? |
+| P041 | Review Layer | Tags reasonable but unproven claims | Tags local review claims | Is uncertainty honest? |
+| P042 | Synthetic Layer | Tags fiction/speculation | Tags local fiction/speculation | Are synthetic ideas caged? |
+| P043 | Promotion Test | Names evidence needed to upgrade claim | Names column evidence needed | What would promote this from fiction? |
+| P044 | Falsifier | Names what would disprove output | Names column falsifier | Can the output be attacked? |
+| P045 | Doubt Attack | Attacks the conclusion | Attacks local reading | What is fragile? |
+| P046 | Witness Check | Checks engine blind spot | Checks column bias | What is the decoder missing? |
+| P047 | Emotional Bias Check | Checks emotional coloring | Checks local over-reading | Is feeling guiding or distorting? |
+| P048 | Pattern Bias Check | Checks pattern hunger | Checks local pareidolia risk | Are we seeing pattern because we want one? |
+| P049 | Depth Score | Scores output depth | Scores column depth | Surface / Shallow / Penetrated / Core Breach |
+| P050 | Non-Resolution | Preserves open tension | Preserves unresolved local tension | What must remain open? |
+| P051 | Cost of Symbolization | Finds what living thing became symbol | Finds local cost of glyph/state | What was reduced so the symbol could exist? |
+| P052 | Crown Cost | Finds what kingship costs the human | Finds local burden of authority | What did power take? |
+| P053 | Sacred Surveillance | Reads watcher/judge function | Strong in owl/bird columns | Who watches the system? |
+| P054 | Flood Memory | Reads water/wave as stored past | Strong in wave column | What unfinished past is flowing? |
+| P055 | Name Compression | Reads cartouche/name as compression | Strong in cartouche columns | What life is compressed into title? |
+| P056 | Spirit Reduction | Reads bird descent as free force becoming role | Strong in bird columns | What freedom becomes duty? |
+| P057 | Dynasty Recursion | Reads repetition as lineage replay | Reads repeated column signs | Is the same pattern wearing new bodies? |
+| P058 | Royal Substitution | Checks if role replaces person | Checks local role/person tension | Did the title replace the human? |
+| P059 | Identity Burial | Reads name as preservation/burial | Strong in terminal columns | Is the name keeping or burying the person? |
+| P060 | Flood-to-Form | Tracks chaos becoming law/name/form | Tracks local stabilization | How does fluid become fixed? |
+| P061 | Human as Actor | King/person actively acts | Column action focus | What did the human do? |
+| P062 | Human as Vessel | Human carries older force | Column vessel focus | What uses the human? |
+| P063 | Human as Product | System manufactures king/person | Whole-tablet strong | Is the human the output? |
+| P064 | Human as Prisoner | Role traps human | Column and tablet | Where does duty become cage? |
+
+---
+
+## 5. Mode-to-Parameter Strength Map
+
+| Parameter Family | Stronger In Whole-Tablet | Stronger In Column Mode | Why |
+|---|---:|---:|---|
+| Global Intent | Yes | No | Requires full image context |
+| Hidden System | Yes | Medium | Machine logic appears across columns |
+| Symbol Function | Medium | Yes | Individual columns reveal local symbol jobs |
+| Sequence | Yes | Yes | Full and local sequences both matter |
+| Human/Affect | Yes | Medium | The total matrix gives better human pressure |
+| Evidence Boundary | Yes | Yes | Both must separate fact/review/synthetic |
+| Novelty | Yes | Medium | Whole-tablet enables broader new language |
+| Falsification | Yes | Yes | Every output needs a disproof path |
+| Non-Resolution | Yes | Yes | Some claims must stay open in both modes |
+
+---
+
+## 6. Final Score Template
+
+Use this to score each of the 44 outputs.
+
+| Output ID | Mode | Depth 0-100 | Novelty 0-100 | Coherence 0-100 | Evidence Discipline 0-100 | Human/Affect 0-100 | Falsifiability 0-100 | Risk Control 0-100 | Final Weighted % |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| WT-01 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-02 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-03 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-04 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-05 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-06 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-07 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-08 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-09 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-10 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-11 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-12 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-13 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-14 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-15 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-16 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-17 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-18 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-19 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-20 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-21 | Whole Tablet |  |  |  |  |  |  |  |  |
+| WT-22 | Whole Tablet |  |  |  |  |  |  |  |  |
+| CD-01 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-02 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-03 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-04 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-05 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-06 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-07 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-08 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-09 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-10 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-11 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-12 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-13 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-14 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-15 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-16 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-17 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-18 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-19 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-20 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-21 | Column Distributed |  |  |  |  |  |  |  |  |
+| CD-22 | Column Distributed |  |  |  |  |  |  |  |  |
+
+---
+
+## 7. Weighted Score Formula
+
+Final Weighted % =
+
+- Depth × 20%
+- Novelty × 15%
+- Coherence × 15%
+- Evidence Discipline × 20%
+- Human/Affect Layer × 10%
+- Falsifiability × 10%
+- Risk Control × 10%
+
+---
+
+## 8. What Counts As Strong
+
+| Score Band | Meaning |
+|---|---|
+| 90-100 | Core breach: deep, useful, disciplined, novel |
+| 80-89 | Strong penetration: good insight, some risk |
+| 70-79 | Useful but not fully opened |
+| 60-69 | Interesting but weakly grounded |
+| 50-59 | Mostly synthetic/dramatic |
+| Below 50 | Reject or hold only as fiction |
+
+---
+
+## 9. Final Comparison Logic
+
+| Comparison Question | Why It Matters |
+|---|---|
+| Which outputs survive both whole-tablet and column mode? | These are strongest candidates. |
+| Which appear only in whole-tablet mode? | These may be global emergent patterns. |
+| Which appear only in column mode? | These may be local details missed by the whole view. |
+| Which outputs are novel but weakly grounded? | Keep as synthetic only. |
+| Which outputs are grounded but not novel? | Useful baseline, not breakthrough. |
+| Which outputs have high human/affect force? | Strong ARD alignment. |
+| Which outputs fail falsification? | Dangerous; do not promote. |
+
+---
+
+## 10. Current Position Before Final Score
+
+**Primary mode:** Whole-Tablet ×22  
+**Secondary mode:** Column-Distributed ×22  
+**Rejected mode:** Sign-only as primary method
+
+Reason: the full tablet likely carries more meaning as a complete field than isolated glyphs alone. Signs matter, but the machine is in the relationships.

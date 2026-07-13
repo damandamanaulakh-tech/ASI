@@ -1,0 +1,13 @@
+Era / Civilization,Time Period (years ago),Region,Major Achievement,Structures Built,Faith,Language Type
+Early Homo sapiens,"~300,000 – 70,000",Africa (Nile Valley included),"Basic survival, tools, burials",Simple shelters,Pure oral animism (spirits in nature),Gestures + early sounds
+Spread from Africa,"~70,000 – 50,000","Middle East → Europe, Asia, Australia, Americas",Adaptation & survival,"Basic shelters, cave art",Oral animism + symbolic imagery,Oral + signs
+Sumerian / Mesopotamian,"~5,500 – 4,000",Mesopotamia (Iraq),"First cities, writing, law codes","Ziggurats, temples","Named gods (Anu, Inanna)",Cuneiform (first writing)
+Egyptian,"~5,500 – 4,400",Nile Valley,"Unification, monumental architecture","Pyramids, temples","Named gods (Ra, Osiris)",Hieroglyphs
+Indus Valley,"~9,000 – 4,000 (mature ~4,500)",Northwest India/Pakistan,"Planned cities, trade, sanitation","Planned settlements, drainage",Oral + mother goddess imagery,Indus script (undecoded)
+"Vedic / Hindu (Krishna, Rama)","~3,500 – 2,500",North India,"Epics, philosophy, avatars",Early temples,"Avatars & gods (Vishnu, Shiva, Brahma)",Sanskrit (Vedas)
+Judaism,"~3,500 – 2,500",Levant (Israel/Palestine),"Monotheism, ethical law",Temples (First & Second),"One God (Yahweh), covenant",Hebrew
+Buddhism,"~2,500",North India / Nepal,"Four Noble Truths, meditation","Stupas, monasteries","No creator god, enlightenment",Pali / Sanskrit
+Jainism,"~2,500",India,"Non-violence, soul liberation",Temples,"24 Tirthankaras, extreme ahimsa",Prakrit / Sanskrit
+Christianity,"~2,000",Levant → Roman Empire,"Resurrection, universal salvation","Churches, cathedrals",Jesus as son of God,"Greek, Latin, Aramaic"
+Islam,"~1,400",Arabian Peninsula,"Final revelation, five pillars",Mosques,"One God (Allah), Muhammad as last prophet",Arabic (Quran)
+Sikhism,~500,Punjab (North India),"One God, equality, Guru Granth Sahib",Gurudwaras,Ik Onkar (formless God),Gurmukhi

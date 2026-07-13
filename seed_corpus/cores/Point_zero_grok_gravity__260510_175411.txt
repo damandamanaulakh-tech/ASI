@@ -1,0 +1,38 @@
+Point Zero (Raw Observable Outcome - existed for millennia)
+↓
+Things fall. Objects have weight. Moon orbits Earth. Planets orbit Sun.
+↓
+Source: Visible, repeatable facts with no single explanation. Earth events and sky events treated as unrelated.
+↓
+Human Trigger + Intent: Newton connects falling apple on Earth with Moon’s “fall” and planetary paths. Goal = one rule, not separate rules.
+↓
+Sequence Search:
+Falling object → Earth attraction
+Moon orbit → same attraction at larger distance
+Planetary motion → same attraction scaled to Sun
+↓
+Pattern: Inverse-square attraction (mass × mass / distance²) works across scales.
+↓
+Conditions/Power: Mass, distance, motion. Needs calculus + laws of motion.
+↓
+Halt 1: Early Earth-radius data makes Moon calculation inaccurate → link looks weak.
+↓
+Stage Addition: Better measurements (Earth size) + refined math → revisit calculation.
+↓
+Evidence Check: Matches Galileo falling bodies + Kepler planetary laws + Moon period.
+↓
+Outcome / Product: Universal Gravitation law + mathematical framework (Principia 1687).
+↓
+Return to Point Zero + Product:
+Original facts (fall/orbit) now explained, predicted, and usable.
+Product = verified sequence (equations), NOT the force itself.
+↓
+New Usable Knowledge: Ballistics, navigation, tides, orbital prediction, satellites.
+↓
+Next Loop Halt: Works for most cases but fails at Mercury perihelion + light bending.
+↓
+Einstein Sequence (1915+): Spacetime curvature instead of force.
+↓
+Test: 1919 eclipse confirms light bending.
+↓
+Current Open Halt: Quantum gravity incompatibility at extremes → no final product yet.

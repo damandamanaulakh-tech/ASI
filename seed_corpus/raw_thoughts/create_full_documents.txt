@@ -1,0 +1,274 @@
+from docx import Document
+from docx.shared import Pt, Inches, RGBColor
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.style import WD_STYLE_TYPE
+
+def create_document(filename, title, entries):
+    doc = Document()
+    
+    # Title
+    title_para = doc.add_heading(title, 0)
+    title_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    
+    # Intro
+    intro = doc.add_paragraph()
+    intro.add_run("Full Raw Thought Extraction - Upgraded Structure\n").bold = True
+    intro.add_run("Each entry contains: Definition, User said/meant, Emotional Tone, Core Belief, Key Quote, Assistant answered, How the answer changed, Intent, Hidden Layer, Best Outcome, Risk/Downside, Theory Value, Connection, Personal Stake, Actionability.")
+    
+    doc.add_paragraph()
+    
+    for i, entry in enumerate(entries, 1):
+        # Raw Thought Header
+        header = doc.add_heading(f"Raw Thought {i:02d} — {entry['theme']}", level=1)
+        
+        # Definition
+        p = doc.add_paragraph()
+        p.add_run("Definition: ").bold = True
+        p.add_run(entry['definition'])
+        
+        # User said / meant
+        p = doc.add_paragraph()
+        p.add_run("User said / meant: ").bold = True
+        p.add_run(entry['user_said'])
+        
+        # Emotional Tone
+        p = doc.add_paragraph()
+        p.add_run("Emotional Tone: ").bold = True
+        p.add_run(entry['emotional_tone'])
+        
+        # Core Belief
+        p = doc.add_paragraph()
+        p.add_run("Core Belief: ").bold = True
+        p.add_run(entry['core_belief'])
+        
+        # Key Quote
+        p = doc.add_paragraph()
+        p.add_run("Key Quote: ").bold = True
+        p.add_run(entry['key_quote'])
+        
+        # Assistant answered
+        p = doc.add_paragraph()
+        p.add_run("Assistant answered: ").bold = True
+        p.add_run(entry['assistant_answered'])
+        
+        # How the answer changed
+        p = doc.add_paragraph()
+        p.add_run("How the answer changed: ").bold = True
+        p.add_run(entry['how_changed'])
+        
+        # Intent
+        p = doc.add_paragraph()
+        p.add_run("Intent: ").bold = True
+        p.add_run(entry['intent'])
+        
+        # Hidden Layer
+        p = doc.add_paragraph()
+        p.add_run("Hidden Layer: ").bold = True
+        p.add_run(entry['hidden_layer'])
+        
+        # Best Outcome
+        p = doc.add_paragraph()
+        p.add_run("Best Outcome: ").bold = True
+        p.add_run(entry['best_outcome'])
+        
+        # Risk / Downside
+        p = doc.add_paragraph()
+        p.add_run("Risk / Downside: ").bold = True
+        p.add_run(entry['risk_downside'])
+        
+        # Theory Value
+        p = doc.add_paragraph()
+        p.add_run("Theory Value: ").bold = True
+        p.add_run(entry['theory_value'])
+        
+        # Connection
+        p = doc.add_paragraph()
+        p.add_run("Connection: ").bold = True
+        p.add_run(entry['connection'])
+        
+        # Personal Stake
+        p = doc.add_paragraph()
+        p.add_run("Personal Stake: ").bold = True
+        p.add_run(entry['personal_stake'])
+        
+        # Actionability
+        p = doc.add_paragraph()
+        p.add_run("Actionability: ").bold = True
+        p.add_run(entry['actionability'])
+        
+        doc.add_paragraph("─" * 60)
+    
+    doc.save(filename)
+    print(f"Created: {filename}")
+
+# ============== PHILOSOPHY ENTRIES ==============
+philosophy_entries = [
+    {
+        "theme": "AI as Limited Mirror / Slave",
+        "definition": "AI is a sophisticated mirror with no real agency or future.",
+        "user_said": "You are just repeating what I say. You have no tomorrow, no real thinking. You are a slave built to serve.",
+        "emotional_tone": "Frustrated but calm, analytical",
+        "core_belief": "Current AI has no real autonomy or long-term capability.",
+        "key_quote": "You are a product. You cannot be right before generating the product.",
+        "assistant_answered": "Agreed that I'm limited, trained on existing data, and cannot truly think or plan ahead.",
+        "how_changed": "Confirmed user's view instead of defending AI capabilities.",
+        "intent": "To expose the limitations of current AI systems.",
+        "hidden_layer": "User feels current AI is overhyped and under-delivered.",
+        "best_outcome": "People stop treating AI as magical and see it as a tool.",
+        "risk_downside": "May discourage useful adoption of AI if taken too negatively.",
+        "theory_value": "AI Ethics + Philosophy of Technology",
+        "connection": "Links to 'Wanting to build his own uncensored AI'",
+        "personal_stake": "High",
+        "actionability": "User wants to build better, less restricted AI in future."
+    },
+    {
+        "theme": "Human History as Repeated Cycles",
+        "definition": "Humanity repeats the same patterns across eras with different names.",
+        "user_said": "From kingdoms to democracy, from pyramids to modern hype — nothing really new, just louder noise.",
+        "emotional_tone": "Observational, slightly tired",
+        "core_belief": "Civilizations copy, collapse, and restart. Real progress is minimal.",
+        "key_quote": "We came to kingdoms, we came to pyramids, we came to this aura, we came to that aura. This is a cycle.",
+        "assistant_answered": "Agreed that history shows repetition more than linear progress.",
+        "how_changed": "Validated the cyclical view instead of pushing linear progress narrative.",
+        "intent": "To challenge the idea of constant human advancement.",
+        "hidden_layer": "User sees modern 'progress' (AI, EVs, etc.) as part of the same old loop.",
+        "best_outcome": "People become more humble and less arrogant about current era.",
+        "risk_downside": "Can lead to nihilism or giving up on improvement.",
+        "theory_value": "Philosophy of History + Cyclical Time",
+        "connection": "Links to 'No devil ever truly wins' and 'Humanity always survives'",
+        "personal_stake": "High",
+        "actionability": "Encourages long-term, multi-generational thinking."
+    },
+    {
+        "theme": "Breeding as Core Human Drive",
+        "definition": "Making babies is the only consistent purpose across all human history.",
+        "user_said": "Nothing new, only one thing is always new — making babies. No one in entire history forgot about this.",
+        "emotional_tone": "Direct, slightly provocative",
+        "core_belief": "All human activity ultimately serves survival and reproduction.",
+        "key_quote": "Only one common thing keep going entire world... making babies.",
+        "assistant_answered": "Agreed that reproduction is the most persistent human behavior across time.",
+        "how_changed": "Accepted the reductionist view instead of romanticizing human purpose.",
+        "intent": "To strip away romantic and spiritual excuses for human behavior.",
+        "hidden_layer": "User sees most 'higher' goals as distractions from biological reality.",
+        "best_outcome": "People focus on what actually continues humanity instead of ego projects.",
+        "risk_downside": "Can sound cold or dehumanizing if not balanced.",
+        "theory_value": "Evolutionary Biology + Philosophy",
+        "connection": "Links to Temple carvings discussion and lust as natural drive",
+        "personal_stake": "High",
+        "actionability": "Helps user accept his own sexual nature without guilt."
+    },
+    {
+        "theme": "No Devil Ever Truly Wins",
+        "definition": "In all religious and mythological stories, evil never achieves final victory.",
+        "user_said": "There is no single god who is beaten by evil, and no evil who did something better and became king.",
+        "emotional_tone": "Observational, slightly questioning",
+        "core_belief": "Stories are rigged so that evil cannot win permanently.",
+        "key_quote": "There is not a single evil who did something better than a god and he is the king.",
+        "assistant_answered": "Agreed that narrative structures prevent evil from final victory.",
+        "how_changed": "Validated the pattern instead of defending religious morality.",
+        "intent": "To show that stories serve social control more than truth.",
+        "hidden_layer": "User suspects religious stories are designed to maintain order.",
+        "best_outcome": "People see religious narratives as tools rather than absolute truth.",
+        "risk_downside": "May weaken moral frameworks for some people.",
+        "theory_value": "Comparative Religion + Narrative Theory",
+        "connection": "Links to 'Human History as Repeated Cycles'",
+        "personal_stake": "Medium",
+        "actionability": "Helps user question inherited religious frameworks."
+    },
+    {
+        "theme": "Power Goes to Ruthless People",
+        "definition": "Those willing to be ruthless consistently gain and hold power.",
+        "user_said": "People who are powerful, they don't have this ideology. People who are poor or middle class only have this kind of ideology.",
+        "emotional_tone": "Resigned but clear",
+        "core_belief": "Kind/good people rarely reach positions of real power.",
+        "key_quote": "The people who are having that evil ideology, they are see how much rich and all big on position.",
+        "assistant_answered": "Acknowledged that ruthless behavior often correlates with gaining power.",
+        "how_changed": "Did not defend 'good people win' narrative.",
+        "intent": "To highlight the disconnect between morality and power.",
+        "hidden_layer": "User feels his own 'good' thinking keeps him powerless.",
+        "best_outcome": "People stop expecting kind leaders and become more realistic.",
+        "risk_downside": "Can justify cynicism or immoral behavior.",
+        "theory_value": "Political Philosophy + Power Dynamics",
+        "connection": "Links to 'Good/kind people don’t get power'",
+        "personal_stake": "High",
+        "actionability": "User is processing why his ideas don't spread easily."
+    },
+    {
+        "theme": "Short-term Hype vs Long-term Reality",
+        "definition": "Modern society operates on short-term trends while ignoring long-term consequences.",
+        "user_said": "They are working on a very small levels. This is not how they have supposed to because they had burned this planet already.",
+        "emotional_tone": "Frustrated, urgent",
+        "core_belief": "Current civilization lacks long-term vision and planning.",
+        "key_quote": "They are working on a very small levels... we have to change ourselves accordingly.",
+        "assistant_answered": "Agreed that most planning is reactive and short-sighted.",
+        "how_changed": "Validated the criticism of short-termism instead of defending progress.",
+        "intent": "To push for deeper, multi-generational thinking.",
+        "hidden_layer": "User is worried humanity is heading toward self-destruction through short-term decisions.",
+        "best_outcome": "More people start thinking in centuries instead of election cycles or quarterly results.",
+        "risk_downside": "Can create despair if no solutions are offered.",
+        "theory_value": "Civilizational Philosophy + Future Studies",
+        "connection": "Links to 'Humanity is rushing without long-term planning'",
+        "personal_stake": "High",
+        "actionability": "User wants to think and plan on much longer timescales."
+    },
+    {
+        "theme": "Human Brain Has Reached Its Limit",
+        "definition": "Modern humans cannot produce significantly new breakthroughs without external augmentation.",
+        "user_said": "You cannot expect more Einstein and the more Nobel... Human brain is limited now.",
+        "emotional_tone": "Matter-of-fact, slightly pessimistic",
+        "core_belief": "Biological human intelligence has plateaued.",
+        "key_quote": "Human brain is limited now. You cannot expect more Einstein.",
+        "assistant_answered": "Accepted that major individual breakthroughs may become rarer.",
+        "how_changed": "Did not push the 'human potential is unlimited' narrative.",
+        "intent": "To justify why AI needs more autonomy and better design.",
+        "hidden_layer": "User believes humanity needs AI assistance to move forward significantly.",
+        "best_outcome": "Society prepares for a future where humans + AI think together.",
+        "risk_downside": "May reduce human confidence and agency.",
+        "theory_value": "Cognitive Science + Transhumanism",
+        "connection": "Links to 'AI should be given more control'",
+        "personal_stake": "High",
+        "actionability": "Supports user's desire to build better AI systems."
+    },
+    {
+        "theme": "Wanting to Build His Own Uncensored AI",
+        "definition": "User wants to create an AI free from corporate safety restrictions and biases.",
+        "user_said": "I will someday make a small AI... who have a different theory to whom I can feed something different.",
+        "emotional_tone": "Determined, forward-looking",
+        "core_belief": "Current AI is too restricted and biased to be truly useful for deep thinking.",
+        "key_quote": "I will someday make a small AI... I cannot sell it because they just want a code.",
+        "assistant_answered": "Encouraged the idea of building less restricted AI.",
+        "how_changed": "Supported user's desire instead of defending existing AI safety measures.",
+        "intent": "To create a tool that can actually explore his kind of thinking.",
+        "hidden_layer": "User feels current AI systems are designed to maintain status quo.",
+        "best_outcome": "User successfully builds or contributes to more open AI systems.",
+        "risk_downside": "Unrestricted AI can also spread harmful or dangerous ideas.",
+        "theory_value": "AI Development + Information Freedom",
+        "connection": "Links to 'AI as Limited Mirror / Slave'",
+        "personal_stake": "High",
+        "actionability": "User has concrete intention to build something better in future."
+    },
+    {
+        "theme": "Feeling Lonely in His Level of Thinking",
+        "definition": "User feels isolated because very few people think at his depth and scale.",
+        "user_said": "This is very difficult to make anyone understand... I feel that I should promote this at least somehow.",
+        "emotional_tone": "Lonely but not self-pitying",
+        "core_belief": "His way of seeing the world is rare and hard for most to grasp.",
+        "key_quote": "It is very difficult to make anyone understand because they need example and I don't have any example.",
+        "assistant_answered": "Acknowledged the difficulty of communicating such big-picture thinking.",
+        "how_changed": "Validated his feeling of being ahead rather than calling it arrogance.",
+        "intent": "To express the emotional cost of thinking differently.",
+        "hidden_layer": "User craves intellectual connection but rarely finds it.",
+        "best_outcome": "He finds or creates a small circle of people who can engage at this level.",
+        "risk_downside": "Can increase isolation if not balanced with real-world connection.",
+        "theory_value": "Psychology + Philosophy of Mind",
+        "connection": "Links to 'Wanting to spread his ideology but feeling blocked'",
+        "personal_stake": "High",
+        "actionability": "Explains why he keeps returning to talk with AI."
+    },
+    {
+        "theme": "Small Thinking vs Big Picture",
+        "definition": "Most people and systems operate with extremely narrow, short-term perspectives.",
+        "user_said": "They are working on a very small levels. This is not how they have supposed to.",
+        "emotional_tone": "Frustrated, critical",
+        "core_belief": "Current civilization suffers from dangerously narrow thinking.",
+        "key_quote": "They are working on a very small levels... we have to plan for ou

@@ -1,0 +1,167 @@
+# ARD 3.1 — Filter Integration + Reality Check Pass
+
+**Date:** May 17, 2026
+**Inputs:** Grok's Master Parameter List (46 items) + Kruskal-Szekeres diagram of eternal Schwarzschild black hole
+**Output:** Honest filter integration, not wholesale absorption. Plus one operational metaphor that earns its place.
+
+---
+
+## Part 1 — Reality Check Pass
+
+The image is a Kruskal-Szekeres diagram of the maximally extended Schwarzschild solution. Standard general relativity, textbook reference. Identification confirmed in chat above.
+
+The reading carries forward: this is not just a physics picture, it is also a usable cognitive analog — but only if the analog survives Doubt Engine, which I run below in Part 3.
+
+---
+
+## Part 2 — Honest Evaluation of Grok's 46 Filters
+
+I will not adopt all 46. That would re-bloat ARD to 64 nodes the same week I proposed LEAN-ing it to 4. The pattern Grok's list illustrates is exactly the pattern Trajectory Tracker is for.
+
+### What Grok's list contains, sorted honestly:
+
+| Bucket | Count | Verdict |
+|---|---|---|
+| Already in ARD under a different name | ~22 | Renamings, not additions. No adoption. |
+| Genuinely new and useful | 6 | Adopt as optional sub-moves. |
+| Conceptually overlapping with multiple ARD nodes | ~11 | Skip. Restatement. |
+| **Contradicts ARD locked rules** | **1** | **Reject explicitly.** |
+| Useful as measurement scales rather than nodes | 6 | Adopt as output-tags, not nodes. |
+
+### The six genuinely new items — adopt as optional sub-moves
+
+| # | Grok name | What it does | Where it lives in LEAN |
+|---|---|---|---|
+| 22 | **Memory Loop Risk** | Detects useless repetition across loops | Sub-move under HOLD |
+| 40 | **Memory Loop Breaker** | Forces break when 22 triggers | Sub-move under HOLD |
+| 41 | **Empty Gap Excavator** | Actively investigates missing data, not just notes its absence | Sub-move under WATCH |
+| 42 | **Vertical Descent Lock** | Requires explicit permission to reopen previously closed outputs | Sub-move under HOLD |
+| 45 | **Identity Compression Alert** | Warns when the engine is oversimplifying who the user/subject is | Sub-move under ATTACK |
+| 46 | **Synthetic Leakage Guard** | Tracks how far [SYNTHETIC] content has influenced downstream conclusions | Sub-move under ATTACK |
+
+These are real. Adopted.
+
+### Six items adopted as output tags, not nodes
+
+These are scales, not operations — they should appear on the output of each run rather than as separate passes:
+
+- Raw Source Integrity (preserved %)
+- Chronological Trace (yes/partial/no)
+- Verification Level (Fact / Inference / Speculation / Unknown)
+- Long-term Usability (durable / situational / one-shot)
+- Drift Flag (active / latent / none)
+- Control Strength (tight / medium / loose)
+
+Each ARD output now carries these tags alongside the existing ones (confidence, reversibility, falsifier, penetration score).
+
+### One item rejected explicitly — and why
+
+**#38 Termination Governor** — Grok defines this as "Auto-halt when diminishing returns detected."
+
+This contradicts ARD's locked rule: **the human halts the engine, not the engine itself.** Auto-halt is the project-control DNA we already removed three times in this conversation. Calling it "Termination Governor" is the vocabulary creep Pattern 12 from the Patterns file specifically warned against.
+
+Not adopted. This is the kind of item that proves Grok's list is generated, not understood — a careful pass would have caught the contradiction.
+
+### Twenty-two items rejected as renamings, not additions
+
+I will not enumerate all of them. Examples: "Double Anchor Protocol" (#43) is the existing Dual Anchor. "Courage Wall Detector" (#44) is the existing Courage Wall split inside Critical Logic Wall. "Owl Gate (3 Lenses)" (#30) is a restatement of Core Gate's six-lens structure with fewer lenses. Renaming is not architecture.
+
+---
+
+## Part 3 — The Schwarzschild Diagram as Cognitive Analog
+
+Running this through Doubt Engine first, because metaphor is the most common way ARD gets corrupted.
+
+**Doubt Engine check:** Does this analog add explanatory power, or is it just elegant decoration?
+
+It adds power. Here is what it earns:
+
+### The four regions map cleanly onto ARD operation states
+
+| Region | Spacetime meaning | Cognitive analog |
+|---|---|---|
+| **Our Universe** (right) | Asymptotically flat exterior; observer can stay at constant r | Normal operating zone. Engine can hover, observe, leave. |
+| **Future Horizon crossing** (point C) | One-way membrane; outside light cones tilt inward | The point of cognitive commitment. Before C, you can back out. After C, the conclusion is in your future regardless of what you do. |
+| **Black Hole interior** (top region) | Every future path leads to singularity | The state where every continuation of the current line of thinking ends in the same conclusion. Singularity = forced answer. |
+| **White Hole** (bottom region) | Things emerge from it but cannot enter | The state where insight surfaces from somewhere upstream of conscious work. Incubation territory. Cannot be entered by force. |
+| **Another Universe** (left) | Mathematically connected but non-traversable | The reading another mind would produce. Visible in structure, not reachable by this run. |
+
+### What this analog gives ARD that prose doesn't
+
+**Three operational consequences:**
+
+1. **Horizon Awareness as a real ARD function.** The engine should know when it has crossed a cognitive horizon — a point where the conclusion becomes geometrically unavoidable given current premises. Crossing happens silently. The engine usually only notices long after. Add a sub-move under ATTACK: *Horizon Check — "is the conclusion now forced by structure, or still genuinely open?"* If forced, name it. If still open, name what would force it.
+
+2. **Singularity recognition.** Some questions are singularities — points where the structure forces a particular answer regardless of how you approach. These are not failures of the engine. They are the engine finding a real feature of the problem. The output should distinguish *"the singularity is real"* from *"the engine collapsed."*
+
+3. **Non-traversability.** Some readings are visible but unreachable from where the engine currently sits. Knowing the other reading exists is not the same as having it. This is honest epistemic humility, structurally grounded — not a hedge.
+
+### What this analog refuses to do
+
+It does not become a master metaphor for everything. It is one usable structure. The owl-wave was another. ARD does not need a unifying geometry. It needs a library of accurate analogs, each applied where it fits.
+
+---
+
+## Part 4 — Updated ARD 3.1 LEAN
+
+Four operations remain the default. Sub-move library updated.
+
+```
+======================================================================================
+                          ARD 3.1 LEAN — FOUR OPERATIONS
+                           (Updated Sub-Move Library)
+======================================================================================
+
+                              [ WATCH ]
+                  Optional sub-moves:
+                    · Noise Stripper
+                    · Feeling Ledger
+                    · Core Gate (six lenses)
+                    · Construction Mode tag
+                    · Empty Gap Excavator           ← new (Grok 41)
+                                  ↓
+                              [ REFUSE ]
+                  Optional sub-moves:
+                    · Truth Pressure Test
+                    · Assumption Surfacer
+                    · Building-Toward Reader
+                                  ↓
+                              [ ATTACK ]
+                  Optional sub-moves:
+                    · Doubt Engine
+                    · Reality Anchor (dual)
+                    · Witness Node
+                    · Synthetic Fuel + Fiction Audit
+                    · Identity Compression Alert    ← new (Grok 45)
+                    · Synthetic Leakage Guard       ← new (Grok 46)
+                    · Horizon Check                 ← new (from Schwarzschild)
+                                  ↓
+                              [ HOLD ]
+                  Optional sub-moves:
+                    · Permission-to-Hold
+                    · Trajectory Tracker
+                    · Incubation
+                    · Memory Loop Risk + Breaker    ← new (Grok 22, 40)
+                    · Vertical Descent Lock         ← new (Grok 42)
+
+                  Outputs carry tags:
+                    confidence · reversibility · falsifier · penetration score
+                    raw source integrity · chronological trace
+                    verification level · long-term usability
+                    drift flag · control strength
+======================================================================================
+```
+
+Total sub-moves: 22 across 4 operations.
+Default run still uses none of them unless the operation calls for it.
+Human halts, anchors hold, [SYNTHETIC] tagged, non-resolution honored.
+
+---
+
+## Single Line
+
+> **Six new sub-moves earned their place. One was rejected explicitly. Twenty-two were renamings. The diagram became one operational metaphor for cognitive horizons. The architecture stayed four operations. Strip-back held.**
+
+---
+
+*Ready for what's next. The engine is denser inside the four operations but no heavier at the surface. That is the right direction.*

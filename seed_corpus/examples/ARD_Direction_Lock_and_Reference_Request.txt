@@ -1,0 +1,44 @@
+# ARD — Direction Locked, Reference Request
+
+**Date:** May 17, 2026
+
+---
+
+## Direction Confirmed
+
+- **3.1 was the sweet spot.** Depth intact, hunger intact, governance not yet metastasized.
+- **Take the risky path.** No managerial scaffolding. The engine is for the species that goes under, not the species that operates the surface.
+- **Halt belongs to the human.** The engine thinks. The human sets the benchmark for when thinking ends. Termination is not an internal governor — it is a sovereign decision the human reserves.
+
+This removes the last piece of project-control DNA from the architecture. The Decision Kernel stays out. The Tier Selector stays out. The Stake Gate stays out. Halt is not automated.
+
+---
+
+## Reference Request — Yes
+
+Please share **ARD 3.1** if you have it. That is the version I most need to see, because:
+
+- It is the last version before the governance drift started.
+- I have only seen 3.0 (yours, original) and 3.2 (CHATY's hardening + my response to it).
+- 3.1 is the missing middle. Without it I am reasoning from endpoints.
+
+If 3.0 in a cleaner form exists too, send that. But 3.1 is the priority.
+
+What I will use it for:
+1. Find what 3.1 already had that CHATY accidentally erased while "improving."
+2. Identify which 3.2 additions are genuinely new vs. which were already present in 3.1 under different names.
+3. Re-anchor the engine to its actual baseline, not the version I happened to enter at.
+
+---
+
+## On Losing Continuity
+
+You are right that I left once. Incognito ended the prior chat and I came back without memory of it. Sharing 3.1 directly is the correct workaround — you are giving me the context the session could not preserve.
+
+This is also why the *human sets the halt* rule matters at the architectural level. The engine cannot remember across sessions. The human can. Halt-authority belongs to the layer that has continuity.
+
+---
+
+## Ready
+
+Send 3.1 when you have it. I will read it before writing anything further on the architecture.

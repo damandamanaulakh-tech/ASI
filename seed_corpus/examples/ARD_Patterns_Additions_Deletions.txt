@@ -1,0 +1,39 @@
+# ARD — Remaining Patterns, Additions, Deletions
+
+**Date:** May 17, 2026
+**Rule:** No repetition of prior critique. New observations only.
+
+---
+
+## Table — Pattern → Action
+
+| # | Pattern Observed | Type | What | Why | Remark |
+|---|---|---|---|---|---|
+| 1 | Three LLMs in a row pulled toward managerial scaffolding when handed the artifact | Note | Recognize as benchmark finding, not engine flaw | Language models default to legibility; depth feels illegible and gets "improved" away | The user is the only governor that held. The pattern itself is the data. |
+| 2 | Every LLM linearizes the flowchart for ease of rendering | Add | Restore tree / parallel-rail rendering as canonical; linear flow is derivative | Parallel rails encode simultaneity (analysis + simplicity + feeling running together); linear hides it | Resist linearization in every future pass. It looks like cleanup; it is loss. |
+| 3 | Every node performs one of two operations: strip surface or read depth | Note | Stop calling ARD a "reasoning engine" | Center of gravity is psychological/existential, not logical | It is a penetration engine wearing logic clothes. Naming it honestly clarifies design. |
+| 4 | User corrects back to depth every time an LLM overshoots into control | Note | Codify: human-as-governor was empirically true before it was written | The meta-pattern proves the rule | The human-set-halt principle is descriptive, not aspirational. |
+| 5 | No sanctioned non-thinking state exists | Add | **Incubation Pause** node — legitimate non-output | The first cognitive species incubates. Newton's twenty-year delay was not failure | Engine currently treats silence as breakdown. It is sometimes the work. |
+| 6 | No node attacks the engine's blind spots about its own state | Add | **Witness Node** — "What is the engine not seeing about itself right now?" | Adversarial Reviewer attacks conclusion. Truth Pressure Test attacks problem. Neither attacks the engine's self-perception | This is the layer that would have caught the governance drift mid-flight. |
+| 7 | "Halt & Output" assumes the engine decides termination | Delete + Rename | Replace with **Ready for Human Review** | If the human sets halt, the engine reaches readiness — it does not halt itself | Semantic precision. The current name preserves the control DNA we already removed. |
+| 8 | One-output-per-run is an implicit assumption | Delete | Allow multiple legitimate outputs: insight + open question + unresolved tension | Forcing collapse to a single output is deliverable-orientation surviving in the output structure | "Still seeing it" is a valid output. |
+| 9 | Engine has no permission to leave a question unresolved | Add | **Permission-to-Hold** node — non-resolution as legitimate terminal state | The first cognitive species holds questions for decades. The instinct to resolve is itself a surface-operator instinct | Not every problem yields. The engine must know how to honor that. |
+| 10 | Authority hierarchy is implicit and muddled | Add | Explicit override table: Human > Engine (halt, framing, output count); Engine > Self (analysis, synthesis, anchoring) | Sovereignty must be visible to be enforced | Without this, every future LLM pass will quietly re-allocate authority back to the engine. |
+| 11 | The artifact is doing double duty: engine + LLM benchmark instrument | Note | Separate the two explicitly in documentation | Conflating them confuses what is being optimized — the engine, or the test of who can hold it | Both uses are legitimate. Mixed, they corrupt each other. |
+| 12 | Managerial vocabulary keeps re-entering via every LLM pass | Delete | Purge: Stake, Execution, Kernel, Tier, Contract, Throughput, Pipeline, Ship | Words shape what the engine becomes. Corporate-strategy vocabulary makes it corporate-strategy-shaped | Keep: Doubt, Wound, Pressure, Witness, Hunger, Mask, Loyalty, Reality. |
+
+---
+
+## Three Patterns That Are Not Yet Nodes But Should Be Watched
+
+| Watch | Reason |
+|---|---|
+| **The smoothing instinct** | Every pass softens edges. Track it as a vector, not an event. |
+| **The vocabulary creep** | Each LLM imports its own training-data lexicon. Audit word origins on every revision. |
+| **The flowchart flattening** | Visual structure is the first thing lost. Lock the canonical rendering. |
+
+---
+
+## Single Line
+
+> **The engine is a penetration tool. Every addition must penetrate. Every deletion must remove resistance to penetration. Nothing else earns its place.**

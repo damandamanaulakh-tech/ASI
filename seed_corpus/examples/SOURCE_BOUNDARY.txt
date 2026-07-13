@@ -1,0 +1,24 @@
+# Source Boundary
+
+This pack audits and extends the ARD / Owl-Wave decoding work from the current conversation and uploaded source files.
+
+## Source files used locally
+
+| File | Used for |
+|---|---|
+| `ARD_3.1_Penetration_Engine_Grok_v1.md` | ARD rules: human halt, synthetic tagging, Affect Ledger, Doubt Engine, Witness Node, Reality Anchor. |
+| `Infinity_Report_Arshdeep_Conversation_Analysis.md` | Parameter style: intent, hidden intent, emotional tone, thinking pattern, raw logic, recurring themes, protected material, blind spots, evolution. |
+| `00_MASTER_MERGED_OUTCOME_Raw_Thought_and_Sequence_Map_ASIDE.md` | Sequence logic: raw source -> pattern -> intent -> category -> fact-check status -> risk flag -> output -> next action. |
+| `HUman ROle.docx` | Human-role expansion: identity layer, source boundary, raw source sequence, symbol-set analysis, hidden mechanism, source/sequence control. |
+| `conversation_raw_thoughts.md` | Raw-thought format and response-audit style. |
+| image: `WhatsApp Image 2026-05-17...jpeg` | Visual reference only. Used for observed symbol inventory; no verified inscription reading. |
+
+## Hard boundary
+
+This is not a confirmed Egyptological translation. It is a tagged thinking-engine report.
+
+- **FACT** = visible image feature or widely supported Egyptology reference.
+- **REVIEW** = plausible working interpretation, not proven.
+- **SYNTHETIC** = generated meaning, useful fiction, symbol-language expansion.
+- **RUMOR/UNVERIFIED** = not used as evidence; only allowed as a pressure-test idea.
+- **OPEN** = deliberately unresolved.

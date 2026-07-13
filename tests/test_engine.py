@@ -579,6 +579,72 @@ def test_persona_recall_normalized():
     assert got and "against big teams" in got[0].question   # similar beats long
 
 
+def test_ingest_text_entry_files_and_learns():
+    import tempfile
+    from sourceborn.memory import Memory
+    from sourceborn.persona import Persona
+    from sourceborn.pyramid import UnfiledQueue
+    from sourceborn.ingest import ingest_text_entry
+    root = tempfile.mkdtemp(prefix="sb_ing_")
+    mem, per, unf = Memory(root), Persona(root), UnfiledQueue(root)
+    res = ingest_text_entry(mem, per, "my_theory.txt",
+                            "Point Zero holds the raw source. The mirror structure "
+                            "of odd primes carries the pattern.",
+                            category="raw_thoughts", unfiled=unf)
+    assert res["ok"] and res["node"] == "SB-09"            # raw thought → voice node
+    assert res["pyramid"]["main"] >= 1                     # pyramid-filed
+    assert per.examples and "my_theory.txt" == per.examples[-1].question
+    e = [x for x in mem.brain("SB-09").read_all() if "corpus" in x.tags][0]
+    assert e.pyramid["main"]                               # filed into the brain
+
+
+def test_ingest_folder_categorizes():
+    import os, tempfile
+    from sourceborn.ingest import ingest_folder
+    from sourceborn.memory import Memory
+    root = tempfile.mkdtemp(prefix="sb_fold_")
+    corp = tempfile.mkdtemp(prefix="corp_")
+    for cat, fn, txt in (("raw_thoughts", "a.txt", "my raw thought about doubt and wound"),
+                         ("examples", "b.txt", "Direct answer: hollow beats weight."),
+                         ("cores", "c.txt", "SB-01 locks the raw source; URR verifies.")):
+        d = os.path.join(corp, cat); os.makedirs(d, exist_ok=True)
+        open(os.path.join(d, fn), "w").write(txt)
+    stats = ingest_folder(corp, root=root)
+    assert stats["files"] == 3
+    assert stats["by_category"] == {"raw_thoughts": 1, "examples": 1, "cores": 1}
+    mem = Memory(root)
+    assert any("corpus" in e.tags for e in mem.brain("SB-09").read_all())   # raw→SB-09
+    assert any("corpus" in e.tags for e in mem.brain("SB-64").read_all())   # example→SB-64
+    assert any("corpus" in e.tags for e in mem.brain("SB-07").read_all())   # core→SB-07
+
+
+def test_weekly_digest_synthesises():
+    eng = _engine()
+    eng.run_walk("prove with current data that the small idea wins")
+    dig = eng.memory.weekly_digest()
+    assert dig["digested"] >= 1
+    de = [e for e in eng.memory.brain("SB-20").read_all()
+          if "weekly_digest" in e.tags]
+    assert de and "weekly digest" in de[0].content
+    assert de[0].parameters.get("findings", 0) >= 1
+    # the digest is knowledge_gained, recorded on the brain meta
+    assert eng.memory.brain("SB-20").meta["parameters"].get("Knowledge_Gained")
+
+
+def test_seed_corpus_shipped_and_categorized():
+    # the user's cores/examples/raw-thoughts ship with the app (deploy to Render)
+    import os
+    root = os.path.join(os.path.dirname(__file__), "..", "seed_corpus")
+    assert os.path.isdir(root)
+    for cat in ("raw_thoughts", "examples", "cores"):
+        d = os.path.join(root, cat)
+        assert os.path.isdir(d) and len(os.listdir(d)) > 10
+    # sensitive files must NOT be shipped
+    rt = os.listdir(os.path.join(root, "raw_thoughts"))
+    for banned in ("Personal_Sexual", "Gavalas", "Hospital_Career", "consumer_case"):
+        assert not any(banned in f for f in rt), f"{banned} leaked into seed_corpus"
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

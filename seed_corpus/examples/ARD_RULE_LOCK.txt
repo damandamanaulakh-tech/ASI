@@ -1,0 +1,15 @@
+# ARD 3.1 Rule Lock Used In This Pack
+
+| Rule | Status in this pack |
+|---|---|
+| Human halt | Preserved. Reports end at human review, not final closure. |
+| Synthetic outputs tagged | Preserved. Synthetic symbol-language is marked. |
+| Affect / feeling as data | Preserved. Emotion is treated as signal, not automatic truth. |
+| Doubt Engine | Preserved. Each reading receives fragility / failure points. |
+| Witness Node | Preserved. Each section asks what the engine may be missing. |
+| Dual Reality Anchor | Preserved. Anchor A = image / Point Zero. Anchor B = external fact-check / falsifier. |
+| Non-resolution valid | Preserved. Open tensions remain valid outputs. |
+
+## Core operating sentence
+
+ARD does not simply answer. It preserves raw signal, tracks pressure, generates possible inner machinery, attacks its own conclusion, and hands control back to the human.

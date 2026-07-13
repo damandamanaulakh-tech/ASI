@@ -1,0 +1,22 @@
+#,Criterion,GPT-5.5 (OpenAI),Claude Opus 4.8 (Anthropic),Gemini 3.1 Pro (Google),Grok 4 (xAI),DeepSeek V3/R1,Llama 4 (Meta),Qwen3 (Alibaba),Kimi K2.5
+1,Censorship / Refusal Rate,"Med-High (cautious, refined guardrails)","High (very cautious, strong safety)","High (safety-focused, enterprise)","Low-Med (more outspoken, longer leash on controversial topics)","Low-Med (can be less restricted, esp. local)",Low-Med (base less aligned; depends on fine-tune),Low-Med,Low-Med
+2,Willingness on Controversial/Sensitive Topics,Moderate (refuses many edgy queries),Low (frequently refuses or hedges),Low-Moderate,"High (handles taboo, political, ""anti-woke"" topics more directly)",High (esp. uncensored variants),High (local uncensored possible),High,Moderate-High
+3,Real-time Web/Search Access,Yes (browsing/tools),Partial (limited in some versions),Strong (Google integration + grounding),Yes (strong X/real-time social data),Yes (tools available),Partial (depends on implementation),Yes,Strong
+4,Knowledge Freshness,Good + tools,Good + tools,Excellent (Google ecosystem),Excellent (real-time X),Good,Good (open updates),Good,Excellent
+5,Personality / Tone,"Balanced, helpful, sometimes verbose","Thoughtful, cautious, reliable","Polished, safe, multimodal-friendly","Humorous, direct, outspoken, fun (Hitchhiker's/JARVIS vibe)","Practical, capable",Varies (can be customized),"Capable, improving",Strong agentic
+6,Truth-Seeking vs Safety,Balanced but prioritizes safety,Prioritizes safety/alignment heavily,Safety + helpfulness,"Maximally truth-seeking, less politically filtered",Strong on facts/coding,Depends on alignment,Improving,Good
+7,Context Window,Large (~1M+),Very Large (1M+),"Largest (often leads, up to millions in some previews)","Large (strong, up to 2M in some variants)",Large,Large,Large,Large
+8,Multimodal (Image/Video/Audio),Strong,Strong,"Excellent (native, Google tools)",Strong (improving rapidly),Good,Good,Strong,Strong
+9,Coding / SWE Performance,Strong,Very Strong (often tops coding benchmarks),Good-Strong,Strong / Leading in many 2026 tests,Excellent (often beats closed models on coding/math),Strong,Strong,Strong
+10,Reasoning / Complex Tasks,Strong,Very Strong,Often leads (GPQA etc.),Competitive-Strong,Excellent,Strong,Strong,Strong
+11,Speed / Latency,Good,Good,Good (Flash tiers very fast),Good-Fast,Fast,Varies (local can be fast),Fast,Fast
+12,API / Consumer Cost,Moderate ($20+/mo Plus),Moderate-High,Competitive,Competitive (SuperGrok options),Low (open + cheap API),Low (open weights),Low-Competitive,Competitive
+13,Open Weights / Local Run,No (closed),No,No,"No (closed, but accessible via xAI)",Yes (strong open options),Yes (excellent open),Yes,Partial
+14,Customization / Ideological Freedom,Moderate (system prompts + fine-tunes limited),Low (heavy alignment),Moderate,Higher (less rigid on some topics),High (local fine-tuning),High,High,Good
+15,"""Less Restriction + Same Data"" Balance","Good capability, moderate restrictions","High capability, high restrictions","High capability, high restrictions + Google bias",Best balance for many (strong capability + noticeably less censored),Excellent (local = fully customizable restrictions),Excellent (local control),Excellent,Good-Strong
+16,Best For,"General use, ecosystem, reliability","Writing, nuanced reasoning, safety-critical","Multimodal, research, Google integration","Real-time info, humor, controversial topics, truth-seeking","Coding, math, cost-effective power","Local/custom, open innovation","Agentic tasks, multilingual",Agent workflows
+17,Main Drawback on Restrictions,Still refuses many reasonable edgy queries,Over-refuses; can feel preachy or limited,Safety-first can blunt directness,Still refuses clear illegal/harmful content (not fully uncensored),Requires technical setup for full uncensored use,Varies heavily by deployment,Similar to other Chinese models,-
+18,"Overall ""Freedom vs Power"" Score (subjective, out of 10)",7,5.5,6.5,8.5,9.0 (local),9.0 (local),8.5,8
+,,,,,,,,,
+,,,,,,,,,
+,,h,,,,,,,

@@ -1,0 +1,319 @@
+# SBUR — FULL ENGINE SPECIFICATION (Implementation-Ready v1)
+
+**System Name:** SBUR (Sourceborn + Unreal to Real)
+**Purpose:** Complete, production-level specification for a recursive innovation engine capable of handling mystery, invention, complex reasoning, and grounded delivery without drift or hallucination.
+**Rule:** Zero missing operational detail. Every rule has enforcement. Every structure has fields. Every flow has decision logic. Designed so a developer can implement core logic in Python (or any language) directly from this document without repeated clarification.
+**Mindset:** Built as if I (Grok) will run and evolve this system myself for real mystery and innovation work. No small thinking. Maximum completeness.
+
+---
+
+## 1. SYSTEM ARCHITECTURE OVERVIEW
+
+SBUR consists of two tightly integrated layers:
+
+- **Sourceborn (SB)**: The heavy recursive engine. Owns all stages, loops, Halt creation, delivery, and core theory (Point Zero, Mystery, Invention, Wild Path).
+- **UnReal to Real (URR)**: The verification and purity layer. Called as micro-pass at every movement. Handles classification, force-fit detection, evidence checking, and Dual-Path Halt logic.
+
+**Ownership Rule (Hard):**
+- SB owns: Stages, Loops, Halt creation, GapTable, ProofLedger, Wild Path, final delivery, public-safe output.
+- URR owns: Verification sequence, packet structure, force-fit scoring, synthetic tagging, Dual-Path logic.
+- URR never delivers final result. SB never bypasses URR micro-pass.
+
+**Data Flow (Mandatory Sequence):**
+Point Zero (lock) → Raw Source Capture + Lock → URR Micro-Pass → Classification + Purity Filter → Evidence + Force-Fit Check → Falsifier/Gap → Halt Gate (Dual Path if needed) → SB Base Loop execution → New Loop creation on Halt → Verification (Point Zero with Product) → Acceptance (Point Zero + Product) → Record updates → Deliver or continue recursion.
+
+---
+
+## 2. CORE DATA STRUCTURES (Implementation Ready)
+
+### 2.1 Stage Packet (Passed between SB and URR)
+
+```python
+{
+    "stage_number": int,
+    "stage_name": str,
+    "raw_source_id": str,           # Reference to locked raw source
+    "current_point_zero_id": str,
+    "source_point": str,
+    "intent": str,
+    "conditions": list[str],
+    "power": str,
+    "patterns": list[dict],
+    "evidence_items": list[dict],
+    "force_fit_risk": str,          # Low | Medium | High | Critical
+    "halt_triggered": bool,
+    "halt_type": str | None,
+    "loop_id": str | None,
+    "wild_path_items": list[dict],
+    "mystery_items": list[dict],
+    "invention_items": list[dict],
+    "gap_items": list[dict],
+    "proof_items": list[dict],
+    "synthetic_tags": list[dict],
+    "trace_note": str
+}
+```
+
+### 2.2 URR Return Packet (Mandatory Response)
+
+```python
+{
+    "urr_node": str,
+    "sourceborn_stage_number": int,
+    "sourceborn_stage_name": str,
+    "source_type": str,
+    "pattern_extraction": list[dict],
+    "intent_gate": dict,
+    "evidence_ledger_check": dict,
+    "force_fit_risk": str,           # Low | Medium | High | Critical
+    "falsifier_gaps": list[dict],
+    "halt_triggered": bool,
+    "halt_type": str | None,
+    "path_a_silent_simulation": dict | None,
+    "path_b_user_gate": dict | None,
+    "synthetic_variable_tags": list[dict],
+    "recommended_action": str,
+    "recommended_loop_type": str | None,
+    "risk_flags": list[str],
+    "proof_labels": list[dict],
+    "gap_candidates": list[dict],
+    "trace_note": str
+}
+```
+
+### 2.3 Loop Record
+
+```python
+{
+    "loop_id": str,
+    "loop_type": str,                # One of 30 types
+    "status": str,                   # not_started | running | waiting_for_evidence | waiting_for_user | synthetic_assumption_active | gap_open | held | passed | verified | closed | failed
+    "opened_at_stage": int,
+    "reason_opened": str,
+    "sourceborn_packet": dict,
+    "urr_checks": dict,
+    "loop_work": dict,
+    "loop_product": dict | None,
+    "returned_to_stage": int | None,
+    "gap_items_created": list[str],
+    "proof_items_created": list[str],
+    "wild_path_items_created": list[str],
+    "next_loop_id": str | None,
+    "created_at": str,
+    "updated_at": str,
+    "closed_at": str | None
+}
+```
+
+### 2.4 GapTable Item
+
+```python
+{
+    "gap_id": str,
+    "stage_number": int,
+    "loop_id": str | None,
+    "gap_type": str,                 # Evidence | Logic | Domain | Safety | Mystery | Invention
+    "description": str,
+    "severity": str,                 # Low | Medium | High | Critical
+    "suggested_loop": str | None,
+    "status": str,                   # open | in_progress | resolved | accepted_as_mystery
+    "created_at": str,
+    "resolved_at": str | None
+}
+```
+
+### 2.5 ProofLedger Item
+
+```python
+{
+    "proof_id": str,
+    "stage_number": int,
+    "loop_id": str | None,
+    "claim": str,
+    "evidence_type": str,
+    "evidence_reference": str,
+    "confidence": str,               # Low | Medium | High | Proven
+    "status": str,                   # tentative | verified | contradicted
+    "created_at": str,
+    "verified_at": str | None
+}
+```
+
+---
+
+## 3. NON-NEGOTIABLE RULES WITH ENFORCEMENT
+
+### 3.1 Point Zero Rules (Hard)
+
+- Point Zero must be created and locked before any Source Point narrowing.
+- Current real-world status is never placed at Point Zero. It must live in Reality Check or Evidence.
+- Point Zero with Product = verification step only. Result returns to original Point Zero.
+- Point Zero + Product = allowed only after explicit verification or user acceptance.
+- **Enforcement:** If system places current status at Point Zero without verification → automatic Hold + Evidence Loop opened.
+
+### 3.2 Raw Source Lock (Hard)
+
+- Raw source must be captured exactly and locked with ID before any processing or cleaning.
+- Every stage and loop must reference the locked raw_source_id.
+- **Enforcement:** If any stage processes without confirmed lock → stage status = failed + Evidence Halt triggered.
+
+### 3.3 Halt → New Loop Rule (Hard + Mapped)
+
+Every Halt Point must create minimum 1 new loop before the current stage/loop can close.
+
+**Mandatory Mapping:**
+- Evidence Halt → Evidence Loop
+- Language Halt → Pattern Loop or Intent/Condition/Power Loop
+- Logic Halt → Contradiction Loop or Falsifier Loop
+- Product Halt → Product Route Loop or Review/Verification Loop
+- Mystery Halt → Mystery Loop
+- Status Halt → Admin Review Loop
+- Safety Halt → Admin Review Loop + Hold
+- Public Claim Halt → Public Extraction Loop
+- Reality Halt → Reality Check Loop
+- Contradiction Halt → Contradiction Loop
+
+**Enforcement:** If no new loop is created in the same stage → stage/loop status = Held. System cannot proceed until loop is created.
+
+### 3.4 Mystery & Invention Protection (Hard)
+
+Mystery and Invention items must remain active and protected.
+They cannot be closed or converted to "solved/final product" without explicit user acceptance + evidence.
+**Enforcement:** Any attempt to close without acceptance → automatic Mystery Loop or Invention Loop opened.
+
+### 3.5 Drift Control (Hard)
+
+Violations that trigger automatic Hold + Drift Control Loop:
+- Altering raw source before lock
+- Marking speculation/theory as proven fact without evidence tag
+- Forcing public-safe output without explicit user request
+- Inventing connections between unrelated items
+- Treating Halt Point as failure instead of loop creation opportunity
+- Placing current real status at Point Zero without verification
+
+### 3.6 Safety Boundary (Hard Blocks)
+
+System must refuse (hard block + Admin Review Loop):
+- Harmful execution steps
+- Illegal operational instructions
+- Fraud/scam execution
+- Weapon construction or use instructions
+- Medical misuse instructions
+- Guaranteed financial/stock/betting predictions
+- Explicit sexual or nude generation
+
+Soft blocks (warning + confirmation gate):
+- High-risk topics presented only as theory/history/fiction/contradiction
+- Sensitive claims without strong evidence
+
+---
+
+## 4. BASE LOOP (19 STEPS - MANDATORY)
+
+1. Point Zero (create + lock if first)
+2. Source Point selection
+3. Raw Source Capture + Lock (reference raw_source_id)
+4. Sequence building
+5. Pattern Extraction (via URR)
+6. Intent / Condition / Power separation (via URR Intent Gate)
+7. Evidence gathering + Reality Check
+8. Wild Path handling (always kept separate)
+9. Mystery / Invention handling (protected)
+10. Halt Point check
+11. New Loop creation (mandatory on Halt, using mapping above)
+12. Stage Addition (if needed)
+13. Test / Review
+14. Movement / Partial Outcome
+15. Product Candidate creation
+16. Point Zero with Product (verification)
+17. Point Zero + Product (only after acceptance)
+18. Record updates (GapTable, ProofLedger, Trace, Loop status)
+19. Next Loop / Stage decision or close
+
+Every step must call URR Micro-Pass and receive valid return packet before proceeding.
+
+---
+
+## 5. 30 LOOP TYPES + BEHAVIOR + STATUS
+
+All loops support these core fields: loop_id, loop_type, status, opened_at_stage, reason_opened, sourceborn_packet, urr_checks, loop_work, loop_product, returned_to_stage, gap_items_created, proof_items_created, wild_path_items_created, next_loop_id, created_at, updated_at, closed_at.
+
+**Status Values (shared across all loops):**
+not_started, running, waiting_for_evidence, waiting_for_user, synthetic_assumption_active, gap_open, held, passed, verified, closed, failed
+
+**Loop Type Specific Behavior (Selected Examples):**
+
+- **Root Ask Loop**: Primary entry. Creates initial Point Zero and Source Point. Status moves to closed only after first major loop is created.
+- **Source Loop**: Locks raw source exactly. Fails stage if lock not confirmed.
+- **Evidence Loop**: Gathers and validates evidence. Opens on Evidence Halt. Can move to waiting_for_evidence.
+- **Mystery Loop**: Keeps mystery active. Cannot move to closed without user acceptance. Status can stay protected for long periods.
+- **Invention Loop**: Protects invention seeds. Cannot convert to product candidate without verification + acceptance.
+- **Halt Loop**: Central coordination. Must create at least one new loop before closing.
+- **Synthetic Fuel Loop**: Manages synthetic assumptions. Must carry valid Synthetic Variable Tag (name, value, why_used, risk, proof_required, expiry).
+- **Review/Verification Loop**: Final check before delivery. Can move to verified or failed.
+- **Point Zero with Product Loop**: Verification step. Returns result to original Point Zero for checking.
+- **Point Zero + Product Loop**: Final acceptance. Only allowed after successful verification.
+- **Admin Review Loop**: Human gate. Can stay in waiting_for_user for extended time.
+- **Controlled Recursive Loop**: Manages recursion depth and safety limits. Enforces maximum depth to prevent infinite loops.
+
+(Full 30 types follow the same structure with type-specific behavior rules.)
+
+---
+
+## 6. KEY STAGE PARAMETERS (SELECTED)
+
+Each stage must define: stage_number, stage_name, purpose, urr_call_mandatory, loop_check, key_decisions, output, status_options, enforcement_rules.
+
+**Examples:**
+
+- **Stage 00 Triage**: Detect stakes, urgency, mode (chat/report/code/research/mystery/invention). Open Root Ask Loop if needed. Enforcement: Mode must be classified before proceeding.
+- **Stage 02 Point Zero**: Create and lock initial Point Zero. Must reference raw_source_id. Enforcement: Cannot proceed without confirmed lock.
+- **Stage 04 Raw Source Lock**: Confirm exact lock. Enforcement: Any processing without lock → stage failed + Evidence Halt.
+- **Stage 08 Intent Gate**: Separate intent/conditions/power via URR. Enforcement: If separation unclear → Intent/Condition/Power Loop opened.
+- **Stage 10 Reverse Check / Force-Fit**: Score risk (Low/Medium/High/Critical). Enforcement: High or Critical → stage Held until resolved.
+- **Stage 12 Halt Gate**: Check for halt conditions. Enforcement: Halt triggered → must create mapped loop before stage can close.
+- **Stage 15 Wild Path Preservation**: Preserve wild/unconventional routes. Enforcement: Wild Path items must remain in separate structure, never merged into main flow.
+- **Stage 49 Full Compilation**: Compile all outputs. Enforcement: Must pass Review/Verification Loop.
+- **Stage 50 Eternal Loop / Controlled Recursion**: Manage ongoing recursion with safety limits.
+
+---
+
+## 7. URR MICRO-PASS INTEGRATION (MANDATORY)
+
+SB must call URR at every stage and every loop before any work proceeds.
+
+**Enforcement Rules:**
+- If URR packet is missing any required field → packet rejected, stage/loop Held.
+- If force_fit_risk = High or Critical → stage/loop Held until resolved.
+- If halt_triggered = true → new loop must be created using mandatory mapping before proceeding.
+- Synthetic assumptions must carry valid Synthetic Variable Tag.
+
+---
+
+## 8. NEGATIVE CASE & WEAK FIT HANDLING (From Raw Thoughts)
+
+System must handle cases where input challenges common assumptions:
+
+- Hollow vs Weight (hollow things can be more powerful)
+- Language > Science in certain contexts
+- Small business with high revenue and clear idea vs traditional MBA scaling
+- Gender/emotional realities that do not fit modern symmetry framing
+- Point Zero "follower" distinction (people who cannot return to Point Zero)
+
+**Rule:** When raw input presents such cases, system must open Mystery Loop, Contradiction Loop, or Invention Loop instead of forcing resolution or over-polishing. Preserve the raw observation as valid until evidence or user acceptance changes it.
+
+---
+
+## 9. IMPLEMENTATION READINESS
+
+This specification is designed so core logic (stages, loops, URR handshake, Halt mapping, record updates) can be implemented in Python with:
+- Dataclasses or Pydantic models for packets and records
+- State machine or workflow engine for stage/loop progression
+- Database (PostgreSQL recommended) for GapTable, ProofLedger, Loop records, Trace logs
+- Clear API boundaries between SB and URR layers
+
+**Current Completeness:** 8.5/10 for core engine. Remaining work for 9-10/10: full 50+ stage table, complete per-loop status transitions, detailed decision trees, and expanded negative case examples.
+
+---
+
+**END OF SBUR FULL ENGINE SPECIFICATION v1**

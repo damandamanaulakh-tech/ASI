@@ -1,0 +1,96 @@
+# Generated Response Bank — Tagged Outputs
+
+Each line is tagged. None of these are claimed as verified historical translation unless separately promoted.
+
+| ID | Generated Output | Tag | Source Dependence |
+|---|---|---|---|
+| G001 | Owl = hidden mind / witness burden | SYNTHETIC | User seed + expansion |
+| G002 | Wave = emotional flood / unstable inheritance | SYNTHETIC | User seed + expansion |
+| G003 | Cartouche = identity prison / royal womb | SYNTHETIC | User seed + expansion |
+| G004 | Bird descent = spirit forced into role | SYNTHETIC | User seed + expansion |
+| G005 | Repeated glyphs = memory loops / recursion engine | SYNTHETIC | User seed + expansion |
+| G006 | The king is the output, not the subject | SYNTHETIC | Generated |
+| G007 | The name eats/replaces the person | SYNTHETIC | Generated |
+| G008 | The owl is the secret auditor | SYNTHETIC | Generated |
+| G009 | The wave is ancestral debt | SYNTHETIC | Generated |
+| G010 | Bird descent is forced incarnation | SYNTHETIC | Generated |
+| G011 | Repetition means the curse/system works | SYNTHETIC | Generated |
+| G012 | The cartouche is a cage shaped like honor | SYNTHETIC | Generated |
+| G013 | The wave is the emotion history refuses to confess | SYNTHETIC | Generated |
+| G014 | The owl witnesses when official story lies | SYNTHETIC | Generated |
+| G015 | The bird descends as spirit and exits as duty | SYNTHETIC | Generated |
+| G016 | Repeated glyphs are time stuttering | SYNTHETIC | Generated |
+| G017 | Royal name is containment, not identity | SYNTHETIC | Generated |
+| G018 | Flood creates need for king; king becomes dam | SYNTHETIC | Generated |
+| G019 | Column is pressure sequence, not sentence | SYNTHETIC | Generated |
+| G020 | Chaos demands a body; history names it king | SYNTHETIC | Generated |
+| G021 | Name as armor | SYNTHETIC | Generated |
+| G022 | Name as burial | SYNTHETIC | Generated |
+| G023 | Name as memory compression | SYNTHETIC | Generated |
+| G024 | Name as legal fiction of self | SYNTHETIC | Generated |
+| G025 | Cartouche as temple-prison | SYNTHETIC | Generated |
+| G026 | Cartouche as ancestor vault | SYNTHETIC | Generated |
+| G027 | Cartouche as boundary technology | SYNTHETIC | Generated |
+| G028 | Cartouche as public mask | SYNTHETIC | Generated |
+| G029 | Owl as night judge | SYNTHETIC | Generated |
+| G030 | Owl as thought before speech | SYNTHETIC | Generated |
+| G031 | Owl as sleepless mind | SYNTHETIC | Generated |
+| G032 | Owl as hidden witness of king | SYNTHETIC | Generated |
+| G033 | Wave as memory before language | SYNTHETIC | Generated |
+| G034 | Wave as unprocessed grief | SYNTHETIC | Generated |
+| G035 | Wave as bloodline turbulence | SYNTHETIC | Generated |
+| G036 | Wave as kingdom disorder | SYNTHETIC | Generated |
+| G037 | Wave as purification and drowning at once | SYNTHETIC | Generated |
+| G038 | Bird as soul courier | SYNTHETIC | Generated |
+| G039 | Bird as mobile office | SYNTHETIC | Generated |
+| G040 | Bird as ancestor fragment | SYNTHETIC | Generated |
+| G041 | Bird as divine surveillance | SYNTHETIC | Generated |
+| G042 | Bird as freedom reduced into station | SYNTHETIC | Generated |
+| G043 | Human figure as selected carrier | SYNTHETIC | Generated |
+| G044 | Human figure as processing body | SYNTHETIC | Generated |
+| G045 | Human figure as sacrifice to role | SYNTHETIC | Generated |
+| G046 | Human figure as temporary vessel | SYNTHETIC | Generated |
+| G047 | Vertical column as descent path | SYNTHETIC | Generated |
+| G048 | Column divider as identity chamber | SYNTHETIC | Generated |
+| G049 | Broken bottom as lost ending | SYNTHETIC | Generated |
+| G050 | Empty gap as forbidden transition | SYNTHETIC | Generated |
+| G051 | Small strokes as counted wounds | SYNTHETIC | Generated |
+| G052 | Small strokes as years/offerings/debts | SYNTHETIC | Generated |
+| G053 | Horizontal bar as law-line | SYNTHETIC | Generated |
+| G054 | Hook as control lever | SYNTHETIC | Generated |
+| G055 | Raised arms as receiving-force body | SYNTHETIC | Generated |
+| G056 | Twisted rope as coiled lineage | SYNTHETIC | Generated |
+| G057 | Basket base as burden carrier | SYNTHETIC | Generated |
+| G058 | Roots under name as hidden debt | SYNTHETIC | Generated |
+| G059 | Institutional sign as throne architecture | SYNTHETIC | Generated |
+| G060 | Standing bird as stabilized witness | SYNTHETIC | Generated |
+| G061 | Flying bird as uncaptured spirit | SYNTHETIC | Generated |
+| G062 | Perched bird as stationed duty | SYNTHETIC | Generated |
+| G063 | Owl + wave as witness entering instability | SYNTHETIC | Generated |
+| G064 | Wave + cartouche as emotion hardened into title | SYNTHETIC | Generated |
+| G065 | Bird + cartouche as spirit converted into record | SYNTHETIC | Generated |
+| G066 | Human + bird as split self | SYNTHETIC | Generated |
+| G067 | Cartouche + roots as name powered by underworld | SYNTHETIC | Generated |
+| G068 | Repeated cartouche as dynasty recursion | SYNTHETIC | Generated |
+| G069 | Wound-to-law machine | SYNTHETIC | Generated |
+| G070 | Flood-control machine | SYNTHETIC | Generated |
+| G071 | Name-making machine | SYNTHETIC | Generated |
+| G072 | Spirit-capture machine | SYNTHETIC | Generated |
+| G073 | Bloodline-recursion machine | SYNTHETIC | Generated |
+| G074 | Victory machine | SYNTHETIC | Generated |
+| G075 | Memory machine | SYNTHETIC | Generated |
+| G076 | Burial machine | SYNTHETIC | Generated |
+| G077 | Myth machine | SYNTHETIC | Generated |
+| G078 | Obedience machine | SYNTHETIC | Generated |
+| G079 | Prison-temple machine | SYNTHETIC | Generated |
+| G080 | Role capture as central human-risk | SYNTHETIC | Generated |
+
+## Newness count
+
+| Category | Count |
+|---|---:|
+| Total generated outputs in this bank | 80 |
+| Directly seeded by user rules | 5 |
+| Generated / expanded by assistant | 75 |
+| Verified facts | 0 in this bank; this bank is symbol-language generation only |
+| Needs external promotion | 80 |

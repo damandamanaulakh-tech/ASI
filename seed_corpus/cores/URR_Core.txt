@@ -1,0 +1,49 @@
+[ POINT ZERO ] (Initial Baseline)
+                        │
+                        ▼
+               [ RAW SOURCE CAPTURE ] 
+                        │
+                        ▼
+          [ SOURCE TYPE CLASSIFICATION ] 
+                        │
+                        ▼
+         ===========================================================
+           THE PURITY FILTER:
+           [ PATTERN EXTRACTION ] ──► Systemic logic & structure
+           [ INTENT GATE ]        ──► The human driving sentiment
+         ===========================================================
+                        │
+                        ▼
+               [ EVIDENCE LEDGER ] (Mapping against reality)
+                        │
+                        ▼
+         [ REVERSE CHECK / FORCE-FIT RISK ] (Catching generic LLM bias)
+                        │
+                        ▼
+          [ FALSIFIER / EVIDENCE GAP ] (Identifying exactly what is missing)
+                        │
+                        ▼
+                  [ HALT GATE ] ◄─── (Triggers on missing data)
+                        │
+       ┌────────────────┴────────────────┐
+       ▼                                 ▼
+[ PATH A: SILENT SIMULATION ]     [ PATH B: THE USER GATE ]
+• Engine spins up a nested        • Engine asks the user to fill the 
+  sub-loop to simulate              gaps with real data...
+  the best logical assumptions.   • OR user injects a "Synthetic Assumption"
+       │                            (e.g., "Assume I have $1M budget").
+       │                                 │
+       │                                 ▼
+       │                          [ SYNTHETIC VARIABLE TAG APPLIED ]
+       │                          (Instructs the Falsifier to accept this 
+       │                           theory without breaking the loop).
+       │                                 │
+       └────────────────┬────────────────┘
+                        │
+                        ▼
+         [ DUAL-OPTION DELIVERY FORMAT ]
+       (Option 1: Engine's Fast-Track Draft)
+       (Option 2: User's Precision Calibration)
+                        │
+                        ▼
+             [ PRODUCT MAP ACHIEVED ] ──► (Loops back to Point Zero)

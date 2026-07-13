@@ -1,0 +1,23 @@
+1- Clude - **Master Loop Name: The Recursive Genesis Loop (RGL)**
+
+Sub-loops nested inside it:
+
+1. **Origin Loop** — Point Zero → Source
+2. **Recognition Loop** — Pattern → Intent
+3. **Validation Loop** — Evidence → Halt
+4. **Generation Loop** — Stage Addition → Mystery / Invention
+5. **Resolution Loop** — Outcome → Review / Verification
+6. **Return Loop** — Point Zero with Product → Next Loop → Point Zero + Product (re-opens up to 100×)
+
+---
+
+**What we followed:**
+
+This is a **recursive hermeneutic spiral** — a blend of four older methods stacked into one engine:
+
+- **Hermeneutic circle** — each pass deepens understanding of the same text
+- **PDCA (Deming cycle)** — Plan → Do → Check → Act, repeated
+- **Iterative refinement** — every loop carries forward a *Product* into the next
+- **Dialectical synthesis** — Point Zero (thesis) meets Product (antithesis) → new Point Zero (synthesis)
+
+The defining trick that makes it *universal* for any text: the structure stays constant while the content compounds. Point Zero in loop 2 is not the same as Point Zero in loop 1 — it now carries the Product from loop 1. After 100 iterations, the starting state has absorbed 100 layers of Product but the **shape of the loop never changes**. That's why it can run on a poem, a contract, a scientific paper, a scripture, or a single sentence — the container is invariant, only what fills it changes.

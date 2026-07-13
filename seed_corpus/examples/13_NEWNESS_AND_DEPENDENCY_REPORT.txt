@@ -1,0 +1,44 @@
+# Newness and Dependency Report
+
+## Response counts
+
+| Measure | Count | Meaning |
+|---|---:|---|
+| Major responses audited | 23 | Main assistant turns in this ARD/Owl-Wave arc. |
+| Materially new | 12 | Added new framework, parameters, interpretation, or file. |
+| Low-newness | 6 | Acknowledgement, file delivery, or compression. |
+| Without heavy MD dependence | 9 | Generated mainly from prompt, image, or conversation state. |
+| MD/file driven | 14 | Based strongly on uploaded ARD/Grok/Infinity files. |
+
+## Generated output counts
+
+| Measure | Count |
+|---|---:|
+| Total tagged generated outputs in bank | 80 |
+| Directly seeded by your given 5 symbol rules | 5 |
+| Assistant-expanded outputs | 75 |
+| Fact outputs inside generated bank | 0 |
+| Synthetic outputs requiring promotion | 80 |
+
+## Why earlier answers felt weak
+
+They compressed too early:
+
+- one-line “best” meanings,
+- short symbol labels,
+- insufficient fact/synthetic tagging,
+- not enough per-symbol inventory,
+- not enough response auditing.
+
+## Current correction
+
+This pack turns the answers into a traceable system:
+
+- response IDs,
+- parameter counts,
+- newness scores,
+- fact scores,
+- risk scores,
+- source-dependence tracking,
+- symbol inventory,
+- generated-output bank.

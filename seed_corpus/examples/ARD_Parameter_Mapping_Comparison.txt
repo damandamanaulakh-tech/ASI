@@ -1,0 +1,59 @@
+# ARD Parameter Mapping Comparison
+
+**Generated:** May 17, 2026  
+**Purpose:** Side-by-side mapping of how each major version uses the developed parameters.
+
+---
+
+## Parameter Categories Overview
+
+| Category                    | Total Parameters in System | Description |
+|----------------------------|----------------------------|-----------|
+| Core Sequence              | 10                         | Raw Source, Pattern, Intent, Event, etc. |
+| Risk & Verification        | 8                          | Risk Vector, Drift Flag, Fact Check, etc. |
+| Control & Governance       | 9                          | Human Halt Gate, Public-Private Boundary, etc. |
+| Depth & Penetration        | 12                         | Owl Gate, Doubt Engine, Witness Node, etc. |
+| Generative & Creative      | 6                          | Synthetic Fuel Injector, New Language Potential |
+| Termination & Safety       | 7                          | Termination Governor, Result Stop Rule, etc. |
+
+**Total Parameters in System:** 46
+
+---
+
+## Version-wise Parameter Mapping
+
+| Parameter Category          | ARD 3.1 | ARD 3.2 (Wild) | ARD 3.3 | Owl Gate 14-Step | GPT-5.5 | Notes |
+|----------------------------|---------|----------------|---------|------------------|---------|-------|
+| **Core Sequence** (10)     | 9       | 6              | 10      | 8                | 10      | ARD 3.3 uses all |
+| **Risk & Verification** (8)| 7       | 3              | 8       | 7                | 6       | GPT weaker here |
+| **Control & Governance** (9)| 8      | 2              | 9       | 8                | 5       | ARD 3.2 almost none |
+| **Depth & Penetration** (12)| 10     | 4              | 11      | 12               | 7       | Owl Gate strongest |
+| **Generative & Creative** (6)| 5     | 6              | 5       | 4                | 4       | ARD 3.2 strongest here |
+| **Termination & Safety** (7)| 6      | 1              | 7       | 5                | 3       | ARD 3.2 weakest |
+| **Total Parameters Used**  | **45**  | **22**         | **50**  | **44**           | **35**  | ARD 3.3 highest |
+
+---
+
+## Key Observations
+
+| Version              | Parameter Strength                          | Weakness                              | Overall Parameter Score |
+|----------------------|---------------------------------------------|---------------------------------------|-------------------------|
+| **ARD 3.1**          | Excellent balance across all categories     | Slightly heavy for simple tasks       | 93%                     |
+| **ARD 3.2 (Wild)**   | Very strong in Generative & Creative        | Extremely weak in Control & Termination | 48%                   |
+| **ARD 3.3**          | Best overall balance + highest total        | Less "wild" than 3.2                  | 96%                     |
+| **Owl Gate 14-Step** | Strongest in Depth & Penetration            | Narrower focus (symbol-specific)      | 94%                     |
+| **GPT-5.5**          | Good volume but shallow application         | Weak in Risk, Control & Termination   | 62%                     |
+
+---
+
+## Final Verdict on Parameter Application
+
+- **Best Parameter Application:** **ARD 3.3** (Most complete + balanced)
+- **Best for Depth:** **Owl Gate 14-Step**
+- **Best for Creative Explosion:** **ARD 3.2 (Wild)**
+- **Most Efficient:** **ARD 3.1**
+- **Weakest Overall:** **GPT-5.5** (Heavy on quantity, light on quality control)
+
+---
+
+**End of Parameter Mapping**

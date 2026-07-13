@@ -1,0 +1,77 @@
+# Raw Thought Extraction — Master Index
+
+**Status:** Aside extraction only — no active project files were changed.
+**Source files inspected:** `conversations (1).json`, `conversations(2).json`, `chat.html` as export view, and `group_chats.json`.
+**Coverage:** 49 unique standard conversations deduplicated by conversation ID, plus 1 group chat.
+**Method:** Conversations were grouped by project meaning, then reconstructed into Raw Thought entries using the requested fields. Duplicate source chats may appear in more than one project when they materially support more than one project.
+**Boundary:** This extraction is honest reconstruction, not a legal proof file, not public publication, and not final theory approval.
+
+## Output files
+
+- `01_AI_Safety_Google_Gemini_Grounded_AI_Raw_Thoughts.md`
+- `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md`
+- `03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md`
+- `04_Personal_Philosophy_Human_Nature_Raw_Thoughts.md`
+- `05_Professional_Hospital_Career_Communication_Raw_Thoughts.md`
+- `06_Investment_App_Business_Framework_Raw_Thoughts.md`
+- `07_Tech_Product_Ideas_and_Builds_Raw_Thoughts.md`
+
+## Source conversation coverage
+
+| Date | Updated | Chat title | User turns | Assistant turns | Extracted into |
+|---|---|---:|---:|---:|---|
+| 2026-03-16 | 2026-05-06 | Google Privacy Response Analysis | 359 | 382 | `01_AI_Safety_Google_Gemini_Grounded_AI_Raw_Thoughts.md`<br>`04_Personal_Philosophy_Human_Nature_Raw_Thoughts.md` |
+| 2026-03-18 | 2026-04-28 | DIY Smart Gate Feasibility | 24 | 24 | `07_Tech_Product_Ideas_and_Builds_Raw_Thoughts.md` |
+| 2026-03-23 | 2026-05-01 | AI ethics discussion | 35 | 42 | `01_AI_Safety_Google_Gemini_Grounded_AI_Raw_Thoughts.md` |
+| 2026-04-06 | 2026-05-06 | Goal points  | 18 | 21 | `05_Professional_Hospital_Career_Communication_Raw_Thoughts.md` |
+| 2026-04-14 | 2026-05-01 | Contract Summary | 60 | 134 | `04_Personal_Philosophy_Human_Nature_Raw_Thoughts.md`<br>`05_Professional_Hospital_Career_Communication_Raw_Thoughts.md` |
+| 2026-04-17 | 2026-05-01 | Investment Framework App | 23 | 63 | `06_Investment_App_Business_Framework_Raw_Thoughts.md` |
+| 2026-05-04 | 2026-05-04 | Practical Sharp Builder | 1 | 1 | `01_AI_Safety_Google_Gemini_Grounded_AI_Raw_Thoughts.md` |
+| 2026-05-05 | 2026-05-07 | Building an AI Tool | 43 | 205 | `01_AI_Safety_Google_Gemini_Grounded_AI_Raw_Thoughts.md`<br>`07_Tech_Product_Ideas_and_Builds_Raw_Thoughts.md` |
+| 2026-05-07 | 2026-05-09 | AI Interaction Framework | 1 | 3 | `01_AI_Safety_Google_Gemini_Grounded_AI_Raw_Thoughts.md` |
+| 2026-05-07 | 2026-05-12 | Weekend Plans and Suggestions | 322 | 460 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md`<br>`04_Personal_Philosophy_Human_Nature_Raw_Thoughts.md`<br>`07_Tech_Product_Ideas_and_Builds_Raw_Thoughts.md` |
+| 2026-05-08 | 2026-05-08 | RD World Test | 1 | 8 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-08 | 2026-05-08 | RD World Test Entry | 1 | 4 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-08 | 2026-05-08 | RD World Chain Extraction | 1 | 6 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-08 | 2026-05-08 | RD World Entry Chain | 1 | 7 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-08 | 2026-05-08 | RD World Ledger Entry | 1 | 3 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-08 | 2026-05-11 | Grok Code and Structure | 9 | 12 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-08 | 2026-05-08 | Raw Definition Engine | 10 | 15 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md`<br>`02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-08 | 2026-05-08 | Project Organization Guide | 6 | 12 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-08 | 2026-05-13 | 00_Master_Index Setup | 39 | 40 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-08 | 2026-05-13 | Unreal to Real | 215 | 216 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-08 | 2026-05-09 | Raw Thought List | 13 | 19 | `03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md`<br>`04_Personal_Philosophy_Human_Nature_Raw_Thoughts.md` |
+| 2026-05-09 | 2026-05-13 | Grok X Testing Mode | 11 | 11 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-09 | 2026-05-13 | Raw Theory Input Guide | 56 | 57 | `03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md`<br>`04_Personal_Philosophy_Human_Nature_Raw_Thoughts.md` |
+| 2026-05-09 | 2026-05-13 | Core Table Review | 49 | 59 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-10 | 2026-05-13 | Raw Definition Engine | 42 | 44 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md`<br>`02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-10 | 2026-05-13 | Sourceborn Sequence Review | 6 | 7 | `03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md` |
+| 2026-05-10 | 2026-05-13 | Unreal to Real Structure | 42 | 43 | `03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md` |
+| 2026-05-10 | 2026-05-10 | Pattern Mapping Review | 1 | 1 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-11 | 2026-05-13 | RD World Category Tests | 4 | 6 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-11 | 2026-05-13 | Definition Output Bank | 2 | 3 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-11 | 2026-05-13 | URR Verified Pass Testing | 126 | 156 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md`<br>`05_Professional_Hospital_Career_Communication_Raw_Thoughts.md` |
+| 2026-05-11 | 2026-05-13 | RD World Example Tests | 3 | 3 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-11 | 2026-05-13 | RD World Example Dataset Tracker | 5 | 5 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-11 | 2026-05-13 | Final Theory Source | 9 | 11 | `03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md`<br>`04_Personal_Philosophy_Human_Nature_Raw_Thoughts.md` |
+| 2026-05-11 | 2026-05-13 | Unreal to Real Index | 9 | 10 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-11 | 2026-05-12 | Project Status Review | 111 | 126 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-11 | 2026-05-13 | 01_Control_Status_Chat | 15 | 19 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-11 | 2026-05-13 | Demo Proof Cases Status | 12 | 14 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-11 | 2026-05-13 | 02 File Generation Chat | 30 | 30 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-11 | 2026-05-11 | Concept Development Outputs | 2 | 3 | `02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md` |
+| 2026-05-12 | 2026-05-12 | Layout Plan Review | 1 | 1 | `05_Professional_Hospital_Career_Communication_Raw_Thoughts.md` |
+| 2026-05-12 | 2026-05-13 | Master Alignment Chat | 3 | 3 | `03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md` |
+| 2026-05-12 | 2026-05-13 | 05 File Generation Chat | 21 | 22 | `03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md` |
+| 2026-05-12 | 2026-05-13 | Sourceborn Sequence Testing | 2 | 2 | `03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md` |
+| 2026-05-12 | 2026-05-13 | 04 Demo Set Chat | 14 | 14 | `03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md` |
+| 2026-05-12 | 2026-05-13 | AI Verified Response Test | 2 | 2 | `03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md` |
+| 2026-05-12 | 2026-05-13 | File Generation Guidelines | 2 | 2 | `03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md` |
+| 2026-05-12 | 2026-05-13 | Control Status Mismatch | 2 | 2 | `03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md` |
+| 2026-05-12 | 2026-05-13 | Demo Set Update | 3 | 3 | `03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md` |
+
+## Notes on omitted/limited items
+
+- Explicit sexual content was not found in the inspected standard export; indirect terms like women, wife, body, pride, and relationship/AI-boundary language were handled under personal/social/ideological entries rather than invented as sexual content.
+- Some conversations were short control/status chats. They are represented through the project files they supported instead of being expanded into repetitive standalone thoughts.
+- `chat.html` appears to be an HTML export view of conversation data; the structured JSON files were used as the primary extraction source.

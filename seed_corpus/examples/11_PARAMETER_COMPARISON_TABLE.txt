@@ -1,0 +1,24 @@
+# Parameter Comparison Table
+
+| Layer | Parameter Count | What It Covers | Verdict |
+|---|---:|---|---|
+| Base 7 Lens Set | 7 | Intent, Patterns, King Actions, Human Angle, Symbol Roles, Hidden System, Fact vs Synthetic | Good skeleton; not deep enough alone. |
+| Infinity Report Style | 20+ | Overall intent, hidden intent, emotional tone, thinking pattern, raw logic, recurring themes, protected core, blind spots | Strong for conversation and raw-thought analysis. |
+| ARD 3.1 Engine | 14+ | Pre-check, Point Zero, Noise Strip, Exhaustive, Simplicity, Affect, Six Lenses, Truth Pressure, Synthetic Fuel, Reality Anchor, Doubt, Witness, Logic Wall, Human Review | Strong for thinking-engine integrity. |
+| Source/Sequence Map | 9+ | Raw Source, Pattern, Intent, Category, Definition, Fact-check Status, Risk Flag, Output, Next Action | Strong for traceability. |
+| Symbol Deep Dive Set | 30 | One parameter per visible symbol from the image inventory | Strong for symbol coverage. |
+| Flush Parameter Bank | 64 | Merged symbolic + human + fact/synthetic + risk + evidence parameters | Current maximum working set in this pack. |
+| Generated Response Bank | 80 | Generated synthetic outputs tagged individually | Useful as creative source material, not fact. |
+
+## Response-level parameter use estimate
+
+| Response Range | Average Parameter Intensity |
+|---|---:|
+| Early ARD review responses | 8-15 |
+| Project-control drift responses | 8-12 |
+| Thinking-engine restoration | 13+ |
+| Owl/Wave first passes | 9-18 |
+| Seven-lens expansion | 35 |
+| Infinity parameter pass | 50 |
+| 30-symbol deep dive | 30 visible-symbol parameters + 30 audit parameters |
+| Current flush pack | 64 core parameters + 80 generated tagged outputs |

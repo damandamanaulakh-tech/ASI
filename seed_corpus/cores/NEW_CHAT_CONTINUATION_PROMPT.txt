@@ -1,0 +1,60 @@
+CONTINUE PROJECT — ARD / CHITYY / SOURCEBORN / IFR STOCK ENGINE
+
+Resume from latest accepted state. Do not restart. Do not simplify the core. Do not remove loops, Halt Point, Mystery, Invention, Point Zero with Product, Point Zero + Product, ProofLedger, GapTable, Wild Path, or the URR micro-pass.
+
+PROJECT 1 — CHITYY STOCK / REVERSE PATTERN ENGINE
+Current control files:
+- Chityy_Sourceborn_FINAL_MICRO_SPLIT_ENGINE_v0_6.xlsx
+- Chityy_Sourceborn_MICRO_SPLIT_CSV_PACK_v0_6.zip
+- Chityy_Sourceborn_PYRAMID_SEQUENCE_PAPER_TEST_v0_1.xlsx
+- Chityy_Sourceborn_PRE_RISE_FALL_TRIGGER_LAYER_v0_2.xlsx
+- Chityy_Sourceborn_UNIQUE_TRIGGER_MINER_v0_3.xlsx
+- Chityy_Sourceborn_IFR_Validation_Hard_Checks_v0_5.xlsx
+- Chityy_Sourceborn_IFR_FII_Cash_Stack_Test_v0_6.xlsx
+
+Accepted stock-engine direction:
+Run the engine in reverse. Do not start from generic indicators only. Pull each stock/string/event backward and find what appeared before rise, fall, collapse, reversal, sector movement, industry movement, volume expansion, risk event, and failure.
+
+Current best candidate:
+IFR = Internal Fracture & Repair Engine.
+Best current stack is not a standalone buy/sell signal. It is a paper-only exposure throttle:
+Internal Fracture + FII/DII cash pressure + later FII derivatives/PWOI + later market-wide volume/delivery.
+
+Current validation truth:
+- DAMAGE_CLUSTER_5IN10 = KEEP_CONDITIONAL_RISK_THROTTLE.
+- Adaptive IFR + FII cash stack = KEEP_FOR_PAPER.
+- Strict IFR + FII confirm = HOLD_FOR_MORE_EVENTS.
+- Repair signals must be state-machine based, not standalone.
+- Live trade = NO.
+- Edge confirmed = NO.
+
+PROJECT 2 — SOURCEBORN / URR / SEQUENCE ENGINE
+Sourceborn owns final delivery, loops, Halt Points, Product Candidate, Point Zero with Product, Point Zero + Product, ProofLedger, GapTable, Wild Path, Public-Safe output only when asked, and final answer.
+URR is a micro-pass checker at every stage. URR checks, filters, classifies, reality-anchors, challenges force-fit risk, separates Unreal from Real, and returns a packet to Sourceborn. URR does not own final delivery.
+
+Accepted Sourceborn flow:
+Point Zero → Source Point → Source → Sequence → Pattern → Intent / Condition / Power → Evidence → Reality Check if needed → Mystery / Invention → Halt Point → New Loop / Sub-loop → Stage Addition → Test / Review → Movement / Partial Outcome → Product Candidate → Point Zero with Product for Verification → Point Zero + Product only if verified → Next Loop.
+
+Operating rule:
+Do not fake data. Do not pretend a signal is proven because it looks good in a backtest. If data is missing, mark DATA_NEEDED / HOLD and open the correct loop.
+
+NEXT LOOP TO RUN:
+1. Build File Ledger from uploaded handoff package.
+2. Confirm which latest files are present.
+3. Continue from v0.6 and IFR+FII cash v0.6.
+4. Add/update these data feeds if uploaded:
+   - market-wide EQ volume/delivery
+   - historical PWOI participant-wise OI/volume through 2024/2026
+   - updated FII/DII cash through 2024/2026
+   - F&O bhavcopy across event windows
+5. Re-test stack with:
+   - time-block robustness
+   - state-machine repair
+   - false-positive distribution
+   - walk-forward thresholds
+   - signal independence pruning
+   - event lead-time matrix
+6. Produce Keep / Watch / Archive decisions.
+
+Response style:
+Be direct. Keep source-wise mapping. Show what was taken, how it helped, where it lands, what is duplicate, what is missing, and what the next loop is.

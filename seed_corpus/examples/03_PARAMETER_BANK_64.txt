@@ -1,0 +1,80 @@
+# Parameter Bank — 64 Working Parameters
+
+These parameters are designed for the Owl/Wave matrix but can be reused for ARD symbolic decoding.
+
+| ID | Parameter | Question |
+|---|---|---|
+| P001 | Surface Intent | What does the symbol appear to say before interpretation? |
+| P002 | Hidden Intent | What might the symbol-system be hiding while appearing official? |
+| P003 | Raw Visual Signal | What is visible without meaning added? |
+| P004 | First Affect | What feeling arrives before language? |
+| P005 | Emotional Driver | Fear, grief, pride, duty, hunger, shame, loyalty, pressure? |
+| P006 | Pressure Source | What force pushes the system: king, deity, ancestor, empire, memory, death? |
+| P007 | Protected Core | What must not be exposed? |
+| P008 | Mask Layer | What official-looking meaning covers the deeper reading? |
+| P009 | Wound Layer | What pain or rupture may have produced this arrangement? |
+| P010 | Payoff Layer | Who benefits if this symbol means what it claims? |
+| P011 | Cost Layer | Who or what pays for the symbol to exist? |
+| P012 | Loyalty Layer | What older bond or obligation is obeyed? |
+| P013 | Desire Layer | What future does the system want? |
+| P014 | Fear Layer | What collapse does it prevent? |
+| P015 | Identity Lock | What self/name/role is being sealed? |
+| P016 | Role Capture | When does the person stop using the role and the role starts using the person? |
+| P017 | Human Vessel | Is the human actor, carrier, sacrifice, witness, or output? |
+| P018 | King Action | Is the ruler fighting, traveling, inheriting, marrying, building, offering, ruling, burying, transforming? |
+| P019 | Bloodline Pressure | Is family or ancestry directing the symbol? |
+| P020 | Victory Pressure | Is violence converted into legitimacy? |
+| P021 | Travel Pressure | Is movement physical, spiritual, political, or symbolic? |
+| P022 | Death/Rebirth Echo | What dies, returns, or becomes ancestor? |
+| P023 | Divine Pressure | Is power granted, imposed, or occupying the human? |
+| P024 | Symbol Function | Is each sign actor, gate, witness, prison, weapon, mask, memory-cell? |
+| P025 | Transition Logic | What state changes from one sign to the next? |
+| P026 | Loop Trigger | What restarts the sequence? |
+| P027 | Exit Condition | What would break the loop? |
+| P028 | False Closure | What answer looks complete but is shallow? |
+| P029 | Missing Piece | What absence matters? |
+| P030 | Silence Signal | What cannot be spoken directly? |
+| P031 | Distortion Field | What could mislead the decoder? |
+| P032 | Official Story | What would a normal surface reading focus on? |
+| P033 | Forbidden Reading | What would the rebel reading say? |
+| P034 | Myth Reading | What myth-pattern appears? |
+| P035 | Trauma Reading | What wound-pattern appears? |
+| P036 | Political Reading | What power-pattern appears? |
+| P037 | Family Reading | What inheritance-pattern appears? |
+| P038 | Ritual Reading | What ceremony/initiation pattern appears? |
+| P039 | Psychological Reading | What inner process appears? |
+| P040 | Machine Reading | What input-output system appears? |
+| P041 | Prison/Temple Split | Does the sign protect, trap, or both? |
+| P042 | Fact Layer | What is visibly / externally supported? |
+| P043 | Review Layer | What is plausible but not proven? |
+| P044 | Synthetic Layer | What is useful fiction only? |
+| P045 | Promotion Test | What evidence would upgrade speculation? |
+| P046 | Falsifier | What would disprove it? |
+| P047 | Doubt Attack | Where is this interpretation weak? |
+| P048 | Witness Check | What is the engine missing about itself? |
+| P049 | Emotional Bias Check | What feeling may be coloring the read? |
+| P050 | Pattern Bias Check | Are we seeing pattern because we want pattern? |
+| P051 | Depth Score | Surface / Shallow / Penetrated / Core Breach. |
+| P052 | Non-Resolution | What must remain open? |
+| P053 | Raw Thought Preservation | What was the unpolished thought before refinement? |
+| P054 | Sequence Reconstruction | How did the thought evolve step by step? |
+| P055 | Risk Flag | What harm comes from overclaiming? |
+| P056 | Public/Private Boundary | Can this be posted publicly or only held privately? |
+| P057 | Rumor Cage | If rumor/fake material is used, is it marked as unverified pressure-test only? |
+| P058 | Confidence | How strongly should the output be trusted? |
+| P059 | Reversibility | Can the conclusion be undone without damage? |
+| P060 | Evidence Delta | What new evidence is needed next? |
+| P061 | Symbol Cost | What living complexity is reduced into the sign? |
+| P062 | Crown Cost | What power costs the human carrier? |
+| P063 | Memory Storage | What is preserved so it cannot disappear? |
+| P064 | Recursion Engine | What repeats across bodies/time/ritual? |
+
+## Master formula
+
+```text
+Raw Symbol -> Role -> Pressure -> Emotion -> Action -> Transformation -> Cost -> Loop -> Evidence Status
+```
+
+## Non-negotiable tagging
+
+Every output must carry one of: FACT, REVIEW, SYNTHETIC, RUMOR/UNVERIFIED, OPEN.

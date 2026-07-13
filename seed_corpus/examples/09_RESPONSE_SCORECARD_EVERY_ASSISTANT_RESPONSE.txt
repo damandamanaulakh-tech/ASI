@@ -1,0 +1,48 @@
+# Response Scorecard — Every Major Assistant Response in This ARD/Owl-Wave Thread
+
+Scoring is an audit estimate, not a scientific metric.
+
+- **Fact %** = how well the response stays grounded in verified/visible material.
+- **Depth %** = how deeply it served ARD-style reasoning.
+- **New %** = how much new structure/content it added beyond user-provided material.
+- **Risk** = overclaim / drift / hallucination risk.
+
+| ID | Response | Type | Parameters Used | Fact | Depth | Newness | Risk | Audit Note |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| R001 | Initial ARD 3.0 review table | REVIEW | 12 | 68% | 74% | 63% | 7/10 | Good first control pass; too project-decision oriented. |
+| R002 | One-file MD delivery | FILE | 3 | 60% | 42% | 40% | 2/10 | Functional, not deep. |
+| R003 | CHATY 3.2 analysis | REVIEW | 9 | 65% | 70% | 58% | 6/10 | Created direction but risked over-controlling charm. |
+| R004 | ARD project core | REVIEW | 10 | 72% | 53% | 45% | 5/10 | Useful but wrong primary intent for thinking engine. |
+| R005 | ARD 3.3 review | REVIEW | 12 | 70% | 57% | 46% | 6/10 | Clean but drifted from user's desired thinking-engine soul. |
+| R006 | Thinking engine restoration | CORE | 13 | 82% | 75% | 70% | 8/10 | Important restoration of human layer and charm. |
+| R007 | 3.2 restoration MD | FILE | 4 | 75% | 35% | 30% | 2/10 | File action. |
+| R008 | Work intelligence nowadays | REVIEW | 5 | 82% | 55% | 50% | 4/10 | Useful context, not symbol-core. |
+| R009 | Wild Unrestrained Matrix review | CORE | 10 | 78% | 76% | 74% | 8/10 | Strong boundary: wildness stays as mode, not truth. |
+| R010 | Everyone will get same? | META | 2 | 75% | 40% | 35% | 3/10 | Short but clarified differentiation. |
+| R011 | Patch prompt for all LLMs | PROMPT | 9 | 82% | 62% | 56% | 5/10 | Good external-test wording. |
+| R012 | 1-2 line ask | PROMPT | 7 | 85% | 45% | 38% | 3/10 | Effective minimal ask. |
+| R013 | Let do | ACK | 1 | 100% | 10% | 10% | 1/10 | No analysis. |
+| R014 | First Owl/Wave decode | SYNTHETIC | 9 | 45% | 70% | 62% | 8/10 | Fresh but too finished; not enough parameter spread. |
+| R015 | First decoding bank | SYNTHETIC | 14 | 42% | 72% | 65% | 8/10 | Useful symbolic bank; too compact. |
+| R016 | Rule-based exploration | SYNTHETIC | 18 | 38% | 77% | 72% | 9/10 | Stronger generation; still lacks full symbol coverage. |
+| R017 | URR/Sourceborn availability | META | 2 | 95% | 20% | 20% | 1/10 | Correct source boundary. |
+| R018 | Prompt Sourceborn first | PROMPT | 7 | 90% | 45% | 35% | 3/10 | Good retrieval prompt. |
+| R019 | URR generation asks | PROMPT | 7 | 88% | 55% | 50% | 4/10 | Base lens set formed. |
+| R020 | Seven-lens expansion bank | REVIEW/SYNTHETIC | 35 | 50% | 82% | 78% | 9/10 | Strong structure; still short per item. |
+| R021 | Infinity parameters | PARAMETER | 50 | 72% | 80% | 75% | 7/10 | Good method expansion. |
+| R022 | More files accepted | PARAMETER | 30 | 70% | 76% | 70% | 7/10 | Improved role capture; still summarized. |
+| R023 | 30 symbol deep dive | SYNTHETIC/REVIEW | 30 | 35% | 86% | 82% | 10/10 | Most detailed symbol pass so far; factual translation still low. |
+
+## Count summary
+
+| Metric | Count |
+|---|---:|
+| Total major responses audited | 23 |
+| Materially new responses (newness >=55%) | 12 |
+| Low-newness / file / acknowledgement responses | 6 |
+| Generated without heavy dependence on uploaded MD files | 9 |
+| Driven by uploaded MD/files or prior generated files | 14 |
+
+## Important limitation
+
+This table audits the major response turns, not every sentence. The generated-response bank below tags individual generated symbolic outputs separately.

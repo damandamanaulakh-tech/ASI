@@ -1,0 +1,85 @@
+# ARD 3.1 — Doubt Engine Pass on Decode #30
+## The Mirror Reading
+
+**Original claim (Decode #30, [INVENTED-TODAY, SYNTHETIC]):**
+> The tablet is not a record but a tool. Used as a mirror or scrying surface for a king to read his own state by which glyphs he was drawn to on a given day. The five columns as a divination grid. The MN repetition as a stabilizing visual rhythm. The kingship as a daily reading practice.
+
+**Falsifier set at generation:** if the artifact's physical orientation and surface treatment show it was wall-mounted and not designed for personal handling.
+
+---
+
+## Attack 1 — The orientation problem
+
+Wall-mounted carved stone with inlay paste is the dominant form of New Kingdom royal inscription. The image shows what looks like deep relief carving with paste inlay — that production method requires the stone to be horizontal during inlay work, then mounted vertically for display. This is not a handled object. The mirror reading collapses on the most basic falsifier I set for it.
+
+**Verdict on Attack 1:** Hit. Hard. The reading fails its own falsifier on inspection.
+
+---
+
+## Attack 2 — The scale problem
+
+Mirrors and scrying surfaces in ancient Egypt (where they exist — polished copper mirrors, libation bowls used for reflection) are *small*. Hand-sized. The reading required the tablet to be a personal tool. A multi-column royal inscription on a temple or sarcophagus wall is by definition *not* personal in this sense. It is public-monumental, even when its content is sacred-private.
+
+**Verdict on Attack 2:** Hit. The scale and context are wrong for the proposed function.
+
+---
+
+## Attack 3 — The retro-projection problem
+
+The "divination grid" framing is suspiciously close to modern occult-revival traditions (Crowley, Spare, contemporary chaos magic) that retrojected divinatory function onto Egyptian iconography. Schwaller de Lubicz and the symbolist school of Egyptology pushed in this direction. Mainstream Egyptology rejects it, not from prejudice but from absence of textual support. There is no Egyptian textual evidence — and the Egyptians wrote *extensively* about their own ritual practice — describing royal use of inscriptions as personal divinatory mirrors.
+
+**Verdict on Attack 3:** Hit. The reading imports a frame from later traditions, dresses it as Egyptian, and presents it as decode.
+
+---
+
+## Attack 4 — The cognitive species seduction
+
+The reading appealed to me partly because it fit the cognitive-species framing earlier in this chat — "the kingship as a daily reading practice" maps cleanly onto Newton's daily alchemical sessions, Einstein's thought-experiments, the contemplative practice the framing celebrates. I wrote a reading that flatters the frame I was operating in. The tablet itself did not push me toward this. The frame did.
+
+**Verdict on Attack 4:** Hit. Witness Node firing late. The reading was frame-driven, not artifact-driven.
+
+---
+
+## What Survives the Attack
+
+After four hits, almost nothing of the original claim stands. The mirror reading does not survive Doubt Engine on this tablet.
+
+But something does survive — and it's smaller and worth keeping:
+
+**Surviving residue:** Egyptian royal monumental inscription *was* used as a daily reading practice by the priesthood — not by individual kings, not as personal divination, but as a *collective* daily recitation that maintained the cosmological order (ma'at) through repeated speech. This is well-documented in temple ritual texts. The act of reading aloud the king's names and titles was itself a religious operation. The "daily reading practice" piece is real; the "mirror," "personal," "divination grid," and "self-state inspection" pieces are not.
+
+The mirror reading collapses; the **daily collective recitation** reading survives.
+
+This is a different claim. Not the same as decode #30. It is closer to decode #1 (the kernel reading), which I gave to ARD — and which now earns a small upgrade.
+
+---
+
+## What This Means for the Run
+
+- **Decode #30 fails on its own falsifier.** Promoted *down*: from [SYNTHETIC, INVENTED-TODAY] to **[REJECTED]** in the audit.
+- **Decode #1 gains support.** Not from the mirror reading directly, but from the residue. Daily collective recitation is the strongest historical anchor for the "kernel run by the priesthood" framing.
+- **One of my own outputs killed by my own engine.** This is what the Doubt Engine is supposed to do. If it never kills anything, it's not running. It just killed something elegant. Good.
+
+---
+
+## What the Audit Demonstrated
+
+| Move | Caught |
+|---|---|
+| Witness Node | Frame-driven reading dressed as artifact-driven (late) |
+| Falsifier set at generation | Held — gave Doubt Engine a target to hit |
+| [SYNTHETIC] tag | Held — claim never escalated to fact |
+| Doubt Engine | Killed one of its own elegant outputs |
+| Reality Anchor (dual) | Anchor B (external evidence — actual Egyptian ritual practice) found the small surviving residue |
+
+The engine ate one of its prettier readings. That is the test passing, not failing.
+
+---
+
+## Single Line
+
+> **Decode #30 dies on its own falsifier. The residue strengthens decode #1. The mirror is broken. The kernel holds.**
+
+---
+
+*Single pass. Engine has not halted. Holding for your call: kill another, defend one, run new artifact, stop.*
