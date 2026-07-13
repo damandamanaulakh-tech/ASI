@@ -1,0 +1,57 @@
+Area	Model 1: RD-based method	Estimated success	Model 2: General method, no RD	Estimated success
+Main goal	Stop unsupported claims before final answer	80–88%	Reduce hallucination through generic verification advice	45–60%
+Core control	Hidden source-status chain before output	0.85	General instruction: “don’t hallucinate”	0.4
+Fact vs claim separation	Mandatory field: fact / claim / inference / unknown	85–90%	May mention uncertainty, but not enforced	50–60%
+Overconfidence control	Every claim gets confidence/risk status	80–85%	Model may still sound confident	45–55%
+Unknown handling	“Unknown” is a valid output state	0.85	Often tries to be helpful anyway	0.5
+Source preservation	Original source remains untouched	0.9	No source-preservation layer	0.25
+Traceability	Output can be traced back to source row / claim status	0.85	Often no audit trail	30–40%
+Hidden pattern control	Pattern checked internally before answer	0.8	No pattern layer	20–30%
+Intent control	Detects whether user wants fact, belief, argument, prediction, or public output	0.82	Treats most questions as normal answer requests	0.45
+Prediction handling	Prediction is never treated as fact	0.85	May still blur prediction with likelihood	0.55000000000000004
+Public-output cleaning	Final answer clean, source logic hidden	0.8	Output may expose reasoning labels or be messy	0.55000000000000004
+Risk flagging	Flags harm, legal, privacy, distortion, reality-drift	75–85%	Usually only safety if explicitly asked	35–50%
+Bias detection	Separates POV, bias, evidence, interpretation	75–85%	Bias may be addressed generally	45–55%
+Instruction drift	Chain gives stable process across long work	75–82%	Long chats can drift easily	40–50%
+Use in messy raw data	Strong: designed for messy source	85–90%	Weak: prefers clean prompt/question	35–50%
+Use in legal/evidence work	Strong if fact-check layer is used	75–85%	Risky unless manually controlled	45–60%
+Use in creative/worldbuilding	Strong: preserves evolving definitions	0.85	Good writing, weak version control	50–65%
+Use in technical Q&A	Good if paired with external verification	70–80%	Good if model already knows topic	55–70%
+Failure visibility	Shows what failed: source, fact, risk, uncertainty	0.85	Failure often hidden inside answer	35–45%
+Manual workload	Medium-high until automated	55–65% practical ease	Easy to use immediately	85% ease
+Scalability	High after automation/database	80–90% future	Medium; depends on chat context	50–65%
+Risk of exposing method	Needs hidden-output discipline	60–70% safe if careful	Low because it has no unique method	85% safe
+Commercial uniqueness	Higher	80–90%	Low; common prompt style	30–40%
+Overall hallucination reduction	Strong if implemented correctly	80–88%	Moderate at best	45–60%
+Overall product value	High, because it becomes a system	0.85	Low-medium, because it is only advice/prompting	40–55%
+Area	M1: URR Protocol Method	M2: General Prompt Method	M3: Current AI System Output	M4: Proposed Theory LLM Working	M5: Basic RAG + Structured Prompting	M6: RAG + CoVe + Post-Verification	M7: Agentic Multi-Source Verification
+Main approach	Source/control protocol before output	Careful prompt only	Normal AI response	Built-in layered future system	Retrieve docs, answer from context	Retrieve + verify claims after answer	Multi-retrieval + agent consensus
+Overall success estimate	82–86%	50–58%	45–60%	88–94%	65–75%	78–85%	85–92%
+Hallucination reduction	80–88%	45–60%	40–60%	88–94%	65–75%	80–88%	88–94%
+Fact vs claim separation	85–90%	50–60%	40–55%	90–95%	70–80%	82–90%	88–94%
+Source grounding	85–90%	30–45%	35–55%	90–95%	85–92%	88–94%	92–96%
+Source preservation	88–92%	25–35%	30–45%	90–95%	70–85%	75–88%	85–92%
+Traceability	0.85	30–40%	25–40%	0.9	75–88%	82–92%	90–96%
+Unknown handling	0.85	0.5	35–50%	0.9	75–85%	82–90%	88–94%
+Overconfidence control	80–85%	45–55%	35–50%	88–94%	65–78%	78–88%	85–92%
+Prediction handling	85–90%	0.55000000000000004	40–55%	90–95%	55–70%	68–80%	75–88%
+Bias / POV separation	75–85%	45–55%	35–55%	88–93%	55–70%	65–78%	75–85%
+Pattern control	80–85%	20–30%	35–45%	88–94%	45–60%	55–70%	65–80%
+Intent control	80–85%	0.45	45–60%	0.9	45–60%	55–70%	65–78%
+Risk flagging	75–85%	35–50%	35–55%	88–94%	50–65%	65–78%	75–88%
+Instruction drift control	75–82%	40–50%	35–50%	85–92%	55–70%	65–80%	75–88%
+Long conversation handling	75–85%	40–55%	35–55%	88–95%	65–78%	72–85%	82–92%
+Messy raw input handling	85–90%	35–50%	40–55%	90–95%	50–65%	60–75%	70–85%
+Technical factual QA	70–80%	55–70%	45–65%	88–93%	80–90%	85–93%	90–96%
+Domain-specific QA	75–85%	45–60%	45–65%	88–94%	85–92%	88–95%	92–97%
+Legal/evidence use	75–85%	45–60%	40–60%	88–94%	78–88%	85–92%	90–96%
+Atomic claim verification	75–85%	35–50%	30–45%	88–94%	65–78%	82–90%	90–96%
+Faithfulness to retrieved docs	75–85%	35–50%	35–55%	88–94%	80–90%	88–94%	90–96%
+Failure visibility	0.85	35–45%	25–40%	90–95%	65–78%	80–90%	88–95%
+Latency / speed	Medium	Fast	Fast	Medium	Medium	Slower	Slowest
+Cost per query	Medium	Low	Low	Medium-high	Medium	Medium-high	High
+Implementation difficulty	Medium	Easy	Already exists	Hard / future build	Medium	Medium-hard	Hard
+Automation readiness	75–85%	45–55%	50–65%	90–95%	80–88%	85–92%	88–95%
+Commercial uniqueness	80–90%	30–40%	35–45%	90–95%	60–70%	70–82%	80–90%
+Best use	Raw/source-controlled outputs	Simple safer prompting	Normal assistant use	Future designed LLM system	Grounded domain Q&A	High-reliability answer revision	Strict factual production system
+Main weakness	Needs protocol/app build	Too weak, not enforced	Inconsistent reliability	Not fully built yet	Bad retrieval = bad answer	Extra latency + verifier errors	High cost, complexity, rigidity

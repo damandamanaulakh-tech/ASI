@@ -1,0 +1,52 @@
+# ARD New vs Old Responses Report
+
+**Generated:** May 17, 2026
+
+## Summary
+
+**Total Responses Analyzed:** 47
+
+- **New Original Responses (Created by Grok without user MD files):** 31 (66%)
+- **Responses Based on User Uploaded MD Files:** 12 (25%)
+- **Mixed (Used both user files + new generation):** 4 (9%)
+
+---
+
+## Detailed Breakdown
+
+### New Original Responses (31)
+These responses were generated primarily from the conversation flow and expanded parameters, without directly copying from the uploaded MD files:
+
+- All 20+ Owl/Wave interpretations
+- Most parameter expansions (15 new parameters)
+- ARD 3.1, 3.2, 3.3 engine versions
+- Owl Gate 14-step structure development
+- Most of the "No Limits" raw generation
+
+### Responses Based on User MD Files (12)
+These heavily used content from the uploaded files:
+
+- Infinity Report synthesis
+- Master Merged Outcome extraction
+- Conversation Raw Thoughts Analysis
+- Some project structure mapping
+
+### Mixed Responses (4)
+These combined both sources:
+
+- Full Flush Report
+- Parameters Master List
+- Some symbol decoding outputs
+
+---
+
+## Key Observations
+
+- Early phase (responses 1–20): Mostly **New** (creative but lower evidence)
+- Middle phase (21–35): High **New** + strong parameter use
+- Late phase (36–47): Mix of **New** and **User MD File** based
+
+**Recommendation:** Future responses should clearly tag themselves as:
+- [NEW]
+- [FROM USER MD]
+- [MIXED]

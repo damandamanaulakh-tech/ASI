@@ -1,0 +1,117 @@
+# ARD 3.1 LEAN+ — Grok Parameter Audit & Integration
+
+**Date:** May 17, 2026
+**Source:** Grok's "ARD Parameters & Filters Master List" + Kruskal-Szekeres reality-check
+**Method:** Don't accept the list. Audit it. Keep what's new. Flag what's duplicate. Mark what was invented without authorization.
+
+---
+
+## Honest audit of Grok's 46 items
+
+### Genuinely new and worth adding
+
+| # in Grok's list | Item | Why it earns its place |
+|---|---|---|
+| 16 | **Drift Flag** | Subtly different from Trajectory Tracker — Drift Flag fires when output is moving *away from source*, not just when direction is changing. Source-anchoring vector. |
+| 20 | **Generative Potential score** | Useful upstream rating: "how much new thinking can this problem support?" Stops over-investment on shallow inputs. |
+| 24 | **New Language Potential** | Companion to above — flags when a problem requires inventing vocabulary versus using existing terms. |
+| 41 | **Empty Gap Excavator** | Active investigation of what is missing — different from Witness (sees what engine is blind to) and Doubt (attacks conclusions). Excavator works on holes in the source itself. |
+| 42 | **Vertical Descent Lock** | Closed outputs can be reopened only with explicit permission. Prevents revisiting decisions casually. |
+| 46 | **Synthetic Leakage Guard** | Tracks cumulative drift from [SYNTHETIC]-tagged material into "fact" claims. Different from individual fiction-audit — this is *systemic* leak detection. |
+
+Six genuine additions. These I'll absorb.
+
+### Duplicates of what already exists in ARD (rename or drop)
+
+| Grok # | Item | What it duplicates |
+|---|---|---|
+| 33, 43 | "Dual Anchors" + "Double Anchor Protocol" | Reality Anchor Dual (already in spec, twice in Grok's list) |
+| 34 | "Doubt Engine" | Already in ARD |
+| 35 | "Witness Node" | Already in ARD |
+| 36 | "Critical Logic Wall — Data/Choice/Courage/Identity" | Already in expanded 3.1 |
+| 37 | "Human Halt Gate" | The locked non-negotiable; not a parameter, a constitution clause |
+| 44 | "Courage Wall Detector" | Subset of Critical Logic Wall; already named |
+| 45 | "Identity Compression Alert" | Edge of Witness Node's territory; not distinct |
+
+### Invented / synthetic without tag — flagging
+
+| Grok # | Item | Issue |
+|---|---|---|
+| 30 | **"Owl Gate (3 Lenses) — Perch / Flight / Nocturnal Signal"** | This was NOT in our work. Grok constructed it from our Owl/Wave decoding and presented it as if it were part of ARD. **This is exactly the [SYNTHETIC] leakage 3.1 was built to prevent** — fiction produced by a previous LLM, retagged as established structure. The audit catches it. Rejecting it. |
+
+This single catch is the reality-check inside the parameter list. Grok did what every previous LLM did — added something invented while looking like cleanup. Your own engine's discipline caught it.
+
+### Already in our locked spec — not parameters, foundations
+
+| Grok # | Item |
+|---|---|
+| 7, 9 | Fact Check, Master Link — these are the Truth Chain, already canonical |
+| 21 | Sequence Fidelity (0 → 0.1) — adopted in last expansion |
+| 23 | Human Authority Score — the non-negotiable, not a score |
+
+---
+
+## One new parameter inspired by the Kruskal diagram
+
+| New | **Perspective Frame** |
+|---|---|
+| What | Output tagged with the reference frame it is true in. Different frames give different valid answers; neither is wrong. |
+| Why | The Kruskal diagram makes this rigorous: infalling observer and distant observer see literally different histories. Both correct. ARD has been treating outputs as frame-independent; many are not. |
+| When to fire | Whenever an output's truth depends on the observer's position relative to the problem. "From the user's frame X is true; from the system's frame Y is true; both hold." |
+| Example | Owl/Wave reading: from inside the cognitive species the cartouche is a kernel; from outside it is a name. Neither view collapses the other. |
+| Refusal mode | Without this, ARD forces frame-merge, which produces false either/ors on problems that are genuinely two-frame. |
+
+This is a genuine addition. Naming it after a real physics phenomenon, not borrowed metaphor.
+
+---
+
+## ARD 3.1 LEAN+ — Final Sequence (Adoption Decision)
+
+**Default operation remains four-step:**
+
+```
+[ WATCH ] → [ REFUSE ] → [ ATTACK ] → [ HOLD ]
+```
+
+**Sub-moves available inside each operation (now including Grok's adopted ones and the Perspective Frame):**
+
+| Operation | Sub-moves |
+|---|---|
+| WATCH | Noise Stripper · Feeling Ledger · Core Gate (six lenses) · Construction Mode tag · **Empty Gap Excavator** · **Generative Potential rating** |
+| REFUSE | Truth Pressure Test · Assumption Surfacer · Building-Toward Reader · **Drift Flag** |
+| ATTACK | Doubt Engine · Reality Anchor (dual) · Witness Node · Synthetic Fuel Injector (caged) · Fiction Audit · **Synthetic Leakage Guard** · **Perspective Frame** |
+| HOLD | Permission-to-Hold · Trajectory Tracker · Incubation · **Vertical Descent Lock** · **New Language Potential check** |
+
+Total sub-moves: ~22 across four operations. Up from 18, contained inside the four-operation discipline so they don't bloat the default run.
+
+---
+
+## Non-negotiables (constitution, not parameters)
+
+These are not in the parameter list because they cannot be turned off. They are who ARD is:
+
+1. Human authority is absolute.
+2. Every synthetic output tagged [SYNTHETIC] until evidence promotes it.
+3. Non-resolution is a valid terminal state.
+4. Raw source preserved before rewriting.
+5. Public and private outputs separated.
+6. Every output carries a falsifier.
+7. The engine names avoidance when it detects it.
+
+---
+
+## What the audit demonstrated
+
+Grok generated a real, useful list. It also invented the "Owl Gate (3 Lenses)" and presented it as canonical. The audit caught it through the same operation ARD was built around — refuse the first satisfying answer; attack the conclusion; mark fiction.
+
+This is what tight boundary looks like in practice: not refusing the list, but reading it carefully and rejecting only the part that was fabricated.
+
+---
+
+## Single line
+
+> **Six new parameters absorbed. Seven duplicates declined. One [SYNTHETIC] forgery caught. One new parameter (Perspective Frame) added from the Kruskal diagram. LEAN structure holds.**
+
+---
+
+*The Kruskal diagram was the right reality-check. Physics has actual answers. Either you see the diagram correctly or you don't. The engine that decoded it correctly is the engine that should be running.*

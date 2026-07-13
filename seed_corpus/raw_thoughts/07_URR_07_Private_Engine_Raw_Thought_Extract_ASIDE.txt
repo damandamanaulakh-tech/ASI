@@ -1,0 +1,132 @@
+# URR-07 Private Engine — Raw Thought Extraction ASIDE
+
+> ASIDE FILE — not added to live project structure.
+>
+> Coverage note: This extraction is based on the available project context, current chat history, memory, and retrieved File Library snippets. I did not invent missing sexual content; no explicit sexual project point was visible in the retrieved project context. Where wording is reconstructed, it is marked as reconstructed.
+
+
+Project role: Private engine / library layer for reality path, wild/personal theory path, classification, Sourceborn sequence path, proof loop, contradiction loop, mystery loop, invention loop, and data bank.
+
+Status used for this extraction: Private/test/control layer; not public product.
+
+
+---
+
+**Raw Thought 01 — Private Engine Boundary**
+
+**Definition:** URR-07 is private engine, not public product output.
+**User said / meant:** You separated URR-07 from Appropriate/verifyAi: URR-07 can hold deeper private logic, while public extraction happens only when asked.
+**Emotional Tone:** Protective, boundary-focused.
+**Core Belief:** Private engine should power output without exposing itself.
+**Key Quote:** “URR-07 core and private logic must not be exposed.”
+**Assistant answered:** I treated URR-07 as private engine and public product as separate.
+**How the answer changed:** The answer changed from shared workflow to private/public split.
+**Intent:** Protect sensitive logic while still enabling product tests.
+**Hidden Layer:** Hidden layer: source protection and control of disclosure.
+**Best Outcome:** Clean distinction between internal engine and external product.
+**Risk / Downside:** Can create double-work if not mapped well.
+**Theory Value:** Power / AI / IP / Product
+**Connection:** Connects to verifyAi RT06, URR RT04.
+**Personal Stake:** High
+**Actionability:** Keep URR-07 internal unless user asks.
+
+**Raw Thought 02 — Reality Path and Wild Path**
+
+**Definition:** Private engine can hold both practical reality and wild theory.
+**User said / meant:** You wanted URR-07 to include Reality Path, Wild/Personal Theory Path, Classification Path, Sourceborn Sequence Path, Proof Loop, Contradiction Loop, Mystery Loop, Invention Loop, and Data Bank.
+**Emotional Tone:** Expansive, experimental, layered.
+**Core Belief:** Different thought modes need different paths.
+**Key Quote:** [reconstructed] “Private engine can hold wild and real paths separately.”
+**Assistant answered:** I recognized these as lanes inside URR-07, not public product modules.
+**How the answer changed:** The answer changed from one verification protocol to multi-lane private engine.
+**Intent:** Allow private theory exploration without contaminating public output.
+**Hidden Layer:** Hidden layer: personal and ideological material need safe containment.
+**Best Outcome:** More flexible engine for complex raw source.
+**Risk / Downside:** Can become too broad without strict routing.
+**Theory Value:** Psychology / AI / Philosophy
+**Connection:** Connects to Sourceborn RT03, Unreal RT04.
+**Personal Stake:** High
+**Actionability:** Use lane labels before extracting output.
+
+**Raw Thought 03 — Carry-Forward Control**
+
+**Definition:** Do not carry forward everything unless needed.
+**User said / meant:** You confirmed default carry-forward should be No, used only when chats become long, core changes, major sequence changes, test batches close, or you ask.
+**Emotional Tone:** Efficiency-focused, anti-confusion.
+**Core Belief:** Memory should be controlled, not automatic.
+**Key Quote:** “default Carry-forward = No.”
+**Assistant answered:** I treated carry-forward as conditional, not automatic.
+**How the answer changed:** The answer changed from always preserving context to controlled continuation.
+**Intent:** Prevent memory/file bloat and confusion.
+**Hidden Layer:** Hidden layer: too much saved material caused project drift.
+**Best Outcome:** Cleaner future chats and fewer accidental rules.
+**Risk / Downside:** Important context may be missed if not carried forward.
+**Theory Value:** Workflow / AI Memory / Project Control
+**Connection:** Connects to Unreal RT07.
+**Personal Stake:** Medium
+**Actionability:** Carry forward only on trigger conditions.
+
+**Raw Thought 04 — Result Stop Rule**
+
+**Definition:** After results, pause instead of expanding scope.
+**User said / meant:** You wanted result handling to stop after pass/hold and not auto-run the next test or create new files.
+**Emotional Tone:** Control-oriented, fatigue-aware.
+**Core Belief:** Stopping is part of safe workflow.
+**Key Quote:** “Result Stop Rule active.”
+**Assistant answered:** I treated external results as terminal checkpoints unless next action is approved.
+**How the answer changed:** The answer changed from helping continuously to controlled pause.
+**Intent:** Avoid scope creep.
+**Hidden Layer:** Hidden layer: assistant over-helping creates mess.
+**Best Outcome:** Safer, lighter testing loop.
+**Risk / Downside:** May require more user prompts for continuation.
+**Theory Value:** Workflow / AI Control
+**Connection:** Connects to URR RT08, verifyAi RT05.
+**Personal Stake:** Medium
+**Actionability:** After result, output status and next only.
+
+**Raw Thought 05 — Weekend as Controlled Shift**
+
+**Definition:** Weekend means reduced pressure, not full stop.
+**User said / meant:** You used weekend planning as a template: reset, light progress, exploration, avoid deep builds and major decisions.
+**Emotional Tone:** Balanced, self-management-focused.
+**Core Belief:** Progress should continue without burnout.
+**Key Quote:** “Weekend ≠ Full Stop. Weekend = Controlled Shift.”
+**Assistant answered:** I structured Weekend Plans as a repeatable URR-07 library template.
+**How the answer changed:** The answer changed from casual weekend planning to controlled recovery/progress model.
+**Intent:** Maintain direction without overload.
+**Hidden Layer:** Hidden layer: productivity must respect mental reset.
+**Best Outcome:** Reusable planning framework for low-pressure days.
+**Risk / Downside:** Can become another file instead of actual rest.
+**Theory Value:** Psychology / Productivity / Human Nature
+**Connection:** Connects to Weekend Plans RT02.
+**Personal Stake:** Medium
+**Actionability:** Use for planning, not heavy build.
+
+**Raw Thought 06 — External AI Rulebook**
+
+**Definition:** External prompts need neutral wording and hidden private names.
+**User said / meant:** You wanted a rulebook for Grok/external tests that asks neutral suitability questions without exposing Appropriate/URR-07 private terms.
+**Emotional Tone:** Strategic, careful.
+**Core Belief:** Testing another AI should not leak the system.
+**Key Quote:** “Paste in external AI chat.”
+**Assistant answered:** I created destination labeling and public-safe external prompt style.
+**How the answer changed:** The answer changed from direct project naming to neutral external testing.
+**Intent:** Gather external judgments safely.
+**Hidden Layer:** Hidden layer: benchmark without disclosure.
+**Best Outcome:** Useful comparison evidence for product direction.
+**Risk / Downside:** External AI may still infer or distort intent.
+**Theory Value:** AI / Product Testing / Power
+**Connection:** Connects to URR RT06, verifyAi RT01.
+**Personal Stake:** Medium
+**Actionability:** Use redacted external prompts only.
+
+---
+
+## Extraction Self-Check
+
+- File is ASIDE only; not added to live project.
+- Private Sourceborn / Final Theory / URR logic is not marked public.
+- Sourceborn Sequence v0.1 is not changed.
+- Mystery and Invention are preserved where relevant.
+- Review-stage concepts are not marked final.
+- No explicit sexual material was invented where source context did not show it.

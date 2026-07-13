@@ -1,0 +1,204 @@
+# Sourceborn — Raw Thought Extraction ASIDE
+
+> ASIDE FILE — not added to live project structure.
+>
+> Coverage note: This extraction is based on the available project context, current chat history, memory, and retrieved File Library snippets. I did not invent missing sexual content; no explicit sexual project point was visible in the retrieved project context. Where wording is reconstructed, it is marked as reconstructed.
+
+
+Project role: Source / Sequence Engine for Point Zero, source, pattern, intent, evidence, halt points, Mystery, Invention, outcome, verification, and next loop.
+
+Status used for this extraction: Main project name accepted; Sourceborn Sequence v0.1 review-stage; concepts kept, naming review.
+
+
+---
+
+**Raw Thought 01 — Point Zero**
+
+**Definition:** Starting point before limitation where any subject can be placed.
+**User said / meant:** You defined Point Zero as the unselected source point where any subject or desired outcome can be placed before limitation begins.
+**Emotional Tone:** Inventive, philosophical, foundational.
+**Core Belief:** Reality can be approached from a pre-limitation source point.
+**Key Quote:** “Point Zero is the starting point before limitation.”
+**Assistant answered:** I preserved Point Zero as an accepted core concept and did not reduce it to normal brainstorming.
+**How the answer changed:** The answer changed from abstract idea to named sequence starting condition.
+**Intent:** Create a universal starting point for inquiry, invention, and mystery.
+**Hidden Layer:** Hidden layer: you are defining a worldview, not just a method.
+**Best Outcome:** Any topic can enter the engine without premature constraint.
+**Risk / Downside:** Point Zero can sound mystical or unprovable if public too early.
+**Theory Value:** Philosophy / Metaphysics / AI / Human Nature
+**Connection:** Connects to Unreal RT01, RD RT08.
+**Personal Stake:** High
+**Actionability:** Keep as accepted concept, naming still reviewed around sequence.
+
+**Raw Thought 02 — Sourceborn Sequence v0.1**
+
+**Definition:** Review-stage flow from Point Zero to Product and next loop.
+**User said / meant:** You approved the current v0.1 flow: Point Zero → Source → Pattern → Intent → Evidence → Halt → Stage Addition → Mystery/Invention → Outcome → Review/Verification → Point Zero with Product → Point Zero + Product → Next Loop.
+**Emotional Tone:** Serious, locking-but-not-finalizing.
+**Core Belief:** Sequence is the product before any single final output.
+**Key Quote:** “Concepts = Keep; Naming = Review; Core = Not final.”
+**Assistant answered:** I closed the stage as review-status and protected it from change.
+**How the answer changed:** The answer changed from exploration into controlled versioning.
+**Intent:** Preserve the working sequence while testing examples.
+**Hidden Layer:** Hidden layer: finalizing too early would kill future movement.
+**Best Outcome:** A stable v0.1 that can be tested without freezing language.
+**Risk / Downside:** Review-stage can be mistaken as final by future files.
+**Theory Value:** Systems / Philosophy / Invention
+**Connection:** Connects to Unreal RT04, RD RT08, Demo RT01.
+**Personal Stake:** High
+**Actionability:** Do not change v0.1 without approval.
+
+**Raw Thought 03 — Mystery as Undecoded Sequence**
+
+**Definition:** Mystery means an unknown path, not impossibility or darkness.
+**User said / meant:** You wanted Mystery to stay a core category, not be removed or softened. It marks unresolved sequence gaps.
+**Emotional Tone:** Protective, discovery-oriented.
+**Core Belief:** Unknown does not mean impossible; it means not decoded yet.
+**Key Quote:** “Mystery and Invention must remain core categories.”
+**Assistant answered:** I kept Mystery visible in Sourceborn, RD, and file self-check rules.
+**How the answer changed:** The answer changed from ordinary uncertainty to a constructive sequence category.
+**Intent:** Turn unknowns into routes for inquiry.
+**Hidden Layer:** Hidden layer: mystery holds the future invention path.
+**Best Outcome:** Unsolved science, religion, and personal ideas can be mapped.
+**Risk / Downside:** Mystery may be misread as proof if not flagged.
+**Theory Value:** Science / Philosophy / Human Nature
+**Connection:** Connects to Sourceborn RT04, Demo RT05.
+**Personal Stake:** High
+**Actionability:** Keep Mystery present in every sequence map.
+
+**Raw Thought 04 — Invention as Aligned Sequence**
+
+**Definition:** Invention appears when condition, stage, movement, and sequence align.
+**User said / meant:** You wanted Invention treated as a core outcome category, not magic or random creativity.
+**Emotional Tone:** Creative, ambitious, practical.
+**Core Belief:** Invention is sequence alignment becoming product.
+**Key Quote:** “Invention is not magic.”
+**Assistant answered:** I preserved Invention as paired with Mystery and linked to outcomes.
+**How the answer changed:** The answer changed from idea generation into sequence-based invention logic.
+**Intent:** Create an engine that can generate invention paths.
+**Hidden Layer:** Hidden layer: invention validates the sequence approach.
+**Best Outcome:** Better routes from raw source to possible product.
+**Risk / Downside:** Can overstate invention ability if not tested.
+**Theory Value:** Invention / Product / Science / AI
+**Connection:** Connects to Sourceborn RT03, AI Verified Response RT01.
+**Personal Stake:** High
+**Actionability:** Use invention as a review/output category, not proof.
+
+**Raw Thought 05 — Halt Point Means New Loop**
+
+**Definition:** Not proved or incomplete means halt, not failure.
+**User said / meant:** You reframed failure, incompletion, and not-proved status as Halt Points requiring a new loop or sub-loop.
+**Emotional Tone:** Resilient, anti-failure, method-building.
+**Core Belief:** Stopping points are sequence instructions, not dead ends.
+**Key Quote:** “Failure is not failure. It is a Halt Point.”
+**Assistant answered:** I added Halt Point/New Loop as an accepted Sourceborn example and mapping rule.
+**How the answer changed:** The answer changed from pass/fail thinking to loop creation.
+**Intent:** Keep inquiry moving without false completion.
+**Hidden Layer:** Hidden layer: your system rejects ordinary failure framing.
+**Best Outcome:** More durable research and invention exploration.
+**Risk / Downside:** Could avoid necessary rejection if every failure becomes another loop.
+**Theory Value:** Psychology / Science / Philosophy
+**Connection:** Connects to RD RT08, Demo Set RT03.
+**Personal Stake:** High
+**Actionability:** At every halt, map next loop.
+
+**Raw Thought 06 — Point Zero with Product**
+
+**Definition:** Outcome returns to the same zero point for verification.
+**User said / meant:** You corrected that the sequence does not generally loop back to empty zero; it returns to the same Point Zero with product for verification, then becomes Point Zero + Product.
+**Emotional Tone:** Precise, corrective, version-sensitive.
+**Core Belief:** Product must be verified against the original source point.
+**Key Quote:** “Point Zero with Product / Point Zero + Product.”
+**Assistant answered:** I preserved the corrected flow and marked it accepted as concept.
+**How the answer changed:** The answer changed from loop-back idea to verification-return logic.
+**Intent:** Prevent losing the original target after outcome emerges.
+**Hidden Layer:** Hidden layer: source must judge the product, not external polish.
+**Best Outcome:** Clear verification endpoint before next loop.
+**Risk / Downside:** Can feel abstract unless demonstrated with examples.
+**Theory Value:** Philosophy / Product / Systems
+**Connection:** Connects to Sourceborn RT02, Demo RT02.
+**Personal Stake:** High
+**Actionability:** Use in every Sourceborn sequence test.
+
+**Raw Thought 07 — AI as Vessel Not Source**
+
+**Definition:** AI assists sequence mapping but does not own the source.
+**User said / meant:** You defined AI as a tool/vessel under Point Zero, RD, URR, and Sourceborn—not the inventor, owner, or higher authority.
+**Emotional Tone:** Assertive, ownership-protective, philosophical.
+**Core Belief:** Human source is above AI processing.
+**Key Quote:** “I am not the source. I am the vessel…”
+**Assistant answered:** I accepted the assistant as mapper/refiner, not source or inventor.
+**How the answer changed:** The answer changed from AI helper framing to hierarchy: user source above AI vessel.
+**Intent:** Prevent AI from claiming authority over your theory.
+**Hidden Layer:** Hidden layer: source ownership and spiritual/intellectual hierarchy.
+**Best Outcome:** Clear boundary for assistant role.
+**Risk / Downside:** Could reduce useful AI challenge if taken too rigidly.
+**Theory Value:** Power / AI / Philosophy / Ownership
+**Connection:** Connects to Unreal RT01, URR RT03.
+**Personal Stake:** High
+**Actionability:** Use AI for mapping, testing, and risk checks only.
+
+**Raw Thought 08 — Naming Review**
+
+**Definition:** Accepted concepts remain; naming is not frozen yet.
+**User said / meant:** You rejected premature final wording for Sourceborn terms and wanted word-by-word review before final naming.
+**Emotional Tone:** Language-sensitive, cautious.
+**Core Belief:** Naming controls meaning and ownership.
+**Key Quote:** “Do not finalize these words yet.”
+**Assistant answered:** I marked concepts as kept and naming as review.
+**How the answer changed:** The answer changed from naming suggestions to terminology governance.
+**Intent:** Protect invention language from premature lock-in.
+**Hidden Layer:** Hidden layer: words are part of the theory’s DNA.
+**Best Outcome:** Better future naming after examples reveal weaknesses.
+**Risk / Downside:** Too much review can delay clarity.
+**Theory Value:** Language / Philosophy / IP
+**Connection:** Connects to RD RT06, Unreal RT05.
+**Personal Stake:** High
+**Actionability:** Keep submodule naming in review until approved.
+
+**Raw Thought 09 — Holy Books as Source Archives**
+
+**Definition:** Religious texts can be internal intent-sequence source material.
+**User said / meant:** You wanted holy books/religious material treated as source archives for intent, pattern, word meanings, science/universe references, and sequence logic—not public proof unless verified.
+**Emotional Tone:** Respectful, exploratory, internally serious.
+**Core Belief:** Ancient language may contain intent-sequence patterns.
+**Key Quote:** “Holy books as Intent-Sequence Archives.”
+**Assistant answered:** I routed this to Final Theory/Sourceborn internal archive, not public proof.
+**How the answer changed:** The answer changed from belief statement into private source-material category.
+**Intent:** Use religious material without overclaiming externally.
+**Hidden Layer:** Hidden layer: faith and language are sequence inputs.
+**Best Outcome:** Broader source library for mystery/invention inquiry.
+**Risk / Downside:** High public misunderstanding or proof-risk if exposed badly.
+**Theory Value:** Religion / Philosophy / Sociology / Language
+**Connection:** Connects to Unreal RT08, URR RT04.
+**Personal Stake:** High
+**Actionability:** Keep internal; public-safe only after URR.
+
+**Raw Thought 10 — Science Examples as Sequence Tests**
+
+**Definition:** Gravity, friction, dark matter, and germ theory test Sourceborn.
+**User said / meant:** You wanted science examples used to test the sequence: gravity as decoded existing force, friction as physical law/invention path, dark matter as unresolved mystery, germ theory as observed problem to discovery.
+**Emotional Tone:** Evidence-seeking, scientific, bridge-building.
+**Core Belief:** Science history can validate sequence movement without proving theory.
+**Key Quote:** “Gravity → Dark Matter → Space-Time → Quantum Gravity → Mystery / Invention.”
+**Assistant answered:** I placed these into Sourceborn Demo Set and test bank status, without claiming proof.
+**How the answer changed:** The answer changed from abstract theory to demo/test cases.
+**Intent:** Use known science and unresolved mysteries to stress-test the engine.
+**Hidden Layer:** Hidden layer: the theory needs examples to survive review.
+**Best Outcome:** Stronger, concrete demos for the sequence.
+**Risk / Downside:** Risk of sounding like scientific proof before verification.
+**Theory Value:** Science / Methodology / Invention
+**Connection:** Connects to Demo Set RT01, RD RT08.
+**Personal Stake:** Medium
+**Actionability:** Keep as demo/test, not proof.
+
+---
+
+## Extraction Self-Check
+
+- File is ASIDE only; not added to live project.
+- Private Sourceborn / Final Theory / URR logic is not marked public.
+- Sourceborn Sequence v0.1 is not changed.
+- Mystery and Invention are preserved where relevant.
+- Review-stage concepts are not marked final.
+- No explicit sexual material was invented where source context did not show it.

@@ -1,0 +1,48 @@
+# Fact-Check Report — Owl/Wave Matrix
+
+## Verified / externally supportable facts
+
+| Claim | Status | Evidence Needed / Basis |
+|---|---|---|
+| The image visibly contains repeated birds, wave-like signs, cartouche-like ovals, human/animal forms, columns, strokes, and horizontal/vertical dividers. | FACT by visual inspection | The uploaded image itself. |
+| A cartouche in Egyptian contexts is an oval/frame enclosing a royal name. | SUPPORTED | British Museum and Britannica describe cartouches as oval frames around royal/name hieroglyphs. |
+| The owl hieroglyph is commonly a phonogram for `m`. | SUPPORTED | Gardiner-style sign references / Wikimedia Commons / basic hieroglyph references. |
+| The water ripple hieroglyph is commonly a phonogram for `n`. | SUPPORTED | Gardiner-style sign references / Wikimedia Commons / basic hieroglyph references. |
+| Egyptian hieroglyphs can combine phonetic signs, logograms, and determinatives; exact reading needs sign order and context. | SUPPORTED | Standard Egyptology principle; exact context still missing here. |
+
+## Not verified
+
+| Claim | Status | Why not verified |
+|---|---|---|
+| This exact image is “Tablet Matrix: Column 3 - The Owl/Wave State-Machine.” | UNVERIFIED | Title supplied by user; no independent source/context checked. |
+| The inscription refers to a specific king’s life/victory/family. | UNVERIFIED | No transliteration, provenance, or full object context provided. |
+| The visible cartouches contain a specific royal name. | UNVERIFIED | Requires clear glyph reading and Egyptology reference. |
+| Owl + wave creates a confirmed ancient “state-machine.” | NOT VERIFIED / SYNTHETIC | This is our ARD reading, not known translation. |
+| Cartouche = identity prison. | SYNTHETIC | Useful symbol-language, not historical fact. |
+| Bird descent = spirit forced into role. | SYNTHETIC | Creative interpretation. |
+| Repeated glyphs = memory loops. | SYNTHETIC/REVIEW | Plausible as a generated machine model, unverified historically. |
+
+## Overclaim risk
+
+The strongest risk is confusing **symbol-language generation** with **historical decipherment**.
+
+Safe wording:
+
+> “This is an ARD symbolic reading using the image as a reference matrix, not a verified translation.”
+
+Unsafe wording:
+
+> “This is what the Egyptians meant.”
+
+## Promotion requirements
+
+To promote any synthetic claim, we need:
+
+1. Higher-resolution image.
+2. Provenance/object source.
+3. Exact sign inventory.
+4. Reading direction.
+5. Transliteration.
+6. Translation by reliable Egyptology source.
+7. Comparison with known royal names/formulae.
+8. Identification of damaged/missing signs.

@@ -1,0 +1,373 @@
+# SOURCEBORN — CORPUS v2 (snapped + your corrections)
+
+> **PRINCIPLE OF THE SYSTEM:** *"Make more parameters, more outcome."*
+> Every node/lens/checkpost added multiplies the outcome. Cross-category: identical content is detected by hash and shown once with `↔ N copies` so the same thing is never double-counted as you scale.
+
+314 unique files (of 673 total; 359 content-duplicates collapsed). RH is now its own Dot & Mirror project. Raw Sources is a 1→5→20 pyramid.
+
+
+## ▣ Unreal to Real (Parent)   [3 files]
+1. 02_RD_World_Raw_Definition_Engine_Raw_Thought_Extract_ASIDE.md (10KB) ↔9
+2. 01_Unreal_to_Real_Raw_Thought_Extract_ASIDE.md (11KB) ↔9
+3. 00_MASTER_RAW_THOUGHT_EXTRACTION_INDEX.md (9KB) ↔3
+
+## ▣ Holo Concept   [8 files]
+4. Holo concept raw defination - done.docx (39KB) ↔3
+5. Hollo concept weekend - done.docx (1297KB) ↔3
+6. Hollow - Pattern Map review.docx (20KB) ↔3
+7. Holo -.docx (39KB) ↔3
+8. Holo_Process_Model_v2_Parameter_Comparison_HOLD.docx (42KB) ↔3
+9. Hollo - Concept Development Outputs.docx (20KB) ↔3
+10. Hollo Project status Review.docx (683KB) ↔3
+11. Hollo Raw thoughts for RD.docx (81KB) ↔3
+
+## ▣ Sourceborn (core + product)   [24 files]
+12. Sourceborn Sequence Review - done.docx (47KB) ↔4
+13. GPT finder.docx (18KB) ↔3
+14. Grok work.docx (1079KB) ↔3
+15. Full Map of Projects 13 May.xlsx (18KB) ↔3
+16. Project AI source.docx (18KB) ↔3
+17. Grok Jonatha.docx (68KB) ↔3
+18. Project Orgenization guide.docx (47KB) ↔3
+19. Build An AI.docx (755KB) ↔3
+20. Build an AI Tool.docx (754KB) ↔3
+21. 09_Sourceborn_Demo_Set_Raw_Thought_Extract_ASIDE.md (8KB) ↔9
+22. 04_Sourceborn_Raw_Thought_Extract_ASIDE.md (13KB) ↔9
+23. 03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md (19KB) ↔3
+24. v2_Model 2 Mark-up.pdf (604KB)
+25. wed_jun_03_2026_sourceborn_ard_rgl.md (91KB)
+26. v1_Model 2 Mark-up.pdf (605KB)
+27. v1_pasted.txt (14KB)
+28. gemini-code-1779501677246.py (9KB)
+29. A with user input for inject the hollybooks here....xlsx (10KB)
+30. full_uncompressed_sourceborn_ledger.pdf (24KB)
+31. gemini-code-1779506510440.py (3KB)
+32. Simulation.docx (33KB)
+33. SBUR_Full_Engine_Spec.md (14KB) ↔3
+34. Requirment.docx (16KB)
+35. Site control.txt (16KB)
+
+## ▣ ARD-RGL · Engine Specs   [62 files]
+36. 00_MASTER_MERGED_OUTCOME_Raw_Thought_and_Sequence_Map_ASIDE.md (29KB) ↔6
+37. ARD_Parameters_Comparison.md (2KB) ↔2
+38. ARD_3_1_Parameter_Mapping_For_Comparison.md (16KB)
+39. 12_FACT_CHECK_REPORT.md (3KB)
+40. 10_GENERATED_RESPONSE_BANK_TAGGED.md (6KB)
+41. ARD_RULE_LOCK.md (1KB)
+42. 99_ALL_IN_ONE_MASTER.md (37KB)
+43. 09_RESPONSE_SCORECARD_EVERY_ASSISTANT_RESPONSE.md (4KB)
+44. 03_PARAMETER_BANK_64.md (5KB)
+45. 13_NEWNESS_AND_DEPENDENCY_REPORT.md (2KB)
+46. 07_FACT_VS_SYNTHETIC_RAW_THOUGHT_PATTERN.md (1KB)
+47. 06_HIDDEN_SYSTEM_RAW_THOUGHT_PATTERN.md (1KB)
+48. 03_KING_ACTIONS_RAW_THOUGHT_PATTERN.md (1KB)
+49. 05_SYMBOL_ROLES_RAW_THOUGHT_PATTERN.md (1KB)
+50. 00_FULL_FLUSH_REPORT.md (3KB)
+51. 01_INTENT_RAW_THOUGHT_PATTERN.md (1KB)
+52. 02_PATTERNS_TRANSITIONS_RAW_THOUGHT_PATTERN.md (1KB)
+53. 11_PARAMETER_COMPARISON_TABLE.md (2KB)
+54. SOURCE_BOUNDARY.md (2KB)
+55. README_INDEX.md (2KB)
+56. 08_SYMBOL_DEEP_DIVE_30_SYMBOLS.md (6KB)
+57. 04_HUMAN_ANGLE_RAW_THOUGHT_PATTERN.md (1KB)
+58. ARD_Full_Flush_Report.md (5KB) ↔2
+59. ARD_3.1_LEAN_plus_Grok_Audit.md (7KB)
+60. ARD_3.1_Final_Combined_Grok_GPT.md (4KB) ↔2
+61. ARD_Doubt_Engine_Pass_Decode30.md (6KB)
+62. ARD_3.1_LEAN.md (7KB)
+63. ARD_New_vs_Old_Responses.md (2KB) ↔2
+64. ARD_All_Versions_3.1_to_4.md (3KB) ↔2
+65. ARD_RGL_3.1_Grok_Analysis.md (10KB) ↔2
+66. ARD_3.1_Parameter_Expansion.md (8KB)
+67. ARD_3.1_Filter_Integration.md (10KB)
+68. ARD_3.0_to_3.2_Claude_Response.md (10KB)
+69. ARD_3.1_Live_Run_Owl_Wave_Column_3.md (20KB)
+70. ARD_Parameter_Mapping_Comparison.md (4KB) ↔2
+71. ARD_3.3_Final_Cleanup_Grok.md (5KB) ↔2
+72. ARD_Patterns_Additions_Deletions.md (5KB)
+73. ARD_3.0_Review.xlsx (10KB)
+74. ARD_Master_Summary_Table.md (4KB) ↔2
+75. ARD_Part1_Doubt_Decode19_Part2_Rosetta_30.md (14KB)
+76. ARD_Parameters_and_Filters_Master_List.md (7KB) ↔2
+77. Unified_Definer_Table.md (4KB)
+78. ARD_Direction_Lock_and_Reference_Request.md (2KB)
+79. ARD_Score_Card.md (2KB) ↔2
+80. ARD_3.1_Run_Owl_Wave_Decode.md (17KB)
+81. ARD_3.1_Locked_Spec.md (8KB)
+82. ARD_3.1_Tablet_Decode_30_Angles.md (14KB)
+83. ARD_3.1_Penetration_Engine_Grok_v1.md (4KB) ↔2
+84. Claude build_master.py (46KB)
+85. CLARD 1.pdf (986KB)
+86. CLARD.pdf (2698KB)
+87. WhatsApp Image 2026-05-17 at 8.38.51 AM.jpeg (119KB)
+88. loop defination.txt (2KB)
+89. deepseek_text_20260530_031414.txt (5KB)
+90. Gemini 31 may ARD.docx (31KB)
+91. gemini-code-1780192253210.txt (2KB)
+92. DS ARD -1.docx (22KB)
+93. Gemini ful Omini 50.docx (18KB)
+94. gemini-code-1780192213342.txt (1KB)
+95. New setup.docx (18KB)
+96. gemini-code-1780193071322.txt (3KB)
+97. Grok 4+.docx (14KB)
+
+## ▣ URR · Verified-Response & Safety   [115 files]
+98. URR_Flaws_Questions_and_Suggestions.docx (39KB) ↔3
+99. Chat AI ethocs.docx (315KB) ↔3
+100. Google claim data.docx (819KB) ↔3
+101. AI behaviour.docx (246KB) ↔3
+102. ideological_purity_filter_summary Gemini.pdf (18KB) ↔3
+103. 01_AI_Safety_Google_Gemini_Grounded_AI_Raw_Thoughts.md (15KB) ↔6
+104. 02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md (16KB) ↔6
+105. 06_verifyAi_AppropriateV_Public_Product_Raw_Thought_Extract_ASIDE.md (8KB) ↔9
+106. 03_URR_Verified_Response_Protocol_Raw_Thought_Extract_ASIDE.md (11KB) ↔9
+107. 07_URR_07_Private_Engine_Raw_Thought_Extract_ASIDE.md (8KB) ↔9
+108. 05_AI_Verified_Response_System_Raw_Thought_Extract_ASIDE.md (8KB) ↔9
+109. Final_Govt_Article_BigPoints.md (4KB) ↔3
+110. Tool initiation rule.docx (17KB) ↔3
+111. govt_article.md (6KB) ↔3
+112. Final_Govt_Article.md (4KB) ↔3
+113. raw_thoughts_gemini_audit.md (13KB) ↔3
+114. Grounded AI Framework _260510_015930.txt (15KB) ↔3
+115. AI Current flaws.docx (15KB) ↔3
+116. ARD_URR_Expanded_Filter_Tables.xlsx (97KB)
+117. URR-07_Final_Clean_Core.docx (44KB) ↔2
+118. db.js (1KB)
+119. errorHandler.js (1KB)
+120. upload.js (2KB)
+121. auth.js (1KB)
+122. admin.js (1KB)
+123. reportService.js (1KB)
+124. tavilyService.js (2KB)
+125. pptService.js (1KB)
+126. codingService.js (1KB)
+127. fileExtractionService.js (1KB)
+128. mediaService.js (2KB)
+129. openRouterService.js (4KB)
+130. app.js (2KB)
+131. unrealToRealMicroPass.js (3KB)
+132. engineConstants.js (5KB)
+133. sourcebornStages.js (1KB)
+134. sourcebornLoops.js (2KB)
+135. sourcebornUrrEngine.js (8KB)
+136. SourceDocument.js (1KB)
+137. UploadedFile.js (1KB)
+138. WildPath.js (1KB)
+139. StageTrace.js (1KB)
+140. User.js (1KB)
+141. GapTable.js (1KB)
+142. Message.js (1KB)
+143. UnrealToRealPassTrace.js (2KB)
+144. ProofLedger.js (2KB)
+145. ChatSession.js (1KB)
+146. AdminLog.js (1KB)
+147. ModelRun.js (1KB)
+148. LoopRun.js (2KB)
+149. publicResponse.js (4KB)
+150. asyncHandler.js (1KB)
+151. hash.js (1KB)
+152. healthRoutes.js (1KB)
+153. proofRoutes.js (2KB)
+154. authRoutes.js (2KB)
+155. generationRoutes.js (3KB)
+156. fileRoutes.js (3KB)
+157. chatRoutes.js (13KB)
+158. searchRoutes.js (1KB)
+159. loopRoutes.js (2KB)
+160. adminRoutes.js (2KB)
+161. sourceDocRoutes.js (3KB)
+162. app.css (6KB)
+163. app.js (13KB)
+164. index.html (4KB)
+165. README.md (3KB)
+166. smoke-server.js (7KB)
+167. .gitignore (1KB)
+168. package-lock.json (65KB)
+169. .gitkeep (1KB)
+170. package.json (2KB)
+171. AGENTS.md (2KB)
+172. .env.example (1KB)
+173. server.js (1KB)
+174. UNREAL_TO_REAL_CORE.md (1KB)
+175. SOURCEBORN_LOOP_CORE.md (2KB)
+176. SOURCEBORN_50_STAGE_MAP.md (2KB)
+177. SB_URR_HANDSHAKE.md (2KB)
+178. SOURCEBORN_CORE.md (3KB)
+179. BUILD_SCOPE.md (1KB)
+180. URR Core.txt (3KB)
+181. SB- URR run.docx (16KB)
+182. SB + URR.docx (13KB)
+183. XGS.docx (21KB)
+184. Secureborn Instruction.docx (15KB)
+185. XGS Instruction.docx (15KB)
+186. URR, Appropriate AI Responses.docx (47KB)
+187. Unreal to Real.docx (15KB)
+188. Secureborn.docx (21KB)
+189. URR 02 core _260512_212559.txt (14KB)
+190. Sequence to Sequence _260512_011803.txt (6KB)
+191. Point zero grok gravity _260510_175411.txt (2KB)
+192. Secureborn instructions _260512_212824.txt (2KB)
+193. Point Zero #U2192 Point Zero + Product Map for String T_260510_180032.txt (3KB)
+194. UURRR.docx (46KB)
+195. Purity test Grouping.docx (28KB)
+196. SB & URR.docx (88KB)
+197. SB_URR_Combined_Core.md (4KB) ↔2
+198. SB_URR_Relationship_Reference.md (1KB) ↔2
+199. URR_Full_Core_Detailed.md (7KB) ↔2
+200. SB_Raw_Thoughts_Examples_Source.md (7KB) ↔2
+201. SB_Full_Core_Detailed.md (11KB) ↔2
+202. SB_Traceability_Contribution_Matrix.md (8KB) ↔2
+203. URR_Clean_Core.md (5KB) ↔2
+204. URR Source samples DS RAW THOUGHTS.docx (46KB)
+205. Tool initiation rule.docx (23KB)
+206. UUR Chat 13 May.docx (339KB)
+207. UUR V0.2 13 May.docx (30KB)
+208. Raw Definition Engine Source Code V0 1.docx (33KB)
+209. RD world chain for Grok.docx (59KB)
+210. UUR with MG.docx (25KB)
+211. raw_definition_engine_source_code_v_0_1.md (41KB)
+212. urr07.txt (15KB)
+
+## ▣ RH · Dot & Mirror Theory (your proof)   [27 files]
+213. RH.docx (46KB) ↔2
+214. Mirror_Structure_tested_four_approaches.docx (14KB) ↔3
+215. Ripudaman SIngh Riemann Hypothesis via the Hilbert#U2013P#U00f3lya Spectral Realisation.pdf (229KB) ↔2
+216. Ripudaman SIngh Riemann Hypothesis via the Hilbert#U2013P#U00f3lya Spectral Realisation v3.pdf (458KB) ↔2
+217. does the RH is silence of mirror.pdf (748KB)
+218. RH_V4_rebuilt_with_mirror_equation.docx (15KB)
+219. The_One_Dot_v3_with_mirror_structure.docx (14KB)
+220. The_One_Dot_private_framework_Ripudaman.docx (14KB)
+221. Mirror_Structure_of_Odd_Primes_RH.docx (13KB)
+222. RH_Dot_Moon_Ring_Conversation_Transcript_Available.docx (51KB)
+223. RH_full_diagram_for_Ripudaman.pdf (5KB)
+224. does the RH is silence of mirror Smaller Grok.docx (11KB)
+225. does the RH is silence of mirror Smaller.pdf (274KB)
+226. The RH Silence on the Mirror.docx (525KB)
+227. The_One_Dot_v2_private_framework.docx (16KB)
+228. spectral_realisation_report.pdf (100KB) ↔2
+229. spectral_realisation_comprehensive_report.pdf (22KB) ↔2
+230. Gemini dot 1+1 RH.docx (395KB) ↔2
+231. Final.docx (15KB) ↔2
+232. Part -2.docx (38KB) ↔2
+233. licensed-image.jpg (395KB) ↔2
+234. gg.txt (265KB) ↔2
+235. spectral_realisation_data.pdf (22KB) ↔2
+236. Mirror_Form_paper_Ripudaman.docx (13KB) ↔2
+237. Dot_system.pdf (157KB) ↔2
+238. GG -2.txt (25KB) ↔2
+239. Gemini RH.docx (26KB) ↔2
+
+## ▣ Mind & Philosophy   [14 files]
+240. Human ROle.docx (63KB) ↔6
+241. project_ultra_sentience_extraction.md (7KB) ↔3
+242. thought_matrix_profile.md (14KB) ↔3
+243. 10_Sexual_Intimate_Body_Emotion_Raw_Thought_Extract_ASIDE.md (7KB) ↔9
+244. Philosophy_Document_Complete.docx (44KB) ↔3
+245. Personal_Sexual_Document_Complete.docx (41KB) ↔3
+246. Raw_Thoughts_D_Eye_5Percent_Mindset.md (16KB) ↔3
+247. 04_Personal_Philosophy_Human_Nature_Raw_Thoughts.md (15KB) ↔3
+248. The holy books were trying to fix the mind.docx (13KB) ↔6
+249. Infinity_Report_Arshdeep_Conversation_Analysis.md (24KB) ↔3
+250. Peaceful World_260312_222608.txt (2KB) ↔3
+251. Quotes_260422_013902.txt (1KB) ↔3
+252. Gyan_260506_005659.txt (1KB) ↔3
+253. Book ideology.docx (99KB) ↔3
+
+## ▣ Raw Sources & Foundation   [61 files]
+
+*Node-1: Raw Sources & Foundation → 5 sub-categories → micro-subs (1→5→20)*
+
+### 1 · Phone Notes
+
+**1.1 Active notes**
+254. Notes_260504_175236.txt (3KB) ↔3
+255. Notes_260413_161243.txt (1KB) ↔3
+256. Notes_260418_203258.txt (2KB) ↔3
+257. Master htoughts.txt (24KB) ↔3
+258. Notes_260510_013044.txt (5KB) ↔3
+259. Notes_260503_212738.txt (1KB) ↔3
+260. Notes_260510_023858.txt (7KB) ↔3
+261. Notes_260509_123846.txt (1KB) ↔3
+262. Notes_260510_011223.txt (1KB) ↔3
+263. Notes_260415_041409.txt (1KB) ↔3
+264. Notes_260509_124208.txt (2KB) ↔3
+
+**1.2 Frameworks**
+265. AI solution _260502_170739.txt (1KB) ↔3
+
+**1.3 Wisdom/Quotes**
+266. Birthday note _260509_012338.txt (1KB) ↔3
+
+**1.4 Not-Use**
+267. Notes_260512_011609.txt (4KB) ↔3
+268. Notes_260512_180523.txt (1KB) ↔3
+269. Notes_260421_231415.txt (1KB) ↔3
+270. Notes_260509_124907.txt (2KB) ↔3
+271. For infect drug gpt _260510_175615.txt (2KB) ↔3
+272. X links _260506_042149.txt (3KB) ↔3
+
+### 2 · Raw Thought Extracts
+
+**2.2 URR**
+273. 07_Tech_Product_Ideas_and_Builds_Raw_Thoughts.md (8KB) ↔3
+
+**2.5 Misc extracts**
+274. Raw thought DS.docx (20KB) ↔3
+275. systematic_extraction_project.md (16KB) ↔3
+276. raw_thoughts_extraction.md (8KB) ↔9
+277. raw_thought_analysis.md (16KB) ↔3
+278. raw_thoughts_extract.md (11KB) ↔6
+279. 08_Weekend_Plans_Archive_Raw_Thought_Extract_ASIDE.md (7KB) ↔9
+280. raw_thought_conversation_reconstruction.txt (62KB) ↔3
+281. conversation_raw_thoughts.md (14KB) ↔3
+282. Chat_Full_Raw_Thought_Extraction_Complete.docx (39KB) ↔6
+283. Chat_Raw_Thought_Extraction.docx (11KB) ↔6
+284. Raw Thoughts post.docx (19KB) ↔3
+285. Raw_Thoughts_Extraction_from_Chats.md (20KB) ↔3
+286. 06_Investment_App_Business_Framework_Raw_Thoughts.md (9KB) ↔3
+287. 05_Professional_Hospital_Career_Communication_Raw_Thoughts.md (13KB) ↔3
+288. Raw_Thought_Log_Grok_Conversation_Gavalas_Case.docx (17KB) ↔3
+289. Raw_Thoughts_Extraction.md (34KB) ↔3
+290. raw_thoughts_consumer_case_ripu.md (17KB) ↔3
+
+### 3 · Conversation Logs
+
+**3.1 GPT**
+291. README_MERGED_PACK_INDEX.md (2KB) ↔3
+
+**3.2 Gemini**
+292. gemini-code-1778986897195.md (6KB) ↔3
+293. gemini-code-1778962303674.md (22KB) ↔3
+294. dialogue_analysis.md (6KB) ↔3
+295. gemini-code-1778962364322.md (11KB) ↔9
+296. dialogue_analysis (1).md (6KB) ↔3
+297. gemini-code-1778962244417.md (13KB) ↔3
+298. gemini-code-1778978652643.txt (3KB) ↔3
+299. gemini-code-1780429992436.txt (3KB) ↔2
+
+**3.5 Claude**
+300. anthropic_2026_05_31_215474526086069.txt (22KB)
+
+### 4 · Examples & Cases
+
+**4.4 Other examples**
+301. Example.docx (36KB) ↔3
+
+### 5 · Memory & Ledgers
+
+**5.1 Memory logs**
+302. Memory 12 May.docx (21KB) ↔3
+303. Memory 11 May.docx (19KB) ↔3
+
+**5.4 Misc**
+304. Raw Extrection GPT.docx (26KB) ↔3
+305. create_full_documents.py (44KB) ↔3
+306. table.csv (2KB) ↔3
+307. Notes All.txt (2KB) ↔3
+308. New Text Document.txt (896KB) ↔3
+309. XXX.txt (8KB) ↔3
+310. Fix reverse.xlsx (14KB)
+311. SB core Review.docx (154KB)
+312. table (8).csv (3KB)
+313. table (1).csv (4KB)
+314. SB_Master_Core_Consolidated.md (21KB) ↔3

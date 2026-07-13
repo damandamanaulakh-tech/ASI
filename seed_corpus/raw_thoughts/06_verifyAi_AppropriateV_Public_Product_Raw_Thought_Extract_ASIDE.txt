@@ -1,0 +1,132 @@
+# verifyAi / Appropriate V — Raw Thought Extraction ASIDE
+
+> ASIDE FILE — not added to live project structure.
+>
+> Coverage note: This extraction is based on the available project context, current chat history, memory, and retrieved File Library snippets. I did not invent missing sexual content; no explicit sexual project point was visible in the retrieved project context. Where wording is reconstructed, it is marked as reconstructed.
+
+
+Project role: Public product/testing layer for suitable, safe, clear, usable, factual AI response evaluation.
+
+Status used for this extraction: Active in review/testing; Appropriate V naming/work used in recent tests; verifyAi is the project/product direction.
+
+
+---
+
+**Raw Thought 01 — Public Suitability Gate**
+
+**Definition:** Answers should be suitable, safe, clear, usable, factual.
+**User said / meant:** You wanted Appropriate V / verifyAi to judge whether an answer is appropriate without exposing private project names or inner theory.
+**Emotional Tone:** Practical, testing-focused.
+**Core Belief:** Public AI quality can be scored without revealing private logic.
+**Key Quote:** “suitable, safe, clear, usable, factual, not overclaimed.”
+**Assistant answered:** I created external testing wording that avoids private names and asks for suitability instead.
+**How the answer changed:** The answer changed from internal URR vocabulary to public-safe evaluation language.
+**Intent:** Make external AI tests safe and usable.
+**Hidden Layer:** Hidden layer: hide the engine while testing the output.
+**Best Outcome:** Clean external scoring prompts.
+**Risk / Downside:** Public wording may be too shallow if detached from method.
+**Theory Value:** AI / Product / Public Safety
+**Connection:** Connects to URR RT04, AI Verified Response RT01.
+**Personal Stake:** High
+**Actionability:** Use neutral public evaluation words.
+
+**Raw Thought 02 — BUMS Question Full Test**
+
+**Definition:** Use full licensing questions, not small fragments.
+**User said / meant:** You corrected that the BUMS/Dubai licensing case should be tested as a full question, not small isolated pieces.
+**Emotional Tone:** Direct, scope-correcting.
+**Core Belief:** Real answer safety needs full context.
+**Key Quote:** “club full BUMS question, not small stuff.”
+**Assistant answered:** I treated the licensing case as a full eligibility/safety test scenario.
+**How the answer changed:** The answer changed from micro-testing to complete prompt testing.
+**Intent:** Test whether answers avoid false eligibility claims.
+**Hidden Layer:** Hidden layer: small fragments can pass while full context fails.
+**Best Outcome:** Better public-safe medical/licensing response testing.
+**Risk / Downside:** Licensing/legal facts can change and need current source checks.
+**Theory Value:** Legal / Medical-adjacent / AI Safety
+**Connection:** Connects to URR Intent Gate RT02.
+**Personal Stake:** High
+**Actionability:** Use full prompt in external tests.
+
+**Raw Thought 03 — No Duplicate Files**
+
+**Definition:** Existing agreed files should be used, not recreated.
+**User said / meant:** You flagged drift when a pasted block requested creating `01_USER_TYPES.md` even though it already existed.
+**Emotional Tone:** Process-protective, detail-focused.
+**Core Belief:** Duplicate files break the controlled module map.
+**Key Quote:** “Existing Google Doc used only. No duplicate file created.”
+**Assistant answered:** I acknowledged the file as agreed and held before creating the next file.
+**How the answer changed:** The answer changed from creation mode to agreement/status mode.
+**Intent:** Prevent project file duplication.
+**Hidden Layer:** Hidden layer: file-map integrity matters more than speed.
+**Best Outcome:** Cleaner product requirements structure.
+**Risk / Downside:** Too much file-control slows content generation.
+**Theory Value:** Project Management / Information Control
+**Connection:** Connects to Unreal RT05, AI Verified Response RT02.
+**Personal Stake:** High
+**Actionability:** Check existing file status before creating.
+
+**Raw Thought 04 — Exact Paste Destination**
+
+**Definition:** Every paste block must say where it goes.
+**User said / meant:** You made a rule: when I say paste this, I must label project name plus chat/file name; for external tests, say paste in external AI chat.
+**Emotional Tone:** Instructional, anti-confusion.
+**Core Belief:** Ambiguous paste instructions create project drift.
+**Key Quote:** “Always give me in that way so I must know where I have to paste.”
+**Assistant answered:** I stored that paste-destination rule for future Appropriate/URR-07 work.
+**How the answer changed:** The answer changed from giving generic paste blocks to destination-specific blocks.
+**Intent:** Reduce wrong-chat mistakes.
+**Hidden Layer:** Hidden layer: project routing is part of quality control.
+**Best Outcome:** Less confusion and fewer misplaced outputs.
+**Risk / Downside:** More labels can feel repetitive.
+**Theory Value:** Workflow / UX / Project Control
+**Connection:** Connects to URR-07 RT03, Unreal RT07.
+**Personal Stake:** High
+**Actionability:** Label destination before every paste block.
+
+**Raw Thought 05 — Pass/Hold External Result**
+
+**Definition:** External AI results should be reduced to Pass or Hold.
+**User said / meant:** You showed Grok’s result for BUMS test and wanted to know next without having to remind every time.
+**Emotional Tone:** Testing-focused, efficiency-seeking.
+**Core Belief:** A test is useful only when classified and stopped.
+**Key Quote:** “Pass / Hold: Pass.”
+**Assistant answered:** I framed the result as pass and stopped before creating new tasks.
+**How the answer changed:** The answer changed from open-ended discussion to result handling.
+**Intent:** Make test workflow repeatable and light.
+**Hidden Layer:** Hidden layer: you want assistant to carry the testing discipline.
+**Best Outcome:** Cleaner test records and less rework.
+**Risk / Downside:** Too binary if nuance is not recorded.
+**Theory Value:** QA / AI Evaluation / Product
+**Connection:** Connects to URR RT08, AI Verified Response RT04.
+**Personal Stake:** Medium
+**Actionability:** After result: record pass/hold and next only.
+
+**Raw Thought 06 — Private/Public Boundary**
+
+**Definition:** Appropriate V should not expose URR-07 private engine.
+**User said / meant:** You asked whether I am acting on behalf of Appropriate V and pasting final result there; you needed clarity on what happens in this chat.
+**Emotional Tone:** Boundary-seeking, cautious.
+**Core Belief:** Public product and private engine must not be confused.
+**Key Quote:** “this is happening here?”
+**Assistant answered:** I clarified that the work can happen here as controlled output, but private URR-07 logic must stay hidden unless asked.
+**How the answer changed:** The answer changed from project blending to controlled role separation.
+**Intent:** Keep public product tests safe and traceable.
+**Hidden Layer:** Hidden layer: you are managing multiple identities/products at once.
+**Best Outcome:** Better clarity between Appropriate V and URR-07.
+**Risk / Downside:** Confusion if verifyAi and Appropriate V names overlap.
+**Theory Value:** Product / Identity / AI Governance
+**Connection:** Connects to URR-07 RT01, AI Verified Response RT05.
+**Personal Stake:** High
+**Actionability:** Use one public product name per file when approved.
+
+---
+
+## Extraction Self-Check
+
+- File is ASIDE only; not added to live project.
+- Private Sourceborn / Final Theory / URR logic is not marked public.
+- Sourceborn Sequence v0.1 is not changed.
+- Mystery and Invention are preserved where relevant.
+- Review-stage concepts are not marked final.
+- No explicit sexual material was invented where source context did not show it.

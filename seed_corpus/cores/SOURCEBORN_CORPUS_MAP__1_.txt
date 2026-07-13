@@ -1,0 +1,202 @@
+# SOURCEBORN — CORPUS PYRAMID (Parking of Lives)
+
+186 files parked (141 unique; rest are cross-model copies). Numbered top→base.
+
+```
+            /\            T1 APEX  · Public Product
+           /  \           T2  · Verification / URR Proof
+          /    \          T3  · Engines / Sequences / Loops
+         /      \         T4  · Cores / Definitions
+        /        \        T5  · Pattern / Mind
+       /          \       T6  · Control Spine (threads all)
+      /____________\      T7 FOUNDATION · Raw Thought & Sources
+  Unreal ───────────► Real   (lower tiers BACK every tier above)
+```
+
+
+## TIER 1 — APEX · PUBLIC PRODUCT  (the "Real" LLM the user shows the world)   [12 files]
+
+| # | File | KB | Source | Dup |
+|--|--|--|--|--|
+| 1 | Sourceborn Sequence Review - done.docx | 47 | Cloaude/Cloaude |  |
+| 2 | 02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md | 16 | Prompt_Thought/Prompt Thought/Chat GPT 1 | ×2 |
+| 3 | 05_AI_Verified_Response_System_Raw_Thought_Extract_ASIDE.md | 8 | Prompt_Thought/Prompt Thought/Chat GPT 1 | ×3 |
+| 4 | 06_verifyAi_AppropriateV_Public_Product_Raw_Thought_Extract_ASIDE.md | 8 | Prompt_Thought/Prompt Thought/Chat GPT 1 | ×3 |
+| 5 | 05_AI_Verified_Response_System_Raw_Thought_Extract_ASIDE.md | 8 | Prompt_Thought/Prompt Thought/Chat GPT | ×3 |
+| 6 | 06_verifyAi_AppropriateV_Public_Product_Raw_Thought_Extract_ASIDE.md | 8 | Prompt_Thought/Prompt Thought/Chat GPT | ×3 |
+| 7 | 05_AI_Verified_Response_System_Raw_Thought_Extract_ASIDE.md | 8 | Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack | ×3 |
+| 8 | 06_verifyAi_AppropriateV_Public_Product_Raw_Thought_Extract_ASIDE.md | 8 | Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack | ×3 |
+| 9 | 02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md | 16 | Prompt_Thought/Prompt Thought/X/raw_thought_extraction_aside | ×2 |
+| 10 | Build An AI.docx | 755 | examples_backup/for sourceborn exapmples back up |  |
+| 11 | Build an AI Tool.docx | 754 | examples_backup/for sourceborn exapmples back up |  |
+| 12 | Project AI source.docx | 18 | examples_backup/for sourceborn exapmples back up |  |
+
+## TIER 2 — VERIFICATION · URR PROOF GATE  (what makes output safe & true)   [20 files]
+
+| # | File | KB | Source | Dup |
+|--|--|--|--|--|
+| 13 | URR_Flaws_Questions_and_Suggestions.docx | 39 | Cloaude/Cloaude |  |
+| 14 | 03_URR_Verified_Response_Protocol_Raw_Thought_Extract_ASIDE.md | 11 | Prompt_Thought/Prompt Thought/Chat GPT 1 | ×3 |
+| 15 | 07_URR_07_Private_Engine_Raw_Thought_Extract_ASIDE.md | 8 | Prompt_Thought/Prompt Thought/Chat GPT 1 | ×3 |
+| 16 | 03_URR_Verified_Response_Protocol_Raw_Thought_Extract_ASIDE.md | 11 | Prompt_Thought/Prompt Thought/Chat GPT | ×3 |
+| 17 | 07_URR_07_Private_Engine_Raw_Thought_Extract_ASIDE.md | 8 | Prompt_Thought/Prompt Thought/Chat GPT | ×3 |
+| 18 | 01_AI_Safety_Google_Gemini_Grounded_AI_Raw_Thoughts.md | 15 | Prompt_Thought/Prompt Thought/Gemini htought | ×2 |
+| 19 | ideological_purity_filter_summary Gemini.pdf | 18 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 20 | Final_Govt_Article.md | 4 | Prompt_Thought/Prompt Thought/X |  |
+| 21 | Final_Govt_Article_BigPoints.md | 4 | Prompt_Thought/Prompt Thought/X |  |
+| 22 | Tool initiation rule.docx | 17 | Prompt_Thought/Prompt Thought/X |  |
+| 23 | govt_article.md | 6 | Prompt_Thought/Prompt Thought/X |  |
+| 24 | 03_URR_Verified_Response_Protocol_Raw_Thought_Extract_ASIDE.md | 11 | Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack | ×3 |
+| 25 | 07_URR_07_Private_Engine_Raw_Thought_Extract_ASIDE.md | 8 | Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack | ×3 |
+| 26 | 01_AI_Safety_Google_Gemini_Grounded_AI_Raw_Thoughts.md | 15 | Prompt_Thought/Prompt Thought/X/raw_thought_extraction_aside | ×2 |
+| 27 | raw_thoughts_gemini_audit.md | 13 | Prompt_Thought/Prompt Thought/X |  |
+| 28 | AI behaviour.docx | 246 | examples_backup/for sourceborn exapmples back up |  |
+| 29 | Chat AI ethocs.docx | 315 | examples_backup/for sourceborn exapmples back up |  |
+| 30 | Google claim data.docx | 819 | examples_backup/for sourceborn exapmples back up |  |
+| 31 | AI Current flaws.docx | 15 | raw_sources/Raw sources |  |
+| 32 | Grounded AI Framework _260510_015930.txt | 15 | raw_sources/Raw sources/Phone notes |  |
+
+## TIER 3 — ENGINES · SEQUENCES & LOOPS  (RGL→ARD→META→Penetration; RH = engine running on a real proof)   [57 files]
+
+| # | File | KB | Source | Dup |
+|--|--|--|--|--|
+| 33 | Mirror_Structure_tested_four_approaches.docx | 14 | DS/DS | ×3 |
+| 34 | RH.docx | 46 | DS/DS | ×2 |
+| 35 | Ripudaman SIngh Riemann Hypothesis via the Hilbert#U2013P#U00f3lya Spectral Realisation v3.pdf | 458 | DS/DS | ×2 |
+| 36 | Ripudaman SIngh Riemann Hypothesis via the Hilbert#U2013P#U00f3lya Spectral Realisation.pdf | 229 | DS/DS | ×2 |
+| 37 | 00_MASTER_MERGED_OUTCOME_Raw_Thought_and_Sequence_Map_ASIDE.md | 29 | Prompt_Thought/Prompt Thought/Chat GPT 1 | ×2 |
+| 38 | 02_RD_World_Raw_Definition_Engine_Raw_Thought_Extract_ASIDE.md | 10 | Prompt_Thought/Prompt Thought/Chat GPT 1 | ×3 |
+| 39 | 00_MASTER_MERGED_OUTCOME_Raw_Thought_and_Sequence_Map_ASIDE.md | 29 | Prompt_Thought/Prompt Thought/Chat GPT | ×2 |
+| 40 | 02_RD_World_Raw_Definition_Engine_Raw_Thought_Extract_ASIDE.md | 10 | Prompt_Thought/Prompt Thought/Chat GPT | ×3 |
+| 41 | gemini-code-1778962244417.md | 13 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 42 | gemini-code-1778962303674.md | 22 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 43 | gemini-code-1778962364322.md | 11 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 44 | gemini-code-1778967030582.md | 11 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 45 | gemini-code-1778967576501.md | 11 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 46 | gemini-code-1778978652643.txt | 3 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 47 | gemini-code-1778986897195.md | 6 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 48 | 02_RD_World_Raw_Definition_Engine_Raw_Thought_Extract_ASIDE.md | 10 | Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack | ×3 |
+| 49 | Mirror_Structure_tested_four_approaches.docx | 14 | claude_RH_Paper/DS | ×3 |
+| 50 | RH.docx | 46 | claude_RH_Paper/DS | ×2 |
+| 51 | Ripudaman SIngh Riemann Hypothesis via the Hilbert#U2013P#U00f3lya Spectral Realisation v3.pdf | 458 | claude_RH_Paper/DS | ×2 |
+| 52 | Ripudaman SIngh Riemann Hypothesis via the Hilbert#U2013P#U00f3lya Spectral Realisation.pdf | 229 | claude_RH_Paper/DS | ×2 |
+| 53 | Dot_system.pdf | 157 | claude_RH_Paper/Gemoni RH work | ×2 |
+| 54 | Final.docx | 15 | claude_RH_Paper/Gemoni RH work | ×2 |
+| 55 | GG -2.txt | 25 | claude_RH_Paper/Gemoni RH work | ×2 |
+| 56 | Gemini RH.docx | 26 | claude_RH_Paper/Gemoni RH work | ×2 |
+| 57 | Gemini dot 1+1 RH.docx | 395 | claude_RH_Paper/Gemoni RH work | ×2 |
+| 58 | Mirror_Form_paper_Ripudaman.docx | 13 | claude_RH_Paper/Gemoni RH work | ×2 |
+| 59 | Part -2.docx | 38 | claude_RH_Paper/Gemoni RH work | ×2 |
+| 60 | gg.txt | 265 | claude_RH_Paper/Gemoni RH work | ×2 |
+| 61 | licensed-image.jpg | 395 | claude_RH_Paper/Gemoni RH work | ×2 |
+| 62 | spectral_realisation_comprehensive_report.pdf | 22 | claude_RH_Paper/Gemoni RH work | ×2 |
+| 63 | spectral_realisation_data.pdf | 22 | claude_RH_Paper/Gemoni RH work | ×2 |
+| 64 | spectral_realisation_report.pdf | 100 | claude_RH_Paper/Gemoni RH work | ×2 |
+| 65 | Mirror_Structure_of_Odd_Primes_RH.docx | 13 | claude_RH_Paper/claude RH Paper |  |
+| 66 | Mirror_Structure_tested_four_approaches.docx | 14 | claude_RH_Paper/claude RH Paper | ×3 |
+| 67 | RH_Dot_Moon_Ring_Conversation_Transcript_Available.docx | 51 | claude_RH_Paper/claude RH Paper |  |
+| 68 | RH_V4_rebuilt_with_mirror_equation.docx | 15 | claude_RH_Paper/claude RH Paper |  |
+| 69 | RH_full_diagram_for_Ripudaman.pdf | 5 | claude_RH_Paper/claude RH Paper |  |
+| 70 | The RH Silence on the Mirror.docx | 525 | claude_RH_Paper/claude RH Paper |  |
+| 71 | The_One_Dot_private_framework_Ripudaman.docx | 14 | claude_RH_Paper/claude RH Paper |  |
+| 72 | The_One_Dot_v2_private_framework.docx | 16 | claude_RH_Paper/claude RH Paper |  |
+| 73 | The_One_Dot_v3_with_mirror_structure.docx | 14 | claude_RH_Paper/claude RH Paper |  |
+| 74 | does the RH is silence of mirror Smaller Grok.docx | 11 | claude_RH_Paper/claude RH Paper |  |
+| 75 | does the RH is silence of mirror Smaller.pdf | 274 | claude_RH_Paper/claude RH Paper |  |
+| 76 | does the RH is silence of mirror.pdf | 748 | claude_RH_Paper/claude RH Paper |  |
+| 77 | Holo_Process_Model_v2_Parameter_Comparison_HOLD.docx | 42 | examples_backup/for sourceborn exapmples back up |  |
+| 78 | Dot_system.pdf | 157 | gemini_RH_work/Gemoni RH work | ×2 |
+| 79 | Final.docx | 15 | gemini_RH_work/Gemoni RH work | ×2 |
+| 80 | GG -2.txt | 25 | gemini_RH_work/Gemoni RH work | ×2 |
+| 81 | Gemini RH.docx | 26 | gemini_RH_work/Gemoni RH work | ×2 |
+| 82 | Gemini dot 1+1 RH.docx | 395 | gemini_RH_work/Gemoni RH work | ×2 |
+| 83 | Mirror_Form_paper_Ripudaman.docx | 13 | gemini_RH_work/Gemoni RH work | ×2 |
+| 84 | Part -2.docx | 38 | gemini_RH_work/Gemoni RH work | ×2 |
+| 85 | gg.txt | 265 | gemini_RH_work/Gemoni RH work | ×2 |
+| 86 | licensed-image.jpg | 395 | gemini_RH_work/Gemoni RH work | ×2 |
+| 87 | spectral_realisation_comprehensive_report.pdf | 22 | gemini_RH_work/Gemoni RH work | ×2 |
+| 88 | spectral_realisation_data.pdf | 22 | gemini_RH_work/Gemoni RH work | ×2 |
+| 89 | spectral_realisation_report.pdf | 100 | gemini_RH_work/Gemoni RH work | ×2 |
+
+## TIER 4 — CORES · CONCEPT DEFINITIONS  (Unreal→Real · RD-World · Holo · Sourceborn core)   [14 files]
+
+| # | File | KB | Source | Dup |
+|--|--|--|--|--|
+| 90 | Hollo concept weekend - done.docx | 1297 | Cloaude/Cloaude |  |
+| 91 | Holo concept raw defination - done.docx | 39 | Cloaude/Cloaude |  |
+| 92 | 01_Unreal_to_Real_Raw_Thought_Extract_ASIDE.md | 11 | Prompt_Thought/Prompt Thought/Chat GPT 1 | ×3 |
+| 93 | 04_Sourceborn_Raw_Thought_Extract_ASIDE.md | 13 | Prompt_Thought/Prompt Thought/Chat GPT 1 | ×3 |
+| 94 | 01_Unreal_to_Real_Raw_Thought_Extract_ASIDE.md | 11 | Prompt_Thought/Prompt Thought/Chat GPT | ×3 |
+| 95 | 04_Sourceborn_Raw_Thought_Extract_ASIDE.md | 13 | Prompt_Thought/Prompt Thought/Chat GPT | ×3 |
+| 96 | 01_Unreal_to_Real_Raw_Thought_Extract_ASIDE.md | 11 | Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack | ×3 |
+| 97 | 04_Sourceborn_Raw_Thought_Extract_ASIDE.md | 13 | Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack | ×3 |
+| 98 | 03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md | 19 | Prompt_Thought/Prompt Thought/X/raw_thought_extraction_aside |  |
+| 99 | Hollo - Concept Development Outputs.docx | 20 | examples_backup/for sourceborn exapmples back up |  |
+| 100 | Hollo Project status Review.docx | 683 | examples_backup/for sourceborn exapmples back up |  |
+| 101 | Hollo Raw thoughts for RD.docx | 81 | examples_backup/for sourceborn exapmples back up |  |
+| 102 | Hollow - Pattern Map review.docx | 20 | examples_backup/for sourceborn exapmples back up |  |
+| 103 | Holo -.docx | 39 | examples_backup/for sourceborn exapmples back up |  |
+
+## TIER 5 — PATTERN / THEORY / MIND  (how the user thinks — profiles, philosophy, mindset)   [21 files]
+
+| # | File | KB | Source | Dup |
+|--|--|--|--|--|
+| 104 | 10_Sexual_Intimate_Body_Emotion_Raw_Thought_Extract_ASIDE.md | 7 | Prompt_Thought/Prompt Thought/Chat GPT 1 | ×3 |
+| 105 | 10_Sexual_Intimate_Body_Emotion_Raw_Thought_Extract_ASIDE.md | 7 | Prompt_Thought/Prompt Thought/Chat GPT | ×3 |
+| 106 | dialogue_analysis (1).md | 6 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 107 | dialogue_analysis.md | 6 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 108 | project_ultra_sentience_extraction.md | 7 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 109 | systematic_extraction_project.md | 16 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 110 | thought_matrix_profile.md | 14 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 111 | Human ROle.docx | 63 | Prompt_Thought/Prompt Thought | ×2 |
+| 112 | 10_Sexual_Intimate_Body_Emotion_Raw_Thought_Extract_ASIDE.md | 7 | Prompt_Thought/Prompt Thought/X | ×3 |
+| 113 | Infinity_Report_Arshdeep_Conversation_Analysis.md | 24 | Prompt_Thought/Prompt Thought/X |  |
+| 114 | Raw_Thoughts_D_Eye_5Percent_Mindset.md | 16 | Prompt_Thought/Prompt Thought/X |  |
+| 115 | The holy books were trying to fix the mind.docx | 13 | Prompt_Thought/Prompt Thought/X | ×2 |
+| 116 | Personal_Sexual_Document_Complete.docx | 41 | Prompt_Thought/Prompt Thought/X/files-3760eaaa |  |
+| 117 | Philosophy_Document_Complete.docx | 44 | Prompt_Thought/Prompt Thought/X/files-3760eaaa |  |
+| 118 | 04_Personal_Philosophy_Human_Nature_Raw_Thoughts.md | 15 | Prompt_Thought/Prompt Thought/X/raw_thought_extraction_aside |  |
+| 119 | Human ROle.docx | 63 | examples_backup/for sourceborn exapmples back up | ×2 |
+| 120 | Book ideology.docx | 99 | raw_sources/Raw sources |  |
+| 121 | Gyan_260506_005659.txt | 1 | raw_sources/Raw sources/Phone notes |  |
+| 122 | Peaceful World_260312_222608.txt | 2 | raw_sources/Raw sources/Phone notes |  |
+| 123 | Quotes_260422_013902.txt | 1 | raw_sources/Raw sources/Phone notes |  |
+| 124 | The holy books were trying to fix the mind.docx | 13 | raw_sources/Raw sources | ×2 |
+
+## TIER 6 — CONTROL SPINE  (master indexes, maps, status — threads every tier)   [7 files]
+
+| # | File | KB | Source | Dup |
+|--|--|--|--|--|
+| 125 | README_MERGED_PACK_INDEX.md | 2 | Prompt_Thought/Prompt Thought/Chat GPT |  |
+| 126 | Notes All.txt | 2 | Prompt_Thought/Prompt Thought/X |  |
+| 127 | 00_MASTER_RAW_THOUGHT_EXTRACTION_INDEX.md | 9 | Prompt_Thought/Prompt Thought/X/raw_thought_extraction_aside |  |
+| 128 | table.csv | 2 | Prompt_Thought/Prompt Thought/X |  |
+| 129 | Project Orgenization guide.docx | 47 | examples_backup/for sourceborn exapmples back up |  |
+| 130 | Memory 11 May.docx | 19 | raw_sources/Raw sources |  |
+| 131 | Memory 12 May.docx | 21 | raw_sources/Raw sources |  |
+
+## TIER 7 — FOUNDATION · RAW THOUGHT & SOURCES  (the "Unreal" base — phone notes, raw extracts, examples)   [54 files]
+
+| # | File | KB | Source | Dup |
+|--|--|--|--|--|
+| 132 | Example.docx | 36 | Cloaude/Cloaude |  |
+| 133 | 08_Weekend_Plans_Archive_Raw_Thought_Extract_ASIDE.md | 7 | Prompt_Thought/Prompt Thought/Chat GPT 1 | ×3 |
+| 134 | 09_Sourceborn_Demo_Set_Raw_Thought_Extract_ASIDE.md | 8 | Prompt_Thought/Prompt Thought/Chat GPT 1 | ×3 |
+| 135 | conversation_raw_thoughts.md | 14 | Prompt_Thought/Prompt Thought/Chat GPT 1 |  |
+| 136 | raw_thought_conversation_reconstruction.txt | 62 | Prompt_Thought/Prompt Thought/Chat GPT 1 |  |
+| 137 | 08_Weekend_Plans_Archive_Raw_Thought_Extract_ASIDE.md | 7 | Prompt_Thought/Prompt Thought/Chat GPT | ×3 |
+| 138 | 09_Sourceborn_Demo_Set_Raw_Thought_Extract_ASIDE.md | 8 | Prompt_Thought/Prompt Thought/Chat GPT | ×3 |
+| 139 | raw_thought_analysis.md | 16 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 140 | raw_thoughts_extract (1).md | 11 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 141 | raw_thoughts_extract.md | 11 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 142 | raw_thoughts_extraction (1).md | 8 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 143 | raw_thoughts_extraction (2).md | 8 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 144 | raw_thoughts_extraction.md | 8 | Prompt_Thought/Prompt Thought/Gemini htought |  |
+| 145 | Raw Extrection GPT.docx | 26 | Prompt_Thought/Prompt Thought |  |
+| 146 | Raw thought DS.docx | 20 | Prompt_Thought/Prompt Thought |  |
+| 147 | Chat_Full_Raw_Thought_Extraction_Complete.docx | 39 | Prompt_Thought/Prompt Thought/X | ×2 |
+| 148 | Chat_Raw_Thought_Extraction.docx | 11 | Prompt_Thought/Prompt Thought/X | ×2 |
+| 149 | New Text Document.txt | 896 | Prompt_Thought/Prompt Thought/X |  |
+| 150 | Raw Thoughts post.docx | 19 | Prompt_Thought/Prompt Thought/X |  |
+| 151 | Raw_Thought_Log_Grok_Conversation_Gavalas_Case.docx | 17 | Prompt_Thought/Prompt Thought/X |  |
+| 152 | Raw_Th

@@ -1,0 +1,48 @@
+# 30 Symbol Deep Dive — Tagged Inventory
+
+This is a visual-symbolic inventory, not a verified translation.
+
+| ID | Visible Symbol | Considered As | Deep Dive | Status |
+|---|---|---|---|---|
+| S01 | Cross/star-like mark | Intersection of forces | The first collision point: multiple directions meet before identity is stabilized. It behaves like a fate-cross, not a single object. | [SYNTHETIC/REVIEW] |
+| S02 | Two small triangular/knife marks | Split decision / divided force | Two sharp fragments suggest cut choice, divided duty, or a split before a single role is formed. | [SYNTHETIC/REVIEW] |
+| S03 | Half-dome / loaf shape | Threshold pressure | A low curved base where force lands; soft ground under hard command. | [SYNTHETIC/REVIEW] |
+| S04 | Bell/jar-like form | Contained breath / hidden chamber | A closed vessel that holds unsaid material: memory, ritual, breath, fear, or authority. | [SYNTHETIC/REVIEW] |
+| S05 | Small damaged rounded vessel | Wounded container | A holder that no longer fully holds; damaged memory becomes part of the reading. | [SYNTHETIC/REVIEW] |
+| S06 | Horizontal oval/capsule | Sealed current | Flow flattened into a manageable body; emotion or speech made portable. | [SYNTHETIC/REVIEW] |
+| S07 | Large cartouche with two inner marks | Identity prison / royal womb | A name is protected by being enclosed; two internal marks create split-self pressure: role and person. | [SYNTHETIC/REVIEW] |
+| S08 | Vertical strokes under cartouche | Roots / foundation debt | The sealed identity stands on hidden supports: ancestors, labor, blood, time, ritual accounting. | [SYNTHETIC/REVIEW] |
+| S09 | Striped vertical block/reed | Compressed count / stored record | Many lines become authority; quantity is used to stabilize memory. | [SYNTHETIC/REVIEW] |
+| S10 | Long animal/boat/crocodile-like form | Dangerous transport | A crossing device that also threatens; movement through danger transforms the carrier. | [SYNTHETIC/REVIEW] |
+| S11 | Small vertical block below | Gate-token / authorization mark | A compact permission sign: the next transition is allowed but not explained. | [SYNTHETIC/REVIEW] |
+| S12 | Long horizontal bar | Law-line / boundary plane | A hard cut across movement: duty interrupts the free body. | [SYNTHETIC/REVIEW] |
+| S13 | Small half-dome beside bar | Soft resistance | Emotional friction beside official order; not rebellion, but the body saying pressure exists. | [SYNTHETIC/REVIEW] |
+| S14 | Raised arms / Ka-like form | Receiving-force body | The human/spirit posture of accepting, receiving, surrendering, or being entered by power. | [SYNTHETIC/REVIEW] |
+| S15 | Twisted rope/serpent-like vertical | Bound energy / coiled lineage | A non-straight inherited force; promise, bloodline, vow, or delayed pressure. | [SYNTHETIC/REVIEW] |
+| S16 | Dome under twisted form | Buried emotional base | The binding stands on feeling; legal order rests on older grief or fear. | [SYNTHETIC/REVIEW] |
+| S17 | Basket/boat base with small marks | Carrier of counted burden | The base that transports obligations: taxes, offerings, victories, wounds, years. | [SYNTHETIC/REVIEW] |
+| S18 | Hook/cord at lower edge | Unfinished attachment | A loose end: the past still pulls the present. | [SYNTHETIC/REVIEW] |
+| S19 | Jagged wave line | Emotional flood / unstable inheritance | The moving field; water as chaos, ancestral memory, instability, or unfinished past. | [SYNTHETIC/REVIEW] |
+| S20 | Bent hook/staff at top | Command descending | Authority arrives from above and bends the process into a required shape. | [SYNTHETIC/REVIEW] |
+| S21 | Standing human figure | Vessel under selection | The human stands where forces meet; candidate, carrier, sacrifice, or output. | [SYNTHETIC/REVIEW] |
+| S22 | Bird beside human | Spirit-shadow / external soul | A mobile non-human force attached to the body; soul, messenger, ancestor, or divine supervision. | [SYNTHETIC/REVIEW] |
+| S23 | Three slanted bars | Descent strokes / forced stages | Layered fall or staged compression; force moves closer to embodiment. | [SYNTHETIC/REVIEW] |
+| S24 | Second large cartouche | Name recursion | The seal returns; identity-machine repeats across bodies and reigns. | [SYNTHETIC/REVIEW] |
+| S25 | Roots below second cartouche | Underworld/base plug | Name draws power from buried memory, death, labor, or unseen infrastructure. | [SYNTHETIC/REVIEW] |
+| S26 | Seat/house-like top sign | Institutional frame | A body installed into architecture: throne, house, office, temple, administration. | [SYNTHETIC/REVIEW] |
+| S27 | Hook/staff beside structure | Control lever | Ritual, law, priesthood, or dynasty pulling the role into place. | [SYNTHETIC/REVIEW] |
+| S28 | Eye/oval/wave-like horizontal sign | Watchful current | Seeing and flowing merge; consciousness becomes unstable but aware. | [SYNTHETIC/REVIEW] |
+| S29 | Small dome under current | Emotional landing pad | The current needs a body-ground; thought becomes feeling pressure. | [SYNTHETIC/REVIEW] |
+| S30 | Standing bird | Witness-state stabilized | Spirit no longer flies; freedom becomes stationed duty. | [SYNTHETIC/REVIEW] |
+
+## Deep grammar rules
+
+| Rule | Meaning | Status |
+|---|---|---|
+| Above pressures below | Top signs act as command/origin zones. | [SYNTHETIC] |
+| Inside means captured | Enclosure protects and imprisons. | [SYNTHETIC] |
+| Repetition means inherited | Repeated forms can mark recurrence through time. | [SYNTHETIC/REVIEW] |
+| Bird near human means split self | Body-self and mobile spirit/role-self coexist. | [SYNTHETIC] |
+| Wave near name means unstable identity | Fluid pressure requires containment. | [SYNTHETIC] |
+| Roots below name mean debt | Official identity is fed by hidden cost. | [SYNTHETIC] |
+| Broken sign means wounded record | Damage matters as absence and loss. | [REVIEW] |

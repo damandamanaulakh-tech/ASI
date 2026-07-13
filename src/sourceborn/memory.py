@@ -135,3 +135,51 @@ class Memory:
         nodes = sorted(os.listdir(brains_dir)) if os.path.isdir(brains_dir) else []
         total = sum(self.brain(n).meta.get("entry_count", 0) for n in nodes)
         return {"nodes_with_brains": len(nodes), "total_memory_entries": total}
+
+    def weekly_digest(self) -> dict[str, Any]:
+        """The Monday clog, made real: each brain SYNTHESISES its week — the
+        pyramid categories it saw most, how many findings, the flags/mistakes it
+        collected — and writes ONE digest entry into itself + the master log.
+        Not just a timestamp bump; a real 'what this node learned this week'."""
+        import collections
+        brains_dir = os.path.join(self.root, "brains")
+        if not os.path.isdir(brains_dir):
+            return {"digested": 0, "at": _now()}
+        digested = 0
+        for node_id in sorted(os.listdir(brains_dir)):
+            b = self.brain(node_id)
+            entries = [e for e in b.read_all()
+                       if "weekly_digest" not in e.tags]
+            if not entries:
+                continue
+            mains = collections.Counter()
+            subs = collections.Counter()
+            flags = collections.Counter()
+            for e in entries:
+                for m in e.pyramid.get("main", []):
+                    mains[m] += 1
+                for s in e.pyramid.get("sub", []):
+                    subs[s] += 1
+                for k, v in (e.parameters or {}).items():
+                    if k == "urr_matrix_flags" and isinstance(v, dict):
+                        for code in v.values():
+                            flags[code] += 1
+            top_main = ", ".join(f"{m}×{n}" for m, n in mains.most_common(4)) or "—"
+            top_sub = ", ".join(f"{s}×{n}" for s, n in subs.most_common(5)) or "—"
+            top_flag = ", ".join(f"{c}×{n}" for c, n in flags.most_common(3)) or "none"
+            summary = (f"weekly digest — {len(entries)} findings; "
+                       f"top categories: {top_main}; buckets: {top_sub}; "
+                       f"recurring flags: {top_flag}")
+            b.write(MemoryEntry(
+                node_id=node_id, raw_source_id="",
+                content=summary, tags=["weekly_digest", "knowledge_gained"],
+                parameters={"findings": len(entries),
+                            "top_main": dict(mains.most_common(4)),
+                            "top_flags": dict(flags.most_common(3))},
+            ))
+            b.meta["parameters"]["Knowledge_Gained"] = summary[:200]
+            b.bump("Last_Brain_Update_Count")
+            b._save_meta()
+            digested += 1
+        self.master_log({"event": "weekly_digest", "brains": digested})
+        return {"digested": digested, "at": _now()}

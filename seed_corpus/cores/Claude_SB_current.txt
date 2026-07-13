@@ -1,0 +1,350 @@
+# SOURCEBORN — CORPUS SNAPPED TO YOUR EXCEL MAP
+
+185 files hung on YOUR containers + layer vocabulary (from "Full Map of Projects 13 May"). ⭑ = rows you hand-mapped in the Excel. Containers marked *(added)* hold files your Excel had not yet listed.
+
+
+## ▣ Unreal to Real (Parent)   [9 files]
+
+*⭑ Your Excel layers for this container:*
+  - ⭑ **00_Project_Scope.md** — Parent control · Defines total project boundary · Accepted · Keep
+  - ⭑ **01_Master_Project_Map.md** — Parent map · Shows main project/folder map · Accepted · Keep
+  - ⭑ **02_Sub_Project_List.md** — Sub-layer list · Lists RD, URR, Final Theory, demos, etc. · Accepted · Review
+  - ⭑ **03_Output_Index.md** — Output tracking · Tracks completed outputs/files · Accepted / Updated · Keep
+  - ⭑ **04_Risk_and_Fact_Check_Index.md** — Risk / verification · Master risk + fact-check file · Accepted / Complete · Review
+  - ⭑ **05_Daily_Raw_Source_Ledger.md** — Source/status ledger · Daily/source/status tracker · Accepted / Updated · Review
+  - ⭑ **06_Next_Action_List.md** — Next-action control · Controls next safe step · Accepted / Updated · Keep
+  - ⭑ **01_Raw_Theory_Log.md** — Final Theory source · Stores raw theory entries · Review-stage · Review
+  - ⭑ **02_Theory_Pattern_Map.md** — Pattern map · Maps raw theory into patterns · Review-stage · Review
+  - ⭑ **03_Theory_Category_Dictionary.md** — Category dictionary · Defines theory categories · Review-stage · Keep
+  - ⭑ **04_Theory_Brief_Bank.md** — Brief bank · Stores short theory briefs · Review-stage · Review
+  - ⭑ **05_Proof_and_Fact_Check_Status.md** — Proof / fact status · Tracks what is proved, unproved, claim, theory · Review-stage · Review
+  - ⭑ **06_Risk_and_Distortion_Flags.md** — Risk flags · Flags distortion risk in theory · Review-stage · Keep
+  - ⭑ **07_Output_Bank.md** — Output hold · Stores theory outputs · Review-stage · Review
+  - ⭑ **08_Next_Theory_Actions.md** — Theory next steps · Controls next theory action · Review-stage · Keep
+
+
+### · Master / Control
+
+1. 00_MASTER_MERGED_OUTCOME_Raw_Thought_and_Sequence_Map_ASIDE.md (29KB) ×2  
+     `Prompt_Thought/Prompt Thought/Chat GPT 1`
+2. 00_MASTER_MERGED_OUTCOME_Raw_Thought_and_Sequence_Map_ASIDE.md (29KB) ×2  
+     `Prompt_Thought/Prompt Thought/Chat GPT`
+3. 00_MASTER_RAW_THOUGHT_EXTRACTION_INDEX.md (9KB)  
+     `Prompt_Thought/Prompt Thought/X/raw_thought_extraction_aside`
+
+### · Raw Definition
+
+4. 02_RD_World_Raw_Definition_Engine_Raw_Thought_Extract_ASIDE.md (10KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT 1`
+5. 02_RD_World_Raw_Definition_Engine_Raw_Thought_Extract_ASIDE.md (10KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT`
+6. 02_RD_World_Raw_Definition_Engine_Raw_Thought_Extract_ASIDE.md (10KB) ×3  
+     `Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack`
+
+### · Raw Source
+
+7. 01_Unreal_to_Real_Raw_Thought_Extract_ASIDE.md (11KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT 1`
+8. 01_Unreal_to_Real_Raw_Thought_Extract_ASIDE.md (11KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT`
+9. 01_Unreal_to_Real_Raw_Thought_Extract_ASIDE.md (11KB) ×3  
+     `Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack`
+
+## ▣ Holo Concept   [8 files]
+
+*⭑ Your Excel layers for this container:*
+  - ⭑ **Holo file 01 — exact filename not confirmed** — Raw concept · Main Holo source file · Needs check · Review
+  - ⭑ **Holo file 02 — exact filename not confirmed** — Pattern layer · Holo pattern file · Needs check · Review
+  - ⭑ **Holo file 03 — exact filename not confirmed** — Raw definition layer · Holo definition file · Needs check · Keep / Review
+  - ⭑ **Holo file 04 — exact filename not confirmed** — Mystery / invention layer · Holo mystery/invention file · Needs check · Keep
+  - ⭑ **Holo file 05 — exact filename not confirmed** — Risk/public-safe layer · Holo risk file · Needs check · Review
+  - ⭑ **Holo file 06 — exact filename not confirmed** — Action/archive layer · Holo next action file · Needs check · Keep
+
+
+### · Raw Definition
+
+10. Holo concept raw defination - done.docx (39KB)  
+     `Cloaude/Cloaude`
+
+### · Pattern Map
+
+11. Hollow - Pattern Map review.docx (20KB)  
+     `examples_backup/for sourceborn exapmples back up`
+
+### · Sequence Engine
+
+12. Holo_Process_Model_v2_Parameter_Comparison_HOLD.docx (42KB)  
+     `examples_backup/for sourceborn exapmples back up`
+
+### · Demo / Test
+
+13. Hollo - Concept Development Outputs.docx (20KB)  
+     `examples_backup/for sourceborn exapmples back up`
+14. Hollo Project status Review.docx (683KB)  
+     `examples_backup/for sourceborn exapmples back up`
+15. Hollo Raw thoughts for RD.docx (81KB)  
+     `examples_backup/for sourceborn exapmples back up`
+16. Holo -.docx (39KB)  
+     `examples_backup/for sourceborn exapmples back up`
+
+### · Source
+
+17. Hollo concept weekend - done.docx (1297KB)  
+     `Cloaude/Cloaude`
+
+## ▣ Sourceborn   [16 files]
+
+*⭑ Your Excel layers for this container:*
+  - ⭑ **00_Master_Sourceborn_Index.md** — Master control · Top Sourceborn index · Accepted / Current · Keep
+  - ⭑ **01_Sourceborn_Project_Map.md** — Project map · Shows Sourceborn project layout · Accepted / Current · Keep
+  - ⭑ **02_Sourceborn_Layer_Map.md** — Layer map · Shows layers under Sourceborn · Accepted / Current · Keep
+  - ⭑ **03_Source_Archive_Index.md** — Source archive · Indexes raw sources · Accepted / Current · Keep
+  - ⭑ **04_Sequence_Engine_Index.md** — Sequence engine · Controls Sourceborn v0.1 sequence · Accepted / Current or needs filename check · Keep
+  - ⭑ **06_AI_Verified_Response_Index.md** — Product bridge · Links URR product into Sourceborn · Accepted / Current · Keep
+  - ⭑ **07_Demo_Set_Index.md** — Demo index · Indexes demo cases · Accepted / Current · Keep
+  - ⭑ **08_[exact filename needs check].md** — Unknown / needs check · File accepted but name not visible in current record · Accepted? / Needs exact name check · Review
+  - ⭑ **09_Next_Action_Control.md** — Next action control · Controls what happens next · Accepted / Current · Keep
+
+
+### · Master / Control
+
+18. Project Orgenization guide.docx (47KB)  
+     `examples_backup/for sourceborn exapmples back up`
+
+### · Sequence Engine
+
+19. Sourceborn Sequence Review - done.docx (47KB)  
+     `Cloaude/Cloaude`
+
+### · Demo / Test
+
+20. 09_Sourceborn_Demo_Set_Raw_Thought_Extract_ASIDE.md (8KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT 1`
+21. 09_Sourceborn_Demo_Set_Raw_Thought_Extract_ASIDE.md (8KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT`
+22. 09_Sourceborn_Demo_Set_Raw_Thought_Extract_ASIDE.md (8KB) ×3  
+     `Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack`
+23. Build An AI.docx (755KB)  
+     `examples_backup/for sourceborn exapmples back up`
+24. Build an AI Tool.docx (754KB)  
+     `examples_backup/for sourceborn exapmples back up`
+25. GPT finder.docx (18KB)  
+     `examples_backup/for sourceborn exapmples back up`
+26. Grok Jonatha.docx (68KB)  
+     `examples_backup/for sourceborn exapmples back up`
+27. Grok work.docx (1079KB)  
+     `examples_backup/for sourceborn exapmples back up`
+28. Human ROle.docx (63KB) ×2  
+     `examples_backup/for sourceborn exapmples back up`
+29. Project AI source.docx (18KB)  
+     `examples_backup/for sourceborn exapmples back up`
+
+### · Raw Source
+
+30. 04_Sourceborn_Raw_Thought_Extract_ASIDE.md (13KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT 1`
+31. 04_Sourceborn_Raw_Thought_Extract_ASIDE.md (13KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT`
+32. 04_Sourceborn_Raw_Thought_Extract_ASIDE.md (13KB) ×3  
+     `Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack`
+33. 03_Sourceborn_Final_Theory_Point_Zero_Raw_Thoughts.md (19KB)  
+     `Prompt_Thought/Prompt Thought/X/raw_thought_extraction_aside`
+
+## ▣ URR / Unreal to Real - 3   [28 files]
+
+*⭑ Your Excel layers for this container:*
+  - ⭑ **02_URR_External_Test_Batch_001_Summary.md** — External test batch · Stores Batch 001 summary · Complete / Controlled if already accepted · Review
+  - ⭑ **04_URR_External_Test_Batch_002_Summary.md** — External test batch · Stores Batch 002 summary · Accepted / Complete / Controlled · Keep
+
+
+### · Raw Definition
+
+34. 02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md (16KB) ×2  
+     `Prompt_Thought/Prompt Thought/Chat GPT 1`
+35. 02_Unreal_to_Real_RD_World_URR_verifyAI_Raw_Thoughts.md (16KB) ×2  
+     `Prompt_Thought/Prompt Thought/X/raw_thought_extraction_aside`
+
+### · Sequence Engine
+
+36. 07_URR_07_Private_Engine_Raw_Thought_Extract_ASIDE.md (8KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT 1`
+37. 07_URR_07_Private_Engine_Raw_Thought_Extract_ASIDE.md (8KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT`
+38. 07_URR_07_Private_Engine_Raw_Thought_Extract_ASIDE.md (8KB) ×3  
+     `Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack`
+
+### · Verification / Proof
+
+39. 03_URR_Verified_Response_Protocol_Raw_Thought_Extract_ASIDE.md (11KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT 1`
+40. 05_AI_Verified_Response_System_Raw_Thought_Extract_ASIDE.md (8KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT 1`
+41. 06_verifyAi_AppropriateV_Public_Product_Raw_Thought_Extract_ASIDE.md (8KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT 1`
+42. 03_URR_Verified_Response_Protocol_Raw_Thought_Extract_ASIDE.md (11KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT`
+43. 05_AI_Verified_Response_System_Raw_Thought_Extract_ASIDE.md (8KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT`
+44. 06_verifyAi_AppropriateV_Public_Product_Raw_Thought_Extract_ASIDE.md (8KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT`
+45. 03_URR_Verified_Response_Protocol_Raw_Thought_Extract_ASIDE.md (11KB) ×3  
+     `Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack`
+46. 05_AI_Verified_Response_System_Raw_Thought_Extract_ASIDE.md (8KB) ×3  
+     `Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack`
+47. 06_verifyAi_AppropriateV_Public_Product_Raw_Thought_Extract_ASIDE.md (8KB) ×3  
+     `Prompt_Thought/Prompt Thought/X/raw_thought_aside_extracts_pack`
+48. raw_thoughts_gemini_audit.md (13KB)  
+     `Prompt_Thought/Prompt Thought/X`
+
+### · Demo / Test
+
+49. AI behaviour.docx (246KB)  
+     `examples_backup/for sourceborn exapmples back up`
+50. Chat AI ethocs.docx (315KB)  
+     `examples_backup/for sourceborn exapmples back up`
+51. Google claim data.docx (819KB)  
+     `examples_backup/for sourceborn exapmples back up`
+
+### · Public-safe Output
+
+52. 01_AI_Safety_Google_Gemini_Grounded_AI_Raw_Thoughts.md (15KB) ×2  
+     `Prompt_Thought/Prompt Thought/Gemini htought`
+53. 01_AI_Safety_Google_Gemini_Grounded_AI_Raw_Thoughts.md (15KB) ×2  
+     `Prompt_Thought/Prompt Thought/X/raw_thought_extraction_aside`
+
+### · Raw Source
+
+54. URR_Flaws_Questions_and_Suggestions.docx (39KB)  
+     `Cloaude/Cloaude`
+55. ideological_purity_filter_summary Gemini.pdf (18KB)  
+     `Prompt_Thought/Prompt Thought/Gemini htought`
+56. Final_Govt_Article.md (4KB)  
+     `Prompt_Thought/Prompt Thought/X`
+57. Final_Govt_Article_BigPoints.md (4KB)  
+     `Prompt_Thought/Prompt Thought/X`
+58. Tool initiation rule.docx (17KB)  
+     `Prompt_Thought/Prompt Thought/X`
+59. govt_article.md (6KB)  
+     `Prompt_Thought/Prompt Thought/X`
+60. AI Current flaws.docx (15KB)  
+     `raw_sources/Raw sources`
+61. Grounded AI Framework _260510_015930.txt (15KB)  
+     `raw_sources/Raw sources/Phone notes`
+
+## ▣ Final Theory · RH Proof  (added — Penetration Engine in action)   [44 files]
+
+### · Raw Source
+
+62. GG -2.txt (25KB) ×2  
+     `claude_RH_Paper/Gemoni RH work`
+63. gg.txt (265KB) ×2  
+     `claude_RH_Paper/Gemoni RH work`
+64. RH_Dot_Moon_Ring_Conversation_Transcript_Available.docx (51KB)  
+     `claude_RH_Paper/claude RH Paper`
+65. GG -2.txt (25KB) ×2  
+     `gemini_RH_work/Gemoni RH work`
+66. gg.txt (265KB) ×2  
+     `gemini_RH_work/Gemoni RH work`
+
+### · Source
+
+67. Mirror_Structure_tested_four_approaches.docx (14KB) ×3  
+     `DS/DS`
+68. RH.docx (46KB) ×2  
+     `DS/DS`
+69. Ripudaman SIngh Riemann Hypothesis via the Hilbert#U2013P#U00f3lya Spectral Realisation v3.pdf (458KB) ×2  
+     `DS/DS`
+70. Ripudaman SIngh Riemann Hypothesis via the Hilbert#U2013P#U00f3lya Spectral Realisation.pdf (229KB) ×2  
+     `DS/DS`
+71. Mirror_Structure_tested_four_approaches.docx (14KB) ×3  
+     `claude_RH_Paper/DS`
+72. RH.docx (46KB) ×2  
+     `claude_RH_Paper/DS`
+73. Ripudaman SIngh Riemann Hypothesis via the Hilbert#U2013P#U00f3lya Spectral Realisation v3.pdf (458KB) ×2  
+     `claude_RH_Paper/DS`
+74. Ripudaman SIngh Riemann Hypothesis via the Hilbert#U2013P#U00f3lya Spectral Realisation.pdf (229KB) ×2  
+     `claude_RH_Paper/DS`
+75. Dot_system.pdf (157KB) ×2  
+     `claude_RH_Paper/Gemoni RH work`
+76. Final.docx (15KB) ×2  
+     `claude_RH_Paper/Gemoni RH work`
+77. Gemini RH.docx (26KB) ×2  
+     `claude_RH_Paper/Gemoni RH work`
+78. Gemini dot 1+1 RH.docx (395KB) ×2  
+     `claude_RH_Paper/Gemoni RH work`
+79. Mirror_Form_paper_Ripudaman.docx (13KB) ×2  
+     `claude_RH_Paper/Gemoni RH work`
+80. Part -2.docx (38KB) ×2  
+     `claude_RH_Paper/Gemoni RH work`
+81. licensed-image.jpg (395KB) ×2  
+     `claude_RH_Paper/Gemoni RH work`
+82. spectral_realisation_comprehensive_report.pdf (22KB) ×2  
+     `claude_RH_Paper/Gemoni RH work`
+83. spectral_realisation_data.pdf (22KB) ×2  
+     `claude_RH_Paper/Gemoni RH work`
+84. spectral_realisation_report.pdf (100KB) ×2  
+     `claude_RH_Paper/Gemoni RH work`
+85. Mirror_Structure_of_Odd_Primes_RH.docx (13KB)  
+     `claude_RH_Paper/claude RH Paper`
+86. Mirror_Structure_tested_four_approaches.docx (14KB) ×3  
+     `claude_RH_Paper/claude RH Paper`
+87. RH_V4_rebuilt_with_mirror_equation.docx (15KB)  
+     `claude_RH_Paper/claude RH Paper`
+88. RH_full_diagram_for_Ripudaman.pdf (5KB)  
+     `claude_RH_Paper/claude RH Paper`
+89. The RH Silence on the Mirror.docx (525KB)  
+     `claude_RH_Paper/claude RH Paper`
+90. The_One_Dot_private_framework_Ripudaman.docx (14KB)  
+     `claude_RH_Paper/claude RH Paper`
+91. The_One_Dot_v2_private_framework.docx (16KB)  
+     `claude_RH_Paper/claude RH Paper`
+92. The_One_Dot_v3_with_mirror_structure.docx (14KB)  
+     `claude_RH_Paper/claude RH Paper`
+93. does the RH is silence of mirror Smaller Grok.docx (11KB)  
+     `claude_RH_Paper/claude RH Paper`
+94. does the RH is silence of mirror Smaller.pdf (274KB)  
+     `claude_RH_Paper/claude RH Paper`
+95. does the RH is silence of mirror.pdf (748KB)  
+     `claude_RH_Paper/claude RH Paper`
+96. Dot_system.pdf (157KB) ×2  
+     `gemini_RH_work/Gemoni RH work`
+97. Final.docx (15KB) ×2  
+     `gemini_RH_work/Gemoni RH work`
+98. Gemini RH.docx (26KB) ×2  
+     `gemini_RH_work/Gemoni RH work`
+99. Gemini dot 1+1 RH.docx (395KB) ×2  
+     `gemini_RH_work/Gemoni RH work`
+100. Mirror_Form_paper_Ripudaman.docx (13KB) ×2  
+     `gemini_RH_work/Gemoni RH work`
+101. Part -2.docx (38KB) ×2  
+     `gemini_RH_work/Gemoni RH work`
+102. licensed-image.jpg (395KB) ×2  
+     `gemini_RH_work/Gemoni RH work`
+103. spectral_realisation_comprehensive_report.pdf (22KB) ×2  
+     `gemini_RH_work/Gemoni RH work`
+104. spectral_realisation_data.pdf (22KB) ×2  
+     `gemini_RH_work/Gemoni RH work`
+105. spectral_realisation_report.pdf (100KB) ×2  
+     `gemini_RH_work/Gemoni RH work`
+
+## ▣ Mind & Philosophy  (added — how you think)   [17 files]
+
+### · Public-safe Output
+
+106. Gyan_260506_005659.txt (1KB)  
+     `raw_sources/Raw sources/Phone notes`
+
+### · Raw Source
+
+107. 10_Sexual_Intimate_Body_Emotion_Raw_Thought_Extract_ASIDE.md (7KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT 1`
+108. 10_Sexual_Intimate_Body_Emotion_Raw_Thought_Extract_ASIDE.md (7KB) ×3  
+     `Prompt_Thought/Prompt Thought/Chat GPT`
+109. project_ultra_sentience_extraction.md (7KB)  
+     `Prompt_Thought/Prompt Thought/Gemini htought`
+110. thought_matrix_profile.md (14KB)  
+     `Prompt_Thought/Prompt Thought/Gemini htought`
+111. Human ROle.docx (63KB) ×2  
+     `Prompt_Thought/Prompt Thought`
+112. 10_Sexual_Intimate_Body_Emotion_Raw_Thought_Extract_ASIDE.md (7KB) ×3  
+     `Prompt_Thought/Prompt Though

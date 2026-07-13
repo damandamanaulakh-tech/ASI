@@ -1,0 +1,132 @@
+# Sourceborn Demo Set — Raw Thought Extraction ASIDE
+
+> ASIDE FILE — not added to live project structure.
+>
+> Coverage note: This extraction is based on the available project context, current chat history, memory, and retrieved File Library snippets. I did not invent missing sexual content; no explicit sexual project point was visible in the retrieved project context. Where wording is reconstructed, it is marked as reconstructed.
+
+
+Project role: Demo/test layer showing Sourceborn Sequence v0.1 across science, unresolved mystery, physical law, AI response verification, and invention/mystery bridge cases.
+
+Status used for this extraction: Demo / test layer; not prototype/app/build.
+
+
+---
+
+**Raw Thought 01 — Demo Set as Test Layer**
+
+**Definition:** Demos test Sourceborn without starting app, build, or public post.
+**User said / meant:** You wanted demos linked to Sourceborn Demo Set while keeping prototype/app/build and public posts blocked.
+**Emotional Tone:** Controlled, evidence-building.
+**Core Belief:** Examples should prove structure before product.
+**Key Quote:** “Do not start prototype/app/build.”
+**Assistant answered:** I treated demo set as test/demo only and linked cases without triggering build.
+**How the answer changed:** The answer changed from product possibility to test-layer control.
+**Intent:** Validate the sequence safely.
+**Hidden Layer:** Hidden layer: demos are proof scaffolding, not launch.
+**Best Outcome:** Clear evidence bank for later decisions.
+**Risk / Downside:** Too many demos can delay product decision.
+**Theory Value:** Methodology / Product Proof / AI
+**Connection:** Connects to Sourceborn RT10, URR RT07.
+**Personal Stake:** Medium
+**Actionability:** Keep demo status separate from build status.
+
+**Raw Thought 02 — Germ Theory Working Demo**
+
+**Definition:** Observed problem can move through evidence, pattern, discovery, invention.
+**User said / meant:** You asked to create SB-DEMO-001 as the first Sourceborn working demo using the accepted v0.1 sequence.
+**Emotional Tone:** Focused, test-ready.
+**Core Belief:** Historical discoveries can demonstrate sequence movement.
+**Key Quote:** “SB-DEMO-001 = Draft / Working demo / Ready for test review.”
+**Assistant answered:** I created Germ Theory Sequence as draft/working demo, ready for review.
+**How the answer changed:** The answer changed from index link to concrete demo content.
+**Intent:** Show how observation becomes verified outcome.
+**Hidden Layer:** Hidden layer: successful demos strengthen Sourceborn credibility.
+**Best Outcome:** First structured proof case.
+**Risk / Downside:** May overclaim if treated as proof of Sourceborn rather than example.
+**Theory Value:** Science / Methodology / Invention
+**Connection:** Connects to Sourceborn RT10, RD RT08.
+**Personal Stake:** Medium
+**Actionability:** Review demo against v0.1 flow.
+
+**Raw Thought 03 — Gravity Sequence Bridge**
+
+**Definition:** Gravity can be tested as decoded existing force and mystery bridge.
+**User said / meant:** You linked gravity to dark matter, space-time, quantum gravity, Mystery/Invention.
+**Emotional Tone:** Scientific, bridge-building.
+**Core Belief:** Known law can connect to unresolved mystery.
+**Key Quote:** “Gravity → Dark Matter → Space-Time → Quantum Gravity → Mystery / Invention.”
+**Assistant answered:** I linked Gravity Sequence as bridge-ready in demo set.
+**How the answer changed:** The answer changed from single example to bridge sequence.
+**Intent:** Use gravity as science/mystery connector.
+**Hidden Layer:** Hidden layer: present knowledge points toward unresolved sequence gaps.
+**Best Outcome:** Strong demo bridge between known and unknown.
+**Risk / Downside:** Risk of appearing to claim new physics.
+**Theory Value:** Science / Philosophy / Mystery
+**Connection:** Connects to Sourceborn RT10.
+**Personal Stake:** Medium
+**Actionability:** Keep as linked demo, not proof.
+
+**Raw Thought 04 — Friction Sequence Bridge**
+
+**Definition:** Physical law can lead toward material design and efficiency.
+**User said / meant:** You linked friction to heat, wear, material design, efficiency, and Mystery/Invention.
+**Emotional Tone:** Practical, invention-oriented.
+**Core Belief:** Physical effects can become invention routes.
+**Key Quote:** “Friction → Heat → Wear → Material Design → Efficiency.”
+**Assistant answered:** I linked Law of Friction Sequence as demo bridge-ready.
+**How the answer changed:** The answer changed from science fact to invention pathway.
+**Intent:** Show how a physical condition becomes product/invention direction.
+**Hidden Layer:** Hidden layer: invention emerges from managing conditions.
+**Best Outcome:** Good practical demo for engineering/product thinking.
+**Risk / Downside:** Could become too engineering-specific without full mapping.
+**Theory Value:** Science / Engineering / Invention
+**Connection:** Connects to Sourceborn RT04, Demo RT01.
+**Personal Stake:** Medium
+**Actionability:** Build detailed demo only when approved.
+
+**Raw Thought 05 — AI Verified Response Demo**
+
+**Definition:** AI answer quality can be tested through claim-check sequence.
+**User said / meant:** You linked AI answer → claim check → fact/inference split → uncertainty → risk flag → verified response → Mystery/Invention.
+**Emotional Tone:** Product-bridge, AI-focused.
+**Core Belief:** AI response verification itself can run as a Sourceborn sequence.
+**Key Quote:** “AI Answer → Claim Check → Fact / Inference Split…”
+**Assistant answered:** I linked SB-DEMO-004 as AI Verified Response Sequence.
+**How the answer changed:** The answer changed from separate product logic to Sourceborn demo bridge.
+**Intent:** Connect Sourceborn sequence with public AI product.
+**Hidden Layer:** Hidden layer: product and theory can meet at demo layer without exposing private core.
+**Best Outcome:** Useful bridge between Sourceborn and verifyAi.
+**Risk / Downside:** Risk of leaking private method if publicized too soon.
+**Theory Value:** AI / Product / Verification
+**Connection:** Connects to AI Verified Response RT01, URR RT01.
+**Personal Stake:** High
+**Actionability:** Keep internal until public-safe masking.
+
+**Raw Thought 06 — Dark Matter Mystery Demo**
+
+**Definition:** Missing mass is an unresolved mystery path, not completed proof.
+**User said / meant:** You linked dark matter to missing mass, gravity gap, space-time, quantum gravity, direct detection, Mystery/Invention.
+**Emotional Tone:** Curious, mystery-driven.
+**Core Belief:** Unresolved science is a natural sequence test.
+**Key Quote:** “Dark Matter → Missing Mass → Gravity Gap…”
+**Assistant answered:** I linked SB-DEMO-005 as unresolved mystery demo.
+**How the answer changed:** The answer changed from single science topic to mystery loop candidate.
+**Intent:** Use unresolved cases to test halt/new-loop behavior.
+**Hidden Layer:** Hidden layer: mystery is productive, not a dead end.
+**Best Outcome:** Strong example for Halt/Mystery/Invention handling.
+**Risk / Downside:** High risk if framed as solved or proven.
+**Theory Value:** Science / Mystery / Philosophy
+**Connection:** Connects to Sourceborn RT03, Sourceborn RT05.
+**Personal Stake:** Medium
+**Actionability:** Keep as unresolved mystery demo.
+
+---
+
+## Extraction Self-Check
+
+- File is ASIDE only; not added to live project.
+- Private Sourceborn / Final Theory / URR logic is not marked public.
+- Sourceborn Sequence v0.1 is not changed.
+- Mystery and Invention are preserved where relevant.
+- Review-stage concepts are not marked final.
+- No explicit sexual material was invented where source context did not show it.

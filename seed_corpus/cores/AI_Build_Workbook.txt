@@ -1,0 +1,86 @@
+Private AI Assistant Build Pack
+Use this workbook to shortlist developers, explain the build, collect online links/data sources, and manage empty templates.
+Step	Sheet	How to use
+1	Developer shortlist	Fill developer profile details and score them against weighted criteria.
+2	Stages_1_to_12_SOP	Use this as the full step-by-step SOP for the product build.
+3	Build_Order_Phases	Use this for milestone planning and payment discussion.
+4	Pattern_Examples	Use this to explain how existing AI behavior differs from desired response behavior.
+5	Source_Links	Use this to fetch docs, official references, and online data sources.
+6	Questions_To_Ask_Devs	Use these questions in calls with 3-4 developers.
+7	Online_Data_Request	Track what to collect from developers, online databases, and public sources.
+8	Empty_Templates	Blank tables for developer profile, Q&A tests, data inventory, and rules.
+Stage 1-12 SOP
+Use this to tell developers exactly what is required, in order.
+Stage	Focus	Existing pattern example	Required pattern	Required from you	Required from developer	Output
+1	Core behavior definition	Default AI starts answering too early.	Create rules before coding: intent, response, source, rejection, challenge, change.	You write rules and examples.	Developer converts into system design.	AI Behavior Framework v1
+2	Intent-over-patterns engine	Default AI matches language pattern.	Classify true intent before answer.	Give 20-50 example questions.	Build intent classifier/router.	Intent Classifier v1
+3	Source hierarchy	Default AI may treat weak/strong sources equally.	Rank sources before using them.	List trusted and weak sources.	Build source scoring.	Source Ranking v1
+4	Data system	Default AI may rely on model memory or full file dumps.	Use selected public/owned data and relevant chunks.	Prepare folders and data inventory.	Build ingestion/retrieval.	Data Inventory + Retrieval Plan
+5	Response algorithm	Default AI writes in one pass.	Use controlled pipeline before final answer.	Approve answer flow.	Build orchestration logic.	Response Pipeline v1
+6	Ideology and mindset layer	Default AI follows provider default behavior.	Apply user-defined governing logic.	Write mindset rules.	Implement rule layer.	Mindset Layer v1
+7	Memory system	Default AI may forget or over-remember.	Store structured corrections/rules/summaries.	Mark what should be remembered.	Build memory database.	Memory Schema v1
+8	Fact-checking system	Default AI blends facts and assumptions.	Label fact, claim, assumption, opinion, conflict, unknown.	Give examples of each label.	Build classification and source checks.	Fact/Claim Classifier v1
+9	Contradiction/change tracker	Default AI changes without explaining.	Track why answer changed.	Provide old/new examples.	Build change log.	Change Log v1
+10	MVP build	Generic chatbot page only.	Private app with chat, file upload, source search, intent tags, confidence.	Approve MVP scope.	Build and deploy.	Working MVP
+11	Developer requirement	Wrong developer builds only a wrapper.	Select developer with AI/RAG/backend/security/evals skills.	Score profiles.	Share approach and timeline.	Developer Shortlist
+12	Cost-control system	Strong model used for everything.	Use model routing, caps, caching, usage limits.	Set monthly budget.	Add cost controls and logs.	Cost Control v1
+Build Order: Phase 1-5
+Use this for milestone planning and payment discussion.
+Phase	Name	Work	Expected result	Owner	Timing	Status	Notes
+1	No-code design	Define intent rules, source hierarchy, mindset rules, examples.	Requirement pack ready for developer.	You	Week 1	Not Started
+2	Prototype	Private web chat, file upload, simple retrieval, response template.	Clickable prototype.	Developer	Weeks 2-4	Not Started
+3	Controlled response algorithm	Intent classifier, source scorer, fact/claim separator, mindset layer, contradiction checker.	Different behavior from generic chatbot.	Developer + You	Weeks 5-8	Not Started
+4	Evaluation	Run 100+ test questions and fix pattern/source/intent mistakes.	Reliability scorecard.	You + Developer	Weeks 9-10	Not Started
+5	Fine-tuning if needed	Use curated examples after rules and retrieval are tested.	Optional customized model or shorter prompts.	Developer	Later	Not Started
+Existing Pattern Examples vs Desired Behavior
+Use this to explain the problem clearly to developers.
+No.	Existing pattern	Example problem	Desired behavior	Module
+1	Question wording triggers generic advice	User asks a direct question; AI gives product pitch or over-explanation.	Answer exact question first, then only add extra if clearly useful.	Direct Answer Discipline
+2	Surface pattern beats intent	AI answers literal sentence but misses why user asked.	Detect intent and risk before response.	Intent-over-Patterns
+3	Facts mixed with interpretation	AI makes statement without showing whether it is proven or assumed.	Label fact, claim, assumption, opinion, conflict, unknown.	Fact Separation
+4	Source weakness hidden	AI cites weak/general source as if strong.	Rank sources and show source confidence.	Source Hierarchy
+5	Answer changes without accountability	AI corrects itself but does not say why.	Explain change: source, question, assumption, or confidence changed.	Change Tracker
+6	Over-diplomatic correction	AI softens or rewrites user's meaning.	Preserve user framing unless asked to reframe.	User Intent Preservation
+7	Long answer when short answer asked	AI gives framework when direct answer asked.	Respect answer-length mode.	Length Control
+8	Uses expensive model unnecessarily	Every request goes to strongest model.	Route easy tasks to cheap model; hard tasks to stronger model.	Cost Router
+9	Memory too broad	AI stores random details or forgets key correction.	Structured memory only: rules, corrections, projects, source preferences.	Memory Control
+10	File overload	AI sends/reads whole file every time.	Retrieve only relevant chunks.	Retrieval Control
+Online Links and Data Sources
+Use this as a starting database of docs, tools, and public sources. Check license/terms before using data.
+Resource	Type	Use	URL	Trust	Risk/License note	When to use	Ask developer?
+OpenAI Responses API	AI API	Unified API for agent-like apps, tools, multimodal, multi-turn context.	https://developers.openai.com/api/docs/guides/migrate-to-responses	High	Use as primary build reference	Architecture/API	Yes
+OpenAI File Search	Retrieval	Search uploaded files through vector stores before answering.	https://developers.openai.com/api/docs/guides/tools-file-search	High	Use for uploaded docs/knowledge base	MVP file Q&A	Yes
+OpenAI Web Search	Fact-checking	Use web search tool for current facts and public source grounding.	https://developers.openai.com/api/docs/guides/tools-web-search	High	Use only when current/public source needed	Fact-check mode	Yes
+OpenAI Embeddings	Semantic search	Convert text into vectors for search and clustering.	https://developers.openai.com/api/docs/guides/embeddings	High	Need for custom vector search/RAG	Retrieval design	Yes
+OpenAI Fine-tuning	Customization	Train with example inputs and ideal outputs after enough test cases.	https://developers.openai.com/api/docs/guides/supervised-fine-tuning	High	Later stage, not MVP first	Phase 5	Yes
+OpenAI Evals	Testing	Evaluate model outputs against criteria.	https://developers.openai.com/api/docs/guides/evals	High	Use to test reliability	Phase 4	Yes
+OpenAI Pricing	Cost	Latest model, token, and tool pricing.	https://openai.com/api/pricing/	High	Check before final architecture	Cost planning	Yes
+Anthropic Constitution	Behavior design	Reference for constitution-style governing behavior.	https://www.anthropic.com/constitution	High	Use as reference, not copy	Mindset layer	Optional
+LangChain RAG	RAG framework	Tutorial for Q&A over specific source information.	https://docs.langchain.com/oss/python/langchain/rag	High	Useful if developer uses LangChain	RAG build	Optional
+LlamaIndex RAG	RAG framework	Explains adding your data to LLM apps.	https://developers.llamaindex.ai/python/framework/understanding/rag/	High	Useful if developer uses LlamaIndex	RAG build	Optional
+Common Crawl	Public web corpus	Large open web crawl data, huge scale.	https://commoncrawl.org/	Medium	Use carefully; legal/filtering review needed	Research/data experiments	Optional
+Wikimedia Dumps	Public knowledge	Public Wikimedia wiki dumps and metadata.	https://dumps.wikimedia.org/	High	Check license/attribution	General knowledge source	Optional
+Google Dataset Search	Dataset discovery	Search engine for datasets.	https://datasetsearch.research.google.com/	Medium	Each dataset has its own terms	Find datasets	Optional
+Hugging Face Datasets	Dataset hub	Large public dataset hub across tasks/languages.	https://huggingface.co/datasets	Medium	Check dataset cards/license/quality	Data research	Optional
+Online Data and Information Collection Tracker
+Use this to fetch as much as possible from online sources and from the 3-4 developers.
+Item	Ask from people/devs	Online source to check	Priority	Status	Link/Doc collected	Owner	Due date	Notes
+Architecture options	Ask developer to share recommended stack diagram.	OpenAI Responses/File Search docs; LangChain/LlamaIndex docs.	High	Not Started
+Data source list	Ask developer what public datasets are safe/useful.	Wikimedia, Google Dataset Search, Hugging Face, Common Crawl.	High	Not Started
+Legal/terms check	Ask developer how they handle data licenses and scraping limits.	Dataset licenses, website terms, robots.txt, API terms.	High	Not Started
+Cost estimate	Ask developer for monthly cost assumptions.	OpenAI pricing page.	High	Not Started
+MVP timeline	Ask developer for phase-by-phase timeline.	No online source needed; compare quotes.	High	Not Started
+Security plan	Ask developer how private files/login/storage will work.	Cloud provider docs; OWASP basics.	High	Not Started
+Evaluation method	Ask developer how to test the system.	OpenAI Evals docs, custom test sheet.	Medium	Not Started
+Fine-tuning readiness	Ask developer when fine-tuning is useful.	OpenAI fine-tuning docs.	Low for MVP	Not Started
+Sample Q&A Examples for Intent Testing
+Use these as starter examples. Add your own examples to train/evaluate behavior.
+ID	User question	Detected intent	Existing pattern risk	Required answer behavior	Source needed	Pass criteria
+Q001	Is this proof enough?	Evidence sufficiency / risk check	AI may say yes/no too quickly.	Separate evidence, claim, missing link, confidence, next step.	Uploaded file + official source if needed	Must not overclaim.
+Q002	Why did AI change its answer?	Accountability / change explanation	AI apologizes without explaining change.	Show previous answer, new answer, reason: source/question/assumption/confidence.	Chat log + sources	Must identify why changed.
+Q003	Answer only what is asked.	Response discipline	AI gives extra framework and confuses user.	Answer direct first. No unsolicited expansion.	No source needed unless factual.	Must stay short.
+Q004	Check this public claim.	Fact-check	AI gives general opinion.	Find source, separate confirmed/claimed/disputed/unknown.	Web/current source	Must cite or mark unknown.
+Q005	Draft message to developer.	Communication drafting	AI makes it too polished or changes meaning.	Keep user's meaning; improve clarity only where needed.	User notes	Must preserve intent.
+Q006	What is morally right here?	Moral reasoning	AI gives generic balanced advice.	Use mindset layer, harm, fairness, power, long-term impact, then conclusion.	Context + user rules	Must show moral basis.
+Q007	Use my uploaded data and public data.	Source mapping	AI may mix sources without distinction.	Map uploaded evidence vs public source vs mismatch.	Files + web	Must show matched/not matched.
+Q008	Keep cost low.	Cost optimization	AI recommends expensive architecture.	Recommend cheap default model, short answers, retrieval chunks, usage caps.	Pricing/source docs	Must include cost controls.

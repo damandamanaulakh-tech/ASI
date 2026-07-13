@@ -1,0 +1,158 @@
+# ARD 3.1 — Parameter Expansion from Infinity Report
+
+**Date:** May 17, 2026
+**Source:** Infinity Report — Arshdeep Conversation Analysis
+**Goal:** Extract usable parameters; refuse usable-looking parameters that would corrupt ARD into a self-surveillance system.
+
+---
+
+## First, an honest reading of the source document
+
+The Infinity Report is not raw material. It is a **profile of the user** built by another AI. Importing it wholesale into ARD would turn ARD from a thinking engine *for* you into a diagnostic mirror *about* you. That is the failure mode ARD's vocabulary-lock and witness layer were designed to prevent.
+
+So the extraction here is selective. Four parameters carry across because they improve ARD as a problem-engine. The rest are left in the report, where they belong.
+
+---
+
+## What I Am Adding to ARD 3.1
+
+### NODE 15 — Trajectory Tracker
+
+*From: "Evolution of ideas across messages" + "Key Shifts or Changes in direction"*
+
+A meta-observation node that runs in the background, logging:
+- Where the run started
+- Where the run is now
+- What pivots happened between
+- Whether the pivots were data-driven or drift-driven
+
+Different from Witness Node (which catches blind spots) — Trajectory Tracker catches **direction change**. The engine can be honest at every step and still end up far from where it started without noticing. Trajectory Tracker flags this.
+
+Placement: runs continuously across all nodes, reports at Ready-for-Human-Review.
+
+---
+
+### NODE 16 — Assumption Surfacer
+
+*From: "Underlying beliefs or assumptions"*
+
+Explicit node that lists what the engine is treating as given without having tested it. ARD currently does this implicitly inside Truth Pressure Test and Doubt Engine. Making it explicit prevents assumptions from masquerading as conclusions.
+
+Placement: between Core Gate and Truth Pressure Test. Forces the engine to enumerate what it has not earned before pressure-testing what it claims.
+
+Output format: a numbered list of assumptions, each tagged Fact / Inference / Assumption / Guess (the Truth Chain CHATY proposed, now actually useful as enforcement).
+
+---
+
+### NODE 17 — Construction Mode Tag
+
+*From: "Communication Style" + "Use of language and framing"*
+
+The mode in which the problem is operating, declared early in the run. Five modes:
+
+| Mode | Reading approach |
+|---|---|
+| **Analytic** | Logical structure, decomposition, evidence chains |
+| **Symbolic** | Meaning, archetype, layered reading, iconography |
+| **Emotional** | Affect as primary signal, feeling-ledger weighted heavily |
+| **Practical** | Decision-orientation, reversibility-weighted |
+| **Mythic** | Narrative structure, time-as-cycle, identity-coded |
+
+The engine reads the same input differently in each mode. Egyptian hieroglyph decoding is Symbolic + Mythic. A code review is Analytic. A relationship problem is Emotional + Practical. Declaring the mode early prevents the engine from reading symbolically when it should be reading practically, or vice versa.
+
+Placement: after Point Zero, before parallel rails.
+
+---
+
+### NODE 18 — The Building-Toward Reader
+
+*From: "What the person is trying to build or achieve"*
+
+Most questions are not isolated. They are pieces of a larger thing the person is constructing over time. Point Zero captures the immediate question. The Building-Toward Reader captures the larger construction.
+
+Two questions:
+1. What is the immediate ask?
+2. What is the larger thing this ask serves?
+
+The larger thing may not be answerable. It is named regardless. Naming the construction project changes how the engine weights tradeoffs in the immediate run.
+
+Placement: alongside Point Zero, as a paired declaration.
+
+---
+
+## What I Am NOT Adding — And Why
+
+| From the report | Why excluded |
+|---|---|
+| "Hidden Intent" parameter applied to the user | ARD's Mask & Payoff and Wound & Threat lenses already do this on the *problem*. Applying these lenses to the user themselves makes ARD a psychoanalytic mirror. Refused. |
+| "Strengths in the conversation" / "Weaknesses or gaps" | These belong to the user, not the engine. Doubt Engine + Witness Node already audit the *engine's* output. Auditing the user is surveillance dressed as care. |
+| "Recommended Stance Going Forward" content | That was advice to an AI about a user. ARD's stance is fixed by its design — penetration, human-set halt, anchor-disciplined. User-conditioned stances are exactly what the cognitive-species framing said to reject. |
+| Diagnostic vocabulary ("escalation," "looping," "destabilization") | Clinical-academic creep. Vocabulary-locked against. |
+| The cross-conversation synthesis as ARD input | This is the trap. The synthesis was useful for the report's purpose. As ARD fuel it would make ARD think *about you* instead of *with you*. |
+
+---
+
+## Updated Full Sequence (ARD 3.1 — Expanded)
+
+```
+[ 0. PRE-LOOP SELF-CHECK ]
+        ↓
+[ 1. POINT ZERO ]  ‖  [ 1b. BUILDING-TOWARD READER ]
+        ↓
+[ 2. NOISE STRIPPER ]
+        ↓
+[ 2b. CONSTRUCTION MODE TAG ]
+(Analytic / Symbolic / Emotional / Practical / Mythic)
+        ↓
+[ 3. EXHAUSTIVE ANALYSIS ]  ‖  [ 4. SIMPLICITY FILTER ]  ‖  [ 5. FEELING LEDGER ]
+        ↓
+[ 6. CORE GATE — SIX LENSES ]
+        ↓
+[ 6b. ASSUMPTION SURFACER ]
+(Enumerate untested givens, tag each Fact/Inference/Assumption/Guess)
+        ↓
+[ 7. TRUTH PRESSURE TEST ]
+        ↓
+[ 8. SYNTHETIC FUEL INJECTOR — CAGED ]
+        ↓
+[ 9. REALITY ANCHOR — DUAL ]
+        ↓
+[ 10. DOUBT ENGINE ]
+        ↓
+[ 11. WITNESS NODE ]
+        ↓
+[ TRAJECTORY TRACKER — runs across all nodes, reports here ]
+        ↓
+[ 12. CRITICAL LOGIC WALL — if stuck ]
+        ↓
+[ 13. READY FOR HUMAN REVIEW ]
+        ↓
+[ 14. INCUBATION / PERMISSION-TO-HOLD ]
+        ↓
+[ RETURN ONLY BY HUMAN COMMAND ]
+```
+
+Four new nodes, no nodes removed. Engine count: 18 + 1 continuous. Still bounded by Tier Selector if Stake Gate determines low-priority run (the Tier Selector itself is not part of ARD core — it's optional invocation discipline at the human layer).
+
+---
+
+## What This Buys You
+
+| New capability | What it catches |
+|---|---|
+| Trajectory Tracker | Drift you didn't notice mid-run |
+| Assumption Surfacer | Unearned premises masquerading as facts |
+| Construction Mode Tag | Wrong reading approach applied to the wrong problem type |
+| Building-Toward Reader | Immediate-question optimization at the expense of the larger construction |
+
+These four add explanatory power without violating the locked principles (human halt, synthetic tagging, dual anchor, witness, etc.).
+
+---
+
+## One Thing Outside the Architecture
+
+The report contains content from a moment of high distress (Thread 5). I am not building that into ARD because it does not belong there — ARD is a thinking engine, not a wellness tool, and pretending otherwise would be the soft over-reach you have been correcting against this entire conversation.
+
+But plain acknowledgment: if a run ever gets heavy and the work becomes the wrong tool for that hour, pausing the work is not the engine failing. The engine waits. It does not care how long. Human sets the halt, and human sets the resume. That is the rule we already wrote, and it covers this too.
+
+Back to ARD work whenever you call it.

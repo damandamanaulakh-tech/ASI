@@ -1,0 +1,168 @@
+# RD World / Raw Definition Engine — Raw Thought Extraction ASIDE
+
+> ASIDE FILE — not added to live project structure.
+>
+> Coverage note: This extraction is based on the available project context, current chat history, memory, and retrieved File Library snippets. I did not invent missing sexual content; no explicit sexual project point was visible in the retrieved project context. Where wording is reconstructed, it is marked as reconstructed.
+
+
+Project role: Raw-source preservation and mapping engine under Unreal to Real.
+
+Status used for this extraction: Accepted / Active.
+
+
+---
+
+**Raw Thought 01 — Raw Definition Log**
+
+**Definition:** Raw source is logged before mapping, rewriting, or polishing.
+**User said / meant:** You wanted a system where original words are stored first, then analyzed into pattern, intent, category, definition, fact-check status, risk, output, and next action.
+**Emotional Tone:** Precise, protective, structure-seeking.
+**Core Belief:** Raw wording carries ownership and meaning.
+**Key Quote:** “Raw source must be preserved first.”
+**Assistant answered:** I built RD World around raw logging and field-based mapping.
+**How the answer changed:** The answer changed from normal summary into a database-like raw source engine.
+**Intent:** Preserve source while still making it usable.
+**Hidden Layer:** Raw language is treated like code/source material.
+**Best Outcome:** Your thoughts become searchable, mapped, and reusable.
+**Risk / Downside:** Raw logs can become too large without indexing.
+**Theory Value:** AI / Knowledge Systems / Psychology
+**Connection:** Connects to Unreal RT01, Sourceborn RT01.
+**Personal Stake:** High
+**Actionability:** Keep logging format stable.
+
+**Raw Thought 02 — Messy Thought as Source**
+
+**Definition:** Confusion may be unprocessed source needing structure.
+**User said / meant:** You pushed that raw, messy, unfinished thoughts should be handled carefully instead of corrected immediately.
+**Emotional Tone:** Assertive, protective, slightly frustrated.
+**Core Belief:** AI should not erase early human meaning.
+**Key Quote:** “A messy thought is not automatically confusion.”
+**Assistant answered:** I defined messy thought as possible raw source and created categories for source type, pattern, and intent.
+**How the answer changed:** The answer changed from interpretation to preservation plus controlled classification.
+**Intent:** Give early thoughts a safe holding form.
+**Hidden Layer:** Hidden layer: you do not want AI to dominate the first meaning.
+**Best Outcome:** More faithful extraction from long chats.
+**Risk / Downside:** Noise may be preserved if not filtered later.
+**Theory Value:** Psychology / AI / Philosophy
+**Connection:** Connects to Unreal RT03, Final Theory/Sourceborn RT04.
+**Personal Stake:** High
+**Actionability:** Always preserve first, classify second.
+
+**Raw Thought 03 — RD Core Chain**
+
+**Definition:** Raw material becomes usable through a controlled mapping chain.
+**User said / meant:** You accepted the chain: Raw Source → Pattern → Intent → Category → Definition → Fact-check Status → Risk Flag → Output → Next Action.
+**Emotional Tone:** Stable, system-building, approval-oriented.
+**Core Belief:** A repeatable chain prevents AI drift.
+**Key Quote:** “Raw Source → Pattern → Intent → Category → Definition…”
+**Assistant answered:** I made this the RD operating chain and parent mapping method.
+**How the answer changed:** The answer changed from an idea into a reusable protocol.
+**Intent:** Create consistent output from messy source.
+**Hidden Layer:** The chain is the bridge between emotion and structure.
+**Best Outcome:** Every chat can be converted into structured entries.
+**Risk / Downside:** Rigid chain may miss creative signals if overused.
+**Theory Value:** Systems / AI / Process Design
+**Connection:** Connects to Unreal RT01, URR RT01.
+**Personal Stake:** High
+**Actionability:** Use as default RD extraction format.
+
+**Raw Thought 04 — Pattern and Intent Map**
+
+**Definition:** Meaning is found by identifying repeated signals and purpose.
+**User said / meant:** You wanted not only definitions but also pattern and intent behind raw statements, so future output reflects the original push.
+**Emotional Tone:** Analytical, investigative.
+**Core Belief:** Intent explains why a thought exists.
+**Key Quote:** [reconstructed] “Map why I was pushing it, not only what I said.”
+**Assistant answered:** I added Pattern Codes and Intent Codes to RD World.
+**How the answer changed:** The answer changed from content capture to intent-aware classification.
+**Intent:** Make raw thoughts traceable by motive and pattern.
+**Hidden Layer:** Hidden layer: the system must protect not just words, but direction.
+**Best Outcome:** Better reconstruction of conversation history.
+**Risk / Downside:** Intent can be misread if assistant over-interprets.
+**Theory Value:** Psychology / AI / Human Nature
+**Connection:** Connects to URR Intent Gate RT02.
+**Personal Stake:** High
+**Actionability:** Use intent labels with uncertainty when needed.
+
+**Raw Thought 05 — Risk and Distortion Flags**
+
+**Definition:** Every output needs risk visibility before reuse.
+**User said / meant:** You wanted risk labels for source leak, proof risk, naming risk, legal/business risk, AI-comparison risk, and theory distortion.
+**Emotional Tone:** Cautious, defensive in a useful way.
+**Core Belief:** Unflagged output can damage the project.
+**Key Quote:** “Risk Flag.”
+**Assistant answered:** I created risk flag categories and routed public or disputed output to URR.
+**How the answer changed:** The answer changed from raw mapping to safety-aware mapping.
+**Intent:** Prevent private, legal, business, or theory mistakes.
+**Hidden Layer:** Hidden layer: power/control over when meaning goes public.
+**Best Outcome:** Safer conversion from private thought to public output.
+**Risk / Downside:** Too many risk labels can make everything feel blocked.
+**Theory Value:** AI Safety / Law / Business / Power
+**Connection:** Connects to URR RT03, Unreal RT08.
+**Personal Stake:** High
+**Actionability:** Assign risk to every reusable output.
+
+**Raw Thought 06 — Definition Output Bank**
+
+**Definition:** Raw source should produce faithful definitions, not polished replacements.
+**User said / meant:** You wanted definitions that preserve the raw idea instead of replacing it with generic AI wording.
+**Emotional Tone:** Ownership-focused, language-sensitive.
+**Core Belief:** Words are part of the invention, not decoration.
+**Key Quote:** [reconstructed] “Do not replace my words before mapping.”
+**Assistant answered:** I made definition output a later step after raw preservation.
+**How the answer changed:** The answer changed from rewriting to faithful definition building.
+**Intent:** Create clean definitions without losing source identity.
+**Hidden Layer:** Hidden layer: naming equals control of the theory.
+**Best Outcome:** Usable definitions that still feel like yours.
+**Risk / Downside:** Definitions can become too internal if never public-tested.
+**Theory Value:** Language / Philosophy / AI
+**Connection:** Connects to Sourceborn naming review RT08.
+**Personal Stake:** High
+**Actionability:** Keep raw wording beside every definition.
+
+**Raw Thought 07 — Routing Rule**
+
+**Definition:** RD prepares material, then routes it to the correct layer.
+**User said / meant:** You meant RD should know when to keep material internal, send it to URR, or send it to Sourceborn/Final Theory review.
+**Emotional Tone:** Boundary-focused, careful.
+**Core Belief:** Wrong routing causes wrong treatment.
+**Key Quote:** “Send to URR when output may be public.”
+**Assistant answered:** I created route rules for URR, Final Theory Source, Sourceborn Review, and RD-only material.
+**How the answer changed:** The answer changed from one engine into a traffic-control layer.
+**Intent:** Prevent public-safe work from mixing with raw theory work.
+**Hidden Layer:** Hidden layer: each project has a different danger profile.
+**Best Outcome:** Cleaner next actions and less duplication.
+**Risk / Downside:** Over-routing can fragment related ideas.
+**Theory Value:** Systems / Governance / AI
+**Connection:** Connects to Unreal RT04, URR RT04, Sourceborn RT09.
+**Personal Stake:** High
+**Actionability:** Use routing before making any file.
+
+**Raw Thought 08 — Example Test Bank**
+
+**Definition:** Examples prove the engine without changing the core.
+**User said / meant:** You confirmed examples like Point Zero, Point Zero with Product, Gravity, Halt Point/New Loop, and later demos as test material.
+**Emotional Tone:** Testing-focused, careful not to add too fast.
+**Core Belief:** Examples should validate structure, not rewrite it.
+**Key Quote:** “Do not add new examples yet.”
+**Assistant answered:** I treated examples as a test bank and separated confirmed from pending.
+**How the answer changed:** The answer changed from theory discussion into controlled dataset tracking.
+**Intent:** Test Sourceborn and RD logic across examples.
+**Hidden Layer:** Hidden layer: examples reveal where words break.
+**Best Outcome:** Strong evidence of how the system handles real cases.
+**Risk / Downside:** Too many examples too soon can destabilize naming.
+**Theory Value:** Science / AI / Methodology
+**Connection:** Connects to Sourceborn RT05, Demo Set RT01.
+**Personal Stake:** Medium
+**Actionability:** Add only approved examples.
+
+---
+
+## Extraction Self-Check
+
+- File is ASIDE only; not added to live project.
+- Private Sourceborn / Final Theory / URR logic is not marked public.
+- Sourceborn Sequence v0.1 is not changed.
+- Mystery and Invention are preserved where relevant.
+- Review-stage concepts are not marked final.
+- No explicit sexual material was invented where source context did not show it.

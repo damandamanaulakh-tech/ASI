@@ -1,0 +1,29 @@
+# King Actions — Raw Thought Pattern
+
+## Raw Thought
+
+If a king is present, the symbols may not only name him; they may encode what kingship does to him.
+
+## Pattern
+
+Travel/fight/build/offer/inherit/rule can be read as transformations rather than events.
+
+## Deep Questions
+
+Is the king actor, vessel, product, prisoner, mask, or offering?
+
+## Working Outputs
+
+[REVIEW] Cartouche points toward royal naming if verified. [SYNTHETIC] The king is the output of a pressure-system.
+
+## Doubt
+
+A cartouche-like shape alone does not identify a specific king, event, victory, or family relation.
+
+## Witness
+
+The engine may use 'king' because the prompt gave it as possibility.
+
+## Output Tag
+
+**Status:** REVIEW-ACCEPTED WORKING LENS. Not final historical claim.

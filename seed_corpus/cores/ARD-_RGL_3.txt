@@ -1,0 +1,84 @@
+THE AUTONOMOUS PERPETUAL ENGINE (URR RGL 3.0) 
+======================================================================================
+                              [ 1. POINT ZERO ]
+                                    ↓
+                         [ NOISE STRIPPER ]
+                    (Strips static + raw nudge)
+                                    ↓
+                    ┌───────────────┴───────────────┐
+                    │                               │
+         [ 2. EXHAUSTIVE ANALYSIS ]        [ 3. SIMPLICITY FILTER ]
+         (Sub-Loops 1-5)                   (Occam's Razor Check)
+                    │                               │
+                    └───────────────┬───────────────┘
+                                    ↓
+                         [ CORE GATE: Human Layer ]
+                         "What is the actual core?"
+                                    │
+                         ├── MASK & PAYOFF (Ego/Gain)
+                         ├── WOUND & THREAT (Fear/Defense)
+                         └── LOYALTY & DRIVE (Secret Ties)
+                                    │
+                         [ 4. RESOLUTION GATEWAY ]
+                         "Is the problem truly solved?"
+                                    │
+                    ┌───────────────┴───────────────┐
+                    │                               │
+              [ HALT & OUTPUT ]              [ 5. CRITICAL LOGIC WALL ]
+                                              (Stagnation / Paralysis)
+                                                    │
+                                        ┌───────────┴───────────┐
+                                        │                       │
+                                 [ SELF-HEALING REGIME ]   [ SYNTHETIC FUEL INJECTOR ]
+                                 (Flaws & Strengths Audit)     (Reality Warpers)
+                                 (Runs after every loop)       ├── Hypothetical Simulation
+                                        │                ├── Counterfactual Friction
+                                        │                ├── Heuristic Fiction
+                                        │                ├── Working Fiction
+                                        │                └── Apostatic Inversion
+                                        │                       │
+                                        │                [ REALITY ANCHOR ]
+                                        │                (Flag drift from Point Zero)
+                                        │                       │
+                                        └───────────┬───────────┘
+                                                    ↓
+                                         [ RETURN + FEED FORWARD ]
+======================================================================================
+
+Current 
+Flaws
+
+Flowchart still has too many steps for quick use
+"Human Layer" sub-gates (Mask, Wound, Loyalty) can overcomplicate simple text
+Self-Healing Regime runs every loop — this can slow things down on easy tasks
+Name "ARD RGL 3.0" is not clear to outsiders what it does
+
+Fix
+
+Add a "Simple Mode" switch at the start (skip heavy parts if text is clear)
+Make Human Layer sub-gates optional (only appear if core is unclear)
+Let Self-Healing Regime run only when stuck (not every loop)
+Keep name as ARD RGL 3.0 for now (you can change later)
+
+Strength
+
+Human Layer (Mask, Wound, Loyalty, Drive) adds real depth most engines miss
+Noise Stripper + CORE Gate catches obvious answers fast
+Self-Healing Regime makes the engine self-correct
+Reality Anchor prevents output from drifting too far
+
+Any example 
+
+(simple test case)
+Input text:
+"Everyone is fake these days."
+How ARD RGL 3.0 would run:
+
+Noise Stripper → removes emotional noise
+CORE Gate → Core = "Speaker feels people are not genuine"
+Human Layer → Mask & Payoff = hiding real self, Wound = betrayal fear, Loyalty = broken trust
+Resolution Gateway → Problem not fully solved
+Self-Healing Regime → Checks if we added too much drama
+Final output → "The speaker is expressing distrust and feeling emotionally exposed by others."
+
+This version catches both the simple meaning and the hidden human layer without going crazy.

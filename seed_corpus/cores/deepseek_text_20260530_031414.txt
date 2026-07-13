@@ -1,0 +1,50 @@
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                    SUPERSONIC ARD‑RGL 4.0 – UNLIMITED LOOP                          │
+│                       (Human says STOP to exit – never auto‑halt)                   │
+└─────────────────────────────────────────────────────────────────────────────────────┘
+
+   [1. POINT ZERO] ──────────────────────────────────────────────────────────┐
+        │                                                                     │
+        ▼                                                                     │
+   [2. NOISE STRIPPER] – split into: Fact | Feeling | Assumption | Pressure   │
+        │                                                                     │
+        ▼                                                                     │
+   [3. DUAL ANALYSIS] – Exhaustive (5 sub‑loops)  ‖  Simplicity Filter        │
+        │                                          (Occam + Key‑in‑Hand)      │
+        ▼                                                                     │
+   [4. CORE GATE – HUMAN SHADOW]                                              │
+        ├─ MASK & PAYOFF (Ego / Hidden gain)                                  │
+        ├─ WOUND & THREAT (Fear / Defense model)                              │
+        └─ LOYALTY & DRIVE (Secret ties / Identity)                           │
+        │                                                                     │
+        ▼                                                                     │
+   [5. EVIDENCE LEDGER] – label each claim: [FACT] [INFERENCE] [GUESS] [UNKNOWN]│
+        │                                                                     │
+        ▼                                                                     │
+   [6. RESOLUTION GATEWAY] – Checks: Solved? Useful? Testable? Actionable?    │
+        │                                                                     │
+        ├─► [YES] ──► [7. OUTPUT GENERATOR] ──► [HALT (or CONTINUE)]          │
+        │               │                                                     │
+        │               └─► show: Ask vs Deliver, Confidence, Risk, Next Move │
+        │                                                                     │
+        └─► [NO] ──► [8. CRITICAL LOGIC WALL]                                 │
+                        │                                                     │
+                        ▼                                                     │
+                   [9. SELF‑HEALING REGIME] – log mistake, cause, correction   │
+                        │                                                     │
+                        ▼                                                     │
+                   [10. SYNTHETIC FUEL INJECTOR]                              │
+                        ├── Hypothetical Simulation                           │
+                        ├── Counterfactual Friction                           │
+                        ├── Heuristic Fiction                                 │
+                        ├── Working Fiction                                   │
+                        └── Apostatic Inversion                               │
+                        │                                                     │
+                        ▼                                                     │
+                   [11. REALITY ANCHOR] – “Does this still match Point Zero?”  │
+                        │                                                     │
+                        ▼                                                     │
+                   [12. RETURN + FEED FORWARD] – update engine memory         │
+                        │                                                     │
+                        └─────────────────────────────────────────────────────┘
+   (loop back to Point Zero with compounded Product – no iteration limit)

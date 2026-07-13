@@ -45,7 +45,9 @@ def due(root: str, every_days: int = 7) -> bool:
 def run_if_due(engine, root: str, every_days: int = 7) -> dict | None:
     if not due(root, every_days):
         return None
-    result = engine.brains.weekly_update()
+    result = engine.brains.weekly_update()          # refresh brain settings
+    digest = engine.memory.weekly_digest()          # SYNTHESISE each brain's week
+    result["digest"] = digest
     with open(_state_path(root), "w", encoding="utf-8") as f:
         json.dump({"last_run": result["at"], "result": result}, f, indent=2)
     return result

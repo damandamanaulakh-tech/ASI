@@ -1,0 +1,51 @@
+#	Parameter	Flaw / Risk	Suggestion	Fix	Needed?	Status
+1	Sourceborn purpose	Too broad: invention, mystery, science, AI, product all mixed	Keep umbrella, but define output types separately	Add “Sourceborn = sequence engine, not every product”	Needed	Review
+2	URR-07 purpose	Can look same as Appropriate V / VerifyAi	Separate as response-control protocol	Define URR-07 as verification/control layer only	Needed	Review
+3	Appropriate V role	Risk of becoming duplicate URR	Keep it as simple suitability checker	Limit to “suitable / safe / clear / not overclaimed”	Needed	Review
+4	VerifyAi role	Product direction unclear	Treat as product-facing layer only	Keep VerifyAi outside private theory core	Needed	Review
+5	Verify Pass role	Pass may sound like truth	Define pass as test-condition pass only	Add rule: “Pass ≠ absolute truth”	Needed	Review
+6	Holo Concept	Risk of early final naming	Keep as review-stage umbrella only	Do not use as official public/project name yet	Needed	Review
+7	Point Zero	Powerful but too abstract	Keep private/internal	Add simple internal definition only	Needed	Review
+8	Point Zero public exposure	High risk of confusion / mockery / misread	Do not expose publicly now	Public version should avoid this term	Not needed publicly	Hold
+9	Sourceborn Sequence v0.1	Risk of accidental changes	Freeze as review-stage sequence	Do not alter without explicit approval	Needed	Review
+10	Mystery category	Can look unscientific if public	Keep internal as unknown-space holder	Public-safe wording: “unresolved area”	Needed internally	Review
+11	Invention category	Can overpromise	Keep as possible outcome, not guaranteed outcome	Add “may generate invention path”	Needed	Review
+12	Halt Point	Good concept but needs stricter meaning	Define as stop/review gap, not failure	Add “Halt = new loop trigger”	Needed	Review
+13	Stage Addition	Vague	Explain as extra layer added after halt	Add examples later, not now	Needed	Review
+14	Outcome	Too broad	Split outcome into answer / product / theory / test / evidence	Add outcome type column in future files	Needed	Review
+15	Point Zero with Product	Confusing wording	Keep internal; test with examples	Do not publicize now	Needed internally	Review
+16	Point Zero + Product	Similar to previous term	Clarify difference: verified return vs stored result	Add distinction note	Needed internally	Review
+17	Next Loop	Strong but may cause endless review	Add stop condition	Define when loop pauses	Needed	Review
+18	Raw Source	Core strength	Risk: raw source may contain unsafe/private claims	Add privacy/risk tag before use	Needed	Review
+19	RD World	Strong but overlaps Sourceborn	Define RD World as raw mapping layer only	Keep it below Sourceborn, not same level	Needed	Review
+20	RD chain	Good but long	Keep for internal review, simplify in public	Public version: “source → claim → check → output”	Needed	Review
+21	Pattern	Useful but may become vague	Force pattern to link to source evidence	Add “pattern must cite source/event”	Needed	Review
+22	Intent	Risk of mind-reading	Mark as inferred unless user clearly states it	Add Fact / Claim / Inference distinction	Needed	Review
+23	Evidence	Needs stricter definition	Separate internal evidence vs external evidence	Add evidence type	Needed	Review
+24	Claim Extraction	Strong URR feature	Needs mandatory use for public factual answers	Add trigger rule	Needed	Review
+25	Claim Check	Good but needs source grading	Add supported / unsupported / uncertain	Add claim status table	Needed	Review
+26	Multi-source Check	May be overused	Use only for public/legal/medical/business/current facts	Add conditional trigger	Needed	Review
+27	Retrieval	Could expose private browsing dependence	Keep as “use source when facts may change”	Do not use for purely internal theory review	Needed conditionally	Review
+28	Risk Flag	Good but too general	Split into factual / legal / public / private / distortion risk	Add risk category field	Needed	Review
+29	Constrained Output	Strong but not defined enough	Define boundary rules	Add “answer only within verified scope”	Needed	Review
+30	Public-Safe Version	Important	Risk: may become too soft / diluted	Keep strong but evidence-controlled	Needed	Review
+31	User-Safe Version	Useful	Needs difference from Public-Safe	User-Safe = direct help; Public-Safe = external-safe	Needed	Review
+32	Private exposure	High leakage risk	Keep private review inside control chat only	Add “do not paste externally” warning	Needed	Hold
+33	External AI testing	Useful evidence	Risk of exposing core	Test only redacted prompts	Needed	Review
+34	Grok/external review	Useful but not authority	Treat as test signal only	Add “external pass = evidence, not truth”	Needed	Review
+35	Prompt comparison	Good method	Risk of endless prompt testing	Link each test to one decision	Needed	Review
+36	Baseline vs improved output	Strong evidence format	Needs fixed scorecard	Add parameters: safe, clear, factual, not overclaimed	Needed	Review
+37	Chronological sequence mapping	Core strength	May become too long	Use step table + observation	Needed	Review
+38	Reverse engineering term	User is still reviewing replacement	Do not finalize term	Use “chronological sequence / sequence map” for now	Needed	Review
+39	Secureborn / Sourceborn	Naming conflict risk	Preserve both as user placeholders until clarified	Do not merge or rename	Needed	Hold
+40	Unreal to Real	Parent role may become unclear	Keep as parent/meta project only	Do not make it product name unless approved	Needed	Review
+41	Project count	Too many names create confusion	Reduce to 2–3 practical project outputs	Keep private layers behind product	Needed	Review
+42	Product vs theory	Mixed in current structure	Separate product files from private theory files	Add boundary table	Needed	Review
+43	File status control	Earlier statuses mixed	Use only allowed statuses now	Replace old labels only after approval	Needed	Review
+44	“Accepted” status	Not allowed unless user final-locks	Avoid using it now	Use Agreed / Review / Hold / Verified	Needed	Review
+45	Testing location	Risk of mixing chats/files	Always show destination before paste block	Keep paste-destination rule	Needed	Verified
+46	Copy-paste blocks	Useful but can be pasted wrong	Add project + chat/file name before every block	Continue current rule	Needed	Verified
+47	Public posts	Risk of premature exposure	Keep blocked	Do not create public posts now	Not needed	Hold
+48	Prototype/build	Risk of jumping too early	Keep blocked	No app/build until scope locked	Not needed now	Hold
+49	Science/medicine claims	High factual risk	Reality-check before recommendation	Use sources only when factual/current	Needed	Review
+50	Core update process	Biggest risk is silent change	Always show change / why / risk / approval first	No core update without user approval	Needed	Verified

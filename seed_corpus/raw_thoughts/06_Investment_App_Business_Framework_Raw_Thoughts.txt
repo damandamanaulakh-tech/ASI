@@ -1,0 +1,151 @@
+# Investment App / Business Framework — Raw Thought Extraction
+
+**Extraction type:** Raw Thought reconstruction file  
+**Status:** Aside extraction only — not added to active project files  
+**Created from:** uploaded ChatGPT export JSON/HTML + group chat export  
+**Important boundary:** This is a reconstruction of major ideas from the exported conversations. It is not a proof file, legal filing, public claim, or final theory lock.
+
+**Project meaning:** CAD investment framework, equity, milestones, company formation, governance, unit economics, and exit logic.
+
+## Source chats covered
+- `Investment Framework App` — 23 user turns / 63 assistant turns / 2026-04-17 to 2026-05-01
+
+---
+
+**Raw Thought 01 — CAD 100k for 15 Percent**
+
+**Definition:** Investment terms need structured framework.
+**User said / meant:** You planned to invest CAD 100,000 in a friend’s AI picture/video/social-posting app, revised from 25% ask to 15% equity.
+**Emotional Tone:** Strategic, cautious, opportunity-driven.
+**Core Belief:** Friendship investment still needs valuation, milestones, and protections.
+**Key Quote:** “1 lac CAD… friend is agreed for 15%”
+**Assistant answered:** The assistant calculated implied valuation and built a deal framework.
+**How the answer changed:** Raw investment discussion became a term-sheet style structure.
+**Intent:** Protect capital while keeping relationship workable.
+**Hidden Layer:** You want upside but do not want blind trust.
+**Best Outcome:** A clean investment framework for negotiation.
+**Risk / Downside:** 15% may be high or low depending on traction/IP/company readiness.
+**Theory Value:** Business / Startup / Finance
+**Connection:** Connects to AI product/startup interest.
+**Personal Stake:** High
+**Actionability:** Use a formal term sheet before paying any tranche.
+
+---
+
+**Raw Thought 02 — Tranche-Based Investment**
+
+**Definition:** Money should vest with payment and progress.
+**User said / meant:** You explored 4 tranches of CAD 25k/quarter and equity vesting tied to payments or performance.
+**Emotional Tone:** Controlled, risk-managed.
+**Core Belief:** Investment should release gradually as proof improves.
+**Key Quote:** “four tranches”
+**Assistant answered:** The assistant framed staged investment, vesting, and milestone protections.
+**How the answer changed:** The deal shifted from lump-sum trust to controlled deployment.
+**Intent:** Limit loss if execution fails.
+**Hidden Layer:** You want optionality and leverage without operating daily.
+**Best Outcome:** A staged-investment clause.
+**Risk / Downside:** Too strict terms may demotivate founder or complicate trust.
+**Theory Value:** Startup Finance / Governance
+**Connection:** Connects to consent and exit clauses.
+**Personal Stake:** High
+**Actionability:** Tie tranches to defined deliverables and reporting.
+
+---
+
+**Raw Thought 03 — Break-Even User Logic**
+
+**Definition:** Subscriptions must support cost reality.
+**User said / meant:** You discussed pricing CAD 50/69/99, cost around CAD 15/user, broader monthly cost around CAD 8,000, and break-even around 160 paid users.
+**Emotional Tone:** Analytical, numbers-focused.
+**Core Belief:** Traction must be measured against actual burn and cost per user.
+**Key Quote:** “break-even target: ~160 active paid users”
+**Assistant answered:** The assistant helped connect subscription pricing, user cost, and break-even assumptions.
+**How the answer changed:** The app moved from idea to operating economics.
+**Intent:** Know whether the business can survive.
+**Hidden Layer:** Early visits without paid users are weak signal.
+**Best Outcome:** A unit-economics page in the investment framework.
+**Risk / Downside:** Cost/user and marketing assumptions may change quickly.
+**Theory Value:** Finance / Startup / Product
+**Connection:** Connects to MVP validation and no paid users risk.
+**Personal Stake:** High
+**Actionability:** Validate actual CAC, churn, conversion, and infra cost.
+
+---
+
+**Raw Thought 04 — Founder and IP Readiness**
+
+**Definition:** Code ownership and incorporation must be clear.
+**User said / meant:** You noted the founder is ex-Microsoft, owns code, company not incorporated yet, domain/accounts not fully prepared, and bugs still being fixed.
+**Emotional Tone:** Cautious, due-diligence focused.
+**Core Belief:** Before investing, ownership and company structure must be clean.
+**Key Quote:** “company not incorporated yet”
+**Assistant answered:** The assistant emphasized incorporation, IP assignment, cap table, and documentation.
+**How the answer changed:** The discussion moved from personal trust to legal/business readiness.
+**Intent:** Avoid paying into unclear ownership.
+**Hidden Layer:** The hidden risk is informal setup with real money.
+**Best Outcome:** A due-diligence checklist.
+**Risk / Downside:** Without incorporation/IP assignment, investor rights are fragile.
+**Theory Value:** Startup / Legal / Governance
+**Connection:** Connects to investment terms and consent rights.
+**Personal Stake:** High
+**Actionability:** Do not transfer major funds before company/IP documents.
+
+---
+
+**Raw Thought 05 — Investor Consent for Major Movement**
+
+**Definition:** Significant company moves need prior notice.
+**User said / meant:** You wanted notification or consent before significant movement in company direction, funding, sale, equity, or product scope.
+**Emotional Tone:** Protective, governance-minded.
+**Core Belief:** Minority investors need visibility when control events happen.
+**Key Quote:** “prior consent/notification for any significant movement”
+**Assistant answered:** The assistant suggested reserved matters / consent clauses.
+**How the answer changed:** The investment became governance-aware, not just equity percentage.
+**Intent:** Prevent dilution or pivot surprise.
+**Hidden Layer:** You are not operating daily, so information rights matter.
+**Best Outcome:** Reserved-matters clause.
+**Risk / Downside:** Too many veto rights can block company speed.
+**Theory Value:** Business / Governance / Investor Rights
+**Connection:** Connects to exit and new investor onboarding.
+**Personal Stake:** High
+**Actionability:** Define “major movement” precisely.
+
+---
+
+**Raw Thought 06 — Performance and Bonus Equity**
+
+**Definition:** Extra equity should follow measurable outcomes.
+**User said / meant:** You explored bonus 1–2% or 5% structures tied to tranche performance or failure to break even by year end.
+**Emotional Tone:** Negotiating, tactical.
+**Core Belief:** Equity changes should reflect performance, risk, or additional contribution.
+**Key Quote:** “5% if not break-even by year end”
+**Assistant answered:** The assistant framed options but cautioned that terms must be clear and fair.
+**How the answer changed:** The idea moved toward conditional equity clauses.
+**Intent:** Create downside protection or incentive alignment.
+**Hidden Layer:** You want compensation for risk if growth misses.
+**Best Outcome:** A milestone-adjustment provision.
+**Risk / Downside:** Overcomplicated equity may cause disputes later.
+**Theory Value:** Startup Finance / Negotiation
+**Connection:** Connects to tranches and break-even logic.
+**Personal Stake:** Medium
+**Actionability:** Use simple, lawyer-reviewable milestone clauses.
+
+---
+
+**Raw Thought 07 — Exit Route If Performance Fails**
+
+**Definition:** Failure plan must exist before money goes in.
+**User said / meant:** You discussed sale to third party, onboarding new investors, minimum return, or equity outcomes if the app does not break even.
+**Emotional Tone:** Realistic, risk-aware.
+**Core Belief:** A deal is incomplete without exit and failure terms.
+**Key Quote:** “if performance fails”
+**Assistant answered:** The assistant helped brainstorm exit and protective structures.
+**How the answer changed:** The framework added downside scenarios, not only upside vision.
+**Intent:** Avoid being trapped in a failing informal venture.
+**Hidden Layer:** Friendship can make exits emotionally difficult.
+**Best Outcome:** A fallback plan in term sheet.
+**Risk / Downside:** Minimum return clauses may be hard to enforce if company has no cash.
+**Theory Value:** Business / Risk / Legal
+**Connection:** Connects to consent, tranches, and incorporation.
+**Personal Stake:** High
+**Actionability:** Write failure scenarios plainly before investment.

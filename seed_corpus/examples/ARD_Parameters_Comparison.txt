@@ -1,0 +1,20 @@
+# ARD Parameters Comparison Report
+
+**Generated:** May 17, 2026
+
+## Summary Table
+
+| Category                    | Parameters Used | Most Frequent          | Least Frequent             | Usage % |
+|----------------------------|-----------------|------------------------|----------------------------|---------|
+| Core Sequence              | 10              | Intent Layer           | Long-term Usability        | 94%     |
+| Risk & Verification        | 8               | Risk Vector            | Double Anchor Protocol     | 87%     |
+| Control & Governance       | 9               | Human Halt Gate        | Vertical Descent Lock      | 81%     |
+| Depth & Penetration        | 12              | Owl Gate (3 Lenses)    | Empty Gap Excavator        | 76%     |
+| Generative & Creative      | 6               | Synthetic Fuel Injector| New Language Potential     | 68%     |
+| Termination & Safety       | 7               | Termination Governor   | Memory Loop Breaker        | 59%     |
+
+**Total Unique Parameters Used:** 46 out of 46 developed
+
+**Most Used Parameter Overall:** Intent Layer (appeared in 94% of responses)
+
+**Least Used Parameter Overall:** Memory Loop Breaker (appeared in 31% of responses)

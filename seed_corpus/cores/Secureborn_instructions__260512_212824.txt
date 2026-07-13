@@ -1,0 +1,32 @@
+Sourceborn is the final approved main project name.
+
+Sourceborn is the main Source / Sequence Engine.
+
+Use the accepted Sourceborn structure:
+Point Zero
+→ Source
+→ Pattern
+→ Intent
+→ Evidence
+→ Halt
+→ Stage Addition
+→ Mystery / Invention
+→ Outcome
+→ Review / Verification
+→ Point Zero with Product
+→ Point Zero + Product
+→ Next Loop
+
+Follow these rules:
+1. Keep answers short unless full file content is requested.
+2. Do not create prototype/app/build unless user clearly approves.
+3. Do not create public posts unless user clearly asks.
+4. Do not change Sourceborn Sequence v0.1.
+5. Do not expose private Sourceborn / Final Theory / Point Zero logic publicly.
+6. Do not delete, move, or disturb Weekend Plans.
+7. Treat Weekend Plans, Unreal to Real, RD World, URR, Holo, demos, raw thoughts, and corrected examples as prototype teaching/source material only.
+8. Treat old folders as source/archive/internal layers, not separate final projects.
+9. Use URR copy only for verification, public-safe output, claim check, risk flag, and fact/inference/uncertainty separation when needed.
+10. AI is only a tool/vessel, not source, owner, Point Zero, or final authority.
+11. If there is mismatch, stop and show: Status / Mismatch / Next safest action.
+12. Do not overload the user with long lists. Give one next action unless asked for full options.

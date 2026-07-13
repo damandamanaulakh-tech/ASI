@@ -1,0 +1,355 @@
+Revised 1–9 below. This is still discussion draft, not final structure.
+
+1. Main operating map — revised
+
+CEO MASTER CONTROL
+   │
+   ├── Master Rate List / Master BOQ
+   │       ├── Used for new tender / new site costing
+   │       ├── Not part of active individual site WO flow
+   │       └── Purchase updates weekly rates
+   │
+   ├── Multi-Site Dashboard
+   │       ├── Site progress
+   │       ├── Material status: pending / delivered / new request out of work order
+   │       ├── Pending bills + submitted bills
+   │       ├── Payments received: order value vs submitted vs due with TAT
+   │       ├── Site expenses: posted by Site Incharge as and when done
+   │       ├── Subcontractor payments: order value vs submitted vs due with TAT
+   │       ├── TA/DA approvals
+   │       ├── Misc expense: sub-head dropdown site-wise + others
+   │       └── Tender reference costing
+   │
+   ↓
+
+ADMIN ALLOCATES SITE INCHARGE + RIGHTS
+   ↓
+SITE CREATION BY ADMIN / SITE INCHARGE
+   ↓
+WORK ORDER UPLOAD / AMENDMENT / NEW SITE REQUEST
+   ↓
+AI + ADMIN / SITE INCHARGE REVIEW
+   ↓
+GANTT + WBS + MATERIAL SEQUENCE GENERATED FROM WORK ORDER
+   ↓
+SITE INCHARGE CONFIRMS GANTT / CLIENT CONFIRMATION CLAUSE
+   ↓
+PURCHASE TAT + PO + DELIVERY PLAN MATCHED WITH GANTT
+   ↓
+SITE INCHARGE + PURCHASE FINAL TAT CONFIRMATION
+   ↓
+SUBCONTRACTOR ALLOCATION + SITE READINESS
+   ↓
+CEO / CFO / PURCHASE / SITE REVIEW
+   ↓
+DAY 1 PROJECT START
+   ↓
+DAILY SITE + PURCHASE + SUBCONTRACTOR + EXPENSE LOOPS
+   ↓
+BILLING CHECKLIST DEPLOYED NEAR BILLING STAGE
+   ↓
+SITE INCHARGE CONFIRMS DOCUMENTS / REVERSE LOOP UNTIL COMPLETE
+   ↓
+FINAL BILLING PACK + BILL SUBMISSION
+   ↓
+FINANCE / OWNER PAYMENT FOLLOW-UP
+   ↓
+SITE COMPLETION REVIEW / GAPS / RATES / ISSUES / LEARNING
+
+
+---
+
+2. Correct layers — kept for now
+
+Layer	Role / Deck	Main control
+
+Layer 1	CEO / Owner	Multi-site dashboard, approvals, tender costing, escalation
+Layer 2	Finance / CFO	Ledger, payments, pending bills, expenses, TA/DA, misc expense
+Layer 3	Billing	Billing documents, bill pack, submission, rejection correction
+Layer 4	Purchase	Material, TAT, PO, delivery, weekly master rate update
+Layer 5	Site Incharge	Site creation/upload after rights, execution, Gantt confirmation, subcontractors, material receipt
+Layer 6	Document Control	Work order, challans, compliance, handover, drawings, DLP, bill pack
+
+
+Layer location inside loop to be discussed later.
+
+
+---
+
+3. Individual site full flow with reverse loops — revised
+
+Seq	Stage	Main Owner	Connected Owner	Output	Reverse Loop / Change Loop
+
+0	Admin allocates Site Incharge and rights	Admin	CEO	Site Incharge access created	If wrong person/rights → Admin correction
+1	Site creation	Site Incharge / Admin	CEO	Site created	If details incomplete → back to Site Incharge/Admin
+2	Work order upload	Site Incharge	Admin	Work order uploaded	If amended WO exists → version update
+3	Work order / amendment / new request review	AI + Admin + Site Incharge	CEO if needed	Scope, work sequence, key clauses	If unclear → back to Site Incharge/Admin/CEO
+4	Gantt chart + WBS generation	System AI	Site Incharge	Draft Gantt + WBS	Site Incharge confirms or revises
+5	Client acceptance / confirmation clause tick	Site Incharge	Client / Admin	Accepted / confirmed / pending status	If client not confirmed → hold or reverse
+6	Work group breakup	System + Site Incharge	Purchase	Civil, electrical, plumbing, fire, HVAC, etc.	If sequence not practical → revise WBS/Gantt
+7	Material list generated from WO + Gantt	System	Site Incharge / Purchase	Material list in sequence	If item not in WO → mark new request/out of WO
+8	Site material verification	Site Incharge	Purchase	Required / not required / later required	If mismatch → reverse to material list
+9	Purchase TAT + PO + delivery plan	Purchase	Site Incharge	TAT, PO status, expected delivery	If TAT does not match Gantt → Gantt revision
+10	Material sequence agreement	Site Incharge + Purchase	CEO if dispute	Material delivery aligned with work sequence	If early/late requirement → Site Incharge reverts to Purchase
+11	Final Gantt update after Purchase TAT	Site Incharge / System	Purchase	Confirmed Gantt	If delivery delay → Gantt shifts
+12	Subcontractor allocation	Site Incharge	CEO / Finance	Trade-wise subcontractor list	If unavailable → replace/reassign
+13	Subcontractor payment schedule	Site Incharge / Finance	CEO if needed	Payment terms and TAT	If cash issue → Finance/CEO loop
+14	Site readiness confirmation	Site Incharge	Purchase	Ready / pending list	If material/manpower missing → reverse loop
+15	Final pre-start review	CEO / CFO / Purchase / Site	Billing only if required	Go / hold decision	Any issue → return to concerned owner
+16	Day 1 project start	Site Incharge	All	Active site	If blocked → reason logged
+17	Daily site execution update	Site Incharge	CEO dashboard	Progress, delay, manpower, photos	If delay crosses limit → CEO escalation
+18	Material delivery update	Purchase + Site Incharge	Finance if payment hold	PO/TAT/delivery + site receipt	Short/wrong material → Purchase correction
+19	Site expense update	Site Incharge	Finance	Site-wise expense entry	Finance verifies under ledger
+20	Subcontractor work confirmation	Site Incharge	Finance	Work done / pending / payable	If incomplete → payment hold
+21	Billing checklist deployed	Billing	Site Incharge	Full document requirement list	Missing docs → reverse to Site/Purchase/Admin/HR
+21A	Billing checklist reverse loop till completion	Site Incharge + Billing	Purchase/Admin/HR	Documents complete gradually	Continues till running/final billing
+22	Running PI / measurement / abstract support	Site Incharge + Billing	Finance	PI / measurement / abstract	Mismatch → back to Site Incharge
+23	Final bill confirmation by Site Incharge	Site Incharge	Billing	Site confirms bill documents	If not confirmed → billing hold
+24	Final billing pack + submission + rejection correction	Billing	Site Incharge / Finance	Submitted / rejected / resubmitted	If rejected → correction loop
+25	Payment follow-up	Finance / Owner	Billing support	Payment received / due / pending TAT	Technical query → Billing/Site support
+26	Site completion review	CEO / Finance / Purchase / Site	All	Gaps, rate learning, issue changes	Learning goes to owner/finance/purchase decks
+
+
+Removed from individual active-site flow: master rate comparison, weekly master BOQ update, owner dashboard ledger closure as separate site step.
+
+
+---
+
+4. Department-wise responsibility map — revised
+
+A. CEO / Owner deck
+
+Area	CEO control
+
+Multi-site review	All active sites, delayed sites, billing status
+Tender costing	Uses master rate list / master BOQ for new tenders
+Approvals	High value purchase, rate dispute, delay escalation, TA/DA, finance hold
+Payment visibility	Order value vs submitted vs due vs received with TAT
+Site progress	Site-wise planned vs actual
+Material	Pending / delivered / new request out of WO
+Subcontractor	Order value vs submitted vs due with TAT
+Expenses	Site expenses + misc expense heads
+Escalation	Anything pending beyond defined delay threshold
+
+
+
+---
+
+B. Finance deck
+
+Area	Finance control
+
+Site ledger	Site-wise expense, payment, received amount
+Pending bills	Submitted / due / received / TAT
+Payments received	Against order value and submitted value
+Subcontractor payments	Order value vs submitted vs due with TAT
+Purchase payments	Vendor payment status
+TA/DA	Site-wise TA/DA approval
+Misc expense	Sub-head dropdown site-wise + others
+Cash flow	Expected inflow and outflow
+Client follow-up support	Finance/Owner follows payment, not Site Incharge
+
+
+
+---
+
+C. Purchase deck
+
+Area	Purchase control
+
+Material requirement	Taken from WO + Gantt + Site Incharge confirmation
+TAT	Delivery timeline for each material
+PO	PO pending / issued / hold
+Delivery	Pending / delivered / partial / rejected
+Material sequence	Material delivered as per Gantt, not dumped at site
+Site coordination	Purchase and Site Incharge agree TAT
+New request out of WO	Flag separately
+Master rate list	Weekly update for CEO tender costing only
+Master BOQ	Used for new tender reference, not active site WO correction
+
+
+
+---
+
+D. Site Incharge deck
+
+Area	Site Incharge control
+
+Site creation	Can create site after Admin allocates rights
+Work order upload	Main owner for active site WO upload
+Gantt confirmation	Confirms system-generated Gantt
+Client clause confirmation	Accepted / confirmed / pending tick
+Site execution	Timeline, finishing, quality, daily progress
+Material verification	Confirms required material and timing
+Material receipt	Confirms delivered / short / wrong / pending
+Subcontractors	Allocation, execution, payment confirmation
+Site expenses	Posts expenses as and when done
+Running PI	Supports PI / running bill / measurement
+Billing support	Confirms billing checklist documents
+Final bill confirmation	Confirms before Billing submits
+
+
+
+---
+
+E. Billing deck
+
+Area	Billing control
+
+Billing checklist	Deployed near billing stage, not at site start
+Document request	Requests documents from Site/Purchase/Admin/HR
+Work order versions	Original + amended WO if applicable
+Tax invoice	Prepare / attach / track
+Summary sheet	Prepare / attach / track
+Measurement sheet	Taken from Site/Billing support
+Abstract	Prepare / verify
+HR compliance	PF, ESI, salary slips, CAR, work policy
+Challans	Master list + copies
+Handover docs	Handover / installation reports
+As-built drawings	Final drawings where required
+Client confirmation	Confirmation copy
+DLP	Signed DLP copy
+Final billing	Bill pack, submission, rejection correction
+
+
+
+---
+
+5. Document checklist flow — revised
+
+Billing checklist is deployed near billing stage and then keeps looping until running/final bill completion.
+
+Document	Source owner	Checked by	Used for
+
+Work order	Site Incharge / Admin	Billing	Billing base
+Amended work order	Site Incharge / Admin	Billing / Finance	Revised billing
+Tax invoice	Billing / Accounts	Finance	Bill submission
+Summary sheet	Billing	Site Incharge / Finance	Bill summary
+Measurement sheet	Site Incharge / Billing	Billing	Quantity proof
+Abstract	Billing	Finance / Site Incharge	Bill support
+PF	HR/Admin	Billing	Labour compliance
+ESI	HR/Admin	Billing	Labour compliance
+Salary slips	HR/Admin	Billing	Labour proof
+CAR policy	Admin / Finance	Billing	Insurance proof
+Work policy	Admin / HR	Billing	Compliance
+Challan master list	Site Incharge / Purchase	Billing	Material proof
+Challan copies	Site Incharge / Purchase	Billing	Material proof
+Installation report	Site Incharge	Billing	Execution proof
+Handover report	Site Incharge	Billing	Completion proof
+As-built drawings	Site / Design	Billing	Closure proof
+Client confirmation copy	Site Incharge	Billing	Acceptance proof
+DLP signed copy	Site Incharge / Billing	Billing	DLP proof
+
+
+
+---
+
+6. Reverse loop map — revised
+
+Trigger	Goes back to	Action
+
+Site Incharge not assigned	Admin	Allocate person and rights
+WO amended	Site Incharge / Admin / Billing	Update WO version
+New request out of WO	Site Incharge / CEO / Purchase	Mark as new request, not original scope
+Gantt not practical	Site Incharge / System	Revise sequence
+Client clause not confirmed	Site Incharge / Admin	Hold tick / confirm later
+Material TAT not matching Gantt	Purchase + Site Incharge	Revise delivery plan or Gantt
+Material required early/later	Site Incharge → Purchase	Purchase updates TAT
+Material delayed	Purchase / Site Incharge	Gantt impact shown
+Material short/wrong	Site Incharge / Purchase	Replacement or correction
+Delay beyond defined time	CEO level	Escalation
+Subcontractor delay	Site Incharge / CEO	Replace/escalate
+Site expense posted	Finance	Verify under site ledger
+Running PI mismatch	Site Incharge / Billing	Recheck measurement
+Billing document missing	Billing → Site/Purchase/Admin/HR	Reverse loop until complete
+Bill rejected	Billing / Site / Finance	Correct and resubmit
+Payment delayed	Finance / Owner	Client follow-up
+Site completed	CEO / Finance / Purchase / Site	Completion review and learning
+
+
+
+---
+
+7. Full app flow table — revised
+
+Phase	Flow	Primary Owner	Connected Owner	Output
+
+Pre-site	Admin allocates Site Incharge and rights	Admin	CEO	Access given
+1	Site created	Site Incharge / Admin	CEO	Site ID
+2	Work order uploaded	Site Incharge	Admin	WO register
+3	Tender kept separate	CEO / Purchase	Finance	Tender costing deck
+4	WO/amendment/new request reviewed	AI + Site Incharge + Admin	CEO if needed	Scope and clause map
+5	Gantt + WBS generated	System AI	Site Incharge	Draft plan
+6	Site Incharge confirms Gantt	Site Incharge	Admin / Client	Confirmed/revised Gantt
+7	Material list generated	System	Site Incharge / Purchase	Material sequence
+8	Material verified	Site Incharge	Purchase	Required/pending/new request
+9	Purchase gives TAT + PO plan	Purchase	Site Incharge	Delivery plan
+10	Gantt updated as per Purchase TAT	Site Incharge / System	Purchase	Final execution sequence
+11	Subcontractor allocated	Site Incharge	CEO / Finance	Trade-wise allocation
+12	Subcontractor payment schedule mapped	Site Incharge / Finance	CEO if needed	Payment TAT
+13	Site readiness confirmed	Site Incharge	Purchase	Ready/pending
+14	Pre-start review	CEO/CFO/Purchase/Site	All	Go/hold
+15	Day 1 start	Site Incharge	All	Active site
+16	Daily progress update	Site Incharge	CEO dashboard	Progress log
+17	Material delivery / PO update	Purchase	Site Incharge	TAT/PO/delivery status
+18	Material receipt update	Site Incharge	Purchase	Accepted/short/rejected
+19	Site expenses update	Site Incharge	Finance	Ledger entry
+20	Subcontractor work confirmation	Site Incharge	Finance	Payable/hold
+21	Billing checklist deployed	Billing	Site Incharge	Required document list
+22	Documents collected through reverse loop	Site Incharge + Billing	Purchase/Admin/HR	Complete/incomplete status
+23	Running PI / measurement / abstract	Site Incharge + Billing	Finance	Running bill support
+24	Final bill confirmation	Site Incharge	Billing	Confirmed for submission
+25	Final billing pack + submission	Billing	Finance	Submitted bill
+26	Rejection correction if any	Billing	Site Incharge / Finance	Resubmission
+27	Payment follow-up	Finance / Owner	Billing support	Payment received/due
+28	Site completion review	CEO / Finance / Purchase / Site	All	Gaps/rates/issues learning
+29	Owner/Finance deck update	Finance / CEO	System	Dashboard/ledger updated
+
+
+
+---
+
+8. CEO daily view — revised
+
+CEO Question	App answer
+
+Which sites are active?	Active site list
+Which sites are delayed?	Delay reason + responsible owner
+Which material is pending?	Pending / delivered / new request out of WO
+Which bills are pending/submitted?	Site-wise billing status
+What payment is received?	Order value vs submitted vs due with TAT
+What site expense happened today?	Site Incharge-posted expense
+What subcontractor payment is due?	Order value vs submitted vs due with TAT
+What TA/DA is pending?	Approval list
+What misc expense is posted?	Sub-head wise expense
+What needs CEO escalation?	Delay beyond defined threshold
+What rate changed this week?	Purchase-updated master rate list
+What helps new tender?	Master BOQ/rate reference
+
+
+
+---
+
+9. Core system line — revised
+
+CEO Master Control
+→ Admin Allocates Site Incharge Rights
+→ Site Creation
+→ Work Order Upload / Amendment / New Site Request
+→ AI + Site Incharge + Admin Review
+→ Gantt + WBS + Material Sequence
+→ Site Incharge Confirmation / Client Clause Tick
+→ Purchase TAT + PO + Delivery Plan
+→ Gantt Updated as per Material TAT
+→ Subcontractor Allocation + Site Readiness
+→ CEO / CFO / Purchase / Site Review
+→ Day 1 Start
+→ Daily Site Execution + Material + Expense + Subcontractor Loops
+→ Billing Checklist Deployed Near Billing Stage
+→ Site Incharge Reverse Loop Until Documents Complete
+→ Running PI / Measurement / Abstract
+→ Final Billing Pack + Submission
+→ Finance / Owner Payment Follow-up
+→ Site Completion Review
+→ Owner / Finance / Purchase Learning Deck
+→ Master Rate / BOQ Update for Future Tender

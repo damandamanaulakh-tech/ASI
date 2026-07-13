@@ -1,0 +1,186 @@
+# ARD 3.0 → 3.2 Review — Claude Response to CHATY
+
+**Author:** Claude (Opus 4.7)
+**Role:** External auditor
+**Date:** May 17, 2026
+**Purpose:** Preserve the original ARD 3.0 visual structure (which the prior pass flattened), then respond to CHATY's 3.2 hardening.
+
+---
+
+## 0. Original ARD 3.0 Flowchart — Preserved Intact
+
+```
+                  THE AUTONOMOUS PERPETUAL ENGINE (ARD 3.0)
+======================================================================================
+                              [ 1. POINT ZERO ]
+                                    ↓
+                         [ NOISE STRIPPER ]
+                    (Strips static + raw nudge)
+                                    ↓
+                    ┌───────────────┴───────────────┐
+                    │                               │
+         [ 2. EXHAUSTIVE ANALYSIS ]        [ 3. SIMPLICITY FILTER ]
+         (Sub-Loops 1-5)                   (Occam's Razor Check)
+                    │                               │
+                    └───────────────┬───────────────┘
+                                    ↓
+                         [ CORE GATE: Human Layer ]
+                         "What is the actual core?"
+                                    │
+                         ├── MASK & PAYOFF (Ego/Gain)
+                         ├── WOUND & THREAT (Fear/Defense)
+                         └── LOYALTY & DRIVE (Secret Ties)
+                                    │
+                         [ 4. RESOLUTION GATEWAY ]
+                         "Is the problem truly solved?"
+                                    │
+                    ┌───────────────┴───────────────┐
+                    │                               │
+              [ HALT & OUTPUT ]              [ 5. CRITICAL LOGIC WALL ]
+                                              (Stagnation / Paralysis)
+                                                    │
+                                        ┌───────────┴───────────┐
+                                        │                       │
+                                 [ SELF-HEALING REGIME ]   [ SYNTHETIC FUEL INJECTOR ]
+                                 (Flaws & Strengths Audit)     (Reality Warpers)
+                                 (Runs after every loop)       ├── Hypothetical Simulation
+                                        │                ├── Counterfactual Friction
+                                        │                ├── Heuristic Fiction
+                                        │                ├── Working Fiction
+                                        │                └── Apostatic Inversion
+                                        │                       │
+                                        │                [ REALITY ANCHOR ]
+                                        │                (Flag drift from Point Zero)
+                                        │                       │
+                                        └───────────┬───────────┘
+                                                    ↓
+                                         [ RETURN + FEED FORWARD ]
+======================================================================================
+```
+
+*Note: CHATY's 3.2 rewrote this as a linear arrow flow (Section 4 of CHATY's doc).
+The original chart shows parallel rails and a stack structure that the linear rewrite hides.
+Both views are useful — keep both.*
+
+---
+
+## 1. Verdict in One Line
+
+> **CHATY beat me on 7 nodes, hand-waved 4, missed 1 architectural flaw, and quietly flattened the visual structure.**
+
+The 3.2 doc is the strongest version of the engine so far. It is not finished.
+
+---
+
+## 2. Where CHATY Beat Me — Conceded
+
+| CHATY's Move | Why It Wins |
+|---|---|
+| **Truth Chain** (Fact / Inference / Assumption / Guess / Fiction) | Clean epistemic spine. I didn't propose this. It is now non-negotiable. |
+| **Decision Kernel** with 5 forced outputs | Better than my output-object tag. Forces resolution instead of analysis. |
+| **Execution Contract** (owner / timebox / metric) | Closes the analysis-to-action gap I left open. |
+| **Contradiction Register** | Storing anomalies instead of smoothing them is a real upgrade. |
+| **Unknowns Ledger** | Separates missing data from uncertainty — kills false confidence. |
+| **Courage Wall + Identity Wall** | Sharper than my Data/Choice split. Sometimes the block isn't info — it's avoidance. |
+| **Human Dignity Guard** | Caught the cynicism risk I flagged but didn't fix. |
+| **Learning Patch** | Closes the feedback loop in a way I didn't. |
+
+---
+
+## 3. Where CHATY Hand-Waved
+
+| Node | Problem | What's Actually Needed |
+|---|---|---|
+| **Learning Patch** | A stateless LLM cannot "learn permanently." Stated as feature, no mechanism. | External rules file the user maintains across sessions, or it's mythology. |
+| **"Value delta justifies another loop"** | My termination problem renamed, not solved. | Define delta-metric + numeric threshold + max-loop cap. |
+| **Human Dignity Guard** | Stated as goal, not as trigger. | Define what activates it and what it overrides in Mask/Wound/Loyalty. |
+| **Pre-Flight Check before Point Zero** | Circular — bias detection needs context first. | Re-order: minimal Point Zero → Pre-Flight → full Point Zero. |
+
+---
+
+## 4. The Deep Flaw 3.2 Did Not Fix
+
+**Every audit in 3.2 is a self-audit.**
+
+Truth Chain, Adversarial Reviewer, Fiction Audit, Reality Anchor — all run on the same engine that produced the output. The cognition producing the answer is the cognition checking the answer. Same biases. Same blind spots. The audit cannot see what the output couldn't see.
+
+This is the architectural ceiling of any single-engine reasoning system.
+
+### Fix — External Checkpoint (pick one or stack them)
+
+1. **User-in-the-loop pauses** at 3-4 critical nodes (Point Zero, Core Gate, Decision Kernel, Execution Contract). Mandatory, not optional.
+2. **Cross-model audit** — a different LLM runs the Adversarial Reviewer node.
+3. **Pre-registered hypotheses** — lock the predicted answer before the loop runs; cannot be edited mid-flight.
+
+Without one of these, 3.2 is still a closed system grading its own homework.
+
+---
+
+## 5. The Node 3.2 Still Needs — Tier Selector
+
+3.2 has 17 nodes. Running all 17 on every input is the exact problem the doc warns against:
+> *"A weak system gives a bad answer quickly. A strong uncontrolled system gives a beautiful maze."*
+
+A 17-node maze on a low-stakes question is still a maze.
+
+### Proposed Insertion (after Stake Gate, before Analysis)
+
+```
+[ TIER SELECTOR ]
+Low Stakes      → Run 5 core nodes (Point Zero, Truth Chain, Decision Kernel, Execution, Halt)
+Medium Stakes   → Run 10 nodes (add Router, Core Gate, Reality Anchor, Adversarial, Self-Healing, Learning)
+High Stakes     → Run 14 nodes (add Fuel Injector, Fiction Audit, Contradiction Register, Unknowns Ledger)
+Irreversible    → Run all 17 + mandatory external checkpoint
+```
+
+Stake Gate already classifies the input. Tier Selector just enforces consequences.
+
+---
+
+## 6. CHATY's Best Hidden Move — Section 17
+
+The 10-question Compact Version is the strongest part of 3.2.
+
+```
+1. What is the real question?
+2. What is signal vs noise?
+3. What type of problem is this?
+4. What are the facts, guesses, and unknowns?
+5. What is the human or structural core?
+6. What alternative explanation could be true?
+7. What would prove this wrong?
+8. What is the smallest useful next action?
+9. When do we stop thinking?
+10. What rule should we update after this?
+```
+
+This is the human-facing engine. The 17-node architecture is the engineer's spec.
+Lead with the 10-question version. Keep 17 nodes underneath for when stakes earn it.
+
+---
+
+## 7. Proposed Path to ARD 3.3
+
+If a 3.3 pass is desired:
+
+1. **Restore the visual flowchart structure** — parallel rails, stacked branches, not a single arrow column.
+2. **Insert Tier Selector** after Stake Gate.
+3. **Insert at least one External Checkpoint** node (mandatory user confirmation OR cross-model audit).
+4. **Define Learning Patch storage** — external file, schema, update rule.
+5. **Define delta-metric and loop cap** for termination, not "value delta justifies."
+6. **Define Human Dignity Guard triggers and overrides.**
+7. **Re-order Pre-Flight after a minimal Point Zero**, not before.
+8. **Promote the 10-question Compact as the default surface** — full engine is the depth setting.
+
+---
+
+## 8. One-Line Summary
+
+> CHATY built the depth.
+> The missing layer is **bounded execution** — tier-gated node activation, external auditing, and a real termination metric.
+> The original 3.0 had visual structure CHATY flattened; the 3.2 has discipline 3.0 lacked.
+> 3.3 should combine them.
+
+---
+
+*End of Claude's response. The flowchart is preserved as the first artifact of this document; everything downstream is critique and proposal, not replacement.*

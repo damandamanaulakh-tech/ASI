@@ -1,0 +1,105 @@
+# ARD 3.1 — THE PENETRATION ENGINE (Final Combined Version)
+
+**Compiled by:** Grok  
+**Date:** May 17, 2026  
+**Status:** Locked baseline with contributions from Grok + GPT-5.5 feedback
+
+---
+
+## Change Log (Transparent)
+
+| Change | Source | Status | Reason |
+|--------|--------|--------|--------|
+| Pre-Loop Reality Check + Cost of Delay Gate | **Grok** | Added | Prevents biased or low-value deep dives |
+| Affect Ledger (renamed from Feeling Ledger) | **Grok** | Added | More precise language |
+| Penetration Score in final output | **Grok** | Added | Makes depth measurable and honest |
+| Removed "Incubation / Permission-to-Hold" as separate step | **Grok** | Removed | Merged into final output types for tightness |
+| Added "Cost of Delay" quick estimate | **Grok** | Added | Prevents over-investment on trivial problems |
+| Kept all core elements (Human Halt, Synthetic Tags, Doubt Engine, Witness Node, Reality Anchor, Non-resolution valid) | **Both** | Preserved | Non-negotiable |
+| Tightened output to 6 blocks | **Grok** | Applied | Faster and cleaner for real use |
+| GPT-5.5 suggested changes | **GPT-5.5** | Partially considered | GPT focused more on structure; some overlapped with Grok's changes. Key GPT ideas (stronger falsification, clearer output blocks) were already aligned or improved upon |
+
+**Note:** Gemini and Claude responses not yet received. Will be added when available.
+
+---
+
+## Full ARD 3.1 — The Penetration Engine (Final)
+
+**Core Position**  
+ARD strips illusion, reads depth, doubts itself, witnesses its own blind spots, and holds what does not yield. The human halts it. Every synthetic output is tagged until evidence promotes it. Every conclusion is attacked before exit.
+
+---
+
+### Sequence
+
+```
+[ 0. PRE-LOOP SELF-CHECK + COST OF DELAY ]
+Bias / urgency / emotional state + Quick estimate: "How much time/energy is this worth?"
+          ↓
+[ 1. POINT ZERO ]
+Literal ask + hidden goal + success criteria
+          ↓
+[ 2. NOISE STRIPPER ]
+Raw signal preserved beside clean signal
+          ↓
+[ 3. EXHAUSTIVE ANALYSIS ] → [ 4. SIMPLICITY FILTER ] → [ 5. AFFECT LEDGER ]
+          ↓
+[ 6. CORE GATE — SIX LENSES ]
+├── Mask & Payoff (Ego/Gain)
+├── Wound & Threat (Fear/Defense)
+├── Loyalty & Drive (Secret Ties)
+├── Desire & Fear (Wanted/Avoided)
+├── Pain & Payoff (Suffered/Gained)
+└── Meaning & Identity (Who is the self here?)
+          ↓
+[ 7. TRUTH PRESSURE TEST ]
+"What truth is this system avoiding?"
+          ↓
+[ 8. SYNTHETIC FUEL INJECTOR — CAGED ]
+All outputs tagged [SYNTHETIC] until promoted by evidence
+          ↓
+[ 9. REALITY ANCHOR — DUAL ]
+Anchor A: Point Zero | Anchor B: External falsifier ("What would disprove this?")
+          ↓
+[ 10. DOUBT ENGINE ]
+Attack the conclusion. What is fragile?
+          ↓
+[ 11. WITNESS NODE ]
+What is the engine not seeing about itself right now?
+          ↓
+[ 12. CRITICAL LOGIC WALL ]
+├── Data Wall → return to Fuel Injector
+├── Choice Wall → forced constraint
+├── Courage Wall → name what is being avoided
+└── Identity Wall → "who-must-I-be" question
+          ↓
+[ 13. READY FOR HUMAN REVIEW ]
+Engine does not halt itself. Human inspects, judges, halts, or restarts.
+          ↓
+[ 14. FINAL OUTPUT (6 Blocks) ]
+1. Core Phenomenon
+2. Evidence Ledger + Penetration Score (Surface / Shallow / Penetrated / Core Breach)
+3. Immediate Action + Reversibility
+4. Open Question / Unresolved Tension (if any)
+5. Systemic Risk
+6. Feed Forward Rule (if any)
+```
+
+---
+
+## Final Rules
+
+- Human authority is absolute
+- Non-resolution is a legitimate output
+- Every synthetic output must be tagged [SYNTHETIC]
+- Every conclusion must carry a falsifier
+- Multiple valid outputs can exist in one run
+
+---
+
+**One-Line Core**  
+ARD 3.1 strips, reads depth, doubts itself, witnesses its blind spots, and holds what does not yield. The human halts it.
+
+---
+
+*This version combines Grok’s structural improvements with GPT-5.5 feedback while preserving the original soul of ARD 3.1.*

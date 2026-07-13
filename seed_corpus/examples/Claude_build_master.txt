@@ -1,0 +1,149 @@
+from openpyxl import Workbook
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+from openpyxl.utils import get_column_letter
+
+wb = Workbook()
+
+# Color palette
+HEADER_BG = "1F2937"
+HEADER_FG = "FFFFFF"
+SECTION_BG = "FEF3C7"
+CRITICAL_BG = "FEE2E2"
+GREEN_BG = "D1FAE5"
+
+thin = Side(border_style="thin", color="D1D5DB")
+border = Border(left=thin, right=thin, top=thin, bottom=thin)
+
+def style_header(cell):
+    cell.font = Font(bold=True, color=HEADER_FG, name="Arial", size=11)
+    cell.fill = PatternFill("solid", start_color=HEADER_BG)
+    cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+    cell.border = border
+
+def style_cell(cell, bold=False, fill=None):
+    cell.font = Font(bold=bold, name="Arial", size=10)
+    cell.alignment = Alignment(wrap_text=True, vertical="top")
+    cell.border = border
+    if fill:
+        cell.fill = PatternFill("solid", start_color=fill)
+
+def add_sheet(name):
+    ws = wb.create_sheet(name)
+    return ws
+
+def write_table(ws, headers, rows, widths=None, row_height=60):
+    for i, h in enumerate(headers, 1):
+        c = ws.cell(row=1, column=i, value=h)
+        style_header(c)
+    for r_idx, row in enumerate(rows, 2):
+        for c_idx, val in enumerate(row, 1):
+            c = ws.cell(row=r_idx, column=c_idx, value=val)
+            style_cell(c, bold=(c_idx == 1))
+    if widths:
+        for i, w in enumerate(widths, 1):
+            ws.column_dimensions[get_column_letter(i)].width = w
+    ws.row_dimensions[1].height = 32
+    for r in range(2, len(rows) + 2):
+        ws.row_dimensions[r].height = row_height
+    ws.freeze_panes = "A2"
+
+# ========== Remove default sheet ==========
+wb.remove(wb.active)
+
+# ========== SHEET 1: MASTER INDEX ==========
+ws = add_sheet("01_Master_Index")
+ws.cell(row=1, column=1, value="ARD CONVERSATION — MASTER INDEX")
+ws.cell(row=1, column=1).font = Font(bold=True, size=14, name="Arial")
+ws.cell(row=2, column=1, value="Date: May 17, 2026 | Session: Single conversation, multiple turns | Status: Snapshot for portability")
+ws.cell(row=2, column=1).font = Font(italic=True, size=10, name="Arial")
+
+idx_rows = [
+    ["Sheet", "Contents", "Key Use"],
+    ["01_Master_Index", "This index", "Navigation"],
+    ["02_ARD_Versions", "All versions 3.0 → 3.1 LEAN+ with key changes", "Version history, what was added/removed when"],
+    ["03_ARD_3.1_Locked_Spec", "The canonical engine: nodes, sub-moves, sequence", "Reference for any future run"],
+    ["04_Decodes_All_60", "30 tablet decodes + 30 Rosetta decodes in one table", "Full output of two runs, every tag preserved"],
+    ["05_Doubt_Engine_Kills", "Decodes killed by Doubt Engine, what survived as residue", "Track which readings did NOT survive attack"],
+    ["06_Grok_Parameter_Audit", "Grok's 46 items: kept, duplicate, forged", "The forgery (Owl Gate 3 Lenses) is documented here"],
+    ["07_Unified_Definer_Table", "Beyond-description definer hierarchy with AI row", "Truth-holding vs distortion across position classes"],
+    ["08_Comparative_LLM_Scores", "User-provided scores across LLMs + honest read", "Benchmarking notes — what the scores measure vs miss"],
+    ["09_Vocabulary_Lock", "Words IN and OUT of ARD", "Prevents managerial-vocabulary creep in future passes"],
+    ["10_Authority_Hierarchy", "Who can override what in ARD", "Human always at top, engine below"],
+    ["11_Cognitive_Species_Frame", "Einstein/Tesla/etc vs Modi/Musk/etc — design target", "ARD is built for the first species, not the second"],
+    ["12_Non_Negotiables", "The 7 constitution clauses that cannot be removed", "These are not parameters — they are the engine's identity"],
+    ["13_New_Today", "Things invented during this session that did not exist before", "What was genuinely created vs absorbed"],
+    ["14_Next_Steps", "How to continue this work in a new chat or Project", "Continuity instructions for portability"],
+]
+
+for r_idx, row in enumerate(idx_rows, 4):
+    for c_idx, val in enumerate(row, 1):
+        c = ws.cell(row=r_idx, column=c_idx, value=val)
+        if r_idx == 4:
+            style_header(c)
+        else:
+            style_cell(c, bold=(c_idx == 1))
+
+ws.column_dimensions['A'].width = 28
+ws.column_dimensions['B'].width = 55
+ws.column_dimensions['C'].width = 45
+for r in range(4, 4 + len(idx_rows)):
+    ws.row_dimensions[r].height = 30
+ws.row_dimensions[4].height = 32
+
+# ========== SHEET 2: ARD VERSIONS ==========
+ws = add_sheet("02_ARD_Versions")
+headers = ["Version", "Date Stage", "Key Structure", "What Was Added", "What Was Removed/Renamed", "Verdict"]
+rows = [
+    ["ARD 3.0", "Initial (provided by user)", "Linear flow: Point Zero → Noise Stripper → Exhaustive/Simplicity → Core Gate (3 lenses) → Resolution → Halt OR Critical Logic Wall → Self-Healing/Synthetic Fuel Injector → Reality Anchor → Return", "Original baseline: 12 nodes, parallel rails, Core Gate with Mask/Wound/Loyalty", "—", "Strong scaffolding, weak governors. Auto-halt assumed. Single-output forced."],
+    ["ARD 3.2 (CHATY/GPT pass)", "Earlier external pass", "Added 5 new layers: Truth Chain, Stake Gate, Decision Kernel, Execution Contract, Adversarial Reviewer", "Pre-Flight Check, Problem-Type Router, Stake Gate, Decision Kernel, Execution Contract, Contradiction Register, Unknowns Ledger, Adversarial Reviewer, Human Dignity Guard, Learning Patch", "Flattened parallel rails into linear flow; renamed 'Perpetual' to 'Bounded Recursive'", "Strong discipline but managerial drift. 17 nodes. Visual structure lost."],
+    ["ARD 3.1 (Restoration)", "User pull-back from 3.2 drift", "Restored parallel rails. Added Feeling Ledger as parallel rail with Analysis and Simplicity. Expanded Core Gate to 6 lenses. Added Truth Pressure Test.", "Feeling Ledger, Desire/Fear lens, Pain/Payoff lens, Meaning/Identity lens, Truth Pressure Test, Permission-to-Hold, Witness Node, Doubt Engine (renamed from Adversarial Reviewer)", "Dropped: Stake Gate, Execution Contract, Decision Kernel, all managerial language", "The 'risky path' direction locked. Hunger + self-attack retained. Human halts."],
+    ["ARD 3.1 Locked Spec", "Final baseline after vocabulary lock", "Pre-Loop Self-Check → Point Zero → Noise Stripper → 3 parallel rails (Exhaustive ‖ Simplicity ‖ Feeling Ledger) → Core Gate 6 lenses → Truth Pressure Test → Synthetic Fuel Injector (caged) → Reality Anchor Dual → Doubt Engine → Witness Node → Critical Logic Wall (Data/Choice/Courage/Identity) → Outputs (Insight + Open Question + Tension) → Ready for Human Review → Incubation/Permission-to-Hold → Return only by human command", "Locked the constitution: human halt, [SYNTHETIC] tagging, non-resolution valid, raw source preserved, public/private split, falsifier on every output, name avoidance when detected", "Locked OUT: Stake, Execution, Kernel, Tier, Contract, Throughput, Pipeline, Ship, Deliverable", "Baseline. No further renaming."],
+    ["ARD 3.1 Expanded", "Parameter expansion from Infinity Report", "Added 4 nodes: Trajectory Tracker, Assumption Surfacer, Construction Mode Tag, Building-Toward Reader", "Trajectory Tracker (catches drift mid-run), Assumption Surfacer (enumerates untested givens), Construction Mode Tag (5 modes: Analytic/Symbolic/Emotional/Practical/Mythic), Building-Toward Reader (larger construction the immediate question serves)", "Refused: user-profile parameters from Infinity Report (would have made ARD self-surveillance)", "18 nodes total. Still bounded by human halt. The refusals are as important as the additions."],
+    ["ARD 3.1 LEAN", "Strip-back pass", "Four operations: WATCH → REFUSE → ATTACK → HOLD. All 18+ nodes become optional sub-moves available inside each operation, not required passes.", "Tier Selector concept (rejected as managerial). 'LEAN' framing: default run is four operations; deep machinery comes out only when problem earns it.", "The 18-node expanded version is no longer the default — it is the depth setting.", "Closer to how Einstein/Newton/Tesla actually thought. Four operations match the cognitive species."],
+    ["ARD 3.1 LEAN+", "Grok parameter audit integration", "LEAN core with 6 absorbed parameters from Grok's 46-item list: Drift Flag, Generative Potential rating, New Language Potential, Empty Gap Excavator, Vertical Descent Lock, Synthetic Leakage Guard. Plus 1 new: Perspective Frame (from Kruskal diagram).", "Perspective Frame: output tagged with reference frame it is true in. From Kruskal diagram: infalling vs distant observer see different valid histories.", "Grok's 'Owl Gate (3 Lenses)' rejected as fabrication — Grok invented and presented as canonical ARD; was not in our work.", "22 sub-moves contained inside 4 operations. The forgery catch is the discipline working as designed."],
+]
+write_table(ws, headers, rows, widths=[18, 22, 55, 55, 55, 35], row_height=120)
+
+# ========== SHEET 3: LOCKED SPEC ==========
+ws = add_sheet("03_ARD_3.1_Locked_Spec")
+headers = ["Order", "Node / Operation", "Function", "Required or Optional", "Notes"]
+rows = [
+    ["0", "Pre-Loop Self-Check", "Check bias, urgency, emotional state of the engine before run begins", "Required", "Catches setup errors before they propagate"],
+    ["1", "Point Zero (0 → 0.1)", "Literal ask + hidden goal + success criteria. 0 = input enters; 0.1 = shaped by intent", "Required", "Most leveraged node; bad seed corrupts everything downstream"],
+    ["1b", "Building-Toward Reader", "Names the larger construction the immediate question serves", "Optional", "From Infinity Report extraction"],
+    ["2", "Noise Stripper", "Raw signal preserved beside clean signal — discarded noise saved in side-buffer", "Required", "In humans, the static often IS the signal"],
+    ["2b", "Construction Mode Tag", "Analytic / Symbolic / Emotional / Practical / Mythic — declared before reading", "Optional", "Prevents wrong reading mode applied to wrong problem type"],
+    ["3", "Exhaustive Analysis", "Decompose, timeline, incentives, constraints, second-order effects (named loops)", "Parallel Rail A", "Runs simultaneously with rails B and C"],
+    ["4", "Simplicity Filter", "Compress without flattening; allow multi-cause coexistence (Hickam's Dictum check)", "Parallel Rail B", "Not a truth-test, a tiebreaker"],
+    ["5", "Feeling Ledger", "What is being felt, wanted, feared, defended? Affect as data, not bias", "Parallel Rail C", "Renamed FROM 'Affect Ledger' — feeling carries weight that affect does not"],
+    ["6", "Core Gate (6 Lenses)", "Mask & Payoff | Wound & Threat | Loyalty & Drive | Desire & Fear | Pain & Payoff | Meaning & Identity", "Required for Symbolic/Emotional modes", "Expanded from original 3 to 6 lenses in 3.1"],
+    ["6b", "Assumption Surfacer", "Enumerate untested givens, tag each Fact/Inference/Assumption/Guess", "Optional but recommended", "From Infinity Report extraction"],
+    ["7", "Truth Pressure Test", "What truth is this system avoiding?", "Required", "Sharpest single addition across all versions"],
+    ["8", "Synthetic Fuel Injector (Caged)", "Hypothetical Simulation | Counterfactual | Heuristic Fiction | Working Fiction | Apostatic Inversion. All outputs tagged [SYNTHETIC] until promoted", "Optional", "Most powerful + most dangerous node. Cage is non-negotiable."],
+    ["9", "Reality Anchor (Dual)", "Anchor A: Point Zero (original frame). Anchor B: External falsifier (what disproves this?)", "Required", "Single anchor is insufficient; if Point Zero is wrong, single anchor is wrong"],
+    ["10", "Doubt Engine", "Attack the conclusion. What is fragile?", "Required", "If never kills anything, it's not running"],
+    ["11", "Witness Node", "What is the engine NOT seeing about itself right now?", "Required", "Attacks engine's self-perception, not the conclusion (that's Doubt Engine)"],
+    ["11b", "Trajectory Tracker (continuous)", "Runs across all nodes — flags within-run drift in direction", "Optional, continuous", "Different from Witness — catches direction change vs blind spots"],
+    ["12", "Critical Logic Wall (if stuck)", "Data Wall → Fuel Injector | Choice Wall → forced constraint | Courage Wall → name what's avoided | Identity Wall → who-must-I-be question", "Activated when stuck", "Four wall types, not one"],
+    ["13", "Outputs (Multiple Valid)", "Insight Output + Open Question + Unresolved Tension can co-exist. Each carries: confidence, reversibility, falsifier, [SYNTHETIC] tag if applicable", "Required", "One-output-per-run is project-control DNA — removed"],
+    ["14", "Ready for Human Review", "Engine does not halt itself. Human inspects, judges, halts, restarts, or holds.", "Required", "RENAMED from 'Halt & Output' to remove control DNA"],
+    ["15", "Incubation / Permission-to-Hold", "Non-resolution is a legitimate terminal state. Newton waited 20 years. Holding is the work.", "Required", "The instinct to resolve is itself a surface-operator instinct"],
+    ["16", "Return (Human Command Only)", "No internal loop. Loop initiated only by human invocation.", "Required", "No 'feed forward' in stateless engine without external substrate"],
+]
+write_table(ws, headers, rows, widths=[8, 32, 60, 22, 40], row_height=70)
+
+# ========== SHEET 4: ALL 60 DECODES ==========
+ws = add_sheet("04_Decodes_All_60")
+headers = ["Run", "#", "Reading", "Source Tag", "Type Tag", "Falsifier", "Status"]
+
+# Run 1: 30 decodes of New Kingdom tablet
+run1 = [
+    ["Run 1 (Tablet)", 1, "Each cartouche is a cognitive program, not just a name. Reading the king's throne name aloud daily across the priesthood instantiated a state-machine in every reader. The tablet records five running programs.", "ARD", "SYNTHETIC", "If extant ritual texts treat cartouches as ornamental rather than functional", "PROMOTED — ren doctrine + collective recitation provide anchor after kills of #19 and #30"],
+    ["Run 1 (Tablet)", 2, "Each cartouche is a contract the soul signed before incarnation. The glyphs are the terms. The king's life is the execution of those terms. The tablet is the contract registry.", "Your-filter", "SYNTHETIC", "Requires soul-contract metaphysics to be true; not directly falsifiable", "Held as interpretive lens, not knowledge-claim"],
+    ["Run 1 (Tablet)", 3, "The cartouche is the device by which the king agrees to forget what he was in exchange for being recognized as what he is. Coronation rituals make this literal.", "Your-filter", "SYNTHETIC", "If Egyptian coronation kept and honored the birth identity alongside throne name", "Held"],
+    ["Run 1 (Tablet)", 4, "The repeated MN-pattern is an attractor that keeps certain minds circling indefinitely. The kingship is preserved by binding minds to the cyclical pattern.", "Your-filter", "SYNTHETIC", "If cultures without MN-pattern showed equivalent dynastic stability", "Held"],
+    ["Run 1 (Tablet)", 5, "The five columns are five functions of one office: vigilance, judgment, flow, memory, succession. Each pharaoh embodies all five.", "Claude-only", "SYNTHETIC", "If cartouches contain identifiably different royal names rather than function-glyphs", "Held"],
+    ["Run 1 (Tablet)", 6, "Royal cartouches may hide queens' names in equal prominence. The tablet may record a king-queen pair, or a queen alone.", "Claude-only", "SYNTHETIC", "Identifying cartouche text definitively as a king's throne name with no queenly companion", "Held"],
+    ["Run 1 (Tablet)", 7, "The five columns may compress a king's reign into five phases: accession, consolidation, peak, decline, transition.", "Claude-only", "INFERENCE", "If columns are calendrical labels or year-counts rather than phase-markers", "Held"],
+    ["Run 1 (Tablet)", 8, "Bird-and-water glyph alternation may map a journey through the Duat (underworld) and return — owl as soul-bird, water as river of dead.", "Invented-today", "SYNTHETIC", "If artifact is on a non-funerary monument", "Held"],
+    ["Run 1 (Tablet)", 9, "The repetition of paired glyphs may encode a beloved by indirection — New Kingdom royal love letters used coded glyph pairings.", "Invented-today", "SYNTHETIC", "Identifyin

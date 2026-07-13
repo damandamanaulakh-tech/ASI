@@ -164,25 +164,23 @@ def _master_log_tail(n: int = 40) -> list[dict]:
     return out
 
 
-def _ingest_text(name: str, text: str) -> dict:
-    """Feed one note/file into the brain (memory + clone), and persist it to the
-    corpus folder on disk if SB_INGEST_CORPUS is set (e.g. a Render disk)."""
-    from .enums import Classification, EvidenceTag
-    from .models import MemoryEntry, RawSource
-    raw = RawSource(text=text, origin=f"upload:{name}").lock()
-    ENGINE.memory.write("SB-07", MemoryEntry(
-        node_id="SB-07", raw_source_id=raw.raw_source_id, content=text[:4000],
-        classification=Classification.REVIEW_ONLY.value,
-        evidence_tag=EvidenceTag.REVIEW.value, tags=["corpus", name],
-        parameters={"chars": len(text)}), name="First Memory Write")
-    ENGINE.persona.learn(question=name, answer=text[:1200], note="fed via app")
+def _ingest_text(name: str, text: str, category: str = "") -> dict:
+    """Feed one note/file into the brain — pyramid-filed and voice-learned
+    ("when I add"). Persists to the corpus folder on disk if SB_INGEST_CORPUS is
+    set (e.g. a Render disk) so it survives restarts."""
+    from .ingest import ingest_text_entry
+    res = ingest_text_entry(ENGINE.memory, ENGINE.persona, name, text,
+                            category=category, origin=f"upload:{name}",
+                            unfiled=ENGINE.unfiled)
     folder = os.environ.get("SB_INGEST_CORPUS")
     if folder:
-        os.makedirs(folder, exist_ok=True)
+        d = os.path.join(folder, category) if category else folder
+        os.makedirs(d, exist_ok=True)
         safe = re.sub(r"[^A-Za-z0-9._-]", "_", name) or "note"
-        with open(os.path.join(folder, safe + ".txt"), "w", encoding="utf-8") as f:
+        with open(os.path.join(d, safe + ".txt"), "w", encoding="utf-8") as f:
             f.write(text)
-    return {"memory": ENGINE.memory.stats(), "examples": len(ENGINE.persona.examples)}
+    return {"memory": ENGINE.memory.stats(),
+            "examples": len(ENGINE.persona.examples), "filed": res}
 
 
 def _library(preview: int = 160) -> dict:
@@ -1103,8 +1101,9 @@ class Handler(BaseHTTPRequestHandler):
                        "application/json")
             return
         if self.path == "/brains/update":
-            self._send(200, json.dumps(ENGINE.brains.weekly_update()).encode(),
-                       "application/json")
+            res = ENGINE.brains.weekly_update()          # refresh settings
+            res["digest"] = ENGINE.memory.weekly_digest()  # synthesise the week
+            self._send(200, json.dumps(res).encode(), "application/json")
             return
         if self.path == "/brain/settings":
             node_id = (data.get("id") or "").strip()
@@ -1288,15 +1287,38 @@ class Handler(BaseHTTPRequestHandler):
         self._send(200, json.dumps(payload).encode(), "application/json")
 
 
+def _seed_corpus_dir() -> str | None:
+    """The corpus shipped with the app (raw thoughts, examples, cores). Env
+    override wins; otherwise the packaged seed_corpus/ at the repo root."""
+    env = os.environ.get("SB_INGEST_CORPUS")
+    if env and os.path.isdir(env):
+        return env
+    packaged = os.path.join(os.path.dirname(__file__), "..", "..", "seed_corpus")
+    packaged = os.path.abspath(packaged)
+    return packaged if os.path.isdir(packaged) else None
+
+
 def _maybe_ingest_on_boot() -> None:
-    """Deploy-time corpus load: if SB_INGEST_CORPUS points at a folder and the
-    brain is empty, ingest it once (e.g. a Render disk mounted with your cores)."""
-    folder = os.environ.get("SB_INGEST_CORPUS")
-    if folder and os.path.isdir(folder) and \
-            ENGINE.memory.stats().get("total_memory_entries", 0) == 0:
-        from .ingest import ingest_folder
-        stats = ingest_folder(folder, root=os.environ.get("SB_ROOT", ".sourceborn"))
-        print(f"ingested corpus on boot: {stats}")
+    """Deploy-time corpus load: ingest the shipped seed_corpus (or a mounted
+    SB_INGEST_CORPUS folder) once, when the brain has no corpus yet. This is how
+    the user's cores/raw-thoughts/examples reach the live app automatically."""
+    folder = _seed_corpus_dir()
+    if not folder:
+        return
+    # Only auto-load if the corpus itself hasn't been ingested (idempotent).
+    already = any("corpus" in e.tags
+                  for e in ENGINE.memory.brain("SB-07").read_all()[:1]) \
+        or any("corpus" in e.tags
+               for e in ENGINE.memory.brain("SB-09").read_all()[:1])
+    if already:
+        return
+    from .ingest import ingest_folder
+    stats = ingest_folder(folder, root=os.environ.get("SB_ROOT", ".sourceborn"))
+    # ingest_folder wrote through its own Memory/Persona — refresh the live
+    # engine's caches so counts and voice recall see the new corpus immediately.
+    ENGINE.memory._brains.clear()
+    ENGINE.persona._load()
+    print(f"ingested seed corpus on boot: {stats}")
 
 
 def main() -> None:

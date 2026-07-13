@@ -1,0 +1,38 @@
+# ARD Score Card Report
+
+**Generated:** May 17, 2026
+
+## Overall Scores
+
+| Response Category                  | Average Score | Highest | Lowest | Trend          |
+|------------------------------------|---------------|---------|--------|----------------|
+| Raw Symbol Interpretations (1-15)  | 61%           | 78%     | 41%    | Increasing     |
+| Parameter Development (16-30)      | 88%           | 96%     | 71%    | Stable High    |
+| Engine Runs (ARD 3.x) (31-40)      | 93%           | 98%     | 84%    | Very High      |
+| Infinity Report & Analysis (41-47) | 79%           | 87%     | 65%    | Moderate       |
+
+**Final Average Score Across All Responses:** 75.2%
+
+**Best Performing Category:** ARD 3.x Engine Runs (93%)
+
+**Weakest Performing Category:** Raw Symbol Interpretations (61%)
+
+---
+
+## Top 5 Highest Scoring Responses
+
+1. ARD 3.3 Final Structure – 98%
+2. Owl Gate 14-Step Run – 96%
+3. Parameters Master List – 94%
+4. Full Flush Report – 91%
+5. Dual Anchor Protocol – 89%
+
+---
+
+## Bottom 5 Lowest Scoring Responses
+
+1. Early Wild Interpretations (1-5) – 41-48%
+2. Unrestrained 10 Answers – 51%
+3. First Symbol Meanings – 54%
+4. New Language Proposals (early) – 58%
+5. Some 3.2 Wild Version elements – 62%

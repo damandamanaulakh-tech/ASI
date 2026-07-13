@@ -1,0 +1,25 @@
+[01. GOVERNOR] ──► [02. POINT ZERO] ──► [03. RAW CAPTURE] ──► [04. NOISE STRIPPER] ──► [05. CANONICAL EXTRACTOR]
+       ▲                                                                                     │
+       │                                                                                     ▼
+[10. CLAIM EXTRACT] ◄── [09. WEIGHT MATRIX] ◄── [08. DOMAIN CLASSIFIER] ◄── [07. RESONANCE] ◄── [06. LIVING HUNTER]
+       │
+       ▼
+[11. DUAL ANALYSIS] ──► [12. ARCHETYPE SWARM] ──► [13. REALITY BRIDGE] ──► [14. OMNI-PASS (CRITICAL PATCH)]
+                                                                                             │
+                                                                                             ▼
+[19. CONTRADICTION] ◄── [18. EVIDENCE LEDGER] ◄── [17. HUMAN PATTERN] ◄── [16. COLLAPSE] ◄── [15. FRACTAL BRANCH]
+       │
+       ▼
+[20. FALSIFIER] ──► [21. PROOF LADDER] ──► [22. DOMAIN AUDITOR] ──► [23. EXPERIMENT DESIGN]
+                                                                                             │
+                                                                                             ▼
+[27. PRODUCT CHK] ◄── [26. VIBE SCHEMA] ◄── [25. OUTPUT GEN] ◄── [24. RESOLUTION GATEWAY]
+       │
+       ▼
+[28. LOGIC WALL] ──► [29. STUCK PROTOCOL (FIX-LINK)] ──► [30. SELF-HEALING] ──► [31. SYNTHETIC FUEL]
+                                                                                             │
+                                                                                             ▼
+[35. RE-ANCHOR] ◄── [34. PROOF DEBT TAG] ◄── [33. MUTATION PROP] ◄── [32. HYPER-SYNTHETIC]
+       │
+       ▼
+[36. FEED FORWARD] ──► [37. OVERRIDE LEDGER (ACTIVE)] ──► [38. AUTONOMY TAG] ──► [39. SOVEREIGN EXECUTION]

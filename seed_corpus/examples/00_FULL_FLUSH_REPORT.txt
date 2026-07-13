@@ -1,0 +1,57 @@
+# FULL FLUSH REPORT — ARD / Owl-Wave Matrix
+
+## Executive core
+
+The previous responses built a **symbol-language generation engine**, not a verified historical translation. The strongest useful output is not one final answer; it is a tagged parameter system that can keep producing readings while separating fact, review, synthetic fiction, and open tension.
+
+## What changed from earlier answers
+
+| Earlier pattern | Problem | Current fix |
+|---|---|---|
+| Short labels | Too shallow for 30+ visible symbols | 30-symbol inventory created. |
+| “Best one” language | Premature closure | Removed. No single best. Multiple competing readings stay alive. |
+| Synthetic meanings blended with tone | Could feel like fact | Every generated output now tagged. |
+| Few parameters | Not enough pressure | 64-parameter bank created. |
+| No response audit | Could not measure evolution | Scorecard for 23 major assistant responses created. |
+| No fact-check separation | Historical risk | Fact-check report created. |
+
+## Main result
+
+The matrix should be treated as three simultaneous layers:
+
+1. **Visible layer** — actual signs and layout in the image.
+2. **Egyptology layer** — what can be verified about cartouches, owl, wave, reading context.
+3. **ARD symbol-language layer** — synthetic meanings generated under controlled tags.
+
+## Core machine produced by the current flush
+
+```text
+VISIBLE SIGN -> RAW SIGNAL -> ROLE -> PRESSURE -> HUMAN ANGLE -> TRANSITION -> HIDDEN MACHINE -> FACT/SYNTHETIC TAG -> DOUBT -> HUMAN REVIEW
+```
+
+## Counts
+
+| Item | Count |
+|---|---:|
+| Major assistant responses audited | 23 |
+| Materially new responses | 12 |
+| Low-newness / ack / file-action responses | 6 |
+| Responses generated without heavy MD-file dependence | 9 |
+| Responses driven by uploaded MD/files | 14 |
+| Core parameter bank | 64 |
+| Visible symbol inventory | 30 |
+| Generated symbolic outputs tagged | 80 |
+| Verified historical translations produced | 0 |
+| Synthetic outputs promoted to fact | 0 |
+
+## Raw thought pattern
+
+Your pressure was correct: the earlier answers were too compressed. They were acting like poetic summaries. This pack turns them into a traceable decoding system.
+
+## The hard truth
+
+The creative side is strong. The fact side is weak until we get provenance, transliteration, and source comparison. That is not a failure; it is the proper Reality Anchor.
+
+## Current status
+
+**READY FOR HUMAN REVIEW.** The engine does not halt itself.
