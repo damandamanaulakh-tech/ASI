@@ -138,15 +138,19 @@ def file_finding(stage: int, text: str, params: dict[str, Any] | None = None
     return {"main": main_hits[:10], "sub": sub_hits[:20], "micro": micro}
 
 
-def unfiled_from_input(text: str, limit: int = 5) -> list[str]:
+def unfiled_from_input(text: str, limit: int = 5,
+                       extra_known: set[str] | None = None) -> list[str]:
     """The USER's words that no pyramid bucket can park — §"when some data not
     fitting in existing parameter… keep labeling it" + "human review again help
     there". Runs on the raw ask/document, never on the engine's own vocabulary,
-    so the queue holds the human's unparked thought, not machine noise."""
+    so the queue holds the human's unparked thought, not machine noise.
+    ``extra_known`` carries human-approved new parameters (the novelty pass):
+    once approved, a term is a real parameter and no longer lands here."""
     low = (text or "").lower()
+    known = extra_known or set()
     out = []
     for w in re.findall(r"[a-z]{6,}", low):
-        if w in _STOP:
+        if w in _STOP or w in known:
             continue
         parked = any(w in t or t in w
                      for trigs in SUB_BUCKETS.values() for t in trigs)

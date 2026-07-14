@@ -417,7 +417,8 @@ details[open]>summary:before{content:"\25be  "}
         <div class=hactions><button class="btn sm" onclick=loadReport()>Memory report</button>
           <button class="btn sm" onclick=saveSnapshot()>Save snapshot</button>
           <button class="btn sm" onclick=loadMasterLog()>Master log</button>
-          <button class="btn sm" onclick=loadUnfiled()>Unfiled</button></div>
+          <button class="btn sm" onclick=loadUnfiled()>Unfiled</button>
+          <button class="btn sm" onclick=runNovelty()>Novelty pass</button></div>
         <div class=hactions style="margin-top:6px"><a class="btn sm" href="/export" download>⬇ Backup brain</a>
           <label class="btn sm" style="display:inline-flex;align-items:center;cursor:pointer">⬆ Restore<input type=file id=restorefile accept=".zip" style="display:none" onchange=restoreBrain()></label></div>
         <div class=status id=repstat style="margin-top:6px"></div>
@@ -827,6 +828,31 @@ async function restoreBrain(){
   };
   fr.readAsDataURL(f);
 }
+async function runNovelty(){
+  const st=document.getElementById('repstat');st.textContent='hunting new parameters…';
+  try{
+    const d=await (await fetch('/novelty/run',{method:'POST',headers:{'content-type':'application/json'},body:'{}'})).json();
+    const prev=await (await fetch('/novelty')).json();
+    const cands=(d.candidates||[]).map(c=>'<div class=hold><div><b>'+esc(c.proposed_label)+'</b> <span class="badge warn">'+esc(c.status)+'</span></div>'+
+      '<div class=fivew><div><b>Term</b>'+esc(c.term)+(c.variants&&c.variants.length?' ('+esc(c.variants.join(', '))+')':'')+'</div>'+
+      '<div><b>Forced by</b>'+esc((c.sources||[]).slice(0,4).join(', '))+'</div>'+
+      '<div><b>Nearest existing</b>'+esc(c.nearest_existing)+' ('+Math.round((c.similarity||0)*100)+'%)</div>'+
+      '<div><b>Why not same</b>'+esc(c.why_not_same)+'</div></div>'+
+      '<div class=hactions><button class=btn onclick="approveNovelty(\''+esc(c.term)+'\')">Approve as parameter</button></div></div>').join('');
+    document.getElementById('out').innerHTML='<div class="card fade"><div class=k>Novelty pass — parameters that never existed <span class=num>'+
+      (d.candidates||[]).length+' candidate(s) · scanned '+d.scanned+' terms vs '+d.universe+' known</span></div>'+
+      '<div class=muted style="margin-bottom:8px">Proposals only — nothing is added without your approval. Full report: <a class=gd href="/novelty/file?name='+esc(d.file)+'" download>'+esc(d.file)+'</a></div>'+
+      (cands||'<div class=lane>No parameter beyond the existing universe surfaced this pass — everything recent parked into known categories.</div>')+
+      ((prev.approved||[]).length?'<div class=lane style="margin-top:10px"><b>Approved so far</b> '+prev.approved.map(a=>'<span class=tag>'+esc(a.label)+'</span>').join(' ')+'</div>':'')+
+      ((prev.files||[]).length>1?'<details style="margin-top:6px"><summary>past novelty files ('+(prev.files.length-1)+')</summary>'+prev.files.slice(1).map(f=>'<div class=lane><a class=muted href="/novelty/file?name='+esc(f.file)+'" download>'+esc(f.file)+'</a></div>').join('')+'</details>':'')+
+      '</div>';
+    st.textContent='';
+  }catch(e){st.textContent='error'}
+}
+async function approveNovelty(term){
+  try{await fetch('/novelty/approve',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({term})});
+    runNovelty();}catch(e){}
+}
 async function loadMasterLog(){
   const st=document.getElementById('repstat');st.textContent='loading…';
   try{const list=await (await fetch('/masterlog?n=80')).json();
@@ -1001,6 +1027,25 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, json.dumps(_persist_status()).encode(), "application/json")
         elif path == "/unfiled":
             self._send(200, json.dumps(ENGINE.unfiled.list()).encode(), "application/json")
+        elif path == "/novelty":
+            from .novelty import list_files, load_approved
+            self._send(200, json.dumps({
+                "files": list_files(SB_ROOT),
+                "approved": load_approved(SB_ROOT)}).encode(), "application/json")
+        elif path == "/novelty/file":
+            fn = re.sub(r"[^A-Za-z0-9_.-]", "", (qs.get("name") or [""])[0])
+            fp = os.path.join(SB_ROOT, "novelty", fn)
+            if not (fn.startswith("NOVELTY_") and os.path.exists(fp)):
+                self._send(404, b'{"error":"no such novelty file"}', "application/json")
+            else:
+                with open(fp, encoding="utf-8") as f:
+                    body = f.read().encode()
+                self.send_response(200)
+                self.send_header("Content-Type", "text/markdown; charset=utf-8")
+                self.send_header("Content-Disposition", f'attachment; filename="{fn}"')
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
         elif path == "/library":
             self._send(200, json.dumps(_library()).encode(), "application/json")
         elif path == "/snapshots":
@@ -1080,6 +1125,20 @@ class Handler(BaseHTTPRequestHandler):
             except Exception as exc:
                 self._send(400, json.dumps({"error": f"restore failed: {exc}"}).encode(),
                            "application/json")
+            return
+        if self.path == "/novelty/run":
+            from .novelty import run_novelty_pass
+            res = run_novelty_pass(SB_ROOT, ENGINE.memory, ENGINE.unfiled)
+            self._send(200, json.dumps(res).encode(), "application/json")
+            return
+        if self.path == "/novelty/approve":
+            term = (data.get("term") or "").strip()
+            if not term:
+                self._send(400, b'{"error":"need term"}', "application/json")
+                return
+            from .novelty import approve
+            res = approve(SB_ROOT, ENGINE.memory, ENGINE.unfiled, term)
+            self._send(200, json.dumps(res).encode(), "application/json")
             return
         if self.path == "/pyramid/park":
             node = (data.get("node") or "").strip()

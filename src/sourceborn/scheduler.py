@@ -48,6 +48,13 @@ def run_if_due(engine, root: str, every_days: int = 7) -> dict | None:
     result = engine.brains.weekly_update()          # refresh brain settings
     digest = engine.memory.weekly_digest()          # SYNTHESISE each brain's week
     result["digest"] = digest
+    try:                                            # weekly novelty hunt
+        from .novelty import run_novelty_pass
+        nov = run_novelty_pass(root, engine.memory, engine.unfiled)
+        result["novelty"] = {"file": nov["file"],
+                             "candidates": len(nov["candidates"])}
+    except Exception:
+        pass
     with open(_state_path(root), "w", encoding="utf-8") as f:
         json.dump({"last_run": result["at"], "result": result}, f, indent=2)
     return result
