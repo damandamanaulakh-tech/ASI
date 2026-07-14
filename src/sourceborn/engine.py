@@ -688,6 +688,12 @@ class SourcebornEngine:
                     matrix_flagged.append({"sb": sb_id, "urr": uid, "code": code})
             # Pyramid of Thought: file the finding (Main → Sub → Micro).
             pyr = file_finding(node.stage if node else 8, f.text, f.params)
+            # approved new parameters file as their own sub buckets — the
+            # pyramid genuinely grows once the human approves a novelty term
+            low_text = f.text.lower()
+            for term in approved:
+                if term in low_text and f"P-NEW:{term}" not in pyr["sub"]:
+                    pyr["sub"].append(f"P-NEW:{term}")
             params = dict(f.params)
             if flags:
                 params["urr_matrix_flags"] = flags
@@ -751,9 +757,15 @@ class SourcebornEngine:
                            "new_scope": review.new_scope})
             return review
 
+        # Human-approved new parameters (novelty pass): they park from now on.
+        from .novelty import approved_terms
+        approved = approved_terms(self.memory.root)
+
         # The USER's words the pyramid cannot park yet → the human review
         # queue at SB-02 (where input is separated). Never discarded.
-        self.unfiled.add("SB-02", unfiled_from_input(raw_text), _now())
+        self.unfiled.add("SB-02",
+                         unfiled_from_input(raw_text, extra_known=approved),
+                         _now())
 
         # ---- the main sequential line (6+1 grouping) ----------------------
         for gate, block_sb in WALK_BLOCKS:

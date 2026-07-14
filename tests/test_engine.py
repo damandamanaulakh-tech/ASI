@@ -645,6 +645,62 @@ def test_seed_corpus_shipped_and_categorized():
         assert not any(banned in f for f in rt), f"{banned} leaked into seed_corpus"
 
 
+def test_novelty_pass_finds_never_existed_parameters():
+    # "generating new fresh file to check may be there is new parameters,
+    # which never exists" — spec §10: propose in a file, never auto-add.
+    import json, os
+    from sourceborn.novelty import run_novelty_pass, known_universe, is_known
+    eng = _engine()
+    root = eng.memory.root
+    q = "my zeropoint resonance chamber needs proof"
+    eng.run_walk(q)
+    # the server stores every ask as a chat — the term's second source
+    os.makedirs(os.path.join(root, "chats"), exist_ok=True)
+    with open(os.path.join(root, "chats", "1.json"), "w") as f:
+        json.dump({"question": q}, f)
+    res = run_novelty_pass(root, eng.memory, eng.unfiled)
+    terms = {c["term"] for c in res["candidates"]}
+    assert "zeropoint" in terms or "resonance" in terms   # genuinely new surfaced
+    c = res["candidates"][0]
+    assert c["status"].startswith("NEW-CANDIDATE")        # proposal, not auto-add
+    assert c["nearest_existing"] and c["why_not_same"]    # near-dupes die at gate
+    fp = os.path.join(root, "novelty", res["file"])
+    assert os.path.exists(fp)                             # the fresh md file
+    body = open(fp, encoding="utf-8").read()
+    assert "NEW-CANDIDATE" in body and "P-NEW:" in body
+    # known vocabulary is NOT novel
+    uni = known_universe(root)
+    assert is_known("doubt", uni) and is_known("evidence", uni)
+
+
+def test_novelty_approve_promotes_to_real_parameter():
+    import json, os
+    from sourceborn.novelty import run_novelty_pass, approve, approved_terms
+    from sourceborn.pyramid import unfiled_from_input
+    eng = _engine()
+    root = eng.memory.root
+    q = "my zeropoint resonance chamber needs proof"
+    eng.run_walk(q)
+    os.makedirs(os.path.join(root, "chats"), exist_ok=True)
+    with open(os.path.join(root, "chats", "1.json"), "w") as f:
+        json.dump({"question": q}, f)
+    run_novelty_pass(root, eng.memory, eng.unfiled)
+    out = approve(root, eng.memory, eng.unfiled, "zeropoint")
+    assert out["ok"] and out["label"] == "P-NEW:zeropoint"
+    assert "zeropoint" in approved_terms(root)
+    # approved → no longer lands unfiled
+    again = unfiled_from_input("the zeropoint device hums",
+                               extra_known=approved_terms(root))
+    assert "zeropoint" not in again
+    # approved → files into the pyramid as its own sub bucket on the next walk
+    w = eng.run_walk("the zeropoint approach against entropy")
+    subs = [s for e in eng.memory.brain("SB-49").read_all()
+            for s in e.pyramid.get("sub", [])]
+    assert "P-NEW:zeropoint" in subs
+    # human decision recorded on the New Parameter Generator's brain
+    assert eng.memory.brain("SB-43").meta["parameters"].get("Human_Decisions", 0) >= 1
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0
