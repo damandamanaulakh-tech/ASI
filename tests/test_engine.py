@@ -416,21 +416,24 @@ def test_prose_claim_still_uses_lenses():
     assert res.output.lanes["domain"]["domain"] == "prose"
 
 
-def test_walk_follows_7025_sequential_chart():
-    # The exact arrow chart from ARD_RGL_7025: first gate URR-08 after SB-01..08,
-    # then 6-node blocks, closing with the Final 6+1 Block (URR-19..25).
+def test_every_ask_runs_all_70_and_all_25_no_skips():
+    # ONLY the user-stated requirement is asserted here: every ask goes through
+    # all 70 SB and all 25 URR without any skip. The walk's internal grouping is
+    # deliberately NOT asserted — the previous version of this test froze a
+    # block structure the user never requested (audit: Point X), and a test
+    # must never enforce an implementation choice against the user's spec.
     eng = _engine()
     w = eng.run_walk("why does the small idea win?")["walk"]
-    assert w["node_count"] == 70                       # every SB point works
-    assert w["urr_count"] == 18                        # 11 main gates + final 7
-    blocks = w["blocks"]
-    assert blocks[0]["gate"] == "URR-08"               # corrected starting point
-    assert blocks[0]["sb"][0] == "SB-01" and blocks[0]["sb"][-1] == "SB-08"
-    assert blocks[1]["gate"] == "URR-09" and blocks[1]["sb"] == [
-        "SB-09", "SB-10", "SB-11", "SB-12", "SB-13", "SB-14"]
-    assert [b["gate"] for b in blocks[-7:]] == [
-        "URR-19", "URR-20", "URR-21", "URR-22", "URR-23", "URR-24", "URR-25"]
-    assert "Human Final Gate" in blocks[-1]["name"]
+    sb_fired = {s["sb_id"] for s in w["steps"]}
+    assert sb_fired == {f"SB-{i:02d}" for i in range(1, 71)}   # all 70, none skipped
+    urr_fired = {b["gate"] for b in w["blocks"]} | {
+        u for s in w["steps"] for u in
+        [f.split(":")[0] for f in s.get("matrix_flags", [])]}
+    # every one of the 25 URR performed work this ask (gate and/or matrix sweep)
+    for i in range(1, 26):
+        uid = f"URR-{i:02d}"
+        p = eng.memory.brain(uid).meta["parameters"]
+        assert p.get("Verifications_Performed", 0) >= 1, f"{uid} skipped"
 
 
 def test_every_node_does_its_own_work():

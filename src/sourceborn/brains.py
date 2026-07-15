@@ -167,11 +167,16 @@ class BrainRegistry:
         return cfg
 
     def weekly_update(self) -> dict:
-        """Principle 12: refresh every local brain that has weekly_update on."""
+        """Settings refresh ONLY — touches each opted-in brain's config
+        timestamp. This is NOT the learning pass: the real weekly synthesis
+        (per-brain digest of patterns/flags/knowledge) is
+        ``memory.weekly_digest()``, which the scheduler runs alongside this.
+        Labeled honestly so a timestamp bump is never mistaken for learning."""
         n = 0
         for cfg in self.configs.values():
             if cfg.weekly_update:
                 cfg.updated_at = _now()
                 self._save(cfg)
                 n += 1
-        return {"updated": n, "total": len(self.configs), "at": _now()}
+        return {"updated": n, "total": len(self.configs), "at": _now(),
+                "note": "settings refresh only — synthesis lives in weekly_digest"}
