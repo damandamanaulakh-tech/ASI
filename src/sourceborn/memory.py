@@ -80,6 +80,36 @@ class NodeBrain:
         q = query.lower()
         return [e for e in self.read_all() if q in (e.content + " " + " ".join(e.tags)).lower()]
 
+    def snapshot(self) -> str:
+        """Shadow copy of this brain's meta before a governed change (weekly
+        pass). Keeps the last 4 versions so any update can be rolled back."""
+        import shutil
+        ver = int(self.meta.get("brain_version", 0)) + 1
+        self.meta["brain_version"] = ver
+        snap = os.path.join(self.dir, f"_brain.v{ver}.json")
+        if os.path.exists(self._meta_path):
+            shutil.copyfile(self._meta_path, snap)
+        old = sorted(f for f in os.listdir(self.dir)
+                     if f.startswith("_brain.v") and f.endswith(".json"))
+        for f in old[:-4]:
+            try:
+                os.remove(os.path.join(self.dir, f))
+            except OSError:
+                pass
+        return snap
+
+    def rollback(self) -> bool:
+        """Restore the most recent shadow snapshot — the weekly pass is
+        governed learning: reversible, never a one-way mutation."""
+        snaps = sorted(f for f in os.listdir(self.dir)
+                       if f.startswith("_brain.v") and f.endswith(".json"))
+        if not snaps:
+            return False
+        import shutil
+        shutil.copyfile(os.path.join(self.dir, snaps[-1]), self._meta_path)
+        self.meta = self._load_meta()
+        return True
+
     def bump(self, param: str, by: int = 1) -> int:
         """Increment one of the core brain parameters from ARD_RGL_7025
         (Runs_Completed, Patterns_Recognized, Verifications_Performed,
@@ -137,49 +167,85 @@ class Memory:
         return {"nodes_with_brains": len(nodes), "total_memory_entries": total}
 
     def weekly_digest(self) -> dict[str, Any]:
-        """The Monday clog, made real: each brain SYNTHESISES its week — the
-        pyramid categories it saw most, how many findings, the flags/mistakes it
-        collected — and writes ONE digest entry into itself + the master log.
-        Not just a timestamp bump; a real 'what this node learned this week'."""
+        """The Monday clog, made real. Each brain (1) SYNTHESISES its week —
+        top pyramid categories, findings, recurring flags — and (2) LEARNS new
+        cross-brain connections: its most distinctive sub-buckets are searched
+        across all OTHER brains, and previously unknown links are written as
+        connection entries and added to Connected_Points. The brain gains
+        knowledge it did not have before the pass — not just counters.
+        A shadow snapshot of each brain's meta is kept before mutation so any
+        weekly change can be rolled back (see NodeBrain.snapshot/rollback)."""
         import collections
         brains_dir = os.path.join(self.root, "brains")
         if not os.path.isdir(brains_dir):
             return {"digested": 0, "at": _now()}
         digested = 0
-        for node_id in sorted(os.listdir(brains_dir)):
+        new_links_total = 0
+        # sub-bucket → brains that filed under it this week (built once, cheap)
+        bucket_map: dict[str, set[str]] = collections.defaultdict(set)
+        per_brain: dict[str, dict] = {}
+        node_ids = sorted(os.listdir(brains_dir))
+        for node_id in node_ids:
             b = self.brain(node_id)
-            entries = [e for e in b.read_all()
-                       if "weekly_digest" not in e.tags]
+            entries = [e for e in b.read_all() if "weekly_digest" not in e.tags
+                       and "weekly_connection" not in e.tags]
             if not entries:
                 continue
-            mains = collections.Counter()
-            subs = collections.Counter()
-            flags = collections.Counter()
+            mains, subs, flags = (collections.Counter() for _ in range(3))
             for e in entries:
                 for m in e.pyramid.get("main", []):
                     mains[m] += 1
                 for s in e.pyramid.get("sub", []):
                     subs[s] += 1
+                    bucket_map[s].add(node_id)
                 for k, v in (e.parameters or {}).items():
                     if k == "urr_matrix_flags" and isinstance(v, dict):
                         for code in v.values():
                             flags[code] += 1
-            top_main = ", ".join(f"{m}×{n}" for m, n in mains.most_common(4)) or "—"
-            top_sub = ", ".join(f"{s}×{n}" for s, n in subs.most_common(5)) or "—"
-            top_flag = ", ".join(f"{c}×{n}" for c, n in flags.most_common(3)) or "none"
-            summary = (f"weekly digest — {len(entries)} findings; "
-                       f"top categories: {top_main}; buckets: {top_sub}; "
-                       f"recurring flags: {top_flag}")
+            per_brain[node_id] = {"entries": len(entries), "mains": mains,
+                                  "subs": subs, "flags": flags}
+        for node_id, agg in per_brain.items():
+            b = self.brain(node_id)
+            b.snapshot()                    # shadow copy → rollback possible
+            known = set(b.meta["parameters"].get("Connected_Points") or [])
+            fresh_links: dict[str, list[str]] = {}
+            for s, _n in agg["subs"].most_common(5):
+                others = bucket_map.get(s, set()) - {node_id}
+                new = sorted(o for o in others if o not in known)
+                if new:
+                    fresh_links[s] = new[:6]
+                    known.update(new)
+            top_main = ", ".join(f"{m}×{n}" for m, n in agg["mains"].most_common(4)) or "—"
+            top_flag = ", ".join(f"{c}×{n}" for c, n in agg["flags"].most_common(3)) or "none"
+            link_note = ("; NEW links: " + "; ".join(
+                f"{s}→{','.join(v)}" for s, v in list(fresh_links.items())[:3])
+                if fresh_links else "; no new links this week")
+            summary = (f"weekly digest — {agg['entries']} findings; "
+                       f"top: {top_main}; flags: {top_flag}{link_note}")
             b.write(MemoryEntry(
                 node_id=node_id, raw_source_id="",
                 content=summary, tags=["weekly_digest", "knowledge_gained"],
-                parameters={"findings": len(entries),
-                            "top_main": dict(mains.most_common(4)),
-                            "top_flags": dict(flags.most_common(3))},
+                parameters={"findings": agg["entries"],
+                            "top_main": dict(agg["mains"].most_common(4)),
+                            "new_links": fresh_links},
             ))
+            if fresh_links:
+                n_new = sum(len(v) for v in fresh_links.values())
+                new_links_total += n_new
+                b.write(MemoryEntry(
+                    node_id=node_id, raw_source_id="",
+                    content="new cross-brain connections learned: " + "; ".join(
+                        f"shares '{s}' with {', '.join(v)}"
+                        for s, v in fresh_links.items()),
+                    tags=["weekly_connection"],
+                    parameters={"links": fresh_links}))
+                b.bump("Patterns_Recognized", n_new)
+            b.meta["parameters"]["Connected_Points"] = sorted(known)[:40]
             b.meta["parameters"]["Knowledge_Gained"] = summary[:200]
             b.bump("Last_Brain_Update_Count")
             b._save_meta()
             digested += 1
-        self.master_log({"event": "weekly_digest", "brains": digested})
-        return {"digested": digested, "at": _now()}
+        self.master_log({"event": "weekly_digest", "brains": digested,
+                         "new_connections": new_links_total})
+        return {"digested": digested, "new_connections": new_links_total,
+                "at": _now()}

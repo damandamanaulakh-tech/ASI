@@ -5,8 +5,9 @@ services:
     name: sourceborn
     runtime: python
     plan: free
-    # Engine core is stdlib-only, so no build step is required.
-    buildCommand: ""
+    # Engine core is stdlib-only; requirements.txt carries OPTIONAL backends
+    # (pymongo for the MongoDB brain store, active only with SB_MONGO_URL).
+    buildCommand: "pip install -r requirements.txt"
     startCommand: "python app.py"
     healthCheckPath: /health
     autoDeploy: true
@@ -17,6 +18,10 @@ services:
       - key: XAI_API_KEY
         sync: false
       - key: TAVILY_API_KEY
+        sync: false
+      # MongoDB brain store (optional): paste your Atlas connection string to
+      # move the 95 brains onto MongoDB; leave unset for the JSON disk store.
+      - key: SB_MONGO_URL
         sync: false
       - key: PYTHON_VERSION
         value: "3.12"
