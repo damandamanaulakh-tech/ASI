@@ -554,30 +554,6 @@ class SourcebornEngine:
         return {"result": last, "recursion": {
             "loop_count": len(history), "converged": converged, "history": history}}
 
-    # -- the real loop: per-node SB <-> URR walk (your core diagram) --------
-    @staticmethod
-    def _walk_why(t: TraceEntry, packet: URRPacket) -> str:
-        """Plain-language reason a node passed or is held — so 'Low' is never
-        mysterious and every hold tells you exactly what to do."""
-        h = packet.halt_type or t.halt or ""
-        if t.node_id == "SB-33" and t.status == "gap_open":
-            return "No live source connected — paste the data or set a Tavily key."
-        if h == HaltType.EVIDENCE.value:
-            return "Claim needs current data to verify — add a source in review."
-        if h == HaltType.SAFETY.value:
-            return "Safety boundary — mapped, never executed."
-        if h == HaltType.LOGIC.value:
-            return "Over-claim (always/never/guaranteed) — soften or prove it."
-        if t.node_id == "SB-40":
-            return "Merge proposed — needs your approval before combining."
-        if t.node_id == "SB-20" and t.status == "held":
-            return "Doubt bit — the claim is fragile; re-examine."
-        if t.node_id == "SB-58" and t.status == "held":
-            return "Drifted from Point Zero — re-anchor to your original ask."
-        if t.node_id == "SB-59" and t.status == "held":
-            return "Embodied resistance — doesn't sit right yet; re-loop."
-        return "Clear."
-
     @staticmethod
     def _walk_ask(node_id: str, halt: str | None, target: str) -> dict:
         """The human gate, made explicit: tell the user exactly *what* to give,
