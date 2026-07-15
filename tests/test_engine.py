@@ -417,19 +417,26 @@ def test_prose_claim_still_uses_lenses():
 
 
 def test_every_ask_runs_all_70_and_all_25_no_skips():
-    # ONLY the user-stated requirement is asserted here: every ask goes through
-    # all 70 SB and all 25 URR without any skip. The walk's internal grouping is
-    # deliberately NOT asserted — the previous version of this test froze a
-    # block structure the user never requested (audit: Point X), and a test
-    # must never enforce an implementation choice against the user's spec.
+    # The user-stated requirements, exactly: every ask goes through all 70 SB
+    # and all 25 URR with zero skips, with NO stages/blocks — each SB node is
+    # reviewed by ITS OWN URR and absorbs the intake before the next node runs.
     eng = _engine()
     w = eng.run_walk("why does the small idea win?")["walk"]
     sb_fired = {s["sb_id"] for s in w["steps"]}
     assert sb_fired == {f"SB-{i:02d}" for i in range(1, 71)}   # all 70, none skipped
-    urr_fired = {b["gate"] for b in w["blocks"]} | {
-        u for s in w["steps"] for u in
-        [f.split(":")[0] for f in s.get("matrix_flags", [])]}
-    # every one of the 25 URR performed work this ask (gate and/or matrix sweep)
+    assert "blocks" not in w                                   # no block grouping
+    # one URR review PER NODE (SB-N → URR → SB-N absorbs → SB-N+1)
+    assert len(w["pairs"]) == 70
+    for p in w["pairs"]:
+        assert len(p["sb"]) == 1                               # single-node review
+    # SB-1 is reviewed before SB-2 even runs: pair order mirrors node order
+    assert w["pairs"][0]["sb"] == ["SB-01"] and w["pairs"][1]["sb"] == ["SB-02"]
+    # the intake fed back into the node's own brain (the revert)
+    tags = [t for e in eng.memory.brain("SB-01").read_all() for t in e.tags]
+    assert "urr_intake" in tags
+    # closing integrity sweep ran (URR-19..25, run-level roles)
+    assert [c["gate"] for c in w["closing"]] == [f"URR-{i}" for i in range(19, 26)]
+    # every one of the 25 URR performed work this ask
     for i in range(1, 26):
         uid = f"URR-{i:02d}"
         p = eng.memory.brain(uid).meta["parameters"]
@@ -458,9 +465,9 @@ def test_urr_gates_have_distinct_roles():
     assert names["URR-15"] == "Human Context Gate"
     assert names["URR-25"] == "Full Run Integrity & Human Final Gate"
     eng = _engine()
-    blocks = eng.run_walk("why does the small idea win?")["walk"]["blocks"]
-    intakes = [b["intake"] for b in blocks]
-    assert len(set(intakes)) >= 15                     # each gate verifies ITS thing
+    w = eng.run_walk("why does the small idea win?")["walk"]
+    intakes = {p["intake"] for p in w["pairs"]} | {c["intake"] for c in w["closing"]}
+    assert len(intakes) >= 15                          # each URR verifies ITS thing
 
 
 def test_brain_parameters_grow_with_use():
@@ -470,8 +477,9 @@ def test_brain_parameters_grow_with_use():
     eng.run_walk("first ask")
     eng.run_walk("second ask")
     assert eng.memory.brain("SB-20").meta["parameters"]["Runs_Completed"] == 2
-    # per walk: 1 block-gate verification + 70 matrix reviews = 71; two walks = 142
-    assert eng.memory.brain("URR-10").meta["parameters"]["Verifications_Performed"] == 142
+    # per walk: URR-10 primaries SB-19..28 (10 per-node reviews) + 70 matrix
+    # sweeps = 80; two walks = 160 — its own loop, many times per run
+    assert eng.memory.brain("URR-10").meta["parameters"]["Verifications_Performed"] == 160
     # feed-back into memory: block nodes hold the URR intake download
     tags = [t for e in eng.memory.brain("SB-33").read_all() for t in e.tags]
     assert "urr_intake" in tags and "node_finding" in tags
@@ -702,6 +710,70 @@ def test_novelty_approve_promotes_to_real_parameter():
     assert "P-NEW:zeropoint" in subs
     # human decision recorded on the New Parameter Generator's brain
     assert eng.memory.brain("SB-43").meta["parameters"].get("Human_Decisions", 0) >= 1
+
+
+def test_per_node_walk_no_stages():
+    # Req: "i didnt asked ever to make stages on 70 nodes" + "make URR work on
+    # each SB node, revert it to SB-1, then to SB-2"
+    eng = _engine()
+    w = eng.run_walk("prove with current data that the small idea wins")["walk"]
+    assert "blocks" not in w
+    assert len(w["pairs"]) == 70 and all(len(p["sb"]) == 1 for p in w["pairs"])
+    order = [p["sb"][0] for p in w["pairs"]]
+    assert order == [f"SB-{i:02d}" for i in range(1, 71)]   # N reviewed before N+1
+    # function-matched reviewers, not positional blocks
+    by_sb = {p["sb"][0]: p["gate"] for p in w["pairs"]}
+    assert by_sb["SB-20"] == "URR-10"      # Doubt Engine → Doubt & Falsifier
+    assert by_sb["SB-40"] == "URR-13"      # Merge Proposal → Merge Integrity
+    assert by_sb["SB-58"] == "URR-20"      # Re-Anchor → Re-Anchor Verification
+    assert by_sb["SB-64"] == "URR-22"      # Final Output → Output Integrity
+
+
+def test_node_definitions_are_file_driven():
+    # Req: "Files in core" — identities load from core/node_definitions.json
+    import json, os
+    path = os.path.join(os.path.dirname(__file__), "..", "core",
+                        "node_definitions.json")
+    assert os.path.exists(path)
+    d = json.load(open(path, encoding="utf-8"))
+    assert len(d["sb"]) == 70 and len(d["urr"]) == 25
+    assert d["primary_urr"]["SB-20"] == "URR-10"
+    from sourceborn.nodes import SB_NODES, SB_PRIMARY_URR
+    assert SB_NODES[19].name == d["sb"][19]["name"]         # engine follows file
+    assert SB_PRIMARY_URR == d["primary_urr"]
+
+
+def test_weekly_learns_new_connections_and_can_rollback():
+    # Req: real weekly update — new knowledge, governed (reversible)
+    eng = _engine()
+    eng.run_walk("prove with current data that the small idea wins")
+    dig = eng.memory.weekly_digest()
+    assert dig["digested"] >= 1
+    assert dig["new_connections"] > 0                       # learned NEW links
+    b = eng.memory.brain("SB-20")
+    assert b.meta["parameters"].get("Connected_Points")     # links recorded
+    conn = [e for e in b.read_all() if "weekly_connection" in e.tags]
+    assert conn and "shares" in conn[0].content
+    # governed learning: snapshot exists and rollback restores pre-digest meta
+    assert b.meta.get("brain_version", 0) >= 1
+    kg = b.meta["parameters"].get("Knowledge_Gained")
+    assert b.rollback() is True
+    assert eng.memory.brain("SB-20").meta["parameters"].get("Knowledge_Gained") != kg
+
+
+def test_mongo_backend_optional_and_fallback():
+    # Req: "must link on mongoDB" — adapter exists, activates on SB_MONGO_URL,
+    # falls back to JSON without it (zero-dependency default untouched)
+    import os
+    from sourceborn.mongo_store import MongoMemory, MongoNodeBrain, make_memory
+    from sourceborn.memory import Memory
+    assert os.environ.get("SB_MONGO_URL", "") == ""         # CI has no Mongo
+    m = make_memory(tempfile.mkdtemp(prefix="sb_mm_"))
+    assert type(m) is Memory                                # clean JSON fallback
+    for method in ("write", "read_all", "search", "bump", "snapshot", "rollback"):
+        assert hasattr(MongoNodeBrain, method)              # full API parity
+    for method in ("brain", "master_log", "search", "stats"):
+        assert hasattr(MongoMemory, method)
 
 
 def _run_all():

@@ -162,24 +162,88 @@ URR_NODES: tuple[URRNode, ...] = (
     URRNode("URR-25", "Full Run Integrity & Human Final Gate", "Final block — human gate"),
 )
 
-# The sequential arrow chart from ARD_RGL_7025 — SB blocks with their URR gate
-# (the 6+1 grouping): 8 intake nodes gate at URR-08, then 6-node blocks, then
-# SB-69..70 close into the Final 6+1 Block (URR-19..25).
-WALK_BLOCKS: tuple[tuple[str, tuple[str, ...]], ...] = (
-    ("URR-08", tuple(f"SB-{i:02d}" for i in range(1, 9))),
-    ("URR-09", tuple(f"SB-{i:02d}" for i in range(9, 15))),
-    ("URR-10", tuple(f"SB-{i:02d}" for i in range(15, 21))),
-    ("URR-11", tuple(f"SB-{i:02d}" for i in range(21, 27))),
-    ("URR-12", tuple(f"SB-{i:02d}" for i in range(27, 33))),
-    ("URR-13", tuple(f"SB-{i:02d}" for i in range(33, 39))),
-    ("URR-14", tuple(f"SB-{i:02d}" for i in range(39, 45))),
-    ("URR-15", tuple(f"SB-{i:02d}" for i in range(45, 51))),
-    ("URR-16", tuple(f"SB-{i:02d}" for i in range(51, 57))),
-    ("URR-17", tuple(f"SB-{i:02d}" for i in range(57, 63))),
-    ("URR-18", tuple(f"SB-{i:02d}" for i in range(63, 69))),
-)
-FINAL_BLOCK_SB: tuple[str, ...] = ("SB-69", "SB-70")
-FINAL_BLOCK_URR: tuple[str, ...] = tuple(f"URR-{i}" for i in range(19, 26))
+# NO stages, NO blocks (user requirement, audit-confirmed): every SB node is
+# reviewed by ITS OWN function-matched URR immediately after it works, the URR
+# intake feeds back into THAT node's memory, and only then does the walk
+# advance — SB-N → URR → SB-N (downloads intake) → SB-N+1.
+# Each URR therefore loops many times per run ("URR have its own Loops").
+SB_PRIMARY_URR: dict[str, str] = {
+    # intake nodes → Entry Verification Gate
+    **{f"SB-{i:02d}": "URR-08" for i in range(1, 9)},
+    # human core → Human Layer Verification
+    **{f"SB-{i:02d}": "URR-09" for i in range(9, 19)},
+    # truth/doubt/pressure → Doubt & Falsifier (Core of URR)
+    **{f"SB-{i:02d}": "URR-10" for i in range(19, 29)},
+    # evidence → Evidence & Grounding Audit
+    **{f"SB-{i:02d}": "URR-11" for i in range(29, 37)},
+    # connection/dot → Cross-Point Connection Audit
+    "SB-37": "URR-17", "SB-38": "URR-17", "SB-39": "URR-17",
+    "SB-40": "URR-13",          # Merge Proposal → Merge Integrity
+    "SB-41": "URR-17", "SB-42": "URR-17",
+    "SB-43": "URR-18",          # New Parameter Generator → Parameter Integrity
+    "SB-44": "URR-16",          # Memory Sync → Memory Accuracy & Sync
+    # synthetic → Synthetic Review
+    **{f"SB-{i:02d}": "URR-12" for i in range(45, 51)},
+    "SB-51": "URR-18",          # Parameter Labeler → Parameter Integrity
+    "SB-52": "URR-12",
+    # risk & human control
+    "SB-53": "URR-14", "SB-54": "URR-14", "SB-55": "URR-14",
+    "SB-56": "URR-21",          # Override Ledger → Non-Resolution & Override
+    "SB-57": "URR-21",
+    "SB-58": "URR-20",          # Reality Re-Anchor → Re-Anchor Verification
+    "SB-59": "URR-15",          # Embodied Check → Human Context Gate
+    "SB-60": "URR-15",
+    # output & maintenance
+    "SB-61": "URR-23",          # Master Log → Master Log Accuracy
+    "SB-62": "URR-24",          # Weekly Trigger → Local Brain Health
+    "SB-63": "URR-16",
+    "SB-64": "URR-22",          # Final Output → Output Integrity
+    "SB-65": "URR-17",
+    "SB-66": "URR-22",
+    "SB-67": "URR-19",          # Breakthrough Lock → Risk & Command Re-Check
+    "SB-68": "URR-15",
+    "SB-69": "URR-16",
+    "SB-70": "URR-25",          # Run Completion → Full Run Integrity & Final Gate
+}
+# Support layer fires on node-completion events, not stages: the early
+# verifiers after the human layer completes, the audit pair after memory sync.
+SUPPORT_AFTER: dict[str, tuple[str, ...]] = {
+    "SB-18": ("URR-01", "URR-02", "URR-03", "URR-04", "URR-05"),
+    "SB-44": ("URR-06", "URR-07"),
+}
+# The run-level closing integrity sweep — these roles are defined by the core
+# as end-of-run checks (output integrity, master log audit, final human gate).
+CLOSING_URR: tuple[str, ...] = tuple(f"URR-{i}" for i in range(19, 26))
+
+
+def _load_file_definitions() -> None:
+    """File-driven node identities: if ``core/node_definitions.json`` exists at
+    the repo root, node names/purposes and the SB→URR primary map come from it
+    — the user edits the file, the engine follows, no code change. Behaviors
+    (each node's work function) remain in code; identities live in the core."""
+    import json
+    import os
+    global SB_NODES, URR_NODES, SB_PRIMARY_URR
+    path = os.path.join(os.path.dirname(__file__), "..", "..",
+                        "core", "node_definitions.json")
+    if not os.path.exists(path):
+        return
+    try:
+        with open(path, encoding="utf-8") as f:
+            d = json.load(f)
+        if d.get("sb"):
+            SB_NODES = tuple(SBNode(n["id"], n["name"], int(n["stage"]),
+                                    n.get("purpose", "")) for n in d["sb"])
+        if d.get("urr"):
+            URR_NODES = tuple(URRNode(n["id"], n["name"], n.get("triggers", ""))
+                              for n in d["urr"])
+        if d.get("primary_urr"):
+            SB_PRIMARY_URR = dict(d["primary_urr"])
+    except Exception:
+        pass                                   # bad file → keep built-ins
+
+
+_load_file_definitions()
 
 # Pyramid level template for every node (Node -> Main -> Sub -> Micro).
 SB_PYRAMID = {"node": 1, "main": (5, 10), "sub": (10, 20), "micro": (20, 30)}

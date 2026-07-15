@@ -1,0 +1,4 @@
+# The engine core is stdlib-only. This file exists for OPTIONAL backends:
+# pymongo activates the MongoDB brain store when SB_MONGO_URL is set
+# (mongo_store.make_memory). Without the env var, nothing here is imported.
+pymongo>=4.6

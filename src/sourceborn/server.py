@@ -689,26 +689,43 @@ function matrixCard(d){const m=(d.walk||{}).matrix; if(!m)return '';
     ((m.flagged||[]).length?('<details><summary>flagged details ('+m.flagged.length+')</summary>'+m.flagged.map(f=>'<div class=lane><b>'+esc(f.sb)+'</b> ⚑ '+esc(f.urr)+' · '+esc(f.code)+'</div>').join('')+'</details>'):'')+'</div>';}
 function walkCard(d){const w=d.walk; if(!w||!w.steps)return '';
   const byId={}; w.steps.forEach(s=>{byId[s.sb_id]=s;});
+  // Per-node walk (no stages, no blocks): SB-N → its URR → SB-N absorbs → SB-N+1
+  if(w.pairs&&w.pairs.length){
+    let html='';
+    w.pairs.forEach(p=>{
+      const sb=p.sb[0], s=byId[sb]||{}, bad=(p.verdict==='hold'||s.verdict==='hold');
+      html+='<details'+(bad?' open':'')+'><summary><span class="vd '+(bad?'hold':'pass')+'">●</span> <b>'+esc(sb)+'</b> '+esc(s.sb_name||'')+' → <b>'+esc(p.gate)+'</b> '+esc(p.name)+': <b class="'+(p.verdict==='hold'?'hl':'gd')+'">'+esc(p.verdict)+'</b> <span class=muted style="font-size:11px">↩ back to '+esc(sb)+'</span></summary>'+
+        (s.sb_id?walkRow(s):'')+
+        '<div class="lane muted">↩ intake → '+esc(sb)+' memory: '+esc(p.intake||'')+
+        (p.issues&&p.issues.length?' · <span class=hl>'+esc(p.issues.join('; '))+'</span>':'')+'</div></details>';
+    });
+    let closing='';
+    if(w.closing&&w.closing.length){
+      closing='<div class=k style="margin-top:12px">Closing integrity sweep <span class=num>'+w.closing.length+' run-level checks</span></div>'+
+        w.closing.map(c=>'<div class=lane><span class="vd '+(c.verdict==='hold'?'hold':'pass')+'">●</span> <b>'+esc(c.gate)+'</b> '+esc(c.name)+': <b>'+esc(c.verdict)+'</b><br><span class=muted style="margin-left:18px">'+esc(c.intake||'')+'</span></div>').join('');
+    }
+    let sup='';
+    if(w.support&&w.support.length){
+      sup='<details style="margin-top:8px"><summary>support verifiers ('+w.support.length+', fire on node completion)</summary>'+
+        w.support.map(s2=>'<div class=lane><b>'+esc(s2.gate)+'</b> after '+esc(s2.after)+': '+esc(s2.note)+(s2.issues&&s2.issues.length?' <span class=hl>'+esc(s2.issues.join('; '))+'</span>':'')+'</div>').join('')+'</details>';
+    }
+    return '<div class=card><div class=k>Node walk · per node: SB-N → URR → SB-N → SB-N+1 <span class=num>'+w.node_count+' SB · '+(w.urr_count||0)+'/25 URR · '+w.hold_count+' holds</span></div>'+html+closing+sup+'</div>';
+  }
+  // Legacy stored chats (block-era payloads) still render.
   const blocks=w.blocks||[];
-  if(!blocks.length){    // older payloads: holds first, passes folded
+  if(!blocks.length){
     const holds=w.steps.filter(s=>s.verdict==='hold'), passes=w.steps.filter(s=>s.verdict!=='hold');
     const head=holds.length?holds.map(walkRow).join(''):'<div class=lane><span class="vd pass">●</span> All '+w.node_count+' nodes cleared.</div>';
     const rest=passes.length?('<details style="margin-top:8px"><summary>'+passes.length+' nodes passed</summary>'+passes.map(walkRow).join('')+'</details>'):'';
     return '<div class=card><div class=k>Node walk <span class=num>'+w.node_count+' nodes · '+w.hold_count+' holds</span></div>'+head+rest+'</div>';}
-  // The ARD_RGL_7025 sequential chart: SB block ⇒ its URR gate (6+1 grouping).
   const seen=new Set(); let html='';
   blocks.forEach(b=>{
     const fresh=b.sb.filter(id=>!seen.has(id)); fresh.forEach(id=>seen.add(id));
     const nodes=fresh.map(id=>byId[id]).filter(Boolean);
-    const nHeld=nodes.filter(s=>s.verdict==='hold').length;
     const range=b.sb.length>1?(b.sb[0]+' → '+b.sb[b.sb.length-1]):b.sb[0];
-    const bad=b.verdict==='hold'||nHeld>0;
-    html+='<details'+(bad?' open':'')+'><summary><span class="vd '+(bad?'hold':'pass')+'">●</span> <b>'+esc(range)+'</b> ⇒ <b>'+esc(b.gate)+'</b> '+esc(b.name)+' — <b class="'+(b.verdict==='hold'?'hl':'gd')+'">'+esc(b.verdict)+'</b>'+(nHeld?' · '+nHeld+' node hold':'')+'</summary>'+
-      nodes.map(walkRow).join('')+
-      '<div class="lane muted">↩ Intake+Parameters+New Scope → memory: '+esc(b.intake||'')+
-      (b.issues&&b.issues.length?' · <span class=hl>'+esc(b.issues.join('; '))+'</span>':'')+'</div></details>';
+    html+='<details><summary><b>'+esc(range)+'</b> ⇒ <b>'+esc(b.gate)+'</b> '+esc(b.name)+' — '+esc(b.verdict)+' <span class=muted>(legacy block view)</span></summary>'+nodes.map(walkRow).join('')+'</details>';
   });
-  return '<div class=card><div class=k>Node walk · sequential chart (SB block ⇒ URR gate) <span class=num>'+w.node_count+' SB · '+(w.urr_count||0)+' URR · '+w.hold_count+' holds</span></div>'+html+'</div>';}
+  return '<div class=card><div class=k>Node walk (stored, legacy) <span class=num>'+w.node_count+' nodes</span></div>'+html+'</div>';}
 function auditCard(d){const L=(d.output||{}).lanes||{}, a=L.audit; if(!a)return '';
   const row=(k,v)=>'<div class=lane><b>'+esc(k)+'</b> '+esc(v)+'</div>';
   let h=row('Document',(L.domain||{}).label||'numeric / financial');
@@ -1157,6 +1174,17 @@ class Handler(BaseHTTPRequestHandler):
             ENGINE.memory.master_log({"event": "human_parked", "node": node,
                                       "item": item, "level": level, "as": cat})
             self._send(200, json.dumps({"ok": True, "left": len(ENGINE.unfiled.list())}).encode(),
+                       "application/json")
+            return
+        if self.path == "/brain/rollback":
+            node_id = (data.get("id") or "").strip()
+            if not node_id:
+                self._send(400, b'{"error":"need id"}', "application/json")
+                return
+            ok = ENGINE.memory.brain(node_id).rollback()
+            ENGINE.memory.master_log({"event": "brain_rollback",
+                                      "node": node_id, "ok": ok})
+            self._send(200, json.dumps({"ok": ok, "node": node_id}).encode(),
                        "application/json")
             return
         if self.path == "/brains/update":

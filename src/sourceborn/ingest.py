@@ -92,7 +92,8 @@ def ingest_folder(
 ) -> dict[str, int]:
     """Ingest every text file under ``folder`` (categorized subfolders) into the
     brain — each pyramid-filed and routed. Returns counts."""
-    memory = Memory(root)
+    from .mongo_store import make_memory
+    memory = make_memory(root)
     persona = Persona(root) if learn_voice else None
     unfiled = UnfiledQueue(root)
     files = 0

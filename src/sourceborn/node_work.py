@@ -531,7 +531,9 @@ def _rv(urr_id: str, name: str, issues: list[str], intake: str,
 
 def _urr08(c: WalkContext, f: dict[str, Finding]) -> URRReview:   # Entry Verification
     issues = []
-    if not f.get("SB-01"):
+    if not f:                                     # nothing produced to verify
+        issues.append("no node finding to verify")
+    if not c.raw_text.strip():
         issues.append("raw source not locked")
     if not c.channels:
         issues.append("noise strip produced nothing")

@@ -41,8 +41,8 @@ from .models import (
 )
 from .node_work import (Finding, SB_WORK, SUPPORT_CHECKS, URR_CHECKS, URRReview,
                         WalkContext)
-from .nodes import (FINAL_BLOCK_SB, FINAL_BLOCK_URR, SB_NODES, URR_NODES,
-                    WALK_BLOCKS, sb_by_id)
+from .nodes import (CLOSING_URR, SB_NODES, SB_PRIMARY_URR, SUPPORT_AFTER,
+                    URR_NODES, sb_by_id)
 from .pyramid import UnfiledQueue, file_finding, file_urr, unfiled_from_input
 from .urr_matrix import MATRIX, review_node
 from .parameters import COMPARISON_AXES, PARAMETER_BANK
@@ -93,7 +93,8 @@ class SourcebornEngine:
         model: BaseModel | None = None,
         grounding: Callable[[str], str] | None = None,
     ) -> None:
-        self.memory = Memory(root)
+        from .mongo_store import make_memory
+        self.memory = make_memory(root)     # Mongo when SB_MONGO_URL set, else JSON
         self.brains = BrainRegistry(root)   # settings of all 70 SB + 25 URR brains
         self.persona = Persona(root)
         self.wisdom = WisdomBank(root)
@@ -606,20 +607,20 @@ class SourcebornEngine:
 
     def run_walk(self, raw_text: str, model: BaseModel | None = None,
                  live_override: str | None = None) -> dict:
-        """The real ARD_RGL_7025 walk — the 6+1 sequential arrow chart:
+        """The per-node walk — NO stages, NO blocks (user requirement):
 
-            SB-01..08 → URR-08 (Entry Verification, first gate)
-            SB-09..14 → URR-09 (Human Layer) … blocks of six …
-            SB-69..70 → URR-19..25 (the Final 6+1 Block → Human Final Gate)
+            SB-N works → its function-matched URR reviews THAT node →
+            the URR intake feeds back into SB-N's memory (the revert) →
+            only then SB-N+1.
 
-        Every SB point runs ITS OWN job on the run context and writes ITS OWN
-        finding into ITS OWN local brain — no shared stamp. Every URR gate runs
-        ITS OWN verification role over its block, then returns Intake +
-        Parameters + New Scope which each block node downloads into memory
-        (the spec's Feed-Back into Memory). URR-01..07 run as the support
-        layer on their trigger areas. Brain parameters from the core document
-        (Runs_Completed, Verifications_Performed, Issues_Found, …) update on
-        every pass, so each brain's storage genuinely grows with use.
+        Every SB node runs ITS OWN job and writes ITS OWN finding into ITS OWN
+        brain. Its primary URR (SB_PRIMARY_URR — role-matched, editable in
+        core/node_definitions.json) reviews it immediately; ALL 25 URR filters
+        additionally sweep every node (the 70×25 matrix). Support verifiers
+        (URR-01..07) fire on node-completion events; the closing integrity
+        sweep (URR-19..25) runs after SB-70 because those roles are defined as
+        end-of-run checks. Each URR loops many times per run — its own loop,
+        as the core demands.
         """
         res = self.run(raw_text, model=model, live_override=live_override)
         rc = getattr(self, "_ctx", {})
@@ -639,7 +640,9 @@ class SourcebornEngine:
 
         steps: list[NodeStep] = []
         holds: list[dict] = []
-        blocks: list[dict] = []
+        pairs: list[dict] = []          # per-node SB→URR review pairs (no blocks)
+        closing: list[dict] = []        # end-of-run integrity sweep URR-19..25
+        support: list[dict] = []        # URR-01..07 on node-completion events
         findings: dict[str, Finding] = {}
         matrix_by_urr: dict[str, int] = {}
         matrix_flagged: list[dict] = []
@@ -695,7 +698,11 @@ class SourcebornEngine:
                 matrix_pass=len(MATRIX) - len(flags),
                 matrix_flags=[f"{u}:{c}" for u, c in flags.items()]))
 
-        def run_urr(urr_id: str, block_sb: tuple[str, ...]) -> URRReview:
+        def run_urr(urr_id: str, sb_ids: tuple[str, ...],
+                    sink: list[dict]) -> URRReview:
+            """One URR review over the given node(s). In the per-node walk
+            sb_ids is a single node (its primary review, intake fed back to it
+            before the walk advances); the closing sweep reviews the whole run."""
             review = URR_CHECKS[urr_id](ctx, findings)
             ub = self.memory.brain(urr_id, review.name)
             ub.bump("Verifications_Performed")
@@ -706,11 +713,13 @@ class SourcebornEngine:
             self.memory.write(urr_id, MemoryEntry(
                 node_id=urr_id, raw_source_id="",
                 content=f"[{review.verdict}] {review.intake}"[:400],
-                parameters={"issues": review.issues, "scope": review.new_scope},
+                parameters={"issues": review.issues, "scope": review.new_scope,
+                            "reviewed": list(sb_ids)},
                 tags=["urr_review"]), name=review.name)
             ctx.run_writes += 1
-            # Feed-Back into Memory: every block node downloads the URR intake.
-            for sb_id in block_sb:
+            # Feed-Back into Memory: the reviewed node downloads the intake
+            # BEFORE the walk advances — the "revert to SB-N" of the core.
+            for sb_id in sb_ids:
                 self.memory.write(sb_id, MemoryEntry(
                     node_id=sb_id, raw_source_id="",
                     content=f"URR intake [{review.verdict}] from {urr_id}: "
@@ -727,10 +736,10 @@ class SourcebornEngine:
                               "urr_id": urr_id,
                               "why": "; ".join(review.issues)[:180], "halt": halt,
                               "ask": self._walk_ask(urr_id, halt, review.name)})
-            blocks.append({"gate": urr_id, "name": review.name,
-                           "sb": list(block_sb), "verdict": review.verdict,
-                           "issues": review.issues, "intake": review.intake,
-                           "new_scope": review.new_scope})
+            sink.append({"gate": urr_id, "name": review.name,
+                         "sb": list(sb_ids), "verdict": review.verdict,
+                         "issues": review.issues, "intake": review.intake,
+                         "new_scope": review.new_scope})
             return review
 
         # Human-approved new parameters (novelty pass): they park from now on.
@@ -743,32 +752,27 @@ class SourcebornEngine:
                          unfiled_from_input(raw_text, extra_known=approved),
                          _now())
 
-        # ---- the main sequential line (6+1 grouping) ----------------------
-        for gate, block_sb in WALK_BLOCKS:
-            for sb_id in block_sb:
-                run_sb(sb_id, gate)
-            run_urr(gate, block_sb)
-            # support layer triggers (per the spec's summary table)
-            if gate == "URR-09":                      # after Stage 1-2
-                for uid in ("URR-01", "URR-02", "URR-03", "URR-04", "URR-05"):
-                    note, issues = SUPPORT_CHECKS[uid](ctx)
-                    ub = self.memory.brain(uid)
-                    ub.bump("Verifications_Performed")
-                    if issues:
-                        ub.bump("Issues_Found", len(issues))
-            if gate == "URR-14":                      # after Stage 4-5
-                for uid in ("URR-06", "URR-07"):
-                    note, issues = SUPPORT_CHECKS[uid](ctx)
-                    ub = self.memory.brain(uid)
-                    ub.bump("Verifications_Performed")
-                    if issues:
-                        ub.bump("Issues_Found", len(issues))
+        # ---- the per-node walk: SB-N → its URR → SB-N absorbs → SB-N+1 ----
+        # No stages, no blocks. Every node is individually reviewed by its
+        # function-matched URR and downloads the intake before the next node.
+        for node in SB_NODES:
+            sb_id = node.sb_id
+            primary = SB_PRIMARY_URR.get(sb_id, "URR-08")
+            run_sb(sb_id, primary)
+            run_urr(primary, (sb_id,), pairs)
+            # support verifiers fire on node-completion events, not stages
+            for uid in SUPPORT_AFTER.get(sb_id, ()):
+                note, issues = SUPPORT_CHECKS[uid](ctx)
+                ub = self.memory.brain(uid)
+                ub.bump("Verifications_Performed")
+                if issues:
+                    ub.bump("Issues_Found", len(issues))
+                support.append({"gate": uid, "after": sb_id, "note": note,
+                                "issues": issues})
 
-        # ---- closing: SB-69..70 then the Final 6+1 Block (URR-19..25) -----
-        for sb_id in FINAL_BLOCK_SB:
-            run_sb(sb_id, "URR-25")
-        for urr_id in FINAL_BLOCK_URR:
-            run_urr(urr_id, FINAL_BLOCK_SB)
+        # ---- closing integrity sweep: URR-19..25 over the full run --------
+        for urr_id in CLOSING_URR:
+            run_urr(urr_id, (), closing)          # run-level; no re-feed to nodes
 
         # ---- 70×25 matrix close-out: each URR brain records ITS sweep -----
         urr_names = {n.urr_id: n.name for n in URR_NODES}
@@ -791,18 +795,22 @@ class SourcebornEngine:
                 tags=["urr_matrix"]), name=urr_names.get(uid, uid))
             ctx.run_writes += 1
 
+        distinct_urr = {p["gate"] for p in pairs} | {c["gate"] for c in closing} \
+            | {s["gate"] for s in support} | set(MATRIX)
         self.memory.master_log({"event": "walk_complete",
-                                "nodes": len(steps), "urr_gates": len(blocks),
+                                "nodes": len(steps),
+                                "per_node_reviews": len(pairs),
+                                "closing_reviews": len(closing),
                                 "matrix_reviews": n_nodes * len(MATRIX),
                                 "matrix_flags": matrix_total_flags,
                                 "holds": len(holds)})
         return {"result": res, "walk": {
             "steps": [asdict(s) for s in steps], "holds": holds,
-            "blocks": blocks,
+            "pairs": pairs, "closing": closing, "support": support,
             "matrix": {"per_node": len(MATRIX),
                        "total": n_nodes * len(MATRIX),
                        "flags": matrix_total_flags,
                        "by_urr": matrix_by_urr,
                        "flagged": matrix_flagged},
             "node_count": len(steps), "hold_count": len(holds),
-            "urr_count": len(blocks)}}
+            "urr_count": len(distinct_urr)}}

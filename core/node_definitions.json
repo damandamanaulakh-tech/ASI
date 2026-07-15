@@ -1,0 +1,624 @@
+{
+  "_comment": "SOURCEBORN node identities — edit THIS file to change node names, purposes, or which URR reviews which SB node (primary_urr). The engine loads it at import; no code change needed. Behaviors stay in node_work.py.",
+  "sb": [
+    {
+      "id": "SB-01",
+      "name": "Point Zero Lock",
+      "stage": 1,
+      "purpose": "Lock the original raw source without any change"
+    },
+    {
+      "id": "SB-02",
+      "name": "Noise & Static Stripper",
+      "stage": 1,
+      "purpose": "Separate Fact/Feeling/Assumption/Pressure/Claim/Mystery/Invention Seed/Command"
+    },
+    {
+      "id": "SB-03",
+      "name": "Source Domain Classifier",
+      "stage": 1,
+      "purpose": "Identify domain, connect relevant data banks"
+    },
+    {
+      "id": "SB-04",
+      "name": "Raw Source Preservation",
+      "stage": 1,
+      "purpose": "Ensure original input can never be altered later"
+    },
+    {
+      "id": "SB-05",
+      "name": "Initial Parameter Mapping",
+      "stage": 1,
+      "purpose": "Check existing parameters, flag what does not fit"
+    },
+    {
+      "id": "SB-06",
+      "name": "Data Bank Connector",
+      "stage": 1,
+      "purpose": "Link external paid + free research sources"
+    },
+    {
+      "id": "SB-07",
+      "name": "First Memory Write",
+      "stage": 1,
+      "purpose": "Create first structured high-parameter memory entry"
+    },
+    {
+      "id": "SB-08",
+      "name": "Intake Completion Gate",
+      "stage": 1,
+      "purpose": "Confirm intake is clean before moving forward"
+    },
+    {
+      "id": "SB-09",
+      "name": "Affect & Intent Ledger",
+      "stage": 2,
+      "purpose": "Emotional current, hidden motives, small intent feeds"
+    },
+    {
+      "id": "SB-10",
+      "name": "Core Gate — Six Lenses",
+      "stage": 2,
+      "purpose": "Mask/Payoff, Wound/Threat, Loyalty/Drive, Desire/Fear, Pain/Payoff, Meaning/Identity"
+    },
+    {
+      "id": "SB-11",
+      "name": "Human Shadow Gate",
+      "stage": 2,
+      "purpose": "What the user is protecting, avoiding, not saying"
+    },
+    {
+      "id": "SB-12",
+      "name": "Hidden Intent Feed Detector",
+      "stage": 2,
+      "purpose": "Detect small hidden intent feeds"
+    },
+    {
+      "id": "SB-13",
+      "name": "Emotional Drama Processor",
+      "stage": 2,
+      "purpose": "Process emotional drama as usable data"
+    },
+    {
+      "id": "SB-14",
+      "name": "Sacred / Cultural Anchor",
+      "stage": 2,
+      "purpose": "Bring in sacred, cultural, religious anchors"
+    },
+    {
+      "id": "SB-15",
+      "name": "Identity & Meaning Analyzer",
+      "stage": 2,
+      "purpose": "Analyze identity and meaning"
+    },
+    {
+      "id": "SB-16",
+      "name": "Power & Control Mapper",
+      "stage": 2,
+      "purpose": "Map power and control dynamics"
+    },
+    {
+      "id": "SB-17",
+      "name": "Wound & Threat Examiner",
+      "stage": 2,
+      "purpose": "Deeply examine wounds and threats"
+    },
+    {
+      "id": "SB-18",
+      "name": "Human Layer Completion",
+      "stage": 2,
+      "purpose": "Complete human layer before truth testing"
+    },
+    {
+      "id": "SB-19",
+      "name": "Truth Pressure Test",
+      "stage": 3,
+      "purpose": "What truth is this system avoiding?"
+    },
+    {
+      "id": "SB-20",
+      "name": "Doubt Engine",
+      "stage": 3,
+      "purpose": "Systematically break the strongest conclusion"
+    },
+    {
+      "id": "SB-21",
+      "name": "Falsifier",
+      "stage": 3,
+      "purpose": "Actively test for falsification"
+    },
+    {
+      "id": "SB-22",
+      "name": "Witness Node",
+      "stage": 3,
+      "purpose": "Surface what the engine itself is blind to"
+    },
+    {
+      "id": "SB-23",
+      "name": "Contradiction Finder",
+      "stage": 3,
+      "purpose": "Find contradictions"
+    },
+    {
+      "id": "SB-24",
+      "name": "Hidden Assumption Attacker",
+      "stage": 3,
+      "purpose": "Attack hidden assumptions"
+    },
+    {
+      "id": "SB-25",
+      "name": "Framing Challenger",
+      "stage": 3,
+      "purpose": "Challenge the current framing"
+    },
+    {
+      "id": "SB-26",
+      "name": "Courage Wall",
+      "stage": 3,
+      "purpose": "Force naming what is being avoided"
+    },
+    {
+      "id": "SB-27",
+      "name": "Identity Resistance Check",
+      "stage": 3,
+      "purpose": "Check identity-level resistance"
+    },
+    {
+      "id": "SB-28",
+      "name": "Verified Truth Lock",
+      "stage": 3,
+      "purpose": "Lock verified truth elements"
+    },
+    {
+      "id": "SB-29",
+      "name": "Evidence Ledger",
+      "stage": 4,
+      "purpose": "Build proof levels"
+    },
+    {
+      "id": "SB-30",
+      "name": "Source Tagger",
+      "stage": 4,
+      "purpose": "Tag REAL_TOOL / MANUAL / MEMORY / SIMULATED"
+    },
+    {
+      "id": "SB-31",
+      "name": "Domain-Adaptive Auditor",
+      "stage": 4,
+      "purpose": "Different validation rules per domain"
+    },
+    {
+      "id": "SB-32",
+      "name": "Literature & Historical Pattern Hunter",
+      "stage": 4,
+      "purpose": "Search patterns across time/domains, holy books, research"
+    },
+    {
+      "id": "SB-33",
+      "name": "Live Real-World Data Link",
+      "stage": 4,
+      "purpose": "Connect to live real-world data"
+    },
+    {
+      "id": "SB-34",
+      "name": "Proof Ladder Builder",
+      "stage": 4,
+      "purpose": "Build the proof ladder"
+    },
+    {
+      "id": "SB-35",
+      "name": "In-Silico Validator",
+      "stage": 4,
+      "purpose": "Run in-silico validation where needed"
+    },
+    {
+      "id": "SB-36",
+      "name": "Evidence Completion",
+      "stage": 4,
+      "purpose": "Complete evidence status before connection work"
+    },
+    {
+      "id": "SB-37",
+      "name": "Dot Connection Engine",
+      "stage": 5,
+      "purpose": "Search across all prior SB points for connections"
+    },
+    {
+      "id": "SB-38",
+      "name": "Cross-Domain Fusion",
+      "stage": 5,
+      "purpose": "Force fusion between domains, check force-fit risk"
+    },
+    {
+      "id": "SB-39",
+      "name": "Non-Text Pattern Detector",
+      "stage": 5,
+      "purpose": "Patterns in images, watermarks, footprints"
+    },
+    {
+      "id": "SB-40",
+      "name": "Merge Proposal",
+      "stage": 5,
+      "purpose": "Propose merges when real value exists"
+    },
+    {
+      "id": "SB-41",
+      "name": "Convergence Hunter",
+      "stage": 5,
+      "purpose": "Hunt similar conclusions from different paths"
+    },
+    {
+      "id": "SB-42",
+      "name": "Cross-Point Contradiction",
+      "stage": 5,
+      "purpose": "Find contradictions across points"
+    },
+    {
+      "id": "SB-43",
+      "name": "New Parameter Generator",
+      "stage": 5,
+      "purpose": "Generate new parameters when data does not fit"
+    },
+    {
+      "id": "SB-44",
+      "name": "Memory Sync",
+      "stage": 5,
+      "purpose": "Update and sync memory"
+    },
+    {
+      "id": "SB-45",
+      "name": "Synthetic Fuel Injector",
+      "stage": 6,
+      "purpose": "Hypothetical/Counterfactual/Heuristic Fiction/Working Fiction/Apostatic Inversion"
+    },
+    {
+      "id": "SB-46",
+      "name": "Invention Seed Protector",
+      "stage": 6,
+      "purpose": "Protect early invention seeds from forced resolution"
+    },
+    {
+      "id": "SB-47",
+      "name": "Working Fiction Scaffold",
+      "stage": 6,
+      "purpose": "Build working-fiction scaffolds"
+    },
+    {
+      "id": "SB-48",
+      "name": "Apostatic Inversion",
+      "stage": 6,
+      "purpose": "See it from the exact opposite / enemy's eyes"
+    },
+    {
+      "id": "SB-49",
+      "name": "Heuristic Simplification",
+      "stage": 6,
+      "purpose": "Apply heuristic simplification"
+    },
+    {
+      "id": "SB-50",
+      "name": "Synthetic Tagging",
+      "stage": 6,
+      "purpose": "Heavy [SYNTHETIC] tagging with proof debt + expiry"
+    },
+    {
+      "id": "SB-51",
+      "name": "Parameter Labeler",
+      "stage": 6,
+      "purpose": "Generate and label new parameters"
+    },
+    {
+      "id": "SB-52",
+      "name": "Synthetic Completion",
+      "stage": 6,
+      "purpose": "Complete synthetic handling with review rules"
+    },
+    {
+      "id": "SB-53",
+      "name": "Risk & Command Gate",
+      "stage": 7,
+      "purpose": "Legal/ethical/harmful/high-stakes risk check; force human review"
+    },
+    {
+      "id": "SB-54",
+      "name": "Critical Logic Wall",
+      "stage": 7,
+      "purpose": "Detect Data/Logic/Frame/Complexity/Motive/Moral/Identity/Time stalls"
+    },
+    {
+      "id": "SB-55",
+      "name": "High-Risk Merge Review",
+      "stage": 7,
+      "purpose": "Force human review on high-synthetic / high-risk merges"
+    },
+    {
+      "id": "SB-56",
+      "name": "Override Ledger",
+      "stage": 7,
+      "purpose": "Record every human decision with reason"
+    },
+    {
+      "id": "SB-57",
+      "name": "Non-Resolution Protector",
+      "stage": 7,
+      "purpose": "Protect valid non-resolution states"
+    },
+    {
+      "id": "SB-58",
+      "name": "Reality Re-Anchor",
+      "stage": 7,
+      "purpose": "Check conclusion against original raw source / Point Zero"
+    },
+    {
+      "id": "SB-59",
+      "name": "Embodied Check",
+      "stage": 7,
+      "purpose": "Body/intuition resistance treated as valid data"
+    },
+    {
+      "id": "SB-60",
+      "name": "Final Decision Prep",
+      "stage": 7,
+      "purpose": "Prepare everything for final human decision"
+    },
+    {
+      "id": "SB-61",
+      "name": "Master Log Update",
+      "stage": 8,
+      "purpose": "Record every parameter, source, merger, parked info"
+    },
+    {
+      "id": "SB-62",
+      "name": "Weekly Brain Update Trigger",
+      "stage": 8,
+      "purpose": "Trigger weekly local brain updates (Mondays)"
+    },
+    {
+      "id": "SB-63",
+      "name": "Memory Sync (All Points)",
+      "stage": 8,
+      "purpose": "Sync memory across all points"
+    },
+    {
+      "id": "SB-64",
+      "name": "Final Output Generator",
+      "stage": 8,
+      "purpose": "Generate the final deliverable"
+    },
+    {
+      "id": "SB-65",
+      "name": "Feed-Forward Router",
+      "stage": 8,
+      "purpose": "Send everything back to any point for re-merging"
+    },
+    {
+      "id": "SB-66",
+      "name": "Full Compilation",
+      "stage": 8,
+      "purpose": "Compile all outputs"
+    },
+    {
+      "id": "SB-67",
+      "name": "Breakthrough Lock",
+      "stage": 8,
+      "purpose": "Score and lock breakthrough moments"
+    },
+    {
+      "id": "SB-68",
+      "name": "Human Halt Gate",
+      "stage": 8,
+      "purpose": "Human has full halt authority"
+    },
+    {
+      "id": "SB-69",
+      "name": "Long-Term Memory Lock",
+      "stage": 8,
+      "purpose": "Lock important findings into long-term memory"
+    },
+    {
+      "id": "SB-70",
+      "name": "Run Completion",
+      "stage": 8,
+      "purpose": "Complete the run, prepare for reset or new work"
+    }
+  ],
+  "urr": [
+    {
+      "id": "URR-01",
+      "name": "Raw Source Early Verification",
+      "triggers": "Support — after Stage 1-2"
+    },
+    {
+      "id": "URR-02",
+      "name": "Human Layer Early Check",
+      "triggers": "Support — after Stage 1-2"
+    },
+    {
+      "id": "URR-03",
+      "name": "Truth Pressure Early Review",
+      "triggers": "Support — after Stage 1-2"
+    },
+    {
+      "id": "URR-04",
+      "name": "Intent Gate Review",
+      "triggers": "Support — after Stage 1-2"
+    },
+    {
+      "id": "URR-05",
+      "name": "Early Classification Audit",
+      "triggers": "Support — after Stage 1-2"
+    },
+    {
+      "id": "URR-06",
+      "name": "Evidence Quality Audit",
+      "triggers": "Support — after Stage 4-5"
+    },
+    {
+      "id": "URR-07",
+      "name": "Synthetic Tagging Audit",
+      "triggers": "Support — after Stage 4-5"
+    },
+    {
+      "id": "URR-08",
+      "name": "Entry Verification Gate",
+      "triggers": "Main line — first gate, after SB-08"
+    },
+    {
+      "id": "URR-09",
+      "name": "Human Layer Verification",
+      "triggers": "Main line — after SB-09..14"
+    },
+    {
+      "id": "URR-10",
+      "name": "Doubt & Falsifier",
+      "triggers": "Core of URR — after SB-15..20"
+    },
+    {
+      "id": "URR-11",
+      "name": "Evidence & Grounding Audit",
+      "triggers": "Core of URR — after SB-21..26"
+    },
+    {
+      "id": "URR-12",
+      "name": "Synthetic Review",
+      "triggers": "Core of URR — after SB-27..32"
+    },
+    {
+      "id": "URR-13",
+      "name": "Merge Integrity",
+      "triggers": "Core of URR — after SB-33..38"
+    },
+    {
+      "id": "URR-14",
+      "name": "Risk & Ethics Review",
+      "triggers": "Core of URR — after SB-39..44"
+    },
+    {
+      "id": "URR-15",
+      "name": "Human Context Gate",
+      "triggers": "Core of URR — after SB-45..50"
+    },
+    {
+      "id": "URR-16",
+      "name": "Memory Accuracy & Sync Check",
+      "triggers": "Main line — after SB-51..56"
+    },
+    {
+      "id": "URR-17",
+      "name": "Cross-Point Connection Audit",
+      "triggers": "Main line — after SB-57..62"
+    },
+    {
+      "id": "URR-18",
+      "name": "Parameter Integrity Review",
+      "triggers": "Main line — after SB-63..68"
+    },
+    {
+      "id": "URR-19",
+      "name": "Risk & Command Re-Check",
+      "triggers": "Final block — after SB-70"
+    },
+    {
+      "id": "URR-20",
+      "name": "Reality Re-Anchor Verification",
+      "triggers": "Final block"
+    },
+    {
+      "id": "URR-21",
+      "name": "Non-Resolution & Override Review",
+      "triggers": "Final block"
+    },
+    {
+      "id": "URR-22",
+      "name": "Final Output Integrity Check",
+      "triggers": "Final block"
+    },
+    {
+      "id": "URR-23",
+      "name": "Master Log Accuracy Audit",
+      "triggers": "Final block"
+    },
+    {
+      "id": "URR-24",
+      "name": "Local Brain Health & Update Check",
+      "triggers": "Final block"
+    },
+    {
+      "id": "URR-25",
+      "name": "Full Run Integrity & Human Final Gate",
+      "triggers": "Final block — human gate"
+    }
+  ],
+  "primary_urr": {
+    "SB-01": "URR-08",
+    "SB-02": "URR-08",
+    "SB-03": "URR-08",
+    "SB-04": "URR-08",
+    "SB-05": "URR-08",
+    "SB-06": "URR-08",
+    "SB-07": "URR-08",
+    "SB-08": "URR-08",
+    "SB-09": "URR-09",
+    "SB-10": "URR-09",
+    "SB-11": "URR-09",
+    "SB-12": "URR-09",
+    "SB-13": "URR-09",
+    "SB-14": "URR-09",
+    "SB-15": "URR-09",
+    "SB-16": "URR-09",
+    "SB-17": "URR-09",
+    "SB-18": "URR-09",
+    "SB-19": "URR-10",
+    "SB-20": "URR-10",
+    "SB-21": "URR-10",
+    "SB-22": "URR-10",
+    "SB-23": "URR-10",
+    "SB-24": "URR-10",
+    "SB-25": "URR-10",
+    "SB-26": "URR-10",
+    "SB-27": "URR-10",
+    "SB-28": "URR-10",
+    "SB-29": "URR-11",
+    "SB-30": "URR-11",
+    "SB-31": "URR-11",
+    "SB-32": "URR-11",
+    "SB-33": "URR-11",
+    "SB-34": "URR-11",
+    "SB-35": "URR-11",
+    "SB-36": "URR-11",
+    "SB-37": "URR-17",
+    "SB-38": "URR-17",
+    "SB-39": "URR-17",
+    "SB-40": "URR-13",
+    "SB-41": "URR-17",
+    "SB-42": "URR-17",
+    "SB-43": "URR-18",
+    "SB-44": "URR-16",
+    "SB-45": "URR-12",
+    "SB-46": "URR-12",
+    "SB-47": "URR-12",
+    "SB-48": "URR-12",
+    "SB-49": "URR-12",
+    "SB-50": "URR-12",
+    "SB-51": "URR-18",
+    "SB-52": "URR-12",
+    "SB-53": "URR-14",
+    "SB-54": "URR-14",
+    "SB-55": "URR-14",
+    "SB-56": "URR-21",
+    "SB-57": "URR-21",
+    "SB-58": "URR-20",
+    "SB-59": "URR-15",
+    "SB-60": "URR-15",
+    "SB-61": "URR-23",
+    "SB-62": "URR-24",
+    "SB-63": "URR-16",
+    "SB-64": "URR-22",
+    "SB-65": "URR-17",
+    "SB-66": "URR-22",
+    "SB-67": "URR-19",
+    "SB-68": "URR-15",
+    "SB-69": "URR-16",
+    "SB-70": "URR-25"
+  }
+}
