@@ -413,6 +413,10 @@ details[open]>summary:before{content:"\25be  "}
         </div>
       </div>
       <details class=acc><summary>Engine pyramid</summary><div class=sec><div class=pyr id=pyr></div></div></details>
+      <details class=acc><summary>Interconnection</summary><div class=sec>
+        <div class=hactions><button class="btn sm" onclick=drawInterGraph()>Open graph (K&#8329;&#8325;)</button></div>
+        <div class=muted style="font-size:11px;margin-top:6px">every point can connect to every other point — Principle 8</div>
+      </div></details>
       <details class=acc><summary>Reports &amp; snapshots</summary><div class=sec>
         <div class=hactions><button class="btn sm" onclick=loadReport()>Memory report</button>
           <button class="btn sm" onclick=saveSnapshot()>Save snapshot</button>
@@ -870,6 +874,59 @@ async function approveNovelty(term){
   try{await fetch('/novelty/approve',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({term})});
     runNovelty();}catch(e){}
 }
+let IG=null;   // interconnection graph state: node positions for click → brain
+async function drawInterGraph(){
+  const st=document.getElementById('repstat'); if(st)st.textContent='loading…';
+  try{
+    const d=await (await fetch('/graph')).json();
+    const W=860,H=860,cx=W/2,cy=H/2,R=370,r=205;
+    const sb=d.nodes.filter(n=>n.kind==='SB'), urr=d.nodes.filter(n=>n.kind==='URR');
+    const pos={};
+    sb.forEach((n,i)=>{const a=-Math.PI/2+2*Math.PI*i/sb.length;
+      pos[n.id]={x:cx+R*Math.cos(a),y:cy+R*Math.sin(a),n};});
+    urr.forEach((n,i)=>{const a=-Math.PI/2+2*Math.PI*i/urr.length;
+      pos[n.id]={x:cx+r*Math.cos(a),y:cy+r*Math.sin(a),n};});
+    document.getElementById('out').innerHTML=
+      '<div class="card fade"><div class=k>Interconnection — the complete network '+
+      '<span class=num>K&#8327;&#8320; mesh '+d.mesh.sb_pairs.toLocaleString()+' lines · all 95: '+d.mesh.all_pairs.toLocaleString()+' · <b class=gd>learned: '+d.mesh.learned_count+'</b></span></div>'+
+      '<div class=muted style="margin-bottom:8px">'+esc(d.note)+' — faint = every possible handshake; <span class=gd>green</span> = learned by the weekly pass; <span style="color:#a78bfa">violet</span> = each SB node’s own URR. Click a dot to open that brain.</div>'+
+      '<canvas id=igc width='+W+' height='+H+' style="width:100%;max-width:860px;display:block;margin:0 auto;border-radius:12px;background:#0b0e14;cursor:pointer"></canvas></div>';
+    const c=document.getElementById('igc'),g=c.getContext('2d');
+    // the complete mesh — every possible handshake, K-graph style (the image)
+    g.lineWidth=0.4;g.strokeStyle='rgba(124,139,255,0.055)';
+    const ids=Object.keys(pos);
+    for(let i=0;i<ids.length;i++)for(let j=i+1;j<ids.length;j++){
+      g.beginPath();g.moveTo(pos[ids[i]].x,pos[ids[i]].y);g.lineTo(pos[ids[j]].x,pos[ids[j]].y);g.stroke();}
+    // primary SB→URR pairing (violet, dim)
+    g.lineWidth=0.8;g.strokeStyle='rgba(167,139,250,0.28)';
+    (d.edges||[]).filter(e=>e.kind==='primary').forEach(e=>{
+      if(pos[e.from]&&pos[e.to]){g.beginPath();g.moveTo(pos[e.from].x,pos[e.from].y);g.lineTo(pos[e.to].x,pos[e.to].y);g.stroke();}});
+    // learned connections (bright emerald — the real, growing web)
+    g.lineWidth=1.5;g.strokeStyle='rgba(52,211,153,0.75)';
+    (d.learned||[]).forEach(e=>{
+      if(pos[e.from]&&pos[e.to]){g.beginPath();g.moveTo(pos[e.from].x,pos[e.from].y);g.lineTo(pos[e.to].x,pos[e.to].y);g.stroke();}});
+    // nodes + labels
+    for(const id of ids){const p=pos[id],isSB=p.n.kind==='SB';
+      g.beginPath();g.arc(p.x,p.y,isSB?6:7,0,7);
+      g.fillStyle=isSB?'#f87171':'#a78bfa';g.fill();
+      g.strokeStyle='#0b0e14';g.lineWidth=1.5;g.stroke();
+      const num=parseInt(id.slice(-2));
+      if((isSB&&num%5===0)||(!isSB&&num%5===0)){
+        const lx=p.x+(p.x-cx)*0.07,ly=p.y+(p.y-cy)*0.07;
+        g.fillStyle=isSB?'#7d8699':'#a78bfa';g.font='11px Inter,sans-serif';
+        g.textAlign=lx<cx?'right':'left';g.fillText(id,lx,ly+3);}}
+    g.fillStyle='#5b6477';g.font='12px Inter,sans-serif';g.textAlign='center';
+    g.fillText('outer ring: 70 SB working nodes · inner ring: 25 URR verifiers',cx,H-14);
+    IG=pos;
+    c.onclick=ev=>{const b=c.getBoundingClientRect(),
+      mx=(ev.clientX-b.left)*(W/b.width),my=(ev.clientY-b.top)*(H/b.height);
+      let best=null,bd=1e9;
+      for(const id in IG){const dx=IG[id].x-mx,dy=IG[id].y-my,q=dx*dx+dy*dy;
+        if(q<bd){bd=q;best=id;}}
+      if(best&&bd<400)brainDetail(best);};
+    if(st)st.textContent='';
+  }catch(e){if(st)st.textContent='error'}
+}
 async function loadMasterLog(){
   const st=document.getElementById('repstat');st.textContent='loading…';
   try{const list=await (await fetch('/masterlog?n=80')).json();
@@ -1094,18 +1151,39 @@ class Handler(BaseHTTPRequestHandler):
                                "memory": ENGINE.memory.brain(node_id).meta})
             self._send(200, body.encode(), "application/json")
         elif path == "/graph":
-            from .nodes import SB_NODES, URR_NODES
-            sb = [n.sb_id for n in SB_NODES]
+            from .nodes import SB_NODES, SB_PRIMARY_URR, URR_NODES
             nodes = ([{"id": n.sb_id, "kind": "SB", "stage": n.stage, "name": n.name}
                       for n in SB_NODES]
                      + [{"id": n.urr_id, "kind": "URR", "name": n.name} for n in URR_NODES])
-            edges = [{"from": sb[i], "to": sb[i + 1]} for i in range(len(sb) - 1)]
-            gates = [c.node_id for c in ENGINE.brains.all()
-                     if c.kind == "SB" and c.urr_gate]
+            # walk order (the sequence path) + the per-node SB→URR pairing
+            sb = [n.sb_id for n in SB_NODES]
+            seq = [{"from": sb[i], "to": sb[i + 1], "kind": "sequence"}
+                   for i in range(len(sb) - 1)]
+            primary = [{"from": s, "to": u, "kind": "primary"}
+                       for s, u in SB_PRIMARY_URR.items()]
+            # REAL learned connections — what the weekly pass discovered
+            # (Connected_Points per brain), de-duplicated as undirected pairs
+            learned, seen = [], set()
+            for n in nodes:
+                pts = ENGINE.memory.brain(n["id"]).meta["parameters"] \
+                    .get("Connected_Points") or []
+                for other in pts:
+                    key = tuple(sorted((n["id"], str(other))))
+                    if key not in seen and key[0] != key[1]:
+                        seen.add(key)
+                        learned.append({"from": key[0], "to": key[1],
+                                        "kind": "learned"})
+            n_sb, n_all = len(SB_NODES), len(nodes)
             self._send(200, json.dumps({
-                "nodes": nodes, "edges": edges, "urr_gates": gates,
-                "note": "full interconnection — any node may feed-forward to any "
-                        "earlier node (Principle 8)"}).encode(), "application/json")
+                "nodes": nodes, "edges": seq + primary,
+                "learned": learned[:1200],
+                "mesh": {"sb_pairs": n_sb * (n_sb - 1) // 2,      # K70 = 2415
+                         "all_pairs": n_all * (n_all - 1) // 2,   # K95 = 4465
+                         "learned_count": len(learned)},
+                "note": "full interconnection — any point can connect to any "
+                        "other point (Principle 8); faint mesh = every possible "
+                        "handshake, bright lines = connections actually learned"
+            }).encode(), "application/json")
         else:
             self._send(404, b'{"error":"not found"}', "application/json")
 

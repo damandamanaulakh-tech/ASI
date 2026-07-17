@@ -776,6 +776,25 @@ def test_mongo_backend_optional_and_fallback():
         assert hasattr(MongoMemory, method)
 
 
+def test_interconnection_graph_inputs():
+    # Req: "this need to build" (the K-graph image) — Principle 8, Full
+    # Interconnection: complete-mesh counts + a valid SB→URR pairing for every
+    # node + learned connections available to draw after a weekly pass.
+    from sourceborn.nodes import SB_NODES, URR_NODES, SB_PRIMARY_URR
+    n_sb, n_all = len(SB_NODES), len(SB_NODES) + len(URR_NODES)
+    assert n_sb * (n_sb - 1) // 2 == 2415          # K70 handshakes
+    assert n_all * (n_all - 1) // 2 == 4465        # K95 handshakes
+    urr_ids = {u.urr_id for u in URR_NODES}
+    assert set(SB_PRIMARY_URR) == {n.sb_id for n in SB_NODES}   # all 70 paired
+    assert set(SB_PRIMARY_URR.values()) <= urr_ids              # to real URRs
+    eng = _engine()
+    eng.run_walk("seed the web")
+    eng.memory.weekly_digest()
+    linked = [n.sb_id for n in SB_NODES
+              if eng.memory.brain(n.sb_id).meta["parameters"].get("Connected_Points")]
+    assert len(linked) >= 10                       # a real web to draw
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0
