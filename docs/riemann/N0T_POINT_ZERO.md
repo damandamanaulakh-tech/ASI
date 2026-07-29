@@ -1,4 +1,4 @@
-# N₀(T) — the new Point Zero, and where Riemann's own road ends
+# N₀(T) — the new Point Zero: his count holds, his mechanism doesn't
 
 His first named debt, from the draft letter on leaf 23v:
 
@@ -52,7 +52,7 @@ So Riemann's claim reduces to one sentence:
 
 That is the entire content of the debt, and it is the thing nobody has proved.
 
-## 3. HALT — measured, and it fails
+## 3. HALT — measured at the points where it should be strongest
 
 The heuristic is testable at the points where it should be strongest. At a Gram
 point g_n (θ(g_n) = nπ) the n = 1 term is at its extreme, |2cos θ| = 2, so Z
