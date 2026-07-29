@@ -5,11 +5,26 @@ each step. This is the working plan — edits to it are edits to the plan.
 
 ## Where the engine stands (all verified on main, test-locked)
 
-- **Per-node walk, no stages:** SB-N → its function-matched URR → intake back
-  into SB-N → SB-N+1. 70 individual reviews per ask + closing sweep
-  (URR-19..25) + support verifiers (URR-01..07). Zero skips.
-- **70×25 matrix:** every node's finding swept by all 25 URR filters —
-  1,750 micro-reviews per ask, flags surfaced per node.
+- **Per-node walk, no stages, no 70×25:** SB-N → **the seven filters** → intake
+  back into SB-N → SB-N+1. 70 individual reviews per ask + a run-level sweep.
+  Zero skips.
+  *Req: "now we dont want 70-25 there, but i want more filters and fact kind of".*
+- **The seven filters** — the path, run in order on every finding, every time:
+  **Ground · Sequence · Source · Mask · Fact · Halt · Loop**.
+  - **Source** is the two-witness pass. One witness caps at Medium *however
+    good it is*; High needs two independent witnesses that agree; two that
+    differ **HALT** — the gap goes to the human, never averaged, never picked
+    between. A reprint/translation/quotation of one origin counts as **one**.
+  - **Mask** is the gap itself: the space between what was said and what was
+    shown. An ellipsis is treated as a witness that something was removed.
+  - **Loop** hands each halt back as the next Point Zero.
+- **The universal sequence** (`sequence.py`) — Ground · Pressure · Use ·
+  Witness · Expression · Naming · Halt · Loop. The thing pre-exists the asking;
+  the human act is step 5, finding a way to *say* it. Step 6 is where the name
+  starts standing in for the thing — where the Mask forms.
+- **Brains are memory, filters are method.** All 95 node brains stay
+  configured and keep growing; the seven filters keep their own brains
+  (FIL-1..FIL-7).
 - **95 brains** with the core's parameters growing per run; pyramid filing
   (Node → Main → Sub → Micro); unparked words → human queue.
 - **Identities in the core, not code:** `core/node_definitions.json` drives

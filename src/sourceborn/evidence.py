@@ -23,11 +23,26 @@ def build_ledger(claims: list[str], has_live: bool, corpus_refs: list[str]) -> l
     return ledger
 
 
-def ladder_confidence(ledger: list[dict]) -> str:
-    """Confidence = the highest rung any claim reached."""
+def ladder_confidence(ledger: list[dict], witnesses: int | None = None) -> str:
+    """Confidence = the highest rung any claim reached, THEN capped by how many
+    independent witnesses stand behind it.
+
+    The rung alone is not enough and that was the hole: one live lookup used to
+    reach High on its own, which is one rendering of a thing being mistaken for
+    the thing. So a single witness now caps at Medium however good its rung is,
+    and High requires two independent witnesses that agree. Pass witnesses=None
+    to get the old rung-only behaviour."""
     tags = {e["evidence_tag"] for e in ledger}
     if "FACT" in tags:
-        return "High"
-    if "REVIEW" in tags:
-        return "Medium"
-    return "Low"
+        rung = "High"
+    elif "REVIEW" in tags:
+        rung = "Medium"
+    else:
+        rung = "Low"
+    if witnesses is None:
+        return rung
+    if witnesses <= 0:
+        return "Low"
+    if witnesses == 1 and rung == "High":
+        return "Medium"          # the cap. one source is never High.
+    return rung

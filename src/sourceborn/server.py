@@ -713,7 +713,11 @@ function walkCard(d){const w=d.walk; if(!w||!w.steps)return '';
       sup='<details style="margin-top:8px"><summary>support verifiers ('+w.support.length+', fire on node completion)</summary>'+
         w.support.map(s2=>'<div class=lane><b>'+esc(s2.gate)+'</b> after '+esc(s2.after)+': '+esc(s2.note)+(s2.issues&&s2.issues.length?' <span class=hl>'+esc(s2.issues.join('; '))+'</span>':'')+'</div>').join('')+'</details>';
     }
-    return '<div class=card><div class=k>Node walk · per node: SB-N → URR → SB-N → SB-N+1 <span class=num>'+w.node_count+' SB · '+(w.urr_count||0)+'/25 URR · '+w.hold_count+' holds</span></div>'+html+closing+sup+'</div>';
+    var gaps=(w.gaps&&w.gaps.length)?'<details style="margin-top:8px"><summary>masks ('+w.gaps.length+' — witnesses that differ; not averaged, not picked between)</summary>'+
+      w.gaps.map(g=>'<div class=lane><b>'+esc(g.kind)+'</b> '+esc(g.what||'')+' <span class=muted>· in '+esc(g.in||'')+', not in '+esc(g.not_in||'')+' ('+esc(g.sb||'')+')</span></div>').join('')+'</details>':'';
+    var loops=(w.loops&&w.loops.length)?'<details style="margin-top:8px"><summary>loops ('+w.loops.length+' — each halt handed back as the next Point Zero)</summary>'+
+      w.loops.map(l=>'<div class=lane><b>'+esc(l.sb)+'</b> '+esc(l.next_ask||'')+'</div>').join('')+'</details>':'';
+    return '<div class=card><div class=k>Node walk · per node: SB-N → 7 filters → SB-N → SB-N+1 <span class=num>'+w.node_count+' SB · '+(w.urr_count||0)+'/7 filters · '+w.hold_count+' holds</span></div>'+html+closing+sup+gaps+loops+'</div>';
   }
   // Legacy stored chats (block-era payloads) still render.
   const blocks=w.blocks||[];
