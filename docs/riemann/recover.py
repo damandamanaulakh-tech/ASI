@@ -1,81 +1,153 @@
-"""Struck-text recovery on Riemann's draft.
+"""Struck-text recovery — full sweep, every text band on all three folios.
 
-Three independent attacks on the same problem:
-  A. LOCAL CONTRAST (CLAHE)      — lift faint ink out of the stained parchment
-  B. DIRECTIONAL SUPPRESSION      — a strike is a long, thin, near-horizontal
-                                    stroke; letterforms are not. Isolate the long
-                                    horizontal component morphologically and
-                                    remove it, leaving what was underneath.
-  C. INK-TONE SEPARATION          — if a strike was added in a later sitting the
-                                    iron-gall ink can differ in tone; test the
-                                    colour channels for separation.
-Nothing is invented: every output is a filtered view of the same pixels.
+Two bugs killed the earlier passes, both now fixed and both worth naming:
+
+  * The slanted strike kernels were built flat and rotated in place, which
+    clipped the line out of its own box. A near-empty kernel makes MORPH_OPEN a
+    no-op, so EVERY ink pixel came back labelled "strike". Fixed by drawing the
+    line into a box tall enough to hold it (`slanted_line_kernel`), with an
+    assert so it can never silently collapse again.
+  * The ink layer was normalised to the crop maximum. One dark scan artifact in
+    a crop stretches the scale, Otsu then picks a high threshold, and the real
+    ink is thrown away — which is why several crops came back at 0.02% ink.
+    Fixed with a robust 99.5th-percentile scale.
+
+No coordinates are guessed here. Text bands are found from the page's own row
+profile, then every band is swept for long near-horizontal strokes. A band is
+reported as struck only if the evidence says so.
+
+Stages per band: INK -> STRIKE -> RESIDUAL -> BRIDGE -> TONE.
+BRIDGE refills a struck column only when surviving ink is witnessed BOTH above
+and below the strike. Nothing is drawn in that was not already there twice.
 """
 import cv2
 import numpy as np
-import sys
+import json
 
-REGIONS = {
-    # name            page      y0     y1     x0    x1   (fractions of the page)
-    "L40_RH_final":  ("hi19r", 0.882, 0.914, 0.05, 0.99),
-    "L32_longstrike": ("hi19r", 0.770, 0.800, 0.05, 0.99),
-    "L39_RH_sent":   ("hi19r", 0.858, 0.888, 0.05, 0.99),
-    "19v_abandoned": ("hi19v", 0.020, 0.075, 0.05, 0.99),
-    "20r_gauss":     ("hi20r", 0.700, 0.760, 0.05, 0.99),
-}
+PAGES = ("hi19r", "hi19v", "hi20r")
+XL, XR = 0.06, 0.94                       # inside the scan border
 
 
-def clahe(g, clip=3.5, grid=16):
-    return cv2.createCLAHE(clipLimit=clip, tileGridSize=(grid, grid)).apply(g)
+def ink_layer(bgr):
+    g = cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY)
+    bg = cv2.morphologyEx(g, cv2.MORPH_CLOSE,
+                          cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (61, 61)))
+    bg = cv2.GaussianBlur(bg, (81, 81), 0)
+    d = np.clip(bg.astype(np.int16) - g.astype(np.int16), 0, None).astype(np.float32)
+    hi = np.percentile(d, 99.5)           # robust scale, not the crop max
+    ink = np.clip(d * (255.0 / max(hi, 1.0)), 0, 255).astype(np.uint8)
+    ink = cv2.bilateralFilter(ink, 9, 60, 60)
+    _, bw = cv2.threshold(ink, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    bw = cv2.morphologyEx(bw, cv2.MORPH_OPEN, np.ones((2, 2), np.uint8))
+    return bw, ink
 
 
-def suppress_horizontal(ink, min_len=120, thick=3):
-    """Isolate long near-horizontal strokes and remove them from the ink layer."""
-    out = np.zeros_like(ink)
-    for ang in (-4, -2, 0, 2, 4):                       # strikes are rarely level
-        k = cv2.getStructuringElement(cv2.MORPH_RECT, (min_len, thick))
-        M = cv2.getRotationMatrix2D((min_len / 2, thick / 2), ang, 1)
-        kr = cv2.warpAffine(k.astype(np.float32), M, (min_len, thick))
-        kr = (kr > 0.5).astype(np.uint8)
-        opened = cv2.morphologyEx(ink, cv2.MORPH_OPEN, kr)
-        out = np.maximum(out, opened)
-    strike = cv2.dilate(out, np.ones((thick + 2, 3), np.uint8))
-    residual = cv2.subtract(ink, strike)
-    return strike, residual
+def slanted_line_kernel(length, ang_deg, thick=3):
+    rise = int(abs(np.tan(np.radians(ang_deg))) * length)
+    h = rise + thick
+    k = np.zeros((h, length), np.uint8)
+    y0, y1 = (thick // 2, h - 1 - thick // 2) if ang_deg >= 0 else (h - 1 - thick // 2, thick // 2)
+    cv2.line(k, (0, y0), (length - 1, y1), 1, thick)
+    return k
 
 
-def process(name):
-    page, y0, y1, x0, x1 = REGIONS[name]
+def strike_layer(bw, min_len=200, thick=3):
+    acc = np.zeros_like(bw)
+    for ang in (-4, -2.5, -1, 0, 1, 2.5, 4):
+        kr = slanted_line_kernel(min_len, ang, thick)
+        assert kr.sum() >= min_len * 0.9, f"kernel collapsed at {ang} deg"
+        acc = np.maximum(acc, cv2.morphologyEx(bw, cv2.MORPH_OPEN, kr))
+    return cv2.dilate(acc, np.ones((5, 3), np.uint8))
+
+
+def bridge(residual, strike, reach=26):
+    H, W = residual.shape
+    out = residual.copy()
+    refilled = ncols = 0
+    for x in range(W):
+        ys = np.flatnonzero(strike[:, x])
+        if ys.size == 0:
+            continue
+        ncols += 1
+        y0, y1 = ys.min(), ys.max()
+        if residual[max(0, y0 - reach):y0, x].any() and \
+           residual[y1 + 1:min(H, y1 + 1 + reach), x].any():
+            out[y0:y1 + 1, x] = 255
+            refilled += 1
+    return out, refilled, ncols
+
+
+def tone_test(bgr, strike, bw):
+    b, g, r = cv2.split(bgr.astype(np.float32))
+    text = cv2.subtract(bw, strike)
+    sm, tm = strike > 0, text > 0
+    if sm.sum() < 400 or tm.sum() < 400:
+        return None
+    o = {}
+    for nm, ch in (("b-r", b - r), ("b-g", b - g), ("g-r", g - r)):
+        sv, tv = ch[sm], ch[tm]
+        pooled = float(np.sqrt((sv.var() + tv.var()) / 2)) + 1e-9
+        o[nm] = round(float(abs(sv.mean() - tv.mean()) / pooled), 3)
+    return o
+
+
+def bands_of(page_bw, H):
+    prof = (page_bw > 0).mean(axis=1)
+    thr = max(0.012, prof.max() * 0.10)
+    on, out, s = prof > thr, [], None
+    for y, v in enumerate(on):
+        if v and s is None:
+            s = y
+        elif not v and s is not None:
+            if y - s > 28:
+                out.append((s, y))
+            s = None
+    if s is not None and H - s > 28:
+        out.append((s, H))
+    return out
+
+
+report = {}
+for page in PAGES:
     im = cv2.imread(f"{page}.png")
     H, W = im.shape[:2]
-    crop = im[int(H * y0):int(H * y1), int(W * x0):int(W * x1)]
-    b, g, r = cv2.split(crop)
-    gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+    x0, x1 = int(W * XL), int(W * XR)
+    full = im[:, x0:x1]
+    fbw, _ = ink_layer(full)
+    bands = bands_of(fbw, H)
+    print(f"\n=== {page}  {W}x{H}  {len(bands)} text bands "
+          f"(ink {100*(fbw>0).mean():.2f}%) ===", flush=True)
+    report[page] = []
+    for i, (a, b) in enumerate(bands, 1):
+        pad = 12
+        crop = full[max(0, a - pad):min(H, b + pad)]
+        bw, _ = ink_layer(crop)
+        st = strike_layer(bw)
+        stk = int((st > 0).sum())
+        if stk < 1500:                    # nothing long and level in this band
+            report[page].append({"band": i, "y": [a, b], "struck": False,
+                                 "strike_pixels": stk})
+            continue
+        resid = cv2.subtract(bw, st)
+        fixed, refilled, ncols = bridge(resid, st)
+        pct = round(100.0 * refilled / ncols, 1) if ncols else 0.0
+        rec = {"band": i, "y": [a, b], "struck": True, "strike_pixels": stk,
+               "struck_columns": ncols, "columns_carrying_a_letter": refilled,
+               "pct_strike_over_text": pct, "ink_pct": round(100 * float((bw > 0).mean()), 2),
+               "tone_separation_sd": tone_test(crop, st, bw)}
+        report[page].append(rec)
+        tag = f"{page}_b{i:02d}"
+        up = lambda m, f=1.6: cv2.resize(m, None, fx=f, fy=f, interpolation=cv2.INTER_CUBIC)
+        cv2.imwrite(f"x_{tag}_raw.png", up(crop))
+        cv2.imwrite(f"x_{tag}_strikeonly.png", up(255 - st))
+        cv2.imwrite(f"x_{tag}_recovered.png", up(255 - fixed))
+        gap = np.full((16, bw.shape[1]), 190, np.uint8)
+        cv2.imwrite(f"x_{tag}_beforeafter.png",
+                    up(np.vstack([255 - bw, gap, 255 - fixed])))
+        print(f"  band {i:>2} y{a:>5}-{b:<5} STRUCK  strike {stk:>7}px  "
+              f"{refilled}/{ncols} struck columns carried a letter ({pct:>5.1f}%)  "
+              f"tone {rec['tone_separation_sd']}", flush=True)
 
-    # ---- A. local contrast on the raw grey
-    A = clahe(gray)
-
-    # ---- ink layer: parchment is bright, ink dark -> invert + normalise
-    inv = 255 - clahe(gray, clip=4.0, grid=24)
-    inv = cv2.normalize(inv, None, 0, 255, cv2.NORM_MINMAX)
-    _, ink = cv2.threshold(inv, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
-    # ---- B. directional suppression
-    strike, residual = suppress_horizontal(ink)
-    B = 255 - cv2.dilate(residual, np.ones((2, 2), np.uint8))   # back to ink-on-white
-
-    # ---- C. ink-tone separation: blue channel holds iron-gall differently
-    tone = cv2.normalize(cv2.subtract(b, r), None, 0, 255, cv2.NORM_MINMAX)
-    C = clahe(tone, clip=4.0, grid=20)
-
-    up = lambda m: cv2.resize(m, None, fx=1.6, fy=1.6, interpolation=cv2.INTER_CUBIC)
-    cv2.imwrite(f"rec_{name}_A_contrast.png", up(A))
-    cv2.imwrite(f"rec_{name}_B_destruck.png", up(B))
-    cv2.imwrite(f"rec_{name}_C_tone.png", up(C))
-    cv2.imwrite(f"rec_{name}_S_strikeonly.png", up(255 - strike))
-    print(f"  {name}: crop {crop.shape[1]}x{crop.shape[0]} -> 4 views")
-
-
-for n in (sys.argv[1:] or REGIONS.keys()):
-    process(n)
-print("done")
+json.dump(report, open("recovery_full.json", "w"), indent=1)
+tot = sum(1 for p in report.values() for r in p if r["struck"])
+print(f"\n{tot} struck bands across {len(PAGES)} folios. Images written as x_*.png")
