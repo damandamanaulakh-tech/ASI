@@ -76,34 +76,71 @@ first failures — where the wave nearly lost a sign change
 The first failure at **n = 126** is the classically known one — a check that the
 computation is right, not a discovery.
 
-## 4. Why the road ends — and this is the finding
+## 4. The census — and a correction to §3's reading
 
-The violation rate is not a nuisance that better bookkeeping removes. It grows,
-and it grows to everything.
+The direct count, run to T = 1000. Real roots by sign-change census of Z, against
+mpmath's independent `nzeros` for the strip:
 
-    N(T) = θ(T)/π + 1 + S(T),        S(T) = (1/π)·arg ζ(½+iT)
+```
+      T   theta(T)/pi+1   N(T) strip   N_0(T) line   N-N_0    N_0/N
+     50           9.423           10            10       0   1.0000
+    100          29.002           29            29       0   1.0000
+    200          79.193           79            79       0   1.0000
+    400         201.639          202           202       0   1.0000
+    700         414.557          414           414       0   1.0000
+   1000         648.616          649           649       0   1.0000
+```
 
-Gram's law holding at g_n is essentially the statement that S(g_n) stays small.
-And **S(T) is unbounded** — Selberg showed it is normally distributed with
-variance ~ (1/2π²)·log log T, and Montgomery gave
-S(T) = Ω±((log T / log log T)^{1/3}). So Gram's law must fail infinitely often,
-and the proportion of failures tends to **1**.
+Two independent methods, same number at every checkpoint — the census is sound.
+And N − N₀ = 0 throughout, as expected in a range where RH is long verified.
 
-**Therefore the instrument that produced the claim provably cannot produce the
-proof.** The n = 1 term stops dominating. Not eventually-in-principle —
-demonstrably, and the decay is already visible by t = 282.
+Now the heuristic against the truth. Counting sign changes of the **n = 1 term
+alone**, 2cos(θ(t)), against the full Z:
 
-This is, as far as this investigation can tell, *why the debt has stayed open for
-167 years*: the heuristic is right about the answer and structurally incapable of
-justifying it. Levinson and Conrey do not repair Riemann's argument — they
-abandon it and mollify instead. That is a different road, and it is the one that
-has actually moved.
+```
+   T=100    full Z: 29     n=1 term alone: 29     (from t=7 or t=14)
+   T=100    full Z: 29     n=1 term alone: 30     (from t=0.5 — artifact)
+```
+
+The extra crossing from t = 0.5 is a **start-of-range artifact**: θ(t) has a
+minimum near t ≈ 6.29 (θ = −3.531) and cos θ turns there, while Z does not. Begun
+above it, the counts agree exactly.
+
+**So the n = 1 term predicts the count exactly, at every T tested, to 1000.**
+
+### The correction
+
+An earlier draft of this file said: *S(T) is unbounded, Gram's law therefore fails
+almost always, therefore the instrument that produced the claim provably cannot
+produce the proof.* **The first two clauses are right. The third does not follow,
+and the data above shows it doesn't.**
+
+Gram's law fails at 3.40% of Gram points by T = 1000 — and the count is still
+exactly right. **A Gram's law violation redistributes zeros between intervals
+without losing any**: two land in one Gram interval, none in the next, and the
+tally survives. What the unboundedness of S(T) kills is the **localization**
+argument — one zero per Gram interval — not the count itself.
+
+That distinction matters, and it makes the situation more interesting rather than
+less:
+
+> **Riemann's answer holds exactly throughout the computable range, while the only
+> visible mechanism for it is already breaking.**
+
+That is the signature of a genuinely deep problem, and it explains the shape of
+the field's response. Levinson and Conrey do not localize — they **average**
+(mollify), because averaging survives where localization does not. They are not
+repairing Riemann's argument; they are routing around the exact thing that dies.
 
 ## 5. What this is worth saying plainly
 
-**Do not spend effort sharpening Riemann's heuristic.** It has a proof that it
-cannot work. Following him here leads to a wall with a reason on it, and knowing
-that is worth more than another month of trying.
+**Riemann's claim is not in doubt in any range anyone can compute. His mechanism
+is.** The gap between "the count is exactly right" and "no localization argument
+can establish it" *is* the open problem, stated in his own object.
+
+Do not spend effort trying to make the one-zero-per-Gram-interval argument work:
+S(T) unbounded is a proof that it cannot. But that is a much narrower verdict
+than "his road ends", which is what this file said before the census came back.
 
 **The one place his instrument still touches the live problem** is the *near
 misses* — the Lehmer phenomenon, where two zeros crowd together and Z barely
@@ -118,6 +155,6 @@ run in order on a live problem. The halt in §4 is real and is not being patched
 it is being named, which is the point. Two witnesses were required for every
 numeric claim: the Gram computation here, and the published record in §1.*
 
-*Status: a longer run (three counts of N₀ by direct sign-change census to
-T = 1000, plus the n=1-term comparison) is still computing. The Gram measurement
-above stands on its own.*
+*Status: census complete (1415s). Its result forced the correction in §4 — the
+finding this file opened with did not survive its own data, and the file now says
+so rather than being quietly rewritten.*
