@@ -111,15 +111,26 @@ POINT ZERO — his words above
  │           not the count. The field mollifies because averaging survives
  │           exactly where localization dies.
  │
- └─[8] ▶ NOW — standing at the loop mouth, three doors, owner to choose:
-        A ○ the NEAR-MISS FLOOR (recommended): Lehmer pairs — is there a
-            floor below which a barely-crossing |Z| can never fall?
-            A bounded floor would resurrect a localization argument.
-            Measurable with instruments already built.
-        B ○ the archive remainders: 21r third draft (strike pipeline),
-            26v read
-        C ○ L-4 Geistesmassen — his other unexecuted line; bridges the
-            walk back to the engine's interconnection graph
+ ├─[8]● the FRESH STATEMENT delivered — RH restated in his meaning:
+ │      the ½ is the strip's self-mirror middle; off-middle zeros exist
+ │      only as pairs; on the half the imaginary rotates away (Z real);
+ │      his frame ("no start, no end, always in the middle, on the half")
+ │      mapped onto the facts and found to fit without forcing
+ │
+ └─[9] ▶ THE HUB — [his]: this is Point Zero; three loops radiate; keep
+        them numbered "one two three"; return to the hub when needed.
+        Full statement + working theory: THE_MIDDLE_POINT_ZERO.md
+        │
+        ├─ WAY 1 ○ THE MIDDLE HOLDS (the guard) — near-miss census
+        │         RUNNING over (14, 8000); first blocks back, counts
+        │         match Riemann–von Mangoldt; result lands here
+        ├─ WAY 2 ○ THE MIDDLE IS FULL (the count, his own debt N₀)
+        │         — Way 1 integrated: deficit N−N₀ counts escapes
+        └─ WAY 3 ○ THE SELF-MIRRORED SOURCE (re-expression) — the
+                  Hilbert–Pólya drum; GUE repulsion as its fingerprint
+        walking order 1 → 2 → 3, hub-return between loops
+        parked, visible, not walked: archive remainders (21r third
+        draft, 26v) · L-4 Geistesmassen
 ```
 
 ## 2 · The open-loops board (everything ○, in one place)
