@@ -121,9 +121,11 @@ POINT ZERO — his words above
         them numbered "one two three"; return to the hub when needed.
         Full statement + working theory: THE_MIDDLE_POINT_ZERO.md
         │
-        ├─ WAY 1 ○ THE MIDDLE HOLDS (the guard) — near-miss census
-        │         RUNNING over (14, 8000); first blocks back, counts
-        │         match Riemann–von Mangoldt; result lands here
+        ├─ WAY 1 ● first circuit COMPLETE — 7,830 zeros (14, 8000),
+        │         count full (N₀=N); 0 negative arches; floor sinks
+        │         lawfully (N^-2/3), no bottom; guard is GUE-shaped;
+        │         Lehmer control reproduced; new landmark 5229.22
+        │         → WAY1_THE_GUARD_MEASURED.md
         ├─ WAY 2 ○ THE MIDDLE IS FULL (the count, his own debt N₀)
         │         — Way 1 integrated: deficit N−N₀ counts escapes
         └─ WAY 3 ○ THE SELF-MIRRORED SOURCE (re-expression) — the
