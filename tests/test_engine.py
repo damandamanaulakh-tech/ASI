@@ -487,6 +487,29 @@ def test_brain_parameters_grow_with_use():
     assert "filter_intake" in tags and "node_finding" in tags
 
 
+def test_present_fact_refuses_moving_numbers_without_live():
+    # Born from the live failure: TCS shown at 2431 while the market said 2362.
+    # A moving number with no live witness must NOT leave the engine — the
+    # answer itself is the refusal, and no remembered price can slip through.
+    from sourceborn.present_fact import is_present_fact
+    assert is_present_fact("what is TCS current share price") is True
+    assert is_present_fact("price of TCS stock") is True
+    assert is_present_fact("today's nifty score") is True
+    assert is_present_fact("why does the small idea win?") is False
+    eng = _engine()
+    res = eng.run("what is the current share price of TCS?")
+    a = res.output.answer.lower()
+    assert "cannot tell you this number" in a          # the refusal IS the answer
+    assert "live source" in a
+    assert res.output.confidence == "Low"
+    assert any("present-fact" in g.description for g in res.gaps)
+    # with a live witness the figure may pass — capped, and marked verify-first
+    res2 = eng.run("what is the current share price of TCS?",
+                   live_override="TCS trading at 2362.00 INR (NSE, 30 Jul 2026 15:12 IST)")
+    assert res2.output.confidence in ("Medium", "Low")  # never High on one witness
+    assert "verify" in res2.output.answer.lower()
+
+
 def test_chat_store_roundtrip():
     import importlib, os, tempfile
     os.environ["SB_ROOT"] = tempfile.mkdtemp(prefix="sb_chat_")

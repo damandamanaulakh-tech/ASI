@@ -48,6 +48,7 @@ from .pyramid import UnfiledQueue, file_finding, file_urr, unfiled_from_input
 from .urr_matrix import MATRIX, review_node
 from .parameters import COMPARISON_AXES, PARAMETER_BANK
 from .persona import Persona
+from .present_fact import is_present_fact, refusal as present_fact_refusal, verify_note
 from .wisdom import WisdomBank
 
 # ``live_override`` sentinel for the on-device private lane: skip live grounding
@@ -393,6 +394,23 @@ class SourcebornEngine:
             )
         draft = active_model.complete(system=self.persona.voice_guidance(), prompt=prompt)
 
+        # PRESENT-FACT HARD RULE (born from the live TCS failure: 2431 shown
+        # while the market said 2362). A moving number with no live witness
+        # does not leave the engine — the answer IS the refusal, deterministic,
+        # because model prose is exactly the thing being refused. With one
+        # live witness the number may pass, capped and marked verify-first.
+        present_fact = (not private_doc) and is_present_fact(raw_text)
+        if present_fact and not live:
+            draft = present_fact_refusal(raw_text)
+            halts.append(HaltType.EVIDENCE.value)
+            gaps.append(GapItem("present-fact ask with no live eyes — moving "
+                                "number refused, never guessed", "Evidence",
+                                "High", loop_for_halt(HaltType.EVIDENCE).value))
+            self._t("SB-33", "present_fact_block", "held",
+                    note="moving quantity + no live source -> number refused")
+        elif present_fact and live:
+            draft = draft + verify_note("one live source")
+
         # Stage 3 — Doubt Engine + Witness (SB-20/22): attack before delivery
         doubt = doubt_engine(draft, bool(live), len(matched))
         blind = witness([t.node_id for t in self.trace],
@@ -478,6 +496,8 @@ class SourcebornEngine:
             classification_out = (Classification.REVIEW_ONLY.value if non_resolution
                                   else packet.classification)
             confidence_out = "Low" if (doubt["bites"] or gaps or halts) else ladder_conf
+            if present_fact and confidence_out == "High":
+                confidence_out = "Medium"   # a price is one witness from wrong
         out = Output(
             answer=draft,
             lanes=lanes,
