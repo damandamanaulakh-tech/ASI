@@ -99,7 +99,41 @@ the hub. And per the frame itself: any measured range is a middle, never an
 end. **This circuit confirms the shape; it cannot close the question. That is
 not a weakness of the circuit — under the theory, it is the point.**
 
-## 6. Returned to the hub
+## 6. Second circuit, part 1 — from arches to the boundary constant
+
+The near-misses were converted into **measured lower bounds on Λ** (the
+de Bruijn–Newman constant: RH ⟺ Λ ≤ 0; Rodgers–Tao proved Λ ≥ 0) using the
+Csordas–Smith–Varga theorem, taken verbatim from the literature: for a
+consecutive pair with gap Δ and interaction sum g over all other zeros, the
+pair is a **Lehmer pair** if Δ²g < 4/5, and then
+λ = [(1 − 5Δ²g/4)^{4/5} − 1]/(8g) ≤ Λ.
+
+**Independent literature control, passed exactly:** the source paper states
+there are 29 Lehmer pairs among the first 649 zeros. Our census holds exactly
+649 zeros below t = 1000 — and finds **exactly 29 Lehmer pairs** among them.
+
+Across (14, 8000): **420 Lehmer pairs.** The strongest:
+
+```
+        pair                Delta     Delta^2*g    lambda  (<= Lambda)
+7005.0629/7005.1006        0.03770     0.00693     -1.778e-04
+5229.1986/5229.2418        0.04325     0.00866     -2.341e-04
+4292.7264/4292.8173        0.09082     0.04730     -1.037e-03
+```
+
+**Our measured bound: Λ ≥ −1.778×10⁻⁴** — from our own census, through a
+published theorem, with a published control. Calibration: historical
+computations using far higher, far closer pairs pushed the bound to
+−1.1×10⁻¹¹ before Rodgers–Tao closed it at 0; our value is what THIS range
+testifies. The point is not the record — it is that the walk's own arches,
+measured for the guard, turn directly into pressure on the boundary
+constant: **every strong near-miss squeezes "barely true" tighter.**
+
+(Truncation note: g was summed over our 7,830 zeros and their mirror
+negatives; the tail beyond 8000 contributes ~3×10⁻⁴ to g — negligible
+against the nearby terms that dominate it.)
+
+## 7. Returned to the hub
 
 Way 1, first circuit: **complete.** Yield banked:
 - the middle held everywhere measured; the guard behaves exactly as the

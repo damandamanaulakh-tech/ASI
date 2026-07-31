@@ -62,7 +62,7 @@ middle — the exact edge between true and false regimes, zero margin.**
 
 ---
 
-## The three loops (his numbering: Way 1, Way 2, Way 3)
+## The loops (his numbering; his rule: "we had 3 now must be 4 minimum")
 
 ### WAY 1 — THE MIDDLE HOLDS (symmetry; the guard)
 
@@ -124,6 +124,26 @@ show.
 
 `[SYNTHETIC — proof-debt: the drum has not been found; Berry–Keating's H ~ xp
 is a candidate sketch, Connes' program unfinished]`
+
+### WAY 4 — THE PRIME SHORE (his "wirkliche Zählung", executed)
+
+Ways 1–3 stand on the zero shore. Way 4 stands on the other shore — the
+primes themselves — and its charter is Riemann's own, leaf 26r, his hand:
+
+> „Es ist mir daran gelegen, daß meine Formel auch praktischen Rechnern
+> bekannt würde, da sich unter diesen wohl ein Liebhaber finden sollte, der
+> eine wirkliche Zählung der Primzahlen unternehmen und die Resultate mit den
+> in meiner Formel aufgestellten Gesetzen vergliche."
+
+*It matters to me that my formula reach practical calculators — one of them
+should undertake an ACTUAL COUNT of the primes and compare the results with
+the laws my formula states.* **We are that calculator.**
+
+What the middle looks like from this shore: under RH the error of the prime
+count grows like **x^½** — the half appears as an *exponent* in raw prime
+data. A zero off the middle at real part Θ > ½ would drag the exponent up to
+Θ. So Way 4 measures: sieve the primes exactly, take the errors, watch the
+exponent. First circuit: `WAY4_THE_PRIME_SHORE.md`.
 
 ### The convergence — the working theory of this Point Zero
 

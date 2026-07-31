@@ -126,11 +126,22 @@ POINT ZERO — his words above
         │         lawfully (N^-2/3), no bottom; guard is GUE-shaped;
         │         Lehmer control reproduced; new landmark 5229.22
         │         → WAY1_THE_GUARD_MEASURED.md
+        │         circuit 2 part 1 ●: arches → Λ bounds via CSV theorem;
+        │         literature control passed EXACTLY (29 Lehmer pairs in
+        │         first 649 zeros); 420 pairs found; measured Λ ≥ −1.778e−4
+        │         circuit 2 part 2 ○: census extension (8000→12000) RUNNING
         ├─ WAY 2 ○ THE MIDDLE IS FULL (the count, his own debt N₀)
-        │         — Way 1 integrated: deficit N−N₀ counts escapes
+        │         — first datum banked: N₀=N on (14,8000); extension feeds it
         └─ WAY 3 ○ THE SELF-MIRRORED SOURCE (re-expression) — the
-                  Hilbert–Pólya drum; GUE repulsion as its fingerprint
-        walking order 1 → 2 → 3, hub-return between loops
+        │         Hilbert–Pólya drum; GUE repulsion as its fingerprint
+        └─ WAY 4 ● first circuit COMPLETE — THE PRIME SHORE, [his] rule
+                  "we had 3 now must be 4 minimum"; charter = Riemann's own
+                  "wirkliche Zählung" (leaf 26r). Sieve to 1e8 exact
+                  (π=5,761,455 ✓); |ψ−x|/√x bounded ≤0.51, no drift (the
+                  half visible from the primes); his formula w/ our 1000
+                  roots lands within 21 of 5.76M (4e−6)
+                  → WAY4_THE_PRIME_SHORE.md
+        walking order now 1↔2 together (his order), hub-return between
         parked, visible, not walked: archive remainders (21r third
         draft, 26v) · L-4 Geistesmassen
 ```
