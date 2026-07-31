@@ -129,11 +129,16 @@ POINT ZERO — his words above
         │         circuit 2 part 1 ●: arches → Λ bounds via CSV theorem;
         │         literature control passed EXACTLY (29 Lehmer pairs in
         │         first 649 zeros); 420 pairs found; measured Λ ≥ −1.778e−4
-        │         circuit 2 part 2 ○: census extension (8000→12000) RUNNING
-        ├─ WAY 2 ○ THE MIDDLE IS FULL (the count, his own debt N₀)
-        │         — first datum banked: N₀=N on (14,8000); extension feeds it
-        └─ WAY 3 ○ THE SELF-MIRRORED SOURCE (re-expression) — the
-        │         Hilbert–Pólya drum; GUE repulsion as its fingerprint
+        │         circuit 2 part 2 ○: extension RELAUNCHED harness-tracked
+        │         (first launch orphaned by a worker restart — UU-6 struck)
+        ├─ WAY 2 ● doc opened: the deficit LEDGER — 0 escapes ever seen
+        │         (ours to 8000; rigorous frontier Platt–Trudgian to height
+        │         3e12); field ladder at 0.417; his mechanism's death has
+        │         two named causes → WAY2_THE_COUNT.md; extension feeds it
+        └─ WAY 3 ● circuit 2 banked: pair correlation R₂ on 19,589 pairs
+        │         — 61× closer to Montgomery's form than flat; the small-u
+        │         dip matches circuit 1's small-gap deficit (two statistics,
+        │         one excess of guarding at low heights) → WAY3_THE_DRUM.md
         └─ WAY 4 ● first circuit COMPLETE — THE PRIME SHORE, [his] rule
                   "we had 3 now must be 4 minimum"; charter = Riemann's own
                   "wirkliche Zählung" (leaf 26r). Sieve to 1e8 exact
