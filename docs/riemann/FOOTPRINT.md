@@ -129,8 +129,11 @@ POINT ZERO — his words above
         │         circuit 2 part 1 ●: arches → Λ bounds via CSV theorem;
         │         literature control passed EXACTLY (29 Lehmer pairs in
         │         first 649 zeros); 420 pairs found; measured Λ ≥ −1.778e−4
-        │         circuit 2 part 2 ○: extension RELAUNCHED harness-tracked
-        │         (first launch orphaned by a worker restart — UU-6 struck)
+        │         circuit 2 part 2 ○: extension computing (blocks 9–12);
+        │         UU-6 struck TWICE — first launch orphaned by a worker
+        │         restart, relaunch lost 3 of 4 workers at birth to a
+        │         shell-path slip; both caught by reading the record
+        │         (the file/task output), never the launch message
         ├─ WAY 2 ● doc opened: the deficit LEDGER — 0 escapes ever seen
         │         (ours to 8000; rigorous frontier Platt–Trudgian to height
         │         3e12); field ladder at 0.417; his mechanism's death has
@@ -145,6 +148,11 @@ POINT ZERO — his words above
                   (π=5,761,455 ✓); |ψ−x|/√x bounded ≤0.51, no drift (the
                   half visible from the primes); his formula w/ our 1000
                   roots lands within 21 of 5.76M (4e−6)
+                  circuit 2 ●: reach ×10 — sieve to 1e9 exact
+                  (π=50,847,534 ✓); band flat one more decade (≤0.549);
+                  Schoenfeld falsifier armed, never fires (max 0.21);
+                  raw slope FELL 0.574→0.484 — circuit 1's caveat
+                  became a measurement
                   → WAY4_THE_PRIME_SHORE.md
         ├─ COMPILATION ONE ● [his: "compile rest 3-4 earlier and see
         │         if something comes out"] — three things came out:

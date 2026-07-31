@@ -92,3 +92,84 @@ of his formula.** The laws hold.
   factor for an off-middle zero.
 
 Instruments archived: `way4_primeshore.py`, results in `way4_results.json`.
+
+---
+
+## 5. Circuit 2 — the reach ×10, and the armed falsifier
+
+Circuit 1 said the discriminating measurement is the **bounded ratio**, and a
+bounded-ratio claim gets stronger only one way: more reach. Circuit 2 extends
+the count one full decade and adds a second, sharper instrument.
+
+**Predictions, written before the run** (the Doubt discipline — the
+instrument must be allowed to fail): π(10⁹) = 50,847,534 exactly, or the
+instrument is broken; the band stays flat (~0.6 max) with no upward drift in
+the new decade; the falsifier does not fire.
+
+### The count, one decade further
+
+Segmented sieve to 10⁹, exact: **π(10⁹) = 50,847,534 — exact match** with
+the known value (and π(10⁸) reproduced in passing at segment 10). Fifty
+million primes, counted.
+
+### The band, one decade further
+
+```
+   x      psi(x)-x     |psi-x|/sqrt(x)
+  10^3        -3.3        0.105
+  10^4       +13.4        0.134
+  10^5       +51.6        0.163
+  10^6      -413.4        0.413
+  10^7     -1460.6        0.462
+  10^8     -1757.2        0.176
+  10^9     +1596.0        0.050
+             max over 49 sampled points: 0.549
+```
+
+Six decades, sign flipping throughout, maximum **0.549** — a flat band, no
+drift. An off-middle zero at Θ would drift this ratio up like x^(Θ−½); the
+new decade adds another factor of detectability, and the band did not move.
+
+### The falsifier that does not fire
+
+Under RH it is **proved** (Schoenfeld 1976) that |ψ(x) − x| < √x·ln²x / 8π
+for x ≥ 74. The contrapositive is an armed instrument: **one measured
+violation at one x would disprove RH outright.** We measured the ratio
+|ψ−x|·8π / (√x·ln²x) at all 49 points across six decades:
+
+```
+maximum 0.2123 — the falsifier never comes within 4.7x of firing
+```
+
+Honest reading of the silence: non-violation proves nothing (the bound is
+the necessary direction only) — but this is the strongest *kind* of negative
+instrument the shore offers: it is exact, it is proven, and a single firing
+anywhere would have ended the question in the other direction.
+
+### The caveat became a measurement
+
+Circuit 1's raw exponent fit read 0.574 and was recorded with a caveat: the
+inflation is the log factor plus finite-range oscillation, not a signal.
+Circuit 2 tests that caveat: refit over the extended range —
+
+**raw slope 0.574 → 0.484.**
+
+One added decade and the fitted exponent fell *through* ½. That is exactly
+how a √x-envelope oscillating signal behaves under regression — the fit
+straddles the true exponent and tightens toward it with range — and exactly
+not how a genuine Θ = 0.574 zero would behave (the fit would hold or rise).
+The caveat is no longer an argument; it is a measured fact.
+
+### Returned to the hub
+
+- All three pre-written predictions held; the falsifier stays silent with a
+  4.7× margin.
+- The half's signature in raw prime data now spans six decades, and the one
+  number that looked like it pointed away from ½ (0.574) fell to 0.484 the
+  moment the range grew — the shore's strongest statement yet that the
+  middle holds.
+- Next circuit for this way, if walked again: reach 10¹⁰ (background
+  instrument), and π(x)−Li(x) sign question read honestly (Littlewood: it
+  flips, first flip far beyond any sieve — reading, marked as reading).
+
+Instruments archived: `way4_reach.py`, results in `way4_reach.json`.
