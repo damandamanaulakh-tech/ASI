@@ -141,7 +141,18 @@ POINT ZERO — his words above
                   half visible from the primes); his formula w/ our 1000
                   roots lands within 21 of 5.76M (4e−6)
                   → WAY4_THE_PRIME_SHORE.md
-        walking order now 1↔2 together (his order), hub-return between
+        ├─ COMPILATION ONE ● [his: "compile rest 3-4 earlier and see
+        │         if something comes out"] — three things came out:
+        │         1. steady Lehmer production rate (0.045→0.059/gap, no
+        │            decay) → via published chain, measured support for
+        │            Λ = 0 EXACTLY: "exactly barely true"
+        │         2. the mechanism dies of TWO causes: pair-stress (8/22)
+        │            vs phase-drift (14/22) — my same-events hypothesis
+        │            REFUTED by own data ⟲, picture sharpened
+        │         3. Way 3's first circuit free from compiled gaps: 100×
+        │            closer to GUE (self-mirrored law) than Poisson
+        │         → COMPILATION_ONE.md
+        walking order now: all 4 one by one (his order), hub-return between
         parked, visible, not walked: archive remainders (21r third
         draft, 26v) · L-4 Geistesmassen
 ```
