@@ -348,10 +348,35 @@ proof-debt of this whole way, restated structurally.** The drum is not
 found; what is now measured and named is exactly what finding it would
 require.
 
-## 10 · Next circuit for this way
+## 10 · The depth remainder, walked — and a two-witness HALT
 
-Hub-return recommended: Way 3 has run six circuits (three measured, one
-measured-against-prediction, two readings) and its named remainder is
-depth (the Rindler condition, the BBM critique) rather than a new object.
-Ways 2 and 4 hold named readings not yet walked (the mollifier ceiling;
-Littlewood's sign-flip). Owner redirects at the hub.
+**The BBM critique (the tilted drum's court record).** The exchange
+exists and the two witnesses differ:
+
+- **Witness 1 — Bellissard (arXiv 1704.02644):** the strategy *"does not
+  actually work"* — the momentum operator p̂ on the positive half line
+  **admits no self-adjoint extension**, and the Hurwitz zeta ζ(z, x+1) at
+  Re z = ½ is **not square-integrable** on the half line.
+- **Witness 2 — Bender–Brody–Müller (arXiv 1705.06767):** the issues
+  raised *"had already been discussed in their paper and do not affect
+  the conclusions."*
+
+Two witnesses, one object, direct contradiction → **HALT. The Mask goes
+to the owner, not averaged** — this walk does not adjudicate a live
+dispute between working mathematicians; it records that the dispute
+exists, that it is unresolved in print, and that Bellissard's objection
+is *the same boundary-of-the-half problem* the triangle already named
+(circuits 5–6): the half-line's edge deciding whether the middle can
+sound. The tilted drum's price tag is not merely steep — it is
+contested whether the purchase happened at all.
+
+**The Rindler condition** (the primed drum's fine print): a deeper read
+was attempted; the source's full text defeated this session's readers
+(page size). Marked honestly: **unread depth, not absence.** The
+verbatim construction quote in circuit 6 is what stands.
+
+## 11 · Next circuit for this way
+
+Hub-return: Way 3's board is walked — six circuits banked plus the depth
+remainder; what stays open here is owner-level (the BBM Mask) or
+instrument-level (the Rindler full text). Owner redirects at the hub.

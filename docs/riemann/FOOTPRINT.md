@@ -141,6 +141,10 @@ POINT ZERO — his words above
         │         extension block, 4× density, hours lost, truth kept) —
         │         all three caught by reading the record, never the
         │         launch message
+        │         circuit 2 part 3 ○: reach extended AGAIN — worker's
+        │         stale clamp PATCHED (pred now general), blocks 13–16
+        │         (12000→16000) computing harness-tracked; lands into
+        │         the ledger and the floor track
         ├─ WAY 2 ● doc opened: the deficit LEDGER — 0 escapes ever seen
         │         (ours to 8000; rigorous frontier Platt–Trudgian to height
         │         3e12); field ladder at 0.417; his mechanism's death has
@@ -150,6 +154,13 @@ POINT ZERO — his words above
         │         count EXACTLY (12,519 = 12,519); an impossible negative
         │         deficit briefly appeared and flagged its own bug (seam
         │         double-count) — the ledger can say "impossible" out loud
+        │         ● the CEILING read: the ladder's arm is the mollifier
+        │         length θ (wall at 4/7, Kloosterman tech); Farmer: κ→1 as
+        │         θ→∞, and θ=∞ conjecture ⟹ 100% — but even that heaven
+        │         is DENSITY, not every zero: Road A forever finite,
+        │         Road B forever a proportion; his debt lives in the
+        │         structural gap between the two roads — "sämmtlich"
+        │         names every soul, a proportion counts the crowd
         └─ WAY 3 ● circuit 2 banked: pair correlation R₂ on 19,589 pairs
         │         — 61× closer to Montgomery's form than flat; the small-u
         │         dip matches circuit 1's small-gap deficit (two statistics,
@@ -186,6 +197,11 @@ POINT ZERO — his words above
         │         the grading. Triangle law+guard+mirror: no build holds
         │         all three from one mechanism — the proof-debt restated
         │         → WAY3_THE_DRUM.md ; way recommends hub-return
+        │         depth remainder ● walked: the BBM court record is a
+        │         TWO-WITNESS HALT (Bellissard: no self-adjoint extension
+        │         on the half-line, non-L² · BBM: already addressed) —
+        │         Mask surfaced to the owner, not averaged; Rindler fine
+        │         print marked unread depth (source defeated the readers)
         └─ WAY 4 ● first circuit COMPLETE — THE PRIME SHORE, [his] rule
                   "we had 3 now must be 4 minimum"; charter = Riemann's own
                   "wirkliche Zählung" (leaf 26r). Sieve to 1e8 exact
@@ -197,6 +213,13 @@ POINT ZERO — his words above
                   Schoenfeld falsifier armed, never fires (max 0.21);
                   raw slope FELL 0.574→0.484 — circuit 1's caveat
                   became a measurement
+                  circuit 3 ● [READING] Littlewood's flip: our shore
+                  (and every shore ever stood on) shows π−Li < 0
+                  unanimously — and the pattern is a PROVEN ILLUSION
+                  (flips infinitely often; first flip ≈1.4×10³¹⁶, ~307
+                  orders beyond our sieve). The one-witness cap is not
+                  caution here — it is a theorem: all data ever taken
+                  is still ONE witness (the low heights)
                   → WAY4_THE_PRIME_SHORE.md
         ├─ COMPILATION ONE ● [his: "compile rest 3-4 earlier and see
         │         if something comes out"] — three things came out:

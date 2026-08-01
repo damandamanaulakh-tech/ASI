@@ -62,7 +62,9 @@ def arch_peak(a, b):
 lo_scan = max(10.0, A - 1.0)
 zs = find_zeros(lo_scan, B + 1.0, STEP)
 inb = [z for z in zs if A <= z < B]
-pred = theta_pi_plus1(min(B, 8000.0)) - theta_pi_plus1(max(A, 14.0))
+# (the old min(B, 8000.0) clamp here fired false-alarm rescans on every
+# block above 8000 - named in WAY1 doc section 8; generalized 2026-08-01)
+pred = theta_pi_plus1(B) - theta_pi_plus1(max(A, 14.0))
 note = ""
 if abs(len(inb) - pred) > 2:
     zs = find_zeros(lo_scan, B + 1.0, STEP / 4)

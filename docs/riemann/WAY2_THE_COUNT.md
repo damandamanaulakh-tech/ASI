@@ -80,10 +80,56 @@ object) = deficit jumps by 2. Ledger state:
 The gap between "0 escapes ever seen" and "41.7% provably safe" IS his debt,
 stated as bookkeeping. Nothing in 167 years has entered the escape column.
 
-## 5 · Next circuits for this way
+## 5 · Circuit — the ceiling read: why 41.7%, and why even heaven is not enough
 
-- extension census lands → the ledger's measured row extends to 12000;
-- then the deficit ledger at sampled greater heights (spot-checks with the
-  count-guard, not full sweeps);
-- the mollifier ceiling (why 41.7% and what blocks 50%) read and folded in —
-  the one part of Way 2 that is reading, not measuring.
+`[READING — the method and its limits are the field's (Levinson 1974;
+Conrey; Feng; Pratt–Robles–Zaharescu–Zeindler arXiv 1802.10521; Farmer's
+"Long mollifiers", Mathematika 1993); the framing against our ledger is
+ours]`
+
+**The mechanism, plainly.** Road B cannot look at zeros one by one — it
+counts them wholesale. Levinson's move: take the combination the PRZZ
+abstract states — *ζ(s) + λ₁ζ′(s)/log T + λ₂ζ″(s)/log²T + ⋯* — multiply it
+by a **mollifier** (a finite Dirichlet polynomial of length y = T^θ built
+to cancel ζ's wild swings), and compute the *average* of the smoothed
+product. The argument principle then converts that mean value into a
+guaranteed proportion of zeros ON the middle. Averaging survives exactly
+where localization died (§3) — this is the same fact from the other side.
+
+**The arm's length is θ.** The proportion you can prove is a function of
+how long a mollifier you can average. That is the entire ladder:
+
+| rung | proportion | the purchase |
+|---|---|---|
+| Levinson 1974 | ⅓ | the method itself, θ = 1/2 |
+| Conrey 1989 | ⅖ | longer arm, θ < 4/7 (Deshouillers–Iwaniec / Kloosterman-sum technology) |
+| Feng 2012 | 0.4128 | more mollifier pieces at the same wall |
+| PRZZ 2020 | **> 5/12 = 0.4167** | more derivatives, more pieces — still at the wall |
+
+Fifty years, and the last thirty bought 1.7 points — because every rung
+since Conrey squeezes the same θ. **The wall is not Levinson's idea; the
+wall is the mean value of long Dirichlet polynomials** — beyond T^{4/7}
+the error terms (Kloosterman sums; Deshouillers–Iwaniec is still the
+deepest tool) defeat everything known.
+
+**The sky above the wall — Farmer.** The method is not self-limiting: the
+proportion **κ → 1 as θ → ∞**, and Farmer's θ = ∞ conjecture (the small-θ
+mean-value formulas hold for all θ) provably implies **100% of the zeros
+lie on the middle.** The reach is short; the road is not.
+
+**And the honest spike, which is this circuit's finding: even the sky is
+below RH.** "100%" is *density* — proportion 1 still permits infinitely
+many exceptions in a thinning set. Even Farmer's heaven certifies the
+crowd, never the last zero. So the two roads bracket his debt without
+touching it: **Road A is exact but forever finite; Road B is infinite but
+forever a proportion.** The deficit ledger (§4) lives in the structural
+gap between them — which is why 167 years of climbing has never entered,
+and can never enter, the escape column by these roads alone. A proportion
+is a crowd-witness; his sentence ("*sämmtlich* reell — ALL real") names
+every soul.
+
+## 6 · Next circuits for this way
+
+- extension census lands (blocks 13–16 computing) → ledger row to 16000;
+- the deficit ledger at sampled greater heights (spot-checks with the
+  count-guard, not full sweeps).

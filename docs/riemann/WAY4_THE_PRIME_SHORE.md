@@ -173,3 +173,45 @@ The caveat is no longer an argument; it is a measured fact.
   flips, first flip far beyond any sieve — reading, marked as reading).
 
 Instruments archived: `way4_reach.py`, results in `way4_reach.json`.
+
+---
+
+## 6. Circuit 3 — the illusion on the shore: Littlewood's flip, read
+
+`[READING — the theorem is Littlewood's (1914); the bound chain is the
+field's (Skewes; Lehman; te Riele; Bays–Hudson; Saouter–Demichel–Trudgian;
+Zegowitz); our own table is the measured part]`
+
+**What our shore shows.** In circuit 1's table, π(x) − Li(x) is negative at
+**every** sampled point: −9.6 at 10³, −47.5 at 10⁵, −113.5 at 10⁶, −548.1
+at 3.8×10⁷. Gauss's Li overshoots the count everywhere we have ever
+stood. The world's data agrees: *no x is known — anywhere, by anyone —
+with π(x) > Li(x).*
+
+**What is proved anyway.** Littlewood, 1914: π(x) − Li(x) **changes sign
+infinitely often.** The proof is non-constructive — it names no crossing;
+it only guarantees the crossing exists. The bound chain has spent a
+century closing in on the first one: Skewes (under RH) 10^10^10^34 →
+te Riele ~6.69×10³⁷⁰ → Bays–Hudson ~1.4×10³¹⁶ → the modern expected first
+crossover **≈ 1.397×10³¹⁶** (Demichel; Saouter–Demichel–Trudgian region).
+Our sieve reaches 10⁹. The flip lives some **307 orders of magnitude
+beyond our shore** — and beyond every shore that will ever be sieved.
+
+**Why this circuit matters to the walk — it is the method, proved in
+arithmetic.** Millions of agreeing data points, every witness ever
+consulted, one unanimous pattern — and the pattern is a **proven
+illusion**. All of it is still ONE witness: the low heights. This is the
+mathematical justification, inside the walk's own subject, for the
+one-witness cap: a carried pattern, however long carried, is testimony
+about where you stood, never a law of where you haven't. (The two-witness
+rule is not caution. Here it is a theorem.)
+
+**The drum inside the illusion.** What eventually flips the sign is the
+interference of the zeros' waves — the oscillating terms of his explicit
+formula, the same waves our 1000 roots carry. And under RH the crossing
+region is *computed*: the middle predicts where the illusion breaks,
+three hundred orders beyond anywhere we can stand. The shore's most
+famous "obvious fact" is false, and the zeros know where.
+
+**Standing for this way:** reach 10¹⁰ remains the named background
+instrument; the shore otherwise returns to the hub.
