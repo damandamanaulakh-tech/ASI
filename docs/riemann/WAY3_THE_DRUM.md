@@ -212,6 +212,22 @@ measured plateau. The prediction was registered before the data existed;
 the data walked into it. The merged census sits between the two levels, as
 a mixture of heights must.
 
+**Second re-test (blocks 13–16, again registered before the data):**
+
+```
+                              measured    Berry's prime-sum band
+ stretch  14 –  8000:          0.3351          0.338 – 0.365
+ stretch 8000 – 12000:         0.3676          0.3645 – 0.3689   FOLLOWED
+ stretch 12000 – 16000:        0.3744          0.3689 – 0.3720   FOLLOWED
+```
+
+**FOLLOWED a second time**: the plateau climbed again, in step with the
+primes' climb, on a second set of zeros that did not exist when the rule
+was registered. The newest value sits 0.002 *above* the band's top — well
+inside the ±0.08 oscillation the un-averaged formula carries; logged, not
+smoothed away. Three rungs, one law: the primes keep telling the drum
+where its statistics stop, and the drum keeps obeying.
+
 This is the walk's cleanest single test of the three-ways-meet claim: the
 prime shore (Way 4) told the drum (Way 3) where its statistics would stop,
 on zeros that had not yet been computed — and it was right.

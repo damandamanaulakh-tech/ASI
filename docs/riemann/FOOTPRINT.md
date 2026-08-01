@@ -141,10 +141,19 @@ POINT ZERO — his words above
         │         extension block, 4× density, hours lost, truth kept) —
         │         all three caught by reading the record, never the
         │         launch message
-        │         circuit 2 part 3 ○: reach extended AGAIN — worker's
-        │         stale clamp PATCHED (pred now general), blocks 13–16
-        │         (12000→16000) computing harness-tracked; lands into
-        │         the ledger and the floor track
+        │         circuit 2 part 3 ●: LANDED clean — patch proven in the
+        │         record (correct preds, zero rescans, runtimes halved);
+        │         census 17,425 to T=16000 (2.2× original); Lehmer rate
+        │         new high 0.0611, rate drifts mildly UP across 16 blocks
+        │         (0.045→0.061) — the guard tested more, nothing escapes;
+        │         Λ ≥ −1.778e−4 unmoved through 9,595 fresh zeros;
+        │         watch-item logged: the record gap now LAGS the GUE
+        │         expectation (0.0421 vs 0.0374) — direction matches the
+        │         low-height excess guard; finding if it persists at 20000
+        │         ledger: deficit 0 at ALL EIGHT checkpoints 9000→16000
+        │         (17,425 = 17,425 exact)
+        │         plateau second re-test: 0.3744 vs band 0.3689–0.3720 —
+        │         FOLLOWED AGAIN (three rungs, one law)
         ├─ WAY 2 ● doc opened: the deficit LEDGER — 0 escapes ever seen
         │         (ours to 8000; rigorous frontier Platt–Trudgian to height
         │         3e12); field ladder at 0.417; his mechanism's death has

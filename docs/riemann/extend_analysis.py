@@ -161,24 +161,24 @@ def analyze(idxs, tag, banked=None):
     return res
 
 if __name__ == "__main__":
-    validate_only = "--validate" in sys.argv or not os.path.exists(os.path.join(HERE, "nm_b12.json"))
+    avail = [i for i in range(1, 33) if os.path.exists(os.path.join(HERE, f"nm_b{i}.json"))]
+    validate_only = "--validate" in sys.argv or max(avail) < 12
     if validate_only:
         r = analyze(range(1, 9), "b1-b8 VALIDATE",
                     banked=("/home/user/URR/docs/riemann/nearmiss_merged.json",
                             "/home/user/URR/docs/riemann/way1_lambda_bounds.json"))
     else:
-        r = analyze(range(1, 13), "b1-b12 FULL")
-        json.dump({k: v for k, v in r.items() if k != "per_block" or True},
-                  open(os.path.join(HERE, "nearmiss_merged12.json"), "w"))
-        # ledger rows: N0 (census) vs N (exact nzeros) at the new checkpoints
+        top = max(avail)
+        r = analyze(avail, f"b1-b{top} FULL")
+        json.dump(r, open(os.path.join(HERE, f"nearmiss_merged{top}.json"), "w"))
+        # ledger rows: N0 (census) vs N (exact nzeros) at checkpoints above 8000
         from mpmath import mp, nzeros
         mp.dps = 20
-        _, arches, zs = load_blocks(range(1, 13))
+        _, arches, zs = load_blocks(avail)
         Z = np.array(zs)
         print("[ledger] exact N(T) via argument principle vs census N0:", flush=True)
-        for T in (9000, 10000, 11000, 12000):
+        for T in range(9000, top * 1000 + 1, 1000):
             N = int(nzeros(T))
-            N0 = int(np.searchsorted(Z, T)) + 0  # census zeros in (14,T); add zeros below 14: 0? first zero 14.13>14
-            # census starts at A=14 which is below the first zero 14.134 -> count is complete from zero #1
+            N0 = int(np.searchsorted(Z, T))
             print(f"   T={T}: N={N}  N0_census={N0}  deficit={N - N0}", flush=True)
     print(f"total {time.time()-t0:.0f}s", flush=True)

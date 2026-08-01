@@ -18,7 +18,11 @@ Way 2 is Way 1 integrated: the guard's record, counted instead of watched.
 | (0, 9000) | 8,978 (exact, argument principle) | 8,978 | **0** |
 | (0, 10000) | 10,142 (exact) | 10,142 | **0** |
 | (0, 11000) | 11,324 (exact) | 11,324 | **0** |
-| **(0, 12000)** | **12,519 (exact)** | **12,519** | **0** |
+| (0, 12000) | 12,519 (exact) | 12,519 | **0** |
+| (0, 13000) | 13,728 (exact) | 13,728 | **0** |
+| (0, 14000) | 14,950 (exact) | 14,950 | **0** |
+| (0, 15000) | 16,182 (exact) | 16,182 | **0** |
+| **(0, 16000)** | **17,425 (exact)** | **17,425** | **0** |
 
 Every zero the strip owes in our measured stretch stands on the middle — now
 to height 12000. The extension landed with a consistency stronger than

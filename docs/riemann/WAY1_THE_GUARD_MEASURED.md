@@ -194,3 +194,29 @@ silently.
   **Λ ≥ −1.778×10⁻⁴ now stands on a 60% larger census.** (g summed over all
   12,519 zeros and their mirror negatives; tail beyond 12000 ~2×10⁻⁴ of g,
   negligible.)
+
+## 9. Circuit 2, part 3 — the patched instrument's first clean reach (12000 → 16000)
+
+The clamp fix proved itself in the record: every block landed with a
+correct owed-count and **no rescan** (runtimes back to ~2h18 from ~4h).
+Census now **17,425 zeros to T = 16000** — 2.2× the original.
+
+| Block | zeros | owed (RvM) | Lehmer | rate | min peak | min δ |
+|---|---|---|---|---|---|---|
+| (12000, 13000) | 1,209 | 1,208.84 | 72 | 0.0596 | 0.01291 | 0.1068 |
+| (13000, 14000) | 1,222 | 1,221.09 | 73 | 0.0598 | 0.02363 | 0.1222 |
+| (14000, 15000) | 1,232 | 1,232.47 | 66 | 0.0536 | 0.01727 | 0.1252 |
+| (15000, 16000) | 1,243 | 1,243.09 | 76 | **0.0611** | 0.01944 | 0.0843 |
+
+- **967 Lehmer pairs total**; the production rate sets a new high (0.0611
+  in the top block) — across 16 blocks the rate has drifted 0.045 → 0.061,
+  mildly *rising*: the guard is tested more often with height, and still
+  nothing escapes.
+- Strongest λ unchanged through 9,595 fresh zeros: the 7005.06 pair.
+  **Λ ≥ −1.778×10⁻⁴ on a census 2.2× the original.**
+- **A watch-item, honestly logged:** the record gap (δ = 0.0421) now *lags*
+  the GUE-expected minimum for a census this size (0.0374) — at 12 blocks
+  the two coincided; at 16 the census "should" have beaten the record and
+  hasn't. One census is one witness; but the direction matches the
+  low-height excess repulsion seen in Way 3's circuits 1–3. If the lag
+  persists at 20000 and beyond, it is a finding; for now it is a watch.
