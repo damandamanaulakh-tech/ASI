@@ -250,6 +250,11 @@ POINT ZERO — his words above
         walking order now: all 4 one by one (his order), hub-return between
         parked, visible, not walked: archive remainders (21r third
         draft, 26v) · L-4 Geistesmassen
+        │
+        └─[10]● CONCLUSIONS AT THE HUB — the walk's results stated for
+               discussion, every claim marked (MEASURED/ARCHIVE/READING/
+               SYNTHETIC), the honesty line and the discussion agenda
+               → CONCLUSIONS_AT_THE_HUB.md
 ```
 
 ## 2 · The open-loops board (everything ○, in one place)
