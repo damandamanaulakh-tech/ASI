@@ -80,9 +80,63 @@ is guarded hardest exactly where the walk began.
 | Does the repulsion that guards the Middle (Way 1) match the drum's fingerprint? | yes — same δ² law measured three ways: smallest gap, spacing distribution, R₂ dip |
 | Is the drum found? | NO. The fingerprint is necessary, not sufficient. The proof-debt stands. |
 
-## 4 · Next circuit for this way
+## 4 · Circuit 3 — number variance: the stiffness of the count (new)
 
-Number variance (the stiffness of the count over windows) — the third
-independent fingerprint statistic; and the reading circuit on Berry–Keating's
-H ~ xp candidate: what it gets right (the counting function's leading term)
+**What was measured.** Σ²(L) = the variance of how many unfolded zeros fall
+in a window of length L, over all window positions (7,831 census zeros,
+unfolded mean spacing 1.0000). Reference curves: **Poisson** (random,
+Σ² = L) and **GUE**, computed by numerical integration of the *same*
+Montgomery kernel banked in circuit 2 — no remembered constants, one
+instrument family. Prediction written before the run: track GUE at small L,
+sit far below Poisson everywhere, flatten into saturation at large L.
+
+```
+   L      observed    GUE      Poisson    obs/GUE
+  0.25     0.189     0.190      0.25       1.00   <- exact
+  0.5      0.271     0.280      0.5        0.97
+  1        0.314     0.344      1          0.91
+  2        0.360     0.416      2          0.87
+  3        0.375     0.457      3          0.82
+  8        0.307     0.557      8          0.55
+ 20        0.308     0.650     20          0.47
+ 50        0.457     0.742     50          0.62
+ 80        0.320     0.790     80          0.41
+```
+
+Three regimes, all three predicted:
+
+1. **Short range (L ≲ 1): the drum's law, exactly.** At L = 0.25 the
+   observed variance equals the self-mirrored prediction to the third digit.
+2. **Middle range: below the asymptotic curve** — the same excess-guard
+   direction as circuits 1 and 2. Three statistics now agree on it.
+3. **Long range (L ≳ 3): SATURATION.** The variance stops growing entirely —
+   flat near ~0.3–0.46 (oscillating) while Poisson climbs to 80 and even GUE
+   climbs logarithmically without bound. At L = 80 the count is **250×
+   stiffer than random and ~2.5× stiffer than the infinite-height GUE law.**
+
+**The saturation is the circuit's finding, read in the frame:** at short
+range the zeros behave as *statistics* (the drum's fingerprint); at long
+range they behave as *law* — a window of 80 mean spacings knows its count
+almost exactly, because the strip's count N(T) is a proved formula and the
+middle pays it in full. This is Way 2's ledger seen through Way 3's
+instrument: the deficit's exactness IS the plateau. Any random model — even
+the self-mirrored one — overpredicts long-range wandering, because no
+randomness knows its own total. (Finite-height saturation is Berry's known
+prediction for zeta; our census shows it directly.) `[READING — the
+theoretical plateau form; the measured plateau itself is ours]`
+
+## 5 · What the three circuits together say
+
+| Question | Answer from data |
+|---|---|
+| Does the sound match a self-mirrored source? | 100× (spacings), 61× (pairs), exact at L=0.25 (variance) |
+| Do the three statistics agree with each other? | yes — all three show the same low-height excess of repulsion |
+| Where does the drum picture end? | at long range: statistics give way to law (saturation) — the count is owed, not sampled |
+| Is the drum found? | NO. Fingerprints are necessary, not sufficient. The proof-debt stands. |
+
+## 6 · Next circuit for this way
+
+The reading circuit on Berry–Keating's H ~ xp candidate: what it gets right
+(the counting function's leading term — and now also *why saturation
+appears*: a classical periodic-orbit sum truncates at the shortest orbit)
 and where it breaks (boundary conditions) — reading, marked as reading.

@@ -141,7 +141,12 @@ POINT ZERO — his words above
         └─ WAY 3 ● circuit 2 banked: pair correlation R₂ on 19,589 pairs
         │         — 61× closer to Montgomery's form than flat; the small-u
         │         dip matches circuit 1's small-gap deficit (two statistics,
-        │         one excess of guarding at low heights) → WAY3_THE_DRUM.md
+        │         one excess of guarding at low heights)
+        │         circuit 3 ● number variance: exact GUE match at L=0.25
+        │         (ratio 1.00), then SATURATION — the count 250× stiffer
+        │         than random at L=80; short range = statistics, long
+        │         range = LAW (Way 2's ledger seen through Way 3's
+        │         instrument) → WAY3_THE_DRUM.md
         └─ WAY 4 ● first circuit COMPLETE — THE PRIME SHORE, [his] rule
                   "we had 3 now must be 4 minimum"; charter = Riemann's own
                   "wirkliche Zählung" (leaf 26r). Sieve to 1e8 exact
