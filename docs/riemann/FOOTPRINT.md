@@ -175,7 +175,17 @@ POINT ZERO — his words above
         │         no primes, Connes' absorption mirror) are exactly the
         │         GUARD our circuits measured; what xp lacks is a
         │         mechanism of return with periods ln p
-        │         → WAY3_THE_DRUM.md
+        │         circuit 6 ● [READING] the modified drums, priced:
+        │         bent (x(p+ℓp²/p): orbits close, ONE energy-set period —
+        │         no prime comb) · primed (Rindler–Dirac: deltas ON the
+        │         square-free integers — arithmetic input, not output) ·
+        │         tilted (non-Hermitian: pays with the self-mirror).
+        │         Our plateau = the ENTRANCE EXAM (orbit comb r·ln p,
+        │         weights 1/(r²pʳ), measured 0.3676): bent fails by
+        │         construction, primed passes by copying, tilted changes
+        │         the grading. Triangle law+guard+mirror: no build holds
+        │         all three from one mechanism — the proof-debt restated
+        │         → WAY3_THE_DRUM.md ; way recommends hub-return
         └─ WAY 4 ● first circuit COMPLETE — THE PRIME SHORE, [his] rule
                   "we had 3 now must be 4 minimum"; charter = Riemann's own
                   "wirkliche Zählung" (leaf 26r). Sieve to 1e8 exact

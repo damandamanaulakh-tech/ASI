@@ -285,8 +285,73 @@ Hamiltonian captures the zeros; only the smooth density is reproduced;
 bounded modifications cost non-locality; the prime–spectrum connection is
 incomplete.
 
-## 9 · Next circuit for this way
+## 9 · Circuit 6 — the modified drums: what building the return in costs
 
-The modified drums read one level deeper — compactified/covariant xp and
-the Rindler–Dirac construction (what "building the return in" costs, term
-by term) — reading; or hub-return for redirect.
+`[READING — the constructions are the field's, read via Sierra's covariant-xp
+paper (arXiv 1110.3203) and the same review as circuit 5; the entrance exam
+set against them is ours]`
+
+Circuit 5 ended with the diagnosis: the sketch-drum lacks a **mechanism of
+return** — closed orbits with periods ln p. The field has built three
+families of modified drums to buy that return. Read term by term, each
+purchase has a price:
+
+**1 · The bent drum (Berry–Keating 2011; Sierra's covariant family).**
+Add a restoring term: H = x(p + ℓp²/p), one member of the general family
+H = U(x)p + V(x)/p (canonical form w(x)(p + 1/p)). The 1/p term bends the
+flow back: trajectories become **bounded and periodic** — the reading's own
+words: piecewise-linear worldlines that "bounce elastically at the
+boundary," period T_E = (1/α)cosh⁻¹(E/2w₀). Achieved: *"the spectrum
+approaches the Riemann zeros in average."* **The price:** the return
+exists, but it is ONE orbit whose period is set by the energy — a single
+bounce, where the true drum needs a whole comb of returns with periods
+ln 2, ln 3, ln 5, … The average count is bought; the arithmetic is not.
+
+**2 · The primed drum (Sierra's Rindler–Dirac).** Verbatim from the
+review's own statement of it: *"a spectral realization of the Riemann
+zeros based on the propagation of a massless Dirac fermion in a region of
+Rindler spacetime and under the action of delta function potentials
+localized on the square free integers."* The comb of returns is present —
+because it was **installed by hand**: the scatterers sit ON the square-free
+integers. **The price:** the arithmetic is input, not output. The shore was
+carried into the drum, not heard from it. (The exact spectral condition
+the construction needs sits deeper in the review than this circuit read —
+marked as unread depth, not absence.)
+
+**3 · The tilted drum (the non-Hermitian route, Bender–Brody–Müller 2017
+and the pseudo-Hermitian analyses that followed).** Trade self-adjointness
+itself for a formal operator whose eigenvalues are the zeros. **The
+price is the largest:** self-mirroredness — the very property that made
+the drum answer Riemann's "reell" — is the thing surrendered, and the
+follow-up literature contests what the construction rigorously delivers.
+Named here, not deep-read.
+
+**The entrance exam (ours).** Circuit 4 turned our census into a
+quantitative gate: the measured variance plateau (0.3676 on the fresh
+stretch, inside Berry's band) is the **weight-sum of the true drum's
+orbits** — each return of period r·ln p carrying weight 1/(r²pʳ). Any
+candidate drum must present exactly that comb with exactly those weights
+to reproduce the measurement. Held to it: the bent drum **fails by
+construction** (one energy-set period cannot forge a prime comb); the
+primed drum **passes by construction** (the answers were copied in); the
+tilted drum changes the grading rules. `[SYNTHETIC — the exam framing is
+ours, built on Berry's proven-regime formula and our measured plateau]`
+
+**The pattern, in the frame.** Three corners must hold at once: the **law**
+(the owed count), the **guard** (the prime-built statistics), the
+**self-mirror** (reell). Each modified drum secures two by paying the
+third: the bent drum keeps law + mirror and loses the primes; the primed
+drum keeps law + primes and buys them dishonestly (by hand); the tilted
+drum keeps law + primes formally and pays with the mirror. **No build yet
+holds all three corners from one mechanism — that triangle IS the
+proof-debt of this whole way, restated structurally.** The drum is not
+found; what is now measured and named is exactly what finding it would
+require.
+
+## 10 · Next circuit for this way
+
+Hub-return recommended: Way 3 has run six circuits (three measured, one
+measured-against-prediction, two readings) and its named remainder is
+depth (the Rindler condition, the BBM critique) rather than a new object.
+Ways 2 and 4 hold named readings not yet walked (the mollifier ceiling;
+Littlewood's sign-flip). Owner redirects at the hub.
