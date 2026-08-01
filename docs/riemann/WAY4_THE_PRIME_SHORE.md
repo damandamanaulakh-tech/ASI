@@ -215,3 +215,44 @@ famous "obvious fact" is false, and the zeros know where.
 
 **Standing for this way:** reach 10¹⁰ remains the named background
 instrument; the shore otherwise returns to the hub.
+
+---
+
+## 7. Circuit 4 — the shore at ten billion
+
+Four predictions registered before the run; four held. Sieve to 10¹⁰
+(1,000 segments, 92 seconds), both counting controls exact:
+
+| Control | Result |
+|---|---|
+| π(10¹⁰) | **455,052,511 — exact match** |
+| π(10⁹), reproduced in passing | 50,847,534 — exact |
+
+```
+   x       psi(x)-x      band |psi-x|/sqrt(x)   Schoenfeld ratio
+  10^3         -3.3          0.105                 0.055
+  10^5        +51.6          0.163                 0.031
+  10^7      -1460.6          0.462                 0.045
+  10^9      +1596.0          0.050                 0.003
+  10^10    +42119.8          0.421                 0.020
+        max over 61 samples:  0.549 (unchanged)    0.2123 (unchanged)
+```
+
+- **The band did not rise.** Seven decades now, sign still flipping, and
+  the maximum is the same 0.549 the six-decade run had — the new decade
+  added detectability and detected nothing. A zero at Θ = 0.574 would
+  have multiplied the band's growth ×1.19 per decade, ×3.2 over the run
+  — absent.
+- **The falsifier stays silent at the same margin** (0.2123, and a very
+  quiet 0.020 at 10¹⁰ itself).
+- **The raw slope settled to 0.475**: the sequence 0.574 (6 decades) →
+  0.484 (7) → 0.475 (8, this run) — wobbling ever closer around ½ from
+  both sides, exactly as an oscillating √x-envelope must.
+
+One more honest observation the circuit forces: the shore now reaches
+**two full decades beyond the drum's measured heights** — ten billion
+integers in 92 seconds against 1,200 zeros in 2.5 hours. Counting primes
+is cheap; hearing zeros is dear. Riemann's charter to the "praktische
+Rechner" was better economics than he could have known: the shore is
+where reach is bought, and the middle's signature survives at every
+reach yet purchased.

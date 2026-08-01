@@ -229,6 +229,12 @@ POINT ZERO — his words above
                   orders beyond our sieve). The one-witness cap is not
                   caution here — it is a theorem: all data ever taken
                   is still ONE witness (the low heights)
+                  circuit 4 ●: the shore at TEN BILLION — π(10¹⁰) =
+                  455,052,511 exact (92s); band max unchanged 0.549
+                  across seven decades (a Θ=0.574 zero would have grown
+                  it ×3.2 — absent); falsifier silent (0.212); slope
+                  0.574→0.484→0.475, closing on ½ from both sides; the
+                  shore now reaches two decades past the drum
                   → WAY4_THE_PRIME_SHORE.md
         ├─ COMPILATION ONE ● [his: "compile rest 3-4 earlier and see
         │         if something comes out"] — three things came out:
