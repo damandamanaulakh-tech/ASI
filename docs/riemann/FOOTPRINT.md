@@ -167,7 +167,15 @@ POINT ZERO — his words above
         │         ● the pre-registered follow-up MEASURED on the fresh
         │         stretch: predicted band 0.3645–0.3689, measured 0.3676 —
         │         verdict FOLLOWED (rules fixed before the data existed;
-        │         the data walked into the band) → WAY3_THE_DRUM.md
+        │         the data walked into the band)
+        │         circuit 5 ● [READING] the sketch-drum H=xp: its
+        │         phase-space area IS our ledger's formula (tested exact,
+        │         12,519=12,519) — the sketch holds the LAW; its three
+        │         breaks (continuum/θ-dial boundary, no closed orbits =
+        │         no primes, Connes' absorption mirror) are exactly the
+        │         GUARD our circuits measured; what xp lacks is a
+        │         mechanism of return with periods ln p
+        │         → WAY3_THE_DRUM.md
         └─ WAY 4 ● first circuit COMPLETE — THE PRIME SHORE, [his] rule
                   "we had 3 now must be 4 minimum"; charter = Riemann's own
                   "wirkliche Zählung" (leaf 26r). Sieve to 1e8 exact

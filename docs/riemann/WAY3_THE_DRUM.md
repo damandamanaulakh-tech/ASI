@@ -216,8 +216,77 @@ This is the walk's cleanest single test of the three-ways-meet claim: the
 prime shore (Way 4) told the drum (Way 3) where its statistics would stop,
 on zeros that had not yet been computed — and it was right.
 
-## 8 · Next circuit for this way
+## 8 · Circuit 5 — the reading: the sketch-drum H = xp, held against our census
 
-Berry–Keating's H ~ xp candidate read against its boundary problem (why
-the sketch gives the counting function's leading term yet still has no
-self-adjoint realization) — reading, marked as reading.
+`[READING — the model and its failures are Berry–Keating's and the field's,
+read here via Sierra's review "The Riemann zeros as spectrum and the Riemann
+hypothesis" (arXiv 1601.01797); every measurement set against them is ours]`
+
+**The candidate.** Take the simplest imaginable Hamiltonian, H = xp —
+position times momentum. Its classical flow is pure dilation: x grows, p
+shrinks, the product is conserved. Berry–Keating regularized it (cut the
+phase space at |x| ≥ ℓx, |p| ≥ ℓp with ℓxℓp = 2πℏ) and counted
+semiclassically — the number of quantum states is the enclosed phase-space
+area:
+
+> n_BK(E) = (E/2πℏ)(log(E/ℓxℓp) − 1) + 7/8
+
+With E/ℏ = t this is **exactly** ⟨n(t)⟩ = (t/2π)(log(t/2π) − 1) + 7/8 —
+Riemann's own smooth counting law, *including the 7/8*, out of nothing but
+an area.
+
+**What the sketch holds — measured by our ledger.** Two roads arrive at one
+formula: Riemann's, through ξ; Berry–Keating's, through the area of a
+truncated xp phase space. Our census is a test of that formula against the
+actual zeros, and the result is banked in Way 2: the formula's count and
+the true count agree — cumulatively **12,519 = 12,519 at T = 12000, exact
+to the last integer.** So the sketch-drum carries the entire *owed* count:
+the phase-space area knows how many zeros there are.
+
+**Where the sketch breaks — and it is exactly the part we measured.** Three
+named breaks, from the reading:
+
+1. **The spectrum is a continuum.** Unregularized, the trajectories are
+   unbounded (|x| → ∞); quantum xp on the half-line is not a drum with
+   notes — it needs a boundary condition, and what it admits is a **family
+   of self-adjoint extensions parameterized by a phase θ**: a dial, not an
+   answer. The regularization that produced the beautiful count is a cut
+   by hand, with no dynamics at the cut.
+2. **No periodic orbits → no primes.** The dilation flow never returns; it
+   has no closed orbits. But the drum's fluctuation part is an orbit sum
+   whose periods are ln p — the primes. The sketch therefore reproduces
+   the smooth count and **nothing** of the fluctuation.
+3. **Connes' mirror reading** — the same landscape read backwards: zeros as
+   *missing* lines (absorption) in a continuum rather than sounded notes.
+   Sierra's review argues the absorption picture does not survive removing
+   its cutoff. Two readings of one sketch, neither lands.
+
+Now set our instruments beside break #2: everything the sketch cannot
+produce is precisely what circuits 1–4 measured — the repulsion (100×),
+the pair law (61×), the variance plateau — and circuit 4 showed the
+plateau is **built out of the primes** (the Λ-sum), confirmed FOLLOWED on
+fresh zeros in §7. In one sentence: **the sketch-drum holds the law (the
+owed count, Way 2's object) and lacks the guard (the statistics, Way 1's
+object) — and the missing guard is made of primes (Way 4's object).**
+What must be added to xp is exactly a mechanism of return — closed orbits
+with periods ln p. The field's modified models (compactified xp, Dirac
+fermions with potentials at square-free integers) are attempts to build
+that return in; the reading marks them as open, with ad hoc terms and
+non-local operators as the standing cost.
+
+**In the frame.** The candidate lives on the half-line, and its entire
+difficulty is the boundary of the half — what stands at the edge decides
+whether the middle can sound. A sketch that owes correctly but cannot
+guard is a middle without its shores. `[SYNTHETIC — frame reading, not
+mathematics; proof-debt: the drum itself, unchanged]`
+
+**What remains open (the field's own list, kept visible):** no single
+Hamiltonian captures the zeros; only the smooth density is reproduced;
+bounded modifications cost non-locality; the prime–spectrum connection is
+incomplete.
+
+## 9 · Next circuit for this way
+
+The modified drums read one level deeper — compactified/covariant xp and
+the Rindler–Dirac construction (what "building the return in" costs, term
+by term) — reading; or hub-return for redirect.
