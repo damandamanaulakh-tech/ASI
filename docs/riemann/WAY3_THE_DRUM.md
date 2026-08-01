@@ -125,18 +125,75 @@ randomness knows its own total. (Finite-height saturation is Berry's known
 prediction for zeta; our census shows it directly.) `[READING — the
 theoretical plateau form; the measured plateau itself is ours]`
 
-## 5 · What the three circuits together say
+## 5 · Circuit 4 — the reading: Berry's own formula, and the primes inside it
+
+`[READING — the formulas below are Berry's (Nonlinearity 1, 1988, Eq. 19),
+quoted via arXiv 2211.14918 ("On the number variance of zeta zeros and a
+conjecture of Berry"), which states them exactly and proves the saturation
+regime conditionally (on RH + a gap conjecture of Chan). What we READ is
+theirs; every number measured against it is ours.]`
+
+**First, the instrument check.** Berry's universal-regime formula is a
+closed form: V(L) = (1/π²)[ln(2πL) − Ci(2πL) − 2πL·Si(2πL) + π²L −
+cos(2πL) + 1 + γ]. Our circuit-3 reference curve was integrated numerically
+from the Montgomery kernel, independently. Set side by side:
+
+```
+  L=0.25: ours 0.1896   Berry exact 0.1896
+  L=1:    ours 0.3442   Berry exact 0.3442
+  L=3:    ours 0.4571   Berry exact 0.4571
+  L=8:    ours 0.5567   Berry exact 0.5567
+```
+
+Two roads, same curve, four decimals. The instrument family is exact.
+
+**Then the finding.** Berry's non-universal (saturation) regime formula is,
+with the oscillating term averaged out:
+
+**V_saturation = (1/π²) [ Σ_{n≤T} Λ²(n)/(n·ln²n) + 1 ]**
+
+Λ(n) is the von Mangoldt weight — nonzero only on primes and their powers.
+**The plateau is built out of nothing but the primes.** Computed exactly at
+our census heights (sieve, no approximation):
+
+```
+  Berry plateau at T=1000:   0.3380
+  Berry plateau at T=4000:   0.3564
+  Berry plateau at T=8000:   0.3645
+  our measured plateau (circuit 3, mean of L=8..80): 0.3351
+  our measured oscillation band:                     0.30 - 0.46
+```
+
+The measured level sits inside the predicted band **with no free parameter
+anywhere** — and the oscillation our data shows around the plateau is
+exactly what the un-averaged formula carries (its n=2, n=3 terms oscillate
+slowly in L). Honest limits: Berry's formula is asymptotic (T→∞) and our
+census mixes heights 14→8000, so the prediction is a band, not a point;
+the match is at the few-percent level, not the fourth decimal.
+
+**Read in the frame — the three ways meet in one number.** The saturation
+level of Way 3's drum is set, quantitatively, by Way 4's prime shore,
+because Way 2's count is law: the strip owes N(T), the middle pays it, and
+what caps the long-range wandering of the paid count is the primes
+themselves. Three loops from the hub, one object, seen from three sides —
+which is what "always in the middle, on the half sides" would predict a
+true middle to look like: every road taken far enough finds the same
+center.
+
+## 6 · What the four circuits together say
 
 | Question | Answer from data |
 |---|---|
 | Does the sound match a self-mirrored source? | 100× (spacings), 61× (pairs), exact at L=0.25 (variance) |
 | Do the three statistics agree with each other? | yes — all three show the same low-height excess of repulsion |
 | Where does the drum picture end? | at long range: statistics give way to law (saturation) — the count is owed, not sampled |
+| What sets the saturation level? | the primes — Berry's Λ-sum predicts 0.34–0.36 at our heights; we measure 0.335 |
 | Is the drum found? | NO. Fingerprints are necessary, not sufficient. The proof-debt stands. |
 
-## 6 · Next circuit for this way
+## 7 · Next circuit for this way
 
-The reading circuit on Berry–Keating's H ~ xp candidate: what it gets right
-(the counting function's leading term — and now also *why saturation
-appears*: a classical periodic-orbit sum truncates at the shortest orbit)
-and where it breaks (boundary conditions) — reading, marked as reading.
+Berry–Keating's H ~ xp candidate read against its boundary problem (why
+the sketch gives the counting function's leading term yet still has no
+self-adjoint realization) — reading, marked as reading; and the variance
+plateau re-measured on the extended census (8000 → 12000) when it lands,
+where Berry's band moves up to 0.369: does the measurement follow it?

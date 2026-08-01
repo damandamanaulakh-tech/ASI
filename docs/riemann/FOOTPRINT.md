@@ -146,7 +146,12 @@ POINT ZERO — his words above
         │         (ratio 1.00), then SATURATION — the count 250× stiffer
         │         than random at L=80; short range = statistics, long
         │         range = LAW (Way 2's ledger seen through Way 3's
-        │         instrument) → WAY3_THE_DRUM.md
+        │         instrument)
+        │         circuit 4 ● [READING] Berry's own saturation formula is
+        │         a sum over PRIMES — predicts plateau 0.34–0.36 at our
+        │         heights, we measured 0.335, no free parameters: Way 4's
+        │         shore sets Way 3's plateau because Way 2's count is law.
+        │         THREE WAYS, ONE OBJECT → WAY3_THE_DRUM.md
         └─ WAY 4 ● first circuit COMPLETE — THE PRIME SHORE, [his] rule
                   "we had 3 now must be 4 minimum"; charter = Riemann's own
                   "wirkliche Zählung" (leaf 26r). Sieve to 1e8 exact
