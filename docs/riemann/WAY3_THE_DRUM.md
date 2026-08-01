@@ -190,10 +190,34 @@ center.
 | What sets the saturation level? | the primes — Berry's Λ-sum predicts 0.34–0.36 at our heights; we measure 0.335 |
 | Is the drum found? | NO. Fingerprints are necessary, not sufficient. The proof-debt stands. |
 
-## 7 · Next circuit for this way
+## 7 · The queued check, answered: the data followed the primes upward
+
+The question was registered before the extended census existed, with verdict
+rules fixed in advance (FOLLOWED / REFUTED / AMBIGUOUS — the shift was
+expected to be small against the oscillation, so "ambiguous" was named as a
+live outcome). The census landed; the measurement:
+
+```
+                              plateau (mean, L=8..80)   Berry's prime-sum band
+ old census    (14 – 8000):        0.3351                    0.338 – 0.365
+ NEW STRETCH (8000 – 12000):       0.3676                    0.3645 – 0.3689
+ merged      (14 – 12000):         0.3472                    (mixture of both)
+```
+
+**Verdict: FOLLOWED.** The new stretch's plateau climbed from 0.335 to
+0.3676 and landed *inside* Berry's predicted band for exactly those heights
+— within half a percent of the band's center — with no free parameter
+anywhere in the chain: primes → Λ-sum → predicted plateau → fresh zeros →
+measured plateau. The prediction was registered before the data existed;
+the data walked into it. The merged census sits between the two levels, as
+a mixture of heights must.
+
+This is the walk's cleanest single test of the three-ways-meet claim: the
+prime shore (Way 4) told the drum (Way 3) where its statistics would stop,
+on zeros that had not yet been computed — and it was right.
+
+## 8 · Next circuit for this way
 
 Berry–Keating's H ~ xp candidate read against its boundary problem (why
 the sketch gives the counting function's leading term yet still has no
-self-adjoint realization) — reading, marked as reading; and the variance
-plateau re-measured on the extended census (8000 → 12000) when it lands,
-where Berry's band moves up to 0.369: does the measurement follow it?
+self-adjoint realization) — reading, marked as reading.

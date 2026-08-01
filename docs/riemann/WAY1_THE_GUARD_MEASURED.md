@@ -143,3 +143,54 @@ Way 1, first circuit: **complete.** Yield banked:
 
 Next per walking order: **Way 2 — the middle is full** (his own debt, N₀).
 First datum already in hand from this circuit. Owner may redirect at the hub.
+
+---
+
+## 8. Circuit 2, part 2 — the extension landed (8000 → 12000)
+
+**The census grew by 60%: 12,519 zeros, range (14, 12000), 12,517 arches.**
+Before trusting the merge, the rebuilt instrument was validated against every
+banked number from the first census — all gates pass; with the mirror-negative
+terms restored to the g-sum it reproduces the banked λ to ten significant
+figures. (The merge instrument now lives on disk: `extend_analysis.py`. The
+original was run inline and lost — that mistake is not repeated.)
+
+**The instrument's own troubles, on the record.** The extension nearly died
+twice before it ran (an orphaned launch, then a shell-path slip killing 3 of
+4 workers at birth — both caught by reading the record, not the launch
+message). Then it ran *slow*: every extension block reported `RESCANNED`.
+Cause found in the worker's own line 65 — a stale `min(B, 8000.0)` clamp from
+the first census's ceiling made the owed-count prediction 0 (even negative)
+above 8000, so the count-guard fired a **false alarm on every extension
+block** and rescanned at 4× density. A safety mechanism misfiring is still
+conservative — denser scanning can only find more, never fewer — so the cost
+was hours, not truth. The bug is named here so no future circuit inherits it
+silently.
+
+**What the 4,689 new zeros say:**
+
+| Block | zeros | owed (RvM) | Lehmer pairs | rate/arch | min peak | min δ |
+|---|---|---|---|---|---|---|
+| (8000, 9000) | 1,148 | 1,147.41 | 61 | 0.0531 | 0.04230 | 0.1674 |
+| (9000, 10000) | 1,164 | 1,165.13 | 69 | **0.0593** | 0.01696 | 0.1142 |
+| (10000, 11000) | 1,182 | 1,181.07 | 68 | 0.0575 | 0.01097 | 0.0909 |
+| (11000, 12000) | 1,195 | 1,195.56 | 63 | 0.0527 | 0.00899 | 0.0888 |
+
+- **The Lehmer production rate holds steady** — 0.053–0.059 per arch across
+  the new stretch, no decay through 12000 (the compilation's finding
+  extends: the guard is tested at a constant rate forever, the measured
+  support for "exactly barely true").
+- **The floor keeps sinking, lawfully** — per-window minimum peak down to
+  0.0090 at T≈11,732; still no bottom, still no touch.
+- **The record gap became typical**: the observed minimum δ = 0.0421 (the
+  7005.06 pair) now sits almost exactly ON the GUE-expected minimum for a
+  census this size (0.0418). What looked like an outlier at 8,000 zeros is
+  the *predicted* extreme at 12,519 — the guard's law, not an anomaly. The
+  parabola law tightened with it: peak ~ δ^1.97 (theory: 2).
+- **682 Lehmer pairs total** (one pair sits at the 4/5 threshold and entered
+  when the seam-duplicate cleanup nudged its g — threshold-adjacent, noted).
+- **No stronger pair found**: 4,689 fresh zeros produced nothing below
+  δ = 0.089. The strongest Λ-pressure is still the 7005.06 pair:
+  **Λ ≥ −1.778×10⁻⁴ now stands on a 60% larger census.** (g summed over all
+  12,519 zeros and their mirror negatives; tail beyond 12000 ~2×10⁻⁴ of g,
+  negligible.)

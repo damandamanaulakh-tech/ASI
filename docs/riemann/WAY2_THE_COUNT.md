@@ -15,11 +15,21 @@ Way 2 is Way 1 integrated: the guard's record, counted instead of watched.
 |---|---|---|---|
 | (0, 1000) | 649 | 649 | **0** |
 | (14, 8000) | 7,830.43 (Riemann–von Mangoldt) | 7,830 | **0** |
+| (0, 9000) | 8,978 (exact, argument principle) | 8,978 | **0** |
+| (0, 10000) | 10,142 (exact) | 10,142 | **0** |
+| (0, 11000) | 11,324 (exact) | 11,324 | **0** |
+| **(0, 12000)** | **12,519 (exact)** | **12,519** | **0** |
 
-Every zero the strip owes in our measured stretch stands on the middle. The
-extension instrument (8000 → 12000) is running now, harness-tracked after the
-first launch was orphaned (UU-6 in document 14 — the file record, not the
-notification, is the truth).
+Every zero the strip owes in our measured stretch stands on the middle — now
+to height 12000. The extension landed with a consistency stronger than
+planned: the four workers' independent per-block counts **sum exactly to the
+argument-principle count** (7,830+1,148+1,164+1,182+1,195 = 12,519 =
+N(12000) computed by `nzeros`, no rounding anywhere). One instrument note,
+kept honest: the first merged array double-counted 2 seam zeros (the 4×
+rescans re-found boundary zeros at slightly different floats), which briefly
+produced an *impossible negative deficit* — the impossibility itself flagged
+the bug, physical dedupe fixed it, and the validation suite still passes.
+An instrument that can say "impossible" out loud is the instrument working.
 
 ## 2 · The field's two roads on his debt
 

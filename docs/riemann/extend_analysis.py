@@ -27,7 +27,14 @@ def load_blocks(idxs):
     # seams - two were found this way at 999.79 and 2999.49, each a g2 whose own
     # arch fell past its block's scan edge)
     arches.sort(key=lambda a: a["g1"])
-    zs = sorted(set(round(a["g1"], 9) for a in arches) | set(round(a["g2"], 9) for a in arches))
+    raw = sorted(set(round(a["g1"], 9) for a in arches) | set(round(a["g2"], 9) for a in arches))
+    # physical dedupe: rescanned blocks re-find seam zeros at floats past the
+    # 1e-9 round; no true gap is below delta~0.04, so entries closer than 1e-4
+    # are one zero seen twice - keep the first
+    zs = [raw[0]]
+    for z in raw[1:]:
+        if z - zs[-1] > 1e-4:
+            zs.append(z)
     return blocks, arches, zs
 
 def csv_lambda(arches, zeros_arr):
@@ -39,10 +46,14 @@ def csv_lambda(arches, zeros_arr):
     for a in arches:
         gm, gp = a["g1"], a["g2"]
         D = gp - gm
-        # sum over all census zeros except the two members
+        # sum over all census zeros except the two members, PLUS their mirror
+        # negatives (-gamma) - the banked convention ("zeros and their mirror
+        # negatives"); omitting mirrors shifts g by ~1.7e-4 (the residue that
+        # was chased during validation)
         dm = Z - gm; dp = Z - gp
         mask = (np.abs(dm) > 1e-9) & (np.abs(dp) > 1e-9)
-        g = float(np.sum(1.0 / dm[mask] ** 2) + np.sum(1.0 / dp[mask] ** 2))
+        g = float(np.sum(1.0 / dm[mask] ** 2) + np.sum(1.0 / dp[mask] ** 2)
+                  + np.sum(1.0 / (Z + gm) ** 2) + np.sum(1.0 / (Z + gp) ** 2))
         D2g = D * D * g
         if D2g < 0.8:
             lam = ((1 - 5 * D2g / 4) ** 0.8 - 1) / (8 * g)
@@ -102,14 +113,17 @@ def analyze(idxs, tag, banked=None):
     slope = sum((x - mx) * (y - my) for x, y in zip(lx, ly)) / sum((x - mx) ** 2 for x in lx)
     print(f"[{tag}] peak~delta^s slope={slope:.4f} (parabola law -> 2)", flush=True)
 
-    # per-block table
+    # per-block table. pred recomputed here: the worker's own pred field is
+    # poisoned for blocks above 8000 by a stale min(B, 8000.0) clamp (the bug
+    # that made every extension block rescan on a false alarm).
     per_block = []
     for b in blocks:
         ba = [a for a in b["arches"]]
         bl = sum(1 for a in ba if round(a["g1"], 6) in lehmer_set)
         mn = min(ba, key=lambda a: abs(a["peak"]))
+        pred = smooth_N(b["B"]) - (smooth_N(b["A"]) if b["A"] > 14.2 else 0.0)
         per_block.append({"A": b["A"], "B": b["B"], "zeros": b["zeros_in_block"],
-                          "pred": b["pred"], "arches": len(ba), "lehmer": bl,
+                          "pred": pred, "arches": len(ba), "lehmer": bl,
                           "rate": bl / len(ba), "min_peak": abs(mn["peak"]),
                           "min_delta": min(a["delta"] for a in ba)})
     for pb in per_block:

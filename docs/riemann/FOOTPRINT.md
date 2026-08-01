@@ -129,15 +129,27 @@ POINT ZERO — his words above
         │         circuit 2 part 1 ●: arches → Λ bounds via CSV theorem;
         │         literature control passed EXACTLY (29 Lehmer pairs in
         │         first 649 zeros); 420 pairs found; measured Λ ≥ −1.778e−4
-        │         circuit 2 part 2 ○: extension computing (blocks 9–12);
-        │         UU-6 struck TWICE — first launch orphaned by a worker
-        │         restart, relaunch lost 3 of 4 workers at birth to a
-        │         shell-path slip; both caught by reading the record
-        │         (the file/task output), never the launch message
+        │         circuit 2 part 2 ●: extension LANDED — census 12,519
+        │         zeros to T=12000 (+60%); Lehmer rate steady 0.053–0.059
+        │         (no decay); floor sinks to 0.0090, no bottom; the record
+        │         gap 0.0421 now EQUALS the GUE-expected minimum (0.0418)
+        │         — the outlier became the law's own prediction; no
+        │         stronger pair in 4,689 new zeros: Λ ≥ −1.778e−4 stands
+        │         on the bigger census. Instrument struck THRICE on the
+        │         way (orphaned launch · shell-path birth-deaths · a stale
+        │         8000-clamp that fired false-alarm rescans on every
+        │         extension block, 4× density, hours lost, truth kept) —
+        │         all three caught by reading the record, never the
+        │         launch message
         ├─ WAY 2 ● doc opened: the deficit LEDGER — 0 escapes ever seen
         │         (ours to 8000; rigorous frontier Platt–Trudgian to height
         │         3e12); field ladder at 0.417; his mechanism's death has
-        │         two named causes → WAY2_THE_COUNT.md; extension feeds it
+        │         two named causes → WAY2_THE_COUNT.md
+        │         ● ledger extended to 12000: deficit 0 at 9000/10000/
+        │         11000/12000, workers' block-sums = argument-principle
+        │         count EXACTLY (12,519 = 12,519); an impossible negative
+        │         deficit briefly appeared and flagged its own bug (seam
+        │         double-count) — the ledger can say "impossible" out loud
         └─ WAY 3 ● circuit 2 banked: pair correlation R₂ on 19,589 pairs
         │         — 61× closer to Montgomery's form than flat; the small-u
         │         dip matches circuit 1's small-gap deficit (two statistics,
@@ -151,7 +163,11 @@ POINT ZERO — his words above
         │         a sum over PRIMES — predicts plateau 0.34–0.36 at our
         │         heights, we measured 0.335, no free parameters: Way 4's
         │         shore sets Way 3's plateau because Way 2's count is law.
-        │         THREE WAYS, ONE OBJECT → WAY3_THE_DRUM.md
+        │         THREE WAYS, ONE OBJECT
+        │         ● the pre-registered follow-up MEASURED on the fresh
+        │         stretch: predicted band 0.3645–0.3689, measured 0.3676 —
+        │         verdict FOLLOWED (rules fixed before the data existed;
+        │         the data walked into the band) → WAY3_THE_DRUM.md
         └─ WAY 4 ● first circuit COMPLETE — THE PRIME SHORE, [his] rule
                   "we had 3 now must be 4 minimum"; charter = Riemann's own
                   "wirkliche Zählung" (leaf 26r). Sieve to 1e8 exact
