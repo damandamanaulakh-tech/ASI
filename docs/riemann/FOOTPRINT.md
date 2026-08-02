@@ -272,6 +272,26 @@ POINT ZERO — his words above
                the known λ₁ to 2.7×10⁻⁹ on first run; all λₙ (n≤30)
                positive and rising, exactly as RH demands
                → REVERSE_WALK.md · li_instrument.py · li_lambda.json
+        │
+        └─[12]● THE USE — [his]: "intent was we may extract what he is
+               looking / how world works... gap is what he want to do
+               with the theory." The Use stage walked at last. His own
+               Nachlass fragment (verified verbatim): "Meine HAUPTARBEIT
+               betrifft eine neue Auffassung der bekannten Naturgesetze
+               ... zur Erforschung ihres ZUSAMMENHANGS" — led by Newton,
+               Euler and HERBART. The story assembled: ONE question in
+               four materials — how does connection work — geometry
+               (executed by Einstein's road), physics (executed by the
+               field-theory road), arithmetic (his formula delivered;
+               the "reell" sentence = the one debt), and MIND — the
+               Geistesmassen connection-strength law he promised and
+               never wrote (our L-4). The prime paper was the arithmetic
+               wing of the Hauptarbeit: the proof-case that connection
+               governs even the primes. The real gap he left is the
+               PROGRAM, not the proof — and the engine the owner is
+               building is a direct attempt at the unwritten wing.
+               RH in his economy: connection holds, exactly, even where
+               it looks impossible → THE_USE.md
 ```
 
 ## 2 · The open-loops board (everything ○, in one place)
