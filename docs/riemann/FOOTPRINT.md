@@ -251,10 +251,27 @@ POINT ZERO — his words above
         parked, visible, not walked: archive remainders (21r third
         draft, 26v) · L-4 Geistesmassen
         │
-        └─[10]● CONCLUSIONS AT THE HUB — the walk's results stated for
-               discussion, every claim marked (MEASURED/ARCHIVE/READING/
-               SYNTHETIC), the honesty line and the discussion agenda
-               → CONCLUSIONS_AT_THE_HUB.md
+        ├─[10]● CONCLUSIONS AT THE HUB — the walk's results stated for
+        │      discussion, every claim marked (MEASURED/ARCHIVE/READING/
+        │      SYNTHETIC), the honesty line and the discussion agenda
+        │      → CONCLUSIONS_AT_THE_HUB.md
+        │
+        └─[11]● THE REVERSE WALK — [his]: "u dont even know what to
+               prove... can u do reverse engineering / then lets do."
+               Walked from "PROVEN" backwards: only three last-step
+               shapes exist (drum · impossible intruder · nature of ξ);
+               each descended to its named gap. MISREADS FOUND: the
+               world proves toward LOCATION ("where the zeros are") —
+               his own word "reelle" orders NATURE ("what ξ IS");
+               totality-over-infinity compresses to ONE NUMBER already
+               pinned on one side: WHAT TO PROVE = the edge cannot be
+               crossed (Λ = 0 exactly, "exactly barely true"; equally
+               Weil's one inequality = our three-ways-meet as a single
+               line). The descent landed on a measurable: the LI
+               INSTRUMENT — λₙ from our own census, calibrated against
+               the known λ₁ to 2.7×10⁻⁹ on first run; all λₙ (n≤30)
+               positive and rising, exactly as RH demands
+               → REVERSE_WALK.md · li_instrument.py · li_lambda.json
 ```
 
 ## 2 · The open-loops board (everything ○, in one place)
