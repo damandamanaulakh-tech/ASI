@@ -254,3 +254,42 @@ landing). Census: **22,491 zeros to T = 20000** — 2.9× the original.
   stands at ~30,000 arches (reach ≳ 26000), p falls under 0.08 and the
   finding hardens; a single new record below 0.0421 at any point closes
   it as fluctuation.
+
+## 11. Circuit 2, part 5 — reach 26000: the registered verdict, read without bending
+
+Blocks 21–26 landed clean — every count within 1 of what theory owes, the
+count-guard silent across all six. Census: **30,324 zeros to T = 26000** —
+3.9× the original walk, every one on the middle, deficit 0 at all 18
+ledger checkpoints.
+
+| Block | zeros | owed | Lehmer | rate | min δ |
+|---|---|---|---|---|---|
+| (20000, 21000) | 1,288 | 1,287.60 | 77 | 0.0598 | 0.1075 |
+| (21000, 22000) | 1,295 | 1,295.18 | 68 | 0.0525 | 0.0668 |
+| (22000, 23000) | 1,302 | 1,302.41 | 77 | 0.0591 | 0.0577 |
+| (23000, 24000) | 1,310 | 1,309.34 | 78 | 0.0595 | 0.0775 |
+| (24000, 25000) | 1,316 | 1,315.97 | 74 | 0.0562 | 0.0593 |
+| (25000, 26000) | 1,322 | 1,322.34 | 90 | **0.0681** | 0.0827 |
+
+**THE WATCH-ITEM VERDICT — the pre-registered rule, applied exactly:**
+
+- **The record stood.** 7,833 fresh arches, and no gap came anywhere near
+  0.042098382293 (closest new: 0.0577). The finding was NOT closed.
+- **But the p-line was NOT crossed.** At 30,321 arches the survival
+  probability is **p = 0.0837** — above the registered 0.08 threshold.
+  The registration estimated "~30,000 arches" would cross; the exact
+  arithmetic needs **30,870 arches — we landed 549 short.** The
+  registered estimate was optimistic and the instrument does not bend
+  for its own registration: verdict **STILL OPEN, not hardened.** p has
+  fallen 0.16 → 0.084 across one landing (halved, fittingly), and the
+  crossing sits at **reach ≈ 26,450** — if the record still stands there.
+- **The bound held.** No new landmark: γ = 17143.7865 keeps the strongest
+  bound, **Λ ≥ −1.560×10⁻⁴**, unchanged through six new blocks.
+- **1,713 Lehmer pairs total.** Block 26's rate 0.0681 is the highest of
+  the whole walk (prior high 0.0603) — one block, one witness, logged as
+  a watch, not a finding.
+- **The parabola law holds at 2.1249** (slope of peak vs δ over the 60
+  smallest arches; law says 2).
+- Instrument note: the endpoint union found one zero past the scan edge
+  (26000.7613) — the known seam-orphan pattern, excluded from all counts
+  above, which are exact at T = 26000.

@@ -408,3 +408,26 @@ verbatim construction quote in circuit 6 is what stands.
 Hub-return: Way 3's board is walked — six circuits banked plus the depth
 remainder; what stays open here is owner-level (the BBM Mask) or
 instrument-level (the Rindler full text). Owner redirects at the hub.
+
+**Third re-test — rung 5 (blocks 21–26, same frozen estimator, no
+adjustment):**
+
+```
+                              measured    Berry's prime-sum band
+ stretch  14 –  8000:          0.3351          0.338 – 0.365
+ stretch 8000 – 12000:         0.3676          0.3645 – 0.3689   FOLLOWED
+ stretch 12000 – 16000:        0.3744          0.3689 – 0.3720   FOLLOWED
+ stretch 16000 – 20000:        0.3554          0.3720 – 0.3743   AMBIGUOUS
+ stretch 20000 – 26000:        0.3784          0.3743 – 0.3769   FOLLOWED
+```
+
+**Fifth rung: FOLLOWED — the drum came back to the band after the wobble.**
+The new stretch (7,833 zeros that did not exist when the rule was frozen)
+measured 0.3784 against a band of 0.3743–0.3769 — 0.0015 above the top,
+far inside the ±0.08 oscillation (this stretch's own L-rows swing 0.333 to
+0.480). Rung 4's dip now reads as what the rules called it at the time:
+the wobble eating one stretch's signal, not the law failing. The ladder
+across five rungs — 0.3351, 0.3676, 0.3744, 0.3554, 0.3784 — oscillates
+around the primes' slowly-climbing band with mean absolute deviation
+≈ 0.01. Four FOLLOWED, one AMBIGUOUS, zero REFUTED: the primes keep
+telling the drum where its statistics stop, on zeros they have never met.

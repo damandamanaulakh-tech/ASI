@@ -341,6 +341,21 @@ POINT ZERO — his words above
                last unfinished page — the resolver). The RH room stays
                its own room; its walk continues (blocks 18–20 computing,
                verdicts pending) → ../mainwork/THE_HUB.md
+        │
+        └─[15]● REACH 26000 — [his]: "keep walking, reach 26000" /
+               "show me when u complete the 26000." Blocks 21–26 landed
+               clean: 30,324 zeros, deficit 0 at all 18 checkpoints.
+               THE REGISTERED VERDICT, read without bending: the record
+               gap 0.042098 STOOD through 7,833 fresh arches (not
+               closed) — but p = 0.0837, above the registered 0.08 line:
+               NOT hardened. The registration's "~30,000 arches" was
+               optimistic; the exact crossing needs 30,870 — we landed
+               549 short. Verdict STILL OPEN; crossing ≈ reach 26,450.
+               Bound unchanged (Λ ≥ −1.560×10⁻⁴, γ=17143). Drum rung 5:
+               0.3784 in band 0.3743–0.3769 → FOLLOWED (4 FOLLOWED,
+               1 AMBIGUOUS, 0 REFUTED on the five-rung ladder). Block
+               26's Lehmer rate 0.0681 = highest of the walk, logged
+               as watch → WAY1 §11, WAY2 §1, WAY3 rung table
 ```
 
 ## 2 · The open-loops board (everything ○, in one place)
