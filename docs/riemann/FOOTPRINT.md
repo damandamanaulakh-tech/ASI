@@ -154,6 +154,20 @@ POINT ZERO — his words above
         │         (17,425 = 17,425 exact)
         │         plateau second re-test: 0.3744 vs band 0.3689–0.3720 —
         │         FOLLOWED AGAIN (three rungs, one law)
+        │         circuit 2 part 4 ●: reach 20000 LANDED — census 22,491
+        │         (2.9× original), ledger deficit 0 through 20000
+        │         (22,491 = 22,491 exact); NEW LANDMARK pair at
+        │         γ=17143.79 (δ=0.0445, #2 all-time) TIGHTENS the bound
+        │         first time in the walk: Λ ≥ −1.560e−4 (from −1.778e−4);
+        │         THE WATCH PROMOTED per registered rule: record gap
+        │         0.0421 unbroken at 22,488 arches (expected 0.0344) —
+        │         named finding, priced honestly at p≈0.16 under the GUE
+        │         law (weak alone; hardens under 0.08 if it survives
+        │         ~30,000 arches; one new record closes it);
+        │         plateau rung 4: 0.3554 vs band 0.3720–0.3743 —
+        │         AMBIGUOUS per registered rules (first non-FOLLOWED,
+        │         led with: inside the ±0.08 wobble; the ladder of four
+        │         rungs still tracks the primes' band, mean |dev| ≈ 0.01)
         ├─ WAY 2 ● doc opened: the deficit LEDGER — 0 escapes ever seen
         │         (ours to 8000; rigorous frontier Platt–Trudgian to height
         │         3e12); field ladder at 0.417; his mechanism's death has

@@ -22,10 +22,14 @@ Way 2 is Way 1 integrated: the guard's record, counted instead of watched.
 | (0, 13000) | 13,728 (exact) | 13,728 | **0** |
 | (0, 14000) | 14,950 (exact) | 14,950 | **0** |
 | (0, 15000) | 16,182 (exact) | 16,182 | **0** |
-| **(0, 16000)** | **17,425 (exact)** | **17,425** | **0** |
+| (0, 16000) | 17,425 (exact) | 17,425 | **0** |
+| (0, 17000) | 18,678 (exact) | 18,678 | **0** |
+| (0, 18000) | 19,941 (exact) | 19,941 | **0** |
+| (0, 19000) | 21,211 (exact) | 21,211 | **0** |
+| **(0, 20000)** | **22,491 (exact)** | **22,491** | **0** |
 
 Every zero the strip owes in our measured stretch stands on the middle — now
-to height 12000. The extension landed with a consistency stronger than
+to height 20000, through 22,491 zeros. The extension landed with a consistency stronger than
 planned: the four workers' independent per-block counts **sum exactly to the
 argument-principle count** (7,830+1,148+1,164+1,182+1,195 = 12,519 =
 N(12000) computed by `nzeros`, no rounding anywhere). One instrument note,
@@ -134,6 +138,6 @@ every soul.
 
 ## 6 · Next circuits for this way
 
-- extension census lands (blocks 13–16 computing) → ledger row to 16000;
+- census extended and exact through 20000; next reach when ordered;
 - the deficit ledger at sampled greater heights (spot-checks with the
   count-guard, not full sweeps).

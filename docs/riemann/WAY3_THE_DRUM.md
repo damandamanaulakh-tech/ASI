@@ -219,7 +219,19 @@ a mixture of heights must.
  stretch  14 –  8000:          0.3351          0.338 – 0.365
  stretch 8000 – 12000:         0.3676          0.3645 – 0.3689   FOLLOWED
  stretch 12000 – 16000:        0.3744          0.3689 – 0.3720   FOLLOWED
+ stretch 16000 – 20000:        0.3554          0.3720 – 0.3743   AMBIGUOUS
 ```
+
+**Fourth rung: AMBIGUOUS — the first non-FOLLOWED, led with, not buried.**
+The stretch measured 0.3554 — below its band by 0.017 and below the prior
+rung — but the deviation sits well inside the ±0.08 oscillation the
+un-averaged formula itself carries (this stretch's own L-rows swing 0.288
+to 0.471). Per the pre-registered rules that is AMBIGUOUS: the wobble ate
+the signal at this stretch. Across all four rungs the ladder still tracks
+the primes' band (two clean FOLLOWED, one a hair above, one inside-noise
+below; mean absolute deviation from band ≈ 0.01) — the law stands on the
+ladder, not on any single rung. Registered for the next stretch: same
+rules, no adjustment of the estimator.
 
 **FOLLOWED a second time**: the plateau climbed again, in step with the
 primes' climb, on a second set of zeros that did not exist when the rule

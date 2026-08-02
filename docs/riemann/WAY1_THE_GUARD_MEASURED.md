@@ -220,3 +220,37 @@ Census now **17,425 zeros to T = 16000** — 2.2× the original.
   hasn't. One census is one witness; but the direction matches the
   low-height excess repulsion seen in Way 3's circuits 1–3. If the lag
   persists at 20000 and beyond, it is a finding; for now it is a watch.
+
+
+## 10. Circuit 2, part 4 — reach 20000: a new landmark, a tightened bound, and the watch promoted
+
+Blocks 17–20 landed clean (preds exact, zero rescans; block 17 in a prior
+landing). Census: **22,491 zeros to T = 20000** — 2.9× the original.
+
+| Block | zeros | owed | Lehmer | rate | min δ |
+|---|---|---|---|---|---|
+| (16000, 17000) | 1,253 | 1,253.04 | — | — | — |
+| (17000, 18000) | 1,263 | 1,262.41 | 70 | 0.0554 | **0.0445** |
+| (18000, 19000) | 1,270 | 1,271.25 | 69 | 0.0543 | 0.0976 |
+| (19000, 20000) | 1,280 | 1,279.63 | 73 | 0.0570 | 0.0965 |
+
+- **A new landmark pair — and the bound tightens for the first time in the
+  walk.** The pair at **γ = 17143.7865** (δ = 0.0445, the second-smallest
+  ever seen) is tighter in raw gap than the 7005 landmark (smaller mean
+  spacing at height), and through the CSV theorem it takes over the
+  strongest bound: **Λ ≥ −1.560×10⁻⁴** (from −1.778×10⁻⁴ — a 12%
+  tightening). The guard was tested harder, and the squeeze on "exactly
+  barely true" improved.
+- **1,249 Lehmer pairs**; the production rate holds 0.054–0.057 — steady
+  through the ninth thousand.
+- **The watch-item: PROMOTED, and priced.** The record gap 0.042098
+  survived its third census unbroken — at 22,488 arches the GUE-expected
+  minimum is 0.0344; the record now sits 22% above the law's expectation.
+  Per the pre-registered rule this is promoted from watch to **named
+  finding: persistent excess repulsion at record depth** — and priced
+  honestly: under the GUE small-gap law the record's survival probability
+  is **p ≈ 0.16** — a one-in-six chance, a persistent direction, weak as
+  evidence on its own. Confirmation test registered: if the record still
+  stands at ~30,000 arches (reach ≳ 26000), p falls under 0.08 and the
+  finding hardens; a single new record below 0.0421 at any point closes
+  it as fluctuation.
