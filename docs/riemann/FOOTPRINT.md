@@ -292,6 +292,28 @@ POINT ZERO — his words above
                building is a direct attempt at the unwritten wing.
                RH in his economy: connection holds, exactly, even where
                it looks impossible → THE_USE.md
+        │
+        └─[13]● THE UNFINISHED — [his]: "find on same what is
+               unfurnoished, not linked, left alone." The whole bucket
+               inventoried: 6 UNFINISHED (the reell proof · N₀ · the
+               ξ-expansion (Siegel closed it 73 yrs late) · the
+               Hauptarbeit fragments · the Geistesmassen supplement ·
+               MECHANIK DES OHRES — his last page, the EAR, unfinished
+               at death, printed in a medicine journal: the man died
+               mid-sentence on a physical drum) · 2 LEFT ALONE (the
+               1858 electrodynamics flagship he withheld — same hand
+               that struck "offenbar": one behavior · the wirkliche-
+               Zählung charter, which our Way 4 finally ran) · 5 NOT
+               LINKED (wing↔building · geometry↔physics (Einstein) ·
+               Geistesmassen↔mathematics · zeros↔spectrum · and the ONE
+               link he DID finish that the world forgot: the waves
+               explain WHERE primes crowd and thin). The pending
+               pipeline reconstructed: proof → exact local law → count
+               at scale → fold into the building → the mind wing.
+               LIVE REMAINDER, nobody's in 167 years: the edge (Λ=0) ·
+               his concept-road · the connection-strength law · the
+               ear's question — two of four are this walk's standing
+               work → THE_UNFINISHED.md
 ```
 
 ## 2 · The open-loops board (everything ○, in one place)
