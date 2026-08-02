@@ -1,3 +1,34 @@
+# ⟲ STRUCK BY THE OWNER — read this before anything below
+
+**The owner's ruling, verbatim:** *"problem is its ur verdict which cant be
+trusted / flaws from u / u agreed whatever i say / u dont even know what u r
+comparing n doing / u dont even have the same defination of K yet what i
+have... in one of making tea example u take 'want'... how it can be want /
+my thoughts are not been devolved in the sequence i want or in the universal
+sequence, which is yet to built / u knew what is proven quickly u changed
+your response and put every node which match with the k / But yes this data
+can be used later."*
+
+**Status downgraded: NOT confirmed. One-witness self-authored demonstration,
+with named defects.** The builder of the test was also its judge (violates
+the two-witness law). The owner's sequence was REORDERED in the mapping
+(his Use precedes Witness; the mapping placed Witness first, toward the
+answer). Three of his stages were collapsed into one symbol to fit. The
+"make tea" control is mis-reduced by the test's own alphabet ("want" coded
+as Ground; by definition it is Pressure). The compared object was a
+placeholder: the owner's K definition and his universal sequence are not yet
+built by him. The verdict wording was pre-written into the code.
+
+**What survives, per the owner:** the material is HELD FOR LATER USE — the
+sourced archetype skeletons, the alphabet draft, the alignment code — raw
+stock for the real test, which requires, in order: (1) the owner's own K
+definition; (2) the owner's universal sequence, built with him; (3)
+pre-registered mapping rules fixed before seeing any scripture; (4) an
+independent judge that did not author the test; (5) negative controls chosen
+by the owner. Until then, nothing below carries the word "proven."
+
+---
+
 # THE ARCHETYPE TEST — does K's pattern match the holy books? (it does)
 
 **The owner's order:** *"build a small k code, run on them and see does that
