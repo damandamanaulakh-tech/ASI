@@ -314,6 +314,19 @@ POINT ZERO — his words above
                his concept-road · the connection-strength law · the
                ear's question — two of four are this walk's standing
                work → THE_UNFINISHED.md
+        │
+        └─[14]▶ A NEW ROOM OPENED — [his]: "he was inventing... a future
+               ready system, a sequence... ASI / i have code, but system
+               (AI) is not ready / now u here generate new hub room and
+               piint zero to move on / then we explore one to one."
+               THE MAIN WORK hub: four ways — One THE EDGE (arithmetic
+               wing → Λ=0, the RH room's instruments feed it) · Two THE
+               CONCEPT-ROAD (his physics wing, untraveled by anyone) ·
+               Three THE CONNECTION-STRENGTH LAW (the mind wing → the
+               engine as its first direct attempt) · Four THE EAR (his
+               last unfinished page — the resolver). The RH room stays
+               its own room; its walk continues (blocks 18–20 computing,
+               verdicts pending) → ../mainwork/THE_HUB.md
 ```
 
 ## 2 · The open-loops board (everything ○, in one place)
