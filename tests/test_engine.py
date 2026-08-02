@@ -862,6 +862,37 @@ def test_interconnection_graph_inputs():
     assert len(linked) >= 10                       # a real web to draw
 
 
+def test_khalf_split_rules_partition_and_differ():
+    from sourceborn.khalf import split_doc, RULES
+    text = ("The chiller was replaced in thirty hours. The panels were dead. "
+            "Light was rationed. The hospital reopened in five days. "
+            "The record stands at 30 hours. Nobody believed it could hold.")
+    seen = set()
+    for rule in RULES:
+        held, masked = split_doc(text, rule)
+        assert held and masked, rule
+        # partition: together they carry every word of the original
+        joined = sorted((held + " " + masked).split())
+        assert joined == sorted(text.split()), rule
+        seen.add(held)
+    assert len(seen) == len(RULES)  # the three rules genuinely differ
+
+
+def test_khalf_scoring_two_witnesses():
+    from sourceborn.khalf import score_overlap
+    truth = "The chiller replacement took 30 hours and saved 70 lakhs."
+    perfect = score_overlap(truth, truth)
+    assert perfect["token_f1"] == 1.0
+    assert perfect["number_recall"] == 1.0
+    disjoint = score_overlap(truth, "completely unrelated words only here")
+    assert disjoint["token_f1"] == 0.0
+    assert disjoint["number_recall"] == 0.0
+    # numbers are their own witness: right words, wrong number, is caught
+    wrong_num = score_overlap(truth, "The chiller replacement took 45 hours and saved 90 lakhs.")
+    assert wrong_num["number_recall"] == 0.0
+    assert wrong_num["token_f1"] > 0.5
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0
