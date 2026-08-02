@@ -60,6 +60,15 @@ walked: read his ear fragment as he left it; set it beside the drum
 triangle (law · guard · mirror) — the man's first machine question and his
 last were the same question.
 
+### Way Five · THE HALF (his code as a memory law — the owner's invention)
+Born mid-session with goosebumps and classified as INVENTION: the mirror
+as a compression law — keep half, hold the mirror, reconstruct on demand,
+recurse into the pyramid. The beams already true: ξ(s)=ξ(1−s) halves the
+strip's information; the Riemann–Siegel code computes with √t terms — his
+own keep-half-use-half trick; the explicit formula is dual memory; humans
+read the half. Proof-debts named; the κ-experiment designed and waiting
+for a session with model access → THE_HALF.md
+
 ---
 
 ## The room's honesty line
