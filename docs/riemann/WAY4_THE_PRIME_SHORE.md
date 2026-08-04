@@ -1,0 +1,258 @@
+# WAY 4, first circuit — the prime shore: his actual count, run
+
+The fourth loop of the hub, opened at the owner's rule (*"we had 3 now must
+be 4 minimum"*), chartered by Riemann himself on leaf 26r: he wanted his
+formula in the hands of **practical calculators**, so one would run **"eine
+wirkliche Zählung der Primzahlen"** — an actual count — and compare it with
+the laws his formula states. This circuit is that count.
+
+Ways 1–3 watch the zeros. This way stands on the other shore: **the primes
+themselves**, exactly sieved, no zeta machinery in the measurement. If the
+middle (the half) is real, it must be visible from here — as an **exponent**.
+
+---
+
+## 1. The count
+
+Sieve of Eratosthenes to 10⁸, exact:
+
+| Control | Result |
+|---|---|
+| π(10⁸) from our sieve | **5,761,455** |
+| π(10⁸), known value | 5,761,455 — **exact match** |
+
+5.76 million primes, counted, not estimated. Errors measured at 60 log-spaced
+points, two classical error functions:
+
+- **π(x) − Li(x)** — the count against Gauss's logarithmic integral
+- **ψ(x) − x** — Chebyshev's weighted count against x (the textbook object:
+  under RH its size is bounded by √x·log²x/8π — Schoenfeld)
+
+```
+      x          pi(x)      pi-Li      psi-x    (psi-x)/sqrt(x)
+     1,000          168       -9.6       -3.3      -0.105
+    10,397        1,273      -16.1       27.1      +0.266
+   108,118       10,285      -47.5      -51.1      -0.156
+ 1,124,210       87,466     -113.5     -119.7      -0.113
+11,689,518      768,976     -246.2     +328.4      +0.096
+37,693,909    2,301,503     -548.1    -1975.5      -0.322
+```
+
+## 2. The half, seen from this shore
+
+Two measurements, and their honest reading:
+
+**The ratio stays bounded.** |ψ(x) − x| / √x over the whole sampled range:
+maximum **0.51**, oscillating in sign, no drift. If a zero stood off the
+middle at real part Θ > ½, this ratio would **grow like x^(Θ−½)** — it does
+not grow at all. That is the half's signature in raw prime data.
+
+**The raw exponent fit reads 0.574** — and this number must be read
+correctly, not triumphantly. The fit of log|ψ−x| against log x over a finite
+oscillating signal carries two honest inflations: the error's known log
+factors (under RH the envelope is √x·log²x, whose *local* slope at these
+heights is ≈ 0.5 + 2/ln x ≈ 0.6), and the oscillation itself (dips near sign
+changes distort the regression). The discriminating measurement is the
+bounded ratio above, not the raw slope. A true Θ = 0.574 zero would make
+|E|/√x drift upward by a factor ~x^0.074 ≈ 2.3 across our range — the data
+shows a flat band instead.
+
+**Verdict of the shore:** the half holds in the primes as far as this count
+reaches. Same clause as every circuit: a measured range is a middle, never an
+end.
+
+## 3. His formula against his requested count — the comparison he asked for
+
+The explicit formula, with **our own 1000 computed roots** (the same roots
+from the periodic-terms execution), against the exact sieve:
+
+| x | actual π(x) | his formula (1000 waves) | error |
+|---|---|---|---|
+| 10⁶ | 78,498 | 78,500.65 | +2.65 |
+| 10⁷ | 664,579 | 664,580.72 | +1.72 |
+| 10⁸ | 5,761,455 | 5,761,433.87 | −21.13 |
+
+**A thousand waves land within 21 of 5.76 million** — relative error
+4×10⁻⁶ — and the growth of the error with x at fixed root count is the
+expected truncation behaviour, not a failure: larger x needs more waves,
+exactly as his letter's framing implies (track the *einzelnen* periodic
+terms — each term carries a share of the count).
+
+This table is, as literally as we can make it, the comparison Riemann asked
+an unknown future calculator to perform: **the actual count against the laws
+of his formula.** The laws hold.
+
+## 4. Returned to the hub
+
+- Charter executed: the count run, the comparison made, the formula's laws
+  confirmed at the 4×10⁻⁶ level with 1000 waves.
+- The half is visible from the prime shore as a bounded ratio — the middle's
+  fingerprint in data that never touches ζ.
+- The raw-slope caveat is recorded so no future circuit mistakes a log
+  factor for an off-middle zero.
+
+Instruments archived: `way4_primeshore.py`, results in `way4_results.json`.
+
+---
+
+## 5. Circuit 2 — the reach ×10, and the armed falsifier
+
+Circuit 1 said the discriminating measurement is the **bounded ratio**, and a
+bounded-ratio claim gets stronger only one way: more reach. Circuit 2 extends
+the count one full decade and adds a second, sharper instrument.
+
+**Predictions, written before the run** (the Doubt discipline — the
+instrument must be allowed to fail): π(10⁹) = 50,847,534 exactly, or the
+instrument is broken; the band stays flat (~0.6 max) with no upward drift in
+the new decade; the falsifier does not fire.
+
+### The count, one decade further
+
+Segmented sieve to 10⁹, exact: **π(10⁹) = 50,847,534 — exact match** with
+the known value (and π(10⁸) reproduced in passing at segment 10). Fifty
+million primes, counted.
+
+### The band, one decade further
+
+```
+   x      psi(x)-x     |psi-x|/sqrt(x)
+  10^3        -3.3        0.105
+  10^4       +13.4        0.134
+  10^5       +51.6        0.163
+  10^6      -413.4        0.413
+  10^7     -1460.6        0.462
+  10^8     -1757.2        0.176
+  10^9     +1596.0        0.050
+             max over 49 sampled points: 0.549
+```
+
+Six decades, sign flipping throughout, maximum **0.549** — a flat band, no
+drift. An off-middle zero at Θ would drift this ratio up like x^(Θ−½); the
+new decade adds another factor of detectability, and the band did not move.
+
+### The falsifier that does not fire
+
+Under RH it is **proved** (Schoenfeld 1976) that |ψ(x) − x| < √x·ln²x / 8π
+for x ≥ 74. The contrapositive is an armed instrument: **one measured
+violation at one x would disprove RH outright.** We measured the ratio
+|ψ−x|·8π / (√x·ln²x) at all 49 points across six decades:
+
+```
+maximum 0.2123 — the falsifier never comes within 4.7x of firing
+```
+
+Honest reading of the silence: non-violation proves nothing (the bound is
+the necessary direction only) — but this is the strongest *kind* of negative
+instrument the shore offers: it is exact, it is proven, and a single firing
+anywhere would have ended the question in the other direction.
+
+### The caveat became a measurement
+
+Circuit 1's raw exponent fit read 0.574 and was recorded with a caveat: the
+inflation is the log factor plus finite-range oscillation, not a signal.
+Circuit 2 tests that caveat: refit over the extended range —
+
+**raw slope 0.574 → 0.484.**
+
+One added decade and the fitted exponent fell *through* ½. That is exactly
+how a √x-envelope oscillating signal behaves under regression — the fit
+straddles the true exponent and tightens toward it with range — and exactly
+not how a genuine Θ = 0.574 zero would behave (the fit would hold or rise).
+The caveat is no longer an argument; it is a measured fact.
+
+### Returned to the hub
+
+- All three pre-written predictions held; the falsifier stays silent with a
+  4.7× margin.
+- The half's signature in raw prime data now spans six decades, and the one
+  number that looked like it pointed away from ½ (0.574) fell to 0.484 the
+  moment the range grew — the shore's strongest statement yet that the
+  middle holds.
+- Next circuit for this way, if walked again: reach 10¹⁰ (background
+  instrument), and π(x)−Li(x) sign question read honestly (Littlewood: it
+  flips, first flip far beyond any sieve — reading, marked as reading).
+
+Instruments archived: `way4_reach.py`, results in `way4_reach.json`.
+
+---
+
+## 6. Circuit 3 — the illusion on the shore: Littlewood's flip, read
+
+`[READING — the theorem is Littlewood's (1914); the bound chain is the
+field's (Skewes; Lehman; te Riele; Bays–Hudson; Saouter–Demichel–Trudgian;
+Zegowitz); our own table is the measured part]`
+
+**What our shore shows.** In circuit 1's table, π(x) − Li(x) is negative at
+**every** sampled point: −9.6 at 10³, −47.5 at 10⁵, −113.5 at 10⁶, −548.1
+at 3.8×10⁷. Gauss's Li overshoots the count everywhere we have ever
+stood. The world's data agrees: *no x is known — anywhere, by anyone —
+with π(x) > Li(x).*
+
+**What is proved anyway.** Littlewood, 1914: π(x) − Li(x) **changes sign
+infinitely often.** The proof is non-constructive — it names no crossing;
+it only guarantees the crossing exists. The bound chain has spent a
+century closing in on the first one: Skewes (under RH) 10^10^10^34 →
+te Riele ~6.69×10³⁷⁰ → Bays–Hudson ~1.4×10³¹⁶ → the modern expected first
+crossover **≈ 1.397×10³¹⁶** (Demichel; Saouter–Demichel–Trudgian region).
+Our sieve reaches 10⁹. The flip lives some **307 orders of magnitude
+beyond our shore** — and beyond every shore that will ever be sieved.
+
+**Why this circuit matters to the walk — it is the method, proved in
+arithmetic.** Millions of agreeing data points, every witness ever
+consulted, one unanimous pattern — and the pattern is a **proven
+illusion**. All of it is still ONE witness: the low heights. This is the
+mathematical justification, inside the walk's own subject, for the
+one-witness cap: a carried pattern, however long carried, is testimony
+about where you stood, never a law of where you haven't. (The two-witness
+rule is not caution. Here it is a theorem.)
+
+**The drum inside the illusion.** What eventually flips the sign is the
+interference of the zeros' waves — the oscillating terms of his explicit
+formula, the same waves our 1000 roots carry. And under RH the crossing
+region is *computed*: the middle predicts where the illusion breaks,
+three hundred orders beyond anywhere we can stand. The shore's most
+famous "obvious fact" is false, and the zeros know where.
+
+**Standing for this way:** reach 10¹⁰ remains the named background
+instrument; the shore otherwise returns to the hub.
+
+---
+
+## 7. Circuit 4 — the shore at ten billion
+
+Four predictions registered before the run; four held. Sieve to 10¹⁰
+(1,000 segments, 92 seconds), both counting controls exact:
+
+| Control | Result |
+|---|---|
+| π(10¹⁰) | **455,052,511 — exact match** |
+| π(10⁹), reproduced in passing | 50,847,534 — exact |
+
+```
+   x       psi(x)-x      band |psi-x|/sqrt(x)   Schoenfeld ratio
+  10^3         -3.3          0.105                 0.055
+  10^5        +51.6          0.163                 0.031
+  10^7      -1460.6          0.462                 0.045
+  10^9      +1596.0          0.050                 0.003
+  10^10    +42119.8          0.421                 0.020
+        max over 61 samples:  0.549 (unchanged)    0.2123 (unchanged)
+```
+
+- **The band did not rise.** Seven decades now, sign still flipping, and
+  the maximum is the same 0.549 the six-decade run had — the new decade
+  added detectability and detected nothing. A zero at Θ = 0.574 would
+  have multiplied the band's growth ×1.19 per decade, ×3.2 over the run
+  — absent.
+- **The falsifier stays silent at the same margin** (0.2123, and a very
+  quiet 0.020 at 10¹⁰ itself).
+- **The raw slope settled to 0.475**: the sequence 0.574 (6 decades) →
+  0.484 (7) → 0.475 (8, this run) — wobbling ever closer around ½ from
+  both sides, exactly as an oscillating √x-envelope must.
+
+One more honest observation the circuit forces: the shore now reaches
+**two full decades beyond the drum's measured heights** — ten billion
+integers in 92 seconds against 1,200 zeros in 2.5 hours. Counting primes
+is cheap; hearing zeros is dear. Riemann's charter to the "praktische
+Rechner" was better economics than he could have known: the shore is
+where reach is bought, and the middle's signature survives at every
+reach yet purchased.

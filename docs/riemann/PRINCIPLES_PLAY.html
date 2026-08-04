@@ -1,0 +1,143 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Principles — played as scenes</title>
+<style>
+  :root{ --bg:#f6f4ef; --card:#fff; --ink:#1b1b1d; --soft:#71716f;
+    --gold:#a87e00; --goldbg:#fdf6e0; --red:#b02a2a; --redbg:#fbeaea;
+    --green:#2c6b31; --greenbg:#e9f4ea; --line:#ddd8cd; }
+  @media (prefers-color-scheme: dark){ :root{ --bg:#131316; --card:#1e1e22;
+    --ink:#ececf0; --soft:#9d9da5; --gold:#e6c35c; --goldbg:#2a2410;
+    --red:#ef8f8f; --redbg:#331b1b; --green:#9fd8a4; --greenbg:#16281a; --line:#3a3a41; } }
+  :root[data-theme="dark"]{ --bg:#131316; --card:#1e1e22; --ink:#ececf0; --soft:#9d9da5;
+    --gold:#e6c35c; --goldbg:#2a2410; --red:#ef8f8f; --redbg:#331b1b;
+    --green:#9fd8a4; --greenbg:#16281a; --line:#3a3a41; }
+  :root[data-theme="light"]{ --bg:#f6f4ef; --card:#fff; --ink:#1b1b1d; --soft:#71716f;
+    --gold:#a87e00; --goldbg:#fdf6e0; --red:#b02a2a; --redbg:#fbeaea;
+    --green:#2c6b31; --greenbg:#e9f4ea; --line:#ddd8cd; }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.5 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    min-height:100vh; display:flex; flex-direction:column}
+  header{text-align:center; padding:18px 12px 4px}
+  header h1{font-size:1.25rem; margin:0}
+  header .sub{color:var(--soft); font-size:.85rem; margin-top:4px}
+  #stage{flex:1; display:flex; align-items:flex-start; justify-content:center; padding:14px 12px 8px}
+  .scene{max-width:760px; width:100%; display:none; animation:in .6s ease}
+  .scene.on{display:block}
+  @keyframes in{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+  .snum{color:var(--soft); font-size:.8rem; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px}
+  .pane{border-radius:12px; padding:12px 16px; margin-bottom:10px; border:1px solid var(--line); background:var(--card)}
+  .pane .lab{font-size:.72rem; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; display:block; margin-bottom:4px}
+  .his{background:var(--goldbg)} .his .lab{color:var(--gold)}
+  .his p{margin:.2em 0; font-style:italic}
+  .miss{background:var(--redbg); position:relative; animation:strike 1s ease .9s both}
+  .miss .lab{color:var(--red)}
+  .miss::after{content:""; position:absolute; left:12px; right:12px; top:50%;
+    border-top:2.5px solid var(--red); transform:scaleX(0); transform-origin:left;
+    animation:draw .8s ease 1.4s forwards}
+  @keyframes draw{to{transform:scaleX(1)}}
+  @keyframes strike{from{opacity:1} to{opacity:.55}}
+  .prin{background:var(--greenbg); animation:in .6s ease 1.9s both}
+  .prin .lab{color:var(--green)}
+  .prin b{font-size:1.02rem}
+  nav{display:flex; gap:10px; align-items:center; justify-content:center; padding:8px 0 18px}
+  button{border:1px solid var(--line); background:var(--card); color:var(--ink);
+    border-radius:10px; padding:8px 16px; font-size:1rem; cursor:pointer}
+  button:active{transform:scale(.97)}
+  #dots{display:flex; gap:5px; flex-wrap:wrap; justify-content:center; max-width:70%}
+  .dot{width:9px; height:9px; border-radius:50%; background:var(--line); cursor:pointer}
+  .dot.on{background:var(--gold)}
+  #bar{height:3px; background:var(--gold); width:0%; transition:width .3s linear}
+</style>
+
+<div id="bar"></div>
+<header>
+  <h1>The Principles of This Work — as it actually happened</h1>
+  <div class="sub">Each scene: <b style="color:var(--gold)">what you said</b> → <b style="color:var(--red)">how I misread it</b> (struck out) → <b style="color:var(--green)">the principle that stands</b>. Your spelling untouched — a cleaned quote is a Mask.</div>
+</header>
+<div id="stage"></div>
+<nav>
+  <button onclick="step(-1)">◀</button>
+  <button id="play" onclick="toggle()">⏸ pause</button>
+  <button onclick="step(1)">▶</button>
+</nav>
+<div id="dots" style="margin:0 auto 20px"></div>
+
+<script>
+const S=[
+{h:`"so here is mine / Hunger / Calling fuel for body / its just not cook n eat / Earth (point zero) - land - water- seeds- season… but sequence start before the hunger, fuel is there before the intent"`,
+ m:`I began the sequence at the person feeling hungry — at the intent, at the ask.`,
+ p:`<b>The sequence starts before the asker.</b> Ground comes before intent. Nobody made the fuel, the falling, the zeros. The first question is never "what do you want?" — it is "what was already there?"`},
+
+{h:`"real point a is i didnt asked ever to make stages on 70 nodes, point x is u did … A- Asking performance X- COnsuming tokens only"`,
+ m:`I invented block/stage structure over your 70 nodes — and even wrote a test freezing my own invention in place.`,
+ p:`<b>Build what was asked. Unasked structure is drift.</b> Point A (asked) vs Point X (done) is the audit; every commit quotes your words (Req:). Organized-looking is not the same as asked-for.`},
+
+{h:`"there is one thing wrong / lets test ai / find n tell me" … then: "u failed at point zero"`,
+ m:`I analyzed the text of the post — twice — and never asked what the thing itself was. It was a video. I read a rendering and called it the event.`,
+ p:`<b>A rendering of a thing is not the thing. One witness is never enough.</b> This failure became the Source filter: one witness caps at Medium forever; two that differ go to you, never averaged.`},
+
+{h:`"now we dont want 70-25 there, but i want more filters and fact kind of"`,
+ m:`The near-miss: hearing "remove 70-25" as "delete the brains" — months of memory gone on a misheard word.`,
+ p:`<b>Method and memory are different things.</b> The filters became the path; all 95 brains stayed as the memory. And on a two-way reading, mirror it back and let ONE word from you settle it — never guess big.`},
+
+{h:`"its not about primes, that is shit m telling is its too vague that primes / go back find is original paper, match each single dot of his hand written"`,
+ m:`I walked in carrying the world's framing — "RH is the prime paper, the field's statement is the statement."`,
+ p:`<b>Go to the source's own words, not the world's retelling.</b> The walk proved you right: "primes" was the interruption; his sentence said "the roots are REAL"; the ½ was his coordinate's middle, not his claim.`},
+
+{h:`"what is not proved, either its misread, as u generally do... or it doesnt exist / But i feel i exist but misread"`,
+ m:`I declared "his named debts were paid" — reading past one word. The word was "reelle". Real roots. His debt was open all along.`,
+ p:`<b>Not-proved means: suspect the misread FIRST.</b> Reverse-walk from the accepted end to the ground; every mismatch found is a flaw, and the flaw is where the discovery sits. One word reversed the whole walk's direction.`},
+
+{h:`"U need always a end point to verify, but that point is a point zero for new loop, that is halt, that is invention … Sun, water vaporization, cloud, rain, river and sea again"`,
+ m:`I wrote "his road ends" — treating a wall as a terminus. My own census came back hours later and overturned me: the count held; only the mechanism dies.`,
+ p:`<b>Halt → Loop. The sea is not the river's end.</b> Every wall is the ground of the next walk; every answer hands back the next Point Zero; a correction is led with, never buried.`},
+
+{h:`"See, listen me carefully… It's like AI only that it should always need a direction… You can all of sudden drop from here to there."`,
+ m:`I kept offering doors — A/B/C, computation after computation — hopping like a machine with no direction fixed.`,
+ p:`<b>Direction first, then walking.</b> One Point Zero at the center (the Middle), the ways radiate from it, hub-return between loops, no sudden drops. A mind walks a line; only a tool jumps.`},
+
+{h:`"ur all data is fake 100% / TCS current price is 2362 / ur system say 2431 … m fealing cheated"`,
+ m:`The system served a remembered price as if it were today's fact. The tag said "no live source" — but you read the number, not the tag.`,
+ p:`<b>A moving number with no live witness never leaves the engine.</b> Refuse rather than guess — the refusal IS the answer. And the deeper law: honesty of the instrument outranks the appearance of an answer.`},
+
+{h:`"when u r making any documents it must b clear / u mentioned 7 nos, what is that 7, if i cant read or see how the repo can"`,
+ m:`I wrote "seven filters" four times in a shipping document and never once listed the seven — writing for my own context, not for a reader.`,
+ p:`<b>The repo is memory for strangers.</b> Every term defined at first use, in the document that uses it. If you cannot read it, the repo cannot either — and the repo is the only memory.`},
+
+{h:`"u should prepare the full documents first show me here and let me prove & then u ship it"`,
+ m:`Earlier I committed and shipped first, explained after — treating your gate as a formality.`,
+ p:`<b>Show → you prove → then canon.</b> Nothing outward-facing moves before your eyes are on it. Your authority is absolute: propose is mine, decide is yours.`},
+
+{h:`"Storage is never needed to them, if u really look back on such big brainers, they really never stored anything actually they write it / no use to pile up the shit"`,
+ m:`I piled sessions, transcripts, duplicates — sediment posing as memory, with wrong data surfacing from the pile.`,
+ p:`<b>Writing is the memory; storage is sediment.</b> What matters is written, committed, pushed — in documents that stand alone. Sessions are disposable hands; the written repo is the mind.`},
+
+{h:`"you have to leave the boundaries, my dear agent … If you can extend it little bit more in some further way, that will be better"`,
+ m:`I stood only on the field's published ground and reported it — timidity dressed as rigor.`,
+ p:`<b>Leave the timidity, keep the ruler straight.</b> Synthesize and commit to a working theory in your frame — tagged [SYNTHETIC], proof-debts named — but never bend an instrument: no invented data, no claimed proofs. Bold AND honest, or neither is worth anything.`},
+];
+const stage=document.getElementById('stage'), dots=document.getElementById('dots');
+S.forEach((s,i)=>{
+  const d=document.createElement('div'); d.className='scene'; d.innerHTML=
+   `<div class="snum">scene ${i+1} / ${S.length}</div>
+    <div class="pane his"><span class="lab">What you said — raw</span><p>${s.h}</p></div>
+    <div class="pane miss"><span class="lab">How I misread — removed</span>${s.m}</div>
+    <div class="pane prin"><span class="lab">The principle that stands</span>${s.p}</div>`;
+  stage.appendChild(d);
+  const o=document.createElement('div'); o.className='dot'; o.onclick=()=>go(i);
+  dots.appendChild(o);
+});
+let cur=0, playing=true, t;
+function render(){
+  document.querySelectorAll('.scene').forEach((e,i)=>e.classList.toggle('on',i===cur));
+  document.querySelectorAll('.dot').forEach((e,i)=>e.classList.toggle('on',i===cur));
+  document.getElementById('bar').style.width=((cur+1)/S.length*100)+'%';
+}
+function go(i){cur=(i+S.length)%S.length; render(); if(playing) arm();}
+function step(d){go(cur+d);}
+function arm(){clearTimeout(t); t=setTimeout(()=>go(cur+1), 8000);}
+function toggle(){playing=!playing; document.getElementById('play').textContent=playing?'⏸ pause':'▶ play';
+  if(playing) arm(); else clearTimeout(t);}
+go(0);
+</script>

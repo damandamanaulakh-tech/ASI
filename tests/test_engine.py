@@ -229,15 +229,15 @@ def test_run_walk_per_node_urr_and_holds():
     # every step is an SB node with its own URR review + memory write-back
     for s in walk["steps"]:
         assert s["sb_id"].startswith("SB-")
-        assert s["urr_id"].startswith("URR-")
+        assert s["urr_id"] == "FIL"          # reviewed by the seven filters
         assert s["verdict"] in ("pass", "hold")
         assert s["memory_written"] is True
         assert s["why"]
     # offline + "current data" -> at least one hold (no live source), loop-back-able
     assert walk["hold_count"] == len(walk["holds"]) >= 1
     assert all(h["sb_id"] for h in walk["holds"])
-    # the SB node downloaded the URR intake into its own memory
-    assert any("urr_intake" in e.tags
+    # the SB node downloaded the filter intake into its own memory (the revert)
+    assert any("filter_intake" in e.tags
                for e in eng.memory.brain("SB-33").read_all())
 
 
@@ -416,31 +416,32 @@ def test_prose_claim_still_uses_lenses():
     assert res.output.lanes["domain"]["domain"] == "prose"
 
 
-def test_every_ask_runs_all_70_and_all_25_no_skips():
-    # The user-stated requirements, exactly: every ask goes through all 70 SB
-    # and all 25 URR with zero skips, with NO stages/blocks — each SB node is
-    # reviewed by ITS OWN URR and absorbs the intake before the next node runs.
+def test_every_ask_runs_all_70_through_all_7_filters():
+    # No stages, no blocks, and no 70×25. Every ask goes through all 70 SB
+    # nodes, and every node's finding passes ALL SEVEN filters in order before
+    # the next node runs — then absorbs the filter intake (the revert).
+    from sourceborn.filters import FILTER_IDS
     eng = _engine()
     w = eng.run_walk("why does the small idea win?")["walk"]
     sb_fired = {s["sb_id"] for s in w["steps"]}
     assert sb_fired == {f"SB-{i:02d}" for i in range(1, 71)}   # all 70, none skipped
     assert "blocks" not in w                                   # no block grouping
-    # one URR review PER NODE (SB-N → URR → SB-N absorbs → SB-N+1)
-    assert len(w["pairs"]) == 70
+    assert len(w["pairs"]) == 70                               # one review per node
     for p in w["pairs"]:
-        assert len(p["sb"]) == 1                               # single-node review
-    # SB-1 is reviewed before SB-2 even runs: pair order mirrors node order
+        assert len(p["sb"]) == 1
     assert w["pairs"][0]["sb"] == ["SB-01"] and w["pairs"][1]["sb"] == ["SB-02"]
+    # every node saw all seven gates, in order, no skips
+    for f in w["filters"]:
+        assert [g["gate"] for g in f["gates"]] == list(FILTER_IDS)
     # the intake fed back into the node's own brain (the revert)
     tags = [t for e in eng.memory.brain("SB-01").read_all() for t in e.tags]
-    assert "urr_intake" in tags
-    # closing integrity sweep ran (URR-19..25, run-level roles)
-    assert [c["gate"] for c in w["closing"]] == [f"URR-{i}" for i in range(19, 26)]
-    # every one of the 25 URR performed work this ask
-    for i in range(1, 26):
-        uid = f"URR-{i:02d}"
-        p = eng.memory.brain(uid).meta["parameters"]
-        assert p.get("Verifications_Performed", 0) >= 1, f"{uid} skipped"
+    assert "filter_intake" in tags
+    # run-level sweep: the same seven filters over the whole run
+    assert [c["gate"] for c in w["closing"]] == list(FILTER_IDS)
+    # every one of the seven performed work this ask
+    for fid in FILTER_IDS:
+        p = eng.memory.brain(fid).meta["parameters"]
+        assert p.get("Verifications_Performed", 0) >= 1, f"{fid} skipped"
 
 
 def test_every_node_does_its_own_work():
@@ -464,10 +465,10 @@ def test_urr_gates_have_distinct_roles():
     assert names["URR-10"] == "Doubt & Falsifier"      # Core of URR
     assert names["URR-15"] == "Human Context Gate"
     assert names["URR-25"] == "Full Run Integrity & Human Final Gate"
+    # the 25 URR brains stay configured as MEMORY — the filters are the METHOD
     eng = _engine()
-    w = eng.run_walk("why does the small idea win?")["walk"]
-    intakes = {p["intake"] for p in w["pairs"]} | {c["intake"] for c in w["closing"]}
-    assert len(intakes) >= 15                          # each URR verifies ITS thing
+    for i in range(1, 26):
+        assert eng.memory.brain(f"URR-{i:02d}") is not None
 
 
 def test_brain_parameters_grow_with_use():
@@ -477,12 +478,36 @@ def test_brain_parameters_grow_with_use():
     eng.run_walk("first ask")
     eng.run_walk("second ask")
     assert eng.memory.brain("SB-20").meta["parameters"]["Runs_Completed"] == 2
-    # per walk: URR-10 primaries SB-19..28 (10 per-node reviews) + 70 matrix
-    # sweeps = 80; two walks = 160 — its own loop, many times per run
-    assert eng.memory.brain("URR-10").meta["parameters"]["Verifications_Performed"] == 160
-    # feed-back into memory: block nodes hold the URR intake download
+    # each filter runs once per node (70) plus once run-level = 71 per walk;
+    # two walks = 142 — its own loop, many times per run
+    for fid in ("FIL-1", "FIL-3", "FIL-7"):
+        assert eng.memory.brain(fid).meta["parameters"]["Verifications_Performed"] == 142
+    # feed-back into memory: every node holds the filter intake download
     tags = [t for e in eng.memory.brain("SB-33").read_all() for t in e.tags]
-    assert "urr_intake" in tags and "node_finding" in tags
+    assert "filter_intake" in tags and "node_finding" in tags
+
+
+def test_present_fact_refuses_moving_numbers_without_live():
+    # Born from the live failure: TCS shown at 2431 while the market said 2362.
+    # A moving number with no live witness must NOT leave the engine — the
+    # answer itself is the refusal, and no remembered price can slip through.
+    from sourceborn.present_fact import is_present_fact
+    assert is_present_fact("what is TCS current share price") is True
+    assert is_present_fact("price of TCS stock") is True
+    assert is_present_fact("today's nifty score") is True
+    assert is_present_fact("why does the small idea win?") is False
+    eng = _engine()
+    res = eng.run("what is the current share price of TCS?")
+    a = res.output.answer.lower()
+    assert "cannot tell you this number" in a          # the refusal IS the answer
+    assert "live source" in a
+    assert res.output.confidence == "Low"
+    assert any("present-fact" in g.description for g in res.gaps)
+    # with a live witness the figure may pass — capped, and marked verify-first
+    res2 = eng.run("what is the current share price of TCS?",
+                   live_override="TCS trading at 2362.00 INR (NSE, 30 Jul 2026 15:12 IST)")
+    assert res2.output.confidence in ("Medium", "Low")  # never High on one witness
+    assert "verify" in res2.output.answer.lower()
 
 
 def test_chat_store_roundtrip():
@@ -501,30 +526,71 @@ def test_chat_store_roundtrip():
     assert full["payload"]["output"]["answer"] == "direct answer"
 
 
-def test_matrix_70x25_no_skips():
-    # "every ask must go through each 70 SB and 70x25 URR without any skip"
-    from sourceborn.urr_matrix import MATRIX
-    assert len(MATRIX) == 25
+def test_seven_filters_no_skips():
+    # every ask goes through 70 SB nodes and all 7 filters, no skip
+    from sourceborn.filters import FILTER_IDS
+    assert len(FILTER_IDS) == 7
     eng = _engine()
     w = eng.run_walk("why does the small idea win?")["walk"]
     m = w["matrix"]
-    assert m["per_node"] == 25 and m["total"] == 70 * 25   # 1,750 micro-reviews
-    for s in w["steps"]:                                    # every node carries its row
-        assert s["matrix_pass"] + len(s["matrix_flags"]) == 25
-    # every URR brain performed the full sweep (70 matrix + its gate work)
-    for i in range(1, 26):
-        p = eng.memory.brain(f"URR-{i:02d}").meta["parameters"]
+    assert m["per_node"] == 7 and m["total"] == 71 * 7   # 70 nodes + run-level
+    for s in w["steps"]:                                 # every node carries its row
+        assert s["matrix_pass"] + len(s["matrix_flags"]) == 7
+    for fid in FILTER_IDS:                               # each filter's own brain grew
+        p = eng.memory.brain(fid).meta["parameters"]
         assert p.get("Verifications_Performed", 0) >= 70
+    assert [c["gate"] for c in w["closing"]] == list(FILTER_IDS)
 
 
-def test_matrix_flags_real_issues():
-    from sourceborn.node_work import Finding, WalkContext
-    from sourceborn.urr_matrix import review_node
-    ctx = WalkContext(raw_text="a claim", ladder_conf="Low", classification="Claim")
-    flags = review_node("SB-24", Finding("this is always guaranteed and obviously true"), ctx)
-    assert flags.get("URR-10") == "absolutes"               # Doubt filter bites
-    clean = review_node("SB-01", Finding("raw source locked untouched: 7 chars"), ctx)
-    assert "URR-10" not in clean
+def test_one_witness_never_reaches_high():
+    # The cap, and the reason this whole pass exists: one rendering of a thing
+    # is not the thing. However good a single source is, it stops at Medium.
+    from sourceborn import witnesses as W
+    solo = W.read("the small idea wins",
+                  [W.Witness("the small idea wins because it moves", "live", W.WITNESSED)])
+    assert solo.confidence == "Medium" and not solo.halt
+    two = W.read("the small idea wins",
+                 [W.Witness("the small idea wins because it moves", "live", W.WITNESSED),
+                  W.Witness("the small idea wins because it moves", "corpus", W.ORIGINAL)])
+    assert len(two.witnesses) == 1        # near-identical text = ONE origin restated
+    from sourceborn.evidence import ladder_confidence
+    led = [{"evidence_tag": "FACT"}]
+    assert ladder_confidence(led) == "High"                  # rung alone
+    assert ladder_confidence(led, witnesses=1) == "Medium"    # capped
+    assert ladder_confidence(led, witnesses=2) == "High"
+
+
+def test_mask_is_found_between_two_witnesses():
+    # The real case: asserted in the letter, hedged in print. The gap IS the
+    # finding — it halts, and it is never averaged or picked between.
+    from sourceborn import witnesses as W
+    letter = W.Witness("the roots of the equation xi are all real",
+                       "draft letter", W.ORIGINAL)
+    printed = W.Witness("it is very probable that all roots of xi are real",
+                        "printed paper", W.CARRIED)
+    r = W.read("roots of the equation xi are real", [letter, printed])
+    assert r.halt is True
+    assert any(m.kind == "softened" for m in r.masks)
+    assert r.confidence == "Medium"          # a gap never delivers as High
+    # an ellipsis is a witness that something was removed
+    assert W.excisions_in("I would like ... to add the remark") == ["..."]
+    # and two documents merely differing in vocabulary is NOT a mask
+    a = W.Witness("the cat sat on the mat in the kitchen", "a", W.ORIGINAL)
+    b = W.Witness("entirely unrelated prose about shipping", "b", W.ORIGINAL)
+    assert W.read("the cat sat on the mat", [a, b]).masks == []
+
+
+def test_sequence_places_the_ask():
+    from sourceborn import sequence as S
+    assert S.is_invention("build me a logo for a tea shop") is True
+    assert S.is_invention("why does gravity pull?") is False
+    assert S.place("why does the small idea win?")[0] == S.EXPRESSION
+    assert S.place("the proof fails here, it is stuck")[0] == S.HALT
+    assert S.place("what is it really called, the term")[0] == S.NAMING
+    assert S.place("check his original manuscript")[0] == S.WITNESS
+    # step 8: a halt is handed back as the next Point Zero, never as an ending
+    nxt = S.next_ask(S.HALT, "evidence", "the count")
+    assert "Point Zero" in nxt and "the count" in nxt
 
 
 def test_pyramid_files_every_finding():
@@ -721,12 +787,13 @@ def test_per_node_walk_no_stages():
     assert len(w["pairs"]) == 70 and all(len(p["sb"]) == 1 for p in w["pairs"])
     order = [p["sb"][0] for p in w["pairs"]]
     assert order == [f"SB-{i:02d}" for i in range(1, 71)]   # N reviewed before N+1
-    # function-matched reviewers, not positional blocks
-    by_sb = {p["sb"][0]: p["gate"] for p in w["pairs"]}
-    assert by_sb["SB-20"] == "URR-10"      # Doubt Engine → Doubt & Falsifier
-    assert by_sb["SB-40"] == "URR-13"      # Merge Proposal → Merge Integrity
-    assert by_sb["SB-58"] == "URR-20"      # Re-Anchor → Re-Anchor Verification
-    assert by_sb["SB-64"] == "URR-22"      # Final Output → Output Integrity
+    # Req: "now we dont want 70-25 there, but i want more filters and fact kind
+    # of" — the reviewer is the seven filters, the same seven for every node.
+    assert {p["gate"] for p in w["pairs"]} == {"FIL"}
+    from sourceborn.filters import FILTER_IDS, FILTER_NAMES
+    for f in w["filters"]:
+        assert [g["gate"] for g in f["gates"]] == list(FILTER_IDS)
+        assert [g["name"] for g in f["gates"]] == [FILTER_NAMES[i] for i in FILTER_IDS]
 
 
 def test_node_definitions_are_file_driven():
@@ -793,6 +860,77 @@ def test_interconnection_graph_inputs():
     linked = [n.sb_id for n in SB_NODES
               if eng.memory.brain(n.sb_id).meta["parameters"].get("Connected_Points")]
     assert len(linked) >= 10                       # a real web to draw
+
+
+def test_khalf_split_rules_partition_and_differ():
+    from sourceborn.khalf import split_doc, RULES
+    text = ("The chiller was replaced in thirty hours. The panels were dead. "
+            "Light was rationed. The hospital reopened in five days. "
+            "The record stands at 30 hours. Nobody believed it could hold.")
+    seen = set()
+    for rule in RULES:
+        held, masked = split_doc(text, rule)
+        assert held and masked, rule
+        # partition: together they carry every word of the original
+        joined = sorted((held + " " + masked).split())
+        assert joined == sorted(text.split()), rule
+        seen.add(held)
+    assert len(seen) == len(RULES)  # the three rules genuinely differ
+
+
+def test_khalf_scoring_two_witnesses():
+    from sourceborn.khalf import score_overlap
+    truth = "The chiller replacement took 30 hours and saved 70 lakhs."
+    perfect = score_overlap(truth, truth)
+    assert perfect["token_f1"] == 1.0
+    assert perfect["number_recall"] == 1.0
+    disjoint = score_overlap(truth, "completely unrelated words only here")
+    assert disjoint["token_f1"] == 0.0
+    assert disjoint["number_recall"] == 0.0
+    # numbers are their own witness: right words, wrong number, is caught
+    wrong_num = score_overlap(truth, "The chiller replacement took 45 hours and saved 90 lakhs.")
+    assert wrong_num["number_recall"] == 0.0
+    assert wrong_num["token_f1"] > 0.5
+
+
+def test_witnesses_halt_when_the_number_differs():
+    """The TCS case itself: two witnesses, same words, different figure.
+    Before this, identical claim-words meant no Mask and the pair reached
+    High — the exact failure the layer exists to stop."""
+    from sourceborn.witnesses import Witness, read, ORIGINAL, WITNESSED
+    a = Witness("TCS share price is 2362 on the exchange", "broker", ORIGINAL)
+    b = Witness("TCS share price is 2431 as quoted", "model memory", WITNESSED)
+    r = read("TCS share price", [a, b])
+    assert r.halt is True, "two witnesses differing on the NUMBER must halt"
+    assert r.confidence != "High"
+    assert any(m.kind == "conflict" for m in r.masks)
+    # and agreement on the figure still passes
+    c = Witness("TCS share price is 2362 confirmed", "second broker", WITNESSED)
+    r2 = read("TCS share price", [a, c])
+    assert not any(m.kind == "conflict" for m in r2.masks)
+
+
+def test_present_fact_does_not_refuse_stable_concepts():
+    """'price elasticity' and 'rate of change' are concepts, not quotes.
+    Substring matching used to refuse them as moving numbers."""
+    from sourceborn.present_fact import is_present_fact
+    assert is_present_fact("what is price elasticity?") is False
+    assert is_present_fact("explain the rate of change in calculus") is False
+    assert is_present_fact("explain value investing") is False
+    # while real quotes still qualify
+    assert is_present_fact("what is TCS current share price") is True
+    assert is_present_fact("bitcoin price now") is True
+    assert is_present_fact("what is the price today") is True
+
+
+def test_present_fact_catches_time_marked_number_asks():
+    """A time-marked ask that wants a number back is a present fact even
+    when it names no market word."""
+    from sourceborn.present_fact import is_present_fact
+    assert is_present_fact("what is the current population of India") is True
+    assert is_present_fact("how much is gold today") is True
+    # but a time-marked NON-number ask is not this rule's business
+    assert is_present_fact("current CEO of OpenAI") is False
 
 
 def _run_all():

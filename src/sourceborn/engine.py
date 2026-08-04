@@ -27,6 +27,7 @@ from .doubt import doubt_engine, falsifier as make_falsifier, witness
 from .dots import dot_connections, merge_proposal
 from .drift_guard import reality_reanchor
 from .evidence import build_ledger, ladder_confidence
+from .filters import FILTER_IDS, FILTER_NAMES, run_gates
 from .fuel import diagnose_stall, inject as inject_fuel
 from .grounding import default_grounding
 from .enums import (
@@ -47,6 +48,7 @@ from .pyramid import UnfiledQueue, file_finding, file_urr, unfiled_from_input
 from .urr_matrix import MATRIX, review_node
 from .parameters import COMPARISON_AXES, PARAMETER_BANK
 from .persona import Persona
+from .present_fact import is_present_fact, refusal as present_fact_refusal, verify_note
 from .wisdom import WisdomBank
 
 # ``live_override`` sentinel for the on-device private lane: skip live grounding
@@ -82,8 +84,8 @@ class NodeStep:
     why: str
     memory_written: bool
     can_loop_back: bool
-    matrix_pass: int = 0                    # of the 25 URR filters (70×25 matrix)
-    matrix_flags: list[str] = field(default_factory=list)   # "URR-10:absolutes"
+    matrix_pass: int = 0                    # of the 7 filters this node cleared
+    matrix_flags: list[str] = field(default_factory=list)   # "FIL-3:hold"
 
 
 class SourcebornEngine:
@@ -322,12 +324,24 @@ class SourcebornEngine:
             self._t("SB-33", "live_grounding", "running" if live else "gap_open",
                     note="live data" if live else "no live source")
 
-        # Stage 4 — Evidence ladder + source tags (SB-29)
+        # Stage 4 — Evidence ladder + source tags (SB-29), capped by witnesses.
+        # The rung says how good the best source is; the count says how many
+        # independent ones there are. One is never enough to reach High.
         corpus_refs = [m[8:] for m in matched if m.startswith("corpus:")]
         ledger = build_ledger(micro, bool(live), corpus_refs)
-        ladder_conf = ladder_confidence(ledger)
+        # The ASK is not evidence for its own answer. Counting the prompt as a
+        # witness made every question with one live lookup read as two
+        # witnesses, which walked straight past the one-witness cap — the cap
+        # being the whole point. Only sources OUTSIDE the question count:
+        # the corpus, and live eyes. (Your own document is different: when you
+        # hand over a private doc, that IS a source, so it counts.)
+        n_wit = len({w for w in (
+            "own" if private_doc else "",
+            "corpus" if corpus_refs else "",
+            "live" if live else "") if w})
+        ladder_conf = ladder_confidence(ledger, witnesses=n_wit)
         self._t("SB-29", "evidence_ledger", "running",
-                note=f"ladder confidence {ladder_conf}")
+                note=f"ladder confidence {ladder_conf} · {n_wit} independent witness(es)")
 
         # 7. URR VERIFY ----------------------------------------------------
         packet = self.urr_micropass("URR-08", "SB-08", raw_text, live=live,
@@ -384,7 +398,30 @@ class SourcebornEngine:
                 f"{[k for k, v in core['lenses'].items() if v['active']]}\n"
                 f"EVIDENCE: {ladder_conf} (rungs {[e['evidence_tag'] for e in ledger]})"
             )
-        draft = active_model.complete(system=self.persona.voice_guidance(), prompt=prompt)
+        # PRESENT-FACT HARD RULE (born from the live TCS failure: 2431 shown
+        # while the market said 2362). A moving number with no live witness
+        # does not leave the engine — the answer IS the refusal, deterministic,
+        # because model prose is exactly the thing being refused. With one
+        # live witness the number may pass, capped and marked verify-first.
+        #
+        # The refusal is decided BEFORE the model is called: asking a paid
+        # model for a number we have already resolved to refuse would spend
+        # money and send the prompt out for prose that gets discarded.
+        present_fact = (not private_doc) and is_present_fact(raw_text)
+        if present_fact and not live:
+            draft = present_fact_refusal(raw_text)
+            halts.append(HaltType.EVIDENCE.value)
+            gaps.append(GapItem("present-fact ask with no live eyes — moving "
+                                "number refused, never guessed", "Evidence",
+                                "High", loop_for_halt(HaltType.EVIDENCE).value))
+            self._t("SB-33", "present_fact_block", "held",
+                    note="moving quantity + no live source -> refused before "
+                         "the model was called")
+        else:
+            draft = active_model.complete(system=self.persona.voice_guidance(),
+                                          prompt=prompt)
+            if present_fact and live:
+                draft = draft + verify_note("one live source")
 
         # Stage 3 — Doubt Engine + Witness (SB-20/22): attack before delivery
         doubt = doubt_engine(draft, bool(live), len(matched))
@@ -471,6 +508,8 @@ class SourcebornEngine:
             classification_out = (Classification.REVIEW_ONLY.value if non_resolution
                                   else packet.classification)
             confidence_out = "Low" if (doubt["bites"] or gaps or halts) else ladder_conf
+            if present_fact and confidence_out == "High":
+                confidence_out = "Medium"   # a price is one witness from wrong
         out = Output(
             answer=draft,
             lanes=lanes,
@@ -607,20 +646,22 @@ class SourcebornEngine:
 
     def run_walk(self, raw_text: str, model: BaseModel | None = None,
                  live_override: str | None = None) -> dict:
-        """The per-node walk — NO stages, NO blocks (user requirement):
+        """The per-node walk — NO stages, NO blocks, and NO 70×25 matrix.
 
-            SB-N works → its function-matched URR reviews THAT node →
-            the URR intake feeds back into SB-N's memory (the revert) →
-            only then SB-N+1.
+            SB-N works → the SEVEN FILTERS review THAT node → the filter intake
+            feeds back into SB-N's memory (the revert) → only then SB-N+1.
 
-        Every SB node runs ITS OWN job and writes ITS OWN finding into ITS OWN
-        brain. Its primary URR (SB_PRIMARY_URR — role-matched, editable in
-        core/node_definitions.json) reviews it immediately; ALL 25 URR filters
-        additionally sweep every node (the 70×25 matrix). Support verifiers
-        (URR-01..07) fire on node-completion events; the closing integrity
-        sweep (URR-19..25) runs after SB-70 because those roles are defined as
-        end-of-run checks. Each URR loops many times per run — its own loop,
-        as the core demands.
+        Every SB node still runs ITS OWN job and writes ITS OWN finding into ITS
+        OWN brain — the memory is untouched and keeps growing. What changed is
+        what reviews it. The 25-wide URR sweep is gone; in its place every
+        finding passes seven gates, in order, every time:
+
+            Ground · Sequence · Source · Mask · Fact · Halt · Loop
+
+        Filters are METHOD; the 95 brains are MEMORY. The filters consult them
+        and the answer grows them. Source caps a one-witness claim at Medium and
+        HALTS when two witnesses differ — the gap goes to the human, never
+        averaged. Loop hands the halt back as the next Point Zero.
         """
         res = self.run(raw_text, model=model, live_override=live_override)
         rc = getattr(self, "_ctx", {})
@@ -640,13 +681,17 @@ class SourcebornEngine:
 
         steps: list[NodeStep] = []
         holds: list[dict] = []
-        pairs: list[dict] = []          # per-node SB→URR review pairs (no blocks)
-        closing: list[dict] = []        # end-of-run integrity sweep URR-19..25
-        support: list[dict] = []        # URR-01..07 on node-completion events
+        pairs: list[dict] = []          # per-node filter verdicts (front end)
+        closing: list[dict] = []        # run-level filter sweep after SB-70
+        support: list[dict] = []        # kept for the stored/legacy view
         findings: dict[str, Finding] = {}
-        matrix_by_urr: dict[str, int] = {}
+        matrix_by_urr: dict[str, int] = {}     # holds per filter
         matrix_flagged: list[dict] = []
         matrix_total_flags = 0
+        filter_runs: dict[str, int] = {}       # times each filter ran
+        filters_log: list[dict] = []           # full seven-gate trace per node
+        gaps: list[dict] = []                  # Masks — witnesses that differ
+        loops: list[dict] = []                 # halts handed back as next asks
 
         def run_sb(sb_id: str, gate: str) -> None:
             nonlocal matrix_total_flags
@@ -658,13 +703,35 @@ class SourcebornEngine:
             except Exception as exc:                 # a node must never kill the walk
                 f = Finding(f"node error: {exc}", halt=HaltType.LOGIC.value)
             findings[sb_id] = f
-            # 70×25 matrix: ALL 25 URR filters review THIS node's finding.
-            flags = review_node(sb_id, f, ctx)
+            # THE SEVEN FILTERS review THIS node's finding, in order, every time.
+            gates = run_gates(ctx, sb_id, f)
+            flags = {g.gate: g.why[:60] for g in gates if g.verdict == "hold"}
             matrix_total_flags += len(flags)
+            for g in gates:
+                matrix_by_urr[g.gate] = matrix_by_urr.get(g.gate, 0) + (
+                    1 if g.verdict == "hold" else 0)
+                filter_runs[g.gate] = filter_runs.get(g.gate, 0) + 1
+                if g.gate == "FIL-3":
+                    for m in (g.detail.get("masks") or []):
+                        if len(gaps) < 40:
+                            gaps.append({"sb": sb_id, **m})
+                elif g.gate == "FIL-7" and f.halt and len(loops) < 40:
+                    loops.append({"sb": sb_id, "halt": f.halt,
+                                  "next_ask": g.detail.get("next_ask", "")})
+            if len(filters_log) < 200:
+                filters_log.append({"sb": sb_id,
+                                    "gates": [g.as_dict() for g in gates]})
             for uid, code in flags.items():
-                matrix_by_urr[uid] = matrix_by_urr.get(uid, 0) + 1
                 if len(matrix_flagged) < 60:
                     matrix_flagged.append({"sb": sb_id, "urr": uid, "code": code})
+            # the revert: THIS node downloads the filter intake before SB-N+1.
+            intake = "; ".join(f"{g.gate} {g.verdict}: {g.why[:70]}" for g in gates)
+            self.memory.write(sb_id, MemoryEntry(
+                node_id=sb_id, raw_source_id="",
+                content=f"filter intake: {intake}"[:400],
+                parameters={"held": sorted(flags), "passed": len(gates) - len(flags)},
+                tags=["filter_intake"]), name="Filter Intake Download")
+            ctx.run_writes += 1
             # Pyramid of Thought: file the finding (Main → Sub → Micro).
             pyr = file_finding(node.stage if node else 8, f.text, f.params)
             # approved new parameters file as their own sub buckets — the
@@ -675,8 +742,8 @@ class SourcebornEngine:
                     pyr["sub"].append(f"P-NEW:{term}")
             params = dict(f.params)
             if flags:
-                params["urr_matrix_flags"] = flags
-            params["matrix_pass"] = len(MATRIX) - len(flags)
+                params["filter_holds"] = flags
+            params["filters_passed"] = len(gates) - len(flags)
             # THIS node's own finding goes into THIS node's brain.
             self.memory.write(sb_id, MemoryEntry(
                 node_id=sb_id, raw_source_id="", content=f.text[:500],
@@ -685,17 +752,19 @@ class SourcebornEngine:
             if f.params:
                 self.memory.brain(sb_id).bump("Patterns_Recognized")
             ctx.run_writes += 1
-            verdict = "hold" if f.halt else "pass"
-            if f.halt:
-                ctx.holds_so_far.append(f"{sb_id}: {f.text[:60]}")
+            verdict = "hold" if (f.halt or flags) else "pass"
+            if f.halt or flags:
+                why = f.text[:180] if f.halt else "; ".join(flags.values())[:180]
+                halt = f.halt or HaltType.EVIDENCE.value
+                ctx.holds_so_far.append(f"{sb_id}: {why[:60]}")
                 holds.append({"sb_id": sb_id, "name": name, "urr_id": gate,
-                              "why": f.text[:180], "halt": f.halt,
-                              "ask": self._walk_ask(sb_id, f.halt, name)})
+                              "why": why, "halt": halt,
+                              "ask": self._walk_ask(sb_id, halt, name)})
             steps.append(NodeStep(
                 sb_id=sb_id, sb_name=name, action="node_work", urr_id=gate,
                 verdict=verdict, halt=f.halt, why=f.text[:220],
                 memory_written=True, can_loop_back=(verdict == "hold"),
-                matrix_pass=len(MATRIX) - len(flags),
+                matrix_pass=len(gates) - len(flags),
                 matrix_flags=[f"{u}:{c}" for u, c in flags.items()]))
 
         def run_urr(urr_id: str, sb_ids: tuple[str, ...],
@@ -752,65 +821,91 @@ class SourcebornEngine:
                          unfiled_from_input(raw_text, extra_known=approved),
                          _now())
 
-        # ---- the per-node walk: SB-N → its URR → SB-N absorbs → SB-N+1 ----
-        # No stages, no blocks. Every node is individually reviewed by its
-        # function-matched URR and downloads the intake before the next node.
+        # ---- the per-node walk: SB-N → seven filters → SB-N absorbs → SB-N+1 ----
+        # No stages, no blocks, no 70×25. Every node is reviewed by all seven
+        # gates and downloads the filter intake before the next node runs.
         for node in SB_NODES:
             sb_id = node.sb_id
-            primary = SB_PRIMARY_URR.get(sb_id, "URR-08")
-            run_sb(sb_id, primary)
-            run_urr(primary, (sb_id,), pairs)
-            # support verifiers fire on node-completion events, not stages
-            for uid in SUPPORT_AFTER.get(sb_id, ()):
-                note, issues = SUPPORT_CHECKS[uid](ctx)
-                ub = self.memory.brain(uid)
-                ub.bump("Verifications_Performed")
-                if issues:
-                    ub.bump("Issues_Found", len(issues))
-                support.append({"gate": uid, "after": sb_id, "note": note,
-                                "issues": issues})
+            run_sb(sb_id, "FIL")
+            held = [g for g in (filters_log[-1]["gates"] if filters_log else [])
+                    if g["verdict"] == "hold"]
+            pairs.append({"gate": "FIL", "name": "seven filters", "sb": [sb_id],
+                          "verdict": "hold" if held else "pass",
+                          "issues": [f"{g['gate']} {g['name']}: {g['why'][:90]}"
+                                     for g in held],
+                          "intake": "; ".join(
+                              f"{g['gate']} {g['name']}" for g in
+                              (filters_log[-1]["gates"] if filters_log else [])),
+                          "new_scope": ""})
 
-        # ---- closing integrity sweep: URR-19..25 over the full run --------
-        for urr_id in CLOSING_URR:
-            run_urr(urr_id, (), closing)          # run-level; no re-feed to nodes
+        # ---- run-level sweep: the seven filters over the whole run ---------
+        whole = Finding((ctx.answer or raw_text)[:400],
+                        {"nodes": len(steps), "holds": len(holds)},
+                        halt=(HaltType.EVIDENCE.value if holds else None))
+        for g in run_gates(ctx, "RUN", whole):
+            filter_runs[g.gate] = filter_runs.get(g.gate, 0) + 1
+            if g.verdict == "hold":
+                matrix_by_urr[g.gate] = matrix_by_urr.get(g.gate, 0) + 1
+            closing.append({"gate": g.gate, "name": g.name, "sb": [],
+                            "verdict": g.verdict, "issues": [g.why[:180]],
+                            "intake": g.why[:180],
+                            "new_scope": g.detail.get("next_ask", "")})
+            if g.gate == "FIL-7":
+                loops.append({"sb": "RUN", "halt": "run-level",
+                              "next_ask": g.detail.get("next_ask", "")})
 
-        # ---- 70×25 matrix close-out: each URR brain records ITS sweep -----
-        urr_names = {n.urr_id: n.name for n in URR_NODES}
+        # ---- filter close-out: each filter brain records ITS own sweep ----
         n_nodes = len(steps)
-        for uid in MATRIX:
-            nflags = matrix_by_urr.get(uid, 0)
-            ub = self.memory.brain(uid, urr_names.get(uid, uid))
-            ub.bump("Verifications_Performed", n_nodes)
+        for fid in FILTER_IDS:
+            ran = filter_runs.get(fid, 0)
+            nflags = matrix_by_urr.get(fid, 0)
+            fname = FILTER_NAMES[fid]
+            fb = self.memory.brain(fid, fname)
+            fb.bump("Verifications_Performed", ran)
             if nflags:
-                ub.bump("Issues_Found", nflags)
-            codes = sorted({m["code"] for m in matrix_flagged if m["urr"] == uid})
-            self.memory.write(uid, MemoryEntry(
-                node_id=uid, raw_source_id="",
-                content=f"matrix sweep over {n_nodes} nodes: "
-                        f"{n_nodes - nflags} pass, {nflags} flagged"
-                        + (f" ({', '.join(codes[:4])})" if codes else ""),
-                parameters={"flagged": nflags},
-                pyramid=file_urr(urr_names.get(uid, uid),
-                                 "flag" if nflags else "pass", codes),
-                tags=["urr_matrix"]), name=urr_names.get(uid, uid))
+                fb.bump("Issues_Found", nflags)
+                fb.bump("Human_Reviews_Triggered")
+            codes = sorted({m["sb"] for m in matrix_flagged if m["urr"] == fid})[:4]
+            self.memory.write(fid, MemoryEntry(
+                node_id=fid, raw_source_id="",
+                content=f"{fname} ran over {ran} findings: "
+                        f"{ran - nflags} pass, {nflags} held"
+                        + (f" ({', '.join(codes)})" if codes else ""),
+                parameters={"held": nflags, "ran": ran},
+                pyramid=file_urr(fname, "flag" if nflags else "pass", codes),
+                tags=["filter_sweep"]), name=fname)
             ctx.run_writes += 1
 
-        distinct_urr = {p["gate"] for p in pairs} | {c["gate"] for c in closing} \
-            | {s["gate"] for s in support} | set(MATRIX)
+        # the Masks and the loops are findings in their own right — they are
+        # written whole, never averaged away, and they go to the human.
+        if gaps:
+            self.memory.write("FIL-4", MemoryEntry(
+                node_id="FIL-4", raw_source_id="",
+                content=f"{len(gaps)} mask(s): "
+                        + "; ".join(f"{g.get('kind')}—{g.get('what','')[:40]}"
+                                    for g in gaps[:6]),
+                parameters={"masks": gaps[:20]}, tags=["mask"]), name="Mask")
+            ctx.run_writes += 1
+
         self.memory.master_log({"event": "walk_complete",
-                                "nodes": len(steps),
+                                "nodes": n_nodes,
                                 "per_node_reviews": len(pairs),
                                 "closing_reviews": len(closing),
-                                "matrix_reviews": n_nodes * len(MATRIX),
-                                "matrix_flags": matrix_total_flags,
+                                "filter_reviews": sum(filter_runs.values()),
+                                "filter_holds": matrix_total_flags,
+                                "masks": len(gaps),
+                                "loops": len(loops),
                                 "holds": len(holds)})
         return {"result": res, "walk": {
             "steps": [asdict(s) for s in steps], "holds": holds,
             "pairs": pairs, "closing": closing, "support": support,
-            "matrix": {"per_node": len(MATRIX),
-                       "total": n_nodes * len(MATRIX),
+            # the seven filters, in the shape the front end already renders
+            "matrix": {"per_node": len(FILTER_IDS),
+                       "total": sum(filter_runs.values()),
                        "flags": matrix_total_flags,
                        "by_urr": matrix_by_urr,
                        "flagged": matrix_flagged},
-            "node_count": len(steps), "hold_count": len(holds),
-            "urr_count": len(distinct_urr)}}
+            "filters": filters_log, "gaps": gaps, "loops": loops,
+            "filter_runs": filter_runs,
+            "node_count": n_nodes, "hold_count": len(holds),
+            "urr_count": len(FILTER_IDS)}}

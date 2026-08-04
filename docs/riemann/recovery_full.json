@@ -1,0 +1,581 @@
+{
+ "hi19r": [
+  {
+   "band": 1,
+   "y": [
+    106,
+    156
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 2,
+   "y": [
+    173,
+    318
+   ],
+   "struck": true,
+   "strike_pixels": 4650,
+   "struck_columns": 275,
+   "columns_carrying_a_letter": 85,
+   "pct_strike_over_text": 30.9,
+   "ink_pct": 19.66,
+   "tone_separation_sd": {
+    "b-r": 0.089,
+    "b-g": 0.036,
+    "g-r": 0.306
+   }
+  },
+  {
+   "band": 3,
+   "y": [
+    471,
+    579
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 4,
+   "y": [
+    586,
+    682
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 5,
+   "y": [
+    694,
+    784
+   ],
+   "struck": false,
+   "strike_pixels": 1477
+  },
+  {
+   "band": 6,
+   "y": [
+    827,
+    858
+   ],
+   "struck": true,
+   "strike_pixels": 5224,
+   "struck_columns": 364,
+   "columns_carrying_a_letter": 177,
+   "pct_strike_over_text": 48.6,
+   "ink_pct": 9.95,
+   "tone_separation_sd": {
+    "b-r": 0.027,
+    "b-g": 0.006,
+    "g-r": 0.055
+   }
+  },
+  {
+   "band": 7,
+   "y": [
+    1152,
+    1187
+   ],
+   "struck": true,
+   "strike_pixels": 1603,
+   "struck_columns": 229,
+   "columns_carrying_a_letter": 104,
+   "pct_strike_over_text": 45.4,
+   "ink_pct": 12.35,
+   "tone_separation_sd": {
+    "b-r": 0.321,
+    "b-g": 0.589,
+    "g-r": 0.338
+   }
+  },
+  {
+   "band": 8,
+   "y": [
+    1254,
+    1306
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 9,
+   "y": [
+    1329,
+    1411
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 10,
+   "y": [
+    1536,
+    1579
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 11,
+   "y": [
+    1740,
+    1812
+   ],
+   "struck": true,
+   "strike_pixels": 2057,
+   "struck_columns": 236,
+   "columns_carrying_a_letter": 67,
+   "pct_strike_over_text": 28.4,
+   "ink_pct": 11.06,
+   "tone_separation_sd": {
+    "b-r": 0.03,
+    "b-g": 0.024,
+    "g-r": 0.031
+   }
+  },
+  {
+   "band": 12,
+   "y": [
+    2171,
+    2228
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 13,
+   "y": [
+    2257,
+    2356
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 14,
+   "y": [
+    2359,
+    2457
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 15,
+   "y": [
+    3054,
+    3138
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 16,
+   "y": [
+    4534,
+    4621
+   ],
+   "struck": true,
+   "strike_pixels": 6083,
+   "struck_columns": 535,
+   "columns_carrying_a_letter": 190,
+   "pct_strike_over_text": 35.5,
+   "ink_pct": 16.16,
+   "tone_separation_sd": {
+    "b-r": 0.632,
+    "b-g": 0.642,
+    "g-r": 0.325
+   }
+  },
+  {
+   "band": 17,
+   "y": [
+    4799,
+    4835
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 18,
+   "y": [
+    5124,
+    5158
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 19,
+   "y": [
+    5174,
+    5214
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 20,
+   "y": [
+    5788,
+    5832
+   ],
+   "struck": true,
+   "strike_pixels": 18509,
+   "struck_columns": 801,
+   "columns_carrying_a_letter": 0,
+   "pct_strike_over_text": 0.0,
+   "ink_pct": 6.93,
+   "tone_separation_sd": null
+  }
+ ],
+ "hi19v": [
+  {
+   "band": 1,
+   "y": [
+    245,
+    343
+   ],
+   "struck": true,
+   "strike_pixels": 8485,
+   "struck_columns": 670,
+   "columns_carrying_a_letter": 293,
+   "pct_strike_over_text": 43.7,
+   "ink_pct": 15.67,
+   "tone_separation_sd": {
+    "b-r": 0.764,
+    "b-g": 0.5,
+    "g-r": 0.781
+   }
+  },
+  {
+   "band": 2,
+   "y": [
+    405,
+    434
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 3,
+   "y": [
+    489,
+    567
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 4,
+   "y": [
+    614,
+    879
+   ],
+   "struck": true,
+   "strike_pixels": 4965,
+   "struck_columns": 487,
+   "columns_carrying_a_letter": 175,
+   "pct_strike_over_text": 35.9,
+   "ink_pct": 13.97,
+   "tone_separation_sd": {
+    "b-r": 0.23,
+    "b-g": 0.126,
+    "g-r": 0.181
+   }
+  },
+  {
+   "band": 5,
+   "y": [
+    893,
+    982
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 6,
+   "y": [
+    1048,
+    1085
+   ],
+   "struck": false,
+   "strike_pixels": 1428
+  },
+  {
+   "band": 7,
+   "y": [
+    2791,
+    2820
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 8,
+   "y": [
+    3238,
+    3280
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 9,
+   "y": [
+    3816,
+    3853
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 10,
+   "y": [
+    3856,
+    3917
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 11,
+   "y": [
+    4454,
+    4623
+   ],
+   "struck": true,
+   "strike_pixels": 3367,
+   "struck_columns": 269,
+   "columns_carrying_a_letter": 121,
+   "pct_strike_over_text": 45.0,
+   "ink_pct": 10.29,
+   "tone_separation_sd": {
+    "b-r": 0.538,
+    "b-g": 0.41,
+    "g-r": 0.467
+   }
+  },
+  {
+   "band": 12,
+   "y": [
+    5809,
+    5844
+   ],
+   "struck": true,
+   "strike_pixels": 23945,
+   "struck_columns": 1039,
+   "columns_carrying_a_letter": 0,
+   "pct_strike_over_text": 0.0,
+   "ink_pct": 10.17,
+   "tone_separation_sd": null
+  }
+ ],
+ "hi20r": [
+  {
+   "band": 1,
+   "y": [
+    250,
+    303
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 2,
+   "y": [
+    331,
+    360
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 3,
+   "y": [
+    373,
+    457
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 4,
+   "y": [
+    516,
+    1039
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 5,
+   "y": [
+    1107,
+    1169
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 6,
+   "y": [
+    1172,
+    1220
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 7,
+   "y": [
+    1517,
+    1569
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 8,
+   "y": [
+    1641,
+    1696
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 9,
+   "y": [
+    1698,
+    1731
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 10,
+   "y": [
+    1794,
+    2042
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 11,
+   "y": [
+    2054,
+    2344
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 12,
+   "y": [
+    2351,
+    2510
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 13,
+   "y": [
+    2530,
+    2673
+   ],
+   "struck": true,
+   "strike_pixels": 2432,
+   "struck_columns": 222,
+   "columns_carrying_a_letter": 21,
+   "pct_strike_over_text": 9.5,
+   "ink_pct": 3.49,
+   "tone_separation_sd": {
+    "b-r": 1.093,
+    "b-g": 1.368,
+    "g-r": 0.292
+   }
+  },
+  {
+   "band": 14,
+   "y": [
+    2722,
+    2792
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 15,
+   "y": [
+    2856,
+    4043
+   ],
+   "struck": true,
+   "strike_pixels": 8800,
+   "struck_columns": 722,
+   "columns_carrying_a_letter": 384,
+   "pct_strike_over_text": 53.2,
+   "ink_pct": 9.1,
+   "tone_separation_sd": {
+    "b-r": 0.649,
+    "b-g": 0.154,
+    "g-r": 0.881
+   }
+  },
+  {
+   "band": 16,
+   "y": [
+    4062,
+    4118
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 17,
+   "y": [
+    4131,
+    4907
+   ],
+   "struck": true,
+   "strike_pixels": 5858,
+   "struck_columns": 697,
+   "columns_carrying_a_letter": 215,
+   "pct_strike_over_text": 30.8,
+   "ink_pct": 8.23,
+   "tone_separation_sd": {
+    "b-r": 0.518,
+    "b-g": 0.175,
+    "g-r": 0.673
+   }
+  },
+  {
+   "band": 18,
+   "y": [
+    4935,
+    5012
+   ],
+   "struck": false,
+   "strike_pixels": 0
+  },
+  {
+   "band": 19,
+   "y": [
+    5793,
+    5847
+   ],
+   "struck": true,
+   "strike_pixels": 22971,
+   "struck_columns": 916,
+   "columns_carrying_a_letter": 0,
+   "pct_strike_over_text": 0.0,
+   "ink_pct": 7.47,
+   "tone_separation_sd": null
+  }
+ ]
+}

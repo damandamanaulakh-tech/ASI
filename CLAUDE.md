@@ -48,7 +48,18 @@ Live on Render as a web app. All 8 SB stages implemented (Core Gate 6 lenses,
 Doubt/Falsifier/Witness, Evidence ladder, Dot-Connection/Merge, Synthetic Fuel,
 Risk/Embodied/Non-Resolution, output + weekly update), the RGL recursive loop, 95
 configured node brains, 3 memories (corpus/wisdom/live fact), multi-model
-(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (25 tests).
-Next candidates: real scripture Wisdom Bank, model-backed URR micro-pass, richer
+(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (66 tests).
+
+**The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
+there, but i want more filters and fact kind of"*. In its place every finding
+passes **seven filters**, in order, every time: **Ground · Sequence · Source ·
+Mask · Fact · Halt · Loop** (`src/sourceborn/filters.py`). Source caps a
+one-witness claim at Medium and HALTS when two witnesses differ — the gap (the
+**Mask**) goes to the human, never averaged. The universal sequence lives in
+`sequence.py`. **The 70 SB + 25 URR brains all stay: they are the MEMORY; the
+filters are the METHOD.** This is deliberate and it makes the app *less*
+confident than before — that is the point.
+
+Next candidates: real scripture Wisdom Bank, model-backed filters, richer
 interconnection graph UI. The user authorized building forward without per-step
 approval — keep shipping in tested PRs, stay on the core, keep the safety line.
