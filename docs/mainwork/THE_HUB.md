@@ -83,3 +83,35 @@ for a session with model access → THE_HALF.md
 
 **Standing at this hub:** the room is open, the four ways are numbered,
 nothing is walked yet. The owner explores one to one, in his order.
+
+
+---
+
+## HUB STATUS — the energy moved here (owner's order: option 3)
+
+**The RH room's second walk runs in the background** — reach 50000, null
+= BBLM, registration frozen before data (WAY1 §14), blocks auto-banking
+to `docs/riemann/census/`. It needs no attention until waves land.
+
+**This room's gates, all standing at the owner's word — nothing moves
+without him:**
+
+1. **His K definition** — *"i need full k definition first."*
+2. **The universal sequence** — *"which is yet to built"* — built WITH him.
+3. **D1–D8 ruling** (prove/strike each) and his κ app results (never received).
+4. **The Einstein decide** — *"i need to see few things, then i will
+   decide"*: the 45-rerun through Einstein, the Riemann refit to the
+   granularity rule, the faceting rule of the 2,560 sheet (approve/amend/
+   strike), halts E-1..E-7 and H-1..H-7, numbering of R-, E-, X-
+   candidates.
+5. **The third subject** — the two-brain cross-laws (X-01..X-04, and the
+   two sharp axes that survived the fake-new audit: release polarity;
+   belief-gate location) are capped at two witnesses. A third brain
+   confirms or breaks them. Candidates offered, decision his:
+   **Ramanujan** (richest self-witness of formed-before-proof: the
+   notebooks, the dream-given formulas — and from his own sphere),
+   **Tesla** (inventor-class, visual-simulation cognition, wild-path
+   heavy), **Marie Curie** (scarcity-filter master case, opposite gender
+   cut — tests whether the laws are laws of great minds or of great
+   MEN). Chosen for different reasons than the first two, per the
+   selection-bias warning already on record.
