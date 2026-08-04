@@ -32,10 +32,11 @@ Way 2 is Way 1 integrated: the guard's record, counted instead of watched.
 | (0, 23000) | 26,376 (exact) | 26,376 | **0** |
 | (0, 24000) | 27,686 (exact) | 27,686 | **0** |
 | (0, 25000) | 29,002 (exact) | 29,002 | **0** |
-| **(0, 26000)** | **30,324 (exact)** | **30,324** | **0** |
+| (0, 26000) | 30,324 (exact) | 30,324 | 0 |
+| **(0, 27000)** | **31,653 (exact)** | **31,653** | **0** |
 
 Every zero the strip owes in our measured stretch stands on the middle — now
-to height 26000, through 30,324 zeros. The extension landed with a consistency stronger than
+to height 27000, through 31,653 zeros. The extension landed with a consistency stronger than
 planned: the four workers' independent per-block counts **sum exactly to the
 argument-principle count** (7,830+1,148+1,164+1,182+1,195 = 12,519 =
 N(12000) computed by `nzeros`, no rounding anywhere). One instrument note,
@@ -144,7 +145,8 @@ every soul.
 
 ## 6 · Next circuits for this way
 
-- census extended and exact through 26000; next reach when ordered
-  (the watch-item's p-crossing sits at ≈ 26,450 — see Way 1 §11);
+- census extended and exact through 27000; the watch-item verdict CROSSED
+  and hardened at p = 0.075 (Way 1 §12); next gate: finite-height GUE
+  corrections literature check;
 - the deficit ledger at sampled greater heights (spot-checks with the
   count-guard, not full sweeps).

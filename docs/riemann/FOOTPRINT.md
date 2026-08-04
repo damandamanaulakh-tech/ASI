@@ -356,6 +356,18 @@ POINT ZERO — his words above
                1 AMBIGUOUS, 0 REFUTED on the five-rung ladder). Block
                26's Lehmer rate 0.0681 = highest of the walk, logged
                as watch → WAY1 §11, WAY2 §1, WAY3 rung table
+        │
+        └─[16]● THE VERDICT — [his]: "ur resistance is the issue" → the
+               decisive block launched without waiting; 26000→27000 as
+               four quarter-workers, 1,329 zeros, all clean. THE RECORD
+               STOOD its fifth census (closest new gap 0.1280) and the
+               arch count 31,650 crossed the exact line 30,870:
+               p = 0.0750 < 0.08 — THE PRE-REGISTERED RULE FIRES.
+               Watch-item → NAMED FINDING: persistent excess repulsion
+               at record depth (record 0.0421 vs GUE-expected 0.0307).
+               Held honest: one gate before any outward claim — the
+               finite-height GUE corrections check. Ledger deficit 0
+               at 27000 (31,653 = 31,653) → WAY1 §12
 ```
 
 ## 2 · The open-loops board (everything ○, in one place)

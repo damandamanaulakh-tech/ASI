@@ -293,3 +293,34 @@ ledger checkpoints.
 - Instrument note: the endpoint union found one zero past the scan edge
   (26000.7613) — the known seam-orphan pattern, excluded from all counts
   above, which are exact at T = 26000.
+
+## 12. Circuit 2, part 6 — reach 27000: THE VERDICT READS ITSELF — HARDENED
+
+Block 27 (26000→27000) run as four parallel quarter-workers, all clean
+(1,329 zeros, every quarter within 0.5 of owed, count-guard silent).
+Census: **31,653 zeros to T = 27000**, ledger deficit 0 at 26000 and 27000.
+
+**THE PRE-REGISTERED VERDICT, CROSSED:**
+
+- The record gap **0.042098382293** (γ ≈ 7005.06) survived its FIFTH
+  census extension. Closest gap in the new stretch: 0.1280 — not close.
+- Arch count **31,650** — past the exact crossing at 30,870.
+- Survival probability under the GUE small-gap law:
+  **p = 0.0750 — BELOW the 0.08 line registered before any extension data
+  existed.** By the rule fixed in advance, the watch-item is now a named,
+  hardened finding of this walk:
+
+  **PERSISTENT EXCESS REPULSION AT RECORD DEPTH — in 31,650 measured
+  arches to height 27000, the record minimum normalized gap stands at
+  0.0421 where the asymptotic GUE law expects ≈ 0.0307; the probability
+  of a record this old under that law is 0.075.**
+
+- What hardened does NOT mean, kept in the same breath: not a discovery
+  yet. One gate stands before any outward claim: the asymptotic GUE law
+  we tested is the infinite-height idealization; **known finite-height
+  corrections to the gap distribution must be checked** — if they predict
+  this excess, the finding is real but already understood; if they do
+  not, it is new. That check is the next station.
+- Unchanged through the landing: Λ ≥ −1.560×10⁻⁴ (γ=17143 keeps the
+  bound); 1,796 Lehmer pairs; parabola slope 2.0933; one seam-orphan
+  zero past 27000 excluded.
