@@ -111,6 +111,10 @@ merged into it.
 by node, read off the running code. Recorded here because he named "SB-URR" as one of
 the sequences to collect.
 
+**There are TWO paths, and the first version of this section reported only one.**
+
+**Path A — the fast answer** (`run()`, `engine.py`). Eighteen checkpoints:
+
 Point Zero lock (SB-01) → noise strip · decompose (SB-02) → source domain · triage
 (SB-03) → **Core Gate** (SB-10) → Doubt Engine (SB-20) → Witness (SB-22) → Evidence
 ledger (SB-29) → example + wisdom match (SB-32) → live grounding · **present-fact
@@ -118,6 +122,18 @@ block** (SB-33) → dot-connection (SB-37) → merge proposal (SB-40) → synthe
 (SB-45) → risk gate (SB-53) → non-resolution protector (SB-57) → reality re-anchor
 (SB-58) → embodied check (SB-59) → deliver (SB-64) → long-term memory lock (SB-69),
 then the RGL recursive loop back to Point Zero.
+
+**Path B — the full walk** (`run_walk()`, `engine.py:827` — `for node in SB_NODES`).
+**All 70 SB nodes**, one at a time: each node does its own work → the seven filters run
+on it → the node absorbs the result → a URR review gates it → the walk advances to
+SB-N+1. This is the path that carries the stations Path A skips, including Raw Source
+Preservation (SB-04), Falsifier (SB-21), Source Tagger (SB-30), New Parameter Generator
+(SB-43), Invention Seed Protector (SB-46), Override Ledger (SB-56), Feed-Forward Router
+(SB-65) and Human Halt Gate (SB-68).
+
+**Correction, on the record:** the first version of this file gave Path A alone and so
+under-reported his own engine. Found by the reverse walk (§8 of `THE_REVERSE_WALKS.md`),
+named rather than quietly fixed.
 
 ---
 
