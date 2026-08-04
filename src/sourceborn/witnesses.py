@@ -21,6 +21,8 @@ between what was said and what was shown.
 
 from __future__ import annotations
 
+import re
+
 from dataclasses import dataclass, field
 
 ORIGINAL, WITNESSED, CARRIED, REPORTED = "ORIGINAL", "WITNESSED", "CARRIED", "REPORTED"
@@ -115,6 +117,14 @@ def bears_on(w: Witness, claim: str) -> bool:
     return len(tc & _tokens(w.text)) >= max(1, min(2, len(tc) // 6))
 
 
+_NUMBER = re.compile(r"\d[\d,]*(?:\.\d+)?")
+
+
+def _numbers(text: str) -> set[str]:
+    """Every figure a witness states, normalised so 2,362 and 2362 are one."""
+    return {n.replace(",", "").rstrip(".") for n in _NUMBER.findall(text)}
+
+
 def find_masks(a: Witness, b: Witness, claim: str = "") -> list[Mask]:
     """What moved between two witnesses — measured ON THE CLAIM, not across
     the whole of two different documents. Softenings and cuts of the claim's
@@ -137,6 +147,19 @@ def find_masks(a: Witness, b: Witness, claim: str = "") -> list[Mask]:
         masks.append(Mask("softened", "asserted here, hedged there", a.origin, b.origin))
     elif b_asserts and a_hedges and not b_hedges:
         masks.append(Mask("softened", "asserted there, hedged here", b.origin, a.origin))
+
+    # THE VALUE MASK. Two witnesses can use identical words and still
+    # disagree — on the number. "TCS price is 2362" and "TCS price is 2431"
+    # share every claim term, so nothing above fires, and the pair would pass
+    # as agreement and reach High. That is the exact failure this whole layer
+    # exists to stop. A figure that moved between two accounts of the SAME
+    # claim IS the Mask; it halts and goes to the human, never averaged.
+    na, nb = _numbers(a.text), _numbers(b.text)
+    if na and nb and not (na & nb):
+        masks.append(Mask("conflict",
+                          f"{', '.join(sorted(na)[:3])} here vs "
+                          f"{', '.join(sorted(nb)[:3])} there",
+                          a.origin, b.origin))
 
     # a term OF THE CLAIM that one witness carries and the other drops
     gone = sorted(ta - tb)

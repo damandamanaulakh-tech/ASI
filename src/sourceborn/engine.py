@@ -329,8 +329,14 @@ class SourcebornEngine:
         # independent ones there are. One is never enough to reach High.
         corpus_refs = [m[8:] for m in matched if m.startswith("corpus:")]
         ledger = build_ledger(micro, bool(live), corpus_refs)
+        # The ASK is not evidence for its own answer. Counting the prompt as a
+        # witness made every question with one live lookup read as two
+        # witnesses, which walked straight past the one-witness cap — the cap
+        # being the whole point. Only sources OUTSIDE the question count:
+        # the corpus, and live eyes. (Your own document is different: when you
+        # hand over a private doc, that IS a source, so it counts.)
         n_wit = len({w for w in (
-            "own" if raw_text else "",
+            "own" if private_doc else "",
             "corpus" if corpus_refs else "",
             "live" if live else "") if w})
         ladder_conf = ladder_confidence(ledger, witnesses=n_wit)
@@ -392,13 +398,15 @@ class SourcebornEngine:
                 f"{[k for k, v in core['lenses'].items() if v['active']]}\n"
                 f"EVIDENCE: {ladder_conf} (rungs {[e['evidence_tag'] for e in ledger]})"
             )
-        draft = active_model.complete(system=self.persona.voice_guidance(), prompt=prompt)
-
         # PRESENT-FACT HARD RULE (born from the live TCS failure: 2431 shown
         # while the market said 2362). A moving number with no live witness
         # does not leave the engine — the answer IS the refusal, deterministic,
         # because model prose is exactly the thing being refused. With one
         # live witness the number may pass, capped and marked verify-first.
+        #
+        # The refusal is decided BEFORE the model is called: asking a paid
+        # model for a number we have already resolved to refuse would spend
+        # money and send the prompt out for prose that gets discarded.
         present_fact = (not private_doc) and is_present_fact(raw_text)
         if present_fact and not live:
             draft = present_fact_refusal(raw_text)
@@ -407,9 +415,13 @@ class SourcebornEngine:
                                 "number refused, never guessed", "Evidence",
                                 "High", loop_for_halt(HaltType.EVIDENCE).value))
             self._t("SB-33", "present_fact_block", "held",
-                    note="moving quantity + no live source -> number refused")
-        elif present_fact and live:
-            draft = draft + verify_note("one live source")
+                    note="moving quantity + no live source -> refused before "
+                         "the model was called")
+        else:
+            draft = active_model.complete(system=self.persona.voice_guidance(),
+                                          prompt=prompt)
+            if present_fact and live:
+                draft = draft + verify_note("one live source")
 
         # Stage 3 — Doubt Engine + Witness (SB-20/22): attack before delivery
         doubt = doubt_engine(draft, bool(live), len(matched))

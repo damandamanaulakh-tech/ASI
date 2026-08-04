@@ -27,7 +27,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 def load_zeros():
     arches = []
     for i in range(1, 33):
-        p = os.path.join(HERE, f"nm_b{i}.json")
+        # the banked blocks live in census/ (they were written beside the
+        # script while walking, then banked into the repo under census/);
+        # look in both so the instrument runs against the shipped data.
+        p = os.path.join(HERE, "census", f"nm_b{i}.json")
+        if not os.path.exists(p):
+            p = os.path.join(HERE, f"nm_b{i}.json")
         if os.path.exists(p):
             arches.extend(json.load(open(p))["arches"])
     raw = sorted(set(round(a["g1"], 9) for a in arches) | set(round(a["g2"], 9) for a in arches))

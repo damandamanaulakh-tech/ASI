@@ -893,6 +893,46 @@ def test_khalf_scoring_two_witnesses():
     assert wrong_num["token_f1"] > 0.5
 
 
+def test_witnesses_halt_when_the_number_differs():
+    """The TCS case itself: two witnesses, same words, different figure.
+    Before this, identical claim-words meant no Mask and the pair reached
+    High — the exact failure the layer exists to stop."""
+    from sourceborn.witnesses import Witness, read, ORIGINAL, WITNESSED
+    a = Witness("TCS share price is 2362 on the exchange", "broker", ORIGINAL)
+    b = Witness("TCS share price is 2431 as quoted", "model memory", WITNESSED)
+    r = read("TCS share price", [a, b])
+    assert r.halt is True, "two witnesses differing on the NUMBER must halt"
+    assert r.confidence != "High"
+    assert any(m.kind == "conflict" for m in r.masks)
+    # and agreement on the figure still passes
+    c = Witness("TCS share price is 2362 confirmed", "second broker", WITNESSED)
+    r2 = read("TCS share price", [a, c])
+    assert not any(m.kind == "conflict" for m in r2.masks)
+
+
+def test_present_fact_does_not_refuse_stable_concepts():
+    """'price elasticity' and 'rate of change' are concepts, not quotes.
+    Substring matching used to refuse them as moving numbers."""
+    from sourceborn.present_fact import is_present_fact
+    assert is_present_fact("what is price elasticity?") is False
+    assert is_present_fact("explain the rate of change in calculus") is False
+    assert is_present_fact("explain value investing") is False
+    # while real quotes still qualify
+    assert is_present_fact("what is TCS current share price") is True
+    assert is_present_fact("bitcoin price now") is True
+    assert is_present_fact("what is the price today") is True
+
+
+def test_present_fact_catches_time_marked_number_asks():
+    """A time-marked ask that wants a number back is a present fact even
+    when it names no market word."""
+    from sourceborn.present_fact import is_present_fact
+    assert is_present_fact("what is the current population of India") is True
+    assert is_present_fact("how much is gold today") is True
+    # but a time-marked NON-number ask is not this rule's business
+    assert is_present_fact("current CEO of OpenAI") is False
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0
