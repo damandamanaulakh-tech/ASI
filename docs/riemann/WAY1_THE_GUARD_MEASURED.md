@@ -324,3 +324,46 @@ Census: **31,653 zeros to T = 27000**, ledger deficit 0 at 26000 and 27000.
 - Unchanged through the landing: Λ ≥ −1.560×10⁻⁴ (γ=17143 keeps the
   bound); 1,796 Lehmer pairs; parabola slope 2.0933; one seam-orphan
   zero past 27000 excluded.
+
+## 13. The literature gate — VERDICT: REAL, BUT ALREADY UNDERSTOOD
+
+The gate registered at §12 ("if known finite-height corrections predict this
+excess, the finding is real but already understood") was run and it closed
+the question. Two arms, run in order:
+
+**Arm 1 — the literature.** Farmer (arXiv 2211.11671, §8.7, Principle 8.11)
+states the asymptotic small-gap law (π²/3)x² as universal, verified against
+the 9,333 smallest gaps in the first 10¹³ zeros — but those zeros live at
+heights ~10¹². Bogomolny–Bohigas–Leboeuf–Monastra (J. Phys. A 39 (2006),
+arXiv math/0602270) give the finite-height law: at height E the spacing
+statistics equal a finite CUE of dimension **N_eff = log(E/2π)/√(12Λ),
+Λ = 1.57314** — and CUE(N)'s small-gap coefficient carries the factor
+**(1 − 1/N²)**. At our heights N_eff ≈ 1.2–1.9: the correction is LARGE.
+
+**Arm 2 — our own census, re-read blind.** Fitted BEFORE computing the
+BBLM prediction: our small-gap cubic coefficient runs at **0.629–0.633** of
+the asymptotic law across the whole tail (38 observed below δ=0.12 vs 60.0
+expected). Then the BBLM prediction was computed over the same 31,650
+arches: **0.648**. Per-threshold, BBLM-corrected expectations 22.5 and 38.9
+vs observed 22 and 38 — exact within Poisson noise. Height split: BBLM
+predicts suppression ratios 0.51 (T<8000) / 0.70 (T≥8000); observed 0.47 /
+0.69. Coefficient, counts, and height-trend all match the 2006 law.
+
+**The record re-priced under the corrected law: p = 0.187.** One-in-five.
+Ordinary.
+
+**VERDICT: the excess repulsion is REAL — the whole small-gap tail runs
+~35% below the asymptotic law — and it is the KNOWN BBLM finite-height
+effect. The hardened finding of §12 is reclassified: not a discovery — an
+independent low-height confirmation of BBLM (2006), with the coefficient
+measured blind at 0.63 against their predicted 0.65.**
+
+**What the walk keeps:** (1) the instrument is now validated against a
+second-order literature effect it was never built to see — every other
+measurement in this room stands on firmer ground; (2) the watch-item arc
+closes honestly end to end: watch → promoted → hardened by the registered
+rule → dissolved at the gate, each step priced in advance and read
+straight. **(3) The method correction, led with, not buried: the §10
+pre-registration fixed the threshold but not the NULL MODEL — it tested
+the asymptotic law where the finite-height law was the right null. A
+pre-registration must name its null. That lesson enters the method.**

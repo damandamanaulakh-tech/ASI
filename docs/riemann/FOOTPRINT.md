@@ -368,6 +368,22 @@ POINT ZERO — his words above
                Held honest: one gate before any outward claim — the
                finite-height GUE corrections check. Ledger deficit 0
                at 27000 (31,653 = 31,653) → WAY1 §12
+        │
+        └─[17]⟲ THE GATE — [his]: "run the literature gate, check the
+               corrections." Farmer 2211.11671 (small-gap law universal
+               at 10^13 zeros ~ height 10^12) + BBLM math/0602270: at
+               height E the law is CUE(N_eff), N_eff = log(E/2π)/√(12Λ),
+               small-gap factor (1 − 1/N_eff²). Our census re-read BLIND:
+               measured coefficient 0.63 of asymptotic; BBLM predicts
+               0.65; counts 22/38 observed vs 22.5/38.9 BBLM-corrected;
+               height-trend matches. Record re-priced: p = 0.187 —
+               ordinary. VERDICT: real, but already understood — the
+               §12 finding reclassified to an independent confirmation
+               of BBLM (2006). Kept: instrument validated against a
+               second-order effect; the method lesson led with — a
+               pre-registration must name its NULL, ours tested the
+               asymptotic law where the finite-height law was the right
+               null → WAY1 §13
 ```
 
 ## 2 · The open-loops board (everything ○, in one place)
