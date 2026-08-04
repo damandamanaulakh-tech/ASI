@@ -367,3 +367,47 @@ straight. **(3) The method correction, led with, not buried: the §10
 pre-registration fixed the threshold but not the NULL MODEL — it tested
 the asymptotic law where the finite-height law was the right null. A
 pre-registration must name its null. That lesson enters the method.**
+
+## 14. THE SECOND WALK — registration BEFORE data (reach 50000, null = BBLM)
+
+Owner's order: *"go with option 2, walk to 50000 with BBLM as null."*
+Everything below is fixed NOW, before any zero above 27000 exists in our
+census. The §13 lesson applied: this registration names its null.
+
+**The question.** BBLM (math/0602270) predicts the small-gap suppression
+at height T: coefficient factor **f(T) = 1 − 1/N_eff(T)²**, with
+N_eff = log(T/2π)/√(12·1.57314). Their result is "to leading order."
+The second walk measures the RESIDUAL: does the measured suppression
+deviate from f(T)? The correction-to-the-correction has, to our
+knowledge, never been measured. The null hypothesis is BBLM exactly.
+
+**Frozen estimator.** Height bins: (14,8000], (8000,16000],
+(16000,27000], (27000,38000], (38000,50000]. Per bin: observed count of
+normalized gaps δ < 0.12 (primary; 0.08 and 0.10 secondary), vs
+BBLM-expected count = Σ_arches (π²/9)·f(g1)·0.12³. Residual
+z = (obs − exp)/√exp per bin; pooled z over all bins.
+
+**Verdict rules, fixed in advance.**
+- **BBLM CONFIRMED-DEEPER**: every bin |z| < 2 and pooled |z| < 2.
+- **NAMED DEVIATION** (the new thing, if it exists): pooled |z| ≥ 3,
+  sign and size reported as measured.
+- **AMBIGUOUS**: between. No promotion language beyond these three.
+
+**Honest power note, also in advance:** at reach 50000 (~63,000 arches
+total) the expected δ<0.12 count is ~83; 3σ ≈ ±27 counts. A next-order
+term smaller than ~25% of BBLM's own correction stays invisible at this
+reach. If the verdict is CONFIRMED-DEEPER, that is a bound, not proof of
+zero residual.
+
+**Secondary, unchanged rules:** ledger exactness at every 1000 (mp.nzeros);
+record gap re-priced under the BBLM null at each landing (a new record
+below 0.0421 is reported, not headlined — the null owns small gaps now);
+plateau rungs continue under the frozen Way-3 estimator; Λ bound updates
+if a stronger pair appears.
+
+**Execution.** Blocks 28–50 (27000→50000, ~31,300 new zeros — doubling
+the census), waves of 4 parallel workers, each landed block auto-banked
+into `docs/riemann/census/` and pushed, so the walk survives container
+recycling. If the runner dies, relaunch remaining blocks with the same
+worker (`nm_worker.py <lo> <hi> nm_b<N>.json`); the registration above
+stands regardless of who computes the blocks.
