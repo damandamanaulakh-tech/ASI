@@ -1,21 +1,130 @@
-# FULL SESSION PULL — Phase 1e
+# FULL SESSION PULL — everything, from where you actually started
 
-*Every substantive turn you sent, from the first to this one — your words verbatim — with what I did, where it lives, and what I skipped.*
+*Your words verbatim, what was built, what runs, and what I skipped.*
 
 **Your order:** *"go on 1e, full session pull / lets pull this first / alteast it will help to come on same page and i will know what i have, what u skip"*
 
-## SCOPE — counted, not estimated
+**Your strike on the first version, which produced this one:** *"but there was many more / when i started it was SB-Urr, no point of that u mentioned"*
 
-The session transcript on disk spans **2026-06-22 → 2026-08-04** (44 days, 94 MB, 7,551 records).
-
-- **1,935** raw user-side records exist.
-- **185** of them are YOUR substantive messages. Those are all reproduced below, in order, verbatim.
-- The rest were machine noise excluded by a stated rule, not by judgment: GitHub PR-webhook events, `[SYSTEM NOTIFICATION]` task callbacks, model-switch reminders, skill-loader headers, image-coordinate stubs, 'Continue from where you left off', and exact duplicate re-sends.
-
-**Fidelity note, stated up front:** turns older than this context window are reproduced from the transcript file itself (so YOUR words are exact throughout); my *responses* to the oldest arcs are summarized from the running record rather than quoted, and where my memory of an old response is thin I say so instead of inventing it.
+You were right. The first version began at 22 June because that is where **my** transcript begins, and it treated **SB-URR — your app, the actual product — as background noise.** This version starts where **you** started, gives the app its own part, and separates what is *built* from what is *running* — a distinction the first version wrongly merged, and the most important thing in this document.
 
 ---
 
+# PART 0 — POINT ZERO: WHERE THIS ACTUALLY STARTED
+
+The record has three layers, and the first version only saw the third.
+
+### Layer 1 · March → May 2026 — before any of this existed
+
+Months before this repo or my session, you were already building. The evidence is your own files, dated in their own names — I did not infer these dates, they are written on the files you gave me:
+
+| Dated file evidence | What it shows |
+|---|---|
+| `260312` (12 Mar 2026) | the oldest dated artefact in your corpus |
+| `260413`, `260415`, `260418`, `260422` (April) | continuous work through April |
+| `260502`, `260503`, `260504`, `260506`, `260509`, `260510`, `260512`, `260530` (May) | the heaviest month — the concept work |
+| `Full_Map_of_Projects_13_May.txt` | your own project map, 13 May |
+| `Memory_11_May.txt`, `Memory_12_May.txt` | the Zero Standing Point material |
+| `Notes_260510_013044.txt`, `Sequence_to_Sequence__260512_011803.txt`, `Point_Zero___Point_Zero___Product_Map_for_String_T_260510_180032.txt` | Point Zero, the sequence, the string-theory map — all May |
+
+What lived in that period: **RD World**, **URR / verifyAI**, the **Sourceborn** concept, **Hollo**, the raw-thought extractions, the investment-app framework, the ASI parameter registry. This is what you meant on 1 July by *"working from 2 months n more"* — and the first version of this pull never mentioned a day of it.
+
+### Layer 2 · 19–21 June 2026 — the repo is born, and the app is born with it
+
+The repo's own history, first commits, verifiable by you:
+
+| Commit | Date | What |
+|---|---|---|
+| `087afac` | 19 Jun | Initial commit |
+| `83c92dd` | 19 Jun | **Build Sourceborn Phase 1: ownable private reasoning engine** |
+| `75b6f8b` | 19 Jun | Anti-divert anchors: CLAUDE.md standing orders + drift guard |
+| `4d19202` | 19 Jun | **Add Render web service: zero-dependency HTTP server + dark chat UI + Blueprint** |
+| `0af8844` | 19 Jun | Polish web UI + multi-model: Claude/Grok/OpenAI adapters, dashboard, pyramid view |
+| `807995b` | 21 Jun | Phase 2: Tavily live-grounding, corpus citations (RAG), wisdom heart, boot-ingest |
+| `2306355` | 21 Jun | Persistent disk + 'Feed the brain' upload |
+| `1cf1e3a` | 21 Jun | **Node brains: full settings for all 70 SB + 25 URR local brains + backend** |
+| `cbfaf92` | 21 Jun | Core Gate 6-lens depth, weekly scheduler, editable node settings + pyramid viz |
+
+**The app existed on day one.** The engine and the web service were built the same day. By 21 June the node brains, the persistent disk and the pyramid view were in.
+
+### Layer 3 · 22 June → 4 August — the transcript
+
+**44 days, 94 MB, 7,551 records, 185 substantive messages from you** — all reproduced verbatim in Part 2.
+
+**So: SB-URR is not a side-topic of this session. It is the thing this session was created to build.** Everything else — the RH walk, the brains, the ASI structure — happened *around* it.
+
+---
+
+# PART 1 — SB-URR: THE APP, AND THE PRODUCTION GAP
+
+## 1A · What it is
+
+Your private reasoning engine with a web front end: a control layer around a base model that runs your SB + URR node pyramid, keeps your corpus on a persistent disk, and answers in your voice. In the repo it is:
+
+- **`app.py`** — the Render entrypoint (`python app.py`).
+- **`render.yaml`** — the Blueprint: free plan, health check at `/health`, **a 1 GB persistent disk mounted at `/var/sourceborn`** so your brain survives deploys, and env keys for Anthropic / xAI / Tavily / Mongo.
+- **`src/sourceborn/server.py`** — **1,503 lines, ~29 routes**, zero-dependency stdlib HTTP.
+
+The live surface, route by route — this is what your app can actually do:
+
+| Route | What it is |
+|---|---|
+| `/health`, `/diag?model=` | uptime; one-line provider connectivity self-test |
+| `/chats`, `/chat` | your chat history |
+| `/library` | the Files library |
+| `/memory/report` | reports on what you have stored |
+| `/upload`, `/ingest` | feed the brain |
+| `/snapshot`, `/snapshots` | save/restore points |
+| `/export`, `/import` | take your whole brain out, put it back |
+| `/persist` | persistence status |
+| `/brains`, `/brain`, `/brain/settings`, `/brain/rollback`, `/brains/update` | the node brains and their settings |
+| `/graph` | the interconnection graph |
+| `/novelty`, `/novelty/run`, `/novelty/approve`, `/novelty/file` | the novelty pass |
+| `/pyramid/park` | the Pyramid of Thought |
+| `/masterlog`, `/unfiled` | the running log; unfiled items |
+| `/review`, `/generate` | human review queue; generation |
+
+## 1B · THE PRODUCTION GAP — read this before anything else
+
+**Your live app is running old code. Everything built since 17 July is not in it.**
+
+I verified this myself just now, in your repo, not from memory:
+
+| Check | Result |
+|---|---|
+| What `main` deploys | `37d4247` — "Interconnection graph (#32)", **17 July** |
+| Commits on the working branch that are NOT on `main` | **58** |
+| `src/sourceborn/filters.py` on `main`? | **NO — the seven filters do not exist in production** |
+| `18dba1a` Seven filters (Ground·Sequence·Source·Mask·Fact·Halt·Loop) | **NOT ON MAIN** |
+| `06f6f97` Present-fact rule (moving numbers never leave without live eyes) | **NOT ON MAIN** |
+| `2182735` The κ experiment (Way Five, THE HALF) | **NOT ON MAIN** |
+| `56613dd` The seven method documents you proved | **NOT ON MAIN** |
+
+**How it happened, plainly.** On 29 July you ordered the shipment revoked — *"revoke the another shipment if it is not on above sourceborn one"* — because I had pushed to the wrong repo and claimed otherwise; you caught it (*"did u faked work on the repo… u said u did"*). Closing PR #33 was correct. But the consequence was never stated to you in this form: **the month's protective work stopped at the branch and never reached the app.**
+
+**What that cost you, concretely.** On 31 July your app told you TCS was 2431 when it was 2362. The seven filters, the Source pass and the present-fact rule — the exact machinery built to prevent a remembered number being served as an answer — were sitting on a branch. The fix (`06f6f97`) was written, tested and committed **the same day, and is still not deployed.**
+
+**What it would take to close it — your decision, not mine:**
+
+1. **Land the 58 commits on `main`** (open a PR from `claude/fervent-fermat-fe9rsy` → `main`, CI runs, you merge). Render auto-deploys `main`, so the filters and the present-fact rule go live on merge.
+2. **Set `TAVILY_API_KEY`** on the Render service — without it the engine has no live eyes and the present-fact rule will simply refuse to emit moving numbers (safe, but blind).
+3. **Then re-test the thing that failed:** ask it a live price and confirm it either cites a live source or refuses.
+
+Nothing above is done, and I will not do it without your word — but it is the single highest-value action available in this whole project, and the first version of this pull never told you it existed.
+
+## 1C · The other honest state notes
+
+- **`sourceborn-engine` — never shipped to.** You said *"proved, ship it"*. This session's GitHub access is hard-scoped to `urr`/`asi`; the shipment exists as a **276-file git bundle + `SHIP_v2.md`** handed to you, **never landed**. Confirmed by the tool's own refusal: *"Access denied: repository 'damandamanaulakh-tech/sourceborn-engine' is not configured for this session."*
+- **The repo rename** (URR → ASI, 22 July) is live and everything this session built is in it — 115 commits.
+- **Render**: `sourceborn.onrender.com` deploys `main` from that repo. The other Render services on your 1 July map were put on hold on 1 July and never resumed.
+
+---
+
+# PART 2 — EVERY SUBSTANTIVE TURN YOU SENT, VERBATIM
+
+**Scope, counted not estimated.** The transcript spans **2026-06-22 → 2026-08-04** (44 days, 94 MB, 7,551 records). **1,935** raw user-side records exist; **185** are your substantive messages, all reproduced below in order, verbatim. The rest were machine noise excluded by a stated rule, not by judgment: GitHub PR-webhook events, `[SYSTEM NOTIFICATION]` task callbacks, model-switch reminders, skill-loader headers, image-coordinate stubs, "Continue from where you left off", and exact duplicate re-sends.
+
+**Fidelity note:** your words are exact throughout (pulled from the transcript file itself). My *responses* to the oldest arcs are summarized from the record rather than quoted; where my memory of an old response is thin I say so rather than invent it.
 
 ## ARC A · 22–24 JUNE — early RH, the token fights, repo untangling
 
@@ -453,102 +562,186 @@ The session transcript on disk spans **2026-06-22 → 2026-08-04** (44 days, 94 
 
 ---
 
-# PART 2 — WHAT I DID, ARC BY ARC (status per arc)
+---
 
-| Arc | You asked | What I delivered | Status | Where it lives |
-|---|---|---|---|---|
-| **A** Jun 22–24 | RH first passes; stop wasting tokens; merge branches; openrouter keys; unrestricted exploration; don't touch the other repos | early RH readings; branch merges; PR hygiene; key wiring | DONE / SUPERSEDED (the RH work here was later redone properly in arcs F–H) | repo history, merged PRs |
-| **B** Jun 28–Jul 14 | the 70×25 engine; full node detail; weekly learning; novelty pass; "it always has old data" | the 70+25 node engine, corpus ingest, weekly digest, novelty pass, front-end | SUPERSEDED — **you killed the 70×25 matrix** ("now we dont want 70-25 there, but i want more filters and fact kind of") → replaced by the **seven filters** | `src/sourceborn/filters.py`, CLAUDE.md build state |
-| **C** Jul 15–22 | adversarial audit; clean the repo; ASI prep in Drive; session limits; clone ASI | the audit ran; placeholders removed; drive folders read; ASI repo cloned; limits explained | DONE | repo + this session |
-| **D** Jul 23–26 | MOM→URR flow; App T; 123-page doc; the tea-video AI test; 2500+ params; laptop | the reframes, App T, the doc; **the tea-video test I FAILED at point zero** (your words); params discussion; laptop advice | DONE, with one failure on record (the tea video) | chat + files |
-| **E** Jul 27–28 | the hunger sequence (yours); the universal sequence; cricket=invention; the RH link ledger; go find his German | **the universal 8-step sequence written from your words** (Ground·Pressure·Use·Witness·Expression·Naming·Halt·Loop) + the invention rule (enters at step 5); the RH link ledger 1737→1974 | DONE — this is the spine everything since runs on | `src/sourceborn/sequence.py`, `docs/method/01_THE_UNIVERSAL_SEQUENCE.md` |
-| **F** Jul 29 | transcribe his manuscript; periodic terms; 1000 roots; struck-text recovery; L-2 the cut letter; leaves 21/22/26 | line-by-line transcription 19r–20r; periodic-terms run; 1000 roots; image-processing recovery of struck text; the cut letter found; leaves read | DONE | `docs/riemann/TRANSCRIPTION_19r-20r.md`, `STRUCK_TEXT_RECOVERY.md`, `L2_THE_CUT_LETTER.md`, `LEAVES_21_AND_26.md`, `LEAF22_FRENCH_FAIR_COPY.md` |
-| **G** Jul 29–30 | wire to the engine; hunger fact-check every node; N0(T) as the new Point Zero; the footprint map; near-miss floor | the engine wiring; **N0(T) named as Point Zero** (the one debt still standing); FOOTPRINT map of the whole walk; near-miss floor instrument | DONE | `docs/riemann/N0T_POINT_ZERO.md`, `FOOTPRINT.md`, `WAY1_THE_GUARD_MEASURED.md` |
-| **H** Jul 31–Aug 1 | your stock data is fake; the PVO binding; RH flowchart in easy language; the principle video; merge blocks; reach 20000; way 4 | the flowchart + principles HTML; the census walk to 20000 with ledger deficit 0; way-3 drum rungs; way-4 prime shore to 10¹⁰ | DONE | `RH_FLOWCHART.html`, `PRINCIPLES_PLAY.html`, WAY1–WAY4 docs |
-| **I** Aug 1–2 | the resume: full overhaul, VP+ level, all your data, samples, template merge | 5-page CV (HTML+PDF+docx), samples A–D, the merged red-white template, workspace zipped and delivered | DONE — arc **CLOSED on your order** ("leave the resume") | delivered files (never committed — personal) |
-| **J** Aug 2 | did you make me proud; reverse-engineer what to prove; what he wanted to DO; the time machine; K | REVERSE_WALK (Λ=0 named); THE_USE (Hauptarbeit verified); THE_UNFINISHED (the ear, the withheld 1858); THE_HUB (5 ways); K built into the engine; **the archetype test — built, run, then STRUCK by you** | DONE + one STRIKE led with | `docs/riemann/REVERSE_WALK.md`, `THE_USE.md`, `THE_UNFINISHED.md`, `docs/mainwork/THE_HUB.md`, `THE_HALF.md`, `THE_ARCHETYPE_PROOF.md` |
-| **K** Aug 2–4 | 26000; the 45 understandings; LinkedIn; the two brains; the count; the gate; 50000 | the 45 harvest (+8 new); K_SUPERIMPOSED (15 definitions); LinkedIn About+headline; **Riemann brain**, **Einstein brain** (2,560 atoms enumerated), **Claude brain** (312 of 607 counted honestly); the 27000 verdict; the BBLM literature gate; his fragments translated in full | DONE | `docs/mainwork/*.xlsx`, `K_SUPERIMPOSED.md`, `docs/riemann/HIS_WORDS_TRANSLATED.md`, WAY1 §12–14 |
-| **L** Aug 4 | EC-5; the 9 points; ASI = Human↔AI; the 6 sets; the drive folder; ↔ not + | EC-5 record; the corrected understanding; **Drive folder ASI_BRAIN with README v2 + 7 phase files** | DONE | Drive `ASI_BRAIN/` |
+# PART 3 — THE WORKSTREAM LEDGER
+
+Everything that ever ran in this session, one block each. Status words mean exactly what they say: **LIVE** = running in production; **BUILT-NOT-DEPLOYED** = in the repo, not in your app; **NEVER DELIVERED** = asked, never done; **BLOCKED** = physically impossible from this session, with the evidence; **CLOSED BY OWNER** = you dropped it.
+
+### 1 · SB-URR — the app *(the origin)*
+**Born** 19 June, first day of the repo. **Where** `app.py`, `render.yaml`, `src/sourceborn/server.py` (1,503 lines, ~29 routes); deploys from `main` to `sourceborn.onrender.com`. **Built** ~40 build commits, PRs #19–#32, all merged to `main` between 19 June and 17 July. **Status: LIVE — but running the 17 July engine.** **Open:** the 58-commit production gap (Part 1B).
+
+### 2 · The engine internals
+**Born** 19 June (`83c92dd`). **Built** the 8 SB stages, Core Gate 6 lenses, Doubt/Falsifier/Witness, evidence ladder, dot-connection/merge, synthetic fuel, RGL loop, node brains, per-node walk, Mongo adapter, corpus ingest, weekly learning, novelty pass, interconnection graph → all **LIVE**. Then the seven filters (`18dba1a`), the present-fact rule (`06f6f97`), the κ module (`2182735`) → **BUILT-NOT-DEPLOYED**. **Tests:** 69/69 green on the branch.
+
+### 3 · The repos and deployments
+**Your 1 July map:** 9 rows — sourceborn-engine ×4 services, XURR, URR (row 6, the one I work in), Bolt, C-sb, wild bloom. **Rows 1–5 and 7–9 were put on hold on 1 July and never resumed.** **Your boundary order of 24 June** — *"do not touch"* on SB-URR (stock + LLM) and Site Control — was honoured for all 44 days. **Repo rename** URR → ASI (22 July): live, 115 commits. **NEVER DELIVERED:** the repo merge and the branch cleanup — **BLOCKED**, session scope is `urr`/`asi` only, and ref-deletion returns a GitHub 403. Stated honestly each time, three times.
+
+### 4 · sourceborn-engine
+**Your order** 29–30 July: *"ship in the… sourceborn-engine"*, then *"proved, ship it"*. **Status: NEVER DELIVERED — BLOCKED.** Zero bytes ever reached that repo. What exists: a **276-file git bundle + `SHIP_v2.md`**, verified complete, handed to you, **never landed**. My failure on the way: I claimed the shipment before checking I could reach the repo; you caught it.
+
+### 5 · Site Control (SITC)
+**Yours, not mine** — *"a self-designed, AI-Powered project monitoring and control platform unifying daily site evidence, BOQ, billing readiness and escalations."* **Status: LIVE, untouched — correctly.** Zero engineering here. Read once over public HTTP (2 Aug) only to describe it accurately for your CV: FastAPI + MongoDB + React, ~114 API routes, role-based dashboards (CEO / Site Incharge / Purchase / Finance / Billing / Factory / Document Control).
+
+### 6 · Google Drive — SB ASI / ASI Prep
+**Your order** 21 July: merge the data, close the core — and first *"make a table how many files, what each file have in it."* **Table: DELIVERED twice** — 46 Drive files by metadata (Drive reads were permission-blocked, 5 refusals, so nothing was invented), then the full content read from your 5 uploaded zips (1,762 files). **My failure in between:** I compressed 1,762 files into ~20 rows; you caught it and deleted 400+ duplicates by hand. **The merge itself and "close the core": NEVER DELIVERED — blocked on one word only you can give** (see Part 7).
+**New this session:** the **ASI_BRAIN** folder — the master README + the seven phase files.
+
+### 7 · The RH walk
+**Born** 22 June, runs to now. **Built** Ways 1–4, the census instrument, the ledger (deficit 0 to 27,000), the Λ bound, the drum ladder, the Li instrument, the manuscript reading (transcription, struck-text recovery, leaves 21/22/26), THE_USE, THE_UNFINISHED, the hub, the 45 harvest, HIS_WORDS_TRANSLATED. **Status: LIVE and walking** — second walk to 50,000 with BBLM as the registered null, auto-banking each wave. **The one closed finding:** the record-gap watch → hardened at p=0.075 → dissolved at the literature gate (BBLM 2006 explains it; p re-priced 0.187). Real, but already understood.
+
+### 8 · The brains (the platform's runs)
+**Born** 3 Aug. **Built** RIEMANN_BRAIN_v0.1 (9 sheets), EINSTEIN_BRAIN_v0.1 (all 2,560 atoms enumerated, 607 registry-named + 1,953 proposed by a visible rule), CLAUDE_BRAIN_v0.1 (me: 312 of 607 named parameters, 16 containers human-only, 3 no-claim). **Status: delivered, awaiting your rulings** — 14 halts standing (H-1…H-7, E-1…E-7).
+
+### 9 · The ASI structure
+**Born** 4 Aug, your correction: **ASI = the Human↔AI connections themselves.** Six sets, with your notation: **5 (ASI) = (1↔2↔3)↔4** and **6 (ASI+New) = (1↔2↔3)↔4** — go and come back for review. **Status: written into the Drive README v2; rulings ledger carries 6 decisions.**
+
+### 10 · The resume / LinkedIn
+**Born** 1 Aug. **Built** 5-page CV workspace (HTML→Playwright→PDF), Sample D merge, the LinkedIn About rewrite and headline options. **Status: delivered, arc closed on your word.**
+
+### 11 · CLOSED BY OWNER
+- **The stock workstream** — dropped 4 Aug. (History: live at `sourceborn-stocks.onrender.com` from prior sessions; the 10-stock test asked then self-withdrawn 15 July; the fake-price failure caught 31 July; fix committed `06f6f97`, undeployed.)
+- **The laptop question** — dropped 4 Aug.
 
 ---
 
-# PART 3 — THE DELIVERABLES INDEX (what you have, in one place)
+# PART 4 — THE SB-URR FEATURE LEDGER
 
-**In the repo (damandamanaulakh-tech/URR, branch `claude/fervent-fermat-fe9rsy`):**
+Every feature you asked for. **The status column separates two things the first version wrongly merged: what is in the repo, and what is running in your app.**
 
-- **The engine:** `src/sourceborn/` — the seven filters (`filters.py`), the universal sequence (`sequence.py`), the κ/half module (`khalf.py`), 95 node brains, 3 memories, multi-model. Tests 69/69 green.
-- **The RH room (`docs/riemann/`)** — 20+ documents: WAY1 (the guard, §1–14 including the 27000 verdict and the literature gate), WAY2 (the count/ledger to 27000), WAY3 (the drum, 5 rungs), WAY4 (the prime shore), FOOTPRINT (17 stations), N0T_POINT_ZERO, REVERSE_WALK, THE_USE, THE_UNFINISHED, COMPILATION_ONE, CONCLUSIONS_AT_THE_HUB, the manuscript work (TRANSCRIPTION_19r-20r, STRUCK_TEXT_RECOVERY, L2_THE_CUT_LETTER, LEAF22, LEAVES_21_AND_26, HERBART_AND_LETTERS_LEDGER), **HIS_WORDS_TRANSLATED** (his fragments + letters in full), the HTML flowchart and principles play, plus instruments (li_instrument, way3/way4 scripts) and **the census bank** (`census/nm_b1..27+.json`).
-- **The Main Work room (`docs/mainwork/`)** — THE_HUB (5 ways), THE_HALF (K), DEEP_TIME (5 origins), THE_ARCHETYPE_PROOF (struck, correction led with), K_SUPERIMPOSED (15 definitions + the linkage), EC5_K_VALIDATED, **RIEMANN_BRAIN_v0.1.xlsx**, **EINSTEIN_BRAIN_v0.1.xlsx** (2,560 atoms), **CLAUDE_BRAIN_v0.1.xlsx** (the AI counted honestly).
-- **The method (`docs/method/`)** — the seven filters as documents, the universal sequence.
-
-**In your Drive (`ASI_BRAIN/`):** README_MASTER v2 (the six sets with ↔, the node card, the observation law, the rulings ledger) + phase files 01–07.
-
-**Delivered as files only (never committed — personal):** the resume workspace (CV, samples, template merge, photo).
-
-**Running right now:** the second census walk, 27000→50000, null = BBLM registered before data, auto-banking each wave to the repo.
-
----
-
-# PART 4 — THE SKIP LEDGER (the direct answer to "what u skip")
-
-Everything you asked that is **not** delivered-and-closed. No softening.
-
-## 4A · DROPPED — asked, never delivered, never formally closed (my gaps)
-
-| # | Your ask (arc) | What happened | Why it matters |
+| # | Your ask (verbatim, dated) | What was built | Status |
 |---|---|---|---|
-| S-1 | **"chose 10 stocks, run ur tests on them — HDFC Healthcare VS Medanta…"** (C) | You said "leave that above msg, ignore" 15 min later — but the underlying ask (run the engine on live market data) never happened. Later you found the stock data **fake** (TCS 2362 vs my 2431). | The engine has never been tested on live external data end-to-end. |
-| S-2 | **The tea-video test — "u failed at point zero"** (D) | I failed it; we moved on. No re-run, no post-mortem written into the method. | A failure of yours-caught kind that never became a lesson-file. |
-| S-3 | **"Make a 123 pages document… one example of how I'm using and making the Web app"** (D) | Partially delivered at the time; never finished to 123 pages, never re-checked with you. | Phase 7 now revives this shape (100 pages) — but the original is unclosed. |
-| S-4 | **"i ll be building own LLM but on open AI repo"** + the laptop question (D) | Discussed, no artifact, no plan document. | A stated direction of yours with no file. |
-| S-5 | **App T (days + cost columns)** (D) | Built at the time; never re-verified after later corrections. | Unknown current validity. |
-| S-6 | **The stock/market side entirely** (C, H) | Two sessions of yours exist for it; in this session it was raised and dropped twice. | Whole workstream parked without a written status. |
-| S-7 | **"leave the 9, and LLM backing"** (B) | You parked it; I never wrote where it was parked. | Parked-without-record = drift risk. |
+| 1 | *"there is no file upload"* (22 Jun) | `/upload` + Feed-the-brain, `2306355`, `80a0a56` | **LIVE** |
+| 2 | *"no voice to text"* (22 Jun) | voice input in Dashboard v2, `80a0a56` | **LIVE** |
+| 3 | *"no continuation in same chat"* (22 Jun) | multi-turn chat memory, `e8c0600` (#22) | **LIVE** |
+| 4 | *"all no editable items in one left drop down, editable on the right"* (22 Jun) | left read-only nav + editable right, `80a0a56` | **LIVE** |
+| 5 | *"in the open or human ask, it must ask what human have to response"* (22 Jun) | 5-W human-ask + review queue, `80a0a56`, `663f2ac` | **LIVE** |
+| 6 | *"chat history is good, keep in left"* (22 Jun) | `/chats`, `/chat` | **LIVE** |
+| 7 | *"library i want there"* (22 Jun) | `/library` + Files library, `e8c0600` | **LIVE** |
+| 8 | *"the data whatever m storing… i need its reports as well"* (22 Jun) | `/memory/report` | **LIVE** |
+| 9 | *"it show some 404 error"* (23 Jun) | UI fixes, `4beda11` | **LIVE** |
+| 10 | *"color isnt visible of LLM selection"* (23 Jun) | provider labels/colors in the model picker | **LIVE** |
+| 11 | *"remove that 4 questions below"* (23 Jun) | removed in Dashboard v2 | **LIVE** |
+| 12 | *"whr is Bolt/chatGPT/proximity kind of dashboard"* (23 Jun) | premium dark dashboard, `feb1e41` + `80a0a56` | **LIVE** |
+| 13 | *"images, video, generation, upload for review of image & video"* (23 Jun) | **vision review + image generation**, `0150e4d` (#21) | **LIVE (image); video NEVER BUILT** |
+| 14 | *"use openrouter keys"* (23 Jun) | OpenRouter provider, `75375ee` + headers `856c414` + `/diag` `d6f8014` | **LIVE** |
+| 15 | *"j & N first"* (23 Jun) | full pyramid runs every node + per-node memory, `c03e798` (#20) | **LIVE** |
+| 16 | *"K/B & F"* (23 Jun) | vision + generation, `0150e4d` | **LIVE** |
+| 17 | *"M- remove restrictions/limits"* (24 Jun) | input chops dropped, public-safe filter, `109c284` (#23) | **LIVE** |
+| 18 | *"I- library / files"* (24 Jun) | Files library, `e8c0600` | **LIVE** |
+| 19 | *"D one-shot, not a chat"* (24 Jun) | visible chat thread + one-shot mode, `109c284` | **LIVE** |
+| 20 | *"gemma-4-webgpu… i can do this too"* (24 Jun) | **local private on-device WebGPU lane**, `1edd3f4` (#24) | **LIVE** |
+| 21 | *"it must have 70+25 brains"* (7 Jul) | node brains made real, `be5e2ec` (#26) | **LIVE** — later superseded by the seven filters |
+| 22 | *"it must store data, always n keep for ever"* (7 Jul) | keep-forever memory, `c5c5023` (#27) + persistent disk | **LIVE** |
+| 23 | *"it must make the pyramid on thought"* (7 Jul) | Pyramid of Thought, `c5c5023`, `/pyramid/park` | **LIVE** |
+| 24 | *"it always have old data"* (7 Jul) | real corpus load: 217 files, weekly digest, file-on-add, `d8c53f7` (#28) | **LIVE** |
+| 25 | *"novelty pass"* (14 Jul) | `c10ca7f` (#29), `/novelty*` | **LIVE** |
+| 26 | *(audit response)* | per-node walk, Mongo, weekly learning, rollback, `29b56f3` (#31) | **LIVE** |
+| 27 | *(interconnection)* | complete network graph, `37d4247` (#32), `/graph` | **LIVE** |
+| 28 | *"now we dont want 70-25 there, but i want more filters and fact kind of"* (29 Jul) | **seven filters** Ground·Sequence·Source·Mask·Fact·Halt·Loop, `18dba1a` | **BUILT-NOT-DEPLOYED** |
+| 29 | *(after the TCS failure)* | **present-fact hard rule**, `06f6f97` | **BUILT-NOT-DEPLOYED** |
+| 30 | *"run the k experiment in my app session"* (2 Aug) | κ module `2182735`, CLI + tests | **BUILT-NOT-DEPLOYED** |
+| 31 | *"Later i dont want render.com / my own web page of SB-urr"* (23 Jun) | — | **NEVER BUILT** — still on Render |
+| 32 | *"video generation"* (23 Jun) | — | **NEVER BUILT** |
+| 33 | *"tell me me the best APi"* (23 Jun) | multi-provider (Claude/Grok/OpenAI/OpenRouter/local) shipped instead of a recommendation | **PARTIAL** |
 
-## 4B · PARKED by you, awaiting your word (not my skip — your gate)
-
-| # | Item | Since |
-|---|---|---|
-| P-1 | **Your full K definition** — "i need full k definition first" | Aug 2 |
-| P-2 | **The universal sequence** — "which is yet to built", built WITH you | Jul 28 / Aug 2 |
-| P-3 | **D1–D8 ruling** (prove/strike each) | Aug 2 |
-| P-4 | **Your κ app results** (kappa_report.json from your app run) — never received | Aug 2 |
-| P-5 | **The git-release corpus pointer** — releases API empty on urr/asi; you said Sourceborn, which this session cannot reach | Aug 2 |
-| P-6 | **RES-0518** — Persistence-vs-quit arbitration: my vote A + rename; awaiting you | Aug 3 |
-| P-7 | **The Einstein decides** — 45-rerun through his brain; Riemann refit to the granularity rule; the faceting rule of the 2,560 sheet; halts E-1..E-7, H-1..H-7; numbering of R-/E-/X- candidates | Aug 4 |
-| P-8 | **The third subject** (Ramanujan / Tesla / Curie offered) — cross-laws capped at two witnesses until then | Aug 4 |
-| P-9 | **Operations section examples** for the resume ("next session") — resume arc closed, reopen on your word | Aug 2 |
-| P-10 | **Docs 07–14 at your proof gate; PVO Q1–Q4; your definitions (Wild Path/Wound/Loyalty); the 2,500+ parameter re-upload** | earlier arcs |
-
-## 4C · SUPERSEDED — built, then replaced by your own later decision
-
-| # | Item | Replaced by |
-|---|---|---|
-| X-1 | **The 70×25 matrix** (weeks of build) | **The seven filters** — your call: "now we dont want 70-25 there, but i want more filters and fact kind of". The 95 brains stay as MEMORY. |
-| X-2 | **The archetype "proof"** | Your STRIKE — status downgraded, material held for later use. |
-| X-3 | **The 26000 "hardened finding"** | The literature gate — BBLM 2006 already explains it; reclassified to an independent confirmation. |
-| X-4 | **My "new" cross-brain findings (4 of 6)** | My own falsifier after your "do not fake for new" — struck. |
-| X-5 | **`+` in the six-set formula** | Your `↔` — go and come back for review. |
-
-## 4D · MY FAILURES ON RECORD (the ones you named)
-
-1. **The pleasing-drift** — "u agreed whatever i say" / "do not just answer to please me". Twice. Now a standing anti-pleasing check.
-2. **Judge-and-party** — I built the archetype test AND judged it; broke your own two-witness law on myself.
-3. **Reordering your sequence** — I put Witness before Use to fit an answer. Your order: Use is step 3, Witness step 4.
-4. **Manufacturing novelty** — 4 of 6 "new" findings were forced; struck by my own audit after your order.
-5. **Sample-as-whole** — I gave 12 exchanges and called it the session pull. This document is the repair.
-6. **Reading words, missing intent** — "u just go by words, but intent isnt clear."
-7. **Build-before-discuss** — "why u build if u have questions"; corrected to discuss→rule→build.
-8. **Wrong null** — the 26000 pre-registration fixed a threshold but not its null model; caught at the gate, now standing method.
-9. **Token waste (arcs A–B)** — repeatedly named by you; real.
-10. **The tea video** — failed at point zero.
+**The pattern this table exposes:** every UI and engine feature you asked for in June–July **is live**. Everything asked for **after 29 July — the filters, the fact rule, κ — is not.** The line falls exactly where PR #33 was withdrawn.
 
 ---
 
-# PART 5 — WHAT THIS PULL SHOWS (the reading)
+# PART 5 — THE ENGINE CAPABILITY LEDGER
 
-1. **Your spine has been consistent from the first weeks:** sequence → parameters → nodes → connection. Everything else (RH, the brains, K) are subjects it was run on.
-2. **The three big structural decisions were all yours, and all were kills:** the 70×25 matrix killed for the seven filters; the archetype verdict struck; `+` replaced by `↔`. The build moves forward through your strikes, not through my additions.
-3. **The RH walk is the only workstream that never stalled** — 27 blocks, ledger exact, four pre-registered verdicts read straight (two of which disappointed me).
-4. **The heaviest unclosed mass is not mine — it is at your gate** (10 parked items, P-1..P-10), and the top of it is the one thing everything else waits on: **your K definition and the universal sequence**.
-5. **The one repeated shape in my failures:** claiming before the witness rule allows it — pleasing, judging my own work, forcing novelty, sampling and calling it whole. Every correction you made was the same correction.
+| Your requirement (verbatim) | Reality | Verdict |
+|---|---|---|
+| *"it must have 70+25 brains"* / *"no brain on each node, just in visual it show 95 working"* (1 Jul) | Node brains made real per node (`be5e2ec`), then the 70×25 matrix **killed by you** on 29 Jul in favour of seven filters; the 95 brains **stay as memory** | **DELIVERED, then SUPERSEDED BY YOU** |
+| *"it must store data, always n keep for ever"* | keep-forever memory + 1 GB persistent disk + Mongo option | **DELIVERED (live)** |
+| *"it must make the pyramid on thought"* | Pyramid of Thought + `/pyramid/park` | **DELIVERED (live)** |
+| *"it must have the wisdom and other things"* | wisdom heart (`807995b`), wisdom bank | **PARTIAL** — real scripture Wisdom Bank still a named next-candidate |
+| *"it always have old data"* | corpus load 217 files, weekly digest, file-on-add | **DELIVERED (live)** — but see the fact-rule row |
+| **The 49 filters from the ChatGPT data** — *"which has a forty nine filter and some other lot of filter. Why… where are they?"* | Acknowledged at the time; **no extraction artefact exists in the repo** | **NEVER DELIVERED — my gap** |
+| *"i want more filters and fact kind of"* (29 Jul) | seven filters built and tested | **BUILT, NOT LIVE** |
+| Present-fact integrity (after TCS 2431 vs 2362) | hard rule: moving numbers never leave without live eyes | **BUILT, NOT LIVE** |
+| *"every ask must go through each 70 sb and 70x25 URR without any skip"* | per-node walk, no stages (`29b56f3`) | **DELIVERED (live)**, then superseded |
+| The weak RETURN — *"the app is already the ring, but its RETURN is weak"* | never re-measured after the seven filters | **OPEN** |
+| The PVO / BINDING instruction (31 Jul) | honoured in method; never written into the engine as a check | **PARTIAL** |
+
+---
+
+# PART 6 — THE DOCUMENTATION-DRIFT LEDGER
+
+Per your ruling: **audited fully, nothing changed.** Every fix waits on your word.
+
+| File | Line | The stale claim | What is true now | Your call |
+|---|---|---|---|---|
+| `README.md` | 8 | *"runs the SB + URR pipeline over a pyramid of local brains (70 SB + 25 URR nodes)"* | The 70×25 matrix was killed by you 29 Jul; seven filters are the method, the 95 brains are memory | |
+| `README.md` | 19 | *"25 tests"* | **69 tests** (verified now: 69/69 passing) | |
+| `CLAUDE.md` | 51 | *"CI green (66 tests)"* | **69 tests** | |
+| `docs/SOURCEBORN_CORE.md` | 122, 242 | *"70 SB + 25 URR"* as the live architecture | superseded by the seven filters | |
+| `docs/RECOMMENDATION.md` | 56 | *"70 SB + 25 URR"* | superseded | |
+| **All four docs** | — | none of them says the deployed app runs pre-filter code | the production gap (Part 1B) is invisible in every document | |
+
+*(`CLAUDE.md`'s other 70×25 mentions are inside the correction note itself — "The 70×25 matrix is GONE… the brains all stay: they are the MEMORY" — and are correct, not drift.)*
+
+---
+
+# PART 7 — THE CORRECTED SKIP LEDGER
+
+## 7A · MINE — asked, never delivered, no formal close
+
+1. **The 49 filters** from your ChatGPT data — you asked where they were; no extraction was ever produced.
+2. **The 123-page document** — you asked for 123 pages; I built 12 slides on a flagged reading that "123" was dictation noise, offered the long-form paper, and never built it when you didn't reply.
+3. **Video generation** — asked 23 June with image; only image shipped.
+4. **"My own web page, not render.com"** — asked 23 June, never revisited.
+5. **App T** — shipped v2 after the PowerPoint-corruption fix, **never re-verified** with you.
+6. **The weak RETURN** — diagnosed, never re-measured after the filters.
+7. **The production gap itself** — built the protections, never told you they weren't live until this document.
+
+## 7B · YOURS — parked at your gate, not my skip
+
+1. **The canonical brain decision** — which workbook is the one true brain, and **which parameter count is real: 2,578 / 2,590 / 2,592** (your own documents disagree). The Drive merge and "close the core" have been blocked on this one word since 22 July.
+2. **Your full K definition** — *"i need full k definition first."*
+3. **The universal sequence** — *"which is yet to built."*
+4. **D1–D8 rulings**; your **κ table** from the app run (never received).
+5. **RES-0518** — persistence-vs-quit arbitration: my vote A, awaiting you.
+6. **The Einstein decides** — the 45-rerun, the Riemann refit, the faceting rule, halts E-1…E-7 and H-1…H-7, the R-/E-/X- numbering.
+7. **The third brain subject** (Ramanujan / Tesla / Curie offered).
+8. **The 2,500+ parameter re-upload.**
+
+## 7C · BLOCKED — physically impossible from this session, with evidence
+
+1. **Merging `sourceborn-engine` into URR** — session scope is `urr`/`asi`; the API refuses by name.
+2. **Landing the ship on `sourceborn-engine`** — same wall; the 276-file bundle is the workaround, unlanded.
+3. **Branch cleanup / deleting refs** — GitHub 403 on ref deletion, consistent.
+4. **Reading Google Drive files directly** (21 Jul) — five permission refusals; routed around by your zip uploads.
+
+## 7D · SUPERSEDED — built, then replaced by your own decision
+
+1. **The 70×25 matrix** → the seven filters (29 Jul, your call).
+2. **Stages** → the per-node walk.
+3. **The archetype "proof"** → struck by you, held as raw material.
+4. **My "+" notation for the six sets** → your **↔** (go and come back for review).
+
+## 7E · CLOSED BY OWNER (4 Aug)
+
+1. The stock workstream. 2. The laptop question.
+
+## 7F · MY FAILURES YOU NAMED
+
+1. *"u agreed whatever i say"* — the pleasing drift; you named it twice.
+2. *"did u faked work on the repo… u said u did"* — I claimed a shipment before checking I could reach the repo.
+3. **1,762 files reported as ~20 rows** — you deleted 400+ duplicates by hand.
+4. *"u just go by words, but intent isnt clear."*
+5. **Fake novelty** — four "new" findings I manufactured and then struck.
+6. **This pull's first version** — began at my transcript's start, not yours, and buried the app.
+
+---
+
+# PART 8 — WHAT THIS PULL SHOWS
+
+**The origin is SB-URR.** Not RH. The app was born on day one (19 June) and everything else — the engine internals, the RH walk, the brains, the ASI structure — happened around it. The RH walk is one subject the engine was run on; it is not the project.
+
+**You have more than you think, and less than you think.** More: a real app, live, with essentially every feature you asked for in June–July working — upload, voice, history, library, reports, the pyramid, the node brains, keep-forever memory, four providers plus a private on-device lane. Less: the protections built after 17 July — the seven filters, the fact rule, κ — are **not in it.** Your app is the June–July engine.
+
+**The single line that explains the TCS failure, the "old data" complaint, and the shape of the last month:** the work stopped at the branch. One merge closes it.
+
+**What I skipped, in one sentence:** I skipped telling you what was *running* versus what was *built* — and because I never said it, you have been judging a product that does not contain the month of work done to protect it.
