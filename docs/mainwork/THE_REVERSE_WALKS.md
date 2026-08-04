@@ -807,10 +807,15 @@ justifies Filter 3's one-witness cap. Built at different times, no tuning.
 
 Kept honest, not filled in:
 
-- **The war (Mahabharata)** and **the bet (Draupadi)** — he has given the *reading*, not
-  the steps. A reverse walk needs an end state and a chain of dependencies; a reading
-  gives neither. **They cannot be walked until he gives them as steps** — and inventing
-  those steps would be exactly the thing this method exists to prevent.
+- ~~**The war (Mahabharata)** and **the bet (Draupadi)**~~ — **WALKED. See
+  `THE_WAR_AND_THE_BET.md`.** This entry was wrong. I wrote that only a *reading* had
+  been given and not steps; his answer was *"i give you the steps"* — and he had. The
+  end state, the driver, the remainder and the finding to be tested were all on the
+  record in three places (the Re(s) readings, `Raw_thought_DS.txt`, and his own PAR-01).
+  **Correction kept visible rather than deleted:** the walk was refused for a reason
+  that did not survive checking his own material. His finding — *"betting lead to end
+  of era but we took it as lead by women pride"* — was tested across twenty steps of
+  dependency and **holds**: not one step in the causal chain is caused by her pride.
 - **The black hole** — given as an image and a challenge, not a sequence.
 - **K's own sequence** — he has ruled *"i need full k definition first."* The walk waits
   on the definition. It would be trivial to produce a plausible K descent and it would
