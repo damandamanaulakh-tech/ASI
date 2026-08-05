@@ -11,14 +11,20 @@ term by term and read off exactly what the missing system must be.
 is audited against it, and one case is examined where the whole architecture demonstrably
 works — and turns out to be the wrong symmetry class.
 
-**Evidence standing, stated first.** The *derivation* in §2–§4 you can check yourself with
-a pen — it is arithmetic on two standard formulas. **§5b and §6b are searched and sourced**
-(references at the end). The remaining *attributions* in §7–§8 are written from my own
-knowledge with no search behind them — **one witness, capped at Medium by the project's own
-Filter 3** — and should be verified before being cited.
+**Evidence standing.** The *derivation* in §2 you can check yourself with a pen — it is
+arithmetic on two standard formulas. **Everything else is now searched and sourced**
+(full reference list at the end). The previous version carried a Medium cap on §7–§8
+because it was written from memory with no search; **that cap is lifted, and two things
+it got wrong are corrected in place** rather than folded in silently:
 
-**One halt in the previous version has been resolved by search, and the resolution changed
-the article's conclusion.** It is marked in place at §5b rather than folded in silently.
+- **§5b — a halt resolved.** The magnetic-field question was open. It has been answered,
+  and the answer changed the article's conclusion.
+- **§7.4 — an overstatement corrected.** Bender–Brody–Müller was described as effectively
+  refuted. It is **contested**, with both sides published and neither withdrawn.
+
+**And the search produced two findings that were not in the previous version at all** —
+§8.1 (the smooth/oscillating split) and §8.2 (the negative sign, three times). They are
+the reason this rewrite exists.
 
 ---
 
@@ -407,142 +413,288 @@ arithmetic group is where the answer lives.
 
 # 7 · THE CANDIDATES, AGAINST THE POSTER
 
-Each is now scored against seven explicit conditions rather than three vague corners.
+**This section is now searched and sourced**, not written from memory. Each candidate is
+scored against seven explicit conditions rather than three vague corners, and the reasons
+for failure are the published ones.
 
-## 7.1 Berry–Keating — quantised **xp**
+## 7.1 The **xp** family — Berry–Keating, and what it actually buys
 
-**What it gets right:** the classical Hamiltonian H = xp has hyperbolic flow with
-**uniform instability** — condition 3, for free. Its semiclassical level count, with a
-phase-space cutoff, reproduces the smooth term including its logarithmic form — condition
-7. The proposal is serious precisely because it satisfies the two conditions everything
-else struggles with.
+### The original construction
+
+**Berry and Keating (1999)** showed that a *regularised* classical **H = xp**
+reproduces, semiclassically, the **smooth counting function** of the Riemann zeros.
+
+**The regularisation is specific and worth stating**, because its shape is the whole
+story. They introduce a minimal length **ℓ_x** and a minimal momentum **ℓ_p** with
+
+> **ℓ_x · ℓ_p = 2πℏ**
+
+and impose **|x| ≥ ℓ_x** and **|p| ≥ ℓ_p**. This cuts a hyperbolic region out of phase
+space, bounds the trajectories, and makes the phase-space area finite — from which the
+**E log E** form of the counting function drops out.
+
+`[FACT — sourced]`
+
+### The failure is at the CLASSICAL level, before quantisation
+
+This is the correction the previous version of this article did not have, and it matters
+more than the domain question.
+
+> **The classical trajectories of regularised xp are not closed.**
+
+A trajectory of xp is a hyperbola; the cutoff bounds it but does not close it. **A
+trace formula sums over CLOSED orbits.** If there are none, there is no oscillating
+term at all — no periods, no log p, nothing arithmetic.
+
+**So the model is incomplete at step one of the wanted poster**, not at the last step.
+`[FACT — sourced]`
+
+### The repair, and exactly what it does and does not buy
+
+**Sierra and Rodríguez-Laguna (Phys. Rev. Lett. 106, 200201, 2011)** modified the
+Hamiltonian to
+
+> **H = x( p + ℓ_p² / p )**
+
+which **does contain closed periodic orbits**, and whose spectrum **coincides with the
+average Riemann zeros**. The construction extends to Dirichlet L-functions using
+**different self-adjoint extensions** of H. `[FACT — sourced]`
+
+**Read the phrase "average Riemann zeros" carefully. It is the crux.**
+
+### THE SMOOTH/OSCILLATING SPLIT — the finding this section exists for
+
+Go back to §1.2. The explicit formula has two parts:
+
+> **d(E) = d̄(E) − (1/π) Σ_p Σ_r [ log p / p^(r/2) ] cos( r E log p )**
+> &nbsp;&nbsp;&nbsp;&nbsp;↑ smooth &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↑ **the oscillating part — where every prime lives**
+
+**Every xp model, from Berry–Keating 1999 through Sierra 2011, reproduces d̄(E).**
+Berry–Keating get the smooth counting function. Sierra gets the **average** zeros.
+
+> ### The xp family has bought the half of the formula that contains no arithmetic.
+>
+> **d̄(E) = (1/2π)log(E/2π) knows nothing about primes.** It is a phase-space volume. You
+> can reproduce it with a suitably shaped billiard and never touch number theory.
+>
+> **The oscillating term is the entire arithmetic content** — it is where log p appears,
+> where λ = 1 is forced (§2.2), where the ½ enters as p^(−r/2). **No xp model has produced
+> it.**
+
+`[READING — the split is mine; the two facts it rests on are sourced]`
+
+**This reframes twenty-five years of the programme.** The xp models are not "nearly
+there with a domain problem." They have reproduced the smooth background and have never
+touched the signal.
+
+### Scored
 
 | Condition | |
 |---|---|
-| 1 chaotic, isolated orbits | **partial** — the flow is hyperbolic but the orbits are not isolated without a cutoff |
-| 2′ periods log p, no degeneracy | **IMPOSED, not derived** — the periods are put in by hand |
-| 3 uniform λ = 1 | **YES — this is xp's gift** |
+| 1 chaotic, isolated **closed** orbits | **NO** in Berry–Keating; **YES** in Sierra's repair |
+| 2′ periods log p, degeneracy-free | **NOT ACHIEVED — the oscillating term is absent** |
+| 3 uniform λ = 1 | **YES** — xp's genuine gift; hyperbolic flow, uniform instability |
 | 4 h = 1 | follows |
 | 5 no time reversal | **YES** — xp is not time-reversal symmetric |
-| 6 uniform Maslov | unresolved |
-| 7 smooth term | **YES**, with the cutoff |
-| **self-adjoint on a natural domain** | **NO — this is what it pays** |
+| 6 uniform Maslov | not reached |
+| **7 smooth term** | **YES — and this is what the family has actually delivered** |
+| self-adjoint on a natural domain | multiple self-adjoint extensions exist; **which one is not determined by the physics** |
 
-**What it pays, precisely:** **xp has a purely continuous spectrum.** There are no
-eigenvalues to be the zeros. The phase-space cutoff |x|,|p| > ℓ that discretises it is
-imposed by hand, and **different cutoffs give different spectra.** The counting comes out
-right because the cutoff was chosen to make it come out right.
+## 7.2 Connes — and the negative sign that reappears
 
-> **Berry–Keating is not a failed operator. It is a correct identification of the classical
-> system with no quantisation.** Conditions 3, 5 and 7 are genuinely satisfied. **Condition
-> 2′ and self-adjointness are the entire gap** — and 2′ is the one §6 says is hard.
+### What it is
 
-## 7.2 Connes — the adelic trace formula
+The explicit formulas of number theory are interpreted as a **trace formula on the
+noncommutative space of adele classes**, reducing the Riemann Hypothesis to the validity
+of that trace formula. `[FACT — sourced]`
 
-**What it gets right:** the explicit formula emerges as an actual trace, in a framework
-that is spectral from the start.
+### The absorption spectrum, and WHY
 
-**What it pays:** the zeros appear as an **absorption spectrum** — missing lines in a
-continuum — not as the eigenvalues of an operator with discrete spectrum. And **RH becomes
-equivalent to Weil positivity**, which is unproved.
+Here is the detail that ties this section to §2.3, and I did not have it before:
 
-**Weil's criterion**, stated so the relocation is visible: RH holds if and only if a
-certain explicit quadratic functional W(f) — built from the explicit formula, summing
-contributions from all primes and the archimedean place — satisfies **W(f) ≥ 0 for all
-admissible test functions f.** `[FACT]`
+> **"A crucial negative sign in the analysis of the statistical fluctuations of the zeros
+> of zeta indicates that the spectral interpretation should be as an ABSORPTION spectrum,
+> or equivalently should be of a COHOMOLOGICAL nature."**
 
-> **The construction does not fail. It converts the problem into a positivity statement of
-> exactly equal difficulty.**
+`[FACT — sourced; Connes's own reasoning]`
 
-That is **Shape D** from article 12b — transfer — and it never closes alone. **Saying so
-is not a criticism of the work.** It is a statement of where the difficulty moved, and
-Connes made the difficulty far more precise than it was.
+**The zeros are not emission lines of an operator. They are missing lines in a
+continuum.** And the thing that forces that reading is **the sign** — the same minus sign
+that §2.3 showed requires every Maslov index to be identical.
 
-## 7.3 de Branges — Shape C
+### Weil positivity
 
-**Not a drum at all.** This is the *nature of ξ* route: put ξ into a space of entire
-functions where reality of roots is structural.
+**Weil positivity — the positivity of the associated quadratic form on a suitable class
+of test functions — is equivalent to the Riemann Hypothesis**, and proving positivity of
+the Weil distribution gives RH **for all L-functions with Grössencharakter.**
+`[FACT — sourced]`
 
-**What it pays:** the conditions required of the space were shown to fail in the case
-needed — **Conrey and Li (2000)** exhibited an obstruction to the version applying to ζ.
-`[READING — I am confident a specific counterexample to a required hypothesis exists;
-verify the exact statement.]`
+**Work continues on it as a live programme:** Connes and Consani have attacked the
+**archimedean place** specifically (2020), and more recent work reduces the Weil form to
+concrete finite objects — an explicit **(2N+1)×(2N+1) Galerkin matrix** whose spectrum is
+a finite-rank window on Weil positivity. `[FACT — sourced]`
 
-**The structural lesson is the one 12b names:** real-rootedness is not automatically
-preserved under limits. You need **uniform** control across the approximating family, and
-that is what is missing.
+### Scored
 
-## 7.4 Bender–Brody–Müller (2017)
+**The construction does not fail. It converts the problem into a positivity statement of
+equal difficulty** — Shape D of article 12b, transfer, which never closes alone.
 
-A PT-symmetric non-Hermitian operator, with the claim that a similarity transformation
-renders it Hermitian.
+**But the conversion is not worthless and it should not be dismissed as merely
+relocating.** It moved the difficulty from *"find an operator"* — an unbounded search —
+to *"prove one inequality"* — a bounded, attackable, finitely-approximable statement.
+**That is a real narrowing**, and the Galerkin work is what a narrowing looks like when
+someone starts computing with it.
 
-**What it pays:** the transformation's validity on the required domain was **disputed
-immediately**. Self-adjointness was not established in the sense the argument needs.
+## 7.3 de Branges — and the counterexample
 
-**Why it earns its place in the audit:** it is the cleanest recent demonstration that **the
-corner paid is almost always self-adjointness, and it is paid in the domain** — the part
-easiest to state loosely and hardest to establish.
+### What it is
 
-## 7.5 Random matrix theory
+**De Branges showed that the Riemann Hypothesis would follow from a positivity condition
+on a certain Hilbert space of entire functions**, proposing the approach for the
+generalized Riemann Hypothesis in 1986. This is Shape C — *the nature of ξ.*
+`[FACT — sourced]`
 
-**Not a drum, and its authors say so.** A statistical model, spectacularly successful
-predictively — moments of ζ, families of L-functions, value distributions.
+### What killed that version
 
-It supplies **condition 5's evidence** and attempts nothing else. **The GUE agreement is
-evidence *for* the quantum reading; it is not an instance of it.**
+**Conrey and Li** (*IMRN* 2000, No. 18; arXiv:math/9812166) gave **explicit examples
+showing that de Branges's positivity conditions are NOT SATISFIED** by the defining
+functions of the reproducing-kernel Hilbert spaces associated with the Riemann zeta
+function. `[FACT — sourced]`
 
-## 7.6 Quantum graphs — and a concrete impossibility
+**That is a counterexample to the hypotheses of the argument**, not a gap in it — a
+different and more final kind of failure.
 
-The most direct attempt: build a real quantum system with orbit lengths log p.
+### And the connection nobody mentions in the same breath
 
-**Here the obstruction is sharp and arithmetic.** On a quantum graph with finitely many
-bonds of lengths ℓ₁ … ℓ_n, every periodic orbit's length is a **non-negative integer
-combination** of the bond lengths — the additive semigroup they generate.
+**De Branges's theory is related to Lax–Phillips scattering theory** — and **Lax and
+Phillips themselves explained the difficulty of approaching RH by scattering.**
+`[FACT — sourced]`
 
-To realise **{log p : p prime}**, every log p must lie in that semigroup. But the numbers
-log p are **rationally independent** — no log p is a rational combination of the others,
-because primes are multiplicatively independent and factorisation is unique.
+> **So Shape C's failure has been diagnosed twice, independently, by different
+> communities:** once as a positivity condition that the actual zeta function violates,
+> and once as a structural obstruction in the scattering framework the theory generalises.
 
-> **Therefore every log p must be its own generator. A finite graph cannot do it. The
-> graph must have infinitely many bonds** — and finite quantum graphs are precisely the
-> ones that are understood.
+**And it is not dead:** work on de Branges's conjecture continues (e.g. 2025). The
+*specific route* was closed; the *space* remains a live object.
 
-`[READING — the rational independence of {log p} is elementary from unique factorisation;
-the semigroup argument is mine and should be checked, but I believe it is right.]`
+## 7.4 Bender–Brody–Müller — a dispute, not a refutation
 
-**This is not "hard." It is a proof that the finite version cannot work**, and it explains
-why the quantum-graph route has not produced a candidate rather than merely producing a
-flawed one.
+**I got this one wrong by overstating it in the previous version.** The accurate account:
+
+- **Bender, Brody & Müller (2017)** proposed a Hamiltonian whose eigenvalues would be the
+  imaginary parts of the zeros.
+- **Bellissard** submitted a Comment (arXiv:1704.02644, **9 April 2017**) arguing the
+  proposed strategy **does not work**.
+- A separate note also appeared (arXiv:1704.04705).
+- **Bender, Brody & Müller replied** (arXiv:1705.06767, **18 May 2017**), stating the
+  issues raised had already been discussed in the paper and **do not affect its
+  conclusions.**
+
+`[FACT — sourced; all three documents exist and are dated]`
+
+> **The correct status is CONTESTED, not refuted.** Both sides published, neither
+> withdrew, and I have not found a resolution in the literature I can reach. **The
+> previous version of this article said "disputed immediately" and implied it was settled
+> against them. That was one witness overreaching, and it is corrected here.**
+
+## 7.5 Random matrix theory — a model, and its authors say so
+
+Supplies condition 5's evidence and attempts nothing else. **Montgomery's pair
+correlation** matched the GUE; **Odlyzko's computations** confirmed it at great height.
+
+**It tells you what the answer looks like. It does not tell you what the object is.** The
+GUE agreement is evidence **for** the quantum reading, not an instance of it.
+
+## 7.6 Quantum graphs — a clean impossibility
+
+On a quantum graph with finitely many bonds of lengths ℓ₁…ℓ_n, **every periodic orbit's
+length lies in the additive semigroup generated by those bond lengths.**
+
+To realise **{log p : p prime}**, every log p must lie in that semigroup. But **the
+numbers log p are rationally independent** — a consequence of unique factorisation.
+Therefore **each log p must be its own generator**, and a finite graph cannot supply
+infinitely many.
+
+> **This is a proof that the finite version cannot work**, not a difficulty with it.
+
+`[READING — the argument is short and elementary; I believe it is correct and it should
+be checked]`
 
 ---
 
-# 8 · THE PATTERN, RESTATED WITH THE POSTER IN HAND
+# 8 · THREE SYNTHESES
 
-| Candidate | Conditions satisfied | What it pays |
+These are what the audit produces that no individual row contains.
+
+## 8.1 The whole programme has bought the smooth term and never the fluctuations
+
+From §7.1. **Berry–Keating 1999: the smooth counting function. Sierra 2011: the average
+zeros.** Both are **d̄(E)**.
+
+**d̄(E) = (1/2π)log(E/2π) contains no arithmetic.** It is a statement about phase-space
+volume. The primes appear **only** in the oscillating sum — and **no candidate has
+produced the oscillating sum from a mechanism.**
+
+> **Every route either assumes the periods log p as an input, or does not reach them at
+> all.**
+
+- xp: assumes them (Berry–Keating build the required orbit periods in by hand) or misses
+  them (the smooth term contains none).
+- Connes: gets the whole explicit formula as a trace — **and then needs positivity**, so
+  the arithmetic arrives correctly and the proof does not close.
+- Quantum graphs: **provably cannot** reach them finitely.
+- Selberg: reaches its *own* length spectrum, which is not the primes.
+
+**The arithmetic content has never been derived. It has been imported, avoided, or proved
+unreachable.**
+
+## 8.2 The negative sign is the same obstruction, seen three times
+
+| Where | What the sign does |
+|---|---|
+| **§2.3, the matching** | forces **every Maslov index to be identical** — a rigidity generic systems do not have |
+| **Connes** | forces the spectral interpretation to be **absorption, not emission** — *"a crucial negative sign… indicates that the spectral interpretation should be as an absorption spectrum, or equivalently should be of a cohomological nature"* |
+| **Hilbert–Pólya as usually stated** | assumes **emission** — eigenvalues of an operator, present lines |
+
+> ### The sign may be telling us the naive Hilbert–Pólya framing is wrong.
+>
+> An emission spectrum is a set of eigenvalues. An absorption spectrum is a set of
+> **missing** eigenvalues — a cohomological object, not an operator's point spectrum.
+>
+> **If Connes is right about what the sign means, then "find the self-adjoint operator" is
+> the wrong instruction**, and the wanted poster's conditions 3 and 6 are describing the
+> rigidity of a thing that is not a spectrum in the ordinary sense.
+
+`[READING — the synthesis is mine; the two ingredients are sourced. This is the most
+speculative claim in the article and the one I would most want attacked.]`
+
+## 8.3 The degeneracy dichotomy, now with both sides sourced
+
+| | Length spectrum | Statistics |
 |---|---|---|
-| Berry–Keating xp | **3, 5, 7** — the rigid ones | 2′ imposed by hand; **no self-adjoint quantisation** |
-| Connes | trace structure, spectral framing | **relocates** to unproved positivity |
-| de Branges | self-adjointness by construction | the limit is not controlled |
-| Bender–Brody–Müller | claimed spectrum | **domain** |
-| Random matrices | evidence for 5 | attempts nothing else |
-| Quantum graphs | 1, 3, self-adjointness | **2′ is impossible finitely** |
-| **Selberg — the working case** | **1, 2, 3, 4, 6, 7, self-adjoint. PROVED.** | **5 — wrong symmetry class** |
+| **Generic hyperbolic (twisted)** — Marklof–Monk | generic, no arithmetic | **GUE — proved** |
+| **Arithmetic hyperbolic** — modular surface and relatives | **exponentially degenerate** | **Poisson** |
+| **The primes** | **arithmetic AND degeneracy-free** | **GUE — observed** |
 
-**Three conclusions the table supports that no single row does.**
+**The middle row's mechanism is explicit in the literature:** *"the high degeneracy of the
+length spectrum is responsible for the Poissonian behaviour of the eigenvalues,"* and
+arithmetic properties *"lead to an exponential degeneracy of the lengths of periodic
+orbits."* `[FACT — sourced]`
 
-**1 · The architecture is not in doubt.** Selberg satisfies almost the entire poster and
-the theorem is proved. **Shape A is a real mechanism, demonstrated.**
+> **So the primes are the anomaly, and that is the good news.**
+>
+> Arithmetic *normally* produces exponential length degeneracy, and degeneracy *normally*
+> destroys random-matrix statistics. **The primes are arithmetic and carry no degeneracy
+> at all** — distinct primes have rationally independent logarithms, by unique
+> factorisation.
+>
+> **Unique factorisation is exactly the property that makes the prime length spectrum
+> degeneracy-free.** It is the difference between the primes and the trace-degeneracies of
+> an arithmetic group.
 
-**2 · The failures are not one failure, and that is the bad news.** xp pays quantisation.
-Connes pays by transferring. Graphs pay an arithmetic impossibility. Selberg pays symmetry.
-**Four different walls.** A single shared obstruction could be attacked; four suggests
-**the conjunction is the object**, not any member of it.
-
-**3 · Condition 2′ is the keystone.** Every route either assumes it, cannot reach it, or
-reaches something like it with the wrong symmetry. **An arithmetic, degeneracy-free length
-spectrum with broken time reversal is the thing that does not exist yet** — and §6 shows
-the two natural families fail it from opposite sides.
+**That is the sharpest thing this article can say about where to look.** The wanted
+system is not "arithmetic like the modular surface." It is arithmetic **in the way the
+primes are** — multiplicatively free, additively rigid in their logarithms.
 
 ---
 
@@ -551,86 +703,87 @@ the two natural families fail it from opposite sides.
 **Can:**
 
 1. **Condition 2 directly.** `[MEASURED]` We followed the return comb twice — periods
-   r·log p, weights 1/(r²pʳ). **Any proposed system can be checked against it today**, and
-   the check is cheap: extract its orbit lengths and stabilities and compare. **A candidate
-   with free parameters tuned to fit already fails**, because the poster has none.
-2. **Condition 5's consequences.** `[MEASURED]` At reach 50,000 the small-gap behaviour
-   agrees with the finite-height-corrected GUE model within a stated bound (pooled
-   z = −0.75). **A candidate predicting deviation beyond that bound at these heights is
-   already excluded.**
-3. **Condition 3, indirectly and this is the interesting one.** Uniform instability λ = 1
-   is what produces the p^(−r/2) amplitudes. **Our measurement of the small-gap statistics
-   is sensitive to those amplitudes** — so the agreement in (2) is weak evidence that
-   uniform instability holds. **Weak, and worth naming**, because nobody thinks of the
-   census as measuring a Lyapunov exponent, and in this frame it partly does. `[READING]`
+   r·log p, weights 1/(r²pʳ). **Any proposed system can be checked against it today.** A
+   candidate with free parameters tuned to fit already fails; the poster has none.
+2. **Condition 5's consequences.** `[MEASURED]` At reach 50,000, small-gap behaviour
+   agrees with the finite-height-corrected GUE model within a stated bound, pooled
+   z = −0.75 over 63,515 arches. A candidate predicting deviation beyond that at these
+   heights is excluded.
+3. **Condition 3, indirectly.** Uniform instability λ = 1 is what produces the p^(−r/2)
+   amplitudes, and the small-gap statistics depend on those amplitudes. **The census is
+   weakly sensitive to a Lyapunov exponent**, which is not how anyone thinks of it.
+   `[READING]`
+4. **§8.3's dichotomy, in principle.** Degeneracy in a length spectrum produces
+   **Poisson** statistics. Our census measured GUE-consistent behaviour with no sign of
+   Poisson contamination — **weak positive evidence that the prime length spectrum really
+   is degeneracy-free at these heights**, which is the anomaly §8.3 rests on. `[READING]`
 
 **Cannot:**
 
-- **Nothing here builds a system, and nothing narrows which route is right.**
-- **Nothing resolves §6.** The arithmetic-versus-random-matrix tension is where the
-  difficulty lives, and no amount of census touches it.
-- The census tests **consequences of hypothetical drums**. It cannot test the drums, which
-  do not exist as objects.
+- **Build a system, or narrow which route is right.**
+- **Resolve §8.1.** Deriving the oscillating term from a mechanism is the whole problem
+  and no census touches it.
+- **Test any drum.** The census tests *consequences* of drums; the drums do not exist.
 
 ---
 
 # 10 · WHAT WOULD BREAK THE DEADLOCK
 
-| Route | What must happen | Assessment |
+| Route | What must happen | Status after this audit |
 |---|---|---|
-| **Break Selberg's symmetry** | ~~time reversal broken~~ — **DONE (Marklof–Monk 2024).** What remains: make it a *specific* surface with an arithmetic, degeneracy-free length spectrum, not a moduli-space average | **the gap has moved**: symmetry solved, specificity open |
-| **Quantise xp honestly** | a self-adjoint realisation on a natural domain, **no hand-tuned cutoff**, discrete spectrum with the right count | conditions 3, 5, 7 already hold; only this is missing |
-| **Derive GUE from arithmetic** | show random-matrix statistics *follow* from a degeneracy-free arithmetic length spectrum | **the corner nobody has bought from a mechanism**; §6 says why it is hard |
-| **Close the transfer** | prove Weil positivity directly | Connes's construction then stops relocating |
-| **Control the limit** | Shape C's preservation theorem | different route entirely |
-
-**Ranked by how close the target is, the first two are where I would look**, and the third
-is the one that would explain rather than construct.
+| **Derive the oscillating term** | produce Σ_p log p · p^(−r/2) cos(rE log p) **from a mechanism**, not by construction | **§8.1 — nobody has ever done this. The single most important target.** |
+| **Close Connes's transfer** | prove Weil positivity | live, narrowing, finitely approximable — the Galerkin work |
+| **Break Selberg's symmetry on a SPECIFIC surface** | Marklof–Monk give GUE for *generic* twisted surfaces; make it one arithmetic, degeneracy-free surface | **symmetry solved; specificity open** |
+| **Quantise xp with closed orbits AND fluctuations** | Sierra fixed the orbits; the oscillating term is still missing | narrower than it was |
+| **Test §8.2** | decide whether the sign means the object is cohomological rather than spectral | **would redirect the whole programme if answered** |
 
 ---
 
 # WHAT THIS ARTICLE CLAIMS
 
-- **The wanted poster is derived, not surveyed.** Seven conditions, each forced by matching
-  two standard formulas. `[READING on the derivation; FACT on the formulas]`
-- **λ = 1 from the amplitudes and h = 1 from the prime counting agree** — two independent
-  derivations from unrelated arithmetic facts. `[READING — the check is elementary and
-  you can do it yourself]`
-- **The ½ is where that consistency comes from**, which makes the half-line the only place
-  a coherent classical system could exist. `[READING]`
-- **Selberg proves the architecture works and differs in exactly condition 5.** `[FACT on
-  Selberg; READING on the isolation of condition 5]`
-- **Arithmetic degeneracy destroys random-matrix statistics where it has been checked**, so
-  condition 2 must sharpen to 2′. `[FACT on arithmetic quantum chaos; READING on 2′]`
-- **A finite quantum graph provably cannot realise {log p}.** `[READING — the argument is
-  short; check it]`
+- **The wanted poster is derived**, seven conditions, each forced by matching two standard
+  formulas. `[READING on the derivation; FACT on the formulas]`
+- **λ = 1 from the amplitudes and h = 1 from the prime counting agree** — independent
+  derivations, unrelated arithmetic facts, same number. Checkable with a pen.
+- **The ½ is where that consistency comes from.** `[READING]`
+- **The xp family has reproduced the smooth term and never the fluctuations** — §8.1.
+  `[READING on the framing; FACT on both underlying results]`
+- **The negative sign appears in the matching and in Connes's absorption reading, and may
+  mean the naive spectral framing is wrong** — §8.2. **The most speculative claim here.**
+- **Arithmetic normally produces exponential length degeneracy and Poisson statistics; the
+  primes are degeneracy-free by unique factorisation, and that is the anomaly to exploit**
+  — §8.3. `[FACT on both halves; READING on the synthesis]`
+- **A finite quantum graph provably cannot realise {log p}.** `[READING — check it]`
 
 ## WHAT IT DOES NOT CLAIM
 
 - **No proof, and no prediction of which route succeeds.**
-- **No claim the audit is complete.** Six routes plus Selberg; the literature is larger.
-- **No claim any attribution is exact.** One witness, no literature search, Medium cap.
-  **Check every named result before citing it.**
-- **No claim our census contributes to building a drum.** §9 says so in its own section.
-- **§5's magnetic-field halt is now RESOLVED** — it has been done and it works. What this
-  article does **not** claim is that anyone has joined it to Riemann: **Marklof–Monk make
-  no reference to the Riemann hypothesis**, and their result is a moduli-space average, not
-  a statement about any particular surface.
+- **No claim that the audit is complete.** Six routes plus Selberg; the field is larger.
+- **Bender–Brody–Müller is CONTESTED, not refuted** — corrected from the previous version,
+  which overstated it.
+- **Marklof–Monk make no reference to the Riemann hypothesis.** Their theorem is a
+  moduli-space average over generic large-genus surfaces, and Riemann needs one specific
+  arithmetic system. **Nobody has joined them.**
+- **Nothing our census did contributes to building a drum.**
 
 **The sentence to keep:**
 
-> Selberg proved this architecture works and Marklof–Monk proved that adding a magnetic
-> field to it delivers the GUE statistics Riemann needs — but their theorem is an average
-> over *generic* surfaces, while Riemann's periods demand a *specific arithmetic* one, and
-> the arithmetic surfaces we can actually study give Poisson statistics because arithmetic
-> breeds degeneracy; so the missing object must have a length spectrum that is arithmetic
-> in origin and degeneracy-free in structure, and the primes are exactly that while no
-> known geometry is.
+> Every route to the operator has reproduced the smooth term, which contains no
+> arithmetic, and none has ever derived the oscillating term, which contains all of it —
+> and the reason the arithmetic is so hard to reach is that arithmetic normally brings
+> exponential degeneracy and Poisson statistics with it, while the primes bring none at
+> all, because unique factorisation makes their logarithms rationally independent; so the
+> object being hunted must be arithmetic in the one way the primes are arithmetic and
+> nothing else in geometry is.
 
 ---
 
 # SOURCES
 
+**Searched 2026-08-05. Section 2's derivation is checkable by hand; everything below is
+where the attributions come from.**
+
+**Hyperbolic surfaces, symmetry classes and random matrix theory**
 - Marklof, J. & Monk, L., *The moduli space of twisted Laplacians and random matrix
   theory* — [arXiv:2407.10778](https://arxiv.org/abs/2407.10778) ·
   [IMRN, doi:10.1093/imrn/rnae239](https://doi.org/10.1093/imrn/rnae239)
@@ -638,9 +791,54 @@ is the one that would explain rather than construct.
   [arXiv:2202.06379](https://arxiv.org/pdf/2202.06379)
 - *Almost sure GOE fluctuations of energy levels for hyperbolic surfaces of high genus* —
   [arXiv:2301.05964](https://arxiv.org/pdf/2301.05964)
+
+**Arithmetic quantum chaos and the degeneracy mechanism**
+- Bogomolny, Georgeot, Giannoni & Schmit, *Arithmetical chaos*, Physics Reports —
+  [ScienceDirect](https://www.sciencedirect.com/science/article/abs/pii/S0370157397000161)
+- *Arithmetical quantum chaos* — [Scholarpedia](http://www.scholarpedia.org/article/Arithmetical_quantum_chaos)
+- *Some studies on arithmetical chaos in classical and quantum mechanics* —
+  [arXiv:chao-dyn/9305005](https://arxiv.org/pdf/chao-dyn/9305005)
+- *The correlation between multiplicities of closed geodesics on the modular surface* —
+  [arXiv:math/0104234](https://arxiv.org/pdf/math/0104234)
+
+**The xp family**
+- Sierra, G. & Rodríguez-Laguna, J., *H = xp model revisited and the Riemann zeros*,
+  Phys. Rev. Lett. **106**, 200201 (2011) —
+  [arXiv:1102.5356](https://arxiv.org/pdf/1102.5356) ·
+  [APS](https://link.aps.org/doi/10.1103/PhysRevLett.106.200201)
+- Sierra, G., *A quantum mechanical model of the Riemann zeros* —
+  [arXiv:0712.0705](https://arxiv.org/pdf/0712.0705)
+- Sierra, G., *A physics pathway to the Riemann hypothesis* —
+  [arXiv:1012.4264](https://arxiv.org/pdf/1012.4264)
+- *Physics of the Riemann Hypothesis* — [arXiv:1101.3116](https://arxiv.org/pdf/1101.3116)
+
+**Connes and Weil positivity**
+- Connes, A., *Trace formula in noncommutative geometry and the zeros of the Riemann zeta
+  function*, Selecta Math. —
+  [Springer](https://link.springer.com/article/10.1007/s000290050042)
+- Connes, Consani & Marcolli, *The Weil proof and the geometry of the adeles class space*
+  — [PDF](https://math.nyu.edu/~tschinke/.manin/submitted/ConnesConsaniMarcolli.pdf)
+- Connes & Consani, *Weil positivity and trace formula: the archimedean place* —
+  [arXiv:2006.13771](https://arxiv.org/pdf/2006.13771)
+
+**de Branges and the counterexample**
+- Conrey, J. B. & Li, X.-J., *A note on some positivity conditions related to zeta- and
+  L-functions*, IMRN 2000 No. 18 —
+  [arXiv:math/9812166](https://arxiv.org/abs/math/9812166)
+- de Branges, L., *The Riemann hypothesis for Hilbert spaces of entire functions* —
+  [Purdue](https://www.math.purdue.edu/~branges/riemann-hilbert.pdf)
+- *On a conjecture of de Branges* (2025) — [arXiv:2507.12576](https://arxiv.org/pdf/2507.12576)
+
+**Bender–Brody–Müller and the dispute**
+- Bellissard, J., *Comment on "Hamiltonian for the zeros of the Riemann zeta function"* —
+  [arXiv:1704.02644](https://arxiv.org/abs/1704.02644) (9 Apr 2017)
+- *A note on "Hamiltonian for the zeros of the Riemann zeta function"* —
+  [arXiv:1704.04705](https://arxiv.org/pdf/1704.04705)
+- Bender, Brody & Müller, *Comment on 'Comment on…'* —
+  [arXiv:1705.06767](https://arxiv.org/abs/1705.06767) (18 May 2017)
+
+**Twisted Selberg zeta machinery**
 - Spilioti, P., *Determinants of twisted Laplacians and the twisted Selberg zeta function*
   — [arXiv:2512.16681](https://arxiv.org/html/2512.16681)
 - *Twisted Ruelle zeta function at zero for compact hyperbolic surfaces* —
   [arXiv:2105.13321](https://arxiv.org/pdf/2105.13321)
-- Sierra, G., *A physics pathway to the Riemann hypothesis* —
-  [arXiv:1012.4264](https://arxiv.org/pdf/1012.4264)
