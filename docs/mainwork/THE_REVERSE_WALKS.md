@@ -823,6 +823,73 @@ Kept honest, not filled in:
 
 ---
 
+# 14 · THE MISSING HALF — his method is a PAIR, and this file only ran one side
+
+**Found after the eleven walks were written**, in his King Character Engine workbook
+(`sourceborn_asi_king_character_engine.xlsx`), where **ARD** turns out to stand for
+**Artifact Reverse-Engineering and Deduction** — an acronym used throughout this project
+without its expansion ever being known here.
+
+**He does not have a reverse method. He has a reverse-AND-forward method**, and they are
+two named chains that must meet:
+
+> **REVERSE** `[HIS WORDS]` — *"start from the surviving object and move backward:
+> material → technique → workshop → original location → function → commissioner →
+> intended audience → political or ritual situation → possible King-character."*
+>
+> **FORWARD** `[HIS WORDS]` — *"start from a candidate King-character and move forward:
+> trigger → decision → command chain → workshop or institution → object form → symbols →
+> placement → later damage, reuse, or survival."*
+
+**Why the pair, and why one side alone is not enough.** A reverse walk always terminates
+somewhere and always produces a story. Nothing inside a descent can tell you the story is
+right — every step passed the removal test, and a chain of individually valid steps is
+exactly the failure class the war walk found. **The forward chain is the test: take what
+the descent landed on, build back up from it, and see whether you arrive at the thing you
+started from.** If you do not, the descent was plausible and wrong.
+
+## The forward return, run on the two that matter most
+
+**HUNGER.** Reverse landed at: *a dying star, and energy that is only ever handed on.*
+Forward from there: star dies → heavy atoms scattered → gravity gathers a cloud → sun
+ignites → photons → chlorophyll → sugar → nitrogen fixed by bacteria → soil from
+weathered rock → seed → harvest → **storage** → transport → cooking → chewing → enzymes →
+absorption → mitochondria → ATP → ATP spent → deficit → ghrelin and falling glucose →
+hypothalamus reads it → **hunger felt.**
+**The chains meet.** And the forward run exposes something the descent could not: **the
+one step that is neither physics nor biology is STORAGE** — and it is the step his faith
+and language sequences also pass through. A forward walk finds the load-bearing human
+step; a reverse walk finds the ground.
+
+**GRAVITY.** Reverse landed at: *falling, with nothing under it, and the equivalence of
+inertial and gravitational mass.* Forward: mass exists → inertial mass = gravitational
+mass → things fall alike → someone reasons friction away → inertia is stated → conics
+sit on a shelf → the earth is permitted to move → instruments are paid for → Mars is
+over-measured → the circle fails → the ellipse is reached for → three laws → apple and
+moon unified → calculus → inverse square → G weighed → Neptune predicted → **Mercury
+disobeys.**
+**The chains meet — and the forward run overshoots the reverse run's starting point.**
+Reverse started at F = Gm₁m₂/r²; forward carries past it to the halt that breaks it.
+**A forward walk does not stop where the reverse walk began.** That is not an error; it
+is the forward chain's own contribution — it keeps going into what happens next.
+
+## What this means for the eleven walks above
+
+They stand as **descents**, and each one is now **half of a method**. Their grounds are
+testable rather than asserted, because a forward chain from each ground either arrives
+back or does not. Two have been run here. **Nine have not**, and are named as owed rather
+than quietly left.
+
+**And two more of his rules from the same workbook, which this file did not obey:**
+
+- **Contradictions must SUBTRACT.** *"Contradictions must reduce the score, and a
+  falsifier must always remain visible."* These walks accumulate supporting steps and
+  have no negative term.
+- **Five independent loops, none overwriting another.** He runs a question along five
+  separate tracks and keeps all five as memory nodes. These walks run one track each.
+
+---
+
 ## What this file hands back to him
 
 **Rulings still open, now with evidence attached:**

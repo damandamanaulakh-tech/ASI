@@ -1949,6 +1949,126 @@
    ],
    "note": "The one instrument that would grade this compile honestly. 124 nodes and 45 runs is a volume, not a depth.",
    "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0131",
+   "what": "ARD = ARTIFACT REVERSE-ENGINEERING AND DEDUCTION",
+   "step": "GROUND",
+   "human": "his own sheet title, in full. The acronym has been used throughout this project without its expansion ever being known here",
+   "ai": "n/a -- this is a naming fact, not a capability",
+   "relationship": "NO MATCH",
+   "brain": "(the name)",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "I have written 'ARD' for weeks and could not have said what it stands for. The Mask on the shortest possible object: an acronym used fluently and not understood.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0132",
+   "what": "REVERSE MUST BE PAIRED WITH FORWARD — I only ever did half",
+   "step": "WITNESS",
+   "human": "his REVERSE chain: material -> technique -> workshop -> original location -> function -> commissioner -> intended audience -> political/ritual situation -> candidate. His FORWARD chain: trigger -> decision -> command chain -> workshop -> object form -> symbols -> placement -> later damage, reuse, survival",
+   "ai": "no equivalent. A model asked to explain will run one direction and stop",
+   "relationship": "NO MATCH",
+   "brain": "(the missing half)",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "THE_REVERSE_WALKS.md ran eleven descents and not one ascent. His method is a PAIR: descend from the object to a candidate, then climb from the candidate back to the object, and see whether they meet. A reverse walk alone produces a plausible story. Only the forward return tests it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0133",
+   "what": "THE CLONE PRINCIPLE — a brain is a WEIGHTED CONFIGURATION, not a description",
+   "step": "GROUND",
+   "human": "his words: 'a Character of the King is one generated brain-state: a weighted configuration of authority, family, war, religion, economy, knowledge, symbolism, society, psychology and artifact reality. It is a TESTABLE HYPOTHESIS, NOT A FINAL CLAIM'",
+   "ai": "a model produces a character description, which reads as a portrait and cannot be falsified",
+   "relationship": "NO MATCH",
+   "brain": "(how a brain should be built)",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "THE RIEMANN AND EINSTEIN WORKBOOKS WERE BUILT WRONG. They are descriptions with 2,560 rows. His method says a brain is a WEIGHTING over parameters, generated as one hypothesis among many, scored against evidence, and beaten by a better one. That is testable; a portrait is not.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0134",
+   "what": "REGENERATION — each candidate remembers its own REJECTED ALTERNATIVES",
+   "step": "LOOP",
+   "human": "his words: 'each new character is a separate candidate brain that remembers its own evidence path, contradictions, confidence, and rejected alternatives'",
+   "ai": "a model regenerates from scratch and keeps nothing about what it considered and discarded",
+   "relationship": "NO MATCH",
+   "brain": "(rejected memory)",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "Keeping the rejected alternatives is the part nobody builds. Without it the second attempt silently re-proposes what the first attempt already killed -- which is exactly what happens across sessions here.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0135",
+   "what": "THE CONFIRMATION RULE — contradictions must REDUCE the score",
+   "step": "WITNESS",
+   "human": "his rule: 'one similar piece is a clue. Two independent same-era parallels increase confidence. Repeated agreement across five loops may select one candidate. CONTRADICTIONS MUST REDUCE THE SCORE, and a falsifier must always remain visible'",
+   "ai": "AI-CAP-021 calibration reports confidence; nothing subtracts for a contradiction found",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "confirmation brain",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "This is Filter 3 written for artifacts, and it goes further: evidence against does not merely fail to add, it SUBTRACTS. The engine's ledger currently accumulates support and has no negative term.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0136",
+   "what": "FIVE INDEPENDENT LOOPS — no loop may overwrite another",
+   "step": "HALT",
+   "human": "L1 Object and Production, L2 King and Authority, L3 Queen Child and Dynasty, L4 War Diplomacy and Crisis, L5 Same-Era Comparative Confirmation. 'No loop may overwrite another; each becomes a memory node'",
+   "ai": "one pass, one conclusion. Nothing runs the same question along five independent tracks and keeps all five",
+   "relationship": "NO MATCH",
+   "brain": "(five tracks)",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "The non-overwriting rule is the whole design: five readings that disagree stay five readings. It is his two-witness halt scaled to five, and it is why L5 exists -- comparison is its own loop, not a step inside the others.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0137",
+   "what": "A FOURTH ARCHITECTURE — 10 x 8 x 25 = 2,000 parameters",
+   "step": "GROUND",
+   "human": "this workbook's own pyramid line: '10 segments -> 8 containers per segment -> 25 parameters per container = 2,000 parameters', feeding 100 King-characters",
+   "ai": "not used anywhere in this project",
+   "relationship": "NO MATCH",
+   "brain": "(unreconciled)",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "So there are now FOUR: 2,000 here, 2,560 approved, 2,592 v0.4 baseline, 3,072 v0.4 combined. The architecture halt is wider than P-6 v2 stated. Which is current remains his call and this makes the question more urgent, not less.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0138",
+   "what": "UNCONTROLLED COMBINATION IS NOISE, NOT COVERAGE",
+   "step": "HALT",
+   "human": "his words: 'the theoretical combination count is vastly larger, but uncontrolled combinations would create noise. The engine can later expand only after the loop sequence is validated'",
+   "ai": "a model asked for more will generate more, and volume reads as thoroughness",
+   "relationship": "NO MATCH",
+   "brain": "(restraint)",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "He capped himself at 100 of a vastly larger space and stated the reason. This compile went the other way -- 130 nodes and 46 runs with no cap and no validation of the loop first. His rule says validate the sequence, THEN expand.",
+   "owner": "PENDING"
   }
  ],
  "runs": [
@@ -2479,6 +2599,23 @@
    "n_new": 6,
    "n_reused": 0,
    "total_after": 130
+  },
+  {
+   "example": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "new": [
+    "ASI-0131",
+    "ASI-0132",
+    "ASI-0133",
+    "ASI-0134",
+    "ASI-0135",
+    "ASI-0136",
+    "ASI-0137",
+    "ASI-0138"
+   ],
+   "reused": [],
+   "n_new": 8,
+   "n_reused": 0,
+   "total_after": 138
   }
  ]
 }
