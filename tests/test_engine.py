@@ -933,6 +933,133 @@ def test_present_fact_catches_time_marked_number_asks():
     assert is_present_fact("current CEO of OpenAI") is False
 
 
+
+
+# ---------------------------------------------------------------- RH as code
+# Re(s) = ½ + ti used as a build specification. These test the parts, not the
+# theorem — nothing here proves anything about zeta.
+
+def test_rh_half_caps_a_single_witness():
+    """One voice never owns the answer — it caps at exactly ½."""
+    from sourceborn.rh_code import half_confidence, HALF
+    r = half_confidence(["the ledger"])
+    assert r.confidence == HALF and r.verdict == "capped"
+    assert half_confidence([]).confidence == 0.0
+
+
+def test_rh_two_differing_witnesses_halt_and_never_average():
+    """The Mask: the gap goes to the human, it is not turned into a number."""
+    from sourceborn.rh_code import half_confidence, HALF
+    r = half_confidence(["2,592 parameters", "2,578 parameters"])
+    assert r.verdict == "halt" and r.confidence == HALF
+    assert r.mask == ("2,592 parameters", "2,578 parameters")
+
+
+def test_rh_agreement_earns_but_never_concludes():
+    from sourceborn.rh_code import half_confidence, HALF
+    r = half_confidence(["the letter", "the letter", "the letter"])
+    assert HALF < r.confidence < 1.0 and r.verdict == "held"
+
+
+def test_rh_line_check_names_the_drifting_voice():
+    """A voice built at σ=0.72 is measured back at 0.72 and named; every voice
+    built on the line comes back on the line. This is the drift detector."""
+    import math
+    from sourceborn.rh_code import Doubt, explicit_answer, line_check, drifting, periods
+    voices = ["source", "witness", "memory", "doubt", "mask"]
+    per = periods(voices)
+    doubts = [Doubt(v, t=per[v], sigma=(0.72 if v == "memory" else 0.5)) for v in voices]
+    xs = [10 ** (2 + 5 * i / 400) for i in range(401)]
+    hist = {v: [explicit_answer(x / math.log(x), doubts, x).corrections[v] for x in xs]
+            for v in voices}
+    verdicts = line_check(hist, steps=xs, smooth=True, period_map=per)
+    assert drifting(verdicts) == ["memory"]
+    by = {v.who: v.sigma for v in verdicts}
+    assert abs(by["memory"] - 0.72) < 0.02
+    # A short run resolves the on-line voices only to ~0.03; that is the run's
+    # limit, not the detector's, and every row says so rather than rounding.
+    for v in voices:
+        if v != "memory":
+            assert abs(by[v] - 0.5) < 0.05
+    assert all(not r.resolved for r in verdicts)     # honest about being short
+
+
+def test_rh_a_long_enough_run_tightens_sigma_and_says_so():
+    """The accuracy is set by run length. Give every voice a full cycle per
+    bucket and the on-line sigmas land within 0.005 of exactly one half."""
+    import math
+    from sourceborn.rh_code import Doubt, explicit_answer, line_check, periods
+    voices = ["source", "witness", "memory", "doubt", "mask"]
+    per = periods(voices)
+    doubts = [Doubt(v, t=per[v], sigma=(0.72 if v == "memory" else 0.5)) for v in voices]
+    xs = [10 ** (2 + 58 * i / 2999) for i in range(3000)]
+    hist = {v: [explicit_answer(x / math.log(x), doubts, x).corrections[v] for x in xs]
+            for v in voices}
+    verdicts = line_check(hist, steps=xs, smooth=True, period_map=per)
+    by = {v.who: v.sigma for v in verdicts}
+    assert all(r.resolved for r in verdicts)         # long enough now
+    assert abs(by["memory"] - 0.72) < 0.01
+    for v in voices:
+        if v != "memory":
+            assert abs(by[v] - 0.5) < 0.005
+
+
+def test_rh_raw_samples_would_have_cried_wolf():
+    """Why envelope() exists: measured raw, voices sitting exactly on the line
+    get accused of drift. The defect is real and the smoothing is the fix."""
+    import math
+    from sourceborn.rh_code import Doubt, explicit_answer, line_check, drifting, periods
+    voices = ["source", "witness", "memory", "doubt", "mask"]
+    per = periods(voices)
+    doubts = [Doubt(v, t=per[v], sigma=0.5) for v in voices]     # ALL on the line
+    coarse = [1e2, 1e3, 1e4, 1e5, 1e6, 1e7]
+    raw = {v: [explicit_answer(x / math.log(x), doubts, x).corrections[v] for x in coarse]
+           for v in voices}
+    assert drifting(line_check(raw, steps=coarse)) != []          # false alarms
+    xs = [10 ** (2 + 5 * i / 400) for i in range(401)]
+    fine = {v: [explicit_answer(x / math.log(x), doubts, x).corrections[v] for x in xs]
+            for v in voices}
+    assert drifting(line_check(fine, steps=xs, smooth=True)) == []  # none, correctly
+
+
+def test_rh_off_line_voice_takes_over_the_answer():
+    """The law itself: on the line no voice owns the answer; off it, one does."""
+    import math
+    from sourceborn.rh_code import Doubt, explicit_answer, periods
+    voices = ["source", "witness", "memory", "doubt", "mask"]
+    per = periods(voices)
+    stable = [Doubt(v, t=per[v], sigma=0.5) for v in voices]
+    drift = [Doubt(v, t=per[v], sigma=(0.72 if v == "memory" else 0.5)) for v in voices]
+    x = 1e7
+    a = explicit_answer(x / math.log(x), stable, x)
+    b = explicit_answer(x / math.log(x), drift, x)
+    assert a.share_of_loudest < 0.6            # crowd
+    assert b.share_of_loudest > 0.85           # one voice
+    assert b.loudest[0] == "memory"
+
+
+def test_rh_periods_are_distinct_and_degeneracy_is_caught():
+    """Unique factorisation as an engine rule: two voices on one beat are one
+    voice counted twice."""
+    from sourceborn.rh_code import periods, degeneracy
+    per = periods(["a", "b", "c", "d"])
+    assert len(set(per.values())) == 4
+    assert degeneracy(per) == []
+    per["a copy"] = per["b"]
+    assert degeneracy(per) == [["b", "a copy"]]
+
+
+def test_rh_explicit_answer_keeps_every_correction_visible():
+    """answer = trend − Σ doubts, with the ledger intact. Nothing averaged away."""
+    from sourceborn.rh_code import Doubt, explicit_answer, periods
+    voices = ["a", "b", "c"]
+    per = periods(voices)
+    doubts = [Doubt(v, t=per[v]) for v in voices]
+    led = explicit_answer(1000.0, doubts, 1e4)
+    assert set(led.corrections) == set(voices)
+    assert abs(led.answer - (led.trend - sum(led.corrections.values()))) < 1e-9
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0
