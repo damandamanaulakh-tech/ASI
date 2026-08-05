@@ -23,7 +23,7 @@ Plus, in v0.4 and nowhere in this project: **30 engines · 12 formal cores · 10
 > **The count drift is solved, and it was never sloppiness.** 2,578 / 2,590 / **2,592**
 > are **versions**. 2,592 is the v0.4 confirmed baseline, verbatim from his dashboard.
 >
-> **HALT: the registry work, both brain workbooks, the 1f three-bank review, all 130 ASI
+> **HALT: the registry work, both brain workbooks, the 1f three-bank review, all 143 ASI
 > nodes and all four versions of the Phase-1 answer are built on 80 / 2,560.** Which
 > architecture is current is his call, and nothing more should be built on 80 / 2,560
 > until he gives it.
@@ -79,14 +79,14 @@ system's own failure at all.
 
 ## 4 · SATURATION — still not reached
 
-**45 runs. 130 nodes. 0 consecutive dry runs.**
+**47 runs. 143 nodes. 0 consecutive dry runs.** *(counts as of the final pass; `ASI_NODES_v1.md` is the live register)*
 
 | Stage | Runs | New IDs per run |
 |---|---|---|
 | Seed + first compile | 2 | 19, 20 |
 | His worked examples | 22 | mostly 0–1 — **it looked finished** |
 | His raw thoughts, March–May | 8 | back to 2–9 |
-| ARD, the audit, the approved brain, the engines | 13 | **1–6, still running** |
+| ARD, the audit, the approved brain, the engines, the King Character Engine | 15 | **1–8, still running** |
 
 **Three times the curve flattened and three times new material restarted it.** Under his
 rule, **Phase 11 is not open.**
