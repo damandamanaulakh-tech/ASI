@@ -1754,6 +1754,111 @@
    ],
    "note": "His rule from it: superficial visual interpretation invalidates everything downstream. A wrong Point Zero cannot be recovered by good work after it -- which is why this is a Point Zero failure and not an accuracy failure.",
    "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0118",
+   "what": "NAME COLLISION — 'filter' means two different things in this project",
+   "step": "NAMING",
+   "human": "his registry's FORTY universal filters are CONTEXT filters: Developmental, Biological, Sleep, Energy, Hormonal, Interoceptive, Arousal, Emotional, Stress, Threat, Reward, Attention, Memory, Knowledge, Belief, Goal, Intent, Motive, Value, Personality, Identity, Relationship, Social Presence, Power, Status, Culture, Environment, Time, Scarcity, Uncertainty, Complexity, Framing, Instruction, Feedback, Practice, Medication, Trauma, Technology, Institutional, Random",
+   "ai": "the engine's SEVEN filters are METHOD gates: Ground, Sequence, Source, Mask, Fact, Halt, Loop",
+   "relationship": "NO MATCH",
+   "brain": "(the collision)",
+   "born": "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve",
+   "seen_in": [
+    "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve"
+   ],
+   "note": "THE MASK IS ON THE WORD ITSELF. Forty modulate WHAT IS TRUE FOR A PERSON; seven test WHETHER A CLAIM MAY LEAVE. They are not versions of each other and neither replaces the other. Everyone in this project, me included, has said 'the filters' meaning seven while his approved brain means forty. And his failure 11 -- 'missing 49 filters: admitting they were never extracted' -- is this same gap, unclosed since he raised it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0119",
+   "what": "THE OBSERVATION LAW IS A SUBSET OF HIS 40 FILTERS",
+   "step": "WITNESS",
+   "human": "his eight sharpeners map straight onto filter IDs: time->FLT-28, who assigned->FLT-24 Power and FLT-33 Instruction, intent->FLT-17, deeper motive->FLT-18, physical state->FLT-02/04/06, relationship->FLT-22",
+   "ai": "no AI capability corresponds to any of the 40. They are conditions on a person, not capabilities of a system",
+   "relationship": "NO MATCH",
+   "brain": "(derivation)",
+   "born": "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve",
+   "seen_in": [
+    "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve"
+   ],
+   "note": "The Observation Law is not a separate rule he invented later. It is the operative slice of a forty-filter layer he had already built. Which means the right way to run his hunger example is through the 40, and the ones that fire are exactly the dimensions his sentence leaves out.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0120",
+   "what": "TWELVE OPERATING STATES — a parameter is not on or off",
+   "step": "USE",
+   "human": "his states: Dormant, Primed, Active, Dominant, Inhibited, Automatic, Conscious, Conflicted, Overloaded, Impaired, Compensated, Recovering",
+   "ai": "a capability is present or absent in the AI bank. There is no state layer at all",
+   "relationship": "NO MATCH",
+   "brain": "(state layer)",
+   "born": "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve",
+   "seen_in": [
+    "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve"
+   ],
+   "note": "This answers the hunger example exactly: hunger drive is ACTIVE and INHIBITED, the task goal is DOMINANT, and the person is COMPENSATED. Three states, one moment. v1 through v3 said 'these parameters fire' with no state at all -- which is the difference between naming the pieces and describing the event.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0121",
+   "what": "650 HELD RESERVE and 918 EXTERNAL BASE — both outside the 2,560",
+   "step": "GROUND",
+   "human": "his dashboard, verbatim: 'Held atomic-name reserve 650 -- Preserved, not deleted, not active' and 'External cognitive source base 918 -- Task 4/5, not loaded before user approval'",
+   "ai": "the mapped bank is 2,560. Neither the reserve nor the external base appears in the 10,240 edges",
+   "relationship": "NO MATCH",
+   "brain": "(three banks)",
+   "born": "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve",
+   "seen_in": [
+    "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve"
+   ],
+   "note": "THE COUNT DRIFT IS NOW EXPLAINED, and it is not sloppiness -- it is three separate banks with a deliberate approval boundary between them. 2,560 approved and mapped; 650 held and named; 918 external and not loaded. Every different total in his documents is a different subset of these three.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0122",
+   "what": "TWENTY FAILURE CLASSES — including one for the unexplained",
+   "step": "HALT",
+   "human": "FAIL-01..20, ending FAIL-20 'Unknown mechanism -- outcome cannot yet be adequately explained'",
+   "ai": "no failure taxonomy exists on the AI side; failures are benchmark misses, not named classes",
+   "relationship": "NO MATCH",
+   "brain": "(taxonomy)",
+   "born": "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve",
+   "seen_in": [
+    "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve"
+   ],
+   "note": "The twentieth class is the one that matters: he reserved a named slot for failures with no mechanism, so that 'we do not know' is a CLASSIFICATION rather than an absence. That is the same move as his Mystery and his Halt -- the unresolved gets a name and a place, and is not rounded to zero.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0123",
+   "what": "FAIL-08 CONFIDENCE ERROR is his name for the thing this project keeps rediscovering",
+   "step": "HALT",
+   "human": "his class: 'Confidence error -- certainty exceeds accuracy'. And FAIL-10 'Motivated reasoning -- evidence interpreted to protect a desired conclusion'",
+   "ai": "AI-CAP-020 factuality and AI-CAP-021 calibration measure it. Nothing in the engine names it as a failure CLASS",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "failure-class brain",
+   "born": "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve",
+   "seen_in": [
+    "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve"
+   ],
+   "note": "Every single filter in the seven exists to prevent FAIL-08. He had already named it. And FAIL-10 is what his 'do not fake for new' strike was about.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0124",
+   "what": "A SECOND, LARGER ARCHITECTURE EXISTS: 200 containers, 3,072 parameters",
+   "step": "GROUND",
+   "human": "ASI-Brain_Core_Engine_Combined_v0_4.xlsx: 10 segments, 200 CONTAINERS, 3,072 PARAMETERS, 1,200 external base, 30 engines, 12 formal cores, 70 SB nodes, 25 URR nodes, 100 modules. And the unified catalog carries 'New Containers 081-160'",
+   "ai": "not reflected anywhere in this project, which has worked exclusively against 80 and 2,560",
+   "relationship": "NO MATCH",
+   "brain": "(unreconciled)",
+   "born": "EX-44 The v0.4 architecture — a larger brain than the approved one",
+   "seen_in": [
+    "EX-44 The v0.4 architecture — a larger brain than the approved one"
+   ],
+   "note": "HALT TO OWNER, and it outranks the other open items. The whole project -- the registry work, the brains, the 1f review, the 117 nodes above -- is built on 80 containers and 2,560 parameters. A v0.4 exists with 200 and 3,072. Which is current is his call, and nothing further should be built on 80/2,560 until he says.",
+   "owner": "PENDING"
   }
  ],
  "runs": [
@@ -2244,6 +2349,31 @@
    "n_new": 3,
    "n_reused": 0,
    "total_after": 117
+  },
+  {
+   "example": "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve",
+   "new": [
+    "ASI-0118",
+    "ASI-0119",
+    "ASI-0120",
+    "ASI-0121",
+    "ASI-0122",
+    "ASI-0123"
+   ],
+   "reused": [],
+   "n_new": 6,
+   "n_reused": 0,
+   "total_after": 123
+  },
+  {
+   "example": "EX-44 The v0.4 architecture — a larger brain than the approved one",
+   "new": [
+    "ASI-0124"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 124
   }
  ]
 }
