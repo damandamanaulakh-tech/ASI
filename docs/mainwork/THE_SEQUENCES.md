@@ -209,7 +209,7 @@ fact kind of."* Every finding passes all seven, in order, every time:
 
 ## 6 · HUNGER — his founding example
 
-`[HIS WORDS]`, complete:
+`[HIS WORDS]`, as first given in session:
 
 > "Hunger / Calling fuel for body / its just not cook n eat / Earth (point zero) -
 > land - water - seeds - season… / now if u see hunger is also of different types…"
@@ -217,6 +217,34 @@ fact kind of."* Every finding passes all seven, in order, every time:
 
 That last line is the whole doctrine of step 1 in one sentence: **the sequence starts
 before the asker.**
+
+**CORRECTION — the full chain, recovered from the release, and it does not trail off.**
+The first version of this file printed his sequence with an ellipsis after *season*,
+because that is where the session quote stops. His own workstream file
+(`19_HUNGER_SEQUENCE.md`) carries it complete, and it is **fifteen steps and a closed
+loop**:
+
+> **Earth (Point Zero) → land → water → seeds → appropriate season/weather → crop growth
+> and cutting → preservation → grinding → packing → arrival at home → mixing with water /
+> raw preparation → cooking → eating → digestion → RETURN TO EARTH (Point Zero)**
+
+**The ending is the finding.** His hunger sequence **closes** — it comes back to the same
+Earth it started from, exactly like the water cycle. The truncated version made it look
+like a supply chain running one way. It is a loop, and *"Point Zero can return after
+transformation"* is his own note on it.
+
+**And it does not contradict the reverse walk (`THE_REVERSE_WALKS.md` §1) — it answers a
+different question.** His forward sequence closes the loop at planetary scale: matter
+returns to the Earth it came from. The reverse walk descends past Earth to a dying star,
+because it asks where the *energy* came from rather than where the *matter* goes.
+**Matter cycles; energy does not.** Both are true, and together they are the whole
+statement: the loop is closed for the material and open for the fuel.
+
+`[HIS WORDS]` on why the example exists at all — from the same file: *a visible act is
+only one point inside a longer sequence · Point Zero can return after transformation ·
+inputs come from multiple domains · each stage can contain its own sub-loop · different
+hunger types may create different routes · human state, intent and priority change the
+next action.*
 
 `[HIS, WORKED]` — the same example on the eight steps:
 

@@ -1679,6 +1679,81 @@
    ],
    "note": "The most likely explanation of the 2,578 / 2,590 / 2,592 drift: different documents counting different amounts of reserve beside the approved bank. RES-0518 is still awaiting his ruling from earlier in this session.",
    "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0113",
+   "what": "THE OBSERVATION LAW — eight sharpeners on every Human<->AI match",
+   "step": "WITNESS",
+   "human": "his eight, verbatim: time of day; type of work; who assigned or owns the work; immediate intent; deeper motive or power condition; physical and biological state; relationship and responsibility; new observation added by AI with evidence status",
+   "ai": "a parameter match is context-free. None of the 10,240 edges carries a time, an owner, or a relationship",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-41 The Observation Law, in full",
+   "seen_in": [
+    "EX-41 The Observation Law, in full"
+   ],
+   "note": "His rule: 'the Human<->AI connection must not stop at a shallow parameter match.' NAMED AGAINST MY OWN WORK: P1_ANSWERS v1 and v2 both matched parameters and applied NONE of the eight. His workstream file says explicitly of this example that the review 'must inspect time, work type, who assigned the work, immediate purpose, deeper motive and relationship.' Both versions are incomplete against his own stated requirement.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0114",
+   "what": "WHO ASSIGNED THE WORK changes what the same act means",
+   "step": "PRESSURE",
+   "human": "his third sharpener. Working through hunger for your own project and for someone else's deadline are different events with identical parameters",
+   "ai": "no AI parameter records who asked. The instruction arrives with no owner attached",
+   "relationship": "NO MATCH",
+   "brain": "(ownership of the ask)",
+   "born": "EX-41 The Observation Law, in full",
+   "seen_in": [
+    "EX-41 The Observation Law, in full"
+   ],
+   "note": "The sharpener with the most force on his own example. Self-assigned persistence is his '5% mindset'; assigned persistence is obligation. Same 45 parameters, opposite meanings.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0115",
+   "what": "HIS HUNGER SEQUENCE CLOSES — it returns to Earth",
+   "step": "LOOP",
+   "human": "the full 15 steps: Earth (Point Zero) -> land -> water -> seeds -> season -> growth and cutting -> preservation -> grinding -> packing -> home -> preparation -> cooking -> eating -> digestion -> RETURN TO EARTH",
+   "ai": "no AI process returns anything to its source. Output leaves and does not come back as input to the same ground",
+   "relationship": "NO MATCH",
+   "brain": "(closed loop)",
+   "born": "EX-42 The full hunger loop and the test bank",
+   "seen_in": [
+    "EX-42 The full hunger loop and the test bank"
+   ],
+   "note": "MATTER CYCLES, ENERGY DOES NOT. His forward sequence closes at planetary scale; the reverse walk descends past Earth to a dying star. Not a contradiction -- two questions. The loop is closed for the material and open for the fuel.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0116",
+   "what": "1 + 1 = 2 — recognising a relation, making it usable, and naming it are three acts",
+   "step": "EXPRESSION",
+   "human": "his test-bank example: used to distinguish proving/recognising an existing relation from making it usable from naming it as invention",
+   "ai": "a model performs all three in one motion and cannot report which it did",
+   "relationship": "NO MATCH",
+   "brain": "(three acts)",
+   "born": "EX-42 The full hunger loop and the test bank",
+   "seen_in": [
+    "EX-42 The full hunger loop and the test bank"
+   ],
+   "note": "The cleanest possible statement of steps 4, 5 and 6 of the universal sequence, on the smallest possible example. Recognition is Witness, usability is Expression, naming is Naming -- and only the third is invention.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0117",
+   "what": "THE TEA-PASTE VIDEO — 'u failed at point zero'",
+   "step": "GROUND",
+   "human": "his formal negative example: the assistant missed the thick paste and two different sprays in a video, and he ruled the whole chain invalid from the first step",
+   "ai": "SB-01 locks text. A video arriving as the ask is read around, not locked",
+   "relationship": "NO MATCH",
+   "brain": "(regression test)",
+   "born": "EX-42 The full hunger loop and the test bank",
+   "seen_in": [
+    "EX-42 The full hunger loop and the test bank"
+   ],
+   "note": "His rule from it: superficial visual interpretation invalidates everything downstream. A wrong Point Zero cannot be recovered by good work after it -- which is why this is a Point Zero failure and not an accuracy failure.",
+   "owner": "PENDING"
   }
  ],
  "runs": [
@@ -2146,6 +2221,29 @@
    "n_new": 2,
    "n_reused": 0,
    "total_after": 112
+  },
+  {
+   "example": "EX-41 The Observation Law, in full",
+   "new": [
+    "ASI-0113",
+    "ASI-0114"
+   ],
+   "reused": [],
+   "n_new": 2,
+   "n_reused": 0,
+   "total_after": 114
+  },
+  {
+   "example": "EX-42 The full hunger loop and the test bank",
+   "new": [
+    "ASI-0115",
+    "ASI-0116",
+    "ASI-0117"
+   ],
+   "reused": [],
+   "n_new": 3,
+   "n_reused": 0,
+   "total_after": 117
   }
  ]
 }
