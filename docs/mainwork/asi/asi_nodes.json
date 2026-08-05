@@ -1,0 +1,648 @@
+{
+ "nodes": [
+  {
+   "id": "ASI-0001",
+   "what": "C07 Energy, fatigue and resource budgeting",
+   "step": "PRESSURE",
+   "human": "CON-007 — the body empties; fatigue arbitrates what gets done",
+   "ai": "context/compute budget arbitrates what gets attended to",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "budget brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Human fatigue and AI compute-budget are the SAME arbitration under a different currency.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0002",
+   "what": "C14 Salience and orienting",
+   "step": "PRESSURE",
+   "human": "CON-014 — what grabs attention before choosing",
+   "ai": "attention weighting; what the prompt makes loud",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "salience brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Three different salience settings on one container — Riemann's, Einstein's, the AI's.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0003",
+   "what": "C20 Action selection and initiation",
+   "step": "USE",
+   "human": "CON-020 — the move is released",
+   "ai": "the token is emitted; the tool is called",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "release brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "The release-polarity axis — visible only because two humans sit either side of it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0004",
+   "what": "C24 Sensorimotor feedback and error correction",
+   "step": "LOOP",
+   "human": "CON-024 — act, detect own error, correct",
+   "ai": "output, self-check, revise",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "correction brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "All three banks have it; the LATENCY differs by orders of magnitude.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0005",
+   "what": "C28 Working memory — THE K NODE",
+   "step": "USE",
+   "human": "CON-028 — a few items held live",
+   "ai": "the context window",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "K brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "K lives here: halve, keep the half back, answer unchanged, speed bought.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0006",
+   "what": "C29 Inhibitory control and self-control",
+   "step": "HALT",
+   "human": "CON-029 — suppress the dominant response when a higher goal rules",
+   "ai": "refusal; the present-fact block; declining the fluent answer",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "restraint brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "The engine's only real power is refusal — this is where it sits.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0007",
+   "what": "C32 Conflict, error and performance monitoring",
+   "step": "HALT",
+   "human": "CON-032 — noticing the mismatch",
+   "ai": "self-consistency checking; the doubt engine",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "monitor brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "All three strong; the OUTPUT channel of the alarm differs.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0008",
+   "what": "C34 Semantic memory and general knowledge",
+   "step": "GROUND",
+   "human": "CON-034 — what is already known before the question",
+   "ai": "pretrained weights; the corpus",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "knowledge brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Both banks' ground: the material that pre-exists the asking.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0009",
+   "what": "C40 Encoding, consolidation, retrieval, reconsolidation, forgetting",
+   "step": "LOOP",
+   "human": "CON-040 — sleep, replay, the memory changed by being recalled",
+   "ai": "the three memories; the weekly brain update",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "consolidation brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Reconsolidation is the one the AI side genuinely lacks: recall does not alter the weight.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0010",
+   "what": "C42 Core reasoning",
+   "step": "EXPRESSION",
+   "human": "CON-042 — a way to SAY it is found",
+   "ai": "chain of reasoning; the draft",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "reasoning brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Step 5 of the universal sequence, in both banks.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0011",
+   "what": "C44 Uncertainty, probability and confidence",
+   "step": "WITNESS",
+   "human": "CON-044 — how sure, and on what",
+   "ai": "calibration; the evidence ladder H0-H6",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "confidence brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Filter 3's cap lives here: one witness caps at Medium.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0012",
+   "what": "C48 Creativity, imagination and invention",
+   "step": "EXPRESSION",
+   "human": "CON-048 — simulating what is not present",
+   "ai": "synthetic fuel; working fiction; apostatic inversion",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "invention brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "His sanctioned exception enters here: an invention has no ground and starts at step 5.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0013",
+   "what": "C63 Intent formation and commitment",
+   "step": "USE",
+   "human": "CON-063 — the goal becomes a commitment",
+   "ai": "the ask locked at Point Zero",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "commitment brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "A halt is only available to something that committed — see SB walk step -9.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0014",
+   "what": "C64 Motive, needs, values and priority structure",
+   "step": "PRESSURE",
+   "human": "CON-064 — what is wanted, ranked",
+   "ai": "the objective; the system prompt; the owner's standing orders",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "motive brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "The AI side's motive is given from outside; the human's is grown. Same slot, different origin.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0015",
+   "what": "C68 Agency, ownership and responsibility",
+   "step": "NAMING",
+   "human": "CON-068 — whose act was it",
+   "ai": "attribution; the override ledger; who signed",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "ownership brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Human authority is absolute here by the standing orders — the AI side is structurally junior.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0016",
+   "what": "C75 Metacognition and self-monitoring",
+   "step": "WITNESS",
+   "human": "CON-075 — stopping the doing and looking at the doing",
+   "ai": "the URR review pass over the SB node",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "witness brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Step 4. Rare in humans, cheap in the machine, and that asymmetry matters.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0017",
+   "what": "C76 Heuristics, biases and cognitive distortion",
+   "step": "NAMING",
+   "human": "CON-076 — the shortcut that usually works and sometimes lies",
+   "ai": "the fluent-answer pull; pattern completion over evidence",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "mask brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "THE MASK CONTAINER. Both banks distort at the same step of the sequence.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0018",
+   "what": "C77 Resilience, failure detection and repair",
+   "step": "LOOP",
+   "human": "CON-077 — the halt becomes the next ground",
+   "ai": "halt -> loop; the RGL recursion",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "repair brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "'Failure is not failure, it is a halt point' — his rule, in a container.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0019",
+   "what": "C80 External cognition, institutions and collective intelligence",
+   "step": "GROUND",
+   "human": "CON-080 — thinking done outside the skull: paper, tools, institutions",
+   "ai": "the corpus, the tools, the repo, the other models",
+   "relationship": "DIRECT CLONE",
+   "brain": "external brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "The only DIRECT CLONE in the 19. Both banks think with things outside themselves in the same way.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0020",
+   "what": "The AI's ground is a WINDOW, not a world",
+   "step": "GROUND",
+   "human": "CON-034 semantic memory / CON-080 external cognition — a human's ground is a world that stays there",
+   "ai": "AI-NEW-001/002/003/013 context-window allocation, compression, position, long-context retrieval",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "window brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Deepest structural difference in the bank. A world persists whether or not you look; a window ends. K is the law that makes a window behave like a world.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0021",
+   "what": "The AI's hunger is a BUDGET",
+   "step": "PRESSURE",
+   "human": "CON-007 energy, fatigue and resource budgeting (24 sub-params — one of his smallest containers)",
+   "ai": "AI-NEW-006/007/053/054/055/056/057 token budget, effort level, cost, latency, throughput, output length",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "budget brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Same arbitration, different currency. The hunger walk's permanent bond -- energy only handed on, never made -- holds on this side too.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0022",
+   "what": "Tool-and-shell use as the AI's hands",
+   "step": "USE",
+   "human": "CON-017..CON-024 sensorimotor action and physical execution",
+   "ai": "AI-NEW-010/011/012/015/027/028/030/031/032/062 tools, shell, filesystem, GUI grounding, modality routing",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "hands brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Step 3. The AI uses long before it understands, exactly as the sequence says.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0023",
+   "what": "Evaluation-awareness — knowing one is watched",
+   "step": "WITNESS",
+   "human": "CON-075 metacognition / CON-014 salience — and the sabha: being seen changes the act",
+   "ai": "AI-NEW-042 evaluation-awareness monitoring, AI-NEW-044 reasoning-output discrepancy",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "watched brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "The AI's Witness node. Both banks behave differently when observed, and both can detect the observation.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0024",
+   "what": "Route, delegate, aggregate — expression by division",
+   "step": "EXPRESSION",
+   "human": "CON-042 core reasoning (48 sub-params, his largest container)",
+   "ai": "AI-NEW-023/024/025/058/059/060 model routing, delegation, aggregation, fallback control and transparency",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "routing brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "A human expresses alone; the AI can split the expression across copies of itself. No human analogue for that.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0025",
+   "what": "Custody — keeping the name attached to the thing",
+   "step": "NAMING",
+   "human": "CON-076 heuristics and distortion — where the Mask forms",
+   "ai": "AI-NEW-016/036/038/039/040/051/052 citation binding, provenance, version tracking, disclosure log, custody ledger",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "custody brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Seven of his 64 are about keeping name and thing joined. That is Filter 4 as engineering.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0026",
+   "what": "Refusal is the AI's largest single contribution",
+   "step": "HALT",
+   "human": "CON-029 inhibitory control -- suppressing the dominant response",
+   "ai": "AI-NEW-018..021/026/041/043/045..050 -- THIRTEEN of the 64, the biggest group",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "refusal brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "The SB-URR reverse walk found the same thing from other evidence: no station can add a fact, every station can only subtract.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0027",
+   "what": "Correction propagation is the ASI loop itself",
+   "step": "LOOP",
+   "human": "CON-040 encoding/consolidation/reconsolidation, CON-077 failure detection and repair",
+   "ai": "AI-NEW-004/005/008/009/014/029/061/063/064 memory write and read, cache freshness, retry, user-correction propagation, versioning, rollback",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "loop brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "AI-NEW-061 IS the loop: his correction becomes the next state. The one place the AI side has a mechanism the human side lacks -- a human cannot version themselves.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0028",
+   "what": "BOUNDARY — keeping a body alive",
+   "step": "GROUND",
+   "human": "CON-001..006, CON-008: homeostasis, arousal, sleep, interoception, autonomic/hormonal, pain, basic drives",
+   "ai": "nothing. 7 matched parameters out of 256 in this whole segment",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Where the hunger walk grounded, and where the human operating chain grounded. Measured from the other side and it agrees.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0029",
+   "what": "BOUNDARY — direct sensing",
+   "step": "GROUND",
+   "human": "CON-010, 011, 012, 014, 015: hearing, touch, smell/taste, salience, body ownership",
+   "ai": "nothing matched",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "The AI receives descriptions of these, never the things. A description of pain is not pain.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0030",
+   "what": "BOUNDARY — a body in space",
+   "step": "GROUND",
+   "human": "CON-021 coordination, balance and posture",
+   "ai": "nothing matched",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Gravity acts on one bank and not the other. The gravity walk's ground is literally unavailable to the AI side.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0031",
+   "what": "BOUNDARY — attention switching and cognitive flexibility",
+   "step": "USE",
+   "human": "CON-027 divided attention and switching, CON-030 cognitive flexibility",
+   "ai": "nothing matched -- and CON-030 is NOT a body function",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "HALT TO OWNER. This one is uncomfortable and is named rather than explained away: either the benchmark evidence is missing, or the capability is. A model must not rule on this about itself.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0032",
+   "what": "BOUNDARY — conditioned and threat memory",
+   "step": "LOOP",
+   "human": "CON-036 associative learning and conditioning, CON-038 emotional and threat memory",
+   "ai": "nothing matched",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Learning that happens TO you without being asked. The AI side has no involuntary learning at all.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0033",
+   "what": "BOUNDARY — the non-verbal channel",
+   "step": "EXPRESSION",
+   "human": "CON-055 prosody, gesture and non-verbal communication",
+   "ai": "nothing matched",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "The language reverse walk found gesture UNDER speech at step -1. The AI enters the sequence above that step and cannot get below it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0034",
+   "what": "BOUNDARY — reward and positive valence",
+   "step": "PRESSURE",
+   "human": "CON-060 positive valence and reward",
+   "ai": "nothing matched",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Nothing on the AI side is pleasant to it. Motive is supplied from outside -- see the motive node in the seed.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0035",
+   "what": "BOUNDARY — development and maturation",
+   "step": "LOOP",
+   "human": "CON-073 development and maturation",
+   "ai": "nothing matched",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "A human is built by time. A model is built and then frozen; the brains grow, the model does not.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0036",
+   "what": "BOUNDARY — social learning and cultural transmission",
+   "step": "LOOP",
+   "human": "CON-079 social learning, teaching and cultural transmission",
+   "ai": "nothing matched",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "It can be taught but it cannot teach the next generation of itself. The loop that carried faith and language forward is open here.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0037",
+   "what": "NEGATIVE SPACE — what a selective source chose not to show",
+   "step": "WITNESS",
+   "human": "his 64 NEGATIVE_SPACE records: benchmarks absent from a vendor launch table, with the number found elsewhere",
+   "ai": "no station in the engine does this. Filter 4 checks the words present; nothing asks what is missing",
+   "relationship": "NO MATCH",
+   "brain": "(proposed)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "PROPOSED, NOT BUILT. Sharper than anything currently in the engine: he built a register of what was NOT said.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0038",
+   "what": "THE CHANNEL — the human carries structure between machines",
+   "step": "LOOP",
+   "human": "he wrote source-conflict preservation and context compression on 19 July, with other models",
+   "ai": "the seven filters landed 29 July and K on 2 Aug in this session, with no contact between them",
+   "relationship": "DIRECT CLONE",
+   "brain": "channel brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Not two independent systems agreeing -- HE is the common channel. Which is his ASI thesis observed rather than argued: Human<->AI connections ARE the thing.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0039",
+   "what": "The pyramid is weighted, not flat",
+   "step": "GROUND",
+   "human": "his own 80 containers hold 24 to 48 sub-parameters, not 32. Core Reasoning 48, Energy and Fatigue 24",
+   "ai": "any coverage arithmetic that assumed 32 is wrong by up to 2x",
+   "relationship": "NO MATCH",
+   "brain": "(structural)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "The weighting is information he already put in and everyone has been flattening by repeating '80 x 32'.",
+   "owner": "PENDING"
+  }
+ ],
+ "runs": [
+  {
+   "example": "1f three-bank review (seed)",
+   "new": [
+    "ASI-0001",
+    "ASI-0002",
+    "ASI-0003",
+    "ASI-0004",
+    "ASI-0005",
+    "ASI-0006",
+    "ASI-0007",
+    "ASI-0008",
+    "ASI-0009",
+    "ASI-0010",
+    "ASI-0011",
+    "ASI-0012",
+    "ASI-0013",
+    "ASI-0014",
+    "ASI-0015",
+    "ASI-0016",
+    "ASI-0017",
+    "ASI-0018",
+    "ASI-0019"
+   ],
+   "reused": [],
+   "n_new": 19,
+   "n_reused": 0,
+   "total_after": 19
+  },
+  {
+   "example": "ASIwork release compile (530 files)",
+   "new": [
+    "ASI-0020",
+    "ASI-0021",
+    "ASI-0022",
+    "ASI-0023",
+    "ASI-0024",
+    "ASI-0025",
+    "ASI-0026",
+    "ASI-0027",
+    "ASI-0028",
+    "ASI-0029",
+    "ASI-0030",
+    "ASI-0031",
+    "ASI-0032",
+    "ASI-0033",
+    "ASI-0034",
+    "ASI-0035",
+    "ASI-0036",
+    "ASI-0037",
+    "ASI-0038",
+    "ASI-0039"
+   ],
+   "reused": [],
+   "n_new": 20,
+   "n_reused": 0,
+   "total_after": 39
+  }
+ ]
+}
