@@ -1,13 +1,17 @@
-# THE ASI NODE REGISTRY — v1
+# THE ASI NODE REGISTRY — v2
 
-**117 nodes across 42 runs.** His definition of a node, verbatim:
+**130 nodes across 45 runs.** His definition of a node, verbatim:
+
 > *"at human when we added AI, it become one node, and at each we put brain, and it
 > let everything next response with that and generate new things, as u did with K"*
 
-**Every node is PENDING his approval.** The `owner` field on all 117 reads `PENDING`.
-Nothing here is adopted. IDs are minted mechanically by `registry.py` so that his
-stopping rule for Phase 11 — *"stopped making new ID number"* — is a count and not
-a judgement.
+**Every node is PENDING his approval.** All 130 carry `owner: PENDING`. Nothing here
+is adopted. IDs are minted mechanically by `registry.py` so his stopping rule for
+Phase 11 — *"stopped making new ID number"* — is a count, not a judgement.
+
+**His own architecture already has the engine for this:** `ENG-SUP-012 Termination
+Governor — iteration budget + diminishing returns`. The curve below is that engine
+run by hand.
 
 ## The saturation curve
 
@@ -55,37 +59,39 @@ a judgement.
 | 40 | EX-40 His own Test 001 — the same example, run by him | **2** | 0 | 112 |
 | 41 | EX-41 The Observation Law, in full | **2** | 0 | 114 |
 | 42 | EX-42 The full hunger loop and the test bank | **3** | 0 | 117 |
+| 43 | EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve | **6** | 0 | 123 |
+| 44 | EX-44 The v0.4 architecture — a larger brain than the approved one | **1** | 0 | 124 |
+| 45 | EX-45 His 38-engine architecture — and what I 'proposed' that already exists | **6** | 0 | 130 |
 
-## By relationship type
+**Consecutive dry runs: 0. Phase 11 is not open.**
+
+## By relationship
 
 | relationship | count | share |
 |---|---:|---:|
-| NO MATCH | 70 | 60% |
-| FUNCTIONAL ANALOGUE | 35 | 30% |
-| STRUCTURAL ANALOGUE | 9 | 8% |
-| DIRECT CLONE | 3 | 3% |
+| NO MATCH | 82 | 63% |
+| FUNCTIONAL ANALOGUE | 36 | 28% |
+| STRUCTURAL ANALOGUE | 9 | 7% |
+| DIRECT CLONE | 3 | 2% |
 
-**70 of 117 nodes are NO MATCH.** More than half of the ASI work so far
-is finding where the two banks do *not* meet.
-
-## By step of the universal sequence
+## By step
 
 | step | nodes |
 |---|---:|
-| GROUND | 21 |
-| PRESSURE | 12 |
-| USE | 8 |
-| WITNESS | 19 |
+| GROUND | 23 |
+| PRESSURE | 13 |
+| USE | 9 |
+| WITNESS | 22 |
 | EXPRESSION | 13 |
-| NAMING | 11 |
-| HALT | 20 |
+| NAMING | 13 |
+| HALT | 24 |
 | LOOP | 13 |
 
 ---
 
 # THE NODES
 
-## GROUND — 21 nodes
+## GROUND — 23 nodes
 
 ### ASI-0008 · C34 Semantic memory and general knowledge
 
@@ -255,8 +261,24 @@ is finding where the two banks do *not* meet.
 - **Note:** His rule from it: superficial visual interpretation invalidates everything downstream. A wrong Point Zero cannot be recovered by good work after it -- which is why this is a Point Zero failure and not an accuracy failure.
 - **Born in:** EX-42 The full hunger loop and the test bank
 
+### ASI-0121 · 650 HELD RESERVE and 918 EXTERNAL BASE — both outside the 2,560
 
-## PRESSURE — 12 nodes
+- **Relationship:** NO MATCH  ·  **Brain:** (three banks)  ·  **Owner:** PENDING
+- **Human side:** his dashboard, verbatim: 'Held atomic-name reserve 650 -- Preserved, not deleted, not active' and 'External cognitive source base 918 -- Task 4/5, not loaded before user approval'
+- **AI side:** the mapped bank is 2,560. Neither the reserve nor the external base appears in the 10,240 edges
+- **Note:** THE COUNT DRIFT IS NOW EXPLAINED, and it is not sloppiness -- it is three separate banks with a deliberate approval boundary between them. 2,560 approved and mapped; 650 held and named; 918 external and not loaded. Every different total in his documents is a different subset of these three.
+- **Born in:** EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve
+
+### ASI-0124 · A SECOND, LARGER ARCHITECTURE EXISTS: 200 containers, 3,072 parameters
+
+- **Relationship:** NO MATCH  ·  **Brain:** (unreconciled)  ·  **Owner:** PENDING
+- **Human side:** ASI-Brain_Core_Engine_Combined_v0_4.xlsx: 10 segments, 200 CONTAINERS, 3,072 PARAMETERS, 1,200 external base, 30 engines, 12 formal cores, 70 SB nodes, 25 URR nodes, 100 modules. And the unified catalog carries 'New Containers 081-160'
+- **AI side:** not reflected anywhere in this project, which has worked exclusively against 80 and 2,560
+- **Note:** HALT TO OWNER, and it outranks the other open items. The whole project -- the registry work, the brains, the 1f review, the 117 nodes above -- is built on 80 containers and 2,560 parameters. A v0.4 exists with 200 and 3,072. Which is current is his call, and nothing further should be built on 80/2,560 until he says.
+- **Born in:** EX-44 The v0.4 architecture — a larger brain than the approved one
+
+
+## PRESSURE — 13 nodes
 
 ### ASI-0001 · C07 Energy, fatigue and resource budgeting
 
@@ -354,8 +376,16 @@ is finding where the two banks do *not* meet.
 - **Note:** The sharpener with the most force on his own example. Self-assigned persistence is his '5% mindset'; assigned persistence is obligation. Same 45 parameters, opposite meanings.
 - **Born in:** EX-41 The Observation Law, in full
 
+### ASI-0129 · ENG-SUP-005 TIER SELECTOR — depth matched to stakes
 
-## USE — 8 nodes
+- **Relationship:** NO MATCH  ·  **Brain:** (rediscovered)  ·  **Owner:** PENDING
+- **Human side:** 'depth vs stakes matching' -- how hard to work is a function of what is riding on it
+- **AI side:** effort level is set by configuration, never by the consequence of being wrong
+- **Note:** Pairs with the PERSONAL STAKE field in his May template. He has both the measurement and the engine that consumes it.
+- **Born in:** EX-45 His 38-engine architecture — and what I 'proposed' that already exists
+
+
+## USE — 9 nodes
 
 ### ASI-0003 · C20 Action selection and initiation
 
@@ -421,8 +451,16 @@ is finding where the two banks do *not* meet.
 - **Note:** His Set 3. The reason is stated in his own May words: they carry vague work example, and humans learnt everything from them.
 - **Born in:** EX-26 Raw Thoughts: Sourceborn / Final Theory (May)
 
+### ASI-0120 · TWELVE OPERATING STATES — a parameter is not on or off
 
-## WITNESS — 19 nodes
+- **Relationship:** NO MATCH  ·  **Brain:** (state layer)  ·  **Owner:** PENDING
+- **Human side:** his states: Dormant, Primed, Active, Dominant, Inhibited, Automatic, Conscious, Conflicted, Overloaded, Impaired, Compensated, Recovering
+- **AI side:** a capability is present or absent in the AI bank. There is no state layer at all
+- **Note:** This answers the hunger example exactly: hunger drive is ACTIVE and INHIBITED, the task goal is DOMINANT, and the person is COMPENSATED. Three states, one moment. v1 through v3 said 'these parameters fire' with no state at all -- which is the difference between naming the pieces and describing the event.
+- **Born in:** EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve
+
+
+## WITNESS — 22 nodes
 
 ### ASI-0011 · C44 Uncertainty, probability and confidence
 
@@ -576,6 +614,30 @@ is finding where the two banks do *not* meet.
 - **Note:** His rule: 'the Human<->AI connection must not stop at a shallow parameter match.' NAMED AGAINST MY OWN WORK: P1_ANSWERS v1 and v2 both matched parameters and applied NONE of the eight. His workstream file says explicitly of this example that the review 'must inspect time, work type, who assigned the work, immediate purpose, deeper motive and relationship.' Both versions are incomplete against his own stated requirement.
 - **Born in:** EX-41 The Observation Law, in full
 
+### ASI-0119 · THE OBSERVATION LAW IS A SUBSET OF HIS 40 FILTERS
+
+- **Relationship:** NO MATCH  ·  **Brain:** (derivation)  ·  **Owner:** PENDING
+- **Human side:** his eight sharpeners map straight onto filter IDs: time->FLT-28, who assigned->FLT-24 Power and FLT-33 Instruction, intent->FLT-17, deeper motive->FLT-18, physical state->FLT-02/04/06, relationship->FLT-22
+- **AI side:** no AI capability corresponds to any of the 40. They are conditions on a person, not capabilities of a system
+- **Note:** The Observation Law is not a separate rule he invented later. It is the operative slice of a forty-filter layer he had already built. Which means the right way to run his hunger example is through the 40, and the ones that fire are exactly the dimensions his sentence leaves out.
+- **Born in:** EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve
+
+### ASI-0128 · ENG-SUP-006 EXTERNAL CHECKPOINT — the answer to judge-and-party
+
+- **Relationship:** NO MATCH  ·  **Brain:** (the fix exists)  ·  **Owner:** PENDING
+- **Human side:** 'cross-model / human audit' -- a named engine whose only job is an outside grader
+- **AI side:** no mechanism forces one; a model asked to check itself will comply and pass
+- **Note:** His recorded failure 2 is judge-and-party, and he had already built the engine that fixes it. This compile has run without it -- I built the registry, set the criteria and reported the curve. The fix was available and unused.
+- **Born in:** EX-45 His 38-engine architecture — and what I 'proposed' that already exists
+
+### ASI-0130 · ENG-ARD-006 PENETRATION ENGINE — depth measurement with a human halt
+
+- **Relationship:** NO MATCH  ·  **Brain:** (unbuilt here)  ·  **Owner:** PENDING
+- **Human side:** 'depth measurement + human halt' -- an engine that measures how deep an analysis actually went, and stops for a human
+- **AI side:** no measure of depth exists. Length and confidence are both available and neither is depth
+- **Note:** The one instrument that would grade this compile honestly. 124 nodes and 45 runs is a volume, not a depth.
+- **Born in:** EX-45 His 38-engine architecture — and what I 'proposed' that already exists
+
 
 ## EXPRESSION — 13 nodes
 
@@ -684,7 +746,7 @@ is finding where the two banks do *not* meet.
 - **Born in:** EX-42 The full hunger loop and the test bank
 
 
-## NAMING — 11 nodes
+## NAMING — 13 nodes
 
 ### ASI-0015 · C68 Agency, ownership and responsibility
 
@@ -774,8 +836,24 @@ is finding where the two banks do *not* meet.
 - **Note:** Not an error -- the same function really does appear at two places in the pyramid. But it is exactly the trap that made P1_ANSWERS_v1 miss CON-062, the container he had himself named.
 - **Born in:** EX-40 His own Test 001 — the same example, run by him
 
+### ASI-0118 · NAME COLLISION — 'filter' means two different things in this project
 
-## HALT — 20 nodes
+- **Relationship:** NO MATCH  ·  **Brain:** (the collision)  ·  **Owner:** PENDING
+- **Human side:** his registry's FORTY universal filters are CONTEXT filters: Developmental, Biological, Sleep, Energy, Hormonal, Interoceptive, Arousal, Emotional, Stress, Threat, Reward, Attention, Memory, Knowledge, Belief, Goal, Intent, Motive, Value, Personality, Identity, Relationship, Social Presence, Power, Status, Culture, Environment, Time, Scarcity, Uncertainty, Complexity, Framing, Instruction, Feedback, Practice, Medication, Trauma, Technology, Institutional, Random
+- **AI side:** the engine's SEVEN filters are METHOD gates: Ground, Sequence, Source, Mask, Fact, Halt, Loop
+- **Note:** THE MASK IS ON THE WORD ITSELF. Forty modulate WHAT IS TRUE FOR A PERSON; seven test WHETHER A CLAIM MAY LEAVE. They are not versions of each other and neither replaces the other. Everyone in this project, me included, has said 'the filters' meaning seven while his approved brain means forty. And his failure 11 -- 'missing 49 filters: admitting they were never extracted' -- is this same gap, unclosed since he raised it.
+- **Born in:** EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve
+
+### ASI-0125 · REDISCOVERY, NOT PROPOSAL — four things I offered as new are already his engines
+
+- **Relationship:** NO MATCH  ·  **Brain:** (my error)  ·  **Owner:** PENDING
+- **Human side:** ENG-SUP-008 Negative Space Mapper (absence + untested region tracking); ENG-SUP-012 Termination Governor (iteration budget + diminishing returns); ENG-SUP-005 Tier Selector (depth vs stakes matching); ENG-SUP-006 External Checkpoint (cross-model / human audit)
+- **AI side:** I proposed all four in this compile as unbuilt: the negative-space check, the saturation rule, personal stake, and an independent witness for judge-and-party
+- **Note:** OWNED, NOT BURIED. His own test is 'renaming is not adding', and I failed it four times in one document by proposing as new what he had already named. The correct status of all four is REDISCOVERED -- which is weaker than new and stronger than nothing, because two independent routes reaching the same station is evidence the station is real.
+- **Born in:** EX-45 His 38-engine architecture — and what I 'proposed' that already exists
+
+
+## HALT — 24 nodes
 
 ### ASI-0006 · C29 Inhibitory control and self-control
 
@@ -936,6 +1014,38 @@ is finding where the two banks do *not* meet.
 - **AI side:** nothing distinguishes 'I made it' from 'it works' from 'you accepted it'
 - **Note:** Three different claims routinely collapsed into 'done'. His scope-approval-is-not-build-approval rule is the front half of the same discipline.
 - **Born in:** EX-39 His adversarial audit — twelve of my recorded failures
+
+### ASI-0122 · TWENTY FAILURE CLASSES — including one for the unexplained
+
+- **Relationship:** NO MATCH  ·  **Brain:** (taxonomy)  ·  **Owner:** PENDING
+- **Human side:** FAIL-01..20, ending FAIL-20 'Unknown mechanism -- outcome cannot yet be adequately explained'
+- **AI side:** no failure taxonomy exists on the AI side; failures are benchmark misses, not named classes
+- **Note:** The twentieth class is the one that matters: he reserved a named slot for failures with no mechanism, so that 'we do not know' is a CLASSIFICATION rather than an absence. That is the same move as his Mystery and his Halt -- the unresolved gets a name and a place, and is not rounded to zero.
+- **Born in:** EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve
+
+### ASI-0123 · FAIL-08 CONFIDENCE ERROR is his name for the thing this project keeps rediscovering
+
+- **Relationship:** FUNCTIONAL ANALOGUE  ·  **Brain:** failure-class brain  ·  **Owner:** PENDING
+- **Human side:** his class: 'Confidence error -- certainty exceeds accuracy'. And FAIL-10 'Motivated reasoning -- evidence interpreted to protect a desired conclusion'
+- **AI side:** AI-CAP-020 factuality and AI-CAP-021 calibration measure it. Nothing in the engine names it as a failure CLASS
+- **Note:** Every single filter in the seven exists to prevent FAIL-08. He had already named it. And FAIL-10 is what his 'do not fake for new' strike was about.
+- **Born in:** EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve
+
+### ASI-0126 · THE WILD FAMILY — seven engines for when control FAILS
+
+- **Relationship:** NO MATCH  ·  **Brain:** (breakdown)  ·  **Owner:** PENDING
+- **Human side:** ENG-WLD-001 Blood Arousal Override, 002 Motive Override, 003 Executive Fracture, 004 Zero Point Chaos, 005 Social Mirror, 006 Metacognitive Drift, 007 Allostatic Load Engine
+- **AI side:** nothing on the AI side models its own breakdown. Failures are benchmark misses, never mechanisms
+- **Note:** A whole dimension absent from this project: he built engines for the states in which the system stops working properly -- arousal overriding judgement, executive collapse, metacognitive drift, cumulative stress debt. His 'Wild' is not permissiveness. It is a model of failure under load.
+- **Born in:** EX-45 His 38-engine architecture — and what I 'proposed' that already exists
+
+### ASI-0127 · ENG-SUP-012 TERMINATION GOVERNOR — his own stopping rule, as an engine
+
+- **Relationship:** NO MATCH  ·  **Brain:** (rediscovered)  ·  **Owner:** PENDING
+- **Human side:** 'iteration budget + diminishing returns' -- a named engine for deciding when to stop iterating
+- **AI side:** no equivalent; a model continues until told to stop
+- **Note:** This is exactly the saturation rule he gave me for Phase 11 -- run until new IDs stop. It is not an instruction he improvised for this session. It is a component of his architecture, and the ID curve in this compile is that engine running by hand.
+- **Born in:** EX-45 His 38-engine architecture — and what I 'proposed' that already exists
 
 
 ## LOOP — 13 nodes

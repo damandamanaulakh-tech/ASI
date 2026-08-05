@@ -1859,6 +1859,96 @@
    ],
    "note": "HALT TO OWNER, and it outranks the other open items. The whole project -- the registry work, the brains, the 1f review, the 117 nodes above -- is built on 80 containers and 2,560 parameters. A v0.4 exists with 200 and 3,072. Which is current is his call, and nothing further should be built on 80/2,560 until he says.",
    "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0125",
+   "what": "REDISCOVERY, NOT PROPOSAL — four things I offered as new are already his engines",
+   "step": "NAMING",
+   "human": "ENG-SUP-008 Negative Space Mapper (absence + untested region tracking); ENG-SUP-012 Termination Governor (iteration budget + diminishing returns); ENG-SUP-005 Tier Selector (depth vs stakes matching); ENG-SUP-006 External Checkpoint (cross-model / human audit)",
+   "ai": "I proposed all four in this compile as unbuilt: the negative-space check, the saturation rule, personal stake, and an independent witness for judge-and-party",
+   "relationship": "NO MATCH",
+   "brain": "(my error)",
+   "born": "EX-45 His 38-engine architecture — and what I 'proposed' that already exists",
+   "seen_in": [
+    "EX-45 His 38-engine architecture — and what I 'proposed' that already exists"
+   ],
+   "note": "OWNED, NOT BURIED. His own test is 'renaming is not adding', and I failed it four times in one document by proposing as new what he had already named. The correct status of all four is REDISCOVERED -- which is weaker than new and stronger than nothing, because two independent routes reaching the same station is evidence the station is real.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0126",
+   "what": "THE WILD FAMILY — seven engines for when control FAILS",
+   "step": "HALT",
+   "human": "ENG-WLD-001 Blood Arousal Override, 002 Motive Override, 003 Executive Fracture, 004 Zero Point Chaos, 005 Social Mirror, 006 Metacognitive Drift, 007 Allostatic Load Engine",
+   "ai": "nothing on the AI side models its own breakdown. Failures are benchmark misses, never mechanisms",
+   "relationship": "NO MATCH",
+   "brain": "(breakdown)",
+   "born": "EX-45 His 38-engine architecture — and what I 'proposed' that already exists",
+   "seen_in": [
+    "EX-45 His 38-engine architecture — and what I 'proposed' that already exists"
+   ],
+   "note": "A whole dimension absent from this project: he built engines for the states in which the system stops working properly -- arousal overriding judgement, executive collapse, metacognitive drift, cumulative stress debt. His 'Wild' is not permissiveness. It is a model of failure under load.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0127",
+   "what": "ENG-SUP-012 TERMINATION GOVERNOR — his own stopping rule, as an engine",
+   "step": "HALT",
+   "human": "'iteration budget + diminishing returns' -- a named engine for deciding when to stop iterating",
+   "ai": "no equivalent; a model continues until told to stop",
+   "relationship": "NO MATCH",
+   "brain": "(rediscovered)",
+   "born": "EX-45 His 38-engine architecture — and what I 'proposed' that already exists",
+   "seen_in": [
+    "EX-45 His 38-engine architecture — and what I 'proposed' that already exists"
+   ],
+   "note": "This is exactly the saturation rule he gave me for Phase 11 -- run until new IDs stop. It is not an instruction he improvised for this session. It is a component of his architecture, and the ID curve in this compile is that engine running by hand.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0128",
+   "what": "ENG-SUP-006 EXTERNAL CHECKPOINT — the answer to judge-and-party",
+   "step": "WITNESS",
+   "human": "'cross-model / human audit' -- a named engine whose only job is an outside grader",
+   "ai": "no mechanism forces one; a model asked to check itself will comply and pass",
+   "relationship": "NO MATCH",
+   "brain": "(the fix exists)",
+   "born": "EX-45 His 38-engine architecture — and what I 'proposed' that already exists",
+   "seen_in": [
+    "EX-45 His 38-engine architecture — and what I 'proposed' that already exists"
+   ],
+   "note": "His recorded failure 2 is judge-and-party, and he had already built the engine that fixes it. This compile has run without it -- I built the registry, set the criteria and reported the curve. The fix was available and unused.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0129",
+   "what": "ENG-SUP-005 TIER SELECTOR — depth matched to stakes",
+   "step": "PRESSURE",
+   "human": "'depth vs stakes matching' -- how hard to work is a function of what is riding on it",
+   "ai": "effort level is set by configuration, never by the consequence of being wrong",
+   "relationship": "NO MATCH",
+   "brain": "(rediscovered)",
+   "born": "EX-45 His 38-engine architecture — and what I 'proposed' that already exists",
+   "seen_in": [
+    "EX-45 His 38-engine architecture — and what I 'proposed' that already exists"
+   ],
+   "note": "Pairs with the PERSONAL STAKE field in his May template. He has both the measurement and the engine that consumes it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0130",
+   "what": "ENG-ARD-006 PENETRATION ENGINE — depth measurement with a human halt",
+   "step": "WITNESS",
+   "human": "'depth measurement + human halt' -- an engine that measures how deep an analysis actually went, and stops for a human",
+   "ai": "no measure of depth exists. Length and confidence are both available and neither is depth",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt here)",
+   "born": "EX-45 His 38-engine architecture — and what I 'proposed' that already exists",
+   "seen_in": [
+    "EX-45 His 38-engine architecture — and what I 'proposed' that already exists"
+   ],
+   "note": "The one instrument that would grade this compile honestly. 124 nodes and 45 runs is a volume, not a depth.",
+   "owner": "PENDING"
   }
  ],
  "runs": [
@@ -2374,6 +2464,21 @@
    "n_new": 1,
    "n_reused": 0,
    "total_after": 124
+  },
+  {
+   "example": "EX-45 His 38-engine architecture — and what I 'proposed' that already exists",
+   "new": [
+    "ASI-0125",
+    "ASI-0126",
+    "ASI-0127",
+    "ASI-0128",
+    "ASI-0129",
+    "ASI-0130"
+   ],
+   "reused": [],
+   "n_new": 6,
+   "n_reused": 0,
+   "total_after": 130
   }
  ]
 }
