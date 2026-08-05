@@ -411,3 +411,116 @@ into `docs/riemann/census/` and pushed, so the walk survives container
 recycling. If the runner dies, relaunch remaining blocks with the same
 worker (`nm_worker.py <lo> <hi> nm_b<N>.json`); the registration above
 stands regardless of who computes the blocks.
+
+---
+
+## 15. THE SECOND WALK — LANDED. The registered verdict, read as written.
+
+**The walk is complete.** Blocks 28–50 landed 2026-08-05 00:43. The census now runs
+**height 14.13 → 50,000.4**, holding **63,519 zeros** in **63,515 arches** — a doubling
+of the census, as registered.
+
+**Ledger exactness (secondary rule, checked first, because a bad count voids everything
+after it):**
+
+| | |
+|---|---|
+| `mpmath.nzeros(50000)` | **63,519** |
+| census zeros ≤ 50,000 | **63,519** |
+| **deficit** | **0** |
+
+Riemann–von Mangoldt gives 63,518.83 for reference. **No zero is missing and none is
+double-counted.**
+
+### The primary measurement, δ < 0.12, against the BBLM null
+
+Estimator frozen in §14 and not touched: expected count = Σ_arches (π²/9)·f(g₁)·δ_cut³
+with f(T) = 1 − 1/N_eff(T)², N_eff = log(T/2π)/√(12·1.57314).
+
+| height bin | arches | observed | BBLM-expected | z |
+|---|---:|---:|---:|---:|
+| (14, 8000] | 7,828 | 7 | 7.11 | −0.04 |
+| (8000, 16000] | 9,594 | 7 | 12.13 | −1.47 |
+| (16000, 27000] | 14,228 | 24 | 19.25 | +1.08 |
+| (27000, 38000] | 14,960 | 14 | 21.02 | −1.53 |
+| (38000, 50000] | 16,905 | 25 | 24.31 | +0.14 |
+| **POOLED** | **63,515** | **77** | **83.83** | **−0.75** |
+
+**Every bin |z| < 2. Pooled |z| = 0.75 < 2.**
+
+> ### REGISTERED VERDICT: **BBLM CONFIRMED-DEEPER**
+>
+> Read straight off the rule fixed in §14, before any zero above 27,000 existed in the
+> census. No rule was re-read after seeing the data and no threshold moved.
+
+### And immediately, the limit on it — his own power note, honoured
+
+**This is a BOUND, not proof of zero residual.** §14 said so in advance:
+
+> *"at reach 50000 (~63,000 arches total) the expected δ<0.12 count is ~83; 3σ ≈ ±27
+> counts. A next-order term smaller than ~25% of BBLM's own correction stays invisible at
+> this reach."*
+
+The expected count landed at **83.83** — the power estimate was accurate. **So what is
+established is: no correction-to-the-correction larger than roughly a quarter of BBLM's
+own term exists at these heights.** Anything smaller is invisible to this instrument, and
+saying otherwise would be the §13 mistake repeated.
+
+### The secondaries, reported as measured
+
+| cut | observed | expected | pooled z |
+|---|---:|---:|---:|
+| δ < 0.12 (primary) | 77 | 83.83 | **−0.75** |
+| δ < 0.10 | 44 | 48.51 | −0.65 |
+| δ < 0.08 | 14 | 24.84 | **−2.17** |
+
+**One pattern is visible, and is stated without being promoted:** the residual is
+**negative at all three cuts**, and grows more negative as the cut tightens — *fewer*
+very small gaps than BBLM predicts, not more. At δ < 0.08 the pooled z reaches −2.17,
+which under the primary rule would have been **AMBIGUOUS** rather than confirmed.
+
+**This changes nothing about the verdict.** The primary cut was named in advance and it
+is δ < 0.12; choosing the secondary that looks most interesting after the fact is exactly
+the failure §13 was written about. **It is recorded because it is real and because the
+next walk should watch it** — not because it is a finding. At δ < 0.08 the counts are 14
+observed against 24.8 expected: small numbers, where one bin's luck moves z by a full
+unit.
+
+### The record gap — reported, not headlined, as registered
+
+**A new census minimum: δ = 0.040746289184 at γ = 36,510.1664**, below the previous record
+0.042098382293 at γ ≈ 7,005.06.
+
+§14 fixed how to treat this in advance: *"a new record below 0.0421 is reported, not
+headlined — the null owns small gaps now."* Under the BBLM null, a census of 63,515
+arches is **expected** to produce a minimum near this size. **It is the instrument
+working, not a discovery.** The five smallest in the whole census:
+
+| δ | γ |
+|---|---|
+| 0.040746289184 | 36,510.1664 |
+| 0.042098382293 | 7,005.0629 |
+| 0.044457445856 | 17,143.7865 |
+| 0.046289608712 | 5,229.1986 |
+| 0.049496369796 | 33,179.3653 |
+
+### What the second walk actually bought
+
+The first walk (§11–§13) produced a "finding" that dissolved on contact with the
+literature: a small-gap suppression that turned out to be BBLM's already-known
+correction. The method lesson was **a pre-registration must name its NULL.**
+
+**The second walk named its null, and the null held.** That is a smaller result and a
+sounder one. What exists now that did not before:
+
+1. **A census of 63,519 zeros with an exact ledger**, banked block by block and
+   independently re-countable by anyone.
+2. **A measured bound on the correction-to-the-correction** — which the registration
+   notes has, to our knowledge, not been measured before — reported as a bound, at a
+   stated reach.
+3. **A registered test that could have failed and did not.** Three verdicts were fixed in
+   advance and one of them fired on its own terms.
+
+**No claim about the Riemann Hypothesis follows from any of this, and none is made.** The
+walk measures the statistics of gaps between zeros already known to be on the line. It is
+an instrument demonstrating its method — per his own rule: *demos prove flow, not theory.*

@@ -150,3 +150,24 @@ every soul.
   corrections literature check;
 - the deficit ledger at sampled greater heights (spot-checks with the
   count-guard, not full sweeps).
+
+---
+
+## Ledger extended to 50,000 — the second walk complete
+
+| | |
+|---|---|
+| reach | **50,000.4** |
+| census zeros ≤ 50,000 | **63,519** |
+| `mpmath.nzeros(50000)` | **63,519** |
+| **deficit** | **0** |
+| arches (consecutive pairs) | 63,515 |
+| Riemann–von Mangoldt N(50000) | 63,518.83 (reference) |
+
+Blocks 1–50 all banked in `census/`, 1,000 height each, every block's own count checked
+against its prediction at landing. The census doubled from the first walk's 27,000 and
+the ledger stayed exact through the doubling.
+
+**Way 2's standing result is unchanged by the extension, and that is the point:**
+verification is forever finite. 63,519 zeros checked is 63,519 zeros checked. It says
+nothing about the 63,520th and nothing about the infinity above it.

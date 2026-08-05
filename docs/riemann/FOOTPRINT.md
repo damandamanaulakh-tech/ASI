@@ -419,3 +419,16 @@ patched, loops at every halt — was extracted, written as seven documents,
 proved by the owner, and shipped into the engine as **the seven filters**.
 The RH walk is therefore also the engine's origin story: the archive stays
 here; the method lives in `docs/method/` and in `src/sourceborn/filters.py`.
+
+**Station 18 — the second walk lands, and the null holds.** *2026-08-05.* Blocks 28–50
+completed the walk to 50,000: **63,519 zeros, ledger deficit 0**. The verdict registered
+in WAY1 §14 before any of this data existed fired as **BBLM CONFIRMED-DEEPER** — every
+height bin |z| < 2, pooled z = −0.75. Held honestly as a **bound, not proof of zero
+residual**: the registration's own power note said a next-order term below ~25% of BBLM's
+correction stays invisible at this reach, and the expected-count estimate (83.83 against
+a predicted ~83) proved accurate. A new census-minimum gap appeared —
+**δ = 0.0407 at γ = 36,510** — and was reported rather than headlined, because §14 fixed
+that treatment in advance and the null owns small gaps now. One thing carried forward for
+the next walk without promotion: the residual is negative at all three cuts and grows
+more negative as the cut tightens (−0.75, −0.65, −2.17). The first walk taught that a
+pre-registration must name its null; the second walk named one and it held.
