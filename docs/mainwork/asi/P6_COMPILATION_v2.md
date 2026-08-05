@@ -168,7 +168,7 @@ merged** — merging my own nodes on my own judgement is judge-and-party again, 
 |---|---|
 | P-1 | **v4.** Points 1, 3, 4, 5, 9 answered; 6, 7 dropped on his word. **Point 1 awaits his review.** |
 | P-2, P-4, P-5, P-7 | HOLD, his instruction |
-| P-3 | 50000 census walk running (blocks 48–50) |
+| P-3 | **LANDED.** 63,519 zeros to 50,000, ledger deficit 0, registered verdict **BBLM CONFIRMED-DEEPER** (`WAY1` §15) |
 | **P-6** | **THIS FILE.** To be re-run as the release is read deeper |
 | P-8 | Done, **corrected four times** by the release |
 | P-9, P-10 | Closed |

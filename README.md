@@ -16,7 +16,7 @@ Status as of the current pass:
 |---|---|---|
 | **P-1** | The frame — 9 points. Points 6 & 7 dropped by the owner as repetitions | **RUNNING** — `docs/mainwork/asi/P1_ANSWERS_v1.md` |
 | **P-2** | RH as the live running example | **HOLD** (owner) |
-| **P-3** | The 50000 census walk and its rating | side work, continuing |
+| **P-3** | The 50000 census walk and its rating | **LANDED** — 63,519 zeros, ledger exact, registered verdict fired |
 | **P-4** | The K-style tree structure applied to RH | **HOLD** (owner) |
 | **P-5** | Back to the hub for the 5 point zeros | **HOLD** (owner) |
 | **P-6** | Compile everything; surface new nodes and connections | **RUNNING** — `docs/mainwork/asi/` |
