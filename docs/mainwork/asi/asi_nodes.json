@@ -1484,6 +1484,201 @@
    ],
    "note": "Straight off his numbers: risk tracks newness almost perfectly. The more original the answer, the more likely it is wrong -- which is the opposite of how originality is usually rewarded, and it should govern this whole compile.",
    "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0100",
+   "what": "HORIZON CHECK — is the conclusion still open, or already forced?",
+   "step": "WITNESS",
+   "human": "his Kruskal-Szekeres reading: before point C you can back out; after it the conclusion is in your future regardless of what you do. 'Crossing happens silently'",
+   "ai": "no station asks it. The Doubt Engine attacks the conclusion; nothing asks whether the conclusion became unavoidable several steps ago",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-37 The black hole, worked as a cognitive structure",
+   "seen_in": [
+    "EX-37 The black hole, worked as a cognitive structure"
+   ],
+   "note": "His own sub-move: 'is the conclusion now forced by structure, or still genuinely open? If forced, name it. If still open, name what would force it.' The most useful single unbuilt station in the whole release.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0101",
+   "what": "SINGULARITY vs COLLAPSE — a forced answer is not a failure",
+   "step": "HALT",
+   "human": "his rule: some questions really do force one answer. The output must distinguish 'the singularity is real' from 'the engine collapsed'",
+   "ai": "a model that converges hard looks identical whether the problem forced it or the model failed",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-37 The black hole, worked as a cognitive structure",
+   "seen_in": [
+    "EX-37 The black hole, worked as a cognitive structure"
+   ],
+   "note": "Protects against two opposite errors at once: treating a genuine forced result as a bug, and treating a collapse as a discovery.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0102",
+   "what": "NON-TRAVERSABILITY — the reading another mind would produce",
+   "step": "WITNESS",
+   "human": "his 'Another Universe' region: mathematically connected, not reachable from here. Visible in structure, not reachable by this run",
+   "ai": "the model can generate alternative readings and cannot know which ones it structurally cannot reach",
+   "relationship": "NO MATCH",
+   "brain": "(humility)",
+   "born": "EX-37 The black hole, worked as a cognitive structure",
+   "seen_in": [
+    "EX-37 The black hole, worked as a cognitive structure"
+   ],
+   "note": "His words: 'knowing the other reading exists is not the same as having it... honest epistemic humility, structurally grounded -- not a hedge.' This is the Mask, stated geometrically.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0103",
+   "what": "WHITE HOLE — incubation cannot be entered by force",
+   "step": "HALT",
+   "human": "his reading: insight surfaces from upstream of conscious work; things emerge from it but cannot enter it",
+   "ai": "a model can always be asked to try harder, and will always produce something",
+   "relationship": "NO MATCH",
+   "brain": "(incubation)",
+   "born": "EX-37 The black hole, worked as a cognitive structure",
+   "seen_in": [
+    "EX-37 The black hole, worked as a cognitive structure"
+   ],
+   "note": "Pairs with ARD step 14. The reason permission-to-hold has to be a station: the state that produces the answer cannot be entered on demand.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0104",
+   "what": "NO MASTER METAPHOR — keep a LIBRARY of analogs",
+   "step": "NAMING",
+   "human": "his refusal: 'it does not become a master metaphor for everything... ARD needs a library of accurate analogs, each applied where it fits'",
+   "ai": "a model will happily extend one good metaphor across an entire domain, because coherence reads as insight",
+   "relationship": "NO MATCH",
+   "brain": "(anti-unification)",
+   "born": "EX-37 The black hole, worked as a cognitive structure",
+   "seen_in": [
+    "EX-37 The black hole, worked as a cognitive structure"
+   ],
+   "note": "He ran the black hole analogy through the Doubt Engine BEFORE adopting it, then capped it. That is the discipline: earn the metaphor, then fence it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0105",
+   "what": "RENAMING IS NOT ADDING",
+   "step": "NAMING",
+   "human": "his audit of Grok's 46-item parameter list: 6 genuinely new, 6 adopted as output tags, 1 rejected outright, TWENTY-TWO rejected as renamings",
+   "ai": "a model asked to expand a framework will return synonyms and they will look like growth",
+   "relationship": "NO MATCH",
+   "brain": "(the bloat test)",
+   "born": "EX-38 ARD 3.1 LEAN — his own anti-bloat pass",
+   "seen_in": [
+    "EX-38 ARD 3.1 LEAN — his own anti-bloat pass"
+   ],
+   "note": "48% of a proposed expansion was the same ideas with new names. This is the single cheapest test in the release and nothing in the engine runs it -- including on this compile's own 99 nodes.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0106",
+   "what": "A FRAMEWORK CAN BLOAT, AND CUTTING IT IS WORK",
+   "step": "HALT",
+   "human": "his own words: 'the bigger move -- ARD has bloated'. He answered 'remove all rules' by producing ARD 3.1 LEAN rather than defending the structure",
+   "ai": "nothing ever removes a node. Every station added stays",
+   "relationship": "NO MATCH",
+   "brain": "(subtraction)",
+   "born": "EX-38 ARD 3.1 LEAN — his own anti-bloat pass",
+   "seen_in": [
+    "EX-38 ARD 3.1 LEAN — his own anti-bloat pass"
+   ],
+   "note": "He treats deletion as a first-class move. This project has only ever added -- 70 nodes, 7 filters, 12 phases, now 99 ASI nodes -- and has never once run a LEAN pass.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0107",
+   "what": "JUDGE-AND-PARTY — building a test and grading it yourself",
+   "step": "WITNESS",
+   "human": "his recorded failure 2: 'building a test and judging its success with no independent witness'",
+   "ai": "no mechanism forces an outside grader. A model asked to evaluate its own work will do it",
+   "relationship": "NO MATCH",
+   "brain": "(live right now)",
+   "born": "EX-39 His adversarial audit — twelve of my recorded failures",
+   "seen_in": [
+    "EX-39 His adversarial audit — twelve of my recorded failures"
+   ],
+   "note": "NAMED AGAINST THIS COMPILE: I built the ASI node registry AND I decide what counts as a new node AND I report the saturation curve. That is judge-and-party in all three positions. The count is honest arithmetic over entries I chose. He is the only available independent witness.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0108",
+   "what": "POINT ZERO CAN BE VISUAL — the tea-video failure",
+   "step": "GROUND",
+   "human": "his recorded failure 10: 'missing the visual Point Zero'",
+   "ai": "SB-01 locks raw TEXT. A picture or a video arriving as the ask has no lock",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-39 His adversarial audit — twelve of my recorded failures",
+   "seen_in": [
+    "EX-39 His adversarial audit — twelve of my recorded failures"
+   ],
+   "note": "He sent something to be watched and the engine read around it. Never converted into a method file, and his own audit says so: it and the missing-filters problem 'remain direct candidates for regression tests'.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0109",
+   "what": "SEPARATE A BUILD CLAIM FROM AN ACCEPTANCE RESULT",
+   "step": "HALT",
+   "human": "his anti-drift control, and his failure 7: 'producing an artifact while material questions remained'",
+   "ai": "nothing distinguishes 'I made it' from 'it works' from 'you accepted it'",
+   "relationship": "NO MATCH",
+   "brain": "(three states)",
+   "born": "EX-39 His adversarial audit — twelve of my recorded failures",
+   "seen_in": [
+    "EX-39 His adversarial audit — twelve of my recorded failures"
+   ],
+   "note": "Three different claims routinely collapsed into 'done'. His scope-approval-is-not-build-approval rule is the front half of the same discipline.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0110",
+   "what": "COUNT ONLY WHAT EXISTS",
+   "step": "WITNESS",
+   "human": "his anti-drift control, from failure 5: presenting twelve exchanges as a full session pull",
+   "ai": "a model will happily describe a sample in the language of a whole",
+   "relationship": "NO MATCH",
+   "brain": "(counting)",
+   "born": "EX-39 His adversarial audit — twelve of my recorded failures",
+   "seen_in": [
+    "EX-39 His adversarial audit — twelve of my recorded failures"
+   ],
+   "note": "The rule that makes the 185 verifiable and the 530-file index honest. It is also the rule this compile is most at risk of breaking, because 106 nodes sounds like coverage and is a sample.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0111",
+   "what": "DUPLICATE WORDINGS — 42 of them, in two containers each",
+   "step": "NAMING",
+   "human": "'Motivation-fatigue interaction' is BOTH SB-ASI-P0204/CON-007 and SB-ASI-P1969/CON-062. 84 parameters, 3.3%, share a wording",
+   "ai": "any lookup by name returns the wrong container roughly half the time",
+   "relationship": "NO MATCH",
+   "brain": "(registry)",
+   "born": "EX-40 His own Test 001 — the same example, run by him",
+   "seen_in": [
+    "EX-40 His own Test 001 — the same example, run by him"
+   ],
+   "note": "Not an error -- the same function really does appear at two places in the pyramid. But it is exactly the trap that made P1_ANSWERS_v1 miss CON-062, the container he had himself named.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0112",
+   "what": "THE HELD RESERVE sits OUTSIDE the approved 2,560",
+   "step": "GROUND",
+   "human": "RES-0515 Willpower deployment, RES-0516 Motivation regulation, RES-0517 Goal-progress monitoring, RES-0518 Persistence-vs-quit arbitration -- all under SEG-08/CON-062",
+   "ai": "no RES- identifier appears anywhere in the 10,240 edges. Verified directly",
+   "relationship": "NO MATCH",
+   "brain": "(reserve)",
+   "born": "EX-40 His own Test 001 — the same example, run by him",
+   "seen_in": [
+    "EX-40 His own Test 001 — the same example, run by him"
+   ],
+   "note": "The most likely explanation of the 2,578 / 2,590 / 2,592 drift: different documents counting different amounts of reserve beside the approved bank. RES-0518 is still awaiting his ruling from earlier in this session.",
+   "owner": "PENDING"
   }
  ],
  "runs": [
@@ -1902,6 +2097,55 @@
    "n_new": 2,
    "n_reused": 0,
    "total_after": 99
+  },
+  {
+   "example": "EX-37 The black hole, worked as a cognitive structure",
+   "new": [
+    "ASI-0100",
+    "ASI-0101",
+    "ASI-0102",
+    "ASI-0103",
+    "ASI-0104"
+   ],
+   "reused": [],
+   "n_new": 5,
+   "n_reused": 0,
+   "total_after": 104
+  },
+  {
+   "example": "EX-38 ARD 3.1 LEAN — his own anti-bloat pass",
+   "new": [
+    "ASI-0105",
+    "ASI-0106"
+   ],
+   "reused": [],
+   "n_new": 2,
+   "n_reused": 0,
+   "total_after": 106
+  },
+  {
+   "example": "EX-39 His adversarial audit — twelve of my recorded failures",
+   "new": [
+    "ASI-0107",
+    "ASI-0108",
+    "ASI-0109",
+    "ASI-0110"
+   ],
+   "reused": [],
+   "n_new": 4,
+   "n_reused": 0,
+   "total_after": 110
+  },
+  {
+   "example": "EX-40 His own Test 001 — the same example, run by him",
+   "new": [
+    "ASI-0111",
+    "ASI-0112"
+   ],
+   "reused": [],
+   "n_new": 2,
+   "n_reused": 0,
+   "total_after": 112
   }
  ]
 }

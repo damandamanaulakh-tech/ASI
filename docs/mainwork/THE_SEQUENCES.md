@@ -326,8 +326,22 @@ Recorded as open, not filled in by the AI:
   *"mahabharat betting lead to end of era but we took it as lead by women pride"* —
   **but not a step-by-step sequence.**
 - **The bet (Draupadi)** — same: a reading given, no step sequence.
-- **The black hole** — given as an image and a challenge (*"why not u being quite like
-  a black hole"*), not as a sequence.
+- ~~**The black hole**~~ — **FOUND, AND IT IS FULLY WORKED.** Not an image: in
+  `ARD_3.1_Filter_Integration.md` (17 May 2026) he maps the Kruskal–Szekeres diagram of
+  the eternal Schwarzschild black hole onto engine states, after first running the
+  metaphor through the Doubt Engine to see whether it earns its place. `[HIS WORDS]`:
+  **Our Universe** = normal operating zone, the engine can hover and leave ·
+  **the horizon crossing** = *"the point of cognitive commitment. Before C, you can back
+  out. After C, the conclusion is in your future regardless of what you do"* ·
+  **the interior** = every continuation ends at the same conclusion, *"singularity =
+  forced answer"* · **the white hole** = *"insight surfaces from somewhere upstream of
+  conscious work. Incubation territory. Cannot be entered by force."* ·
+  **another universe** = *"the reading another mind would produce. Visible in structure,
+  not reachable by this run."*
+  And he fences it: *"it does not become a master metaphor for everything… ARD needs a
+  library of accurate analogs, each applied where it fits."*
+  **My earlier entry was wrong for the same reason as the war and the bet — I searched
+  the repo and not the release.**
 - **K's own sequence** — he has ruled *"i need full k definition first"*; the sequence
   waits on that definition.
 
