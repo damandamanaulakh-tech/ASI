@@ -11,10 +11,14 @@ term by term and read off exactly what the missing system must be.
 is audited against it, and one case is examined where the whole architecture demonstrably
 works — and turns out to be the wrong symmetry class.
 
-**Evidence standing, stated first.** Written from my own knowledge; **no live search was
-available.** By the project's Filter 3 that is **one witness, capped at Medium**. The
-*derivation* in §2–§4 you can check yourself with a pen — it is arithmetic on two standard
-formulas. The *attributions* in §7–§8 should be verified against primary sources.
+**Evidence standing, stated first.** The *derivation* in §2–§4 you can check yourself with
+a pen — it is arithmetic on two standard formulas. **§5b and §6b are searched and sourced**
+(references at the end). The remaining *attributions* in §7–§8 are written from my own
+knowledge with no search behind them — **one witness, capped at Medium by the project's own
+Filter 3** — and should be verified before being cited.
+
+**One halt in the previous version has been resolved by search, and the resolution changed
+the article's conclusion.** It is marked in place at §5b rather than folded in silently.
 
 ---
 
@@ -246,10 +250,78 @@ heights by Odlyzko]`
 
 **That is the sharpest statement this article can make**, and it says where to look: a
 hyperbolic-like system with uniform instability — *but with time-reversal broken.*
-Magnetic fields break time reversal. A hyperbolic surface with a magnetic field is not an
-exotic object. **Why that has not settled it is a question worth putting to someone who
-knows the literature better than one witness does.** `[HALT — I do not know whether this
-has been tried and failed, or not tried. Naming it as a question rather than a proposal.]`
+Magnetic fields break time reversal, and a hyperbolic surface carrying a magnetic field is
+not an exotic object.
+
+---
+
+## 5b · THE HALT, RESOLVED — it has been done, and it works
+
+**The previous version of this article stopped here with an honest halt: I did not know
+whether anyone had tried it.** A literature search was run. **They have, it works, and the
+result is recent.** `[FACT — searched, sources at the end]`
+
+### The baseline: plain hyperbolic surfaces give GOE
+
+**Rudnick** proved that the spectral number variance for the Laplacian of a large compact
+hyperbolic surface converges — in a scaling limit, averaged over **moduli space** with the
+Weil–Petersson measure — to the number variance of the **Gaussian Orthogonal Ensemble.**
+The proof uses **Mirzakhani's integration formula.** Related work establishes GOE
+statistics on the moduli space of surfaces of large genus, and almost-sure GOE
+fluctuations at high genus.
+
+**So condition 5 fails for untwisted surfaces, provably — exactly as §5 predicted from
+time-reversal symmetry.**
+
+### The extension: add the magnetic field and you get GUE
+
+> ### Marklof & Monk, 2024 — *The moduli space of twisted Laplacians and random matrix theory*
+> **arXiv:2407.10778**, published in *International Mathematics Research Notices*
+> (doi:10.1093/imrn/rnae239).
+
+A **twisted Laplacian** incorporates a magnetic field (an Aharonov–Bohm flux) and
+**breaks time-reversal symmetry.** They extend Rudnick's method and prove:
+
+> **the spectral number variance converges to the GAUSSIAN UNITARY ENSEMBLE.**
+
+**And the family is complete:** the same approach gives **GSE** for Dirac operators. All
+three classical symmetry classes are realised on hyperbolic surfaces, and the physical
+knob that moves between them is exactly the one §5 identified.
+
+**Condition 5 is therefore not a barrier. It is solved, in the setting where conditions
+1, 3, 4 and self-adjointness already hold.** The twisted Laplacian is a genuinely
+self-adjoint operator on a genuinely uniformly-hyperbolic system, with GUE statistics.
+
+### And the machinery for the zeta function exists too
+
+**Twisted Selberg zeta functions are defined and studied.** The Selberg and Ruelle zeta
+functions are Euler products **over prime closed geodesics indexed by their lengths**;
+twisting by a representation of the fundamental group gives the twisted versions, and
+their relation to determinants of twisted Laplacians is active current work (Spilioti and
+others). **The object that would play the role of ζ in this setting is built.**
+
+### So why is the Riemann Hypothesis not proved?
+
+**Two reasons, and they are both specific.**
+
+**1 · The Marklof–Monk result makes no reference to the Riemann hypothesis or the Riemann
+zeros.** `[FACT — checked directly against the paper.]` It is a theorem in spectral
+geometry. **Nobody has joined it to Riemann**, and this article is not claiming the join
+is available — only that half of the wanted poster now has a proof attached to it.
+
+**2 · And this is the decisive one: the result is an AVERAGE OVER MODULI SPACE, in the
+large-genus limit.** It says that a **typical, random, large-genus** twisted surface shows
+GUE. It does **not** produce a single specific surface with GUE, and it says nothing about
+any particular one.
+
+> **Riemann needs one specific system whose geodesic lengths are exactly log p.** That is
+> the least typical surface imaginable — it is arithmetically determined, not random.
+>
+> **The theorem delivers GUE for the generic case. Condition 2′ demands the arithmetic
+> case. The theorem does not apply to it.**
+
+**The halt is resolved and the gap has moved to a sharper place**, which is the best
+outcome a halt can have.
 
 ---
 
@@ -300,6 +372,36 @@ satisfy the second half and cannot deliver the first.
 **That, precisely, is why the drum has not been found.** Not seven hard conditions — **one
 condition (2′) that the two natural families of candidate systems fail from opposite
 directions.**
+
+## 6b · AND THE LITERATURE PUTS BOTH SIDES OF THAT TENSION ON THE RECORD
+
+With §5b's result in hand, the tension is no longer a suspicion. **Both halves are now
+theorems, in incompatible settings.**
+
+| | Setting | Statistics | Length spectrum |
+|---|---|---|---|
+| **Marklof–Monk 2024** | **generic** twisted surfaces, averaged over moduli space, large genus | **GUE — proved** | generic, no arithmetic structure |
+| **Arithmetic quantum chaos** | **specific** arithmetic surfaces (modular surface and relatives) | **Poisson — not GOE, not GUE** | arithmetic, **massively degenerate** |
+| **What Riemann needs** | **one specific system** | **GUE** | **arithmetic AND degeneracy-free** |
+
+> **The two established results sit on opposite sides of the gap, and Riemann's case falls
+> exactly between them.**
+>
+> Genericity buys the statistics and forbids the arithmetic. Arithmetic buys the periods
+> and destroys the statistics — because arithmetic produces *degeneracy*, and degeneracy
+> is what kills random-matrix behaviour.
+
+**So condition 2′ is not merely unsatisfied. It asks for the one combination that the two
+known mechanisms each rule out.** `[READING — the two results are facts; the claim that
+Riemann falls between them is my reading, and it is the load-bearing claim of this
+article.]`
+
+**And it says exactly what a breakthrough would look like:** a mechanism by which an
+arithmetic length spectrum can be **degeneracy-free** — so that it inherits generic
+statistics without inheriting generic lengths. **The primes are degeneracy-free** (distinct
+primes have rationally independent logs, by unique factorisation). **The arithmetic
+surfaces are not.** Whatever makes the primes different from the trace-degeneracies of an
+arithmetic group is where the answer lives.
 
 ---
 
@@ -476,7 +578,7 @@ the two natural families fail it from opposite sides.
 
 | Route | What must happen | Assessment |
 |---|---|---|
-| **Break Selberg's symmetry** | a uniformly-hyperbolic system, arithmetic degeneracy-free length spectrum, **time reversal broken** | the narrowest, most concrete target — §5's open question |
+| **Break Selberg's symmetry** | ~~time reversal broken~~ — **DONE (Marklof–Monk 2024).** What remains: make it a *specific* surface with an arithmetic, degeneracy-free length spectrum, not a moduli-space average | **the gap has moved**: symmetry solved, specificity open |
 | **Quantise xp honestly** | a self-adjoint realisation on a natural domain, **no hand-tuned cutoff**, discrete spectrum with the right count | conditions 3, 5, 7 already hold; only this is missing |
 | **Derive GUE from arithmetic** | show random-matrix statistics *follow* from a degeneracy-free arithmetic length spectrum | **the corner nobody has bought from a mechanism**; §6 says why it is hard |
 | **Close the transfer** | prove Weil positivity directly | Connes's construction then stops relocating |
@@ -510,14 +612,35 @@ is the one that would explain rather than construct.
 - **No claim any attribution is exact.** One witness, no literature search, Medium cap.
   **Check every named result before citing it.**
 - **No claim our census contributes to building a drum.** §9 says so in its own section.
-- **§5's magnetic-field question is a HALT, not a proposal.** I do not know whether it has
-  been tried.
+- **§5's magnetic-field halt is now RESOLVED** — it has been done and it works. What this
+  article does **not** claim is that anyone has joined it to Riemann: **Marklof–Monk make
+  no reference to the Riemann hypothesis**, and their result is a moduli-space average, not
+  a statement about any particular surface.
 
 **The sentence to keep:**
 
-> Selberg proved this exact architecture works, with a self-adjoint operator and its zeros
-> on a line — and the only condition Riemann's case adds is that time reversal must be
-> broken, while the one family with arithmetic lengths gives Poisson statistics instead of
-> the required GUE, so the missing object must have an arithmetic length spectrum with no
-> degeneracy at all, and that is a thing neither geometry nor arithmetic currently knows
-> how to build.
+> Selberg proved this architecture works and Marklof–Monk proved that adding a magnetic
+> field to it delivers the GUE statistics Riemann needs — but their theorem is an average
+> over *generic* surfaces, while Riemann's periods demand a *specific arithmetic* one, and
+> the arithmetic surfaces we can actually study give Poisson statistics because arithmetic
+> breeds degeneracy; so the missing object must have a length spectrum that is arithmetic
+> in origin and degeneracy-free in structure, and the primes are exactly that while no
+> known geometry is.
+
+---
+
+# SOURCES
+
+- Marklof, J. & Monk, L., *The moduli space of twisted Laplacians and random matrix
+  theory* — [arXiv:2407.10778](https://arxiv.org/abs/2407.10778) ·
+  [IMRN, doi:10.1093/imrn/rnae239](https://doi.org/10.1093/imrn/rnae239)
+- *GOE statistics on the moduli space of surfaces of large genus* —
+  [arXiv:2202.06379](https://arxiv.org/pdf/2202.06379)
+- *Almost sure GOE fluctuations of energy levels for hyperbolic surfaces of high genus* —
+  [arXiv:2301.05964](https://arxiv.org/pdf/2301.05964)
+- Spilioti, P., *Determinants of twisted Laplacians and the twisted Selberg zeta function*
+  — [arXiv:2512.16681](https://arxiv.org/html/2512.16681)
+- *Twisted Ruelle zeta function at zero for compact hyperbolic surfaces* —
+  [arXiv:2105.13321](https://arxiv.org/pdf/2105.13321)
+- Sierra, G., *A physics pathway to the Riemann hypothesis* —
+  [arXiv:1012.4264](https://arxiv.org/pdf/1012.4264)
