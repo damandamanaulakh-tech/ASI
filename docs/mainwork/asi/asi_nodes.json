@@ -584,6 +584,186 @@
    ],
    "note": "The weighting is information he already put in and everyone has been flattening by repeating '80 x 32'.",
    "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0040",
+   "what": "The Mask is built into the human bank as a PAIR",
+   "step": "NAMING",
+   "human": "SB-ASI-P2005 Stated motive AND SB-ASI-P2006 Operating (actual) motive -- two separate parameters",
+   "ai": "no AI match on either",
+   "relationship": "NO MATCH",
+   "brain": "mask-pair brain",
+   "born": "P-1.1 hunger+work example (his sentence)",
+   "seen_in": [
+    "P-1.1 hunger+work example (his sentence)"
+   ],
+   "note": "He did not build one motive parameter with a caveat. He built two, deliberately. His sentence gives only the stated one, and the parameters refuse to let it stand for both. Filter 4 was in the registry before it was in the engine.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0041",
+   "what": "Intention shielding -- protecting a commitment from competing ones",
+   "step": "EXPRESSION",
+   "human": "SB-ASI-P1987 Intention shielding",
+   "ai": "no AI match",
+   "relationship": "NO MATCH",
+   "brain": "shield brain",
+   "born": "P-1.1 hunger+work example (his sentence)",
+   "seen_in": [
+    "P-1.1 hunger+work example (his sentence)"
+   ],
+   "note": "The exact mechanism his sentence describes, and he already had a distinct parameter for it. Not willpower, not motivation -- shielding.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0042",
+   "what": "Impulse-vs-goal arbitration -- the hinge with no AI side",
+   "step": "WITNESS",
+   "human": "SB-ASI-P0857 Impulse-vs-goal arbitration, in a 36-parameter container",
+   "ai": "no AI match at all",
+   "relationship": "NO MATCH",
+   "brain": "arbitration brain",
+   "born": "P-1.1 hunger+work example (his sentence)",
+   "seen_in": [
+    "P-1.1 hunger+work example (his sentence)"
+   ],
+   "note": "The single most important parameter in his example is unmatched. The AI can be told the outcome of the arbitration; it has no parameter that performs one.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0043",
+   "what": "THE COST/BEHAVIOUR SPLIT — the AI has the task, not the price",
+   "step": "PRESSURE",
+   "human": "26 of 33 firing parameters carry the cost: hunger, fatigue, rest-seeking, willpower, reward, delay",
+   "ai": "7 of 33 match, and all 7 are one cluster: budgeting, committing, following through, checking done, stopping",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "cost brain",
+   "born": "P-1.1 hunger+work example (his sentence)",
+   "seen_in": [
+    "P-1.1 hunger+work example (his sentence)"
+   ],
+   "note": "Measured on his own example from his own edges: 21%. The AI models the behaviour and cannot model the sacrifice. Same boundary the reverse walks and the 21 zero-match containers found -- three methods, one line.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0044",
+   "what": "A spec is not a result — the un-mixing rule",
+   "step": "GROUND",
+   "human": "his 2,560 is the SPEC of the app's brain; a subject's brain is a MEASUREMENT against it",
+   "ai": "runs, findings and P-NEW proposals stay outside the spec until he approves each",
+   "relationship": "NO MATCH",
+   "brain": "(governance)",
+   "born": "P-1.1 hunger+work example (his sentence)",
+   "seen_in": [
+    "P-1.1 hunger+work example (his sentence)"
+   ],
+   "note": "His point 3 correction turned into a standing rule. The 1,953 faceted rows in the Riemann and Einstein workbooks are proposals, not his registry, and are marked again.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0045",
+   "what": "A human pays to exist; the AI pays only to run",
+   "step": "PRESSURE",
+   "human": "CON-007/CON-008: a body at complete rest still burns most of its intake -- there is no idle state that is free",
+   "ai": "an idle model costs nothing. Cost begins at the token and ends with it",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "idle brain",
+   "born": "EX-04 Hunger (his founding example)",
+   "seen_in": [
+    "EX-04 Hunger (his founding example)"
+   ],
+   "note": "The hunger walk's permanent bond -- energy handed on, never made -- applies to both, but only one bank has a floor it cannot go below. This is why a human cannot simply stop and a model can.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0046",
+   "what": "The AI already lives in the subtracted world",
+   "step": "GROUND",
+   "human": "a human must IMAGINE away friction and air to see the law (Galileo, then the equivalence principle)",
+   "ai": "the model has no medium at all -- it receives the law already stripped, in text",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "vacuum brain",
+   "born": "EX-05 Gravity",
+   "seen_in": [
+    "EX-05 Gravity"
+   ],
+   "note": "The gravity walk found that a law is what is left when the world is subtracted. The AI starts there. It gets laws cheaply and has no access to the phenomenon they were subtracted from -- which is exactly the wrong way round from how a human learns.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0047",
+   "what": "The engine's own two opposed forces",
+   "step": "LOOP",
+   "human": "heat lifting against gravity dropping -- remove either and the cycle stops",
+   "ai": "generation pushing an answer out against seven filters pushing back",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "tension brain",
+   "born": "EX-06 The water cycle",
+   "seen_in": [
+    "EX-06 The water cycle"
+   ],
+   "note": "If a loop is two forces in opposition (the water cycle's finding), then SB-URR already has its pair, and the pair IS the product. An engine with only generation is a pipe; an engine with only filters is silence.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0048",
+   "what": "A human USES language; the AI IS made of it",
+   "step": "EXPRESSION",
+   "human": "for a human, language is a tool picked up tens of thousands of years after speech was complete",
+   "ai": "for the model, language is the substrate -- there is no layer underneath it to check against",
+   "relationship": "NO MATCH",
+   "brain": "substrate brain",
+   "born": "EX-08 Language",
+   "seen_in": [
+    "EX-08 Language"
+   ],
+   "note": "The language walk found the halt: you cannot use words to verify that words match the world. For a human that halt has a floor -- they can go and look. The AI has no floor: every check is another sentence. This is the strongest argument in the whole registry for why the live-witness rule is not optional.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0049",
+   "what": "THE MISSING FAILURE CLASS — every step legitimate, the sum a catastrophe",
+   "step": "HALT",
+   "human": "the bet: Yudhishthira never cheats. Every move is dharma. The rule IS the trap",
+   "ai": "no filter catches this. Ground/Sequence/Source/Mask/Fact/Halt/Loop all check STEPS, not the shape of a chain",
+   "relationship": "NO MATCH",
+   "brain": "(proposed)",
+   "born": "EX-09 The war",
+   "seen_in": [
+    "EX-09 The war"
+   ],
+   "note": "A breach announces itself; correct play does not. Proposed, not built. His PAR-01 calls the bet a rule-BREAK; the walk says rule-FOLLOW carried too far. His ruling.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0050",
+   "what": "An unanswered question can drive a system for generations",
+   "step": "LOOP",
+   "human": "Draupadi asks whether he lost himself first; Bhishma cannot answer; thirteen years later the only instrument left is war",
+   "ai": "the engine hands a halt back and the loop is expected to close soon. It has no model of a halt that stays open for an era",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "open-halt brain",
+   "born": "EX-10 The bet",
+   "seen_in": [
+    "EX-10 The bet"
+   ],
+   "note": "His Filter 7 assumes the halt becomes the next Point Zero. The bet shows a halt that becomes the next CENTURY. Duration is not in the filter.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0051",
+   "what": "The deliberate park — setting aside without solving, and saying so",
+   "step": "HALT",
+   "human": "his own sentence in the 1859 paper: 'voerlaeufig bei Seite gelassen' -- provisionally left aside",
+   "ai": "the engine's non-resolution protector (SB-57) protects a mystery, but nothing DECLARES a park with a reason and a date",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "park brain",
+   "born": "EX-11 Riemann's working style",
+   "seen_in": [
+    "EX-11 Riemann's working style"
+   ],
+   "note": "He did not fail to prove it and hide that. He named the setting-aside inside the work. The strongest single piece of method in the man, and the engine only half has it.",
+   "owner": "PENDING"
   }
  ],
  "runs": [
@@ -643,6 +823,98 @@
    "n_new": 20,
    "n_reused": 0,
    "total_after": 39
+  },
+  {
+   "example": "P-1.1 hunger+work example (his sentence)",
+   "new": [
+    "ASI-0040",
+    "ASI-0041",
+    "ASI-0042",
+    "ASI-0043",
+    "ASI-0044"
+   ],
+   "reused": [],
+   "n_new": 5,
+   "n_reused": 0,
+   "total_after": 44
+  },
+  {
+   "example": "EX-04 Hunger (his founding example)",
+   "new": [
+    "ASI-0045"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 45
+  },
+  {
+   "example": "EX-05 Gravity",
+   "new": [
+    "ASI-0046"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 46
+  },
+  {
+   "example": "EX-06 The water cycle",
+   "new": [
+    "ASI-0047"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 47
+  },
+  {
+   "example": "EX-07 Faith",
+   "new": [],
+   "reused": [],
+   "n_new": 0,
+   "n_reused": 0,
+   "total_after": 47
+  },
+  {
+   "example": "EX-08 Language",
+   "new": [
+    "ASI-0048"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 48
+  },
+  {
+   "example": "EX-09 The war",
+   "new": [
+    "ASI-0049"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 49
+  },
+  {
+   "example": "EX-10 The bet",
+   "new": [
+    "ASI-0050"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 50
+  },
+  {
+   "example": "EX-11 Riemann's working style",
+   "new": [
+    "ASI-0051"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 51
   }
  ]
 }
