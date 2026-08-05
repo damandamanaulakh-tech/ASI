@@ -1,17 +1,22 @@
-# THE ASI NODE REGISTRY — v2
+# THE ASI NODE REGISTRY
 
-**130 nodes across 45 runs.** His definition of a node, verbatim:
+**143 nodes across 47 runs.** His definition, verbatim:
 
 > *"at human when we added AI, it become one node, and at each we put brain, and it
 > let everything next response with that and generate new things, as u did with K"*
 
-**Every node is PENDING his approval.** All 130 carry `owner: PENDING`. Nothing here
-is adopted. IDs are minted mechanically by `registry.py` so his stopping rule for
-Phase 11 — *"stopped making new ID number"* — is a count, not a judgement.
+**All 143 are `PENDING`.** Nothing here is adopted. IDs are minted mechanically by
+`registry.py`, so his stopping rule for Phase 11 — *"stopped making new ID number"* —
+is a count and not a judgement.
 
-**His own architecture already has the engine for this:** `ENG-SUP-012 Termination
-Governor — iteration budget + diminishing returns`. The curve below is that engine
-run by hand.
+**His architecture already contains the engine for this:** `ENG-SUP-012 Termination
+Governor — iteration budget + diminishing returns`. The curve below is that engine run
+by hand.
+
+**And his restraint rule, which this registry broke:** *"uncontrolled combinations would
+create noise… the engine can later expand only after the loop sequence is validated."*
+He capped his King-characters at 100 of a vastly larger space and said why. This
+registry ran to 143 with no cap and no prior validation. Recorded against itself.
 
 ## The saturation curve
 
@@ -62,36 +67,43 @@ run by hand.
 | 43 | EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve | **6** | 0 | 123 |
 | 44 | EX-44 The v0.4 architecture — a larger brain than the approved one | **1** | 0 | 124 |
 | 45 | EX-45 His 38-engine architecture — and what I 'proposed' that already exists | **6** | 0 | 130 |
+| 46 | EX-46 The King Character Engine — ARD's real meaning and the missing forward half | **8** | 0 | 138 |
+| 47 | EX-47 The 12 Formal Cores and 100 Modules | **5** | 0 | 143 |
 
-**Consecutive dry runs: 0. Phase 11 is not open.**
+**Consecutive dry runs: 0. Phase 11 is NOT open.**
+
+Three times the curve flattened and three times new material restarted it — his worked
+examples ran down to ~0.5/run, then his March–May raw thoughts, then ARD and the
+approved brain, then the King Character Engine at 8 in one run. **His examples were
+exhausted. His record was not.**
 
 ## By relationship
 
 | relationship | count | share |
 |---|---:|---:|
-| NO MATCH | 82 | 63% |
-| FUNCTIONAL ANALOGUE | 36 | 28% |
-| STRUCTURAL ANALOGUE | 9 | 7% |
+| NO MATCH | 93 | 65% |
+| FUNCTIONAL ANALOGUE | 38 | 27% |
+| STRUCTURAL ANALOGUE | 9 | 6% |
 | DIRECT CLONE | 3 | 2% |
 
 ## By step
 
 | step | nodes |
 |---|---:|
-| GROUND | 23 |
+| GROUND | 27 |
 | PRESSURE | 13 |
 | USE | 9 |
-| WITNESS | 22 |
+| WITNESS | 25 |
 | EXPRESSION | 13 |
-| NAMING | 13 |
-| HALT | 24 |
-| LOOP | 13 |
+| NAMING | 14 |
+| HALT | 27 |
+| LOOP | 15 |
 
 ---
 
 # THE NODES
 
-## GROUND — 23 nodes
+## GROUND — 27 nodes
 
 ### ASI-0008 · C34 Semantic memory and general knowledge
 
@@ -277,6 +289,38 @@ run by hand.
 - **Note:** HALT TO OWNER, and it outranks the other open items. The whole project -- the registry work, the brains, the 1f review, the 117 nodes above -- is built on 80 containers and 2,560 parameters. A v0.4 exists with 200 and 3,072. Which is current is his call, and nothing further should be built on 80/2,560 until he says.
 - **Born in:** EX-44 The v0.4 architecture — a larger brain than the approved one
 
+### ASI-0131 · ARD = ARTIFACT REVERSE-ENGINEERING AND DEDUCTION
+
+- **Relationship:** NO MATCH  ·  **Brain:** (the name)  ·  **Owner:** PENDING
+- **Human side:** his own sheet title, in full. The acronym has been used throughout this project without its expansion ever being known here
+- **AI side:** n/a -- this is a naming fact, not a capability
+- **Note:** I have written 'ARD' for weeks and could not have said what it stands for. The Mask on the shortest possible object: an acronym used fluently and not understood.
+- **Born in:** EX-46 The King Character Engine — ARD's real meaning and the missing forward half
+
+### ASI-0133 · THE CLONE PRINCIPLE — a brain is a WEIGHTED CONFIGURATION, not a description
+
+- **Relationship:** NO MATCH  ·  **Brain:** (how a brain should be built)  ·  **Owner:** PENDING
+- **Human side:** his words: 'a Character of the King is one generated brain-state: a weighted configuration of authority, family, war, religion, economy, knowledge, symbolism, society, psychology and artifact reality. It is a TESTABLE HYPOTHESIS, NOT A FINAL CLAIM'
+- **AI side:** a model produces a character description, which reads as a portrait and cannot be falsified
+- **Note:** THE RIEMANN AND EINSTEIN WORKBOOKS WERE BUILT WRONG. They are descriptions with 2,560 rows. His method says a brain is a WEIGHTING over parameters, generated as one hypothesis among many, scored against evidence, and beaten by a better one. That is testable; a portrait is not.
+- **Born in:** EX-46 The King Character Engine — ARD's real meaning and the missing forward half
+
+### ASI-0137 · A FOURTH ARCHITECTURE — 10 x 8 x 25 = 2,000 parameters
+
+- **Relationship:** NO MATCH  ·  **Brain:** (unreconciled)  ·  **Owner:** PENDING
+- **Human side:** this workbook's own pyramid line: '10 segments -> 8 containers per segment -> 25 parameters per container = 2,000 parameters', feeding 100 King-characters
+- **AI side:** not used anywhere in this project
+- **Note:** So there are now FOUR: 2,000 here, 2,560 approved, 2,592 v0.4 baseline, 3,072 v0.4 combined. The architecture halt is wider than P-6 v2 stated. Which is current remains his call and this makes the question more urgent, not less.
+- **Born in:** EX-46 The King Character Engine — ARD's real meaning and the missing forward half
+
+### ASI-0139 · THE VISUAL POINT ZERO IS SPECIFIED — CORE-01 already takes images
+
+- **Relationship:** NO MATCH  ·  **Brain:** (specified, not built)  ·  **Owner:** PENDING
+- **Human side:** CORE-01 Point Zero Source Lock, his own inputs line: 'Raw ask; files; IMAGES; source metadata; timestamp'
+- **AI side:** SB-01 in the running engine locks text only
+- **Note:** The tea-video failure -- 'u failed at point zero' -- is not an unforeseen gap. He had already specified images as a Point Zero input in CORE-01. The engine implements the text half of a core he wrote in full.
+- **Born in:** EX-47 The 12 Formal Cores and 100 Modules
+
 
 ## PRESSURE — 13 nodes
 
@@ -460,7 +504,7 @@ run by hand.
 - **Born in:** EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve
 
 
-## WITNESS — 22 nodes
+## WITNESS — 25 nodes
 
 ### ASI-0011 · C44 Uncertainty, probability and confidence
 
@@ -638,6 +682,30 @@ run by hand.
 - **Note:** The one instrument that would grade this compile honestly. 124 nodes and 45 runs is a volume, not a depth.
 - **Born in:** EX-45 His 38-engine architecture — and what I 'proposed' that already exists
 
+### ASI-0132 · REVERSE MUST BE PAIRED WITH FORWARD — I only ever did half
+
+- **Relationship:** NO MATCH  ·  **Brain:** (the missing half)  ·  **Owner:** PENDING
+- **Human side:** his REVERSE chain: material -> technique -> workshop -> original location -> function -> commissioner -> intended audience -> political/ritual situation -> candidate. His FORWARD chain: trigger -> decision -> command chain -> workshop -> object form -> symbols -> placement -> later damage, reuse, survival
+- **AI side:** no equivalent. A model asked to explain will run one direction and stop
+- **Note:** THE_REVERSE_WALKS.md ran eleven descents and not one ascent. His method is a PAIR: descend from the object to a candidate, then climb from the candidate back to the object, and see whether they meet. A reverse walk alone produces a plausible story. Only the forward return tests it.
+- **Born in:** EX-46 The King Character Engine — ARD's real meaning and the missing forward half
+
+### ASI-0135 · THE CONFIRMATION RULE — contradictions must REDUCE the score
+
+- **Relationship:** FUNCTIONAL ANALOGUE  ·  **Brain:** confirmation brain  ·  **Owner:** PENDING
+- **Human side:** his rule: 'one similar piece is a clue. Two independent same-era parallels increase confidence. Repeated agreement across five loops may select one candidate. CONTRADICTIONS MUST REDUCE THE SCORE, and a falsifier must always remain visible'
+- **AI side:** AI-CAP-021 calibration reports confidence; nothing subtracts for a contradiction found
+- **Note:** This is Filter 3 written for artifacts, and it goes further: evidence against does not merely fail to add, it SUBTRACTS. The engine's ledger currently accumulates support and has no negative term.
+- **Born in:** EX-46 The King Character Engine — ARD's real meaning and the missing forward half
+
+### ASI-0140 · OCCAM + HICKAM — the simplest explanation AND the many-causes check, together
+
+- **Relationship:** NO MATCH  ·  **Brain:** (paired test)  ·  **Owner:** PENDING
+- **Human side:** MOD-008 Occam + Hickam Check. Occam: prefer the simplest explanation. Hickam's dictum: a patient may have as many diseases as they please
+- **AI side:** a model reaches for the single clean cause, because a single clean cause reads as insight
+- **Note:** Running both is the discipline. Occam alone collapses a multi-cause event into one story -- which is precisely what the telling did to the Mahabharata, substituting women's pride for a chain of six causes. He had the counter-test named as a module.
+- **Born in:** EX-47 The 12 Formal Cores and 100 Modules
+
 
 ## EXPRESSION — 13 nodes
 
@@ -746,7 +814,7 @@ run by hand.
 - **Born in:** EX-42 The full hunger loop and the test bank
 
 
-## NAMING — 13 nodes
+## NAMING — 14 nodes
 
 ### ASI-0015 · C68 Agency, ownership and responsibility
 
@@ -852,8 +920,16 @@ run by hand.
 - **Note:** OWNED, NOT BURIED. His own test is 'renaming is not adding', and I failed it four times in one document by proposing as new what he had already named. The correct status of all four is REDISCOVERED -- which is weaker than new and stronger than nothing, because two independent routes reaching the same station is evidence the station is real.
 - **Born in:** EX-45 His 38-engine architecture — and what I 'proposed' that already exists
 
+### ASI-0142 · BEST-VERSION-SOURCE — provenance across his own iterations
 
-## HALT — 24 nodes
+- **Relationship:** NO MATCH  ·  **Brain:** (iteration provenance)  ·  **Owner:** PENDING
+- **Human side:** his module registry carries a 'Best version source' column: 'Sourceborn / RGL / v5.0', 'ARD-RGL 3.1', 'URR Master Spec', 'Your v3/v5 idea', 'DeepSeek / ARD'
+- **AI side:** no equivalent. A model produces a current version with no record of which earlier attempt the best form came from
+- **Note:** He tracks not just what a module is but WHICH OF HIS OWN VERSIONS got it right. That is how you merge four architectures without losing the best of each -- and it is the instrument the 2,000/2,560/2,592/3,072 question needs.
+- **Born in:** EX-47 The 12 Formal Cores and 100 Modules
+
+
+## HALT — 27 nodes
 
 ### ASI-0006 · C29 Inhibitory control and self-control
 
@@ -1047,8 +1123,32 @@ run by hand.
 - **Note:** This is exactly the saturation rule he gave me for Phase 11 -- run until new IDs stop. It is not an instruction he improvised for this session. It is a component of his architecture, and the ID curve in this compile is that engine running by hand.
 - **Born in:** EX-45 His 38-engine architecture — and what I 'proposed' that already exists
 
+### ASI-0136 · FIVE INDEPENDENT LOOPS — no loop may overwrite another
 
-## LOOP — 13 nodes
+- **Relationship:** NO MATCH  ·  **Brain:** (five tracks)  ·  **Owner:** PENDING
+- **Human side:** L1 Object and Production, L2 King and Authority, L3 Queen Child and Dynasty, L4 War Diplomacy and Crisis, L5 Same-Era Comparative Confirmation. 'No loop may overwrite another; each becomes a memory node'
+- **AI side:** one pass, one conclusion. Nothing runs the same question along five independent tracks and keeps all five
+- **Note:** The non-overwriting rule is the whole design: five readings that disagree stay five readings. It is his two-witness halt scaled to five, and it is why L5 exists -- comparison is its own loop, not a step inside the others.
+- **Born in:** EX-46 The King Character Engine — ARD's real meaning and the missing forward half
+
+### ASI-0138 · UNCONTROLLED COMBINATION IS NOISE, NOT COVERAGE
+
+- **Relationship:** NO MATCH  ·  **Brain:** (restraint)  ·  **Owner:** PENDING
+- **Human side:** his words: 'the theoretical combination count is vastly larger, but uncontrolled combinations would create noise. The engine can later expand only after the loop sequence is validated'
+- **AI side:** a model asked for more will generate more, and volume reads as thoroughness
+- **Note:** He capped himself at 100 of a vastly larger space and stated the reason. This compile went the other way -- 130 nodes and 46 runs with no cap and no validation of the loop first. His rule says validate the sequence, THEN expand.
+- **Born in:** EX-46 The King Character Engine — ARD's real meaning and the missing forward half
+
+### ASI-0143 · MOD-021 STALL DIAGNOSIS — naming the KIND of stuck
+
+- **Relationship:** FUNCTIONAL ANALOGUE  ·  **Brain:** stall brain  ·  **Owner:** PENDING
+- **Human side:** MOD-021 Stall Diagnosis, and ARD's Critical Logic Wall with its four walls: Data, Choice, Courage, Identity
+- **AI side:** a model that cannot proceed produces a hedge, not a diagnosis
+- **Note:** Four different reasons for being stuck, needing four different responses. A data wall wants more evidence; a courage wall wants someone to say the thing; an identity wall wants the person to be able to afford being wrong. Treating all four as 'uncertainty' is why hedging is useless.
+- **Born in:** EX-47 The 12 Formal Cores and 100 Modules
+
+
+## LOOP — 15 nodes
 
 ### ASI-0004 · C24 Sensorimotor feedback and error correction
 
@@ -1153,3 +1253,19 @@ run by hand.
 - **AI side:** no AI process returns anything to its source. Output leaves and does not come back as input to the same ground
 - **Note:** MATTER CYCLES, ENERGY DOES NOT. His forward sequence closes at planetary scale; the reverse walk descends past Earth to a dying star. Not a contradiction -- two questions. The loop is closed for the material and open for the fuel.
 - **Born in:** EX-42 The full hunger loop and the test bank
+
+### ASI-0134 · REGENERATION — each candidate remembers its own REJECTED ALTERNATIVES
+
+- **Relationship:** NO MATCH  ·  **Brain:** (rejected memory)  ·  **Owner:** PENDING
+- **Human side:** his words: 'each new character is a separate candidate brain that remembers its own evidence path, contradictions, confidence, and rejected alternatives'
+- **AI side:** a model regenerates from scratch and keeps nothing about what it considered and discarded
+- **Note:** Keeping the rejected alternatives is the part nobody builds. Without it the second attempt silently re-proposes what the first attempt already killed -- which is exactly what happens across sessions here.
+- **Born in:** EX-46 The King Character Engine — ARD's real meaning and the missing forward half
+
+### ASI-0141 · A DISCARD LAYER — a named place for what is thrown away
+
+- **Relationship:** NO MATCH  ·  **Brain:** (discard)  ·  **Owner:** PENDING
+- **Human side:** MOD-022 Discard Layer, alongside MOD-019 Contradiction Register and MOD-020 Gap Table
+- **AI side:** discarded material simply does not appear in the output; there is no record that it was considered
+- **Note:** Pairs with the King Engine's 'remembers its rejected alternatives'. Two separate parts of his architecture independently insist that what was thrown away must be kept. Nothing here keeps it.
+- **Born in:** EX-47 The 12 Formal Cores and 100 Modules

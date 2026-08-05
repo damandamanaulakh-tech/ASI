@@ -2069,6 +2069,81 @@
    ],
    "note": "He capped himself at 100 of a vastly larger space and stated the reason. This compile went the other way -- 130 nodes and 46 runs with no cap and no validation of the loop first. His rule says validate the sequence, THEN expand.",
    "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0139",
+   "what": "THE VISUAL POINT ZERO IS SPECIFIED — CORE-01 already takes images",
+   "step": "GROUND",
+   "human": "CORE-01 Point Zero Source Lock, his own inputs line: 'Raw ask; files; IMAGES; source metadata; timestamp'",
+   "ai": "SB-01 in the running engine locks text only",
+   "relationship": "NO MATCH",
+   "brain": "(specified, not built)",
+   "born": "EX-47 The 12 Formal Cores and 100 Modules",
+   "seen_in": [
+    "EX-47 The 12 Formal Cores and 100 Modules"
+   ],
+   "note": "The tea-video failure -- 'u failed at point zero' -- is not an unforeseen gap. He had already specified images as a Point Zero input in CORE-01. The engine implements the text half of a core he wrote in full.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0140",
+   "what": "OCCAM + HICKAM — the simplest explanation AND the many-causes check, together",
+   "step": "WITNESS",
+   "human": "MOD-008 Occam + Hickam Check. Occam: prefer the simplest explanation. Hickam's dictum: a patient may have as many diseases as they please",
+   "ai": "a model reaches for the single clean cause, because a single clean cause reads as insight",
+   "relationship": "NO MATCH",
+   "brain": "(paired test)",
+   "born": "EX-47 The 12 Formal Cores and 100 Modules",
+   "seen_in": [
+    "EX-47 The 12 Formal Cores and 100 Modules"
+   ],
+   "note": "Running both is the discipline. Occam alone collapses a multi-cause event into one story -- which is precisely what the telling did to the Mahabharata, substituting women's pride for a chain of six causes. He had the counter-test named as a module.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0141",
+   "what": "A DISCARD LAYER — a named place for what is thrown away",
+   "step": "LOOP",
+   "human": "MOD-022 Discard Layer, alongside MOD-019 Contradiction Register and MOD-020 Gap Table",
+   "ai": "discarded material simply does not appear in the output; there is no record that it was considered",
+   "relationship": "NO MATCH",
+   "brain": "(discard)",
+   "born": "EX-47 The 12 Formal Cores and 100 Modules",
+   "seen_in": [
+    "EX-47 The 12 Formal Cores and 100 Modules"
+   ],
+   "note": "Pairs with the King Engine's 'remembers its rejected alternatives'. Two separate parts of his architecture independently insist that what was thrown away must be kept. Nothing here keeps it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0142",
+   "what": "BEST-VERSION-SOURCE — provenance across his own iterations",
+   "step": "NAMING",
+   "human": "his module registry carries a 'Best version source' column: 'Sourceborn / RGL / v5.0', 'ARD-RGL 3.1', 'URR Master Spec', 'Your v3/v5 idea', 'DeepSeek / ARD'",
+   "ai": "no equivalent. A model produces a current version with no record of which earlier attempt the best form came from",
+   "relationship": "NO MATCH",
+   "brain": "(iteration provenance)",
+   "born": "EX-47 The 12 Formal Cores and 100 Modules",
+   "seen_in": [
+    "EX-47 The 12 Formal Cores and 100 Modules"
+   ],
+   "note": "He tracks not just what a module is but WHICH OF HIS OWN VERSIONS got it right. That is how you merge four architectures without losing the best of each -- and it is the instrument the 2,000/2,560/2,592/3,072 question needs.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0143",
+   "what": "MOD-021 STALL DIAGNOSIS — naming the KIND of stuck",
+   "step": "HALT",
+   "human": "MOD-021 Stall Diagnosis, and ARD's Critical Logic Wall with its four walls: Data, Choice, Courage, Identity",
+   "ai": "a model that cannot proceed produces a hedge, not a diagnosis",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "stall brain",
+   "born": "EX-47 The 12 Formal Cores and 100 Modules",
+   "seen_in": [
+    "EX-47 The 12 Formal Cores and 100 Modules"
+   ],
+   "note": "Four different reasons for being stuck, needing four different responses. A data wall wants more evidence; a courage wall wants someone to say the thing; an identity wall wants the person to be able to afford being wrong. Treating all four as 'uncertainty' is why hedging is useless.",
+   "owner": "PENDING"
   }
  ],
  "runs": [
@@ -2616,6 +2691,20 @@
    "n_new": 8,
    "n_reused": 0,
    "total_after": 138
+  },
+  {
+   "example": "EX-47 The 12 Formal Cores and 100 Modules",
+   "new": [
+    "ASI-0139",
+    "ASI-0140",
+    "ASI-0141",
+    "ASI-0142",
+    "ASI-0143"
+   ],
+   "reused": [],
+   "n_new": 5,
+   "n_reused": 0,
+   "total_after": 143
   }
  ]
 }
