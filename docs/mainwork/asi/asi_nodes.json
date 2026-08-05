@@ -2189,6 +2189,81 @@
    ],
    "note": "The human-only ground is LARGER than the approved bank shows. The body segments both overflowed hardest into reserve AND matched worst to AI. Reasoning holds the fewest reserve items (36) and matches best (135 of 256). The same gradient, twice, from two unrelated causes.",
    "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0147",
+   "what": "TWO INDEPENDENT LOOPS ARE REQUIRED TO CONTINUE WITHOUT A HUMAN",
+   "step": "HALT",
+   "human": "his auto-continue rule, all conditions required: '2 or more independent loops support the direction; no high-risk issue; synthetic load low or clearly tagged; no major contradiction open; the next action does not finalize naming/core/product'",
+   "ai": "Filter 3 caps CONFIDENCE at Medium on one witness. His rule is stronger: on one witness the engine may not CONTINUE at all",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "gate brain",
+   "born": "EX-49 The Human Gate rule — and it forbids what this session has been doing",
+   "seen_in": [
+    "EX-49 The Human Gate rule — and it forbids what this session has been doing"
+   ],
+   "note": "A confidence cap and an autonomy gate are different instruments. The engine has the first and not the second. NAMED AGAINST THIS SESSION: most of this compile ran on single-source material -- one workbook, one document -- and continued anyway. Under his rule that is forced human review, not a low confidence mark.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0148",
+   "what": "HUMAN REVIEW IS FORCED WHEN THE SYSTEM PROPOSES A NEW PARAMETER",
+   "step": "HALT",
+   "human": "his forced-review list includes, verbatim: 'the system proposes new parameter, naming change, core change, folder change, or freeze' -- and 'final output or product acceptance is requested'",
+   "ai": "nothing gates node creation. A model asked to expand will expand",
+   "relationship": "NO MATCH",
+   "brain": "(self-applying)",
+   "born": "EX-49 The Human Gate rule — and it forbids what this session has been doing",
+   "seen_in": [
+    "EX-49 The Human Gate rule — and it forbids what this session has been doing"
+   ],
+   "note": "THIS REGISTRY HAS 146 PROPOSED NODES AND NOT ONE PASSED A HUMAN GATE. Under his own rule every single mint was a forced-review event. They are all marked PENDING, which is the right status, but the rule says the gate comes BEFORE continuing, not after in a batch. Written down rather than left for him to find.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0149",
+   "what": "NINE REQUIRED LABELS on every gated item",
+   "step": "NAMING",
+   "human": "his list: REAL, ASSUMPTION, SYNTHETIC, INVENTION_SEED, MYSTERY, PARTIAL_SUPPORT, LOW_EVIDENCE, HIGH_RISK, NEEDS_HUMAN",
+   "ai": "the engine tags claims FACT/READING/SYNTHETIC -- three where he specifies nine",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "label brain",
+   "born": "EX-49 The Human Gate rule — and it forbids what this session has been doing",
+   "seen_in": [
+    "EX-49 The Human Gate rule — and it forbids what this session has been doing"
+   ],
+   "note": "PARTIAL_SUPPORT and LOW_EVIDENCE are separate labels in his scheme, and INVENTION_SEED is distinct from SYNTHETIC. Three tags collapse distinctions he kept apart -- a thing weakly supported and a thing barely evidenced need different responses.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0150",
+   "what": "SIX HUMAN DECISIONS, not two",
+   "step": "LOOP",
+   "human": "his options: PASS, HOLD, REJECT, REVERSE_LOOP, ADD_DATA, APPROVE_AS_REVIEW_ONLY",
+   "ai": "approve/reject is the usual shape. REVERSE_LOOP and APPROVE_AS_REVIEW_ONLY have no equivalent",
+   "relationship": "NO MATCH",
+   "brain": "(decision set)",
+   "born": "EX-49 The Human Gate rule — and it forbids what this session has been doing",
+   "seen_in": [
+    "EX-49 The Human Gate rule — and it forbids what this session has been doing"
+   ],
+   "note": "APPROVE_AS_REVIEW_ONLY is the one that matters: a way to accept something into the record WITHOUT activating it. That is exactly the status the 650 reserve items and the 146 nodes need, and it is why nothing in his system has to be either adopted or thrown away.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0151",
+   "what": "ARCHIVE DOES NOT MEAN DELETE, AND DOES NOT MEAN ACTIVE",
+   "step": "GROUND",
+   "human": "his archive lock, verbatim: 'Material in 99_ARCHIVE is storage/reference only. Archive does not mean delete. Archive does not mean active module.' Plus the folder lock: 'do not rename folders, do not create new project names'",
+   "ai": "a model reorganising a project will rename and consolidate, because tidiness reads as improvement",
+   "relationship": "NO MATCH",
+   "brain": "(three states)",
+   "born": "EX-49 The Human Gate rule — and it forbids what this session has been doing",
+   "seen_in": [
+    "EX-49 The Human Gate rule — and it forbids what this session has been doing"
+   ],
+   "note": "A third state between live and gone, stated as a rule. Pairs with the Discard Layer and with the King Engine's rejected alternatives -- three independent parts of his architecture insisting that set-aside material stays addressable.",
+   "owner": "PENDING"
   }
  ],
  "runs": [
@@ -2762,6 +2837,20 @@
    "n_new": 3,
    "n_reused": 0,
    "total_after": 146
+  },
+  {
+   "example": "EX-49 The Human Gate rule — and it forbids what this session has been doing",
+   "new": [
+    "ASI-0147",
+    "ASI-0148",
+    "ASI-0149",
+    "ASI-0150",
+    "ASI-0151"
+   ],
+   "reused": [],
+   "n_new": 5,
+   "n_reused": 0,
+   "total_after": 151
   }
  ]
 }
