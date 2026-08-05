@@ -2144,6 +2144,51 @@
    ],
    "note": "Four different reasons for being stuck, needing four different responses. A data wall wants more evidence; a courage wall wants someone to say the thing; an identity wall wants the person to be able to afford being wrong. Treating all four as 'uncertainty' is why hedging is useless.",
    "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0144",
+   "what": "THE 650 WERE HELD BY COUNT, NOT BY MERIT",
+   "step": "GROUND",
+   "human": "the reason-held field is IDENTICAL on all 650: 'Present in the fully enumerated v1.0 list but outside the earlier v0.2 target count of 36 for this container.' Status on all 650: HELD FOR REVIEW -- NOT DELETED OR WITHDRAWN. Decision on all 650: PENDING",
+   "ai": "n/a -- this is a fact about how the human bank was built",
+   "relationship": "NO MATCH",
+   "brain": "(count-first)",
+   "born": "EX-48 The 650 held reserve — RES-0518 answered",
+   "seen_in": [
+    "EX-48 The 650 held reserve — RES-0518 answered"
+   ],
+   "note": "THE ARCHITECTURE WAS COUNT-FIRST. A target of 36 per container was set, the full enumeration overflowed it, and 650 real parameters were parked for arithmetic rather than for quality. It also explains the 24-48 spread: different containers had different targets. Nothing was lost -- he kept every one -- but the ACTIVE bank is a number, not a judgement.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0145",
+   "what": "RES-0518 IS 'PERSISTENCE-VS-QUIT ARBITRATION' — and it is the missing parameter of his own example",
+   "step": "WITNESS",
+   "human": "RES-0518, SEG-08 / CON-062, wording: 'Persistence-vs-quit arbitration'. Held. Pending. Alongside RES-0515 Willpower deployment, RES-0516 Motivation regulation (self-motivating), RES-0517 Goal-progress monitoring",
+   "ai": "no AI match -- and it is outside the 2,560, so it was never even offered a mapping edge",
+   "relationship": "NO MATCH",
+   "brain": "(the answer)",
+   "born": "EX-48 The 650 held reserve — RES-0518 answered",
+   "seen_in": [
+    "EX-48 The 650 held reserve — RES-0518 answered"
+   ],
+   "note": "HIS PENDING QUESTION, ANSWERED. 'A person is hungry and tired but continues working' IS a persistence-vs-quit arbitration -- that is the event, named exactly. The single most precise parameter for his own test example sits in the held reserve, outside the active baseline, because a container target of 36 was already full. P1_ANSWERS v1-v4 could not have found it: it is not in the 10,240 edges.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0146",
+   "what": "THE EMBODIED SEGMENTS HOLD THE MOST RESERVE",
+   "step": "GROUND",
+   "human": "reserve per segment: Sensorimotor 92, Biological Regulation 84, Perception 80, Language 72, Development 68, Attention 60, Learning 56, Emotion 54, Consciousness 48, Reasoning 36",
+   "ai": "these are the same segments with the worst AI coverage -- Biological Regulation matched 7 of 256",
+   "relationship": "NO MATCH",
+   "brain": "(the boundary is wider)",
+   "born": "EX-48 The 650 held reserve — RES-0518 answered",
+   "seen_in": [
+    "EX-48 The 650 held reserve — RES-0518 answered"
+   ],
+   "note": "The human-only ground is LARGER than the approved bank shows. The body segments both overflowed hardest into reserve AND matched worst to AI. Reasoning holds the fewest reserve items (36) and matches best (135 of 256). The same gradient, twice, from two unrelated causes.",
+   "owner": "PENDING"
   }
  ],
  "runs": [
@@ -2705,6 +2750,18 @@
    "n_new": 5,
    "n_reused": 0,
    "total_after": 143
+  },
+  {
+   "example": "EX-48 The 650 held reserve — RES-0518 answered",
+   "new": [
+    "ASI-0144",
+    "ASI-0145",
+    "ASI-0146"
+   ],
+   "reused": [],
+   "n_new": 3,
+   "n_reused": 0,
+   "total_after": 146
   }
  ]
 }
