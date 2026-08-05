@@ -163,3 +163,85 @@ if __name__ == "__main__":
     print(f"  total proof-debt hits  : {sum(r['proof_debt'] for r in ok)}")
     json.dump(out, open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                      "node_benchmark.json"), "w"), indent=1)
+    report_urr()
+
+
+# ---------------------------------------------------------------------------
+# The URR-25 half of GAP-CORE-006. Named as owed in the first report; done here.
+#
+# The decisive question for a REVIEWER is not sensitivity — it is whether it
+# ever HOLDS. A reviewer that passes everything is not reviewing, it is
+# rubber-stamping, and the engine's whole two-witness doctrine rests on these
+# nodes being willing to stop the walk.
+# ---------------------------------------------------------------------------
+
+def run_urr() -> dict:
+    from sourceborn.node_work import URR_CHECKS, SUPPORT_CHECKS
+    eng = SourcebornEngine()
+    out = collections.defaultdict(list)          # urr_id -> [(example, verdict, issues)]
+
+    for name, text in EXAMPLES:
+        eng.run(text, origin="benchmark")
+        rc = {k: v for k, v in eng._ctx.items() if k in WalkContext.__dataclass_fields__}
+        ctx = WalkContext(**rc)
+        # every SB node's finding, as the reviewers receive them
+        f = {}
+        for node in SB_NODES:
+            fn = SB_WORK.get(node.sb_id)
+            if fn:
+                try:
+                    f[node.sb_id] = fn(ctx)
+                except Exception:
+                    pass
+        for uid, chk in SUPPORT_CHECKS.items():
+            try:
+                intake, issues = chk(ctx)
+                out[uid].append((name, "hold" if issues else "pass", issues))
+            except Exception as exc:
+                out[uid].append((name, "ERROR", [repr(exc)[:80]]))
+        for uid, chk in URR_CHECKS.items():
+            try:
+                r = chk(ctx, f)
+                out[uid].append((name, r.verdict, r.issues))
+            except Exception as exc:
+                out[uid].append((name, "ERROR", [repr(exc)[:80]]))
+
+    rows = []
+    for uid in sorted(out, key=lambda x: int(x.split("-")[1])):
+        got = out[uid]
+        holds = sum(1 for _, v, _ in got if v == "hold")
+        errs = sum(1 for _, v, _ in got if v == "ERROR")
+        issues = [i for _, _, iss in got for i in iss]
+        rows.append({"id": uid, "runs": len(got), "holds": holds,
+                     "hold_rate": round(holds / len(got), 2),
+                     "distinct_issues": len(set(issues)),
+                     "errors": errs,
+                     "sample_issue": (sorted(set(issues))[0][:70] if issues else "")})
+    return {"rows": rows}
+
+
+def report_urr() -> None:
+    u = run_urr()["rows"]
+    n = len(u)
+    print(f"\n\n########## URR — {n} reviewer nodes over {len(EXAMPLES)} examples ##########\n")
+    never = [r for r in u if r["holds"] == 0]
+    always = [r for r in u if r["holds"] == r["runs"]]
+    print(f"NEVER HOLDS (passes every input): {len(never)}/{n}")
+    for r in never:
+        print(f"   {r['id']}  runs={r['runs']}  errors={r['errors']}")
+    print(f"\nALWAYS HOLDS (stops every input): {len(always)}/{n}")
+    for r in always:
+        print(f"   {r['id']}  issue: {r['sample_issue']}")
+    print(f"\nDISCRIMINATING (holds some, passes others):")
+    for r in u:
+        if 0 < r["holds"] < r["runs"]:
+            print(f"   {r['id']}  hold_rate={r['hold_rate']}  distinct_issues="
+                  f"{r['distinct_issues']}  e.g. {r['sample_issue']}")
+    tot_holds = sum(r["holds"] for r in u)
+    print(f"\n  total hold events : {tot_holds} of {n * len(EXAMPLES)} reviews")
+    print(f"  reviewers that can hold at all : {n - len(never)}/{n}")
+    print(f"  errors : {sum(r['errors'] for r in u)}")
+    json.dump(u, open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                   "urr_benchmark.json"), "w"), indent=1)
+
+

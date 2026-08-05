@@ -1,0 +1,227 @@
+[
+ {
+  "id": "URR-01",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-02",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-03",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-04",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-05",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-06",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-07",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-08",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-09",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-10",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-11",
+  "runs": 12,
+  "holds": 1,
+  "hold_rate": 0.08,
+  "distinct_issues": 1,
+  "errors": 0,
+  "sample_issue": "claim demands current data \u2014 none connected"
+ },
+ {
+  "id": "URR-12",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-13",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-14",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-15",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-16",
+  "runs": 12,
+  "holds": 12,
+  "hold_rate": 1.0,
+  "distinct_issues": 1,
+  "errors": 0,
+  "sample_issue": "no memory written this run"
+ },
+ {
+  "id": "URR-17",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-18",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-19",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-20",
+  "runs": 12,
+  "holds": 11,
+  "hold_rate": 0.92,
+  "distinct_issues": 1,
+  "errors": 0,
+  "sample_issue": "drifted from Point Zero"
+ },
+ {
+  "id": "URR-21",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-22",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-23",
+  "runs": 12,
+  "holds": 12,
+  "hold_rate": 1.0,
+  "distinct_issues": 1,
+  "errors": 0,
+  "sample_issue": "nothing recorded in master log"
+ },
+ {
+  "id": "URR-24",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ },
+ {
+  "id": "URR-25",
+  "runs": 12,
+  "holds": 0,
+  "hold_rate": 0.0,
+  "distinct_issues": 0,
+  "errors": 0,
+  "sample_issue": ""
+ }
+]

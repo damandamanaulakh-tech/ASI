@@ -148,3 +148,94 @@ about that one input regardless of what else exists.
 
 And the standing caveat: **the engine scored itself.** Under his own rule this result
 should go to an external checkpoint before anything is changed on the strength of it.
+
+---
+
+# PART 2 — the URR-25 half, now done
+
+The first report named this as owed. It is executed here: all 25 reviewer nodes
+(URR-01…07 support layer, URR-08…25 review layer) over the same 12 examples.
+
+**The decisive question for a reviewer is not sensitivity — it is whether it ever
+HOLDS.** A reviewer that passes everything is not reviewing; it is rubber-stamping. And
+the engine's entire two-witness doctrine rests on these nodes being willing to stop the
+walk.
+
+## The result
+
+| | |
+|---|---:|
+| Reviewer nodes | 25 |
+| Reviews executed | 300 (25 × 12) |
+| **Hold events** | **36** |
+| **Reviewers that can hold at all** | **4 of 25** |
+| **Reviewers that NEVER hold** | **21 of 25** |
+| Errors | 0 |
+
+**Twenty-one of twenty-five reviewers passed every single input** — a hunger question, a
+stale share price, the Riemann Hypothesis, an invention, a pre-verbal feeling. All pass.
+
+## The four that hold, read one by one
+
+**URR-11 Evidence & Grounding — hold rate 0.08. The one that works.**
+
+> *"claim demands current data — none connected"*
+
+It held **once in twelve**, and the one it held on was the TCS share-price question. **Out
+of a bank containing exactly one present-fact ask, it caught exactly that one.** That is
+not a high hold rate; it is a *correct* one, and it is the clearest evidence in either
+benchmark that a review node can discriminate. **The present-fact layer works end to end
+— SB-33 reports no live source and URR-11 stops the walk for it.**
+
+**URR-20 Reality Re-Anchor — hold rate 0.92.**
+
+> *"drifted from Point Zero"*
+
+Held on eleven of twelve. Two readings, and the benchmark cannot separate them:
+- **The engine really does drift on almost every run** — plausible, because this bank ran
+  on the offline stub model, whose generic answers genuinely do not address the specific
+  ask. If so this is a true positive and a serious finding about the engine.
+- **Or the drift detector is over-tight** and would flood a real run with holds.
+
+`[READING — unresolved by this bank.]` **A re-run against a live model would separate
+them, and that is the next honest step.** Reporting the ambiguity rather than picking the
+flattering half.
+
+**URR-16 Memory Accuracy and URR-23 (master log) — hold rate 1.00, and both are benchmark
+artifacts.**
+
+> *"no memory written this run"* · *"nothing recorded in master log"*
+
+Both fire because the harness uses a cold engine with no writes. **Correct behaviour,
+uninformative test.** Class A, same as SB-33 and SB-37 in Part 1.
+
+## The number that matters, across both halves
+
+| layer | stations | that ever stop the walk |
+|---|---:|---:|
+| SB | 70 | **2** |
+| URR | 25 | **4** (two of them artifacts) |
+| **total** | **95** | **≈ 4 genuinely** |
+
+> **The engine has 95 stations and its refusal machinery is concentrated in about four of
+> them.**
+
+**This is the direct test of the reverse walk's central claim** — *no station can add a
+fact; every station can only subtract.* The claim was true about **capability**: no
+station can add. The benchmark shows it is not yet true about **behaviour**: on real
+input, almost none of them subtract anything either.
+
+**The stations exist. Most of them are not yet load-bearing.**
+
+## What Part 2 changes about Part 1's open list
+
+Item 3 of the first report — *"2 of 70 nodes halt"* — is now the smaller half of a bigger
+number: **4 of 95.** And the fix is not obviously "make more nodes hold." A reviewer that
+holds often is URR-20, and its 92% is exactly the ambiguity above. **More holding is not
+automatically better reviewing; URR-11's single correct hold is worth more than URR-20's
+eleven.**
+
+**GAP-CORE-006 is now closed on both halves** — traces executed, all four of his
+dimensions scored, SB and URR. **What it found is his to act on**, and the standing
+caveat holds: the engine scored itself, and `ENG-SUP-006 External Checkpoint` exists for
+exactly this.
