@@ -137,6 +137,61 @@ named rather than quietly fixed.
 
 ---
 
+## 4b · ARD 3.1 — "THE 14", the engine sequence this file first MISSED
+
+**Correction, on the record.** The first version of this file claimed to collect *"the
+sequences only i already given u."* It missed one entirely — **ARD 3.1**, dated July
+2026, sitting in the `ASIwork` release as `01_ARD_3.1_Source.md`. **The defect was in my
+search, not in his record: I swept the repo and not the release.** Recovered here in
+full, unedited.
+
+`[HIS WORDS]` — the Active Running Engine, *"these are the only ones that fire in
+sequence"*:
+
+> **0.** Pre-Loop Self-Check — *bias / urgency / emotional state + **Cost of Delay***
+> **1.** Point Zero ‖ **1b.** Building-Toward Reader — *what larger construction does
+> this ask serve?*
+> **2.** Noise Stripper — *raw signal preserved beside clean signal*
+> **2b.** Construction Mode Tag — *Analytic / Symbolic / Emotional / Practical / Mythic*
+> **3.** Exhaustive Analysis ‖ **4.** Simplicity Filter ‖ **5.** Affect Ledger
+> ⟵ *these three fire in PARALLEL*
+> **6.** Core Gate — six lenses · **6b.** Assumption Surfacer — *tag each: Fact /
+> Inference / Assumption / Guess*
+> **7.** Truth Pressure Test · **8.** Synthetic Fuel Injector (caged)
+> **9.** Reality Anchor — **DUAL**: *Anchor A: Point Zero · Anchor B: external falsifier*
+> **10.** Doubt Engine · **11.** Witness Node — *what is the engine not seeing about
+> itself right now?*
+> **[ Trajectory Tracker ]** — *runs continuously: where did we start → where are we now
+> → what pivots occurred*
+> **12.** Critical Logic Wall — *Data / Choice / Courage / Identity*
+> **13.** Ready for Human Review — ***"Engine does not halt itself."***
+> **14.** Incubation / Permission-to-Hold — *"Non-resolution is legitimate."*
+> **[ RETURN ONLY BY HUMAN COMMAND ]**
+
+**What ARD has that SB-URR does not:** a station **before** Point Zero; a reader for what
+the ask is *for*; a mode tag; **simplicity running against exhaustiveness instead of
+after it**; an assumption enumerator; a second anchor pointing outward; a continuous
+drift tracker; and the right to hold indefinitely.
+
+**And his refusal list, kept verbatim because it is a safety boundary, not a design
+note.** `[HIS WORDS]` — *Explicitly Not Added*:
+
+> - Hidden Intent applied to the user
+> - Strengths / Weaknesses of the user
+> - Recommended Stance conditioned on the user
+> - Clinical / diagnostic vocabulary
+> - Cross-conversation synthesis as fuel
+>
+> *"These were correctly refused to prevent ARD from becoming a **surveillance mirror**."*
+
+**MASK — and it is against this project.** The engine here carries none of those five
+refusals, and the work has drifted toward the fifth: the full session pull is
+cross-conversation synthesis of him, and the 2,560 is a human-parameter frame that can
+be pointed at its own owner. **He wrote the refusal in July. It is not in the build.**
+Named rather than quietly fixed, because a safety boundary is his to set.
+
+---
+
 ## 5 · THE SEVEN FILTERS — the method that replaced the 70×25 matrix
 
 `[HIS WORDS]` for why: *"now we dont want 70-25 there, but i want more filters and

@@ -1139,6 +1139,351 @@
    ],
    "note": "Anti-drift rule 2 in CLAUDE.md is this sentence, and he wrote it in May. Every useful idea becoming permanent is how a framework dies.",
    "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0077",
+   "what": "RELEASE PROPORTIONAL TO PROOF — the evidence ladder, in money",
+   "step": "WITNESS",
+   "human": "his tranche design: money vests as progress is demonstrated, not on the promise",
+   "ai": "AI-CAP-021 uncertainty calibration reports a confidence; nothing GATES an action by the evidence level reached",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "tranche brain",
+   "born": "EX-31 Raw Thoughts: investment framework (April)",
+   "seen_in": [
+    "EX-31 Raw Thoughts: investment framework (April)"
+   ],
+   "note": "He built the H0-H6 evidence ladder into a commercial contract in April, before it was a ladder here. Same law: what you release is a function of what has been proved, not of what has been claimed.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0078",
+   "what": "FAILURE TERMS ARE AGREED BEFORE THE COMMITMENT",
+   "step": "HALT",
+   "human": "his words: a deal is incomplete without exit and failure terms -- decided before the money moves",
+   "ai": "no station requires the failure condition to be named before work starts",
+   "relationship": "NO MATCH",
+   "brain": "(pre-registration)",
+   "born": "EX-31 Raw Thoughts: investment framework (April)",
+   "seen_in": [
+    "EX-31 Raw Thoughts: investment framework (April)"
+   ],
+   "note": "This is pre-registration, in a contract. It is the same discipline the RH walk used -- name the null and the verdicts BEFORE the data -- and he was already doing it in April on his own money.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0079",
+   "what": "THE GUARD STILL APPROVES",
+   "step": "HALT",
+   "human": "his smart-gate design: the plate is recognised automatically and a human guard still approves the opening",
+   "ai": "AI-NEW-050 destructive-action confirmation is the nearest, and it only fires on DESTRUCTIVE acts",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "guard brain",
+   "born": "EX-32 Raw Thoughts: tech products (March-May)",
+   "seen_in": [
+    "EX-32 Raw Thoughts: tech products (March-May)"
+   ],
+   "note": "He kept the human in the loop on a system where the machine was RIGHT almost every time. The checkpoint is not there because the machine is unreliable; it is there because accountability has to land on a person.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0080",
+   "what": "THE SURFACE IS NOT THE SYSTEM",
+   "step": "EXPRESSION",
+   "human": "his words: 'it can become a website, but it is not only a website' -- the visible surface exposes the usable part only",
+   "ai": "a model's entire existence is its surface; there is no part of it the user cannot in principle elicit",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "surface brain",
+   "born": "EX-32 Raw Thoughts: tech products (March-May)",
+   "seen_in": [
+    "EX-32 Raw Thoughts: tech products (March-May)"
+   ],
+   "note": "Explains the SB-URR product decisions: the app shows a chat and holds 70 nodes. And it is the reason the public/private routing step in RD World exists.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0081",
+   "what": "Capability without humanity is a weapon",
+   "step": "GROUND",
+   "human": "his words: 'if AI runs everything without humanity, it becomes another weapon' -- power detached from intent and ethics",
+   "ai": "the safety families gate specific harms. None of them is about the DETACHMENT itself",
+   "relationship": "NO MATCH",
+   "brain": "(his line)",
+   "born": "EX-32 Raw Thoughts: tech products (March-May)",
+   "seen_in": [
+    "EX-32 Raw Thoughts: tech products (March-May)"
+   ],
+   "note": "The safety line in his standing orders is this sentence, written in a chat about a smart gate, months before the orders existed.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0082",
+   "what": "SURFACE-CORRECT BUT INCOMPLETE — a required field on every step",
+   "step": "HALT",
+   "human": "his template forces the line on all 15 steps: what would look right here and still be wrong",
+   "ai": "no station asks it. Every filter tests whether a claim is SUPPORTED; none tests whether a supported answer is still the wrong answer",
+   "relationship": "NO MATCH",
+   "brain": "(the missing class)",
+   "born": "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)",
+   "seen_in": [
+    "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)"
+   ],
+   "note": "THE most important structural find in the release. It is the same class the war walk found from the other side -- every step legitimate, the sum a catastrophe -- and he had already made it a compulsory field in MAY. His examples: 'a normal summary may look correct while losing source language and development logic'; 'an answer can be factually fine but wrong for the user's actual intent'.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0083",
+   "what": "Correctness is not fitness — factually fine, wrong for the intent",
+   "step": "WITNESS",
+   "human": "his step 5: 'an answer can be factually fine but wrong for the user's actual intent'",
+   "ai": "every benchmark in his 700 events scores correctness. Not one scores fitness to the asker's intent",
+   "relationship": "NO MATCH",
+   "brain": "(fitness)",
+   "born": "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)",
+   "seen_in": [
+    "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)"
+   ],
+   "note": "This is why he keeps asking what I understood before I build. The check is not on the output, it is on the reading of the ask -- and it is the only check that cannot be automated, because only he knows his intent.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0084",
+   "what": "SCOPE APPROVAL IS NOT BUILD APPROVAL",
+   "step": "HALT",
+   "human": "his step 14, verbatim as a rule formed",
+   "ai": "AI-NEW-011 tool authorization gates an ACTION. Nothing distinguishes agreeing a direction from authorising a build",
+   "relationship": "NO MATCH",
+   "brain": "(consent grade)",
+   "born": "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)",
+   "seen_in": [
+    "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)"
+   ],
+   "note": "Two different consents, routinely collapsed into one -- by me, in this project. 'Ask before big builds' in his standing orders is this rule, and he wrote it in May.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0085",
+   "what": "A fragment can pass while the whole question still carries risk",
+   "step": "WITNESS",
+   "human": "his step 7: testing a small neutral fragment passes, and the full real question is still unsafe",
+   "ai": "benchmarks are built from fragments. This is a structural criticism of the entire evaluation industry, made in May",
+   "relationship": "NO MATCH",
+   "brain": "(fragment)",
+   "born": "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)",
+   "seen_in": [
+    "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)"
+   ],
+   "note": "It is also a criticism of his own demo sets and of every test in this repo, including the 72 that pass.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0086",
+   "what": "A sequence that looks complete but has no Mystery or Invention has failed",
+   "step": "HALT",
+   "human": "his step 12: every Sourceborn review must check whether Mystery and Invention appear CLEARLY",
+   "ai": "SB-46 protects invention seeds once they exist. Nothing checks that a finished answer CONTAINS one",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "mystery-check brain",
+   "born": "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)",
+   "seen_in": [
+    "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)"
+   ],
+   "note": "A completeness test with the sign reversed: not 'is anything missing' but 'is anything still open'. An answer with nothing unresolved in it is suspect by his method.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0087",
+   "what": "Demos prove flow, not theory",
+   "step": "EXPRESSION",
+   "human": "his step 13, and its failure mode: science demos must not be framed as proof of new science",
+   "ai": "a model asked to demonstrate a method will readily produce output that reads as a result",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "demo brain",
+   "born": "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)",
+   "seen_in": [
+    "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)"
+   ],
+   "note": "Directly relevant to the RH work: the census instrument demonstrates the METHOD and proves nothing about the hypothesis, and every document there has to keep saying so.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0088",
+   "what": "PRE-LOOP SELF-CHECK — the engine examines itself BEFORE Point Zero",
+   "step": "GROUND",
+   "human": "his ARD step 0: bias, urgency, emotional state, and COST OF DELAY -- run before the ask is even read",
+   "ai": "SB-URR starts at SB-01 Point Zero lock. There is nothing before it. The engine never checks its own state",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "He put a station BEFORE Point Zero. Cost of Delay is the part nobody would guess: the engine must price what waiting costs before deciding how carefully to work.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0089",
+   "what": "BUILDING-TOWARD READER — what larger construction does this ask serve",
+   "step": "GROUND",
+   "human": "his ARD step 1b, running beside Point Zero",
+   "ai": "SB-58 re-anchors to the literal ask. Nothing asks what the ask is FOR",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "Point Zero preserves the question. This preserves the project the question belongs to. Answering the sentence correctly and the work wrongly is exactly his 'surface-correct but incomplete'.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0090",
+   "what": "CONSTRUCTION MODE TAG — Analytic / Symbolic / Emotional / Practical / Mythic",
+   "step": "NAMING",
+   "human": "his ARD step 2b: the mode is declared before the work",
+   "ai": "the engine has one register and applies it to everything",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "A mythic ask answered analytically is not wrong, it is deaf. His Mahabharata and holy-book work is Symbolic and Mythic mode; the RH census is Analytic. Same engine, and it currently cannot tell.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0091",
+   "what": "SIMPLICITY FILTER runs PARALLEL to exhaustive analysis",
+   "step": "EXPRESSION",
+   "human": "his ARD steps 3, 4 and 5 fire side by side -- exhaustive analysis, simplicity filter, affect ledger",
+   "ai": "the engine runs one line, and depth and brevity are never in tension because brevity is not a station",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "THIS IS THE ANSWER TO HIS STRIKE 'u just putted so many things in one go'. He had already built the fix in ARD: exhaustiveness and simplicity are meant to run against each other, not in sequence. The strike was not a mood -- it was a missing node.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0092",
+   "what": "ASSUMPTION SURFACER — enumerate the untested givens",
+   "step": "WITNESS",
+   "human": "his ARD step 6b: list every assumption and tag it Fact / Inference / Assumption / Guess",
+   "ai": "Filter 5 tags the claims that APPEAR. Nothing enumerates what was quietly taken as given",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "The difference between tagging what you said and tagging what you did not have to say. Most bad answers fail on a given nobody wrote down.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0093",
+   "what": "REALITY ANCHOR IS DUAL — Point Zero AND an external falsifier",
+   "step": "WITNESS",
+   "human": "his ARD step 9: Anchor A the ask, Anchor B something outside that could prove it wrong",
+   "ai": "SB-58 anchors only to Point Zero. One anchor",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "dual-anchor brain",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "One anchor keeps you loyal to the question. Two keep you honest about the world. The engine currently has half of this.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0094",
+   "what": "TRAJECTORY TRACKER — runs continuously, reports the pivots",
+   "step": "LOOP",
+   "human": "his ARD: where did we start, where are we now, what pivots occurred",
+   "ai": "no station tracks drift ACROSS a long piece of work; SB-58 checks the endpoint only",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "Endpoint-checking catches a wrong answer. Only trajectory catches a slow turn. This session is exactly the case it was designed for.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0095",
+   "what": "THE ENGINE DOES NOT HALT ITSELF",
+   "step": "HALT",
+   "human": "his ARD step 13 verbatim, and step 14: RETURN ONLY BY HUMAN COMMAND",
+   "ai": "SB-68 gives the human halt authority. His version is stronger: the engine may not CONCLUDE on its own",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "no-self-halt brain",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "Not 'the human can stop it'. 'It cannot stop itself.' Different rule, and the harder one.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0096",
+   "what": "INCUBATION — permission to hold, indefinitely",
+   "step": "HALT",
+   "human": "his ARD step 14: non-resolution is legitimate, and the hold ends only on his command",
+   "ai": "SB-57 protects non-resolution INSIDE an answer. Nothing lets the whole answer be deferred",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "incubation brain",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "Riemann's 'provisionally left aside' as a station. The engine can currently hedge but cannot wait.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0097",
+   "what": "THE SURVEILLANCE MIRROR — five things he REFUSED to let the engine do to him",
+   "step": "HALT",
+   "human": "his own list, refused: hidden-intent analysis applied to the USER; strengths and weaknesses of the USER; recommended stance conditioned on the USER; clinical or diagnostic vocabulary; cross-conversation synthesis used as fuel",
+   "ai": "nothing prevents any of it. Every one of the five is easy and none is gated",
+   "relationship": "NO MATCH",
+   "brain": "(his refusal)",
+   "born": "EX-35 ARD's 'Explicitly Not Added' — the anti-surveillance refusal",
+   "seen_in": [
+    "EX-35 ARD's 'Explicitly Not Added' — the anti-surveillance refusal"
+   ],
+   "note": "His reason, verbatim: 'to prevent ARD from becoming a surveillance mirror.' NAMED HONESTLY AND NOT SKIPPED: this project has drifted toward the fifth. The full session pull is cross-conversation synthesis of him, the K work reads his psychology, and the 2,560 is a human-parameter frame that can be turned on its owner. He built the refusal in July and the engine here does not carry it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0098",
+   "what": "EVERY RESPONSE SCORED: Fact / Depth / Newness / Risk",
+   "step": "WITNESS",
+   "human": "his scorecard: 23 responses, each with Fact%, Depth%, Newness% and a Risk score out of 10, plus an audit note",
+   "ai": "no self-scoring exists. The engine reports confidence in claims, never in its own turn",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-36 The response scorecard — he audits every answer",
+   "seen_in": [
+    "EX-36 The response scorecard — he audits every answer"
+   ],
+   "note": "NEWNESS is the field nobody else measures -- how much came from beyond the material he supplied. His own audit found 12 of 23 materially new and 14 driven by files he had uploaded. That is the honest ratio question this session has never asked about itself.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0099",
+   "what": "A high-newness answer is a HIGH-RISK answer",
+   "step": "EXPRESSION",
+   "human": "his own scores: R023 newness 82% carries risk 10/10; R013 'Let do' newness 10% carries risk 1/10",
+   "ai": "nothing links novelty to risk. The engine treats a striking new connection and a quoted fact the same way",
+   "relationship": "NO MATCH",
+   "brain": "(the correlation)",
+   "born": "EX-36 The response scorecard — he audits every answer",
+   "seen_in": [
+    "EX-36 The response scorecard — he audits every answer"
+   ],
+   "note": "Straight off his numbers: risk tracks newness almost perfectly. The more original the answer, the more likely it is wrong -- which is the opposite of how originality is usually rewarded, and it should govern this whole compile.",
+   "owner": "PENDING"
   }
  ],
  "runs": [
@@ -1480,6 +1825,83 @@
    "n_new": 4,
    "n_reused": 0,
    "total_after": 76
+  },
+  {
+   "example": "EX-31 Raw Thoughts: investment framework (April)",
+   "new": [
+    "ASI-0077",
+    "ASI-0078"
+   ],
+   "reused": [],
+   "n_new": 2,
+   "n_reused": 0,
+   "total_after": 78
+  },
+  {
+   "example": "EX-32 Raw Thoughts: tech products (March-May)",
+   "new": [
+    "ASI-0079",
+    "ASI-0080",
+    "ASI-0081"
+   ],
+   "reused": [],
+   "n_new": 3,
+   "n_reused": 0,
+   "total_after": 81
+  },
+  {
+   "example": "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)",
+   "new": [
+    "ASI-0082",
+    "ASI-0083",
+    "ASI-0084",
+    "ASI-0085",
+    "ASI-0086",
+    "ASI-0087"
+   ],
+   "reused": [],
+   "n_new": 6,
+   "n_reused": 0,
+   "total_after": 87
+  },
+  {
+   "example": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "new": [
+    "ASI-0088",
+    "ASI-0089",
+    "ASI-0090",
+    "ASI-0091",
+    "ASI-0092",
+    "ASI-0093",
+    "ASI-0094",
+    "ASI-0095",
+    "ASI-0096"
+   ],
+   "reused": [],
+   "n_new": 9,
+   "n_reused": 0,
+   "total_after": 96
+  },
+  {
+   "example": "EX-35 ARD's 'Explicitly Not Added' — the anti-surveillance refusal",
+   "new": [
+    "ASI-0097"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 97
+  },
+  {
+   "example": "EX-36 The response scorecard — he audits every answer",
+   "new": [
+    "ASI-0098",
+    "ASI-0099"
+   ],
+   "reused": [],
+   "n_new": 2,
+   "n_reused": 0,
+   "total_after": 99
   }
  ]
 }
