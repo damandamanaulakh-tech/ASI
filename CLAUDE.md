@@ -38,10 +38,13 @@ When they disagree, surface it — do not silently pick one.
 
 ## How to not drift, operationally
 - Start each session by re-reading `docs/SOURCEBORN_CORE.md` + `docs/RECOMMENDATION.md`.
-- **`docs/method/01A_INTENT.md` is binding on every answer.** Every event has one
-  real reason that pushes it; it is found by reading how things were arranged
-  around the event, never inferred from the outcome, and two surviving candidates
-  HALT instead of being blended. "There is no reason" is not an available answer.
+- **`docs/method/01A_INTENT.md` is binding on every answer.** Intent is a property
+  of every event, not a step. Every event has one real reason that pushes it; read
+  it from how things were arranged around the event, never from the outcome. Two
+  surviving candidates HALT instead of being blended. "There is no reason" is not
+  an available answer.
+- When he says **reframe**, reframe — his words opened out, nothing of mine bolted
+  on, no examples dragged in to justify a reading he did not ask for.
 - Mirror the user's intent back before acting on anything large.
 - Keep the offline engine runnable: `python -m sourceborn.demo`; tests must stay green
   (`PYTHONPATH=src python3 tests/test_engine.py`).
