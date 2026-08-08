@@ -43,6 +43,12 @@ When they disagree, surface it — do not silently pick one.
   it from how things were arranged around the event, never from the outcome. Two
   surviving candidates HALT instead of being blended. "There is no reason" is not
   an available answer.
+- **`docs/method/01B_SEQUENCE.md` is binding on every answer.** The unit of
+  sequence is the **transition**, not the step — a step is a snapshot. Sequence is
+  structured dependency, not necessarily linear and not necessarily time; say
+  which order is meant. When a target is named, build generatively: reconstruct
+  what it required, then intersect that chain with available material, current
+  reality and constraints.
 - When he says **reframe**, reframe — his words opened out, nothing of mine bolted
   on, no examples dragged in to justify a reading he did not ask for.
 - Mirror the user's intent back before acting on anything large.
