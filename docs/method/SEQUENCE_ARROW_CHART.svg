@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="3156" height="3829" viewBox="0 0 3156 3829" font-family="Helvetica, Arial, sans-serif">
-<rect width="3156" height="3829" fill="#FFFFFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="3340" height="3910" viewBox="0 0 3340 3910" font-family="Helvetica, Arial, sans-serif">
+<rect width="3340" height="3910" fill="#FFFFFF"/>
 <defs>
 <marker id="ahk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#000000"/></marker>
 <marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A8A"/></marker>
@@ -16,10 +16,12 @@
 <marker id="ahLL7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
 <marker id="ahLL8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
 <marker id="ahLL9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
+<marker id="ahLL10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
+<marker id="ahLL11" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
 </defs>
 <text x="60" y="76" font-size="50" font-weight="700" fill="#000000" letter-spacing="-1.2">THE SEQUENCE — ARROW CHART</text>
 <text x="60" y="118" font-size="22" fill="#8A8A8A">Every stage on the main line. Every threshold on the edge that enters a stage. Every spawn out to its sub-sequence, with its return. Every loop drawn where it actually lands.</text>
-<text x="60" y="158" font-size="21" font-weight="700" fill="#000000">57 stages · 22 thresholds · 6 spawns · 9 loops · 4 barriers — nothing collapsed</text>
+<text x="60" y="158" font-size="21" font-weight="700" fill="#000000">57 stages · 22 thresholds · 6 spawns · 11 routes (registry v1, non-exhaustive) · 4 barriers — nothing collapsed · his name for this structure: THE MAHABHARATA SEQUENCE — the method every response passes, reverse → forward → reverse</text>
 <rect x="60" y="187" width="12" height="12" fill="#000000"/>
 <text x="82" y="198" font-size="16" fill="#000000">the main line, and the transition arrow between stages</text>
 <rect x="60" y="211" width="12" height="12" fill="#D01818"/>
@@ -447,8 +449,16 @@
 <circle cx="2040" cy="3119.0" r="4.4" fill="#D01818"/>
 <path d="M 3006 3119.0 L 3006 419.0 Q 3006 401.0 2988.0 401.0 L 2040 401.0" fill="none" stroke="#D01818" stroke-width="2.6" marker-end="url(#ahLL9)"/>
 <text x="2997" y="1760.0" font-size="15" font-weight="700" fill="#D01818" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 2997 1760.0)">L9  HALT BECOMES THE NEXT POINT ZERO</text>
-<line x1="60" y1="3172" x2="3096" y2="3172" stroke="#000000" stroke-width="2.5"/>
-<text x="60" y="3202" font-size="21" font-weight="700" fill="#000000">THE 9 LOOPS — every one of them lands as a NEW sub-sequence, never back inside the stage it left</text>
+<line x1="2040" y1="1609.0" x2="3098" y2="1609.0" stroke="#D01818" stroke-width="1.5" stroke-dasharray="4 4"/>
+<circle cx="2040" cy="1609.0" r="4.4" fill="#D01818"/>
+<path d="M 3098 1609.0 L 3098 1573.0 Q 3098 1555.0 3080.0 1555.0 L 2040 1555.0" fill="none" stroke="#D01818" stroke-width="2.6" marker-end="url(#ahLL10)"/>
+<text x="3089" y="1582.0" font-size="15" font-weight="700" fill="#D01818" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 3089 1582.0)">L10  A HELD ALTERNATIVE TAKEN UP</text>
+<line x1="2040" y1="2149.0" x2="3190" y2="2149.0" stroke="#D01818" stroke-width="1.5" stroke-dasharray="4 4"/>
+<circle cx="2040" cy="2149.0" r="4.4" fill="#D01818"/>
+<path d="M 3190 2149.0 L 3190 593.0 Q 3190 575.0 3172.0 575.0 L 2040 575.0" fill="none" stroke="#D01818" stroke-width="2.6" marker-end="url(#ahLL11)"/>
+<text x="3181" y="1362.0" font-size="15" font-weight="700" fill="#D01818" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 3181 1362.0)">L11  THE RUN CHANGES ITS OWN GROUND · UNVALIDATED</text>
+<line x1="60" y1="3172" x2="3280" y2="3172" stroke="#000000" stroke-width="2.5"/>
+<text x="60" y="3202" font-size="21" font-weight="700" fill="#000000">ROUTE REGISTRY v1 · THE 11 KNOWN RE-SEQUENCE ROUTES (non-exhaustive) — every route lands as a NEW sub-sequence, never back inside the stage it left</text>
 <text x="60" y="3246" font-size="15.5" font-weight="700" fill="#D01818">L1</text>
 <text x="100" y="3246" font-size="15.5" fill="#000000">AVAILABILITY → AVAILABILITY</text>
 <text x="760" y="3246" font-size="15" fill="#D01818">fires when locate fails, then build fails</text>
@@ -485,17 +495,26 @@
 <text x="100" y="3462" font-size="15.5" fill="#000000">MEMORY UPDATE → ORIGIN / SOURCE</text>
 <text x="760" y="3462" font-size="15" fill="#D01818">fires when the halt is named</text>
 <text x="1390" y="3462" font-size="15" fill="#8A8A8A">S₁ REFERENCES S₀. S₀ stays closed — there is no reopen</text>
-<text x="60" y="3515" font-size="21" font-weight="700" fill="#000000">THE SIX INVARIANTS — they hold at every stage above</text>
-<rect x="60" y="3538" width="11" height="11" fill="#000000"/>
-<text x="82" y="3549" font-size="15.5" fill="#000000">BARRIER LAW — the line cannot cross a node while a required return is unaccepted</text>
-<rect x="60" y="3565" width="11" height="11" fill="#000000"/>
-<text x="82" y="3576" font-size="15.5" fill="#000000">NO IN-PLACE LOOP — a sequence never re-enters a stage it has left; a retry is a new sub-sequence</text>
-<rect x="60" y="3592" width="11" height="11" fill="#000000"/>
-<text x="82" y="3603" font-size="15.5" fill="#000000">NO REOPEN — a closed sequence stays closed; S₁ references S₀</text>
+<text x="60" y="3489" font-size="15.5" font-weight="700" fill="#D01818">L10</text>
+<text x="100" y="3489" font-size="15.5" fill="#000000">DECISION / CHOICE → SELECTION</text>
+<text x="760" y="3489" font-size="15" fill="#D01818">fires when the chosen path is rejected downstream</text>
+<text x="1390" y="3489" font-size="15" fill="#8A8A8A">held alternatives are kept, never discarded — one re-enters as a NEW sub-sequence. Drawn on his word; validation pending the first live case</text>
+<text x="60" y="3516" font-size="15.5" font-weight="700" fill="#D01818">L11</text>
+<text x="100" y="3516" font-size="15.5" fill="#000000">RETURN → ENVIRONMENT / HOST</text>
+<text x="760" y="3516" font-size="15" fill="#D01818">fires when the sequence alters the conditions it runs in</text>
+<text x="1390" y="3516" font-size="15" fill="#8A8A8A">an earlier threshold must be re-read. UNVALIDATED — awaiting T-5</text>
+<text x="60" y="3543" font-size="15" fill="#8A8A8A">L6 NOTE — the name stays: era closure produces a NEW era and the old era stays in use and referenceable (his 9.4). Meanings are fixed with notes, never renames (his C-8). L1–L9 validated on T-1…T-4 · L10 drawn on his word · L11 awaits T-5.</text>
+<text x="60" y="3596" font-size="21" font-weight="700" fill="#000000">THE SIX INVARIANTS — they hold at every stage above</text>
 <rect x="60" y="3619" width="11" height="11" fill="#000000"/>
-<text x="82" y="3630" font-size="15.5" fill="#000000">CLOSURE IS A SEQUENCE WORD — entities persist, cohere, degrade, terminate</text>
+<text x="82" y="3630" font-size="15.5" fill="#000000">BARRIER LAW — the line cannot cross a node while a required return is unaccepted</text>
 <rect x="60" y="3646" width="11" height="11" fill="#000000"/>
-<text x="82" y="3657" font-size="15.5" fill="#000000">ENCOUNTER IS CONDITIONAL — two sequences meeting is an event with a condition</text>
+<text x="82" y="3657" font-size="15.5" fill="#000000">NO IN-PLACE LOOP — a sequence never re-enters a stage it has left; a retry is a new sub-sequence</text>
 <rect x="60" y="3673" width="11" height="11" fill="#000000"/>
-<text x="82" y="3684" font-size="15.5" fill="#000000">NEVER MANUFACTURE A SOURCE — a gap stays a gap, and the gap goes to the human</text>
+<text x="82" y="3684" font-size="15.5" fill="#000000">NO REOPEN — a closed sequence stays closed; S₁ references S₀</text>
+<rect x="60" y="3700" width="11" height="11" fill="#000000"/>
+<text x="82" y="3711" font-size="15.5" fill="#000000">CLOSURE IS A SEQUENCE WORD — entities persist, cohere, degrade, terminate</text>
+<rect x="60" y="3727" width="11" height="11" fill="#000000"/>
+<text x="82" y="3738" font-size="15.5" fill="#000000">ENCOUNTER IS CONDITIONAL — two sequences meeting is an event with a condition</text>
+<rect x="60" y="3754" width="11" height="11" fill="#000000"/>
+<text x="82" y="3765" font-size="15.5" fill="#000000">NEVER MANUFACTURE A SOURCE — a gap stays a gap, and the gap goes to the human</text>
 </svg>

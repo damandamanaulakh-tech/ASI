@@ -202,6 +202,15 @@ LOOPS: list[tuple[str, str, str, str, str, str]] = [
      "HALT BECOMES THE NEXT POINT ZERO",
      "the halt is named",
      "S₁ REFERENCES S₀. S₀ stays closed — there is no reopen"),
+    ("L10", "DECISION / CHOICE", "SELECTION",
+     "A HELD ALTERNATIVE TAKEN UP",
+     "the chosen path is rejected downstream",
+     "held alternatives are kept, never discarded — one re-enters as a NEW "
+     "sub-sequence. Drawn on his word; validation pending the first live case"),
+    ("L11", "RETURN", "ENVIRONMENT / HOST",
+     "THE RUN CHANGES ITS OWN GROUND · UNVALIDATED",
+     "the sequence alters the conditions it runs in",
+     "an earlier threshold must be re-read. UNVALIDATED — awaiting T-5"),
 ]
 
 # barriers sit on the main line where a return is outstanding
@@ -416,7 +425,7 @@ def build_arrow_chart() -> str:
     body_h = sum(heights)
     lanes = {lp[0]: ARC_X0 + 60 + i * LANE_STEP for i, lp in enumerate(LOOPS)}
     W = max(lanes.values()) + 150
-    foot_lines = 2 + len(INVARIANTS) + 2 + len(LOOPS)
+    foot_lines = 3 + len(INVARIANTS) + 2 + len(LOOPS)
     H = HEAD + body_h + 90 + foot_lines * 27 + 80
 
     y_of = {s[1]: mids[i] for i, s in enumerate(STAGES)}
@@ -451,8 +460,10 @@ def build_arrow_chart() -> str:
     n_thr = len(THRESHOLDS)
     o.append(f'<text x="{PAD}" y="158" font-size="21" font-weight="700" '
              f'fill="{BLACK}">{len(STAGES)} stages · {n_thr} thresholds '
-             f'· {len(SPAWNS)} spawns · {len(LOOPS)} loops · '
-             f'{len(BARRIERS)} barriers — nothing collapsed</text>')
+             f'· {len(SPAWNS)} spawns · {len(LOOPS)} routes (registry v1, '
+             f'non-exhaustive) · {len(BARRIERS)} barriers — nothing collapsed '
+             f'· his name for this structure: THE MAHABHARATA SEQUENCE — the '
+             f'method every response passes, reverse → forward → reverse</text>')
 
     # key
     ky = 196
@@ -638,9 +649,9 @@ def build_arrow_chart() -> str:
     o.append(f'<line x1="{PAD}" y1="{fy-30}" x2="{W-PAD}" y2="{fy-30}" '
              f'stroke="{BLACK}" stroke-width="2.5"/>')
     o.append(f'<text x="{PAD}" y="{fy}" font-size="21" font-weight="700" '
-             f'fill="{BLACK}">THE {len(LOOPS)} LOOPS — every one of them '
-             f'lands as a NEW sub-sequence, never back inside the stage it '
-             f'left</text>')
+             f'fill="{BLACK}">ROUTE REGISTRY v1 · THE {len(LOOPS)} KNOWN '
+             f'RE-SEQUENCE ROUTES (non-exhaustive) — every route lands as a '
+             f'NEW sub-sequence, never back inside the stage it left</text>')
     yy = fy + 30
     for lid, src, dst, lname, fires, meaning in LOOPS:
         o.append(f'<text x="{PAD}" y="{yy+14}" font-size="15.5" '
@@ -652,6 +663,12 @@ def build_arrow_chart() -> str:
         o.append(f'<text x="{PAD+1330}" y="{yy+14}" font-size="15" '
                  f'fill="{GREY}">{esc(meaning)}</text>')
         yy += 27
+    o.append(f'<text x="{PAD}" y="{yy+14}" font-size="15" fill="{GREY}">'
+             f'L6 NOTE — the name stays: era closure produces a NEW era and '
+             f'the old era stays in use and referenceable (his 9.4). Meanings '
+             f'are fixed with notes, never renames (his C-8). L1–L9 validated '
+             f'on T-1…T-4 · L10 drawn on his word · L11 awaits T-5.</text>')
+    yy += 27
     yy += 26
     o.append(f'<text x="{PAD}" y="{yy+14}" font-size="21" font-weight="700" '
              f'fill="{BLACK}">THE SIX INVARIANTS — they hold at every '
