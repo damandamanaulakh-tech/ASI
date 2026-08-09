@@ -41,6 +41,9 @@ owner's way of thinking and gets wiser with every use.
 | **6 Halt** | Where does this fail? The failure is named in the answer. A halt is never hidden and never "fixed" by inventing something to fill it. |
 | **7 Loop** | The halt becomes the next Point Zero. The engine hands back the next question instead of pretending the road ended. In the owner's words: *"U need always a end point to verify, but that point is a point zero for new loop, that is halt, that is invention."* |
 | **The universal sequence** | The owner's 8-step law of how anything comes to be known — Ground · Pressure · Use · Witness · Expression · Naming · Halt · Loop. Fully worked in document 01 with his own examples. |
+| **Sequence** (the general object) | Not an ordered list. **Differences connected by meaningful order** — structured dependency across changing states, where the unit is the **transition** (source state + context + trigger + rule → result), not the step. Need not be linear and need not be temporal. Defined in document 01B. |
+| **Generative sequence** | The reverse construction: given a target, ask what it required, then what that required, and so on; then intersect that required chain with available material, current reality and constraints. The intersection — not the required chain — is the **executable sequence**. Document 01B. |
+| **Intent** | A **property of every event**, not a step. Every event, at every second, has one real reason that pushes it — whether or not it produced anything, and whether or not it was worth doing. Intent is *motivation*, not a stated plan, and it is read from how everything around the event was arranged. Full instruction in document 01A; **binding on every answer**. |
 | **Witness (evidence sense)** | One independent account of a claim. A reprint, translation, or quotation of the same origin is **one** witness wearing two coats, not two. |
 | **Confidence marks A/B/C** | Used in transcription and reading work: **A** confident · **B** probable, sense secure · **C** uncertain, flagged. An unreadable word is written `⟨…⟩`, never guessed. |
 | **[READING] vs fact** | Anything the engine infers (rather than quotes) is marked as a reading. A reading can be overturned without anyone having lied. |
@@ -53,6 +56,10 @@ owner's way of thinking and gets wiser with every use.
 | Doc | What it holds |
 |---|---|
 | **01 THE UNIVERSAL SEQUENCE** | The 8 steps, defined; then worked fully on the owner's own examples: hunger, gravity, the Riemann Hypothesis, string theory, the water cycle, and the invention case (cricket). |
+| **01A INTENT** | **Intent is a property of every event, not a step.** His paragraph as given, reframed with the depth on the surface, then each phrase with what it means and what an answer may no longer do. **Binding on every answer.** |
+| **01B SEQUENCE** | What a sequence fundamentally is, from his Phase-1 brief: **the unit is the transition, not the step**; sequence is structured dependency, not necessarily linear and not necessarily time; observed vs **generative** sequence, and how an executable sequence comes from Required Chain ∩ Available Material ∩ Current Reality ∩ Constraints. 25 dimensions, 14 kinds, the record, static vs living. **Binding on every answer.** |
+| **01C SEQUENCE PROTOCOL** | The investigation and its protocols in one place: the **triple pass** (end→start, start→end, end→start — whatever work is done for that event is the sequence); the **main line** (one controller sequence holding the full ledger; every entity a sequence riding on it); the four tests (gravity, pyramids, brain, Mahabharata); the **six core objects** — threshold on edges, entity outcome vs sequence closure, spawn contract, open-sequence ledger, driver origin incl. Want, controller; the **barrier law**; no in-place loops; **no reopen** — a new sequence references the closed one. CLOSURE is a sequence word; entities persist, cohere, degrade, terminate. Kernel implemented at `src/sourceborn/seq_kernel.py`. **Binding. Model not yet locked — locks on his word.** |
+| **01D SEQUENCE RULINGS** | **The ruling ledger — binding.** 66 rubric answers + 14 collision rulings in the owner's words (2026-08-09): the Mahabharata Sequence as the name of the method gate (reverse → forward → reverse), canon vs Holy Books, the three layers, the route registry (11 routes), the standing rules. When any doc disagrees with a ruling, surface it and HALT to him with a proposal. Canon lives in `canon/`; the Holy-Books reference copy in `holy_books/`. |
 | **02 THE SEVEN FILTERS** | Each filter: the question it asks, what pass and hold mean, and a real incident from this project where it worked. |
 | **03 LOOPS, HALTS, AND HUMAN INTERVENTION** | How and where loops were actually generated in live work — a ledger of real halts, the loop each opened, and where the human stepped in. |
 | **04 ANSWER BEHAVIOR** | How the system answers — each rule fetched from a real final answer, quoted as the specimen. |
@@ -61,9 +68,17 @@ owner's way of thinking and gets wiser with every use.
 
 ## Reading order
 
-Read 01 before 02 (the filters are the sequence turned into gates). Read 03
-after 02 (the loops are the filters running on live work). Documents 04–06 can
-be read in any order.
+Read **01A and 01B before 01** — intent is a property of every event, so it
+applies before any step does, and 01B defines what a sequence is before 01 gives
+the owner's eight. **01C follows 01B** — it is the protocol built on that
+definition, and every walk obeys it. Then 01 before 02 (the filters are the
+sequence turned into gates), and 03 after 02 (the loops are the filters running
+on live work). Documents 04–06 can be read in any order.
+
+**One conflict is open** between 01B and 01: 01B says the unit of sequence is the
+**transition** and a step is only a snapshot; 01 is built from eight **steps**.
+Both are in the repo. It is surfaced in 01B and waits on the owner's ruling —
+neither document has been changed to match the other.
 
 ## What is deliberately NOT in this folder
 

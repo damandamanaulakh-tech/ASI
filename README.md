@@ -7,6 +7,27 @@ It is a **control layer around a base model** (your Claude key), not a new train
 model. It clones your voice, runs the **SB + URR** pipeline over a **pyramid of
 local brains** (70 SB + 25 URR nodes), and **gets wiser every time you use it**.
 
+## The phase programme (owner-set)
+
+Full detail lives in Drive `ASI_BRAIN/00_README_MASTER.md` and in `docs/mainwork/`.
+Status as of the current pass:
+
+| Phase | What it is | State |
+|---|---|---|
+| **P-1** | The frame — 9 points. Points 6 & 7 dropped by the owner as repetitions | **RUNNING** — `docs/mainwork/asi/P1_ANSWERS_v1.md` |
+| **P-2** | RH as the live running example | **HOLD** (owner) |
+| **P-3** | The 50000 census walk and its rating | **LANDED** — 63,519 zeros, ledger exact, registered verdict fired |
+| **P-4** | The K-style tree structure applied to RH | **HOLD** (owner) |
+| **P-5** | Back to the hub for the 5 point zeros | **HOLD** (owner) |
+| **P-6** | Compile everything; surface new nodes and connections | **RUNNING** — `docs/mainwork/asi/` |
+| **P-7** | A new session that follows P-6 at full length | **HOLD** (owner) |
+| **P-8** | The sequences, collected — SB, SB-URR, hunger, gravity and the rest | **DONE** — `docs/mainwork/THE_SEQUENCES.md` |
+| **P-9** | *All files on daman.tech, for own pileup* | **THIS LINE** |
+| **P-10** | Q-1 | **Yes** |
+| **P-11** | The full ASI white paper | opens when the node registry stops minting new IDs |
+| **P-12** | Three RH articles (a / b / c, c onward open-ended) | after P-11 |
+| **P-X** | Ingest whatever he adds to repo releases, any time | `ASIwork` compiled — `docs/mainwork/asi/ASIWORK_COMPILE_v1.md` |
+
 ## The three memories
 - **Reflex** — your fed corpus + example bank (*clone me*) → `persona.py`, `memory.py`
 - **Instinct** — wisdom bank: holy books, proverbs, archetypes → `wisdom.py`

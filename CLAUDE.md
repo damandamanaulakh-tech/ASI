@@ -38,6 +38,34 @@ When they disagree, surface it — do not silently pick one.
 
 ## How to not drift, operationally
 - Start each session by re-reading `docs/SOURCEBORN_CORE.md` + `docs/RECOMMENDATION.md`.
+- **`docs/method/01A_INTENT.md` is binding on every answer.** Intent is a property
+  of every event, not a step. Every event has one real reason that pushes it; read
+  it from how things were arranged around the event, never from the outcome. Two
+  surviving candidates HALT instead of being blended. "There is no reason" is not
+  an available answer.
+- **`docs/method/01B_SEQUENCE.md` is binding on every answer.** The unit of
+  sequence is the **transition**, not the step — a step is a snapshot. Sequence is
+  structured dependency, not necessarily linear and not necessarily time; say
+  which order is meant. When a target is named, build generatively: reconstruct
+  what it required, then intersect that chain with available material, current
+  reality and constraints.
+- **`docs/method/01C_SEQUENCE_PROTOCOL.md` is the sequence protocol.** Walk any
+  event by the triple pass (end→start, start→end, end→start); thresholds live on
+  edges and answer "why now"; sequence closure and entity outcome are two
+  statuses, never one; every spawn carries a contract (close_condition ≠
+  acceptance_condition); the open-sequence ledger enforces the barrier law; no
+  in-place loops; **no reopen** — a new sequence references the closed one.
+  CLOSURE is a sequence word; entities persist, cohere, degrade, terminate.
+  Kernel: `src/sourceborn/seq_kernel.py`. The model locks on his word only.
+- **`docs/method/01D_SEQUENCE_RULINGS.md` is the ruling ledger — binding.** His 66
+  rubric answers + 14 collision rulings (2026-08-09). The 57-row structure is named
+  **the Mahabharata Sequence** — it is the METHOD (reverse → forward → reverse) every
+  response passes through; Mahabharata material *defines* the method and is never
+  itself run as a sequence. Nothing is ever removed — differences become sub-parameters
+  or inject new sequences. Meanings are fixed with notes, never renames. When any doc
+  disagrees with a ruling, surface it and HALT to him with a written proposal.
+- When he says **reframe**, reframe — his words opened out, nothing of mine bolted
+  on, no examples dragged in to justify a reading he did not ask for.
 - Mirror the user's intent back before acting on anything large.
 - Keep the offline engine runnable: `python -m sourceborn.demo`; tests must stay green
   (`PYTHONPATH=src python3 tests/test_engine.py`).

@@ -1,0 +1,440 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1902" height="3884" viewBox="0 0 1902 3884" font-family="Helvetica, Arial, sans-serif">
+<rect width="1902" height="3884" fill="#FFFFFF"/>
+<text x="60" y="76" font-size="50" font-weight="700" fill="#000000" letter-spacing="-1.2">ALL THE CHANGES, SUPERIMPOSED</text>
+<text x="60" y="118" font-size="22" fill="#8A8A8A">The same 57 stages in black. Nine changes, one colour each, each one lit only at the stages it actually touches.</text>
+<rect x="60" y="147" width="14" height="14" fill="#D01818"/>
+<text x="84" y="159" font-size="16.5" font-weight="700" fill="#D01818">C1  THRESHOLD ON THE EDGE</text>
+<text x="620" y="159" font-size="15.5" fill="#D01818">separated from the trigger; it is what answers WHY NOW</text>
+<text x="1360" y="159" font-size="15.5" fill="#8A8A8A">touches 10 stages</text>
+<rect x="60" y="173" width="14" height="14" fill="#4B0082"/>
+<text x="84" y="185" font-size="16.5" font-weight="700" fill="#4B0082">C2  SEQUENCE CLOSURE ≠ ENTITY OUTCOME</text>
+<text x="620" y="185" font-size="15.5" fill="#4B0082">two statuses, never one</text>
+<text x="1360" y="185" font-size="15.5" fill="#8A8A8A">touches 3 stages</text>
+<rect x="60" y="199" width="14" height="14" fill="#0F7B3E"/>
+<text x="84" y="211" font-size="16.5" font-weight="700" fill="#0F7B3E">C3  SUB-SEQUENCE CONTRACT</text>
+<text x="620" y="211" font-size="15.5" fill="#0F7B3E">close_condition ≠ acceptance_condition</text>
+<text x="1360" y="211" font-size="15.5" fill="#8A8A8A">touches 3 stages</text>
+<rect x="60" y="225" width="14" height="14" fill="#B26B00"/>
+<text x="84" y="237" font-size="16.5" font-weight="700" fill="#B26B00">C4  OPEN-SEQUENCE LEDGER + BARRIER LAW</text>
+<text x="620" y="237" font-size="15.5" fill="#B26B00">the line cannot cross an unaccepted return</text>
+<text x="1360" y="237" font-size="15.5" fill="#8A8A8A">touches 2 stages</text>
+<rect x="60" y="251" width="14" height="14" fill="#C2007A"/>
+<text x="84" y="263" font-size="16.5" font-weight="700" fill="#C2007A">C5  DRIVER ORIGIN — WANT beside NEED</text>
+<text x="620" y="263" font-size="15.5" fill="#C2007A">nine origins; want is not folded into need</text>
+<text x="1360" y="263" font-size="15.5" fill="#8A8A8A">touches 1 stage</text>
+<rect x="60" y="277" width="14" height="14" fill="#007B8A"/>
+<text x="84" y="289" font-size="16.5" font-weight="700" fill="#007B8A">C6  CONTROLLER MANDATORY</text>
+<text x="620" y="289" font-size="15.5" fill="#007B8A">none-natural / self / distributed / external / joint / meta</text>
+<text x="1360" y="289" font-size="15.5" fill="#8A8A8A">touches 2 stages</text>
+<rect x="60" y="303" width="14" height="14" fill="#E05A00"/>
+<text x="84" y="315" font-size="16.5" font-weight="700" fill="#E05A00">C7  PASS 0 — DECLARE THE END FIRST</text>
+<text x="620" y="315" font-size="15.5" fill="#E05A00">the end decides which earlier reality matters</text>
+<text x="1360" y="315" font-size="15.5" fill="#8A8A8A">touches 2 stages</text>
+<rect x="60" y="329" width="14" height="14" fill="#6D4C00"/>
+<text x="84" y="341" font-size="16.5" font-weight="700" fill="#6D4C00">C8  THE MAHABHARATA PRIMITIVES</text>
+<text x="620" y="341" font-size="15.5" fill="#6D4C00">thirteen named patterns — doc, deliberately not code</text>
+<text x="1360" y="341" font-size="15.5" fill="#8A8A8A">touches 13 stages</text>
+<rect x="60" y="355" width="14" height="14" fill="#8A8A8A"/>
+<text x="84" y="367" font-size="16.5" font-weight="700" fill="#8A8A8A">C9  STRUCK FROM EARLIER VERSIONS</text>
+<text x="620" y="367" font-size="15.5" fill="#8A8A8A">removed, and kept visible so they cannot creep back</text>
+<text x="1360" y="367" font-size="15.5" fill="#8A8A8A">touches 7 stages</text>
+<line x1="60" y1="406" x2="1842.9" y2="406" stroke="#000000" stroke-width="2.5"/>
+<text x="76" y="434" font-size="13" font-weight="700" fill="#D01818" text-anchor="middle">C1</text>
+<line x1="76" y1="452" x2="76" y2="3744" stroke="#D01818" stroke-width="0.9" stroke-dasharray="2 6" opacity="0.5"/>
+<text x="110" y="434" font-size="13" font-weight="700" fill="#4B0082" text-anchor="middle">C2</text>
+<line x1="110" y1="452" x2="110" y2="3744" stroke="#4B0082" stroke-width="0.9" stroke-dasharray="2 6" opacity="0.5"/>
+<text x="144" y="434" font-size="13" font-weight="700" fill="#0F7B3E" text-anchor="middle">C3</text>
+<line x1="144" y1="452" x2="144" y2="3744" stroke="#0F7B3E" stroke-width="0.9" stroke-dasharray="2 6" opacity="0.5"/>
+<text x="178" y="434" font-size="13" font-weight="700" fill="#B26B00" text-anchor="middle">C4</text>
+<line x1="178" y1="452" x2="178" y2="3744" stroke="#B26B00" stroke-width="0.9" stroke-dasharray="2 6" opacity="0.5"/>
+<text x="212" y="434" font-size="13" font-weight="700" fill="#C2007A" text-anchor="middle">C5</text>
+<line x1="212" y1="452" x2="212" y2="3744" stroke="#C2007A" stroke-width="0.9" stroke-dasharray="2 6" opacity="0.5"/>
+<text x="246" y="434" font-size="13" font-weight="700" fill="#007B8A" text-anchor="middle">C6</text>
+<line x1="246" y1="452" x2="246" y2="3744" stroke="#007B8A" stroke-width="0.9" stroke-dasharray="2 6" opacity="0.5"/>
+<text x="280" y="434" font-size="13" font-weight="700" fill="#E05A00" text-anchor="middle">C7</text>
+<line x1="280" y1="452" x2="280" y2="3744" stroke="#E05A00" stroke-width="0.9" stroke-dasharray="2 6" opacity="0.5"/>
+<text x="314" y="434" font-size="13" font-weight="700" fill="#6D4C00" text-anchor="middle">C8</text>
+<line x1="314" y1="452" x2="314" y2="3744" stroke="#6D4C00" stroke-width="0.9" stroke-dasharray="2 6" opacity="0.5"/>
+<text x="348" y="434" font-size="13" font-weight="700" fill="#8A8A8A" text-anchor="middle">C9</text>
+<line x1="348" y1="452" x2="348" y2="3744" stroke="#8A8A8A" stroke-width="0.9" stroke-dasharray="2 6" opacity="0.5"/>
+<line x1="422" y1="452" x2="422" y2="3744" stroke="#000000" stroke-width="2.4"/>
+<rect x="60" y="453.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="452.0" x2="1842.9" y2="452.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="465.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="478.0" font-size="18" font-weight="700" fill="#000000">PRIOR REALITY</text>
+<circle cx="280" cy="474.0" r="6.2" fill="#E05A00"/>
+<line x1="287" y1="474.0" x2="412" y2="474.0" stroke="#E05A00" stroke-width="1.6"/>
+<text x="932" y="479.0" font-size="15.5" fill="#E05A00">the END is declared BEFORE this is looked for. Without that the reverse walk expands forever.</text>
+<text x="890" y="479.0" font-size="13.5" font-weight="700" fill="#E05A00">C7</text>
+<rect x="60" y="507.0" width="1782.9" height="78" fill="#F2F2F2"/>
+<line x1="60" y1="506.0" x2="1842.9" y2="506.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="519.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="532.0" font-size="18" font-weight="700" fill="#000000">ORIGIN / SOURCE</text>
+<circle cx="314" cy="528.0" r="6.2" fill="#6D4C00"/>
+<line x1="321" y1="528.0" x2="412" y2="528.0" stroke="#6D4C00" stroke-width="1.6"/>
+<text x="932" y="533.0" font-size="15.5" fill="#6D4C00">P1 SEED BEFORE CARRIER — the cause can be older than the thing that carries it. Karna's seed is older than Karna.</text>
+<text x="890" y="533.0" font-size="13.5" font-weight="700" fill="#6D4C00">C8</text>
+<circle cx="348" cy="560.0" r="6.2" fill="#8A8A8A"/>
+<line x1="355" y1="560.0" x2="412" y2="560.0" stroke="#8A8A8A" stroke-width="1.6"/>
+<text x="932" y="565.0" font-size="15.5" fill="#8A8A8A">struck: the word “child”. It implied younger, and it implied software recursion. It is a SUB-SEQUENCE.</text>
+<text x="890" y="565.0" font-size="13.5" font-weight="700" fill="#8A8A8A">C9</text>
+<line x1="60" y1="586.0" x2="1842.9" y2="586.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="607.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="611.0" font-size="15.5" fill="#8A8A8A">MATERIAL</text>
+<line x1="60" y1="626.0" x2="1842.9" y2="626.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="647.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="651.0" font-size="15.5" fill="#8A8A8A">ENERGY</text>
+<rect x="60" y="667.0" width="1782.9" height="78" fill="#F2F2F2"/>
+<line x1="60" y1="666.0" x2="1842.9" y2="666.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="687.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="691.0" font-size="15.5" fill="#8A8A8A">INFORMATION</text>
+<circle cx="314" cy="688.0" r="6.2" fill="#6D4C00"/>
+<line x1="321" y1="688.0" x2="412" y2="688.0" stroke="#6D4C00" stroke-width="1.6"/>
+<text x="932" y="693.0" font-size="15.5" fill="#6D4C00">P2 ACTOR VIEW — the same event is a different sequence for each actor, according to what that actor knew.</text>
+<text x="890" y="693.0" font-size="13.5" font-weight="700" fill="#6D4C00">C8</text>
+<circle cx="348" cy="720.0" r="6.2" fill="#8A8A8A"/>
+<line x1="355" y1="720.0" x2="412" y2="720.0" stroke="#8A8A8A" stroke-width="1.6"/>
+<text x="932" y="725.0" font-size="15.5" fill="#8A8A8A">struck: filling a gap with an invented source. The gap stays a gap and goes to the human.</text>
+<text x="890" y="725.0" font-size="13.5" font-weight="700" fill="#8A8A8A">C9</text>
+<line x1="60" y1="746.0" x2="1842.9" y2="746.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="759.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="772.0" font-size="18" font-weight="700" fill="#000000">ENVIRONMENT / HOST</text>
+<line x1="60" y1="800.0" x2="1842.9" y2="800.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="821.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="825.0" font-size="15.5" fill="#8A8A8A">SUBSTRATE</text>
+<rect x="60" y="841.0" width="1782.9" height="78" fill="#F2F2F2"/>
+<line x1="60" y1="840.0" x2="1842.9" y2="840.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="861.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="865.0" font-size="15.5" fill="#8A8A8A">CONDITIONS</text>
+<circle cx="76" cy="862.0" r="6.2" fill="#D01818"/>
+<line x1="83" y1="862.0" x2="412" y2="862.0" stroke="#D01818" stroke-width="1.6"/>
+<text x="932" y="867.0" font-size="15.5" fill="#D01818">threshold TIME — the window opening is why it happens NOW.</text>
+<text x="890" y="867.0" font-size="13.5" font-weight="700" fill="#D01818">C1</text>
+<circle cx="314" cy="894.0" r="6.2" fill="#6D4C00"/>
+<line x1="321" y1="894.0" x2="412" y2="894.0" stroke="#6D4C00" stroke-width="1.6"/>
+<text x="932" y="899.0" font-size="15.5" fill="#6D4C00">P7 CONVERGENCE WINDOW — several sequences must land inside one window or nothing happens.</text>
+<text x="890" y="899.0" font-size="13.5" font-weight="700" fill="#6D4C00">C8</text>
+<rect x="60" y="921.0" width="1782.9" height="46" fill="#F2F2F2"/>
+<line x1="60" y1="920.0" x2="1842.9" y2="920.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="941.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="945.0" font-size="15.5" fill="#8A8A8A">CONSTRAINTS</text>
+<circle cx="314" cy="942.0" r="6.2" fill="#6D4C00"/>
+<line x1="321" y1="942.0" x2="412" y2="942.0" stroke="#6D4C00" stroke-width="1.6"/>
+<text x="932" y="947.0" font-size="15.5" fill="#6D4C00">P4 EXCEPTION CONTRACT — a rule bent once, with terms. The terms are the code, not the bending.</text>
+<text x="890" y="947.0" font-size="13.5" font-weight="700" fill="#6D4C00">C8</text>
+<rect x="60" y="969.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="968.0" x2="1842.9" y2="968.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="981.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="994.0" font-size="18" font-weight="700" fill="#000000">FORMATION SEQUENCE</text>
+<circle cx="76" cy="990.0" r="6.2" fill="#D01818"/>
+<line x1="83" y1="990.0" x2="412" y2="990.0" stroke="#D01818" stroke-width="1.6"/>
+<text x="932" y="995.0" font-size="15.5" fill="#D01818">the threshold sits on the EDGE entering this stage. It was wrongly held inside the state before.</text>
+<text x="890" y="995.0" font-size="13.5" font-weight="700" fill="#D01818">C1</text>
+<line x1="60" y1="1022.0" x2="1842.9" y2="1022.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="1043.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="1047.0" font-size="15.5" fill="#8A8A8A">assembly</text>
+<line x1="60" y1="1062.0" x2="1842.9" y2="1062.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="1083.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="1087.0" font-size="15.5" fill="#8A8A8A">growth</text>
+<line x1="60" y1="1102.0" x2="1842.9" y2="1102.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="1123.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="1127.0" font-size="15.5" fill="#8A8A8A">emergence</text>
+<line x1="60" y1="1142.0" x2="1842.9" y2="1142.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="1155.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="1168.0" font-size="18" font-weight="700" fill="#000000">EXISTENCE</text>
+<line x1="60" y1="1196.0" x2="1842.9" y2="1196.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="1217.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="1221.0" font-size="15.5" fill="#8A8A8A">BOUNDARY</text>
+<line x1="60" y1="1236.0" x2="1842.9" y2="1236.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="1257.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="1261.0" font-size="15.5" fill="#8A8A8A">IDENTITY</text>
+<rect x="60" y="1277.0" width="1782.9" height="46" fill="#F2F2F2"/>
+<line x1="60" y1="1276.0" x2="1842.9" y2="1276.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="1297.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="1301.0" font-size="15.5" fill="#8A8A8A">STATE</text>
+<circle cx="314" cy="1298.0" r="6.2" fill="#6D4C00"/>
+<line x1="321" y1="1298.0" x2="412" y2="1298.0" stroke="#6D4C00" stroke-width="1.6"/>
+<text x="932" y="1303.0" font-size="15.5" fill="#6D4C00">P6 DOWNSTREAM-CRITICAL CHANGE — small now, decisive far later.</text>
+<text x="890" y="1303.0" font-size="13.5" font-weight="700" fill="#6D4C00">C8</text>
+<rect x="60" y="1325.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="1324.0" x2="1842.9" y2="1324.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="1337.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="1350.0" font-size="18" font-weight="700" fill="#000000">STABILITY / VIABILITY</text>
+<circle cx="76" cy="1346.0" r="6.2" fill="#D01818"/>
+<line x1="83" y1="1346.0" x2="412" y2="1346.0" stroke="#D01818" stroke-width="1.6"/>
+<text x="932" y="1351.0" font-size="15.5" fill="#D01818">threshold EVENT — first load applied.</text>
+<text x="890" y="1351.0" font-size="13.5" font-weight="700" fill="#D01818">C1</text>
+<line x1="60" y1="1378.0" x2="1842.9" y2="1378.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="1399.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="1403.0" font-size="15.5" fill="#8A8A8A">YES → continuation</text>
+<rect x="60" y="1419.0" width="1782.9" height="101" fill="#F2F2F2"/>
+<line x1="60" y1="1418.0" x2="1842.9" y2="1418.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="1439.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="1443.0" font-size="15.5" fill="#8A8A8A">NO → collapse / repair / terminate</text>
+<circle cx="110" cy="1440.0" r="6.2" fill="#4B0082"/>
+<line x1="117" y1="1440.0" x2="412" y2="1440.0" stroke="#4B0082" stroke-width="1.6"/>
+<text x="932" y="1445.0" font-size="15.5" fill="#4B0082">this is the ENTITY's outcome. It is not the sequence closing. Collapsing these two was the worst error in every</text>
+<text x="932" y="1468.0" font-size="15.5" fill="#4B0082">earlier version.</text>
+<text x="890" y="1445.0" font-size="13.5" font-weight="700" fill="#4B0082">C2</text>
+<circle cx="76" cy="1495.0" r="6.2" fill="#D01818"/>
+<line x1="83" y1="1495.0" x2="412" y2="1495.0" stroke="#D01818" stroke-width="1.6"/>
+<text x="932" y="1500.0" font-size="15.5" fill="#D01818">threshold ABSENCE — what fires it is that maintenance STOPS. Absence is a threshold type.</text>
+<text x="890" y="1500.0" font-size="13.5" font-weight="700" fill="#D01818">C1</text>
+<rect x="60" y="1522.0" width="1782.9" height="133" fill="#F2F2F2"/>
+<line x1="60" y1="1521.0" x2="1842.9" y2="1521.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="1534.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="1547.0" font-size="18" font-weight="700" fill="#000000">REQUIREMENT EMERGES</text>
+<circle cx="212" cy="1543.0" r="6.2" fill="#C2007A"/>
+<line x1="219" y1="1543.0" x2="412" y2="1543.0" stroke="#C2007A" stroke-width="1.6"/>
+<text x="932" y="1548.0" font-size="15.5" fill="#C2007A">nine driver origins, and WANT sits beside NEED — never folded into it. Gravity has NATURAL DYNAMICS and no driver at</text>
+<text x="932" y="1571.0" font-size="15.5" fill="#C2007A">all; that is a real value, not a missing one.</text>
+<text x="890" y="1548.0" font-size="13.5" font-weight="700" fill="#C2007A">C5</text>
+<circle cx="246" cy="1598.0" r="6.2" fill="#007B8A"/>
+<line x1="253" y1="1598.0" x2="412" y2="1598.0" stroke="#007B8A" stroke-width="1.6"/>
+<text x="932" y="1603.0" font-size="15.5" fill="#007B8A">the CONTROLLER is named here: none-natural · self · distributed-self · external · joint · meta.</text>
+<text x="890" y="1603.0" font-size="13.5" font-weight="700" fill="#007B8A">C6</text>
+<circle cx="314" cy="1630.0" r="6.2" fill="#6D4C00"/>
+<line x1="321" y1="1630.0" x2="412" y2="1630.0" stroke="#6D4C00" stroke-width="1.6"/>
+<text x="932" y="1635.0" font-size="15.5" fill="#6D4C00">P12 REPRESENTED FUTURE — a sequence acted on because it was foretold, not because it happened.</text>
+<text x="890" y="1635.0" font-size="13.5" font-weight="700" fill="#6D4C00">C8</text>
+<rect x="60" y="1657.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="1656.0" x2="1842.9" y2="1656.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="1669.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="1682.0" font-size="18" font-weight="700" fill="#000000">REQUIREMENT</text>
+<circle cx="314" cy="1678.0" r="6.2" fill="#6D4C00"/>
+<line x1="321" y1="1678.0" x2="412" y2="1678.0" stroke="#6D4C00" stroke-width="1.6"/>
+<text x="932" y="1683.0" font-size="15.5" fill="#6D4C00">P11 PROMISE AS CODE — a vow binds future transitions. Bhishma.</text>
+<text x="890" y="1683.0" font-size="13.5" font-weight="700" fill="#6D4C00">C8</text>
+<line x1="60" y1="1710.0" x2="1842.9" y2="1710.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="1723.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="1736.0" font-size="18" font-weight="700" fill="#000000">DEPENDENCY GRAPH</text>
+<rect x="60" y="1765.0" width="1782.9" height="110" fill="#F2F2F2"/>
+<line x1="60" y1="1764.0" x2="1842.9" y2="1764.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="1777.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="1790.0" font-size="18" font-weight="700" fill="#000000">AVAILABILITY</text>
+<circle cx="144" cy="1786.0" r="6.2" fill="#0F7B3E"/>
+<line x1="151" y1="1786.0" x2="412" y2="1786.0" stroke="#0F7B3E" stroke-width="1.6"/>
+<text x="932" y="1791.0" font-size="15.5" fill="#0F7B3E">SPAWN. close_condition ≠ acceptance_condition — a sub-sequence can close and still not be accepted.</text>
+<text x="890" y="1791.0" font-size="13.5" font-weight="700" fill="#0F7B3E">C3</text>
+<circle cx="178" cy="1818.0" r="6.2" fill="#B26B00"/>
+<line x1="185" y1="1818.0" x2="412" y2="1818.0" stroke="#B26B00" stroke-width="1.6"/>
+<text x="932" y="1823.0" font-size="15.5" fill="#B26B00">a LEDGER row opens. BARRIER: the main line cannot cross this node while a required return is unaccepted.</text>
+<text x="890" y="1823.0" font-size="13.5" font-weight="700" fill="#B26B00">C4</text>
+<circle cx="348" cy="1850.0" r="6.2" fill="#8A8A8A"/>
+<line x1="355" y1="1850.0" x2="412" y2="1850.0" stroke="#8A8A8A" stroke-width="1.6"/>
+<text x="932" y="1855.0" font-size="15.5" fill="#8A8A8A">struck: the in-place retry. LOCATE → BUILD → SUBSTITUTE are three sub-sequences, not one node run three times.</text>
+<text x="890" y="1855.0" font-size="13.5" font-weight="700" fill="#8A8A8A">C9</text>
+<rect x="60" y="1877.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="1876.0" x2="1842.9" y2="1876.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="1889.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="1902.0" font-size="18" font-weight="700" fill="#000000">QUALIFICATION</text>
+<circle cx="76" cy="1898.0" r="6.2" fill="#D01818"/>
+<line x1="83" y1="1898.0" x2="412" y2="1898.0" stroke="#D01818" stroke-width="1.6"/>
+<text x="932" y="1903.0" font-size="15.5" fill="#D01818">threshold EVENT — a candidate is present.</text>
+<text x="890" y="1903.0" font-size="13.5" font-weight="700" fill="#D01818">C1</text>
+<rect x="60" y="1931.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="1930.0" x2="1842.9" y2="1930.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="1943.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="1956.0" font-size="18" font-weight="700" fill="#000000">TESTING</text>
+<circle cx="144" cy="1952.0" r="6.2" fill="#0F7B3E"/>
+<line x1="151" y1="1952.0" x2="412" y2="1952.0" stroke="#0F7B3E" stroke-width="1.6"/>
+<text x="932" y="1957.0" font-size="15.5" fill="#0F7B3E">spawn RE-ANGLE: closed at “new angle set”, accepted only when the structure holds.</text>
+<text x="890" y="1957.0" font-size="13.5" font-weight="700" fill="#0F7B3E">C3</text>
+<rect x="60" y="1985.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="1984.0" x2="1842.9" y2="1984.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="1997.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2010.0" font-size="18" font-weight="700" fill="#000000">SELECTION</text>
+<circle cx="314" cy="2006.0" r="6.2" fill="#6D4C00"/>
+<line x1="321" y1="2006.0" x2="412" y2="2006.0" stroke="#6D4C00" stroke-width="1.6"/>
+<text x="932" y="2011.0" font-size="15.5" fill="#6D4C00">P3 PRIORITY / ARBITRATION — two rules both apply; name what decides between them.</text>
+<text x="890" y="2011.0" font-size="13.5" font-weight="700" fill="#6D4C00">C8</text>
+<rect x="60" y="2039.0" width="1782.9" height="78" fill="#F2F2F2"/>
+<line x1="60" y1="2038.0" x2="1842.9" y2="2038.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2051.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2064.0" font-size="18" font-weight="700" fill="#000000">DECISION / CHOICE</text>
+<circle cx="246" cy="2060.0" r="6.2" fill="#007B8A"/>
+<line x1="253" y1="2060.0" x2="412" y2="2060.0" stroke="#007B8A" stroke-width="1.6"/>
+<text x="932" y="2065.0" font-size="15.5" fill="#007B8A">the controller is recorded here, not assumed.</text>
+<text x="890" y="2065.0" font-size="13.5" font-weight="700" fill="#007B8A">C6</text>
+<circle cx="348" cy="2092.0" r="6.2" fill="#8A8A8A"/>
+<line x1="355" y1="2092.0" x2="412" y2="2092.0" stroke="#8A8A8A" stroke-width="1.6"/>
+<text x="932" y="2097.0" font-size="15.5" fill="#8A8A8A">struck: blending two surviving reasons. Two survivors HALT.</text>
+<text x="890" y="2097.0" font-size="13.5" font-weight="700" fill="#8A8A8A">C9</text>
+<rect x="60" y="2119.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="2118.0" x2="1842.9" y2="2118.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2131.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2144.0" font-size="18" font-weight="700" fill="#000000">ACQUISITION → ENCOUNTER</text>
+<circle cx="76" cy="2140.0" r="6.2" fill="#D01818"/>
+<line x1="83" y1="2140.0" x2="412" y2="2140.0" stroke="#D01818" stroke-width="1.6"/>
+<text x="932" y="2145.0" font-size="15.5" fill="#D01818">threshold EVENT — and the encounter is CONDITIONAL. Two sequences meeting is never an assumption.</text>
+<text x="890" y="2145.0" font-size="13.5" font-weight="700" fill="#D01818">C1</text>
+<line x1="60" y1="2172.0" x2="1842.9" y2="2172.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2185.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2198.0" font-size="18" font-weight="700" fill="#000000">BOUNDARY APPROACH</text>
+<rect x="60" y="2227.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="2226.0" x2="1842.9" y2="2226.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2239.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2252.0" font-size="18" font-weight="700" fill="#000000">INTAKE → COUPLING</text>
+<circle cx="76" cy="2248.0" r="6.2" fill="#D01818"/>
+<line x1="83" y1="2248.0" x2="412" y2="2248.0" stroke="#D01818" stroke-width="1.6"/>
+<text x="932" y="2253.0" font-size="15.5" fill="#D01818">threshold RANGE — the boundary is reached.</text>
+<text x="890" y="2253.0" font-size="13.5" font-weight="700" fill="#D01818">C1</text>
+<line x1="60" y1="2280.0" x2="1842.9" y2="2280.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2293.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2306.0" font-size="18" font-weight="700" fill="#000000">TRANSFORMATION → CONDITIONING</text>
+<line x1="60" y1="2334.0" x2="1842.9" y2="2334.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2347.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2360.0" font-size="18" font-weight="700" fill="#000000">PROCESSING (+ propagation)</text>
+<line x1="60" y1="2388.0" x2="1842.9" y2="2388.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2401.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2414.0" font-size="18" font-weight="700" fill="#000000">ASSIMILATION → INCORPORATION</text>
+<line x1="60" y1="2442.0" x2="1842.9" y2="2442.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2455.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2468.0" font-size="18" font-weight="700" fill="#000000">INTEGRATION</text>
+<line x1="60" y1="2496.0" x2="1842.9" y2="2496.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2509.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2522.0" font-size="18" font-weight="700" fill="#000000">ACTION</text>
+<rect x="60" y="2551.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="2550.0" x2="1842.9" y2="2550.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2563.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2576.0" font-size="18" font-weight="700" fill="#000000">OUTPUT</text>
+<circle cx="314" cy="2572.0" r="6.2" fill="#6D4C00"/>
+<line x1="321" y1="2572.0" x2="412" y2="2572.0" stroke="#6D4C00" stroke-width="1.6"/>
+<text x="932" y="2577.0" font-size="15.5" fill="#6D4C00">P13 RESULT MULTIPLICATION — one transition, many results, on many lines, at different times.</text>
+<text x="890" y="2577.0" font-size="13.5" font-weight="700" fill="#6D4C00">C8</text>
+<line x1="60" y1="2604.0" x2="1842.9" y2="2604.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2617.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2630.0" font-size="18" font-weight="700" fill="#000000">RETURN</text>
+<rect x="60" y="2659.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="2658.0" x2="1842.9" y2="2658.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2671.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2684.0" font-size="18" font-weight="700" fill="#000000">RESULT</text>
+<circle cx="314" cy="2680.0" r="6.2" fill="#6D4C00"/>
+<line x1="321" y1="2680.0" x2="412" y2="2680.0" stroke="#6D4C00" stroke-width="1.6"/>
+<text x="932" y="2685.0" font-size="15.5" fill="#6D4C00">P5 LATENT RESULT — it exists and it has not fired. Waiting is a state.</text>
+<text x="890" y="2685.0" font-size="13.5" font-weight="700" fill="#6D4C00">C8</text>
+<line x1="60" y1="2712.0" x2="1842.9" y2="2712.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2725.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2738.0" font-size="18" font-weight="700" fill="#000000">IMPACT</text>
+<rect x="60" y="2767.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="2766.0" x2="1842.9" y2="2766.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2779.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2792.0" font-size="18" font-weight="700" fill="#000000">VERIFICATION</text>
+<circle cx="144" cy="2788.0" r="6.2" fill="#0F7B3E"/>
+<line x1="151" y1="2788.0" x2="412" y2="2788.0" stroke="#0F7B3E" stroke-width="1.6"/>
+<text x="932" y="2793.0" font-size="15.5" fill="#0F7B3E">spawn REPAIR: closes when the repair is done, accepted only when the requirement is met.</text>
+<text x="890" y="2793.0" font-size="13.5" font-weight="700" fill="#0F7B3E">C3</text>
+<rect x="60" y="2821.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="2820.0" x2="1842.9" y2="2820.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2833.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2846.0" font-size="18" font-weight="700" fill="#000000">FEEDBACK</text>
+<circle cx="76" cy="2842.0" r="6.2" fill="#D01818"/>
+<line x1="83" y1="2842.0" x2="412" y2="2842.0" stroke="#D01818" stroke-width="1.6"/>
+<text x="932" y="2847.0" font-size="15.5" fill="#D01818">threshold CONFIDENCE — verification returns.</text>
+<text x="890" y="2847.0" font-size="13.5" font-weight="700" fill="#D01818">C1</text>
+<rect x="60" y="2875.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="2874.0" x2="1842.9" y2="2874.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2887.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2900.0" font-size="18" font-weight="700" fill="#000000">MEMORY</text>
+<circle cx="314" cy="2896.0" r="6.2" fill="#6D4C00"/>
+<line x1="321" y1="2896.0" x2="412" y2="2896.0" stroke="#6D4C00" stroke-width="1.6"/>
+<text x="932" y="2901.0" font-size="15.5" fill="#6D4C00">P9 OBSERVER / WRITER — the record is its own sequence with its own intent. Sanjaya is not a camera.</text>
+<text x="890" y="2901.0" font-size="13.5" font-weight="700" fill="#6D4C00">C8</text>
+<line x1="60" y1="2928.0" x2="1842.9" y2="2928.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="2949.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="2953.0" font-size="15.5" fill="#8A8A8A">FAILURE MEMORY</text>
+<rect x="60" y="2969.0" width="1782.9" height="78" fill="#F2F2F2"/>
+<line x1="60" y1="2968.0" x2="1842.9" y2="2968.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="2981.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="2994.0" font-size="18" font-weight="700" fill="#000000">MEMORY VALIDATION</text>
+<circle cx="76" cy="2990.0" r="6.2" fill="#D01818"/>
+<line x1="83" y1="2990.0" x2="412" y2="2990.0" stroke="#D01818" stroke-width="1.6"/>
+<text x="932" y="2995.0" font-size="15.5" fill="#D01818">threshold COUNT·QUORUM — a second independent witness.</text>
+<text x="890" y="2995.0" font-size="13.5" font-weight="700" fill="#D01818">C1</text>
+<circle cx="348" cy="3022.0" r="6.2" fill="#8A8A8A"/>
+<line x1="355" y1="3022.0" x2="412" y2="3022.0" stroke="#8A8A8A" stroke-width="1.6"/>
+<text x="932" y="3027.0" font-size="15.5" fill="#8A8A8A">struck: averaging two witnesses that differ. That HALTS; the gap is the Mask.</text>
+<text x="890" y="3027.0" font-size="13.5" font-weight="700" fill="#8A8A8A">C9</text>
+<line x1="60" y1="3048.0" x2="1842.9" y2="3048.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="3061.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="3074.0" font-size="18" font-weight="700" fill="#000000">COMPRESSION</text>
+<rect x="60" y="3103.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="3102.0" x2="1842.9" y2="3102.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="3115.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="3128.0" font-size="18" font-weight="700" fill="#000000">INHERITANCE</text>
+<circle cx="314" cy="3124.0" r="6.2" fill="#6D4C00"/>
+<line x1="321" y1="3124.0" x2="412" y2="3124.0" stroke="#6D4C00" stroke-width="1.6"/>
+<text x="932" y="3129.0" font-size="15.5" fill="#6D4C00">P10 RULE INERTIA — the rule keeps running after the reason for it is gone.</text>
+<text x="890" y="3129.0" font-size="13.5" font-weight="700" fill="#6D4C00">C8</text>
+<line x1="60" y1="3156.0" x2="1842.9" y2="3156.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="3177.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="3181.0" font-size="15.5" fill="#8A8A8A">biological</text>
+<line x1="60" y1="3196.0" x2="1842.9" y2="3196.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="3217.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="3221.0" font-size="15.5" fill="#8A8A8A">individual / social / technical</text>
+<line x1="60" y1="3236.0" x2="1842.9" y2="3236.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<circle cx="422" cy="3257.0" r="5.5" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="478" y="3261.0" font-size="15.5" fill="#8A8A8A">PHYSICAL</text>
+<rect x="60" y="3277.0" width="1782.9" height="142" fill="#F2F2F2"/>
+<line x1="60" y1="3276.0" x2="1842.9" y2="3276.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="3289.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="3302.0" font-size="18" font-weight="700" fill="#000000">SEQUENCE CLOSURE</text>
+<circle cx="110" cy="3298.0" r="6.2" fill="#4B0082"/>
+<line x1="117" y1="3298.0" x2="412" y2="3298.0" stroke="#4B0082" stroke-width="1.6"/>
+<text x="932" y="3303.0" font-size="15.5" fill="#4B0082">NEW STAGE. Six values, and they belong to the SEQUENCE.</text>
+<text x="890" y="3303.0" font-size="13.5" font-weight="700" fill="#4B0082">C2</text>
+<circle cx="178" cy="3330.0" r="6.2" fill="#B26B00"/>
+<line x1="185" y1="3330.0" x2="412" y2="3330.0" stroke="#B26B00" stroke-width="1.6"/>
+<text x="932" y="3335.0" font-size="15.5" fill="#B26B00">it can only close when the ledger is empty.</text>
+<text x="890" y="3335.0" font-size="13.5" font-weight="700" fill="#B26B00">C4</text>
+<circle cx="314" cy="3362.0" r="6.2" fill="#6D4C00"/>
+<line x1="321" y1="3362.0" x2="412" y2="3362.0" stroke="#6D4C00" stroke-width="1.6"/>
+<text x="932" y="3367.0" font-size="15.5" fill="#6D4C00">P8 CLOSURE SCOPE — whose closure. A war closing is not a family closing.</text>
+<text x="890" y="3367.0" font-size="13.5" font-weight="700" fill="#6D4C00">C8</text>
+<circle cx="348" cy="3394.0" r="6.2" fill="#8A8A8A"/>
+<line x1="355" y1="3394.0" x2="412" y2="3394.0" stroke="#8A8A8A" stroke-width="1.6"/>
+<text x="932" y="3399.0" font-size="15.5" fill="#8A8A8A">struck: the word CLOSURE used of an entity.</text>
+<text x="890" y="3399.0" font-size="13.5" font-weight="700" fill="#8A8A8A">C9</text>
+<rect x="60" y="3421.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="3420.0" x2="1842.9" y2="3420.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="3433.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="3446.0" font-size="18" font-weight="700" fill="#000000">ENTITY OUTCOME</text>
+<circle cx="110" cy="3442.0" r="6.2" fill="#4B0082"/>
+<line x1="117" y1="3442.0" x2="412" y2="3442.0" stroke="#4B0082" stroke-width="1.6"/>
+<text x="932" y="3447.0" font-size="15.5" fill="#4B0082">NEW STAGE. Thirteen values — persists, coheres, degrades, terminates — and none of them is “closed”.</text>
+<text x="890" y="3447.0" font-size="13.5" font-weight="700" fill="#4B0082">C2</text>
+<rect x="60" y="3475.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="3474.0" x2="1842.9" y2="3474.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="3487.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="3500.0" font-size="18" font-weight="700" fill="#000000">NEXT-SEQUENCE SEED</text>
+<circle cx="348" cy="3496.0" r="6.2" fill="#8A8A8A"/>
+<line x1="355" y1="3496.0" x2="412" y2="3496.0" stroke="#8A8A8A" stroke-width="1.6"/>
+<text x="932" y="3501.0" font-size="15.5" fill="#8A8A8A">struck: reopening S₀. S₁ REFERENCES S₀ and S₀ stays closed.</text>
+<text x="890" y="3501.0" font-size="13.5" font-weight="700" fill="#8A8A8A">C9</text>
+<rect x="60" y="3529.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="3528.0" x2="1842.9" y2="3528.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="3541.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="3554.0" font-size="18" font-weight="700" fill="#000000">RE-ENTRY POINT</text>
+<circle cx="76" cy="3550.0" r="6.2" fill="#D01818"/>
+<line x1="83" y1="3550.0" x2="412" y2="3550.0" stroke="#D01818" stroke-width="1.6"/>
+<text x="932" y="3555.0" font-size="15.5" fill="#D01818">threshold EVENT — the seed is accepted.</text>
+<text x="890" y="3555.0" font-size="13.5" font-weight="700" fill="#D01818">C1</text>
+<line x1="60" y1="3582.0" x2="1842.9" y2="3582.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="3595.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="3608.0" font-size="18" font-weight="700" fill="#000000">EXECUTION</text>
+<line x1="60" y1="3636.0" x2="1842.9" y2="3636.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="3649.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="3662.0" font-size="18" font-weight="700" fill="#000000">RE-VERIFY</text>
+<rect x="60" y="3691.0" width="1782.9" height="52" fill="#F2F2F2"/>
+<line x1="60" y1="3690.0" x2="1842.9" y2="3690.0" stroke="#DCDCDC" stroke-width="0.8"/>
+<rect x="414" y="3703.0" width="16" height="16" fill="#000000"/>
+<text x="462" y="3716.0" font-size="18" font-weight="700" fill="#000000">MEMORY UPDATE</text>
+<circle cx="280" cy="3712.0" r="6.2" fill="#E05A00"/>
+<line x1="287" y1="3712.0" x2="412" y2="3712.0" stroke="#E05A00" stroke-width="1.6"/>
+<text x="932" y="3717.0" font-size="15.5" fill="#E05A00">the end PASS 0 declared is checked here: did we arrive at the reality we named at the start?</text>
+<text x="890" y="3717.0" font-size="13.5" font-weight="700" fill="#E05A00">C7</text>
+<line x1="60" y1="3744" x2="1842.9" y2="3744" stroke="#000000" stroke-width="2.5"/>
+<text x="60" y="3784" font-size="18" fill="#000000">Two stages are entirely new — SEQUENCE CLOSURE and ENTITY OUTCOME. Everything else was already on the line; what changed is what each stage is now required to carry.</text>
+<text x="60" y="3814" font-size="18" fill="#8A8A8A">The thirteen primitives (C8) sit in the document, not in the code. Six enforceable objects only — or the next consolidation quietly drops half of them, as every prior one did.</text>
+<text x="60" y="3844" font-size="18" fill="#8A8A8A">Read with the arrow chart: C1 is annotated here at the stages where the threshold changes the reading, but all 22 thresholds are drawn there, on their own edges.</text>
+</svg>

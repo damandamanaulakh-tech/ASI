@@ -1,0 +1,659 @@
+<title>Sourceborn — the build map</title>
+<style>
+  :root{
+    --paper:#E9EAE6; --card:#F3F4F0; --sunk:#DFE1DB;
+    --ink:#1A1C19; --graphite:#5C625C; --faint:#878D86;
+    --rule:#C7CAC2; --hair:#D6D9D1;
+    --line:#B8342A;      /* the ½ line, HALT, drift — the only hot colour */
+    --held:#2F5D50;      /* built / on-line */
+    --part:#8A6A21;      /* partial */
+    --plan:#5C625C;      /* planned */
+    --shadow:0 1px 0 rgba(26,28,25,.06), 0 6px 18px -12px rgba(26,28,25,.35);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#141613; --card:#1C1F1B; --sunk:#101210;
+      --ink:#E6E8E2; --graphite:#9AA096; --faint:#767C74;
+      --rule:#2F332E; --hair:#262A25;
+      --line:#E0554A; --held:#74B79F; --part:#D2A648; --plan:#9AA096;
+      --shadow:0 1px 0 rgba(0,0,0,.4), 0 8px 22px -14px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#141613; --card:#1C1F1B; --sunk:#101210;
+    --ink:#E6E8E2; --graphite:#9AA096; --faint:#767C74;
+    --rule:#2F332E; --hair:#262A25;
+    --line:#E0554A; --held:#74B79F; --part:#D2A648; --plan:#9AA096;
+    --shadow:0 1px 0 rgba(0,0,0,.4), 0 8px 22px -14px rgba(0,0,0,.9);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    font-size:16px; line-height:1.6; margin:0;
+    padding:clamp(24px,5vw,64px) clamp(16px,4vw,40px) 96px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px; margin:0 auto; display:flex; flex-direction:column; gap:56px}
+  .mono{font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace}
+
+  h1{
+    font-size:clamp(30px,5vw,52px); line-height:1.04; margin:0;
+    font-weight:800; letter-spacing:-.028em; text-wrap:balance;
+  }
+  h2{
+    font-size:clamp(19px,2.4vw,25px); margin:0; font-weight:700;
+    letter-spacing:-.014em; text-wrap:balance;
+  }
+  h3{font-size:15px; margin:0; font-weight:700; letter-spacing:-.005em}
+  p{margin:0; max-width:66ch}
+  .lede{color:var(--graphite); font-size:clamp(16px,1.7vw,18.5px); max-width:64ch}
+  .eyebrow{
+    font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--faint);
+  }
+
+  header{
+    display:flex; flex-direction:column; gap:16px;
+    padding-bottom:32px; border-bottom:1px solid var(--rule);
+  }
+  section{display:flex; flex-direction:column; gap:20px}
+  .sechead{display:flex; flex-direction:column; gap:8px}
+  .sechead .num{
+    font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:11px; letter-spacing:.16em; color:var(--line); text-transform:uppercase;
+  }
+
+  /* ---- status chips ---- */
+  .chip{
+    display:inline-flex; align-items:center; gap:5px; flex:none;
+    font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:10.5px; letter-spacing:.07em; text-transform:uppercase;
+    padding:2px 7px; border-radius:2px; border:1px solid currentColor;
+    white-space:nowrap;
+  }
+  .chip::before{content:""; width:5px; height:5px; background:currentColor; border-radius:50%}
+  .s-built{color:var(--held)} .s-part{color:var(--part)}
+  .s-plan{color:var(--plan)} .s-block{color:var(--line)}
+
+  /* ---- the spine ---- */
+  .spine{
+    display:grid; gap:10px;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  }
+  .stage{
+    background:var(--card); border:1px solid var(--rule); border-radius:3px;
+    padding:12px 13px 13px; display:flex; flex-direction:column; gap:7px;
+    box-shadow:var(--shadow); position:relative;
+  }
+  .stage .k{
+    font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:10px; letter-spacing:.13em; color:var(--faint); text-transform:uppercase;
+  }
+  .stage .t{font-weight:700; font-size:14.5px; letter-spacing:-.01em}
+  .stage .d{font-size:12.5px; color:var(--graphite); line-height:1.45}
+  .stage .f{
+    font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:10.5px; color:var(--faint); margin-top:auto; padding-top:4px;
+  }
+  .stage.hot{border-color:var(--line)}
+
+  .rail{
+    border-left:2px solid var(--line); border-bottom:2px solid var(--line);
+    border-bottom-left-radius:4px;
+    margin:0 0 0 12px; padding:0 0 0 18px; height:34px;
+    display:flex; align-items:flex-end;
+  }
+  .rail span{
+    transform:translateY(50%); background:var(--paper); padding:0 10px;
+    font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--line);
+  }
+
+  /* ---- generic panel + grids ---- */
+  .panel{
+    background:var(--card); border:1px solid var(--rule); border-radius:3px;
+    padding:clamp(16px,2.4vw,26px); display:flex; flex-direction:column; gap:16px;
+    box-shadow:var(--shadow);
+  }
+  .cols{display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .cols.four{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+
+  .box{
+    border:1px solid var(--rule); border-radius:3px; padding:12px 13px;
+    display:flex; flex-direction:column; gap:6px; background:var(--paper);
+  }
+  .box .h{display:flex; align-items:baseline; justify-content:space-between; gap:8px}
+  .box .n{
+    font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12px; color:var(--line); font-variant-numeric:tabular-nums;
+  }
+  .box p{font-size:12.5px; color:var(--graphite); line-height:1.45}
+
+  /* ---- the pyramid ---- */
+  .pyr{display:flex; flex-direction:column; gap:0; align-items:stretch}
+  .tier{
+    border:1px solid var(--rule); border-bottom:none; padding:11px 14px;
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    background:var(--paper); flex-wrap:wrap;
+  }
+  .tier:first-child{border-radius:3px 3px 0 0}
+  .tier:last-child{border-bottom:1px solid var(--rule); border-radius:0 0 3px 3px}
+  .tier .lab{font-weight:700; font-size:13.5px}
+  .tier .sub{font-size:12.5px; color:var(--graphite); flex:1 1 220px}
+  .tier .cnt{
+    font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:14px; font-variant-numeric:tabular-nums; color:var(--ink); font-weight:600;
+  }
+  .tier.w1{margin:0 0 0 0} .tier.w2{margin:0 14px 0 14px}
+  .tier.w3{margin:0 28px 0 28px} .tier.w4{margin:0 42px 0 42px}
+
+  /* ---- tables ---- */
+  .tscroll{overflow-x:auto; border:1px solid var(--rule); border-radius:3px}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:560px}
+  th,td{text-align:left; padding:9px 13px; border-bottom:1px solid var(--hair); vertical-align:top}
+  thead th{
+    font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:10.5px; letter-spacing:.11em; text-transform:uppercase;
+    color:var(--faint); background:var(--sunk); border-bottom:1px solid var(--rule);
+    font-weight:500; white-space:nowrap;
+  }
+  tbody tr:last-child td{border-bottom:none}
+  td.num{font-variant-numeric:tabular-nums; font-family:ui-monospace,Menlo,monospace}
+  td .why{display:block; color:var(--graphite); font-size:12.5px; margin-top:3px}
+
+  /* ---- the meter ---- */
+  .meter{display:grid; gap:20px; grid-template-columns:minmax(300px,1.2fr) minmax(240px,1fr)}
+  @media (max-width:760px){ .meter{grid-template-columns:1fr} }
+  figure{margin:0; display:flex; flex-direction:column; gap:8px}
+  figcaption{font-size:12.5px; color:var(--graphite)}
+  svg{display:block; width:100%; height:auto; overflow:visible}
+
+  .note{
+    border-left:2px solid var(--line); padding:2px 0 2px 16px;
+    color:var(--graphite); font-size:14px; max-width:62ch;
+  }
+  .note b{color:var(--ink)}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; align-items:center}
+  footer{border-top:1px solid var(--rule); padding-top:24px; color:var(--faint); font-size:12.5px}
+  a{color:var(--line)}
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Sourceborn · ASI · build map · drawn from the repo, not from memory</div>
+  <h1>What connects to what,<br>and where the work actually stands.</h1>
+  <p class="lede">One run, end to end — then the five layers that feed it: the sequence, the
+  containers and elements, the four kinds and their rubrics, the node brains, and the ½ line
+  that measures whether any single voice has taken over. Every count below comes from a file
+  in the repo. Everything not yet built says so.</p>
+  <div class="legend">
+    <span class="chip s-built">built · running</span>
+    <span class="chip s-part">partial</span>
+    <span class="chip s-plan">planned</span>
+    <span class="chip s-block">blocked on you</span>
+  </div>
+</header>
+
+<!-- ============================ THE SPINE ============================ -->
+<section>
+  <div class="sechead">
+    <div class="num">The workflow</div>
+    <h2>One run, left to right — and the loop that makes it a cycle</h2>
+    <p class="lede">Nothing here is new architecture. This is what <span class="mono">run_walk()</span>
+    already does, drawn out, with the two places the new work attaches.</p>
+  </div>
+
+  <div class="spine">
+    <div class="stage">
+      <div class="k">01 · intake</div>
+      <div class="t">Point Zero</div>
+      <div class="d">Your exact words stored before anything interprets them. Raw source
+      preserved, never flattened.</div>
+      <div class="f">models.py · RawSource</div>
+    </div>
+    <div class="stage">
+      <div class="k">02 · placement</div>
+      <div class="t">The Sequence</div>
+      <div class="d">Which of the 8 steps is this ask standing on? Ground or Invention —
+      they take different paths.</div>
+      <div class="f">sequence.py</div>
+    </div>
+    <div class="stage">
+      <div class="k">03 · firing</div>
+      <div class="t">95 Nodes</div>
+      <div class="d">70 SB across 8 stages + 25 URR gates. Each one is a local brain, not
+      a step in a pipeline.</div>
+      <div class="f">nodes.py · node_work.py</div>
+    </div>
+    <div class="stage">
+      <div class="k">04 · recall</div>
+      <div class="t">Brains</div>
+      <div class="d">Every node reads its own memory and writes back what it learned. Three
+      memories behind them.</div>
+      <div class="f">memory.py · NodeBrain</div>
+    </div>
+    <div class="stage hot">
+      <div class="k">05 · method</div>
+      <div class="t">7 Filters</div>
+      <div class="d">Ground · Sequence · Source · Mask · Fact · Halt · Loop. Every finding,
+      in order, every time.</div>
+      <div class="f">filters.py</div>
+    </div>
+    <div class="stage hot">
+      <div class="k">06 · compose</div>
+      <div class="t">Trend − Doubts</div>
+      <div class="d">Answer is the trend minus every correction, each kept visible. Nothing
+      averaged away.</div>
+      <div class="f">rh_code.py · not wired yet</div>
+    </div>
+    <div class="stage hot">
+      <div class="k">07 · measure</div>
+      <div class="t">Line Check</div>
+      <div class="d">Has one voice outgrown the crowd? σ per node. A name comes back, or
+      nothing does.</div>
+      <div class="f">rh_code.py · not wired yet</div>
+    </div>
+    <div class="stage">
+      <div class="k">08 · out</div>
+      <div class="t">Output or Halt</div>
+      <div class="d">An answer with its ledger — or a named halt handed to you, with the
+      gap intact.</div>
+      <div class="f">engine.py · Output</div>
+    </div>
+  </div>
+
+  <div class="rail"><span>Halt → Loop · the halt becomes the next Point Zero</span></div>
+
+  <p class="note"><b>The two hot boxes are the new attachment points.</b> Steps 06 and 07 exist
+  and are tested but are not yet called by the engine — that is the smallest piece of real
+  wiring in the whole plan, and it is what turns the ½ from a rule you remember into a number
+  the app shows you.</p>
+</section>
+
+<!-- ======================== SEQUENCE & FILTERS ======================== -->
+<section>
+  <div class="sechead">
+    <div class="num">Layer one</div>
+    <h2>The sequence is the shape; the filters are the guard</h2>
+    <p class="lede">They are easy to confuse because they share four words. They are not the
+    same thing and they run at different moments — the sequence <em>places</em> the ask before
+    any node fires; the filters <em>review</em> each finding after.</p>
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <div class="h" style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+        <h3>The 8 steps — where a thing sits</h3>
+        <span class="chip s-built">built</span>
+      </div>
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>#</th><th>Step</th><th>What it means</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>Ground</td><td>it is already there; nobody made it</td></tr>
+            <tr><td class="num">2</td><td>Pressure</td><td>something forces contact with it</td></tr>
+            <tr><td class="num">3</td><td>Use</td><td>used long before it is understood</td></tr>
+            <tr><td class="num">4</td><td>Witness</td><td>someone stops using it and looks</td></tr>
+            <tr><td class="num">5</td><td>Expression</td><td>a way to say it is found — the human act</td></tr>
+            <tr><td class="num">6</td><td>Naming</td><td>the name begins to stand in for the thing</td></tr>
+            <tr><td class="num">7</td><td>Halt</td><td>the expression fails on some case</td></tr>
+            <tr><td class="num">8</td><td>Loop</td><td>the halt becomes the next Ground</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note"><b>Step 6 is the dangerous one.</b> A name is a voice that gained weight
+      without gaining sources. That is how something climbs off the line — not by lying, by
+      being repeated.</p>
+    </div>
+
+    <div class="panel">
+      <div class="h" style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+        <h3>The 7 filters — what every finding survives</h3>
+        <span class="chip s-built">built · on main</span>
+      </div>
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>#</th><th>Filter</th><th>The gate</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>Ground</td><td>does this pre-exist the asking?</td></tr>
+            <tr><td class="num">2</td><td>Sequence</td><td>which of the 8 steps is it standing on?</td></tr>
+            <tr><td class="num">3</td><td>Source</td><td>two witnesses. One caps at Medium. Two that differ HALT.</td></tr>
+            <tr><td class="num">4</td><td>Mask</td><td>is our word the word the source used?</td></tr>
+            <tr><td class="num">5</td><td>Fact</td><td>every claim tagged; an untagged claim does not leave</td></tr>
+            <tr><td class="num">6</td><td>Halt</td><td>where it fails — named, not hidden</td></tr>
+            <tr><td class="num">7</td><td>Loop</td><td>the halt is handed back as the next Point Zero</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note"><b>Filters 3 and 4 found everything in the Riemann work.</b> Filter 6
+      stopped readings being invented to fill a gap. Filter 7 turned dead ends into the next
+      ask instead of a shrug.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ELEMENTS / CONTAINERS ==================== -->
+<section>
+  <div class="sechead">
+    <div class="num">Layer two · Phase 2</div>
+    <h2>Segment → container → parameter → element</h2>
+    <p class="lede">This is the storage side, and it is the one part of the map where the
+    drawing runs ahead of the code. The architecture is fully enumerated in your white paper.
+    Almost none of it exists in Python yet.</p>
+  </div>
+
+  <div class="panel">
+    <div class="pyr">
+      <div class="tier w1">
+        <span class="lab">Segment</span>
+        <span class="sub">Reasoning · Consciousness · Emotion · Learning · Attention ·
+        Development · Language · Biology · Perception · Sensorimotor</span>
+        <span class="cnt">10</span>
+        <span class="chip s-part">doc only</span>
+      </div>
+      <div class="tier w2">
+        <span class="lab">Container</span>
+        <span class="sub">142 carry parameters · 58 sit across segments · 40 reserved and empty</span>
+        <span class="cnt">200</span>
+        <span class="chip s-part">doc only</span>
+      </div>
+      <div class="tier w3">
+        <span class="lab">Sub-parameter</span>
+        <span class="sub">Each with an ID, a segment, a container and a slot — SB-ASI-P0001 …</span>
+        <span class="cnt">3,072</span>
+        <span class="chip s-block">count contested</span>
+      </div>
+      <div class="tier w4">
+        <span class="lab">Element</span>
+        <span class="sub">The smallest thing a parameter is measured on. <b>Not yet defined
+        anywhere</b> — this is the genuinely new work in Phase 2.</span>
+        <span class="cnt">—</span>
+        <span class="chip s-plan">to define</span>
+      </div>
+    </div>
+
+    <p class="note"><b>The one thing blocking this whole layer:</b> your own documents give
+    three different totals — <span class="mono">2,560</span>, <span class="mono">2,592</span>,
+    <span class="mono">3,072</span>. Two witnesses that differ, so by Filter 3 I halt at ½ and
+    hand it back rather than pick one. Phase 2 is <em>about</em> parameters; it cannot be
+    defined on a contested count. One word from you moves it.</p>
+
+    <p class="note">Separately, the engine already ships a smaller, working bank —
+    <b>64 canonical parameters</b> (<span class="mono">P001–P064</span>, in
+    <span class="mono">parameters.py</span>) plus extensible comparison axes. That is the live
+    one today. Part of Phase 2 is deciding whether the 3,072 <em>replaces</em> it or
+    <em>contains</em> it.</p>
+  </div>
+</section>
+
+<!-- ==================== FOUR KINDS + RUBRICS ==================== -->
+<section>
+  <div class="sechead">
+    <div class="num">Layer three · Phase 2</div>
+    <h2>Human · AI · Holy Books · ASI — four kinds, one grid, two rubrics</h2>
+    <p class="lede">The four are not four systems. They are four <em>sources of parameter
+    values</em> poured into the same container grid, then scored by two different rubrics — so
+    that where they disagree is visible instead of blended.</p>
+  </div>
+
+  <div class="cols four">
+    <div class="box">
+      <div class="h"><h3>Human</h3><span class="n">source</span></div>
+      <p>What a person actually does. Your corpus, your trail, the Mahabharata work, the
+      3-lakh-year human line.</p>
+    </div>
+    <div class="box">
+      <div class="h"><h3>AI</h3><span class="n">source</span></div>
+      <p>What a machine does at the same parameter. Where it matches, where it cannot reach,
+      where it fakes reach.</p>
+    </div>
+    <div class="box">
+      <div class="h"><h3>Holy Books</h3><span class="n">source</span></div>
+      <p>The eternal example. Held as a witness with a period of its own, never averaged with
+      a present fact.</p>
+    </div>
+    <div class="box">
+      <div class="h"><h3>ASI</h3><span class="n">target</span></div>
+      <p>Not a fourth witness — the shape the other three imply. It has no reading of its own;
+      it is what the gaps describe.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="cols">
+      <div class="box">
+        <div class="h"><h3>Human rubric</h3><span class="chip s-plan">planned</span></div>
+        <p>Scores a parameter the way a person is scored: by example, wound, pressure,
+        loyalty, what it cost. Eternal example weighs here.</p>
+      </div>
+      <div class="box">
+        <div class="h"><h3>AI rubric</h3><span class="chip s-plan">planned</span></div>
+        <p>Scores the same parameter by reach, evidence, repeatability, and honest refusal.
+        Present fact weighs here.</p>
+      </div>
+      <div class="box" style="border-color:var(--line)">
+        <div class="h"><h3>Where they differ</h3><span class="n">the Mask</span></div>
+        <p><b>The gap is the output, not a problem.</b> Two rubrics that disagree on one
+        parameter HALT at ½ and hand you the two readings — the same law as two witnesses.</p>
+      </div>
+    </div>
+    <p class="note"><b>Why two rubrics and not one blended score:</b> a single score would
+    manufacture one full-weight voice out of two half-weight ones. That is exactly the move
+    the ½ forbids, and it is the move that would quietly make the engine's answers not yours.</p>
+  </div>
+</section>
+
+<!-- ======================== THE BRAIN ======================== -->
+<section>
+  <div class="sechead">
+    <div class="num">Layer four · Phase 3</div>
+    <h2>How one brain works — a node opened up</h2>
+    <p class="lede">There is no central model. There are 95 small ones, each with its own
+    memory, each narrowing the same way.</p>
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <h3>Inside a single node</h3>
+      <div class="pyr">
+        <div class="tier w1"><span class="lab">Node</span><span class="sub">its own job — e.g. SB-57, URR-08</span><span class="cnt">1</span></div>
+        <div class="tier w2"><span class="lab">Main</span><span class="sub">the handful of things it always checks</span><span class="cnt">5–10</span></div>
+        <div class="tier w3"><span class="lab">Sub</span><span class="sub">what those break into</span><span class="cnt">10–20</span></div>
+        <div class="tier w4"><span class="lab">Micro</span><span class="sub">the finest grain it holds</span><span class="cnt">20–30</span></div>
+      </div>
+      <p class="note">Any node can loop back to any earlier node. It is a network, not a
+      pipeline — which is why the drift meter matters: in a network, one loud node is invisible
+      until you measure it.</p>
+    </div>
+
+    <div class="panel">
+      <h3>What every node reads and writes</h3>
+      <div class="cols" style="grid-template-columns:1fr">
+        <div class="box"><div class="h"><h3>Corpus memory</h3><span class="n">yours</span></div>
+          <p>Your own files and words. The only place new content enters. Read on every run.</p></div>
+        <div class="box"><div class="h"><h3>Wisdom memory</h3><span class="n">eternal</span></div>
+          <p>The examples that keep applying. Grows slowly, deliberately, and is never
+          overwritten by a single run.</p></div>
+        <div class="box"><div class="h"><h3>Live fact</h3><span class="n">present</span></div>
+          <p>What is true right now, with an expiry. Never allowed to masquerade as eternal —
+          and never the other way round.</p></div>
+        <div class="box" style="border-color:var(--line)">
+          <div class="h"><h3>Write-back</h3><span class="n">after the run</span></div>
+          <p>Each node stores what it learned into its <em>own</em> brain — that is where
+          "wiser every use" actually happens, and where drift would accumulate unseen.</p></div>
+      </div>
+      <div class="legend">
+        <span class="chip s-built">memory built · on disk</span>
+        <span class="chip s-part">git-or-server undecided</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== THE ½ METER ======================== -->
+<section>
+  <div class="sechead">
+    <div class="num">Layer five · the measurement</div>
+    <h2>The ½ line — has one voice become the author?</h2>
+    <p class="lede">This is the whole Riemann walk spent as one instrument. A voice growing
+    like √n stays one of the crowd forever. A voice growing faster ends up <em>being</em> the
+    answer while the engine still prints five contributors.</p>
+  </div>
+
+  <div class="panel">
+    <div class="meter">
+      <figure>
+        <svg viewBox="0 0 470 190" role="img" aria-label="Share of the answer held by the loudest single voice, measured across six scales. On the line it stays near a third. With one voice off the line it climbs to 0.914.">
+          <!-- grid -->
+          <g stroke="var(--hair)" stroke-width="1">
+            <line x1="40" y1="20" x2="440" y2="20"/>
+            <line x1="40" y1="55" x2="440" y2="55"/>
+            <line x1="40" y1="90" x2="440" y2="90"/>
+            <line x1="40" y1="125" x2="440" y2="125"/>
+            <line x1="40" y1="160" x2="440" y2="160"/>
+          </g>
+          <g font-size="9" fill="var(--faint)" font-family="ui-monospace,Menlo,monospace">
+            <text x="34" y="23" text-anchor="end">1.0</text>
+            <text x="34" y="93" text-anchor="end">0.5</text>
+            <text x="34" y="163" text-anchor="end">0.0</text>
+            <text x="40" y="176">1e2</text>
+            <text x="440" y="176" text-anchor="end">1e7</text>
+          </g>
+          <!-- drifting -->
+          <polyline fill="none" stroke="var(--line)" stroke-width="2.25"
+            points="40,96.7 118,123 196,87.1 274,48.7 352,40.9 430,32"/>
+          <circle cx="430" cy="32" r="4" fill="var(--line)"/>
+          <text x="424" y="24" text-anchor="end" font-size="11" font-weight="700"
+                fill="var(--line)" font-family="ui-monospace,Menlo,monospace">0.914</text>
+          <!-- stable -->
+          <polyline fill="none" stroke="var(--held)" stroke-width="2.25" stroke-dasharray="5 3"
+            points="40,84.5 118,113.7 196,103.4 274,110 352,97.6 430,119"/>
+          <circle cx="430" cy="119" r="4" fill="var(--held)"/>
+          <text x="424" y="136" text-anchor="end" font-size="11" font-weight="700"
+                fill="var(--held)" font-family="ui-monospace,Menlo,monospace">0.293</text>
+          <text x="150" y="70" font-size="10.5" fill="var(--line)" font-weight="600">one voice off the line</text>
+          <text x="150" y="145" font-size="10.5" fill="var(--held)" font-weight="600">all five on the line</text>
+        </svg>
+        <figcaption>Share of the answer held by the loudest single voice, five voices, six
+        scales. Real output from <span class="mono">python -m sourceborn.rh_code</span>.</figcaption>
+      </figure>
+
+      <div style="display:flex; flex-direction:column; gap:14px">
+        <div class="box">
+          <div class="h"><h3>What the meter returns</h3><span class="n">σ per node</span></div>
+          <p>A voice planted at σ=0.72 came back <b>0.7201 and named</b>. The four built on the
+          line came back within <b>0.0007</b> of exactly ½.</p>
+        </div>
+        <div class="box">
+          <div class="h"><h3>What it refuses to do</h3><span class="n">honest limits</span></div>
+          <p>Accuracy is set by <b>run length, not code</b>. Too short a run and it says
+          <span class="mono">UNDER-RESOLVED</span> with the number it would need — it does not
+          round into something reassuring.</p>
+        </div>
+        <p class="note"><b>Read this line if you read nothing else:</b> drift does not announce
+        itself with a wrong answer. It produces a <em>confident</em> answer with the crowd
+        still visible in the margin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== PHASES ======================== -->
+<section>
+  <div class="sechead">
+    <div class="num">The work</div>
+    <h2>Your five phases against what is actually standing</h2>
+  </div>
+
+  <div class="tscroll">
+    <table>
+      <thead>
+        <tr><th>Phase</th><th>What it delivers</th><th>Status</th><th>The honest note</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>1</b><span class="why">Sequence — reverse + material</span></td>
+          <td>One consolidated sequence spine, forward and reverse, over everything already collected</td>
+          <td><span class="chip s-part">ready to run</span></td>
+          <td>Unblocked. The two source documents already exist; this is consolidation, not discovery.</td>
+        </tr>
+        <tr>
+          <td><b>2</b><span class="why">Parameters, containers, elements</span></td>
+          <td>Human · AI · Holy Books · ASI defined against the container grid, with both rubrics</td>
+          <td><span class="chip s-block">blocked</span></td>
+          <td><b>The parameter count is contested in your own documents</b> — 2,560 / 2,592 / 3,072. And <b>element</b> is not defined anywhere yet.</td>
+        </tr>
+        <tr>
+          <td><b>2a</b><span class="why">You upload files to repo assets</span></td>
+          <td>The corpus lands where the engine can read it</td>
+          <td><span class="chip s-plan">yours</span></td>
+          <td>I need the landing path and a manifest. Two things must <b>not</b> go up: the OT spreadsheet (patient-identifying) and <span class="mono">.sourceborn/</span> (your private brain).</td>
+        </tr>
+        <tr>
+          <td><b>3</b><span class="why">Nodes and brain memory</span></td>
+          <td>Every node's brain wired to the new grid; storage decided</td>
+          <td><span class="chip s-part">half standing</span></td>
+          <td>95 brains and three memories already run and persist. Open: Git or server — a real fork with different costs, decided when we reach it.</td>
+        </tr>
+        <tr>
+          <td><b>4</b><span class="why">Examples that explain RH your way</span></td>
+          <td>The worked examples linking node, brain, element, rubric and core</td>
+          <td><span class="chip s-plan">planned</span></td>
+          <td>Depends on 2 and 3. <span class="mono">rh_code.py</span> is the spine these hang on and is already tested.</td>
+        </tr>
+        <tr>
+          <td><b>5</b><span class="why">Live app — edit any link or ID from inside</span></td>
+          <td>What you write here, you can do there</td>
+          <td><span class="chip s-part">extends, not starts</span></td>
+          <td><span class="mono">/brains/update</span>, <span class="mono">/brain/settings</span>, <span class="mono">/graph</span>, <span class="mono">/review</span> already exist. <b>I cannot deploy — you press Render.</b></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ======================== NO LLM ======================== -->
+<section>
+  <div class="sechead">
+    <div class="num">The constraint</div>
+    <h2>"No API, no LLM, my own corpus" — mostly already true</h2>
+  </div>
+  <div class="panel">
+    <div class="cols">
+      <div class="box">
+        <div class="h"><h3>Runs with zero keys</h3><span class="chip s-built">verified</span></div>
+        <p>Engine ran with every key unset — Anthropic, OpenAI, xAI, Tavily, Mongo. Exit 0,
+        full walk, 95 brains, memory written.</p>
+      </div>
+      <div class="box">
+        <div class="h"><h3>29 of 38 modules</h3><span class="n">key-free</span></div>
+        <p>Never touch a key at all. The nine that do already degrade instead of failing.</p>
+      </div>
+      <div class="box" style="border-color:var(--line)">
+        <div class="h"><h3>The one real cost</h3><span class="n">node_work.py</span></div>
+        <p><b>Today it asks a model to do the per-node thinking.</b> Replacing that with a
+        retrieval-and-rules lane over your corpus is the largest single item in the plan — not
+        a config flag.</p>
+      </div>
+    </div>
+    <p class="note"><b>The trade you should make with open eyes:</b> with no model at all, the
+    engine stops <em>generating</em> language and becomes retrieval, rules and composition over
+    your own text. It will select, match, filter, connect, rank and assemble — and it will not
+    write a sentence that isn't yours. For a clone of your mind, that may be exactly right.</p>
+  </div>
+</section>
+
+<footer>
+  Counts read from <span class="mono">nodes.py</span>, <span class="mono">filters.py</span>,
+  <span class="mono">sequence.py</span>, <span class="mono">parameters.py</span>,
+  <span class="mono">server.py</span>, <span class="mono">rh_code.py</span> and
+  <span class="mono">WHITE_PAPER_v1.md</span>. Chart values are real output from
+  <span class="mono">python -m sourceborn.rh_code</span>. Anything not yet built is marked, not
+  implied — and the two blocked items are blocked on a decision only you can make.
+</footer>
+
+</div>

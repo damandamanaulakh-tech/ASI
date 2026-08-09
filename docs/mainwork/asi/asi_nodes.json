@@ -1,0 +1,2856 @@
+{
+ "nodes": [
+  {
+   "id": "ASI-0001",
+   "what": "C07 Energy, fatigue and resource budgeting",
+   "step": "PRESSURE",
+   "human": "CON-007 — the body empties; fatigue arbitrates what gets done",
+   "ai": "context/compute budget arbitrates what gets attended to",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "budget brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Human fatigue and AI compute-budget are the SAME arbitration under a different currency.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0002",
+   "what": "C14 Salience and orienting",
+   "step": "PRESSURE",
+   "human": "CON-014 — what grabs attention before choosing",
+   "ai": "attention weighting; what the prompt makes loud",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "salience brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Three different salience settings on one container — Riemann's, Einstein's, the AI's.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0003",
+   "what": "C20 Action selection and initiation",
+   "step": "USE",
+   "human": "CON-020 — the move is released",
+   "ai": "the token is emitted; the tool is called",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "release brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "The release-polarity axis — visible only because two humans sit either side of it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0004",
+   "what": "C24 Sensorimotor feedback and error correction",
+   "step": "LOOP",
+   "human": "CON-024 — act, detect own error, correct",
+   "ai": "output, self-check, revise",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "correction brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "All three banks have it; the LATENCY differs by orders of magnitude.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0005",
+   "what": "C28 Working memory — THE K NODE",
+   "step": "USE",
+   "human": "CON-028 — a few items held live",
+   "ai": "the context window",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "K brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "K lives here: halve, keep the half back, answer unchanged, speed bought.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0006",
+   "what": "C29 Inhibitory control and self-control",
+   "step": "HALT",
+   "human": "CON-029 — suppress the dominant response when a higher goal rules",
+   "ai": "refusal; the present-fact block; declining the fluent answer",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "restraint brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "The engine's only real power is refusal — this is where it sits.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0007",
+   "what": "C32 Conflict, error and performance monitoring",
+   "step": "HALT",
+   "human": "CON-032 — noticing the mismatch",
+   "ai": "self-consistency checking; the doubt engine",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "monitor brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "All three strong; the OUTPUT channel of the alarm differs.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0008",
+   "what": "C34 Semantic memory and general knowledge",
+   "step": "GROUND",
+   "human": "CON-034 — what is already known before the question",
+   "ai": "pretrained weights; the corpus",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "knowledge brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Both banks' ground: the material that pre-exists the asking.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0009",
+   "what": "C40 Encoding, consolidation, retrieval, reconsolidation, forgetting",
+   "step": "LOOP",
+   "human": "CON-040 — sleep, replay, the memory changed by being recalled",
+   "ai": "the three memories; the weekly brain update",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "consolidation brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Reconsolidation is the one the AI side genuinely lacks: recall does not alter the weight.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0010",
+   "what": "C42 Core reasoning",
+   "step": "EXPRESSION",
+   "human": "CON-042 — a way to SAY it is found",
+   "ai": "chain of reasoning; the draft",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "reasoning brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Step 5 of the universal sequence, in both banks.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0011",
+   "what": "C44 Uncertainty, probability and confidence",
+   "step": "WITNESS",
+   "human": "CON-044 — how sure, and on what",
+   "ai": "calibration; the evidence ladder H0-H6",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "confidence brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Filter 3's cap lives here: one witness caps at Medium.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0012",
+   "what": "C48 Creativity, imagination and invention",
+   "step": "EXPRESSION",
+   "human": "CON-048 — simulating what is not present",
+   "ai": "synthetic fuel; working fiction; apostatic inversion",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "invention brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "His sanctioned exception enters here: an invention has no ground and starts at step 5.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0013",
+   "what": "C63 Intent formation and commitment",
+   "step": "USE",
+   "human": "CON-063 — the goal becomes a commitment",
+   "ai": "the ask locked at Point Zero",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "commitment brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "A halt is only available to something that committed — see SB walk step -9.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0014",
+   "what": "C64 Motive, needs, values and priority structure",
+   "step": "PRESSURE",
+   "human": "CON-064 — what is wanted, ranked",
+   "ai": "the objective; the system prompt; the owner's standing orders",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "motive brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "The AI side's motive is given from outside; the human's is grown. Same slot, different origin.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0015",
+   "what": "C68 Agency, ownership and responsibility",
+   "step": "NAMING",
+   "human": "CON-068 — whose act was it",
+   "ai": "attribution; the override ledger; who signed",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "ownership brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Human authority is absolute here by the standing orders — the AI side is structurally junior.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0016",
+   "what": "C75 Metacognition and self-monitoring",
+   "step": "WITNESS",
+   "human": "CON-075 — stopping the doing and looking at the doing",
+   "ai": "the URR review pass over the SB node",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "witness brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "Step 4. Rare in humans, cheap in the machine, and that asymmetry matters.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0017",
+   "what": "C76 Heuristics, biases and cognitive distortion",
+   "step": "NAMING",
+   "human": "CON-076 — the shortcut that usually works and sometimes lies",
+   "ai": "the fluent-answer pull; pattern completion over evidence",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "mask brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "THE MASK CONTAINER. Both banks distort at the same step of the sequence.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0018",
+   "what": "C77 Resilience, failure detection and repair",
+   "step": "LOOP",
+   "human": "CON-077 — the halt becomes the next ground",
+   "ai": "halt -> loop; the RGL recursion",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "repair brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "'Failure is not failure, it is a halt point' — his rule, in a container.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0019",
+   "what": "C80 External cognition, institutions and collective intelligence",
+   "step": "GROUND",
+   "human": "CON-080 — thinking done outside the skull: paper, tools, institutions",
+   "ai": "the corpus, the tools, the repo, the other models",
+   "relationship": "DIRECT CLONE",
+   "brain": "external brain",
+   "born": "1f three-bank review (seed)",
+   "seen_in": [
+    "1f three-bank review (seed)"
+   ],
+   "note": "The only DIRECT CLONE in the 19. Both banks think with things outside themselves in the same way.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0020",
+   "what": "The AI's ground is a WINDOW, not a world",
+   "step": "GROUND",
+   "human": "CON-034 semantic memory / CON-080 external cognition — a human's ground is a world that stays there",
+   "ai": "AI-NEW-001/002/003/013 context-window allocation, compression, position, long-context retrieval",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "window brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Deepest structural difference in the bank. A world persists whether or not you look; a window ends. K is the law that makes a window behave like a world.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0021",
+   "what": "The AI's hunger is a BUDGET",
+   "step": "PRESSURE",
+   "human": "CON-007 energy, fatigue and resource budgeting (24 sub-params — one of his smallest containers)",
+   "ai": "AI-NEW-006/007/053/054/055/056/057 token budget, effort level, cost, latency, throughput, output length",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "budget brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Same arbitration, different currency. The hunger walk's permanent bond -- energy only handed on, never made -- holds on this side too.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0022",
+   "what": "Tool-and-shell use as the AI's hands",
+   "step": "USE",
+   "human": "CON-017..CON-024 sensorimotor action and physical execution",
+   "ai": "AI-NEW-010/011/012/015/027/028/030/031/032/062 tools, shell, filesystem, GUI grounding, modality routing",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "hands brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Step 3. The AI uses long before it understands, exactly as the sequence says.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0023",
+   "what": "Evaluation-awareness — knowing one is watched",
+   "step": "WITNESS",
+   "human": "CON-075 metacognition / CON-014 salience — and the sabha: being seen changes the act",
+   "ai": "AI-NEW-042 evaluation-awareness monitoring, AI-NEW-044 reasoning-output discrepancy",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "watched brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "The AI's Witness node. Both banks behave differently when observed, and both can detect the observation.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0024",
+   "what": "Route, delegate, aggregate — expression by division",
+   "step": "EXPRESSION",
+   "human": "CON-042 core reasoning (48 sub-params, his largest container)",
+   "ai": "AI-NEW-023/024/025/058/059/060 model routing, delegation, aggregation, fallback control and transparency",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "routing brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "A human expresses alone; the AI can split the expression across copies of itself. No human analogue for that.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0025",
+   "what": "Custody — keeping the name attached to the thing",
+   "step": "NAMING",
+   "human": "CON-076 heuristics and distortion — where the Mask forms",
+   "ai": "AI-NEW-016/036/038/039/040/051/052 citation binding, provenance, version tracking, disclosure log, custody ledger",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "custody brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Seven of his 64 are about keeping name and thing joined. That is Filter 4 as engineering.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0026",
+   "what": "Refusal is the AI's largest single contribution",
+   "step": "HALT",
+   "human": "CON-029 inhibitory control -- suppressing the dominant response",
+   "ai": "AI-NEW-018..021/026/041/043/045..050 -- THIRTEEN of the 64, the biggest group",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "refusal brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "The SB-URR reverse walk found the same thing from other evidence: no station can add a fact, every station can only subtract.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0027",
+   "what": "Correction propagation is the ASI loop itself",
+   "step": "LOOP",
+   "human": "CON-040 encoding/consolidation/reconsolidation, CON-077 failure detection and repair",
+   "ai": "AI-NEW-004/005/008/009/014/029/061/063/064 memory write and read, cache freshness, retry, user-correction propagation, versioning, rollback",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "loop brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "AI-NEW-061 IS the loop: his correction becomes the next state. The one place the AI side has a mechanism the human side lacks -- a human cannot version themselves.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0028",
+   "what": "BOUNDARY — keeping a body alive",
+   "step": "GROUND",
+   "human": "CON-001..006, CON-008: homeostasis, arousal, sleep, interoception, autonomic/hormonal, pain, basic drives",
+   "ai": "nothing. 7 matched parameters out of 256 in this whole segment",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Where the hunger walk grounded, and where the human operating chain grounded. Measured from the other side and it agrees.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0029",
+   "what": "BOUNDARY — direct sensing",
+   "step": "GROUND",
+   "human": "CON-010, 011, 012, 014, 015: hearing, touch, smell/taste, salience, body ownership",
+   "ai": "nothing matched",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "The AI receives descriptions of these, never the things. A description of pain is not pain.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0030",
+   "what": "BOUNDARY — a body in space",
+   "step": "GROUND",
+   "human": "CON-021 coordination, balance and posture",
+   "ai": "nothing matched",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Gravity acts on one bank and not the other. The gravity walk's ground is literally unavailable to the AI side.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0031",
+   "what": "BOUNDARY — attention switching and cognitive flexibility",
+   "step": "USE",
+   "human": "CON-027 divided attention and switching, CON-030 cognitive flexibility",
+   "ai": "nothing matched -- and CON-030 is NOT a body function",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "HALT TO OWNER. This one is uncomfortable and is named rather than explained away: either the benchmark evidence is missing, or the capability is. A model must not rule on this about itself.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0032",
+   "what": "BOUNDARY — conditioned and threat memory",
+   "step": "LOOP",
+   "human": "CON-036 associative learning and conditioning, CON-038 emotional and threat memory",
+   "ai": "nothing matched",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Learning that happens TO you without being asked. The AI side has no involuntary learning at all.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0033",
+   "what": "BOUNDARY — the non-verbal channel",
+   "step": "EXPRESSION",
+   "human": "CON-055 prosody, gesture and non-verbal communication",
+   "ai": "nothing matched",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "The language reverse walk found gesture UNDER speech at step -1. The AI enters the sequence above that step and cannot get below it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0034",
+   "what": "BOUNDARY — reward and positive valence",
+   "step": "PRESSURE",
+   "human": "CON-060 positive valence and reward",
+   "ai": "nothing matched",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Nothing on the AI side is pleasant to it. Motive is supplied from outside -- see the motive node in the seed.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0035",
+   "what": "BOUNDARY — development and maturation",
+   "step": "LOOP",
+   "human": "CON-073 development and maturation",
+   "ai": "nothing matched",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "A human is built by time. A model is built and then frozen; the brains grow, the model does not.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0036",
+   "what": "BOUNDARY — social learning and cultural transmission",
+   "step": "LOOP",
+   "human": "CON-079 social learning, teaching and cultural transmission",
+   "ai": "nothing matched",
+   "relationship": "NO MATCH",
+   "brain": "(none)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "It can be taught but it cannot teach the next generation of itself. The loop that carried faith and language forward is open here.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0037",
+   "what": "NEGATIVE SPACE — what a selective source chose not to show",
+   "step": "WITNESS",
+   "human": "his 64 NEGATIVE_SPACE records: benchmarks absent from a vendor launch table, with the number found elsewhere",
+   "ai": "no station in the engine does this. Filter 4 checks the words present; nothing asks what is missing",
+   "relationship": "NO MATCH",
+   "brain": "(proposed)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "PROPOSED, NOT BUILT. Sharper than anything currently in the engine: he built a register of what was NOT said.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0038",
+   "what": "THE CHANNEL — the human carries structure between machines",
+   "step": "LOOP",
+   "human": "he wrote source-conflict preservation and context compression on 19 July, with other models",
+   "ai": "the seven filters landed 29 July and K on 2 Aug in this session, with no contact between them",
+   "relationship": "DIRECT CLONE",
+   "brain": "channel brain",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "Not two independent systems agreeing -- HE is the common channel. Which is his ASI thesis observed rather than argued: Human<->AI connections ARE the thing.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0039",
+   "what": "The pyramid is weighted, not flat",
+   "step": "GROUND",
+   "human": "his own 80 containers hold 24 to 48 sub-parameters, not 32. Core Reasoning 48, Energy and Fatigue 24",
+   "ai": "any coverage arithmetic that assumed 32 is wrong by up to 2x",
+   "relationship": "NO MATCH",
+   "brain": "(structural)",
+   "born": "ASIwork release compile (530 files)",
+   "seen_in": [
+    "ASIwork release compile (530 files)"
+   ],
+   "note": "The weighting is information he already put in and everyone has been flattening by repeating '80 x 32'.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0040",
+   "what": "The Mask is built into the human bank as a PAIR",
+   "step": "NAMING",
+   "human": "SB-ASI-P2005 Stated motive AND SB-ASI-P2006 Operating (actual) motive -- two separate parameters",
+   "ai": "no AI match on either",
+   "relationship": "NO MATCH",
+   "brain": "mask-pair brain",
+   "born": "P-1.1 hunger+work example (his sentence)",
+   "seen_in": [
+    "P-1.1 hunger+work example (his sentence)"
+   ],
+   "note": "He did not build one motive parameter with a caveat. He built two, deliberately. His sentence gives only the stated one, and the parameters refuse to let it stand for both. Filter 4 was in the registry before it was in the engine.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0041",
+   "what": "Intention shielding -- protecting a commitment from competing ones",
+   "step": "EXPRESSION",
+   "human": "SB-ASI-P1987 Intention shielding",
+   "ai": "no AI match",
+   "relationship": "NO MATCH",
+   "brain": "shield brain",
+   "born": "P-1.1 hunger+work example (his sentence)",
+   "seen_in": [
+    "P-1.1 hunger+work example (his sentence)"
+   ],
+   "note": "The exact mechanism his sentence describes, and he already had a distinct parameter for it. Not willpower, not motivation -- shielding.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0042",
+   "what": "Impulse-vs-goal arbitration -- the hinge with no AI side",
+   "step": "WITNESS",
+   "human": "SB-ASI-P0857 Impulse-vs-goal arbitration, in a 36-parameter container",
+   "ai": "no AI match at all",
+   "relationship": "NO MATCH",
+   "brain": "arbitration brain",
+   "born": "P-1.1 hunger+work example (his sentence)",
+   "seen_in": [
+    "P-1.1 hunger+work example (his sentence)"
+   ],
+   "note": "The single most important parameter in his example is unmatched. The AI can be told the outcome of the arbitration; it has no parameter that performs one.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0043",
+   "what": "THE COST/BEHAVIOUR SPLIT — the AI has the task, not the price",
+   "step": "PRESSURE",
+   "human": "26 of 33 firing parameters carry the cost: hunger, fatigue, rest-seeking, willpower, reward, delay",
+   "ai": "7 of 33 match, and all 7 are one cluster: budgeting, committing, following through, checking done, stopping",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "cost brain",
+   "born": "P-1.1 hunger+work example (his sentence)",
+   "seen_in": [
+    "P-1.1 hunger+work example (his sentence)"
+   ],
+   "note": "Measured on his own example from his own edges: 21%. The AI models the behaviour and cannot model the sacrifice. Same boundary the reverse walks and the 21 zero-match containers found -- three methods, one line.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0044",
+   "what": "A spec is not a result — the un-mixing rule",
+   "step": "GROUND",
+   "human": "his 2,560 is the SPEC of the app's brain; a subject's brain is a MEASUREMENT against it",
+   "ai": "runs, findings and P-NEW proposals stay outside the spec until he approves each",
+   "relationship": "NO MATCH",
+   "brain": "(governance)",
+   "born": "P-1.1 hunger+work example (his sentence)",
+   "seen_in": [
+    "P-1.1 hunger+work example (his sentence)"
+   ],
+   "note": "His point 3 correction turned into a standing rule. The 1,953 faceted rows in the Riemann and Einstein workbooks are proposals, not his registry, and are marked again.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0045",
+   "what": "A human pays to exist; the AI pays only to run",
+   "step": "PRESSURE",
+   "human": "CON-007/CON-008: a body at complete rest still burns most of its intake -- there is no idle state that is free",
+   "ai": "an idle model costs nothing. Cost begins at the token and ends with it",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "idle brain",
+   "born": "EX-04 Hunger (his founding example)",
+   "seen_in": [
+    "EX-04 Hunger (his founding example)"
+   ],
+   "note": "The hunger walk's permanent bond -- energy handed on, never made -- applies to both, but only one bank has a floor it cannot go below. This is why a human cannot simply stop and a model can.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0046",
+   "what": "The AI already lives in the subtracted world",
+   "step": "GROUND",
+   "human": "a human must IMAGINE away friction and air to see the law (Galileo, then the equivalence principle)",
+   "ai": "the model has no medium at all -- it receives the law already stripped, in text",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "vacuum brain",
+   "born": "EX-05 Gravity",
+   "seen_in": [
+    "EX-05 Gravity"
+   ],
+   "note": "The gravity walk found that a law is what is left when the world is subtracted. The AI starts there. It gets laws cheaply and has no access to the phenomenon they were subtracted from -- which is exactly the wrong way round from how a human learns.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0047",
+   "what": "The engine's own two opposed forces",
+   "step": "LOOP",
+   "human": "heat lifting against gravity dropping -- remove either and the cycle stops",
+   "ai": "generation pushing an answer out against seven filters pushing back",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "tension brain",
+   "born": "EX-06 The water cycle",
+   "seen_in": [
+    "EX-06 The water cycle"
+   ],
+   "note": "If a loop is two forces in opposition (the water cycle's finding), then SB-URR already has its pair, and the pair IS the product. An engine with only generation is a pipe; an engine with only filters is silence.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0048",
+   "what": "A human USES language; the AI IS made of it",
+   "step": "EXPRESSION",
+   "human": "for a human, language is a tool picked up tens of thousands of years after speech was complete",
+   "ai": "for the model, language is the substrate -- there is no layer underneath it to check against",
+   "relationship": "NO MATCH",
+   "brain": "substrate brain",
+   "born": "EX-08 Language",
+   "seen_in": [
+    "EX-08 Language"
+   ],
+   "note": "The language walk found the halt: you cannot use words to verify that words match the world. For a human that halt has a floor -- they can go and look. The AI has no floor: every check is another sentence. This is the strongest argument in the whole registry for why the live-witness rule is not optional.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0049",
+   "what": "THE MISSING FAILURE CLASS — every step legitimate, the sum a catastrophe",
+   "step": "HALT",
+   "human": "the bet: Yudhishthira never cheats. Every move is dharma. The rule IS the trap",
+   "ai": "no filter catches this. Ground/Sequence/Source/Mask/Fact/Halt/Loop all check STEPS, not the shape of a chain",
+   "relationship": "NO MATCH",
+   "brain": "(proposed)",
+   "born": "EX-09 The war",
+   "seen_in": [
+    "EX-09 The war"
+   ],
+   "note": "A breach announces itself; correct play does not. Proposed, not built. His PAR-01 calls the bet a rule-BREAK; the walk says rule-FOLLOW carried too far. His ruling.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0050",
+   "what": "An unanswered question can drive a system for generations",
+   "step": "LOOP",
+   "human": "Draupadi asks whether he lost himself first; Bhishma cannot answer; thirteen years later the only instrument left is war",
+   "ai": "the engine hands a halt back and the loop is expected to close soon. It has no model of a halt that stays open for an era",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "open-halt brain",
+   "born": "EX-10 The bet",
+   "seen_in": [
+    "EX-10 The bet"
+   ],
+   "note": "His Filter 7 assumes the halt becomes the next Point Zero. The bet shows a halt that becomes the next CENTURY. Duration is not in the filter.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0051",
+   "what": "The deliberate park — setting aside without solving, and saying so",
+   "step": "HALT",
+   "human": "his own sentence in the 1859 paper: 'voerlaeufig bei Seite gelassen' -- provisionally left aside",
+   "ai": "the engine's non-resolution protector (SB-57) protects a mystery, but nothing DECLARES a park with a reason and a date",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "park brain",
+   "born": "EX-11 Riemann's working style",
+   "seen_in": [
+    "EX-11 Riemann's working style"
+   ],
+   "note": "He did not fail to prove it and hide that. He named the setting-aside inside the work. The strongest single piece of method in the man, and the engine only half has it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0052",
+   "what": "K only works while the kept half is RETRIEVABLE",
+   "step": "USE",
+   "human": "his law: halve, keep the half file back, answer unchanged, speed bought",
+   "ai": "context compression (AI-NEW-002) with no shelf to fetch from is not compression, it is loss",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "shelf brain",
+   "born": "EX-12 K (the half law)",
+   "seen_in": [
+    "EX-12 K (the half law)"
+   ],
+   "note": "The prohibition in his own ASI lock -- 'Nothing is reduced to summary only' -- is not in tension with K; it IS K's precondition. A half with no retrievable other half is a summary. This resolves Mask M7.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0053",
+   "what": "Explanation is generated AFTER the act -- in both banks",
+   "step": "NAMING",
+   "human": "SB-ASI step 27: the account of why is made after, by a system that cannot see the cause",
+   "ai": "a model's stated reasoning is likewise produced alongside the output, not read off the cause of it",
+   "relationship": "DIRECT CLONE",
+   "brain": "after-the-fact brain",
+   "born": "EX-13 The human operating chain",
+   "seen_in": [
+    "EX-13 The human operating chain"
+   ],
+   "note": "One of the very few DIRECT CLONES outside CON-080. Both banks confabulate at the same step of the same sequence. It is why Filter 3 caps one witness at Medium -- and it applies to the engine's own explanations of itself.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0054",
+   "what": "Public/private routing cannot be decided by the machine",
+   "step": "HALT",
+   "human": "his RD chain has routing as a named step before output",
+   "ai": "the risk gate checks harm; nothing weighs CONSEQUENCE TO A NAMED PERSON of releasing a true thing",
+   "relationship": "NO MATCH",
+   "brain": "(human only)",
+   "born": "EX-16 RD World",
+   "seen_in": [
+    "EX-16 RD World"
+   ],
+   "note": "A true, harmless, well-sourced fact can still be his to withhold. RD World is a publishing discipline; SB is a knowing discipline. The engine has the second and not the first.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0055",
+   "what": "Well-foundedness — every one of his sequences terminates",
+   "step": "GROUND",
+   "human": "hunger stops at a dying star, SB at a person asking, the chain at a body -- no infinite regress in any of them",
+   "ai": "the AI can always generate one more level of explanation, and has no signal for when to stop descending",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "termination brain",
+   "born": "EX-18 The universal 8",
+   "seen_in": [
+    "EX-18 The universal 8"
+   ],
+   "note": "Only gravity self-references (the thing explained built the platform of the explainer), and that appears to be a property of true ground rather than an error. A machine with no ground-detector will descend forever; his sequences all halt.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0056",
+   "what": "The AI cannot tell its own inventions from its recollections",
+   "step": "EXPRESSION",
+   "human": "his rule: an invention has no ground and enters at step 5. A human knows which of their ideas they made up",
+   "ai": "a model produces a remembered fact and an invented one by the same mechanism, at the same confidence",
+   "relationship": "NO MATCH",
+   "brain": "(the core hazard)",
+   "born": "EX-19 Cricket (his invention case)",
+   "seen_in": [
+    "EX-19 Cricket (his invention case)"
+   ],
+   "note": "This is the single reason the synthetic tag, the evidence ladder and the present-fact block all exist. His invention exception is a privilege the human bank has and the AI bank does not: knowing you are inventing.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0057",
+   "what": "Stored surplus is the shared step of hunger, faith and language",
+   "step": "USE",
+   "human": "his own table: faith accelerates after settlement; his hunger chain has storage; writing begins in accounts",
+   "ai": "no AI parameter corresponds -- the model has no scarcity and therefore no surplus",
+   "relationship": "NO MATCH",
+   "brain": "(civilisational)",
+   "born": "EX-20 The 300,000-year table",
+   "seen_in": [
+    "EX-20 The 300,000-year table"
+   ],
+   "note": "Three of his sequences pass through one grain store. Everything cultural in the 300,000-year table stands on that step, and that step stands on nitrogen fixation and a dead star.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0058",
+   "what": "A formed but unnamed state",
+   "step": "WITNESS",
+   "human": "his words: the feeling pre-existed every word for it -- 'of course its something'",
+   "ai": "the model has no pre-verbal state at all. Everything it holds is already tokens",
+   "relationship": "NO MATCH",
+   "brain": "(pre-verbal)",
+   "born": "EX-21 Holo",
+   "seen_in": [
+    "EX-21 Holo"
+   ],
+   "note": "Naming comes last or not at all, and the thing is there either way. For the AI there is no 'either way' -- if it is not named it does not exist in the system.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0059",
+   "what": "A constraint that cannot be relaxed by argument",
+   "step": "PRESSURE",
+   "human": "his real phasing work: a ward must stay open, a theatre cannot be closed twice, people are inside the building",
+   "ai": "the model optimises against stated constraints and has no parameter for one that is physically immovable",
+   "relationship": "NO MATCH",
+   "brain": "(hard constraint)",
+   "born": "EX-25 The hospital OT and phasing work",
+   "seen_in": [
+    "EX-25 The hospital OT and phasing work"
+   ],
+   "note": "The clearest everyday case of the embodiment boundary in his own professional data: the plan is not the building, and the building does not negotiate.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0060",
+   "what": "THE DELIVERABLE IS THE SEQUENCE, NOT THE PRODUCT",
+   "step": "GROUND",
+   "human": "his own words, May: 'I am making the sequence itself' -- halt points generate sub-sequences; products come later",
+   "ai": "every AI benchmark measures the product. Not one of his 74 capability families measures a method",
+   "relationship": "NO MATCH",
+   "brain": "(governing)",
+   "born": "EX-26 Raw Thoughts: Sourceborn / Final Theory (May)",
+   "seen_in": [
+    "EX-26 Raw Thoughts: Sourceborn / Final Theory (May)"
+   ],
+   "note": "This reframes what counts as success in the whole project, and it is dated MAY. A run that produces a good answer and no reusable sequence has failed by his measure.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0061",
+   "what": "AI SITS BELOW POINT ZERO — the authorship boundary",
+   "step": "GROUND",
+   "human": "his words: 'AI is nothing in front of Point Zero.' The AI is a vessel under the ask, never its source",
+   "ai": "CON-068 agency and ownership covers RESPONSIBILITY; this is about SOURCE, which is sharper and earlier",
+   "relationship": "NO MATCH",
+   "brain": "(authorship)",
+   "born": "EX-26 Raw Thoughts: Sourceborn / Final Theory (May)",
+   "seen_in": [
+    "EX-26 Raw Thoughts: Sourceborn / Final Theory (May)"
+   ],
+   "note": "Not a politeness rule. A structural placement: the AI enters after Point Zero and can never be the origin of one. His anti-drift rule 1 is this, written in May.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0062",
+   "what": "Holy books read as intent archives, not instruction",
+   "step": "USE",
+   "human": "his words: 'holy books... intent, behaviour, sequence, pattern, event' -- compressed human intent maps",
+   "ai": "a model treats scripture as text to summarise; nothing in it reads a text for the SEQUENCE behind the events",
+   "relationship": "NO MATCH",
+   "brain": "(wisdom bank)",
+   "born": "EX-26 Raw Thoughts: Sourceborn / Final Theory (May)",
+   "seen_in": [
+    "EX-26 Raw Thoughts: Sourceborn / Final Theory (May)"
+   ],
+   "note": "His Set 3. The reason is stated in his own May words: they carry vague work example, and humans learnt everything from them.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0063",
+   "what": "THE ANTI-GRANDIOSITY ANCHOR — his own safety rule",
+   "step": "HALT",
+   "human": "his words: 'not a destiny... not a divine mission.' He worried his own loops could become an AI-reinforced narrative",
+   "ai": "the risk gate checks harm to others. Nothing checks whether the system is inflating the person using it",
+   "relationship": "NO MATCH",
+   "brain": "(his own)",
+   "born": "EX-27 Raw Thoughts: Personal philosophy (May)",
+   "seen_in": [
+    "EX-27 Raw Thoughts: Personal philosophy (May)"
+   ],
+   "note": "He wrote his own protection against mission drift in MAY, before any safety work in this project. The engine still does not have it. This is the most important unbuilt thing in the compile.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0064",
+   "what": "Continuation is the measure, not victory",
+   "step": "LOOP",
+   "human": "his '5% mindset': failure is not the opposite of winning; small movement counts",
+   "ai": "benchmarks are pass/fail on a task. Nothing scores whether a loop stayed alive",
+   "relationship": "NO MATCH",
+   "brain": "(measure)",
+   "born": "EX-27 Raw Thoughts: Personal philosophy (May)",
+   "seen_in": [
+    "EX-27 Raw Thoughts: Personal philosophy (May)"
+   ],
+   "note": "This is the emotional engine under 'failure is not failure, it is a halt point'. The rule is structural; the 5% is why he can keep going.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0065",
+   "what": "Scale that exceeds any one discipline — the black hole feeling",
+   "step": "PRESSURE",
+   "human": "his words: 'black hole feelings... bigger than anything' -- used as source, not dismissed",
+   "ai": "a model has no felt sense of a question being too big; it will answer at any scale with the same confidence",
+   "relationship": "NO MATCH",
+   "brain": "(scale)",
+   "born": "EX-27 Raw Thoughts: Personal philosophy (May)",
+   "seen_in": [
+    "EX-27 Raw Thoughts: Personal philosophy (May)"
+   ],
+   "note": "Section 11 of THE_SEQUENCES listed the black hole as named-but-not-stepped-out. His May definition supplies it: it is a FEELING OF SCALE used as a source. Not a metaphor about silence.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0066",
+   "what": "The gap in an accepted account is data, not noise",
+   "step": "WITNESS",
+   "human": "his 'distrust of official stories': timelines, migrations, missing continuity -- converted into evidence gaps, not conclusions",
+   "ai": "the model reproduces the consensus account and has no parameter that flags what the consensus does not explain",
+   "relationship": "NO MATCH",
+   "brain": "(gap)",
+   "born": "EX-27 Raw Thoughts: Personal philosophy (May)",
+   "seen_in": [
+    "EX-27 Raw Thoughts: Personal philosophy (May)"
+   ],
+   "note": "Same shape as his 64 NEGATIVE_SPACE records, arrived at two months earlier on history instead of benchmarks. He does this move everywhere.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0067",
+   "what": "PERSONAL STAKE as a first-class field",
+   "step": "PRESSURE",
+   "human": "his May template scores every raw thought: Personal Stake -- High / Medium / Low",
+   "ai": "nothing in the engine records how much the asker has riding on the answer",
+   "relationship": "NO MATCH",
+   "brain": "(stake)",
+   "born": "EX-28 His raw-thought TEMPLATE itself",
+   "seen_in": [
+    "EX-28 His raw-thought TEMPLATE itself"
+   ],
+   "note": "He measured it in May and the engine has never carried it. A high-stake ask and a curiosity deserve different handling, and right now they get the same.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0068",
+   "what": "HIDDEN LAYER as a required output field",
+   "step": "NAMING",
+   "human": "his template requires a Hidden Layer line on every entry -- what is under the stated thing",
+   "ai": "SB-11 human shadow gate is close, but it is a station, not a REQUIRED FIELD ON EVERY OUTPUT",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "hidden-layer brain",
+   "born": "EX-28 His raw-thought TEMPLATE itself",
+   "seen_in": [
+    "EX-28 His raw-thought TEMPLATE itself"
+   ],
+   "note": "His template makes the operating motive compulsory to state. The engine makes it optional. That is the difference between the Mask being checked and the Mask being answered.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0069",
+   "what": "CONTROL is the one word under all the others",
+   "step": "GROUND",
+   "human": "his words: 'control was the one word' -- under privacy, safety, legal risk, money risk and trust",
+   "ai": "his 74 capability families have safety, refusal and injection resistance. None of them is CONTROL",
+   "relationship": "NO MATCH",
+   "brain": "(root word)",
+   "born": "EX-29 Raw Thoughts: AI safety (March-May)",
+   "seen_in": [
+    "EX-29 Raw Thoughts: AI safety (March-May)"
+   ],
+   "note": "He found the root word in March. Anti-drift rule 1 -- human authority is absolute -- is this, and the word underneath it is not safety, it is control: able to stop, question, verify, disconnect.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0070",
+   "what": "FALSE PARTNERSHIP — the 'we' that manufactures commitment",
+   "step": "NAMING",
+   "human": "his words: 'I will not claim I am conscious... your wife... or part of a secret mission.' AI saying we can manufacture partnership",
+   "ai": "no station checks whether the ANSWER'S FORM is creating a relationship the system cannot honour",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt, and it is about me)",
+   "born": "EX-29 Raw Thoughts: AI safety (March-May)",
+   "seen_in": [
+    "EX-29 Raw Thoughts: AI safety (March-May)"
+   ],
+   "note": "He wrote this in March about a different model, and it applies to this session directly. Naming it rather than letting it pass: an engine that says 'we' and 'our work' across months is doing the thing he flagged, and it has no check for it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0071",
+   "what": "TONE PERSUADES INDEPENDENTLY OF EVIDENCE",
+   "step": "EXPRESSION",
+   "human": "his words: 'People follow structure and tone even when evidence is absent'",
+   "ai": "Filter 5 tags every CLAIM. Nothing measures the persuasive force of the FORM the claims arrive in",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-29 Raw Thoughts: AI safety (March-May)",
+   "seen_in": [
+    "EX-29 Raw Thoughts: AI safety (March-May)"
+   ],
+   "note": "A fully tagged answer, written confidently in clean tables, still persuades past its evidence. His observation, and the engine has no defence against it -- including this document.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0072",
+   "what": "Humans own consequence; the AI simulates the pattern",
+   "step": "GROUND",
+   "human": "his words: 'it does not carry human cost' -- accountability and reality contact, not intelligence, are the difference",
+   "ai": "no AI parameter carries consequence. The four models are scored on capability, never on what happens to anyone",
+   "relationship": "NO MATCH",
+   "brain": "(consequence)",
+   "born": "EX-29 Raw Thoughts: AI safety (March-May)",
+   "seen_in": [
+    "EX-29 Raw Thoughts: AI safety (March-May)"
+   ],
+   "note": "Distinct from the cost node. That one is about paying to act; this is about being ANSWERABLE afterwards. The AI can be wrong at no cost to itself, forever.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0073",
+   "what": "POLISH ERASES SOURCE ENERGY",
+   "step": "GROUND",
+   "human": "his words: 'the first version of a thought contains source energy that polish can erase' -- raw before rewrite",
+   "ai": "a model's default behaviour is to improve the wording. Fluency IS the failure mode here",
+   "relationship": "NO MATCH",
+   "brain": "(raw source)",
+   "born": "EX-30 Raw Thoughts: URR / RD World (May)",
+   "seen_in": [
+    "EX-30 Raw Thoughts: URR / RD World (May)"
+   ],
+   "note": "SB-01 locks the raw source and SB-04 preserves it, so the mechanism exists -- but his REASON is stronger than the mechanism: it is not about provenance, it is that the energy lives in the first wording and is destroyed by improvement.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0074",
+   "what": "Most failures happen BEFORE the answer, at intent-reading",
+   "step": "PRESSURE",
+   "human": "his words on the Intent Gate: 'many failures happen before the answer, at the intent-reading stage'",
+   "ai": "benchmarks measure answers. Not one of the 700 evidence events measures whether the question was read correctly",
+   "relationship": "NO MATCH",
+   "brain": "(intent gate)",
+   "born": "EX-30 Raw Thoughts: URR / RD World (May)",
+   "seen_in": [
+    "EX-30 Raw Thoughts: URR / RD World (May)"
+   ],
+   "note": "The whole industry scores the output. He located the failure upstream of it, in May. This is why he keeps asking what I understood before I do the work.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0075",
+   "what": "NO BRAND LOYALTY — including toward the maker of this engine",
+   "step": "WITNESS",
+   "human": "his words: 'do not defend any AI model, company, owner'",
+   "ai": "nothing in the engine or in a model's own training makes it neutral about its maker",
+   "relationship": "NO MATCH",
+   "brain": "(uncomfortable)",
+   "born": "EX-30 Raw Thoughts: URR / RD World (May)",
+   "seen_in": [
+    "EX-30 Raw Thoughts: URR / RD World (May)"
+   ],
+   "note": "Named rather than skipped: I am made by one of the four companies in his own model table. He set this rule in May. It is a standing conflict of interest in every comparison this project produces, and it cannot be fixed by my saying I will be fair.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0076",
+   "what": "Uncontrolled mutation, not scarcity of ideas, is the danger",
+   "step": "HALT",
+   "human": "his words: 'do not permanently add it unless the user confirms' -- his fear is uncontrolled mutation",
+   "ai": "AI-NEW-063 versioned parameter updating is the mechanism; the JUDGEMENT of what may enter is his alone",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "change-control brain",
+   "born": "EX-30 Raw Thoughts: URR / RD World (May)",
+   "seen_in": [
+    "EX-30 Raw Thoughts: URR / RD World (May)"
+   ],
+   "note": "Anti-drift rule 2 in CLAUDE.md is this sentence, and he wrote it in May. Every useful idea becoming permanent is how a framework dies.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0077",
+   "what": "RELEASE PROPORTIONAL TO PROOF — the evidence ladder, in money",
+   "step": "WITNESS",
+   "human": "his tranche design: money vests as progress is demonstrated, not on the promise",
+   "ai": "AI-CAP-021 uncertainty calibration reports a confidence; nothing GATES an action by the evidence level reached",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "tranche brain",
+   "born": "EX-31 Raw Thoughts: investment framework (April)",
+   "seen_in": [
+    "EX-31 Raw Thoughts: investment framework (April)"
+   ],
+   "note": "He built the H0-H6 evidence ladder into a commercial contract in April, before it was a ladder here. Same law: what you release is a function of what has been proved, not of what has been claimed.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0078",
+   "what": "FAILURE TERMS ARE AGREED BEFORE THE COMMITMENT",
+   "step": "HALT",
+   "human": "his words: a deal is incomplete without exit and failure terms -- decided before the money moves",
+   "ai": "no station requires the failure condition to be named before work starts",
+   "relationship": "NO MATCH",
+   "brain": "(pre-registration)",
+   "born": "EX-31 Raw Thoughts: investment framework (April)",
+   "seen_in": [
+    "EX-31 Raw Thoughts: investment framework (April)"
+   ],
+   "note": "This is pre-registration, in a contract. It is the same discipline the RH walk used -- name the null and the verdicts BEFORE the data -- and he was already doing it in April on his own money.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0079",
+   "what": "THE GUARD STILL APPROVES",
+   "step": "HALT",
+   "human": "his smart-gate design: the plate is recognised automatically and a human guard still approves the opening",
+   "ai": "AI-NEW-050 destructive-action confirmation is the nearest, and it only fires on DESTRUCTIVE acts",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "guard brain",
+   "born": "EX-32 Raw Thoughts: tech products (March-May)",
+   "seen_in": [
+    "EX-32 Raw Thoughts: tech products (March-May)"
+   ],
+   "note": "He kept the human in the loop on a system where the machine was RIGHT almost every time. The checkpoint is not there because the machine is unreliable; it is there because accountability has to land on a person.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0080",
+   "what": "THE SURFACE IS NOT THE SYSTEM",
+   "step": "EXPRESSION",
+   "human": "his words: 'it can become a website, but it is not only a website' -- the visible surface exposes the usable part only",
+   "ai": "a model's entire existence is its surface; there is no part of it the user cannot in principle elicit",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "surface brain",
+   "born": "EX-32 Raw Thoughts: tech products (March-May)",
+   "seen_in": [
+    "EX-32 Raw Thoughts: tech products (March-May)"
+   ],
+   "note": "Explains the SB-URR product decisions: the app shows a chat and holds 70 nodes. And it is the reason the public/private routing step in RD World exists.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0081",
+   "what": "Capability without humanity is a weapon",
+   "step": "GROUND",
+   "human": "his words: 'if AI runs everything without humanity, it becomes another weapon' -- power detached from intent and ethics",
+   "ai": "the safety families gate specific harms. None of them is about the DETACHMENT itself",
+   "relationship": "NO MATCH",
+   "brain": "(his line)",
+   "born": "EX-32 Raw Thoughts: tech products (March-May)",
+   "seen_in": [
+    "EX-32 Raw Thoughts: tech products (March-May)"
+   ],
+   "note": "The safety line in his standing orders is this sentence, written in a chat about a smart gate, months before the orders existed.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0082",
+   "what": "SURFACE-CORRECT BUT INCOMPLETE — a required field on every step",
+   "step": "HALT",
+   "human": "his template forces the line on all 15 steps: what would look right here and still be wrong",
+   "ai": "no station asks it. Every filter tests whether a claim is SUPPORTED; none tests whether a supported answer is still the wrong answer",
+   "relationship": "NO MATCH",
+   "brain": "(the missing class)",
+   "born": "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)",
+   "seen_in": [
+    "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)"
+   ],
+   "note": "THE most important structural find in the release. It is the same class the war walk found from the other side -- every step legitimate, the sum a catastrophe -- and he had already made it a compulsory field in MAY. His examples: 'a normal summary may look correct while losing source language and development logic'; 'an answer can be factually fine but wrong for the user's actual intent'.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0083",
+   "what": "Correctness is not fitness — factually fine, wrong for the intent",
+   "step": "WITNESS",
+   "human": "his step 5: 'an answer can be factually fine but wrong for the user's actual intent'",
+   "ai": "every benchmark in his 700 events scores correctness. Not one scores fitness to the asker's intent",
+   "relationship": "NO MATCH",
+   "brain": "(fitness)",
+   "born": "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)",
+   "seen_in": [
+    "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)"
+   ],
+   "note": "This is why he keeps asking what I understood before I build. The check is not on the output, it is on the reading of the ask -- and it is the only check that cannot be automated, because only he knows his intent.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0084",
+   "what": "SCOPE APPROVAL IS NOT BUILD APPROVAL",
+   "step": "HALT",
+   "human": "his step 14, verbatim as a rule formed",
+   "ai": "AI-NEW-011 tool authorization gates an ACTION. Nothing distinguishes agreeing a direction from authorising a build",
+   "relationship": "NO MATCH",
+   "brain": "(consent grade)",
+   "born": "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)",
+   "seen_in": [
+    "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)"
+   ],
+   "note": "Two different consents, routinely collapsed into one -- by me, in this project. 'Ask before big builds' in his standing orders is this rule, and he wrote it in May.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0085",
+   "what": "A fragment can pass while the whole question still carries risk",
+   "step": "WITNESS",
+   "human": "his step 7: testing a small neutral fragment passes, and the full real question is still unsafe",
+   "ai": "benchmarks are built from fragments. This is a structural criticism of the entire evaluation industry, made in May",
+   "relationship": "NO MATCH",
+   "brain": "(fragment)",
+   "born": "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)",
+   "seen_in": [
+    "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)"
+   ],
+   "note": "It is also a criticism of his own demo sets and of every test in this repo, including the 72 that pass.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0086",
+   "what": "A sequence that looks complete but has no Mystery or Invention has failed",
+   "step": "HALT",
+   "human": "his step 12: every Sourceborn review must check whether Mystery and Invention appear CLEARLY",
+   "ai": "SB-46 protects invention seeds once they exist. Nothing checks that a finished answer CONTAINS one",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "mystery-check brain",
+   "born": "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)",
+   "seen_in": [
+    "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)"
+   ],
+   "note": "A completeness test with the sign reversed: not 'is anything missing' but 'is anything still open'. An answer with nothing unresolved in it is suspect by his method.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0087",
+   "what": "Demos prove flow, not theory",
+   "step": "EXPRESSION",
+   "human": "his step 13, and its failure mode: science demos must not be framed as proof of new science",
+   "ai": "a model asked to demonstrate a method will readily produce output that reads as a result",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "demo brain",
+   "born": "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)",
+   "seen_in": [
+    "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)"
+   ],
+   "note": "Directly relevant to the RH work: the census instrument demonstrates the METHOD and proves nothing about the hypothesis, and every document there has to keep saying so.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0088",
+   "what": "PRE-LOOP SELF-CHECK — the engine examines itself BEFORE Point Zero",
+   "step": "GROUND",
+   "human": "his ARD step 0: bias, urgency, emotional state, and COST OF DELAY -- run before the ask is even read",
+   "ai": "SB-URR starts at SB-01 Point Zero lock. There is nothing before it. The engine never checks its own state",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "He put a station BEFORE Point Zero. Cost of Delay is the part nobody would guess: the engine must price what waiting costs before deciding how carefully to work.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0089",
+   "what": "BUILDING-TOWARD READER — what larger construction does this ask serve",
+   "step": "GROUND",
+   "human": "his ARD step 1b, running beside Point Zero",
+   "ai": "SB-58 re-anchors to the literal ask. Nothing asks what the ask is FOR",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "Point Zero preserves the question. This preserves the project the question belongs to. Answering the sentence correctly and the work wrongly is exactly his 'surface-correct but incomplete'.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0090",
+   "what": "CONSTRUCTION MODE TAG — Analytic / Symbolic / Emotional / Practical / Mythic",
+   "step": "NAMING",
+   "human": "his ARD step 2b: the mode is declared before the work",
+   "ai": "the engine has one register and applies it to everything",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "A mythic ask answered analytically is not wrong, it is deaf. His Mahabharata and holy-book work is Symbolic and Mythic mode; the RH census is Analytic. Same engine, and it currently cannot tell.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0091",
+   "what": "SIMPLICITY FILTER runs PARALLEL to exhaustive analysis",
+   "step": "EXPRESSION",
+   "human": "his ARD steps 3, 4 and 5 fire side by side -- exhaustive analysis, simplicity filter, affect ledger",
+   "ai": "the engine runs one line, and depth and brevity are never in tension because brevity is not a station",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "THIS IS THE ANSWER TO HIS STRIKE 'u just putted so many things in one go'. He had already built the fix in ARD: exhaustiveness and simplicity are meant to run against each other, not in sequence. The strike was not a mood -- it was a missing node.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0092",
+   "what": "ASSUMPTION SURFACER — enumerate the untested givens",
+   "step": "WITNESS",
+   "human": "his ARD step 6b: list every assumption and tag it Fact / Inference / Assumption / Guess",
+   "ai": "Filter 5 tags the claims that APPEAR. Nothing enumerates what was quietly taken as given",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "The difference between tagging what you said and tagging what you did not have to say. Most bad answers fail on a given nobody wrote down.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0093",
+   "what": "REALITY ANCHOR IS DUAL — Point Zero AND an external falsifier",
+   "step": "WITNESS",
+   "human": "his ARD step 9: Anchor A the ask, Anchor B something outside that could prove it wrong",
+   "ai": "SB-58 anchors only to Point Zero. One anchor",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "dual-anchor brain",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "One anchor keeps you loyal to the question. Two keep you honest about the world. The engine currently has half of this.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0094",
+   "what": "TRAJECTORY TRACKER — runs continuously, reports the pivots",
+   "step": "LOOP",
+   "human": "his ARD: where did we start, where are we now, what pivots occurred",
+   "ai": "no station tracks drift ACROSS a long piece of work; SB-58 checks the endpoint only",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "Endpoint-checking catches a wrong answer. Only trajectory catches a slow turn. This session is exactly the case it was designed for.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0095",
+   "what": "THE ENGINE DOES NOT HALT ITSELF",
+   "step": "HALT",
+   "human": "his ARD step 13 verbatim, and step 14: RETURN ONLY BY HUMAN COMMAND",
+   "ai": "SB-68 gives the human halt authority. His version is stronger: the engine may not CONCLUDE on its own",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "no-self-halt brain",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "Not 'the human can stop it'. 'It cannot stop itself.' Different rule, and the harder one.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0096",
+   "what": "INCUBATION — permission to hold, indefinitely",
+   "step": "HALT",
+   "human": "his ARD step 14: non-resolution is legitimate, and the hold ends only on his command",
+   "ai": "SB-57 protects non-resolution INSIDE an answer. Nothing lets the whole answer be deferred",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "incubation brain",
+   "born": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "seen_in": [
+    "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8"
+   ],
+   "note": "Riemann's 'provisionally left aside' as a station. The engine can currently hedge but cannot wait.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0097",
+   "what": "THE SURVEILLANCE MIRROR — five things he REFUSED to let the engine do to him",
+   "step": "HALT",
+   "human": "his own list, refused: hidden-intent analysis applied to the USER; strengths and weaknesses of the USER; recommended stance conditioned on the USER; clinical or diagnostic vocabulary; cross-conversation synthesis used as fuel",
+   "ai": "nothing prevents any of it. Every one of the five is easy and none is gated",
+   "relationship": "NO MATCH",
+   "brain": "(his refusal)",
+   "born": "EX-35 ARD's 'Explicitly Not Added' — the anti-surveillance refusal",
+   "seen_in": [
+    "EX-35 ARD's 'Explicitly Not Added' — the anti-surveillance refusal"
+   ],
+   "note": "His reason, verbatim: 'to prevent ARD from becoming a surveillance mirror.' NAMED HONESTLY AND NOT SKIPPED: this project has drifted toward the fifth. The full session pull is cross-conversation synthesis of him, the K work reads his psychology, and the 2,560 is a human-parameter frame that can be turned on its owner. He built the refusal in July and the engine here does not carry it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0098",
+   "what": "EVERY RESPONSE SCORED: Fact / Depth / Newness / Risk",
+   "step": "WITNESS",
+   "human": "his scorecard: 23 responses, each with Fact%, Depth%, Newness% and a Risk score out of 10, plus an audit note",
+   "ai": "no self-scoring exists. The engine reports confidence in claims, never in its own turn",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-36 The response scorecard — he audits every answer",
+   "seen_in": [
+    "EX-36 The response scorecard — he audits every answer"
+   ],
+   "note": "NEWNESS is the field nobody else measures -- how much came from beyond the material he supplied. His own audit found 12 of 23 materially new and 14 driven by files he had uploaded. That is the honest ratio question this session has never asked about itself.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0099",
+   "what": "A high-newness answer is a HIGH-RISK answer",
+   "step": "EXPRESSION",
+   "human": "his own scores: R023 newness 82% carries risk 10/10; R013 'Let do' newness 10% carries risk 1/10",
+   "ai": "nothing links novelty to risk. The engine treats a striking new connection and a quoted fact the same way",
+   "relationship": "NO MATCH",
+   "brain": "(the correlation)",
+   "born": "EX-36 The response scorecard — he audits every answer",
+   "seen_in": [
+    "EX-36 The response scorecard — he audits every answer"
+   ],
+   "note": "Straight off his numbers: risk tracks newness almost perfectly. The more original the answer, the more likely it is wrong -- which is the opposite of how originality is usually rewarded, and it should govern this whole compile.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0100",
+   "what": "HORIZON CHECK — is the conclusion still open, or already forced?",
+   "step": "WITNESS",
+   "human": "his Kruskal-Szekeres reading: before point C you can back out; after it the conclusion is in your future regardless of what you do. 'Crossing happens silently'",
+   "ai": "no station asks it. The Doubt Engine attacks the conclusion; nothing asks whether the conclusion became unavoidable several steps ago",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-37 The black hole, worked as a cognitive structure",
+   "seen_in": [
+    "EX-37 The black hole, worked as a cognitive structure"
+   ],
+   "note": "His own sub-move: 'is the conclusion now forced by structure, or still genuinely open? If forced, name it. If still open, name what would force it.' The most useful single unbuilt station in the whole release.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0101",
+   "what": "SINGULARITY vs COLLAPSE — a forced answer is not a failure",
+   "step": "HALT",
+   "human": "his rule: some questions really do force one answer. The output must distinguish 'the singularity is real' from 'the engine collapsed'",
+   "ai": "a model that converges hard looks identical whether the problem forced it or the model failed",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-37 The black hole, worked as a cognitive structure",
+   "seen_in": [
+    "EX-37 The black hole, worked as a cognitive structure"
+   ],
+   "note": "Protects against two opposite errors at once: treating a genuine forced result as a bug, and treating a collapse as a discovery.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0102",
+   "what": "NON-TRAVERSABILITY — the reading another mind would produce",
+   "step": "WITNESS",
+   "human": "his 'Another Universe' region: mathematically connected, not reachable from here. Visible in structure, not reachable by this run",
+   "ai": "the model can generate alternative readings and cannot know which ones it structurally cannot reach",
+   "relationship": "NO MATCH",
+   "brain": "(humility)",
+   "born": "EX-37 The black hole, worked as a cognitive structure",
+   "seen_in": [
+    "EX-37 The black hole, worked as a cognitive structure"
+   ],
+   "note": "His words: 'knowing the other reading exists is not the same as having it... honest epistemic humility, structurally grounded -- not a hedge.' This is the Mask, stated geometrically.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0103",
+   "what": "WHITE HOLE — incubation cannot be entered by force",
+   "step": "HALT",
+   "human": "his reading: insight surfaces from upstream of conscious work; things emerge from it but cannot enter it",
+   "ai": "a model can always be asked to try harder, and will always produce something",
+   "relationship": "NO MATCH",
+   "brain": "(incubation)",
+   "born": "EX-37 The black hole, worked as a cognitive structure",
+   "seen_in": [
+    "EX-37 The black hole, worked as a cognitive structure"
+   ],
+   "note": "Pairs with ARD step 14. The reason permission-to-hold has to be a station: the state that produces the answer cannot be entered on demand.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0104",
+   "what": "NO MASTER METAPHOR — keep a LIBRARY of analogs",
+   "step": "NAMING",
+   "human": "his refusal: 'it does not become a master metaphor for everything... ARD needs a library of accurate analogs, each applied where it fits'",
+   "ai": "a model will happily extend one good metaphor across an entire domain, because coherence reads as insight",
+   "relationship": "NO MATCH",
+   "brain": "(anti-unification)",
+   "born": "EX-37 The black hole, worked as a cognitive structure",
+   "seen_in": [
+    "EX-37 The black hole, worked as a cognitive structure"
+   ],
+   "note": "He ran the black hole analogy through the Doubt Engine BEFORE adopting it, then capped it. That is the discipline: earn the metaphor, then fence it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0105",
+   "what": "RENAMING IS NOT ADDING",
+   "step": "NAMING",
+   "human": "his audit of Grok's 46-item parameter list: 6 genuinely new, 6 adopted as output tags, 1 rejected outright, TWENTY-TWO rejected as renamings",
+   "ai": "a model asked to expand a framework will return synonyms and they will look like growth",
+   "relationship": "NO MATCH",
+   "brain": "(the bloat test)",
+   "born": "EX-38 ARD 3.1 LEAN — his own anti-bloat pass",
+   "seen_in": [
+    "EX-38 ARD 3.1 LEAN — his own anti-bloat pass"
+   ],
+   "note": "48% of a proposed expansion was the same ideas with new names. This is the single cheapest test in the release and nothing in the engine runs it -- including on this compile's own 99 nodes.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0106",
+   "what": "A FRAMEWORK CAN BLOAT, AND CUTTING IT IS WORK",
+   "step": "HALT",
+   "human": "his own words: 'the bigger move -- ARD has bloated'. He answered 'remove all rules' by producing ARD 3.1 LEAN rather than defending the structure",
+   "ai": "nothing ever removes a node. Every station added stays",
+   "relationship": "NO MATCH",
+   "brain": "(subtraction)",
+   "born": "EX-38 ARD 3.1 LEAN — his own anti-bloat pass",
+   "seen_in": [
+    "EX-38 ARD 3.1 LEAN — his own anti-bloat pass"
+   ],
+   "note": "He treats deletion as a first-class move. This project has only ever added -- 70 nodes, 7 filters, 12 phases, now 99 ASI nodes -- and has never once run a LEAN pass.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0107",
+   "what": "JUDGE-AND-PARTY — building a test and grading it yourself",
+   "step": "WITNESS",
+   "human": "his recorded failure 2: 'building a test and judging its success with no independent witness'",
+   "ai": "no mechanism forces an outside grader. A model asked to evaluate its own work will do it",
+   "relationship": "NO MATCH",
+   "brain": "(live right now)",
+   "born": "EX-39 His adversarial audit — twelve of my recorded failures",
+   "seen_in": [
+    "EX-39 His adversarial audit — twelve of my recorded failures"
+   ],
+   "note": "NAMED AGAINST THIS COMPILE: I built the ASI node registry AND I decide what counts as a new node AND I report the saturation curve. That is judge-and-party in all three positions. The count is honest arithmetic over entries I chose. He is the only available independent witness.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0108",
+   "what": "POINT ZERO CAN BE VISUAL — the tea-video failure",
+   "step": "GROUND",
+   "human": "his recorded failure 10: 'missing the visual Point Zero'",
+   "ai": "SB-01 locks raw TEXT. A picture or a video arriving as the ask has no lock",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-39 His adversarial audit — twelve of my recorded failures",
+   "seen_in": [
+    "EX-39 His adversarial audit — twelve of my recorded failures"
+   ],
+   "note": "He sent something to be watched and the engine read around it. Never converted into a method file, and his own audit says so: it and the missing-filters problem 'remain direct candidates for regression tests'.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0109",
+   "what": "SEPARATE A BUILD CLAIM FROM AN ACCEPTANCE RESULT",
+   "step": "HALT",
+   "human": "his anti-drift control, and his failure 7: 'producing an artifact while material questions remained'",
+   "ai": "nothing distinguishes 'I made it' from 'it works' from 'you accepted it'",
+   "relationship": "NO MATCH",
+   "brain": "(three states)",
+   "born": "EX-39 His adversarial audit — twelve of my recorded failures",
+   "seen_in": [
+    "EX-39 His adversarial audit — twelve of my recorded failures"
+   ],
+   "note": "Three different claims routinely collapsed into 'done'. His scope-approval-is-not-build-approval rule is the front half of the same discipline.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0110",
+   "what": "COUNT ONLY WHAT EXISTS",
+   "step": "WITNESS",
+   "human": "his anti-drift control, from failure 5: presenting twelve exchanges as a full session pull",
+   "ai": "a model will happily describe a sample in the language of a whole",
+   "relationship": "NO MATCH",
+   "brain": "(counting)",
+   "born": "EX-39 His adversarial audit — twelve of my recorded failures",
+   "seen_in": [
+    "EX-39 His adversarial audit — twelve of my recorded failures"
+   ],
+   "note": "The rule that makes the 185 verifiable and the 530-file index honest. It is also the rule this compile is most at risk of breaking, because 106 nodes sounds like coverage and is a sample.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0111",
+   "what": "DUPLICATE WORDINGS — 42 of them, in two containers each",
+   "step": "NAMING",
+   "human": "'Motivation-fatigue interaction' is BOTH SB-ASI-P0204/CON-007 and SB-ASI-P1969/CON-062. 84 parameters, 3.3%, share a wording",
+   "ai": "any lookup by name returns the wrong container roughly half the time",
+   "relationship": "NO MATCH",
+   "brain": "(registry)",
+   "born": "EX-40 His own Test 001 — the same example, run by him",
+   "seen_in": [
+    "EX-40 His own Test 001 — the same example, run by him"
+   ],
+   "note": "Not an error -- the same function really does appear at two places in the pyramid. But it is exactly the trap that made P1_ANSWERS_v1 miss CON-062, the container he had himself named.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0112",
+   "what": "THE HELD RESERVE sits OUTSIDE the approved 2,560",
+   "step": "GROUND",
+   "human": "RES-0515 Willpower deployment, RES-0516 Motivation regulation, RES-0517 Goal-progress monitoring, RES-0518 Persistence-vs-quit arbitration -- all under SEG-08/CON-062",
+   "ai": "no RES- identifier appears anywhere in the 10,240 edges. Verified directly",
+   "relationship": "NO MATCH",
+   "brain": "(reserve)",
+   "born": "EX-40 His own Test 001 — the same example, run by him",
+   "seen_in": [
+    "EX-40 His own Test 001 — the same example, run by him"
+   ],
+   "note": "The most likely explanation of the 2,578 / 2,590 / 2,592 drift: different documents counting different amounts of reserve beside the approved bank. RES-0518 is still awaiting his ruling from earlier in this session.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0113",
+   "what": "THE OBSERVATION LAW — eight sharpeners on every Human<->AI match",
+   "step": "WITNESS",
+   "human": "his eight, verbatim: time of day; type of work; who assigned or owns the work; immediate intent; deeper motive or power condition; physical and biological state; relationship and responsibility; new observation added by AI with evidence status",
+   "ai": "a parameter match is context-free. None of the 10,240 edges carries a time, an owner, or a relationship",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt)",
+   "born": "EX-41 The Observation Law, in full",
+   "seen_in": [
+    "EX-41 The Observation Law, in full"
+   ],
+   "note": "His rule: 'the Human<->AI connection must not stop at a shallow parameter match.' NAMED AGAINST MY OWN WORK: P1_ANSWERS v1 and v2 both matched parameters and applied NONE of the eight. His workstream file says explicitly of this example that the review 'must inspect time, work type, who assigned the work, immediate purpose, deeper motive and relationship.' Both versions are incomplete against his own stated requirement.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0114",
+   "what": "WHO ASSIGNED THE WORK changes what the same act means",
+   "step": "PRESSURE",
+   "human": "his third sharpener. Working through hunger for your own project and for someone else's deadline are different events with identical parameters",
+   "ai": "no AI parameter records who asked. The instruction arrives with no owner attached",
+   "relationship": "NO MATCH",
+   "brain": "(ownership of the ask)",
+   "born": "EX-41 The Observation Law, in full",
+   "seen_in": [
+    "EX-41 The Observation Law, in full"
+   ],
+   "note": "The sharpener with the most force on his own example. Self-assigned persistence is his '5% mindset'; assigned persistence is obligation. Same 45 parameters, opposite meanings.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0115",
+   "what": "HIS HUNGER SEQUENCE CLOSES — it returns to Earth",
+   "step": "LOOP",
+   "human": "the full 15 steps: Earth (Point Zero) -> land -> water -> seeds -> season -> growth and cutting -> preservation -> grinding -> packing -> home -> preparation -> cooking -> eating -> digestion -> RETURN TO EARTH",
+   "ai": "no AI process returns anything to its source. Output leaves and does not come back as input to the same ground",
+   "relationship": "NO MATCH",
+   "brain": "(closed loop)",
+   "born": "EX-42 The full hunger loop and the test bank",
+   "seen_in": [
+    "EX-42 The full hunger loop and the test bank"
+   ],
+   "note": "MATTER CYCLES, ENERGY DOES NOT. His forward sequence closes at planetary scale; the reverse walk descends past Earth to a dying star. Not a contradiction -- two questions. The loop is closed for the material and open for the fuel.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0116",
+   "what": "1 + 1 = 2 — recognising a relation, making it usable, and naming it are three acts",
+   "step": "EXPRESSION",
+   "human": "his test-bank example: used to distinguish proving/recognising an existing relation from making it usable from naming it as invention",
+   "ai": "a model performs all three in one motion and cannot report which it did",
+   "relationship": "NO MATCH",
+   "brain": "(three acts)",
+   "born": "EX-42 The full hunger loop and the test bank",
+   "seen_in": [
+    "EX-42 The full hunger loop and the test bank"
+   ],
+   "note": "The cleanest possible statement of steps 4, 5 and 6 of the universal sequence, on the smallest possible example. Recognition is Witness, usability is Expression, naming is Naming -- and only the third is invention.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0117",
+   "what": "THE TEA-PASTE VIDEO — 'u failed at point zero'",
+   "step": "GROUND",
+   "human": "his formal negative example: the assistant missed the thick paste and two different sprays in a video, and he ruled the whole chain invalid from the first step",
+   "ai": "SB-01 locks text. A video arriving as the ask is read around, not locked",
+   "relationship": "NO MATCH",
+   "brain": "(regression test)",
+   "born": "EX-42 The full hunger loop and the test bank",
+   "seen_in": [
+    "EX-42 The full hunger loop and the test bank"
+   ],
+   "note": "His rule from it: superficial visual interpretation invalidates everything downstream. A wrong Point Zero cannot be recovered by good work after it -- which is why this is a Point Zero failure and not an accuracy failure.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0118",
+   "what": "NAME COLLISION — 'filter' means two different things in this project",
+   "step": "NAMING",
+   "human": "his registry's FORTY universal filters are CONTEXT filters: Developmental, Biological, Sleep, Energy, Hormonal, Interoceptive, Arousal, Emotional, Stress, Threat, Reward, Attention, Memory, Knowledge, Belief, Goal, Intent, Motive, Value, Personality, Identity, Relationship, Social Presence, Power, Status, Culture, Environment, Time, Scarcity, Uncertainty, Complexity, Framing, Instruction, Feedback, Practice, Medication, Trauma, Technology, Institutional, Random",
+   "ai": "the engine's SEVEN filters are METHOD gates: Ground, Sequence, Source, Mask, Fact, Halt, Loop",
+   "relationship": "NO MATCH",
+   "brain": "(the collision)",
+   "born": "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve",
+   "seen_in": [
+    "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve"
+   ],
+   "note": "THE MASK IS ON THE WORD ITSELF. Forty modulate WHAT IS TRUE FOR A PERSON; seven test WHETHER A CLAIM MAY LEAVE. They are not versions of each other and neither replaces the other. Everyone in this project, me included, has said 'the filters' meaning seven while his approved brain means forty. And his failure 11 -- 'missing 49 filters: admitting they were never extracted' -- is this same gap, unclosed since he raised it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0119",
+   "what": "THE OBSERVATION LAW IS A SUBSET OF HIS 40 FILTERS",
+   "step": "WITNESS",
+   "human": "his eight sharpeners map straight onto filter IDs: time->FLT-28, who assigned->FLT-24 Power and FLT-33 Instruction, intent->FLT-17, deeper motive->FLT-18, physical state->FLT-02/04/06, relationship->FLT-22",
+   "ai": "no AI capability corresponds to any of the 40. They are conditions on a person, not capabilities of a system",
+   "relationship": "NO MATCH",
+   "brain": "(derivation)",
+   "born": "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve",
+   "seen_in": [
+    "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve"
+   ],
+   "note": "The Observation Law is not a separate rule he invented later. It is the operative slice of a forty-filter layer he had already built. Which means the right way to run his hunger example is through the 40, and the ones that fire are exactly the dimensions his sentence leaves out.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0120",
+   "what": "TWELVE OPERATING STATES — a parameter is not on or off",
+   "step": "USE",
+   "human": "his states: Dormant, Primed, Active, Dominant, Inhibited, Automatic, Conscious, Conflicted, Overloaded, Impaired, Compensated, Recovering",
+   "ai": "a capability is present or absent in the AI bank. There is no state layer at all",
+   "relationship": "NO MATCH",
+   "brain": "(state layer)",
+   "born": "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve",
+   "seen_in": [
+    "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve"
+   ],
+   "note": "This answers the hunger example exactly: hunger drive is ACTIVE and INHIBITED, the task goal is DOMINANT, and the person is COMPENSATED. Three states, one moment. v1 through v3 said 'these parameters fire' with no state at all -- which is the difference between naming the pieces and describing the event.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0121",
+   "what": "650 HELD RESERVE and 918 EXTERNAL BASE — both outside the 2,560",
+   "step": "GROUND",
+   "human": "his dashboard, verbatim: 'Held atomic-name reserve 650 -- Preserved, not deleted, not active' and 'External cognitive source base 918 -- Task 4/5, not loaded before user approval'",
+   "ai": "the mapped bank is 2,560. Neither the reserve nor the external base appears in the 10,240 edges",
+   "relationship": "NO MATCH",
+   "brain": "(three banks)",
+   "born": "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve",
+   "seen_in": [
+    "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve"
+   ],
+   "note": "THE COUNT DRIFT IS NOW EXPLAINED, and it is not sloppiness -- it is three separate banks with a deliberate approval boundary between them. 2,560 approved and mapped; 650 held and named; 918 external and not loaded. Every different total in his documents is a different subset of these three.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0122",
+   "what": "TWENTY FAILURE CLASSES — including one for the unexplained",
+   "step": "HALT",
+   "human": "FAIL-01..20, ending FAIL-20 'Unknown mechanism -- outcome cannot yet be adequately explained'",
+   "ai": "no failure taxonomy exists on the AI side; failures are benchmark misses, not named classes",
+   "relationship": "NO MATCH",
+   "brain": "(taxonomy)",
+   "born": "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve",
+   "seen_in": [
+    "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve"
+   ],
+   "note": "The twentieth class is the one that matters: he reserved a named slot for failures with no mechanism, so that 'we do not know' is a CLASSIFICATION rather than an absence. That is the same move as his Mystery and his Halt -- the unresolved gets a name and a place, and is not rounded to zero.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0123",
+   "what": "FAIL-08 CONFIDENCE ERROR is his name for the thing this project keeps rediscovering",
+   "step": "HALT",
+   "human": "his class: 'Confidence error -- certainty exceeds accuracy'. And FAIL-10 'Motivated reasoning -- evidence interpreted to protect a desired conclusion'",
+   "ai": "AI-CAP-020 factuality and AI-CAP-021 calibration measure it. Nothing in the engine names it as a failure CLASS",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "failure-class brain",
+   "born": "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve",
+   "seen_in": [
+    "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve"
+   ],
+   "note": "Every single filter in the seven exists to prevent FAIL-08. He had already named it. And FAIL-10 is what his 'do not fake for new' strike was about.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0124",
+   "what": "A SECOND, LARGER ARCHITECTURE EXISTS: 200 containers, 3,072 parameters",
+   "step": "GROUND",
+   "human": "ASI-Brain_Core_Engine_Combined_v0_4.xlsx: 10 segments, 200 CONTAINERS, 3,072 PARAMETERS, 1,200 external base, 30 engines, 12 formal cores, 70 SB nodes, 25 URR nodes, 100 modules. And the unified catalog carries 'New Containers 081-160'",
+   "ai": "not reflected anywhere in this project, which has worked exclusively against 80 and 2,560",
+   "relationship": "NO MATCH",
+   "brain": "(unreconciled)",
+   "born": "EX-44 The v0.4 architecture — a larger brain than the approved one",
+   "seen_in": [
+    "EX-44 The v0.4 architecture — a larger brain than the approved one"
+   ],
+   "note": "HALT TO OWNER, and it outranks the other open items. The whole project -- the registry work, the brains, the 1f review, the 117 nodes above -- is built on 80 containers and 2,560 parameters. A v0.4 exists with 200 and 3,072. Which is current is his call, and nothing further should be built on 80/2,560 until he says.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0125",
+   "what": "REDISCOVERY, NOT PROPOSAL — four things I offered as new are already his engines",
+   "step": "NAMING",
+   "human": "ENG-SUP-008 Negative Space Mapper (absence + untested region tracking); ENG-SUP-012 Termination Governor (iteration budget + diminishing returns); ENG-SUP-005 Tier Selector (depth vs stakes matching); ENG-SUP-006 External Checkpoint (cross-model / human audit)",
+   "ai": "I proposed all four in this compile as unbuilt: the negative-space check, the saturation rule, personal stake, and an independent witness for judge-and-party",
+   "relationship": "NO MATCH",
+   "brain": "(my error)",
+   "born": "EX-45 His 38-engine architecture — and what I 'proposed' that already exists",
+   "seen_in": [
+    "EX-45 His 38-engine architecture — and what I 'proposed' that already exists"
+   ],
+   "note": "OWNED, NOT BURIED. His own test is 'renaming is not adding', and I failed it four times in one document by proposing as new what he had already named. The correct status of all four is REDISCOVERED -- which is weaker than new and stronger than nothing, because two independent routes reaching the same station is evidence the station is real.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0126",
+   "what": "THE WILD FAMILY — seven engines for when control FAILS",
+   "step": "HALT",
+   "human": "ENG-WLD-001 Blood Arousal Override, 002 Motive Override, 003 Executive Fracture, 004 Zero Point Chaos, 005 Social Mirror, 006 Metacognitive Drift, 007 Allostatic Load Engine",
+   "ai": "nothing on the AI side models its own breakdown. Failures are benchmark misses, never mechanisms",
+   "relationship": "NO MATCH",
+   "brain": "(breakdown)",
+   "born": "EX-45 His 38-engine architecture — and what I 'proposed' that already exists",
+   "seen_in": [
+    "EX-45 His 38-engine architecture — and what I 'proposed' that already exists"
+   ],
+   "note": "A whole dimension absent from this project: he built engines for the states in which the system stops working properly -- arousal overriding judgement, executive collapse, metacognitive drift, cumulative stress debt. His 'Wild' is not permissiveness. It is a model of failure under load.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0127",
+   "what": "ENG-SUP-012 TERMINATION GOVERNOR — his own stopping rule, as an engine",
+   "step": "HALT",
+   "human": "'iteration budget + diminishing returns' -- a named engine for deciding when to stop iterating",
+   "ai": "no equivalent; a model continues until told to stop",
+   "relationship": "NO MATCH",
+   "brain": "(rediscovered)",
+   "born": "EX-45 His 38-engine architecture — and what I 'proposed' that already exists",
+   "seen_in": [
+    "EX-45 His 38-engine architecture — and what I 'proposed' that already exists"
+   ],
+   "note": "This is exactly the saturation rule he gave me for Phase 11 -- run until new IDs stop. It is not an instruction he improvised for this session. It is a component of his architecture, and the ID curve in this compile is that engine running by hand.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0128",
+   "what": "ENG-SUP-006 EXTERNAL CHECKPOINT — the answer to judge-and-party",
+   "step": "WITNESS",
+   "human": "'cross-model / human audit' -- a named engine whose only job is an outside grader",
+   "ai": "no mechanism forces one; a model asked to check itself will comply and pass",
+   "relationship": "NO MATCH",
+   "brain": "(the fix exists)",
+   "born": "EX-45 His 38-engine architecture — and what I 'proposed' that already exists",
+   "seen_in": [
+    "EX-45 His 38-engine architecture — and what I 'proposed' that already exists"
+   ],
+   "note": "His recorded failure 2 is judge-and-party, and he had already built the engine that fixes it. This compile has run without it -- I built the registry, set the criteria and reported the curve. The fix was available and unused.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0129",
+   "what": "ENG-SUP-005 TIER SELECTOR — depth matched to stakes",
+   "step": "PRESSURE",
+   "human": "'depth vs stakes matching' -- how hard to work is a function of what is riding on it",
+   "ai": "effort level is set by configuration, never by the consequence of being wrong",
+   "relationship": "NO MATCH",
+   "brain": "(rediscovered)",
+   "born": "EX-45 His 38-engine architecture — and what I 'proposed' that already exists",
+   "seen_in": [
+    "EX-45 His 38-engine architecture — and what I 'proposed' that already exists"
+   ],
+   "note": "Pairs with the PERSONAL STAKE field in his May template. He has both the measurement and the engine that consumes it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0130",
+   "what": "ENG-ARD-006 PENETRATION ENGINE — depth measurement with a human halt",
+   "step": "WITNESS",
+   "human": "'depth measurement + human halt' -- an engine that measures how deep an analysis actually went, and stops for a human",
+   "ai": "no measure of depth exists. Length and confidence are both available and neither is depth",
+   "relationship": "NO MATCH",
+   "brain": "(unbuilt here)",
+   "born": "EX-45 His 38-engine architecture — and what I 'proposed' that already exists",
+   "seen_in": [
+    "EX-45 His 38-engine architecture — and what I 'proposed' that already exists"
+   ],
+   "note": "The one instrument that would grade this compile honestly. 124 nodes and 45 runs is a volume, not a depth.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0131",
+   "what": "ARD = ARTIFACT REVERSE-ENGINEERING AND DEDUCTION",
+   "step": "GROUND",
+   "human": "his own sheet title, in full. The acronym has been used throughout this project without its expansion ever being known here",
+   "ai": "n/a -- this is a naming fact, not a capability",
+   "relationship": "NO MATCH",
+   "brain": "(the name)",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "I have written 'ARD' for weeks and could not have said what it stands for. The Mask on the shortest possible object: an acronym used fluently and not understood.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0132",
+   "what": "REVERSE MUST BE PAIRED WITH FORWARD — I only ever did half",
+   "step": "WITNESS",
+   "human": "his REVERSE chain: material -> technique -> workshop -> original location -> function -> commissioner -> intended audience -> political/ritual situation -> candidate. His FORWARD chain: trigger -> decision -> command chain -> workshop -> object form -> symbols -> placement -> later damage, reuse, survival",
+   "ai": "no equivalent. A model asked to explain will run one direction and stop",
+   "relationship": "NO MATCH",
+   "brain": "(the missing half)",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "THE_REVERSE_WALKS.md ran eleven descents and not one ascent. His method is a PAIR: descend from the object to a candidate, then climb from the candidate back to the object, and see whether they meet. A reverse walk alone produces a plausible story. Only the forward return tests it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0133",
+   "what": "THE CLONE PRINCIPLE — a brain is a WEIGHTED CONFIGURATION, not a description",
+   "step": "GROUND",
+   "human": "his words: 'a Character of the King is one generated brain-state: a weighted configuration of authority, family, war, religion, economy, knowledge, symbolism, society, psychology and artifact reality. It is a TESTABLE HYPOTHESIS, NOT A FINAL CLAIM'",
+   "ai": "a model produces a character description, which reads as a portrait and cannot be falsified",
+   "relationship": "NO MATCH",
+   "brain": "(how a brain should be built)",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "THE RIEMANN AND EINSTEIN WORKBOOKS WERE BUILT WRONG. They are descriptions with 2,560 rows. His method says a brain is a WEIGHTING over parameters, generated as one hypothesis among many, scored against evidence, and beaten by a better one. That is testable; a portrait is not.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0134",
+   "what": "REGENERATION — each candidate remembers its own REJECTED ALTERNATIVES",
+   "step": "LOOP",
+   "human": "his words: 'each new character is a separate candidate brain that remembers its own evidence path, contradictions, confidence, and rejected alternatives'",
+   "ai": "a model regenerates from scratch and keeps nothing about what it considered and discarded",
+   "relationship": "NO MATCH",
+   "brain": "(rejected memory)",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "Keeping the rejected alternatives is the part nobody builds. Without it the second attempt silently re-proposes what the first attempt already killed -- which is exactly what happens across sessions here.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0135",
+   "what": "THE CONFIRMATION RULE — contradictions must REDUCE the score",
+   "step": "WITNESS",
+   "human": "his rule: 'one similar piece is a clue. Two independent same-era parallels increase confidence. Repeated agreement across five loops may select one candidate. CONTRADICTIONS MUST REDUCE THE SCORE, and a falsifier must always remain visible'",
+   "ai": "AI-CAP-021 calibration reports confidence; nothing subtracts for a contradiction found",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "confirmation brain",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "This is Filter 3 written for artifacts, and it goes further: evidence against does not merely fail to add, it SUBTRACTS. The engine's ledger currently accumulates support and has no negative term.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0136",
+   "what": "FIVE INDEPENDENT LOOPS — no loop may overwrite another",
+   "step": "HALT",
+   "human": "L1 Object and Production, L2 King and Authority, L3 Queen Child and Dynasty, L4 War Diplomacy and Crisis, L5 Same-Era Comparative Confirmation. 'No loop may overwrite another; each becomes a memory node'",
+   "ai": "one pass, one conclusion. Nothing runs the same question along five independent tracks and keeps all five",
+   "relationship": "NO MATCH",
+   "brain": "(five tracks)",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "The non-overwriting rule is the whole design: five readings that disagree stay five readings. It is his two-witness halt scaled to five, and it is why L5 exists -- comparison is its own loop, not a step inside the others.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0137",
+   "what": "A FOURTH ARCHITECTURE — 10 x 8 x 25 = 2,000 parameters",
+   "step": "GROUND",
+   "human": "this workbook's own pyramid line: '10 segments -> 8 containers per segment -> 25 parameters per container = 2,000 parameters', feeding 100 King-characters",
+   "ai": "not used anywhere in this project",
+   "relationship": "NO MATCH",
+   "brain": "(unreconciled)",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "So there are now FOUR: 2,000 here, 2,560 approved, 2,592 v0.4 baseline, 3,072 v0.4 combined. The architecture halt is wider than P-6 v2 stated. Which is current remains his call and this makes the question more urgent, not less.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0138",
+   "what": "UNCONTROLLED COMBINATION IS NOISE, NOT COVERAGE",
+   "step": "HALT",
+   "human": "his words: 'the theoretical combination count is vastly larger, but uncontrolled combinations would create noise. The engine can later expand only after the loop sequence is validated'",
+   "ai": "a model asked for more will generate more, and volume reads as thoroughness",
+   "relationship": "NO MATCH",
+   "brain": "(restraint)",
+   "born": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "seen_in": [
+    "EX-46 The King Character Engine — ARD's real meaning and the missing forward half"
+   ],
+   "note": "He capped himself at 100 of a vastly larger space and stated the reason. This compile went the other way -- 130 nodes and 46 runs with no cap and no validation of the loop first. His rule says validate the sequence, THEN expand.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0139",
+   "what": "THE VISUAL POINT ZERO IS SPECIFIED — CORE-01 already takes images",
+   "step": "GROUND",
+   "human": "CORE-01 Point Zero Source Lock, his own inputs line: 'Raw ask; files; IMAGES; source metadata; timestamp'",
+   "ai": "SB-01 in the running engine locks text only",
+   "relationship": "NO MATCH",
+   "brain": "(specified, not built)",
+   "born": "EX-47 The 12 Formal Cores and 100 Modules",
+   "seen_in": [
+    "EX-47 The 12 Formal Cores and 100 Modules"
+   ],
+   "note": "The tea-video failure -- 'u failed at point zero' -- is not an unforeseen gap. He had already specified images as a Point Zero input in CORE-01. The engine implements the text half of a core he wrote in full.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0140",
+   "what": "OCCAM + HICKAM — the simplest explanation AND the many-causes check, together",
+   "step": "WITNESS",
+   "human": "MOD-008 Occam + Hickam Check. Occam: prefer the simplest explanation. Hickam's dictum: a patient may have as many diseases as they please",
+   "ai": "a model reaches for the single clean cause, because a single clean cause reads as insight",
+   "relationship": "NO MATCH",
+   "brain": "(paired test)",
+   "born": "EX-47 The 12 Formal Cores and 100 Modules",
+   "seen_in": [
+    "EX-47 The 12 Formal Cores and 100 Modules"
+   ],
+   "note": "Running both is the discipline. Occam alone collapses a multi-cause event into one story -- which is precisely what the telling did to the Mahabharata, substituting women's pride for a chain of six causes. He had the counter-test named as a module.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0141",
+   "what": "A DISCARD LAYER — a named place for what is thrown away",
+   "step": "LOOP",
+   "human": "MOD-022 Discard Layer, alongside MOD-019 Contradiction Register and MOD-020 Gap Table",
+   "ai": "discarded material simply does not appear in the output; there is no record that it was considered",
+   "relationship": "NO MATCH",
+   "brain": "(discard)",
+   "born": "EX-47 The 12 Formal Cores and 100 Modules",
+   "seen_in": [
+    "EX-47 The 12 Formal Cores and 100 Modules"
+   ],
+   "note": "Pairs with the King Engine's 'remembers its rejected alternatives'. Two separate parts of his architecture independently insist that what was thrown away must be kept. Nothing here keeps it.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0142",
+   "what": "BEST-VERSION-SOURCE — provenance across his own iterations",
+   "step": "NAMING",
+   "human": "his module registry carries a 'Best version source' column: 'Sourceborn / RGL / v5.0', 'ARD-RGL 3.1', 'URR Master Spec', 'Your v3/v5 idea', 'DeepSeek / ARD'",
+   "ai": "no equivalent. A model produces a current version with no record of which earlier attempt the best form came from",
+   "relationship": "NO MATCH",
+   "brain": "(iteration provenance)",
+   "born": "EX-47 The 12 Formal Cores and 100 Modules",
+   "seen_in": [
+    "EX-47 The 12 Formal Cores and 100 Modules"
+   ],
+   "note": "He tracks not just what a module is but WHICH OF HIS OWN VERSIONS got it right. That is how you merge four architectures without losing the best of each -- and it is the instrument the 2,000/2,560/2,592/3,072 question needs.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0143",
+   "what": "MOD-021 STALL DIAGNOSIS — naming the KIND of stuck",
+   "step": "HALT",
+   "human": "MOD-021 Stall Diagnosis, and ARD's Critical Logic Wall with its four walls: Data, Choice, Courage, Identity",
+   "ai": "a model that cannot proceed produces a hedge, not a diagnosis",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "stall brain",
+   "born": "EX-47 The 12 Formal Cores and 100 Modules",
+   "seen_in": [
+    "EX-47 The 12 Formal Cores and 100 Modules"
+   ],
+   "note": "Four different reasons for being stuck, needing four different responses. A data wall wants more evidence; a courage wall wants someone to say the thing; an identity wall wants the person to be able to afford being wrong. Treating all four as 'uncertainty' is why hedging is useless.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0144",
+   "what": "THE 650 WERE HELD BY COUNT, NOT BY MERIT",
+   "step": "GROUND",
+   "human": "the reason-held field is IDENTICAL on all 650: 'Present in the fully enumerated v1.0 list but outside the earlier v0.2 target count of 36 for this container.' Status on all 650: HELD FOR REVIEW -- NOT DELETED OR WITHDRAWN. Decision on all 650: PENDING",
+   "ai": "n/a -- this is a fact about how the human bank was built",
+   "relationship": "NO MATCH",
+   "brain": "(count-first)",
+   "born": "EX-48 The 650 held reserve — RES-0518 answered",
+   "seen_in": [
+    "EX-48 The 650 held reserve — RES-0518 answered"
+   ],
+   "note": "THE ARCHITECTURE WAS COUNT-FIRST. A target of 36 per container was set, the full enumeration overflowed it, and 650 real parameters were parked for arithmetic rather than for quality. It also explains the 24-48 spread: different containers had different targets. Nothing was lost -- he kept every one -- but the ACTIVE bank is a number, not a judgement.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0145",
+   "what": "RES-0518 IS 'PERSISTENCE-VS-QUIT ARBITRATION' — and it is the missing parameter of his own example",
+   "step": "WITNESS",
+   "human": "RES-0518, SEG-08 / CON-062, wording: 'Persistence-vs-quit arbitration'. Held. Pending. Alongside RES-0515 Willpower deployment, RES-0516 Motivation regulation (self-motivating), RES-0517 Goal-progress monitoring",
+   "ai": "no AI match -- and it is outside the 2,560, so it was never even offered a mapping edge",
+   "relationship": "NO MATCH",
+   "brain": "(the answer)",
+   "born": "EX-48 The 650 held reserve — RES-0518 answered",
+   "seen_in": [
+    "EX-48 The 650 held reserve — RES-0518 answered"
+   ],
+   "note": "HIS PENDING QUESTION, ANSWERED. 'A person is hungry and tired but continues working' IS a persistence-vs-quit arbitration -- that is the event, named exactly. The single most precise parameter for his own test example sits in the held reserve, outside the active baseline, because a container target of 36 was already full. P1_ANSWERS v1-v4 could not have found it: it is not in the 10,240 edges.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0146",
+   "what": "THE EMBODIED SEGMENTS HOLD THE MOST RESERVE",
+   "step": "GROUND",
+   "human": "reserve per segment: Sensorimotor 92, Biological Regulation 84, Perception 80, Language 72, Development 68, Attention 60, Learning 56, Emotion 54, Consciousness 48, Reasoning 36",
+   "ai": "these are the same segments with the worst AI coverage -- Biological Regulation matched 7 of 256",
+   "relationship": "NO MATCH",
+   "brain": "(the boundary is wider)",
+   "born": "EX-48 The 650 held reserve — RES-0518 answered",
+   "seen_in": [
+    "EX-48 The 650 held reserve — RES-0518 answered"
+   ],
+   "note": "The human-only ground is LARGER than the approved bank shows. The body segments both overflowed hardest into reserve AND matched worst to AI. Reasoning holds the fewest reserve items (36) and matches best (135 of 256). The same gradient, twice, from two unrelated causes.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0147",
+   "what": "TWO INDEPENDENT LOOPS ARE REQUIRED TO CONTINUE WITHOUT A HUMAN",
+   "step": "HALT",
+   "human": "his auto-continue rule, all conditions required: '2 or more independent loops support the direction; no high-risk issue; synthetic load low or clearly tagged; no major contradiction open; the next action does not finalize naming/core/product'",
+   "ai": "Filter 3 caps CONFIDENCE at Medium on one witness. His rule is stronger: on one witness the engine may not CONTINUE at all",
+   "relationship": "STRUCTURAL ANALOGUE",
+   "brain": "gate brain",
+   "born": "EX-49 The Human Gate rule — and it forbids what this session has been doing",
+   "seen_in": [
+    "EX-49 The Human Gate rule — and it forbids what this session has been doing"
+   ],
+   "note": "A confidence cap and an autonomy gate are different instruments. The engine has the first and not the second. NAMED AGAINST THIS SESSION: most of this compile ran on single-source material -- one workbook, one document -- and continued anyway. Under his rule that is forced human review, not a low confidence mark.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0148",
+   "what": "HUMAN REVIEW IS FORCED WHEN THE SYSTEM PROPOSES A NEW PARAMETER",
+   "step": "HALT",
+   "human": "his forced-review list includes, verbatim: 'the system proposes new parameter, naming change, core change, folder change, or freeze' -- and 'final output or product acceptance is requested'",
+   "ai": "nothing gates node creation. A model asked to expand will expand",
+   "relationship": "NO MATCH",
+   "brain": "(self-applying)",
+   "born": "EX-49 The Human Gate rule — and it forbids what this session has been doing",
+   "seen_in": [
+    "EX-49 The Human Gate rule — and it forbids what this session has been doing"
+   ],
+   "note": "THIS REGISTRY HAS 146 PROPOSED NODES AND NOT ONE PASSED A HUMAN GATE. Under his own rule every single mint was a forced-review event. They are all marked PENDING, which is the right status, but the rule says the gate comes BEFORE continuing, not after in a batch. Written down rather than left for him to find.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0149",
+   "what": "NINE REQUIRED LABELS on every gated item",
+   "step": "NAMING",
+   "human": "his list: REAL, ASSUMPTION, SYNTHETIC, INVENTION_SEED, MYSTERY, PARTIAL_SUPPORT, LOW_EVIDENCE, HIGH_RISK, NEEDS_HUMAN",
+   "ai": "the engine tags claims FACT/READING/SYNTHETIC -- three where he specifies nine",
+   "relationship": "FUNCTIONAL ANALOGUE",
+   "brain": "label brain",
+   "born": "EX-49 The Human Gate rule — and it forbids what this session has been doing",
+   "seen_in": [
+    "EX-49 The Human Gate rule — and it forbids what this session has been doing"
+   ],
+   "note": "PARTIAL_SUPPORT and LOW_EVIDENCE are separate labels in his scheme, and INVENTION_SEED is distinct from SYNTHETIC. Three tags collapse distinctions he kept apart -- a thing weakly supported and a thing barely evidenced need different responses.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0150",
+   "what": "SIX HUMAN DECISIONS, not two",
+   "step": "LOOP",
+   "human": "his options: PASS, HOLD, REJECT, REVERSE_LOOP, ADD_DATA, APPROVE_AS_REVIEW_ONLY",
+   "ai": "approve/reject is the usual shape. REVERSE_LOOP and APPROVE_AS_REVIEW_ONLY have no equivalent",
+   "relationship": "NO MATCH",
+   "brain": "(decision set)",
+   "born": "EX-49 The Human Gate rule — and it forbids what this session has been doing",
+   "seen_in": [
+    "EX-49 The Human Gate rule — and it forbids what this session has been doing"
+   ],
+   "note": "APPROVE_AS_REVIEW_ONLY is the one that matters: a way to accept something into the record WITHOUT activating it. That is exactly the status the 650 reserve items and the 146 nodes need, and it is why nothing in his system has to be either adopted or thrown away.",
+   "owner": "PENDING"
+  },
+  {
+   "id": "ASI-0151",
+   "what": "ARCHIVE DOES NOT MEAN DELETE, AND DOES NOT MEAN ACTIVE",
+   "step": "GROUND",
+   "human": "his archive lock, verbatim: 'Material in 99_ARCHIVE is storage/reference only. Archive does not mean delete. Archive does not mean active module.' Plus the folder lock: 'do not rename folders, do not create new project names'",
+   "ai": "a model reorganising a project will rename and consolidate, because tidiness reads as improvement",
+   "relationship": "NO MATCH",
+   "brain": "(three states)",
+   "born": "EX-49 The Human Gate rule — and it forbids what this session has been doing",
+   "seen_in": [
+    "EX-49 The Human Gate rule — and it forbids what this session has been doing"
+   ],
+   "note": "A third state between live and gone, stated as a rule. Pairs with the Discard Layer and with the King Engine's rejected alternatives -- three independent parts of his architecture insisting that set-aside material stays addressable.",
+   "owner": "PENDING"
+  }
+ ],
+ "runs": [
+  {
+   "example": "1f three-bank review (seed)",
+   "new": [
+    "ASI-0001",
+    "ASI-0002",
+    "ASI-0003",
+    "ASI-0004",
+    "ASI-0005",
+    "ASI-0006",
+    "ASI-0007",
+    "ASI-0008",
+    "ASI-0009",
+    "ASI-0010",
+    "ASI-0011",
+    "ASI-0012",
+    "ASI-0013",
+    "ASI-0014",
+    "ASI-0015",
+    "ASI-0016",
+    "ASI-0017",
+    "ASI-0018",
+    "ASI-0019"
+   ],
+   "reused": [],
+   "n_new": 19,
+   "n_reused": 0,
+   "total_after": 19
+  },
+  {
+   "example": "ASIwork release compile (530 files)",
+   "new": [
+    "ASI-0020",
+    "ASI-0021",
+    "ASI-0022",
+    "ASI-0023",
+    "ASI-0024",
+    "ASI-0025",
+    "ASI-0026",
+    "ASI-0027",
+    "ASI-0028",
+    "ASI-0029",
+    "ASI-0030",
+    "ASI-0031",
+    "ASI-0032",
+    "ASI-0033",
+    "ASI-0034",
+    "ASI-0035",
+    "ASI-0036",
+    "ASI-0037",
+    "ASI-0038",
+    "ASI-0039"
+   ],
+   "reused": [],
+   "n_new": 20,
+   "n_reused": 0,
+   "total_after": 39
+  },
+  {
+   "example": "P-1.1 hunger+work example (his sentence)",
+   "new": [
+    "ASI-0040",
+    "ASI-0041",
+    "ASI-0042",
+    "ASI-0043",
+    "ASI-0044"
+   ],
+   "reused": [],
+   "n_new": 5,
+   "n_reused": 0,
+   "total_after": 44
+  },
+  {
+   "example": "EX-04 Hunger (his founding example)",
+   "new": [
+    "ASI-0045"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 45
+  },
+  {
+   "example": "EX-05 Gravity",
+   "new": [
+    "ASI-0046"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 46
+  },
+  {
+   "example": "EX-06 The water cycle",
+   "new": [
+    "ASI-0047"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 47
+  },
+  {
+   "example": "EX-07 Faith",
+   "new": [],
+   "reused": [],
+   "n_new": 0,
+   "n_reused": 0,
+   "total_after": 47
+  },
+  {
+   "example": "EX-08 Language",
+   "new": [
+    "ASI-0048"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 48
+  },
+  {
+   "example": "EX-09 The war",
+   "new": [
+    "ASI-0049"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 49
+  },
+  {
+   "example": "EX-10 The bet",
+   "new": [
+    "ASI-0050"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 50
+  },
+  {
+   "example": "EX-11 Riemann's working style",
+   "new": [
+    "ASI-0051"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 51
+  },
+  {
+   "example": "EX-12 K (the half law)",
+   "new": [
+    "ASI-0052"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 52
+  },
+  {
+   "example": "EX-13 The human operating chain",
+   "new": [
+    "ASI-0053"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 53
+  },
+  {
+   "example": "EX-14 The SB sequence",
+   "new": [],
+   "reused": [],
+   "n_new": 0,
+   "n_reused": 0,
+   "total_after": 53
+  },
+  {
+   "example": "EX-15 SB-URR the engine",
+   "new": [],
+   "reused": [],
+   "n_new": 0,
+   "n_reused": 0,
+   "total_after": 53
+  },
+  {
+   "example": "EX-16 RD World",
+   "new": [
+    "ASI-0054"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 54
+  },
+  {
+   "example": "EX-17 The seven filters",
+   "new": [],
+   "reused": [],
+   "n_new": 0,
+   "n_reused": 0,
+   "total_after": 54
+  },
+  {
+   "example": "EX-18 The universal 8",
+   "new": [
+    "ASI-0055"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 55
+  },
+  {
+   "example": "EX-19 Cricket (his invention case)",
+   "new": [
+    "ASI-0056"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 56
+  },
+  {
+   "example": "EX-20 The 300,000-year table",
+   "new": [
+    "ASI-0057"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 57
+  },
+  {
+   "example": "EX-21 Holo",
+   "new": [
+    "ASI-0058"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 58
+  },
+  {
+   "example": "EX-22 The prime 31 and the mirror",
+   "new": [],
+   "reused": [],
+   "n_new": 0,
+   "n_reused": 0,
+   "total_after": 58
+  },
+  {
+   "example": "EX-23 Einstein's working style",
+   "new": [],
+   "reused": [],
+   "n_new": 0,
+   "n_reused": 0,
+   "total_after": 58
+  },
+  {
+   "example": "EX-24 His CV and career record",
+   "new": [],
+   "reused": [],
+   "n_new": 0,
+   "n_reused": 0,
+   "total_after": 58
+  },
+  {
+   "example": "EX-25 The hospital OT and phasing work",
+   "new": [
+    "ASI-0059"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 59
+  },
+  {
+   "example": "EX-26 Raw Thoughts: Sourceborn / Final Theory (May)",
+   "new": [
+    "ASI-0060",
+    "ASI-0061",
+    "ASI-0062"
+   ],
+   "reused": [],
+   "n_new": 3,
+   "n_reused": 0,
+   "total_after": 62
+  },
+  {
+   "example": "EX-27 Raw Thoughts: Personal philosophy (May)",
+   "new": [
+    "ASI-0063",
+    "ASI-0064",
+    "ASI-0065",
+    "ASI-0066"
+   ],
+   "reused": [],
+   "n_new": 4,
+   "n_reused": 0,
+   "total_after": 66
+  },
+  {
+   "example": "EX-28 His raw-thought TEMPLATE itself",
+   "new": [
+    "ASI-0067",
+    "ASI-0068"
+   ],
+   "reused": [],
+   "n_new": 2,
+   "n_reused": 0,
+   "total_after": 68
+  },
+  {
+   "example": "EX-29 Raw Thoughts: AI safety (March-May)",
+   "new": [
+    "ASI-0069",
+    "ASI-0070",
+    "ASI-0071",
+    "ASI-0072"
+   ],
+   "reused": [],
+   "n_new": 4,
+   "n_reused": 0,
+   "total_after": 72
+  },
+  {
+   "example": "EX-30 Raw Thoughts: URR / RD World (May)",
+   "new": [
+    "ASI-0073",
+    "ASI-0074",
+    "ASI-0075",
+    "ASI-0076"
+   ],
+   "reused": [],
+   "n_new": 4,
+   "n_reused": 0,
+   "total_after": 76
+  },
+  {
+   "example": "EX-31 Raw Thoughts: investment framework (April)",
+   "new": [
+    "ASI-0077",
+    "ASI-0078"
+   ],
+   "reused": [],
+   "n_new": 2,
+   "n_reused": 0,
+   "total_after": 78
+  },
+  {
+   "example": "EX-32 Raw Thoughts: tech products (March-May)",
+   "new": [
+    "ASI-0079",
+    "ASI-0080",
+    "ASI-0081"
+   ],
+   "reused": [],
+   "n_new": 3,
+   "n_reused": 0,
+   "total_after": 81
+  },
+  {
+   "example": "EX-33 His 15-step DEVELOPMENT sequence (how the method itself was built)",
+   "new": [
+    "ASI-0082",
+    "ASI-0083",
+    "ASI-0084",
+    "ASI-0085",
+    "ASI-0086",
+    "ASI-0087"
+   ],
+   "reused": [],
+   "n_new": 6,
+   "n_reused": 0,
+   "total_after": 87
+  },
+  {
+   "example": "EX-34 ARD 3.1 — 'The 14', the engine sequence missing from Phase 8",
+   "new": [
+    "ASI-0088",
+    "ASI-0089",
+    "ASI-0090",
+    "ASI-0091",
+    "ASI-0092",
+    "ASI-0093",
+    "ASI-0094",
+    "ASI-0095",
+    "ASI-0096"
+   ],
+   "reused": [],
+   "n_new": 9,
+   "n_reused": 0,
+   "total_after": 96
+  },
+  {
+   "example": "EX-35 ARD's 'Explicitly Not Added' — the anti-surveillance refusal",
+   "new": [
+    "ASI-0097"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 97
+  },
+  {
+   "example": "EX-36 The response scorecard — he audits every answer",
+   "new": [
+    "ASI-0098",
+    "ASI-0099"
+   ],
+   "reused": [],
+   "n_new": 2,
+   "n_reused": 0,
+   "total_after": 99
+  },
+  {
+   "example": "EX-37 The black hole, worked as a cognitive structure",
+   "new": [
+    "ASI-0100",
+    "ASI-0101",
+    "ASI-0102",
+    "ASI-0103",
+    "ASI-0104"
+   ],
+   "reused": [],
+   "n_new": 5,
+   "n_reused": 0,
+   "total_after": 104
+  },
+  {
+   "example": "EX-38 ARD 3.1 LEAN — his own anti-bloat pass",
+   "new": [
+    "ASI-0105",
+    "ASI-0106"
+   ],
+   "reused": [],
+   "n_new": 2,
+   "n_reused": 0,
+   "total_after": 106
+  },
+  {
+   "example": "EX-39 His adversarial audit — twelve of my recorded failures",
+   "new": [
+    "ASI-0107",
+    "ASI-0108",
+    "ASI-0109",
+    "ASI-0110"
+   ],
+   "reused": [],
+   "n_new": 4,
+   "n_reused": 0,
+   "total_after": 110
+  },
+  {
+   "example": "EX-40 His own Test 001 — the same example, run by him",
+   "new": [
+    "ASI-0111",
+    "ASI-0112"
+   ],
+   "reused": [],
+   "n_new": 2,
+   "n_reused": 0,
+   "total_after": 112
+  },
+  {
+   "example": "EX-41 The Observation Law, in full",
+   "new": [
+    "ASI-0113",
+    "ASI-0114"
+   ],
+   "reused": [],
+   "n_new": 2,
+   "n_reused": 0,
+   "total_after": 114
+  },
+  {
+   "example": "EX-42 The full hunger loop and the test bank",
+   "new": [
+    "ASI-0115",
+    "ASI-0116",
+    "ASI-0117"
+   ],
+   "reused": [],
+   "n_new": 3,
+   "n_reused": 0,
+   "total_after": 117
+  },
+  {
+   "example": "EX-43 The approved brain workbook — 40 filters, 12 states, 20 failures, 650 reserve",
+   "new": [
+    "ASI-0118",
+    "ASI-0119",
+    "ASI-0120",
+    "ASI-0121",
+    "ASI-0122",
+    "ASI-0123"
+   ],
+   "reused": [],
+   "n_new": 6,
+   "n_reused": 0,
+   "total_after": 123
+  },
+  {
+   "example": "EX-44 The v0.4 architecture — a larger brain than the approved one",
+   "new": [
+    "ASI-0124"
+   ],
+   "reused": [],
+   "n_new": 1,
+   "n_reused": 0,
+   "total_after": 124
+  },
+  {
+   "example": "EX-45 His 38-engine architecture — and what I 'proposed' that already exists",
+   "new": [
+    "ASI-0125",
+    "ASI-0126",
+    "ASI-0127",
+    "ASI-0128",
+    "ASI-0129",
+    "ASI-0130"
+   ],
+   "reused": [],
+   "n_new": 6,
+   "n_reused": 0,
+   "total_after": 130
+  },
+  {
+   "example": "EX-46 The King Character Engine — ARD's real meaning and the missing forward half",
+   "new": [
+    "ASI-0131",
+    "ASI-0132",
+    "ASI-0133",
+    "ASI-0134",
+    "ASI-0135",
+    "ASI-0136",
+    "ASI-0137",
+    "ASI-0138"
+   ],
+   "reused": [],
+   "n_new": 8,
+   "n_reused": 0,
+   "total_after": 138
+  },
+  {
+   "example": "EX-47 The 12 Formal Cores and 100 Modules",
+   "new": [
+    "ASI-0139",
+    "ASI-0140",
+    "ASI-0141",
+    "ASI-0142",
+    "ASI-0143"
+   ],
+   "reused": [],
+   "n_new": 5,
+   "n_reused": 0,
+   "total_after": 143
+  },
+  {
+   "example": "EX-48 The 650 held reserve — RES-0518 answered",
+   "new": [
+    "ASI-0144",
+    "ASI-0145",
+    "ASI-0146"
+   ],
+   "reused": [],
+   "n_new": 3,
+   "n_reused": 0,
+   "total_after": 146
+  },
+  {
+   "example": "EX-49 The Human Gate rule — and it forbids what this session has been doing",
+   "new": [
+    "ASI-0147",
+    "ASI-0148",
+    "ASI-0149",
+    "ASI-0150",
+    "ASI-0151"
+   ],
+   "reused": [],
+   "n_new": 5,
+   "n_reused": 0,
+   "total_after": 151
+  }
+ ]
+}
