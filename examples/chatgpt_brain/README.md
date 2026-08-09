@@ -35,12 +35,32 @@ Purpose: stable example identities for Sourceborn graph/rubric/node testing.
 - `EX-029` Tao Te Ching legacy wisdom candidate
 - `EX-030` Quran legacy wisdom candidate
 - `EX-031` Gospel legacy wisdom candidate
+- `EX-032` Small Idea Wins / Present Evidence
+- `EX-033` Evidence Gap
+- `EX-034` Hollow vs Weight
+- `EX-035` Normal Business-Idea Thinking
+- `EX-036` Business Scale vs MBA Re-Anchor
+- `EX-037` Offline Grounding Missing
+- `EX-038` Hard-Block Mapping Test
 
 ## Files
 
 - `EXAMPLE_BANK.md` — EX-001 to EX-013
 - `EX-014_TO_EX-023_HUMAN_AI_CORRESPONDENCE.md` — correspondence examples from uploaded CSV
 - `EX-024_TO_EX-031_LEGACY_WISDOM_CANDIDATES.md` — inherited branch wisdom examples quarantined for source verification
+- `EX-032_TO_EX-038_LEGACY_BRANCH_TEST_CASES.md` — inherited engine test prompts migrated into V2 review cases
+
+## Provenance classes
+
+```text
+CHATGPT_PROJECT_SOURCE
+UPLOADED_SOURCE_FILE
+LEGACY_NODE_BRAIN_BRANCH
+HOLY_BOOK_CANDIDATE_UNVERIFIED
+SOURCE_GAP
+```
+
+Do not label legacy branch examples as ChatGPT-origin examples merely because ChatGPT is now integrating the branch.
 
 ## Example contract to apply next
 
