@@ -1283,6 +1283,72 @@ def test_mypage_blocks_are_parked_never_deleted_and_unknowns_are_flagged():
         shutil.rmtree(root, ignore_errors=True)
 
 
+def test_ladder_seed_registry_is_honest_about_what_it_knows():
+    """The seed fills only what the repo verifiably knows: 18 cross-segment
+    mechanisms (1 parameter each) + CON-042's size. Slots stay slots."""
+    from sourceborn import ladder
+    reg = ladder.seed_registry()
+    assert reg["totals"] == {"segments": 10, "containers": 200,
+                             "parameters": 3072, "parameters_filled": 18}
+    assert len(reg["containers"]) == 200
+    con42 = next(c for c in reg["containers"] if c["id"] == "CON-042")
+    assert con42["target"] == 48 and con42["filled"]
+    assert sum(1 for c in reg["containers"] if not c["filled"]) == 181
+    assert all(p["filled"] for p in reg["parameters"])
+
+
+def test_ladder_upload_merges_by_id_and_keeps_every_version():
+    """His workbook lands by merge — nothing removed, every version kept."""
+    import shutil
+    import tempfile
+    from sourceborn import ladder
+    root = tempfile.mkdtemp(prefix="sb_ladder_")
+    try:
+        v1 = ladder.save_registry(root, {"parameters": [
+            {"id": "SB-ASI-P0431", "name": "Proof-shape recognition",
+             "container": "CON-042", "contains": "claim form recognition"}]},
+            note="workbook slice")
+        assert v1["version"] == 1
+        assert v1["totals"]["parameters_filled"] == 19
+        v2 = ladder.save_registry(root, {"containers": [
+            {"id": "CON-001", "name": "Attention Gate", "segment": "S5"}]})
+        assert v2["version"] == 2
+        c1 = next(c for c in v2["containers"] if c["id"] == "CON-001")
+        assert c1["filled"] and c1["segment"] == "S5"
+        assert len(ladder.load_registry(root)["containers"]) == 200
+    finally:
+        shutil.rmtree(root, ignore_errors=True)
+
+
+def test_ladder_activation_gates_always_lit_and_matches_are_named():
+    """Gates run on every answer; a content match names the tokens that
+    caused it — the reasoning is never a mystery."""
+    from sourceborn import ladder
+    reg = ladder.seed_registry()
+    lit = ladder.activate("what is the Riemann hypothesis about zeros",
+                          reg, extra_text="the zeta line one half")
+    ids = {p["id"] for p in lit["parameters"]}
+    assert {"P-X-14", "P-X-15", "P-X-09"} <= ids       # gates present
+    gate = next(p for p in lit["parameters"] if p["id"] == "P-X-14")
+    assert gate["reason"].startswith("gate")
+    lit2 = ladder.activate("stall diagnostic of the critical logic wall", reg)
+    hit = next(p for p in lit2["parameters"] if p["id"] == "P-X-07")
+    assert hit["reason"].startswith("gate")             # gate wins over match
+
+
+def test_ladder_hand_deselect_and_force_change_the_recall_notes():
+    """Adoption is real: the notes fed to the engine change with his hand."""
+    from sourceborn import ladder
+    reg = ladder.seed_registry()
+    lit = ladder.activate("any question at all", reg)
+    base, hand = ladder.recall_notes(reg, lit, [], [])
+    assert "P-X-14" in base and hand["deselected"] == []
+    dropped, hand2 = ladder.recall_notes(reg, lit, [], ["P-X-14"])
+    assert "P-X-14" not in dropped and hand2["deselected"] == ["P-X-14"]
+    forced, hand3 = ladder.recall_notes(reg, lit, ["P-X-08"], [])
+    assert "P-X-08" in forced and "P-X-08" in hand3["forced"]
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0
