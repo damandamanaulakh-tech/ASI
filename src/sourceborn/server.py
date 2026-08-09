@@ -34,6 +34,8 @@ from dataclasses import asdict
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
 
+from . import enginepage
+from . import ladder
 from . import mypage
 from . import scheduler
 from .engine import SourcebornEngine, NO_LIVE
@@ -1123,6 +1125,12 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/page":
             self._send(200, mypage.PAGE.encode("utf-8"),
                        "text/html; charset=utf-8")
+        elif path == "/engine":
+            self._send(200, enginepage.PAGE.encode("utf-8"),
+                       "text/html; charset=utf-8")
+        elif path == "/engine/registry":
+            self._send(200, json.dumps(ladder.load_registry(SB_ROOT)).encode(),
+                       "application/json")
         elif path == "/page/meta":
             self._send(200, json.dumps({"sources": mypage.SOURCES,
                                         "hows": list(mypage.HOWS)}).encode(),
@@ -1274,6 +1282,51 @@ class Handler(BaseHTTPRequestHandler):
             data = json.loads(self.rfile.read(n) or b"{}")
         except Exception:
             self._send(400, b'{"error":"bad json"}', "application/json")
+            return
+        if self.path == "/engine/registry":
+            saved = ladder.save_registry(SB_ROOT, data,
+                                         note=data.get("note", ""))
+            ENGINE.memory.master_log({"event": "ladder_registry_saved",
+                                      "version": saved["version"],
+                                      "filled": saved["totals"]
+                                      ["parameters_filled"]})
+            self._send(200, json.dumps(saved["totals"] |
+                                       {"version": saved["version"]}).encode(),
+                       "application/json")
+            return
+        if self.path == "/engine/ask":
+            question = (data.get("question") or "").strip()
+            if not question:
+                self._send(400, b'{"error":"empty question"}',
+                           "application/json")
+                return
+            try:
+                reg = ladder.load_registry(SB_ROOT)
+                lit = ladder.activate(question, reg)
+                notes, hand = ladder.recall_notes(
+                    reg, lit, data.get("select") or [],
+                    data.get("deselect") or [])
+                run_text = question
+                if notes:
+                    run_text += ("\n\n[recall notes from the selected "
+                                 "brains]:\n" + notes)
+                model = get_model(str(data.get("model", "offline")
+                                      or "offline").lower())
+                walk = ENGINE.run_walk(run_text, model=model)
+                payload = self._walk_dict(walk["result"], walk, model.name)
+                payload["chat_id"] = _save_chat(question, payload, "engine")
+                # second pass: let the engine's own words light more entries
+                answer_text = (payload.get("output") or {}).get("answer", "")
+                lit = ladder.activate(question, reg, extra_text=answer_text)
+                notes, hand = ladder.recall_notes(
+                    reg, lit, data.get("select") or [],
+                    data.get("deselect") or [])
+                self._send(200, json.dumps(
+                    {"payload": payload, "lit": lit, "hand": hand}).encode(),
+                    "application/json")
+            except Exception as exc:
+                self._send(500, json.dumps({"error": str(exc)}).encode(),
+                           "application/json")
             return
         if self.path == "/page/save":
             layout = data.get("layout") or {}
