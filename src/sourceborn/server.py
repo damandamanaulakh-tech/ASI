@@ -34,6 +34,7 @@ from dataclasses import asdict
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
 
+from . import mypage
 from . import scheduler
 from .engine import SourcebornEngine, NO_LIVE
 from .extract import extract_text
@@ -227,6 +228,58 @@ def _memory_report(limit: int = 3) -> dict:
                           "last_update": b.meta.get("last_update", ""),
                           "recent": recent})
     return {"at": _now(), "totals": mem.stats(), "nodes": nodes}
+
+
+def _page_feeds() -> dict:
+    """Resolve every live WHAT for MY PAGE in one call. His-owned sources
+    (text, links) live inside the layout itself and are not resolved here."""
+    feeds: dict = {}
+    try:
+        n_brains = len(ENGINE.brains.all())
+        feeds["health"] = {"rows": [
+            ["model", ENGINE.model.name],
+            ["brains", str(n_brains)],
+            ["weekly", str(scheduler.status(SB_ROOT).get("status", ""))]],
+            "number": n_brains, "label": "node brains"}
+    except Exception as e:
+        feeds["health"] = {"rows": [["error", str(e)[:80]]]}
+    try:
+        t = _memory_report(limit=1).get("totals", {})
+        feeds["memory"] = {"rows": [[str(k), str(v)] for k, v in
+                                    list(t.items())[:8]],
+                           "number": sum(v for v in t.values()
+                                         if isinstance(v, int)),
+                           "label": "entries kept — nothing deleted"}
+    except Exception as e:
+        feeds["memory"] = {"rows": [["error", str(e)[:80]]]}
+    try:
+        feeds["chats"] = {"rows": [[c.get("question", ""),
+                                    c.get("confidence", ""),
+                                    f"holds {c.get('hold_count', 0)}"]
+                                   for c in _list_chats(10)],
+                          "label": "last chats"}
+    except Exception as e:
+        feeds["chats"] = {"rows": [["error", str(e)[:80]]]}
+    try:
+        items = _library().get("items", [])
+        feeds["library"] = {"rows": [[i.get("name", ""),
+                                      f"{i.get('chars', 0)} chars"]
+                                     for i in items[:12]],
+                            "number": len(items), "label": "files in the library"}
+    except Exception as e:
+        feeds["library"] = {"rows": [["error", str(e)[:80]]]}
+    feeds["brains"] = {"number": len(ENGINE.brains.all()),
+                       "label": "70 SB + 25 URR — the MEMORY; the filters are the METHOD"}
+    feeds["ladder"] = {"rows": [list(r) for r in mypage.LADDER_ROWS],
+                       "number": "3,072", "label": "parameters · Phase-1 done"}
+    feeds["filters"] = {"rows": mypage.FILTERS, "number": 7,
+                        "label": "in order, every finding, every time"}
+    feeds["routes"] = {"rows": mypage.ROUTES, "number": 11,
+                       "label": "route registry v1 — non-exhaustive"}
+    feeds["phases"] = {"rows": mypage.PHASES}
+    feeds["open"] = {"rows": mypage.OPEN_ITEMS, "number": len(mypage.OPEN_ITEMS),
+                     "label": "open on his word"}
+    return feeds
 
 
 def _save_snapshot(name: str = "") -> dict:
@@ -1067,6 +1120,30 @@ class Handler(BaseHTTPRequestHandler):
         path, qs = route.path, parse_qs(route.query)
         if path in ("/", "/index.html"):
             self._send(200, PAGE.encode("utf-8"), "text/html; charset=utf-8")
+        elif path == "/page":
+            self._send(200, mypage.PAGE.encode("utf-8"),
+                       "text/html; charset=utf-8")
+        elif path == "/page/meta":
+            self._send(200, json.dumps({"sources": mypage.SOURCES,
+                                        "hows": list(mypage.HOWS)}).encode(),
+                       "application/json")
+        elif path == "/page/layout":
+            self._send(200, json.dumps(mypage.load_layout(SB_ROOT)).encode(),
+                       "application/json")
+        elif path == "/page/data":
+            self._send(200, json.dumps(_page_feeds()).encode(),
+                       "application/json")
+        elif path == "/page/versions":
+            self._send(200, json.dumps(mypage.list_versions(SB_ROOT)).encode(),
+                       "application/json")
+        elif path == "/page/version":
+            n = (qs.get("n") or ["0"])[0]
+            d = mypage.get_version(SB_ROOT, int(n)) if n.isdigit() else None
+            if d is None:
+                self._send(404, b'{"error":"no such version"}',
+                           "application/json")
+            else:
+                self._send(200, json.dumps(d).encode(), "application/json")
         elif path == "/health":
             body = json.dumps({"ok": True, "model": ENGINE.model.name,
                                "models": model_status(),
@@ -1197,6 +1274,20 @@ class Handler(BaseHTTPRequestHandler):
             data = json.loads(self.rfile.read(n) or b"{}")
         except Exception:
             self._send(400, b'{"error":"bad json"}', "application/json")
+            return
+        if self.path == "/page/save":
+            layout = data.get("layout") or {}
+            if not isinstance(layout.get("sections"), list):
+                self._send(400, b'{"error":"layout needs sections"}',
+                           "application/json")
+                return
+            saved = mypage.save_layout(SB_ROOT, layout,
+                                       note=data.get("note", ""),
+                                       references=data.get("references"))
+            ENGINE.memory.master_log({"event": "mypage_saved",
+                                      "version": saved["version"],
+                                      "note": saved.get("note", "")})
+            self._send(200, json.dumps(saved).encode(), "application/json")
             return
         if self.path == "/ingest":
             text = (data.get("text") or "").strip()
