@@ -1,0 +1,501 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3156" height="3829" viewBox="0 0 3156 3829" font-family="Helvetica, Arial, sans-serif">
+<rect width="3156" height="3829" fill="#FFFFFF"/>
+<defs>
+<marker id="ahk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#000000"/></marker>
+<marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A8A"/></marker>
+<marker id="aht" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
+<marker id="ahs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#0F7B3E"/></marker>
+<marker id="aho" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#E05A00"/></marker>
+<marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#B26B00"/></marker>
+<marker id="ahLL1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
+<marker id="ahLL2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
+<marker id="ahLL3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
+<marker id="ahLL4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
+<marker id="ahLL5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
+<marker id="ahLL6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
+<marker id="ahLL7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
+<marker id="ahLL8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
+<marker id="ahLL9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D01818"/></marker>
+</defs>
+<text x="60" y="76" font-size="50" font-weight="700" fill="#000000" letter-spacing="-1.2">THE SEQUENCE — ARROW CHART</text>
+<text x="60" y="118" font-size="22" fill="#8A8A8A">Every stage on the main line. Every threshold on the edge that enters a stage. Every spawn out to its sub-sequence, with its return. Every loop drawn where it actually lands.</text>
+<text x="60" y="158" font-size="21" font-weight="700" fill="#000000">57 stages · 22 thresholds · 6 spawns · 9 loops · 4 barriers — nothing collapsed</text>
+<rect x="60" y="187" width="12" height="12" fill="#000000"/>
+<text x="82" y="198" font-size="16" fill="#000000">the main line, and the transition arrow between stages</text>
+<rect x="60" y="211" width="12" height="12" fill="#D01818"/>
+<text x="82" y="222" font-size="16" fill="#D01818">threshold on the edge — why it fires NOW</text>
+<rect x="60" y="235" width="12" height="12" fill="#0F7B3E"/>
+<text x="82" y="246" font-size="16" fill="#0F7B3E">spawn out to a sub-sequence, and its return</text>
+<rect x="60" y="259" width="12" height="12" fill="#B26B00"/>
+<text x="82" y="270" font-size="16" fill="#B26B00">barrier — the line is held here</text>
+<rect x="60" y="283" width="12" height="12" fill="#E05A00"/>
+<text x="82" y="294" font-size="16" fill="#E05A00">PASS 0 and the three passes</text>
+<rect x="710" y="202" width="640" height="66" fill="none" stroke="#E05A00" stroke-width="3"/>
+<text x="728" y="230" font-size="21" font-weight="700" fill="#E05A00">PASS 0 — DECLARE THE END</text>
+<text x="728" y="254" font-size="15.5" fill="#E05A00">name the reality claimed at the finish, before looking for any beginning</text>
+<line x1="900" y1="268" x2="900" y2="312" stroke="#E05A00" stroke-width="3" marker-end="url(#aho)"/>
+<line x1="90" y1="3140" x2="90" y2="326" stroke="#E05A00" stroke-width="2.4" marker-end="url(#aho)"/>
+<text x="83" y="1733.0" font-size="16" font-weight="700" fill="#E05A00" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 83 1733.0)">PASS 1  END → START   the required chain</text>
+<line x1="124" y1="326" x2="124" y2="3140" stroke="#E05A00" stroke-width="2.4" marker-end="url(#aho)"/>
+<text x="117" y="1733.0" font-size="16" font-weight="700" fill="#E05A00" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 117 1733.0)">PASS 2  START → END   the available chain</text>
+<line x1="158" y1="3140" x2="158" y2="326" stroke="#E05A00" stroke-width="2.4" marker-end="url(#aho)"/>
+<text x="151" y="1733.0" font-size="16" font-weight="700" fill="#E05A00" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 151 1733.0)">PASS 3  END → START   the gap list</text>
+<line x1="2040" y1="320" x2="2040" y2="3146" stroke="#DCDCDC" stroke-width="1.4"/>
+<rect x="926" y="320.0" width="1230" height="54" fill="#F2F2F2"/>
+<rect x="891" y="338.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="353.0" font-size="19" font-weight="700" fill="#000000">PRIOR REALITY</text>
+<text x="1520" y="352.0" font-size="15" fill="#000000">declared by the human — not discovered by the walk</text>
+<line x1="900" y1="358.0" x2="900" y2="388.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="392.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="407.0" font-size="19" font-weight="700" fill="#000000">ORIGIN / SOURCE</text>
+<text x="1520" y="406.0" font-size="15" fill="#000000">the seed. It can be OLDER than the thing that carries it</text>
+<rect x="926" y="428.0" width="1230" height="40" fill="#F2F2F2"/>
+<line x1="900" y1="412.0" x2="900" y2="435.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="448.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="453.0" font-size="16" fill="#8A8A8A">MATERIAL</text>
+<text x="1520" y="453.0" font-size="15" fill="#8A8A8A">what it is made of</text>
+<line x1="900" y1="459.0" x2="900" y2="475.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="488.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="493.0" font-size="16" fill="#8A8A8A">ENERGY</text>
+<text x="1520" y="493.0" font-size="15" fill="#8A8A8A">what moves it</text>
+<rect x="926" y="508.0" width="1230" height="40" fill="#F2F2F2"/>
+<line x1="900" y1="499.0" x2="900" y2="515.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="528.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="533.0" font-size="16" fill="#8A8A8A">INFORMATION</text>
+<text x="1520" y="533.0" font-size="15" fill="#8A8A8A">who knew what, and when</text>
+<line x1="900" y1="539.0" x2="900" y2="562.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="566.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="581.0" font-size="19" font-weight="700" fill="#000000">ENVIRONMENT / HOST</text>
+<text x="1520" y="580.0" font-size="15" fill="#000000">where it runs</text>
+<rect x="926" y="602.0" width="1230" height="40" fill="#F2F2F2"/>
+<line x1="900" y1="586.0" x2="900" y2="609.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="622.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="627.0" font-size="16" fill="#8A8A8A">SUBSTRATE</text>
+<text x="1520" y="627.0" font-size="15" fill="#8A8A8A">what it stands on</text>
+<line x1="900" y1="633.0" x2="900" y2="649.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 633.5 L 908.5 642.0 L 900 650.5 L 891.5 642.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="646.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">TIME</text>
+<text x="916.5" y="646.5" font-size="13.5" fill="#D01818">the window opens</text>
+<circle cx="900" cy="662.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="667.0" font-size="16" fill="#8A8A8A">CONDITIONS</text>
+<text x="1520" y="667.0" font-size="15" fill="#8A8A8A">what must be true at that moment</text>
+<rect x="926" y="682.0" width="1230" height="40" fill="#F2F2F2"/>
+<line x1="900" y1="673.0" x2="900" y2="689.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="702.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="707.0" font-size="16" fill="#8A8A8A">CONSTRAINTS</text>
+<text x="1520" y="707.0" font-size="15" fill="#8A8A8A">what may not be crossed — exceptions carry terms</text>
+<line x1="900" y1="713.0" x2="900" y2="736.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 717.0 L 908.5 725.5 L 900 734.0 L 891.5 725.5 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="730.0" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">COMPOSITE</text>
+<text x="916.5" y="730.0" font-size="13.5" fill="#D01818">material + host + conditions all true</text>
+<rect x="891" y="740.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="755.0" font-size="19" font-weight="700" fill="#000000">FORMATION SEQUENCE</text>
+<text x="1520" y="754.0" font-size="15" fill="#000000">how it comes together</text>
+<rect x="926" y="776.0" width="1230" height="40" fill="#F2F2F2"/>
+<line x1="900" y1="760.0" x2="900" y2="783.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="796.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="801.0" font-size="16" fill="#8A8A8A">assembly</text>
+<text x="1520" y="801.0" font-size="15" fill="#8A8A8A">parts put together</text>
+<line x1="900" y1="807.0" x2="900" y2="823.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="836.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="841.0" font-size="16" fill="#8A8A8A">growth</text>
+<text x="1520" y="841.0" font-size="15" fill="#8A8A8A">increase from inside</text>
+<rect x="926" y="856.0" width="1230" height="40" fill="#F2F2F2"/>
+<line x1="900" y1="847.0" x2="900" y2="863.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="876.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="881.0" font-size="16" fill="#8A8A8A">emergence</text>
+<text x="1520" y="881.0" font-size="15" fill="#8A8A8A">appears without being assembled</text>
+<line x1="900" y1="887.0" x2="900" y2="910.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 891.0 L 908.5 899.5 L 900 908.0 L 891.5 899.5 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="904.0" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">STATE</text>
+<text x="916.5" y="904.0" font-size="13.5" fill="#D01818">the boundary closes</text>
+<rect x="891" y="914.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="929.0" font-size="19" font-weight="700" fill="#000000">EXISTENCE</text>
+<text x="1520" y="928.0" font-size="15" fill="#000000">it is a thing now</text>
+<rect x="926" y="950.0" width="1230" height="40" fill="#F2F2F2"/>
+<line x1="900" y1="934.0" x2="900" y2="957.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="970.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="975.0" font-size="16" fill="#8A8A8A">BOUNDARY</text>
+<text x="1520" y="975.0" font-size="15" fill="#8A8A8A">where it stops — can be absent, and absence is a finding</text>
+<line x1="900" y1="981.0" x2="900" y2="997.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="1010.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="1015.0" font-size="16" fill="#8A8A8A">IDENTITY</text>
+<text x="1520" y="1015.0" font-size="15" fill="#8A8A8A">what names it</text>
+<rect x="926" y="1030.0" width="1230" height="40" fill="#F2F2F2"/>
+<line x1="900" y1="1021.0" x2="900" y2="1037.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="1050.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="1055.0" font-size="16" fill="#8A8A8A">STATE</text>
+<text x="1520" y="1055.0" font-size="15" fill="#8A8A8A">its condition, readable at any point</text>
+<line x1="900" y1="1061.0" x2="900" y2="1084.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 1065.0 L 908.5 1073.5 L 900 1082.0 L 891.5 1073.5 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="1078.0" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">EVENT</text>
+<text x="916.5" y="1078.0" font-size="13.5" fill="#D01818">first load applied</text>
+<rect x="891" y="1088.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1103.0" font-size="19" font-weight="700" fill="#000000">STABILITY / VIABILITY</text>
+<text x="1520" y="1102.0" font-size="15" fill="#000000">can it keep going</text>
+<rect x="926" y="1124.0" width="1230" height="40" fill="#F2F2F2"/>
+<line x1="900" y1="1108.0" x2="900" y2="1131.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="1144.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="1149.0" font-size="16" fill="#8A8A8A">YES → continuation</text>
+<text x="1520" y="1149.0" font-size="15" fill="#8A8A8A">it persists</text>
+<line x1="900" y1="1155.0" x2="900" y2="1171.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 1155.5 L 908.5 1164.0 L 900 1172.5 L 891.5 1164.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="1168.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">ABSENCE</text>
+<text x="916.5" y="1168.5" font-size="13.5" fill="#D01818">maintenance stops</text>
+<circle cx="900" cy="1184.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="1189.0" font-size="16" fill="#8A8A8A">NO → collapse / repair / terminate</text>
+<text x="1520" y="1189.0" font-size="15" fill="#8A8A8A">this is the ENTITY, not the sequence</text>
+<rect x="926" y="1204.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="1195.0" x2="900" y2="1218.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 1199.0 L 908.5 1207.5 L 900 1216.0 L 891.5 1207.5 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="1212.0" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">VALUE</text>
+<text x="916.5" y="1212.0" font-size="13.5" fill="#D01818">the driver crosses the line into acting</text>
+<rect x="891" y="1222.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1237.0" font-size="19" font-weight="700" fill="#000000">REQUIREMENT EMERGES</text>
+<text x="1520" y="1236.0" font-size="15" fill="#000000">the driver. Nine origins — and one of them is WANT</text>
+<line x1="900" y1="1242.0" x2="900" y2="1272.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="1276.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1291.0" font-size="19" font-weight="700" fill="#000000">REQUIREMENT</text>
+<text x="1520" y="1290.0" font-size="15" fill="#000000">what is actually needed, stated in the open</text>
+<rect x="926" y="1312.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="1296.0" x2="900" y2="1326.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="1330.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1345.0" font-size="19" font-weight="700" fill="#000000">DEPENDENCY GRAPH</text>
+<text x="1520" y="1344.0" font-size="15" fill="#000000">what that needs, and what that needs</text>
+<line x1="900" y1="1350.0" x2="900" y2="1380.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 1357.5 L 908.5 1366.0 L 900 1374.5 L 891.5 1366.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="1370.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">STATE</text>
+<text x="916.5" y="1370.5" font-size="13.5" fill="#D01818">the requirement is named</text>
+<rect x="891" y="1384.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1399.0" font-size="19" font-weight="700" fill="#000000">AVAILABILITY</text>
+<text x="1520" y="1398.0" font-size="15" fill="#000000">is it there — LOCATE / BUILD / SUBSTITUTE</text>
+<line x1="874" y1="1411.0" x2="926" y2="1411.0" stroke="#B26B00" stroke-width="5"/>
+<text x="2016" y="1398.0" font-size="13.5" font-weight="700" fill="#B26B00" text-anchor="end">BARRIER</text>
+<rect x="926" y="1420.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="1404.0" x2="900" y2="1434.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 1411.5 L 908.5 1420.0 L 900 1428.5 L 891.5 1420.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="1424.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">EVENT</text>
+<text x="916.5" y="1424.5" font-size="13.5" fill="#D01818">a candidate is present</text>
+<rect x="891" y="1438.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1453.0" font-size="19" font-weight="700" fill="#000000">QUALIFICATION</text>
+<text x="1520" y="1452.0" font-size="15" fill="#000000">does it fit</text>
+<line x1="900" y1="1458.0" x2="900" y2="1488.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 1465.5 L 908.5 1474.0 L 900 1482.5 L 891.5 1474.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="1478.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">STATE</text>
+<text x="916.5" y="1478.5" font-size="13.5" fill="#D01818">the candidate qualifies</text>
+<rect x="891" y="1492.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1507.0" font-size="19" font-weight="700" fill="#000000">TESTING</text>
+<text x="1520" y="1506.0" font-size="15" fill="#000000">does it hold</text>
+<line x1="874" y1="1519.0" x2="926" y2="1519.0" stroke="#B26B00" stroke-width="5"/>
+<text x="2016" y="1506.0" font-size="13.5" font-weight="700" fill="#B26B00" text-anchor="end">BARRIER</text>
+<rect x="926" y="1528.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="1512.0" x2="900" y2="1542.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 1519.5 L 908.5 1528.0 L 900 1536.5 L 891.5 1528.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="1532.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">CONFIDENCE</text>
+<text x="916.5" y="1532.5" font-size="13.5" fill="#D01818">the test returns</text>
+<rect x="891" y="1546.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1561.0" font-size="19" font-weight="700" fill="#000000">SELECTION</text>
+<text x="1520" y="1560.0" font-size="15" fill="#000000">which one</text>
+<line x1="900" y1="1566.0" x2="900" y2="1596.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 1573.5 L 908.5 1582.0 L 900 1590.5 L 891.5 1582.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="1586.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">COUNT·QUORUM</text>
+<text x="916.5" y="1586.5" font-size="13.5" fill="#D01818">authority or quorum reached</text>
+<rect x="891" y="1600.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1615.0" font-size="19" font-weight="700" fill="#000000">DECISION / CHOICE</text>
+<text x="1520" y="1614.0" font-size="15" fill="#000000">who decided, and by what priority</text>
+<rect x="926" y="1636.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="1620.0" x2="900" y2="1650.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 1627.5 L 908.5 1636.0 L 900 1644.5 L 891.5 1636.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="1640.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">EVENT</text>
+<text x="916.5" y="1640.5" font-size="13.5" fill="#D01818">the encounter actually happens</text>
+<rect x="891" y="1654.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1669.0" font-size="19" font-weight="700" fill="#000000">ACQUISITION → ENCOUNTER</text>
+<text x="1520" y="1668.0" font-size="15" fill="#000000">it is met — and meeting is CONDITIONAL</text>
+<line x1="900" y1="1674.0" x2="900" y2="1704.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="1708.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1723.0" font-size="19" font-weight="700" fill="#000000">BOUNDARY APPROACH</text>
+<text x="1520" y="1722.0" font-size="15" fill="#000000">it arrives at the edge</text>
+<rect x="926" y="1744.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="1728.0" x2="900" y2="1758.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 1735.5 L 908.5 1744.0 L 900 1752.5 L 891.5 1744.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="1748.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">RANGE</text>
+<text x="916.5" y="1748.5" font-size="13.5" fill="#D01818">the boundary is reached</text>
+<rect x="891" y="1762.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1777.0" font-size="19" font-weight="700" fill="#000000">INTAKE → COUPLING</text>
+<text x="1520" y="1776.0" font-size="15" fill="#000000">it joins</text>
+<line x1="900" y1="1782.0" x2="900" y2="1812.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="1816.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1831.0" font-size="19" font-weight="700" fill="#000000">TRANSFORMATION → CONDITIONING</text>
+<text x="1520" y="1830.0" font-size="15" fill="#000000">it is made fit</text>
+<rect x="926" y="1852.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="1836.0" x2="900" y2="1866.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 1843.5 L 908.5 1852.0 L 900 1860.5 L 891.5 1852.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="1856.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">STATE</text>
+<text x="916.5" y="1856.5" font-size="13.5" fill="#D01818">coupling holds</text>
+<rect x="891" y="1870.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1885.0" font-size="19" font-weight="700" fill="#000000">PROCESSING (+ propagation)</text>
+<text x="1520" y="1884.0" font-size="15" fill="#000000">the work, and how far the work carries</text>
+<line x1="900" y1="1890.0" x2="900" y2="1920.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="1924.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1939.0" font-size="19" font-weight="700" fill="#000000">ASSIMILATION → INCORPORATION</text>
+<text x="1520" y="1938.0" font-size="15" fill="#000000">it becomes the thing</text>
+<rect x="926" y="1960.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="1944.0" x2="900" y2="1974.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="1978.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="1993.0" font-size="19" font-weight="700" fill="#000000">INTEGRATION</text>
+<text x="1520" y="1992.0" font-size="15" fill="#000000">same event as the row above — flagged, not deleted</text>
+<line x1="900" y1="1998.0" x2="900" y2="2028.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 2005.5 L 908.5 2014.0 L 900 2022.5 L 891.5 2014.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="2018.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">STATE</text>
+<text x="916.5" y="2018.5" font-size="13.5" fill="#D01818">processing complete</text>
+<rect x="891" y="2032.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2047.0" font-size="19" font-weight="700" fill="#000000">ACTION</text>
+<text x="1520" y="2046.0" font-size="15" fill="#000000">what it does outward</text>
+<rect x="926" y="2068.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="2052.0" x2="900" y2="2082.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="2086.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2101.0" font-size="19" font-weight="700" fill="#000000">OUTPUT</text>
+<text x="1520" y="2100.0" font-size="15" fill="#000000">what leaves it</text>
+<line x1="900" y1="2106.0" x2="900" y2="2136.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="2140.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2155.0" font-size="19" font-weight="700" fill="#000000">RETURN</text>
+<text x="1520" y="2154.0" font-size="15" fill="#000000">what goes back to the wider system</text>
+<rect x="926" y="2176.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="2160.0" x2="900" y2="2190.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="2194.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2209.0" font-size="19" font-weight="700" fill="#000000">RESULT</text>
+<text x="1520" y="2208.0" font-size="15" fill="#000000">what changed — can be LATENT: exists, has not fired</text>
+<line x1="900" y1="2214.0" x2="900" y2="2244.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="2248.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2263.0" font-size="19" font-weight="700" fill="#000000">IMPACT</text>
+<text x="1520" y="2262.0" font-size="15" fill="#000000">what it changed for everyone else</text>
+<rect x="926" y="2284.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="2268.0" x2="900" y2="2298.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 2275.5 L 908.5 2284.0 L 900 2292.5 L 891.5 2284.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="2288.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">EVENT</text>
+<text x="916.5" y="2288.5" font-size="13.5" fill="#D01818">a result exists to check</text>
+<rect x="891" y="2302.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2317.0" font-size="19" font-weight="700" fill="#000000">VERIFICATION</text>
+<text x="1520" y="2316.0" font-size="15" fill="#000000">checked against the requirement, not against the wish</text>
+<line x1="874" y1="2329.0" x2="926" y2="2329.0" stroke="#B26B00" stroke-width="5"/>
+<text x="2016" y="2316.0" font-size="13.5" font-weight="700" fill="#B26B00" text-anchor="end">BARRIER</text>
+<line x1="900" y1="2322.0" x2="900" y2="2352.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 2329.5 L 908.5 2338.0 L 900 2346.5 L 891.5 2338.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="2342.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">CONFIDENCE</text>
+<text x="916.5" y="2342.5" font-size="13.5" fill="#D01818">verification returns</text>
+<rect x="891" y="2356.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2371.0" font-size="19" font-weight="700" fill="#000000">FEEDBACK</text>
+<text x="1520" y="2370.0" font-size="15" fill="#000000">what reality taught — can end the whole class of sequence</text>
+<rect x="926" y="2392.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="2376.0" x2="900" y2="2406.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="2410.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2425.0" font-size="19" font-weight="700" fill="#000000">MEMORY</text>
+<text x="1520" y="2424.0" font-size="15" fill="#000000">what is kept</text>
+<line x1="900" y1="2430.0" x2="900" y2="2453.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="2466.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="2471.0" font-size="16" fill="#8A8A8A">FAILURE MEMORY</text>
+<text x="1520" y="2471.0" font-size="15" fill="#8A8A8A">what must not be done again</text>
+<rect x="926" y="2486.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="2477.0" x2="900" y2="2500.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 2481.0 L 908.5 2489.5 L 900 2498.0 L 891.5 2489.5 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="2494.0" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">COUNT·QUORUM</text>
+<text x="916.5" y="2494.0" font-size="13.5" fill="#D01818">a second independent witness</text>
+<rect x="891" y="2504.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2519.0" font-size="19" font-weight="700" fill="#000000">MEMORY VALIDATION</text>
+<text x="1520" y="2518.0" font-size="15" fill="#000000">is the memory true — and by how many witnesses</text>
+<line x1="874" y1="2531.0" x2="926" y2="2531.0" stroke="#B26B00" stroke-width="5"/>
+<text x="2016" y="2518.0" font-size="13.5" font-weight="700" fill="#B26B00" text-anchor="end">BARRIER</text>
+<line x1="900" y1="2524.0" x2="900" y2="2554.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="2558.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2573.0" font-size="19" font-weight="700" fill="#000000">COMPRESSION</text>
+<text x="1520" y="2572.0" font-size="15" fill="#000000">what survives being shortened</text>
+<rect x="926" y="2594.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="2578.0" x2="900" y2="2608.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="2612.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2627.0" font-size="19" font-weight="700" fill="#000000">INHERITANCE</text>
+<text x="1520" y="2626.0" font-size="15" fill="#000000">what is handed on</text>
+<line x1="900" y1="2632.0" x2="900" y2="2655.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="2668.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="2673.0" font-size="16" fill="#8A8A8A">biological</text>
+<rect x="926" y="2688.0" width="1230" height="40" fill="#F2F2F2"/>
+<line x1="900" y1="2679.0" x2="900" y2="2695.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="2708.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="2713.0" font-size="16" fill="#8A8A8A">individual / social / technical</text>
+<line x1="900" y1="2719.0" x2="900" y2="2735.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<circle cx="900" cy="2748.0" r="6" fill="none" stroke="#8A8A8A" stroke-width="2"/>
+<text x="958" y="2753.0" font-size="16" fill="#8A8A8A">PHYSICAL</text>
+<text x="1520" y="2753.0" font-size="15" fill="#8A8A8A">the lane the gravity walk forced open</text>
+<rect x="926" y="2768.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="2759.0" x2="900" y2="2782.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 2763.0 L 908.5 2771.5 L 900 2780.0 L 891.5 2771.5 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="2776.0" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">LEDGER</text>
+<text x="916.5" y="2776.0" font-size="13.5" fill="#D01818">every required return accepted</text>
+<rect x="891" y="2786.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2801.0" font-size="19" font-weight="700" fill="#000000">SEQUENCE CLOSURE</text>
+<text x="1520" y="2800.0" font-size="15" fill="#000000">SUCCESS · FAILURE · PARTIAL · UNKNOWN · UNAVAILABLE · N-A</text>
+<line x1="900" y1="2806.0" x2="900" y2="2836.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 2813.5 L 908.5 2822.0 L 900 2830.5 L 891.5 2822.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="2826.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">STATE</text>
+<text x="916.5" y="2826.5" font-size="13.5" fill="#D01818">read at the moment of closure</text>
+<rect x="891" y="2840.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2855.0" font-size="19" font-weight="700" fill="#000000">ENTITY OUTCOME</text>
+<text x="1520" y="2854.0" font-size="15" fill="#000000">persists · coheres · degrades · terminates — never 'closed'</text>
+<rect x="926" y="2876.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="2860.0" x2="900" y2="2890.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="2894.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2909.0" font-size="19" font-weight="700" fill="#000000">NEXT-SEQUENCE SEED</text>
+<text x="1520" y="2908.0" font-size="15" fill="#000000">S₁ REFERENCES S₀. S₀ does not reopen</text>
+<line x1="900" y1="2914.0" x2="900" y2="2944.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 2921.5 L 908.5 2930.0 L 900 2938.5 L 891.5 2930.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="2934.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">EVENT</text>
+<text x="916.5" y="2934.5" font-size="13.5" fill="#D01818">the seed is accepted</text>
+<rect x="891" y="2948.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="2963.0" font-size="19" font-weight="700" fill="#000000">RE-ENTRY POINT</text>
+<text x="1520" y="2962.0" font-size="15" fill="#000000">where S₁ starts — not where S₀ stopped</text>
+<rect x="926" y="2984.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="2968.0" x2="900" y2="2998.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="3002.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="3017.0" font-size="19" font-weight="700" fill="#000000">EXECUTION</text>
+<text x="1520" y="3016.0" font-size="15" fill="#000000">S₁ runs, on its own ledger row</text>
+<line x1="900" y1="3022.0" x2="900" y2="3052.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<rect x="891" y="3056.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="3071.0" font-size="19" font-weight="700" fill="#000000">RE-VERIFY</text>
+<text x="1520" y="3070.0" font-size="15" fill="#000000">against the corrected requirement</text>
+<rect x="926" y="3092.0" width="1230" height="54" fill="#F2F2F2"/>
+<line x1="900" y1="3076.0" x2="900" y2="3106.0" stroke="#000000" stroke-width="2.2" marker-end="url(#ahk)"/>
+<path d="M 900 3083.5 L 908.5 3092.0 L 900 3100.5 L 891.5 3092.0 Z" fill="#FFFFFF" stroke="#D01818" stroke-width="2.2"/>
+<text x="883.5" y="3096.5" font-size="13.5" font-weight="700" fill="#D01818" text-anchor="end">CONFIDENCE</text>
+<text x="916.5" y="3096.5" font-size="13.5" fill="#D01818">re-verify passes</text>
+<rect x="891" y="3110.0" width="18" height="18" fill="#000000"/>
+<text x="940" y="3125.0" font-size="19" font-weight="700" fill="#000000">MEMORY UPDATE</text>
+<text x="1520" y="3124.0" font-size="15" fill="#000000">the ledger row closes, and the declared end is checked</text>
+<rect x="210" y="1292.0" width="490" height="62" fill="#FFFFFF" stroke="#0F7B3E" stroke-width="2.2"/>
+<text x="224" y="1314.0" font-size="16" font-weight="700" fill="#0F7B3E">SUB-SEQ  LOCATE</text>
+<text x="224" y="1332.0" font-size="13" fill="#0F7B3E">closes: search finished</text>
+<text x="224" y="1348.0" font-size="13" fill="#0F7B3E">accepted only if: material in hand</text>
+<path d="M 889 1386.0 L 752 1386.0 L 752 1310.0 L 704 1310.0" fill="none" stroke="#0F7B3E" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ahs)"/>
+<path d="M 704 1338.0 L 726 1338.0 L 726 1401.0 L 889 1401.0" fill="none" stroke="#0F7B3E" stroke-width="2" marker-end="url(#ahs)"/>
+<text x="688" y="1314.0" font-size="12.5" font-weight="700" text-anchor="end" fill="#D01818">CLOSED, NOT ACCEPTED</text>
+<rect x="210" y="1362.0" width="490" height="62" fill="#FFFFFF" stroke="#0F7B3E" stroke-width="2.2"/>
+<text x="224" y="1384.0" font-size="16" font-weight="700" fill="#0F7B3E">SUB-SEQ  BUILD</text>
+<text x="224" y="1402.0" font-size="13" fill="#0F7B3E">closes: attempt finished</text>
+<text x="224" y="1418.0" font-size="13" fill="#0F7B3E">accepted only if: material in hand</text>
+<path d="M 889 1386.0 L 752 1386.0 L 752 1380.0 L 704 1380.0" fill="none" stroke="#0F7B3E" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ahs)"/>
+<path d="M 704 1408.0 L 726 1408.0 L 726 1401.0 L 889 1401.0" fill="none" stroke="#0F7B3E" stroke-width="2" marker-end="url(#ahs)"/>
+<text x="688" y="1384.0" font-size="12.5" font-weight="700" text-anchor="end" fill="#D01818">CLOSED, NOT ACCEPTED</text>
+<rect x="210" y="1432.0" width="490" height="62" fill="#FFFFFF" stroke="#0F7B3E" stroke-width="2.2"/>
+<text x="224" y="1454.0" font-size="16" font-weight="700" fill="#0F7B3E">SUB-SEQ  SUBSTITUTE</text>
+<text x="224" y="1472.0" font-size="13" fill="#0F7B3E">closes: substitute found</text>
+<text x="224" y="1488.0" font-size="13" fill="#0F7B3E">accepted only if: material in hand</text>
+<path d="M 889 1386.0 L 752 1386.0 L 752 1450.0 L 704 1450.0" fill="none" stroke="#0F7B3E" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ahs)"/>
+<path d="M 704 1478.0 L 726 1478.0 L 726 1401.0 L 889 1401.0" fill="none" stroke="#0F7B3E" stroke-width="2" marker-end="url(#ahs)"/>
+<text x="688" y="1454.0" font-size="12.5" font-weight="700" text-anchor="end" fill="#0F7B3E">ACCEPTED</text>
+<rect x="210" y="1508.0" width="490" height="62" fill="#FFFFFF" stroke="#0F7B3E" stroke-width="2.2"/>
+<text x="224" y="1530.0" font-size="16" font-weight="700" fill="#0F7B3E">SUB-SEQ  RE-ANGLE</text>
+<text x="224" y="1548.0" font-size="13" fill="#0F7B3E">closes: new angle set</text>
+<text x="224" y="1564.0" font-size="13" fill="#0F7B3E">accepted only if: the structure holds</text>
+<path d="M 889 1494.0 L 752 1494.0 L 752 1526.0 L 704 1526.0" fill="none" stroke="#0F7B3E" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ahs)"/>
+<path d="M 704 1554.0 L 726 1554.0 L 726 1509.0 L 889 1509.0" fill="none" stroke="#0F7B3E" stroke-width="2" marker-end="url(#ahs)"/>
+<text x="688" y="1530.0" font-size="12.5" font-weight="700" text-anchor="end" fill="#0F7B3E">ACCEPTED</text>
+<rect x="210" y="2280.0" width="490" height="62" fill="#FFFFFF" stroke="#0F7B3E" stroke-width="2.2"/>
+<text x="224" y="2302.0" font-size="16" font-weight="700" fill="#0F7B3E">SUB-SEQ  REPAIR</text>
+<text x="224" y="2320.0" font-size="13" fill="#0F7B3E">closes: repair carried out</text>
+<text x="224" y="2336.0" font-size="13" fill="#0F7B3E">accepted only if: the requirement is met</text>
+<path d="M 889 2304.0 L 752 2304.0 L 752 2298.0 L 704 2298.0" fill="none" stroke="#0F7B3E" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ahs)"/>
+<path d="M 704 2326.0 L 726 2326.0 L 726 2319.0 L 889 2319.0" fill="none" stroke="#0F7B3E" stroke-width="2" marker-end="url(#ahs)"/>
+<text x="688" y="2302.0" font-size="12.5" font-weight="700" text-anchor="end" fill="#0F7B3E">ACCEPTED</text>
+<rect x="210" y="2482.0" width="490" height="62" fill="#FFFFFF" stroke="#0F7B3E" stroke-width="2.2"/>
+<text x="224" y="2504.0" font-size="16" font-weight="700" fill="#0F7B3E">SUB-SEQ  SECOND WITNESS</text>
+<text x="224" y="2522.0" font-size="13" fill="#0F7B3E">closes: search finished</text>
+<text x="224" y="2538.0" font-size="13" fill="#0F7B3E">accepted only if: two independent accounts</text>
+<path d="M 889 2506.0 L 752 2506.0 L 752 2500.0 L 704 2500.0" fill="none" stroke="#0F7B3E" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ahs)"/>
+<path d="M 704 2528.0 L 726 2528.0 L 726 2521.0 L 889 2521.0" fill="none" stroke="#0F7B3E" stroke-width="2" marker-end="url(#ahs)"/>
+<text x="688" y="2504.0" font-size="12.5" font-weight="700" text-anchor="end" fill="#D01818">CLOSED, NOT ACCEPTED</text>
+<line x1="2040" y1="1393.0" x2="2270" y2="1393.0" stroke="#D01818" stroke-width="1.5" stroke-dasharray="4 4"/>
+<circle cx="2040" cy="1393.0" r="4.4" fill="#D01818"/>
+<path d="M 2270 1393.0 C 2316 1349.0 2316 1437.0 2273 1398.0" fill="none" stroke="#D01818" stroke-width="2.6" marker-end="url(#ahLL1)"/>
+<text x="2261" y="1509.0" font-size="15" font-weight="700" fill="#D01818" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 2261 1509.0)">L1  THE AVAILABILITY FAN</text>
+<line x1="2040" y1="1447.0" x2="2362" y2="1447.0" stroke="#D01818" stroke-width="1.5" stroke-dasharray="4 4"/>
+<circle cx="2040" cy="1447.0" r="4.4" fill="#D01818"/>
+<path d="M 2362 1447.0 L 2362 1537.0 Q 2362 1555.0 2344.0 1555.0 L 2040 1555.0" fill="none" stroke="#D01818" stroke-width="2.6" marker-end="url(#ahLL2)"/>
+<text x="2353" y="1501.0" font-size="15" font-weight="700" fill="#D01818" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 2353 1501.0)">L2  DOES NOT FIT</text>
+<line x1="2040" y1="1501.0" x2="2454" y2="1501.0" stroke="#D01818" stroke-width="1.5" stroke-dasharray="4 4"/>
+<circle cx="2040" cy="1501.0" r="4.4" fill="#D01818"/>
+<path d="M 2454 1501.0 L 2454 1591.0 Q 2454 1609.0 2436.0 1609.0 L 2040 1609.0" fill="none" stroke="#D01818" stroke-width="2.6" marker-end="url(#ahLL3)"/>
+<text x="2445" y="1555.0" font-size="15" font-weight="700" fill="#D01818" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 2445 1555.0)">L3  FAILS MID-SEQUENCE</text>
+<line x1="2040" y1="1184.0" x2="2546" y2="1184.0" stroke="#D01818" stroke-width="1.5" stroke-dasharray="4 4"/>
+<circle cx="2040" cy="1184.0" r="4.4" fill="#D01818"/>
+<path d="M 2546 1184.0 L 2546 1213.0 Q 2546 1231.0 2528.0 1231.0 L 2040 1231.0" fill="none" stroke="#D01818" stroke-width="2.6" marker-end="url(#ahLL4)"/>
+<text x="2537" y="1207.5" font-size="15" font-weight="700" fill="#D01818" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 2537 1207.5)">L4  DAMAGE DRIVES A NEW SEQUENCE</text>
+<line x1="2040" y1="2311.0" x2="2638" y2="2311.0" stroke="#D01818" stroke-width="1.5" stroke-dasharray="4 4"/>
+<circle cx="2040" cy="2311.0" r="4.4" fill="#D01818"/>
+<path d="M 2638 2311.0 L 2638 1303.0 Q 2638 1285.0 2620.0 1285.0 L 2040 1285.0" fill="none" stroke="#D01818" stroke-width="2.6" marker-end="url(#ahLL5)"/>
+<text x="2629" y="1798.0" font-size="15" font-weight="700" fill="#D01818" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 2629 1798.0)">L5  VERIFY FAILS</text>
+<line x1="2040" y1="2365.0" x2="2730" y2="2365.0" stroke="#D01818" stroke-width="1.5" stroke-dasharray="4 4"/>
+<circle cx="2040" cy="2365.0" r="4.4" fill="#D01818"/>
+<path d="M 2730 2365.0 L 2730 365.0 Q 2730 347.0 2712.0 347.0 L 2040 347.0" fill="none" stroke="#D01818" stroke-width="2.6" marker-end="url(#ahLL6)"/>
+<text x="2721" y="1356.0" font-size="15" font-weight="700" fill="#D01818" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 2721 1356.0)">L6  THE ERA CLOSES</text>
+<line x1="2040" y1="2513.0" x2="2822" y2="2513.0" stroke="#D01818" stroke-width="1.5" stroke-dasharray="4 4"/>
+<circle cx="2040" cy="2513.0" r="4.4" fill="#D01818"/>
+<path d="M 2822 2513.0 L 2822 546.0 Q 2822 528.0 2804.0 528.0 L 2040 528.0" fill="none" stroke="#D01818" stroke-width="2.6" marker-end="url(#ahLL7)"/>
+<text x="2813" y="1520.5" font-size="15" font-weight="700" fill="#D01818" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 2813 1520.5)">L7  MEMORY UNPROVEN</text>
+<line x1="2040" y1="2567.0" x2="2914" y2="2567.0" stroke="#D01818" stroke-width="1.5" stroke-dasharray="4 4"/>
+<circle cx="2040" cy="2567.0" r="4.4" fill="#D01818"/>
+<path d="M 2914 2567.0 L 2914 2437.0 Q 2914 2419.0 2896.0 2419.0 L 2040 2419.0" fill="none" stroke="#D01818" stroke-width="2.6" marker-end="url(#ahLL8)"/>
+<text x="2905" y="2493.0" font-size="15" font-weight="700" fill="#D01818" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 2905 2493.0)">L8  COMPRESSION LOST THE HOW</text>
+<line x1="2040" y1="3119.0" x2="3006" y2="3119.0" stroke="#D01818" stroke-width="1.5" stroke-dasharray="4 4"/>
+<circle cx="2040" cy="3119.0" r="4.4" fill="#D01818"/>
+<path d="M 3006 3119.0 L 3006 419.0 Q 3006 401.0 2988.0 401.0 L 2040 401.0" fill="none" stroke="#D01818" stroke-width="2.6" marker-end="url(#ahLL9)"/>
+<text x="2997" y="1760.0" font-size="15" font-weight="700" fill="#D01818" text-anchor="middle" paint-order="stroke" stroke="#FFFFFF" stroke-width="4.5" stroke-linejoin="round" transform="rotate(-90 2997 1760.0)">L9  HALT BECOMES THE NEXT POINT ZERO</text>
+<line x1="60" y1="3172" x2="3096" y2="3172" stroke="#000000" stroke-width="2.5"/>
+<text x="60" y="3202" font-size="21" font-weight="700" fill="#000000">THE 9 LOOPS — every one of them lands as a NEW sub-sequence, never back inside the stage it left</text>
+<text x="60" y="3246" font-size="15.5" font-weight="700" fill="#D01818">L1</text>
+<text x="100" y="3246" font-size="15.5" fill="#000000">AVAILABILITY → AVAILABILITY</text>
+<text x="760" y="3246" font-size="15" fill="#D01818">fires when locate fails, then build fails</text>
+<text x="1390" y="3246" font-size="15" fill="#8A8A8A">three SUB-SEQUENCES side by side — not one node run three times. The node closes when ANY sibling is accepted.</text>
+<text x="60" y="3273" font-size="15.5" font-weight="700" fill="#D01818">L2</text>
+<text x="100" y="3273" font-size="15.5" fill="#000000">QUALIFICATION → SELECTION</text>
+<text x="760" y="3273" font-size="15" fill="#D01818">fires when the fit test fails</text>
+<text x="1390" y="3273" font-size="15" fill="#8A8A8A">a new sub-sequence with a different candidate</text>
+<text x="60" y="3300" font-size="15.5" font-weight="700" fill="#D01818">L3</text>
+<text x="100" y="3300" font-size="15.5" fill="#000000">TESTING → DECISION / CHOICE</text>
+<text x="760" y="3300" font-size="15" fill="#D01818">fires when 54° proves too steep</text>
+<text x="1390" y="3300" font-size="15" fill="#8A8A8A">the Bent Pyramid — the angle was changed while the thing was half-built</text>
+<text x="60" y="3327" font-size="15.5" font-weight="700" fill="#D01818">L4</text>
+<text x="100" y="3327" font-size="15.5" fill="#000000">NO → collapse / repair / terminate → REQUIREMENT EMERGES</text>
+<text x="760" y="3327" font-size="15" fill="#D01818">fires when the entity degrades</text>
+<text x="1390" y="3327" font-size="15" fill="#8A8A8A">driver origin = DAMAGE. The entity's outcome opens a fresh sequence</text>
+<text x="60" y="3354" font-size="15.5" font-weight="700" fill="#D01818">L5</text>
+<text x="100" y="3354" font-size="15.5" fill="#000000">VERIFICATION → REQUIREMENT</text>
+<text x="760" y="3354" font-size="15" fill="#D01818">fires when result ≠ requirement</text>
+<text x="1390" y="3354" font-size="15" fill="#8A8A8A">the requirement is restated, never quietly patched</text>
+<text x="60" y="3381" font-size="15.5" font-weight="700" fill="#D01818">L6</text>
+<text x="100" y="3381" font-size="15.5" fill="#000000">FEEDBACK → PRIOR REALITY</text>
+<text x="760" y="3381" font-size="15" fill="#D01818">fires when every pyramid was robbed</text>
+<text x="1390" y="3381" font-size="15" fill="#8A8A8A">the whole class of sequence ends; the next one begins somewhere else — hidden rock-cut tombs</text>
+<text x="60" y="3408" font-size="15.5" font-weight="700" fill="#D01818">L7</text>
+<text x="100" y="3408" font-size="15.5" fill="#000000">MEMORY VALIDATION → INFORMATION</text>
+<text x="760" y="3408" font-size="15" fill="#D01818">fires when one witness only</text>
+<text x="1390" y="3408" font-size="15" fill="#8A8A8A">capped at Medium. Two witnesses that differ HALT — the gap is the Mask and it goes to the human</text>
+<text x="60" y="3435" font-size="15.5" font-weight="700" fill="#D01818">L8</text>
+<text x="100" y="3435" font-size="15.5" fill="#000000">COMPRESSION → MEMORY</text>
+<text x="760" y="3435" font-size="15" fill="#D01818">fires when the method is not recoverable</text>
+<text x="1390" y="3435" font-size="15" fill="#8A8A8A">a defect in a record; the whole point in a body</text>
+<text x="60" y="3462" font-size="15.5" font-weight="700" fill="#D01818">L9</text>
+<text x="100" y="3462" font-size="15.5" fill="#000000">MEMORY UPDATE → ORIGIN / SOURCE</text>
+<text x="760" y="3462" font-size="15" fill="#D01818">fires when the halt is named</text>
+<text x="1390" y="3462" font-size="15" fill="#8A8A8A">S₁ REFERENCES S₀. S₀ stays closed — there is no reopen</text>
+<text x="60" y="3515" font-size="21" font-weight="700" fill="#000000">THE SIX INVARIANTS — they hold at every stage above</text>
+<rect x="60" y="3538" width="11" height="11" fill="#000000"/>
+<text x="82" y="3549" font-size="15.5" fill="#000000">BARRIER LAW — the line cannot cross a node while a required return is unaccepted</text>
+<rect x="60" y="3565" width="11" height="11" fill="#000000"/>
+<text x="82" y="3576" font-size="15.5" fill="#000000">NO IN-PLACE LOOP — a sequence never re-enters a stage it has left; a retry is a new sub-sequence</text>
+<rect x="60" y="3592" width="11" height="11" fill="#000000"/>
+<text x="82" y="3603" font-size="15.5" fill="#000000">NO REOPEN — a closed sequence stays closed; S₁ references S₀</text>
+<rect x="60" y="3619" width="11" height="11" fill="#000000"/>
+<text x="82" y="3630" font-size="15.5" fill="#000000">CLOSURE IS A SEQUENCE WORD — entities persist, cohere, degrade, terminate</text>
+<rect x="60" y="3646" width="11" height="11" fill="#000000"/>
+<text x="82" y="3657" font-size="15.5" fill="#000000">ENCOUNTER IS CONDITIONAL — two sequences meeting is an event with a condition</text>
+<rect x="60" y="3673" width="11" height="11" fill="#000000"/>
+<text x="82" y="3684" font-size="15.5" fill="#000000">NEVER MANUFACTURE A SOURCE — a gap stays a gap, and the gap goes to the human</text>
+</svg>
