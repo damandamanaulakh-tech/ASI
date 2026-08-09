@@ -1060,6 +1060,183 @@ def test_rh_explicit_answer_keeps_every_correction_visible():
     assert abs(led.answer - (led.trend - sum(led.corrections.values()))) < 1e-9
 
 
+
+
+# ------------------------------------------------------------ sequence kernel
+# The owner's six corrections made executable (docs/method/01C). These test the
+# contracts, not the philosophy: "Without the ledger, closure is philosophy.
+# With the ledger, closure becomes machine-executable."
+
+def test_seq_threshold_answers_why_now():
+    """A condition can exist for years without a transition. Trigger and
+    threshold are separate; a threshold with no evaluator stays dormant and
+    says when to recheck instead of silently passing."""
+    from sourceborn.seq_kernel import Edge, Threshold, ThresholdType
+    e = Edge("s", "t", "moisture reading arrived",
+             Threshold(ThresholdType.VALUE, "soil moisture < X",
+                       lambda c: c["moisture"] < 0.2))
+    assert not e.try_fire({"moisture": 0.5})       # condition exists, no fire
+    assert "dormant" in e.status
+    assert e.try_fire({"moisture": 0.1})           # threshold crossed
+    ne = Edge("s", "t", "event", Threshold(ThresholdType.STATE, "entity in X"))
+    assert not ne.try_fire({})                     # no evaluator -> dormant
+    assert "recheck when" in ne.status             # never a vague "later"
+
+
+def test_seq_closure_and_entity_outcome_are_orthogonal():
+    """A destruction sequence closes SUCCESS with the entity TERMINATED; a
+    repair sequence closes FAILURE with the entity persisting, DEGRADED."""
+    from sourceborn.seq_kernel import (ClosurePacket, SequenceClosure,
+                                       EntityOutcome)
+    demolition = ClosurePacket(SequenceClosure.SUCCESS, EntityOutcome.TERMINATED)
+    failed_repair = ClosurePacket(SequenceClosure.FAILURE, EntityOutcome.DEGRADED)
+    assert demolition.sequence_closure is SequenceClosure.SUCCESS
+    assert demolition.entity_outcome is EntityOutcome.TERMINATED
+    assert failed_repair.sequence_closure is SequenceClosure.FAILURE
+    assert failed_repair.entity_outcome is EntityOutcome.DEGRADED
+
+
+def test_seq_spawn_contract_refuses_blank_reasons():
+    """A child must know why it exists and what done means."""
+    from sourceborn.seq_kernel import SpawnContract, ContractError
+    try:
+        SpawnContract("c", "p", "n", spawn_reason="  ",
+                      close_condition="done", acceptance_condition="met")
+        assert False, "blank spawn_reason must be refused"
+    except ContractError:
+        pass
+
+
+def test_seq_close_condition_is_not_acceptance_condition():
+    """The water example: the child closes FAILURE honestly (search completed,
+    nothing found) and the parent's requirement stays unresolved until a later
+    sibling's return is accepted."""
+    from sourceborn.seq_kernel import (Ledger, SpawnContract, ClosurePacket,
+                                       SequenceClosure, EntityOutcome,
+                                       DriverOrigin, Controller)
+    led = Ledger()
+    led.open_root("S0", driver=DriverOrigin.NEED, controller=Controller.SELF)
+    led.spawn(SpawnContract("S0.1", "S0", "DRINK", spawn_reason="no water",
+                            close_condition="search completed",
+                            acceptance_condition="usable water found"))
+    led.close("S0.1", ClosurePacket(SequenceClosure.FAILURE,
+                                    EntityOutcome.NOT_APPLICABLE))
+    assert not led.can_cross("S0", "DRINK")        # closed, but not accepted
+    led.spawn(SpawnContract("S0.2", "S0", "DRINK", spawn_reason="build access",
+                            close_condition="dig completed",
+                            acceptance_condition="usable water found"))
+    led.close("S0.2", ClosurePacket(SequenceClosure.SUCCESS,
+                                    EntityOutcome.NEW_INSTANTIATED))
+    assert led.can_cross("S0", "DRINK")            # superseded + accepted
+
+
+def test_seq_barrier_suspends_one_node_not_the_parent():
+    """THE BARRIER LAW: the blocked edge cannot be crossed, but the parent's
+    independent branches keep moving."""
+    from sourceborn.seq_kernel import (Ledger, SpawnContract, DriverOrigin,
+                                       Controller, RowState)
+    led = Ledger()
+    led.open_root("S0", driver=DriverOrigin.GOAL, controller=Controller.SELF)
+    led.spawn(SpawnContract("S0.1", "S0", "DEP-17", spawn_reason="missing dep",
+                            close_condition="dep built",
+                            acceptance_condition="dep usable"))
+    assert led.state("S0") is RowState.SUSPENDED
+    assert not led.can_cross("S0", "DEP-17")       # barred here
+    assert led.can_cross("S0", "TEST-4")           # free elsewhere
+
+
+def test_seq_parent_cannot_close_over_open_children_and_no_reopen():
+    from sourceborn.seq_kernel import (Ledger, SpawnContract, ClosurePacket,
+                                       SequenceClosure, EntityOutcome,
+                                       DriverOrigin, Controller, BarrierError,
+                                       SequenceClosedError)
+    led = Ledger()
+    led.open_root("S0", driver=DriverOrigin.NEED, controller=Controller.SELF)
+    led.spawn(SpawnContract("S0.1", "S0", "N", spawn_reason="gap",
+                            close_condition="filled", acceptance_condition="ok"))
+    try:
+        led.close("S0", ClosurePacket(SequenceClosure.SUCCESS,
+                                      EntityOutcome.PERSISTS))
+        assert False, "must not close over an open required child"
+    except BarrierError:
+        pass
+    led.close("S0.1", ClosurePacket(SequenceClosure.SUCCESS,
+                                    EntityOutcome.PERSISTS))
+    led.close("S0", ClosurePacket(SequenceClosure.SUCCESS,
+                                  EntityOutcome.PERSISTS))
+    assert led.finished() and led.archive == ["S0"]
+    try:
+        led.close("S0", ClosurePacket(SequenceClosure.SUCCESS,
+                                      EntityOutcome.PERSISTS))
+        assert False, "a closed sequence is never reopened"
+    except SequenceClosedError:
+        pass
+    try:
+        led.spawn(SpawnContract("S0.9", "S0", "N", spawn_reason="late",
+                                close_condition="x", acceptance_condition="y"))
+        assert False, "spawning under a closed parent is reopening"
+    except SequenceClosedError:
+        pass
+
+
+def test_seq_new_sequence_references_closed_one():
+    """S0 does not reopen. S1 references S0 — and may only reference CLOSED
+    sequences."""
+    from sourceborn.seq_kernel import (Ledger, ClosurePacket, SequenceClosure,
+                                       EntityOutcome, DriverOrigin, Controller)
+    led = Ledger()
+    led.open_root("S0", driver=DriverOrigin.NEED, controller=Controller.SELF)
+    try:
+        led.open_root("SX", driver=DriverOrigin.GOAL, controller=Controller.SELF,
+                      references=("S0",))
+        assert False, "may not reference an OPEN sequence"
+    except ValueError:
+        pass
+    led.close("S0", ClosurePacket(SequenceClosure.SUCCESS, EntityOutcome.PERSISTS))
+    led.open_root("S1", driver=DriverOrigin.GOAL, controller=Controller.SELF,
+                  references=("S0",))
+    assert led.state("S1").value == "open"
+
+
+def test_seq_homeostasis_is_episodes_not_an_immortal_loop():
+    """Repeated threshold-bounded regulation episodes, each closed — never one
+    forever-open loop."""
+    from sourceborn.seq_kernel import (Ledger, SpawnContract, ClosurePacket,
+                                       SequenceClosure, EntityOutcome,
+                                       DriverOrigin, Controller, RowState)
+    led = Ledger()
+    led.open_root("BODY", driver=DriverOrigin.NEED,
+                  controller=Controller.DISTRIBUTED_SELF)
+    for episode in ("REG.1", "REG.2"):
+        led.spawn(SpawnContract(episode, "BODY", "TEMP",
+                                spawn_reason="band exceeded",
+                                close_condition="back in band",
+                                acceptance_condition="variable within band"),
+                  driver=DriverOrigin.DAMAGE)
+        led.close(episode, ClosurePacket(SequenceClosure.SUCCESS,
+                                         EntityOutcome.REPAIRED))
+    assert led.state("REG.1") is RowState.CLOSED
+    assert led.state("REG.2") is RowState.CLOSED
+    assert led.state("BODY") is RowState.OPEN      # the entity's line continues
+    assert led.can_cross("BODY", "TEMP")
+
+
+def test_seq_want_is_a_driver_never_a_stage():
+    """Want opens its own sequence beside the need-driven one; it never joins
+    it. Both close independently."""
+    from sourceborn.seq_kernel import (Ledger, ClosurePacket, SequenceClosure,
+                                       EntityOutcome, DriverOrigin, Controller)
+    led = Ledger()
+    led.open_root("EAT", driver=DriverOrigin.NEED, controller=Controller.SELF)
+    led.close("EAT", ClosurePacket(SequenceClosure.SUCCESS,
+                                   EntityOutcome.PERSISTS))
+    led.open_root("COOK", driver=DriverOrigin.WANT, controller=Controller.SELF,
+                  references=("EAT",))
+    led.close("COOK", ClosurePacket(SequenceClosure.SUCCESS,
+                                    EntityOutcome.NEW_INSTANTIATED))
+    assert led.finished() and led.archive == ["EAT", "COOK"]
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

@@ -58,6 +58,7 @@ owner's way of thinking and gets wiser with every use.
 | **01 THE UNIVERSAL SEQUENCE** | The 8 steps, defined; then worked fully on the owner's own examples: hunger, gravity, the Riemann Hypothesis, string theory, the water cycle, and the invention case (cricket). |
 | **01A INTENT** | **Intent is a property of every event, not a step.** His paragraph as given, reframed with the depth on the surface, then each phrase with what it means and what an answer may no longer do. **Binding on every answer.** |
 | **01B SEQUENCE** | What a sequence fundamentally is, from his Phase-1 brief: **the unit is the transition, not the step**; sequence is structured dependency, not necessarily linear and not necessarily time; observed vs **generative** sequence, and how an executable sequence comes from Required Chain ∩ Available Material ∩ Current Reality ∩ Constraints. 25 dimensions, 14 kinds, the record, static vs living. **Binding on every answer.** |
+| **01C SEQUENCE PROTOCOL** | The investigation and its protocols in one place: the **triple pass** (end→start, start→end, end→start — whatever work is done for that event is the sequence); the **main line** (one controller sequence holding the full ledger; every entity a sequence riding on it); the four tests (gravity, pyramids, brain, Mahabharata); the **six core objects** — threshold on edges, entity outcome vs sequence closure, spawn contract, open-sequence ledger, driver origin incl. Want, controller; the **barrier law**; no in-place loops; **no reopen** — a new sequence references the closed one. CLOSURE is a sequence word; entities persist, cohere, degrade, terminate. Kernel implemented at `src/sourceborn/seq_kernel.py`. **Binding. Model not yet locked — locks on his word.** |
 | **02 THE SEVEN FILTERS** | Each filter: the question it asks, what pass and hold mean, and a real incident from this project where it worked. |
 | **03 LOOPS, HALTS, AND HUMAN INTERVENTION** | How and where loops were actually generated in live work — a ledger of real halts, the loop each opened, and where the human stepped in. |
 | **04 ANSWER BEHAVIOR** | How the system answers — each rule fetched from a real final answer, quoted as the specimen. |
@@ -68,9 +69,10 @@ owner's way of thinking and gets wiser with every use.
 
 Read **01A and 01B before 01** — intent is a property of every event, so it
 applies before any step does, and 01B defines what a sequence is before 01 gives
-the owner's eight. Then 01 before 02 (the filters are the sequence turned into
-gates), and 03 after 02 (the loops are the filters running on live work).
-Documents 04–06 can be read in any order.
+the owner's eight. **01C follows 01B** — it is the protocol built on that
+definition, and every walk obeys it. Then 01 before 02 (the filters are the
+sequence turned into gates), and 03 after 02 (the loops are the filters running
+on live work). Documents 04–06 can be read in any order.
 
 **One conflict is open** between 01B and 01: 01B says the unit of sequence is the
 **transition** and a step is only a snapshot; 01 is built from eight **steps**.

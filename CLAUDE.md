@@ -49,6 +49,14 @@ When they disagree, surface it — do not silently pick one.
   which order is meant. When a target is named, build generatively: reconstruct
   what it required, then intersect that chain with available material, current
   reality and constraints.
+- **`docs/method/01C_SEQUENCE_PROTOCOL.md` is the sequence protocol.** Walk any
+  event by the triple pass (end→start, start→end, end→start); thresholds live on
+  edges and answer "why now"; sequence closure and entity outcome are two
+  statuses, never one; every spawn carries a contract (close_condition ≠
+  acceptance_condition); the open-sequence ledger enforces the barrier law; no
+  in-place loops; **no reopen** — a new sequence references the closed one.
+  CLOSURE is a sequence word; entities persist, cohere, degrade, terminate.
+  Kernel: `src/sourceborn/seq_kernel.py`. The model locks on his word only.
 - When he says **reframe**, reframe — his words opened out, nothing of mine bolted
   on, no examples dragged in to justify a reading he did not ask for.
 - Mirror the user's intent back before acting on anything large.
