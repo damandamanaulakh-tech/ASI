@@ -456,6 +456,11 @@ details[open]>summary:before{content:"\25be  "}
 <div class=grid>
 <!-- LEFT: read-only — history + library (memories, pyramid, reports, node brains) -->
 <nav class=side>
+  <div class=card><div class=k>His pages</div>
+    <div class=hactions style="margin-top:6px;display:flex;gap:8px;flex-wrap:wrap">
+      <a class="btn sm" href="/engine">⚙ THE ENGINE — ask &amp; watch the ladder</a>
+      <a class="btn sm" href="/page">▦ MY PAGE — what · where · how</a>
+    </div></div>
   <div class=card><div class=k>Chats &middot; stored <span class=num id=chatn></span></div><div class=hist id=hist><span class=muted>empty</span></div></div>
   <div class=card>
     <details class=acc open><summary>Library</summary>
