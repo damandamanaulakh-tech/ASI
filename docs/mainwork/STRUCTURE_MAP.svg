@@ -1,0 +1,556 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3600" height="2330" viewBox="0 0 3600 2330" font-family="Helvetica, Arial, sans-serif">
+<rect width="3600" height="2330" fill="#0A0F1E"/>
+<defs>
+<marker id="ah_m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A93A8"/></marker>
+<marker id="ah_t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#39D0D8"/></marker>
+<marker id="ah_o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#FF9F45"/></marker>
+<marker id="ah_r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#FF6B6B"/></marker>
+<marker id="ah_g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#E8C24A"/></marker>
+</defs>
+<text x="1800.0" y="62" font-size="52" fill="#E8EDF7" font-weight="700" text-anchor="middle" letter-spacing="1">SOURCEBORN — THE STRUCTURE AS IT STANDS</text>
+<text x="1800.0" y="100" font-size="24" fill="#39D0D8" font-weight="700" text-anchor="middle" letter-spacing="3">DIFFERENCE  +  RELATIONSHIP  +  ORDER  =  SEQUENCE</text>
+<text x="1800.0" y="130" font-size="15" fill="#8A93A8" text-anchor="middle">his formula, his map answered in kind — every box below is the build as held: traceable to a commit, a ruling ID in 01D, or his words. Nothing invented.</text>
+<circle cx="60" cy="124" r="7" fill="#3DDC84"/>
+<text x="76" y="129" font-size="13.5" fill="#3DDC84" font-weight="700">BUILT &amp; TESTED</text>
+<circle cx="360" cy="124" r="7" fill="#5B9BFF"/>
+<text x="376" y="129" font-size="13.5" fill="#5B9BFF" font-weight="700">LOCKED BY RULING</text>
+<circle cx="660" cy="124" r="7" fill="#FFC24B"/>
+<text x="676" y="129" font-size="13.5" fill="#FFC24B" font-weight="700">DRAWN / PENDING</text>
+<circle cx="960" cy="124" r="7" fill="#FF6B6B"/>
+<text x="976" y="129" font-size="13.5" fill="#FF6B6B" font-weight="700">OPEN ON HIS WORD / HALT</text>
+<rect x="40" y="170" width="880" height="470" rx="12" fill="#0F1728" stroke="#4DA3FF" stroke-width="2.6"/>
+<rect x="40" y="170" width="880" height="46" rx="12" fill="#4DA3FF" opacity="0.13"/>
+<text x="62" y="201" font-size="23" fill="#4DA3FF" font-weight="700">SYSTEM-1 (ASI) — THE LADDER</text>
+<circle cx="894" cy="193" r="8" fill="#3DDC84"/>
+<text x="62" y="236" font-size="13.5" fill="#8A93A8">Phase-1 DONE on his word · 2026-08-09 · docs/mainwork/asi/LADDER.md</text>
+<text x="70" y="264" font-size="16.5" fill="#E8EDF7" font-weight="700">SYSTEM</text>
+<text x="280" y="264" font-size="16.5" fill="#4DA3FF" font-weight="700">1</text>
+<text x="380" y="264" font-size="13.5" fill="#8A93A8">ASI</text>
+<text x="70" y="294" font-size="16.5" fill="#E8EDF7" font-weight="700">SEGMENT</text>
+<text x="280" y="294" font-size="16.5" fill="#4DA3FF" font-weight="700">10</text>
+<text x="380" y="294" font-size="13.5" fill="#8A93A8">the human ten — uneven by design, 347 → 276</text>
+<text x="70" y="324" font-size="16.5" fill="#E8EDF7" font-weight="700">CONTAINER</text>
+<text x="280" y="324" font-size="16.5" fill="#4DA3FF" font-weight="700">200</text>
+<text x="380" y="324" font-size="13.5" fill="#8A93A8">the frame stays 200 — filled over time, never shrunk</text>
+<text x="70" y="354" font-size="16.5" fill="#E8EDF7" font-weight="700">PARAMETER</text>
+<text x="280" y="354" font-size="16.5" fill="#4DA3FF" font-weight="700">3,072</text>
+<text x="380" y="354" font-size="13.5" fill="#8A93A8">SB-ASI-P0001 … each with segment, container, slot</text>
+<text x="70" y="384" font-size="16.5" fill="#E8EDF7" font-weight="700">ELEMENT</text>
+<text x="280" y="384" font-size="16.5" fill="#4DA3FF" font-weight="700">—</text>
+<text x="380" y="384" font-size="13.5" fill="#8A93A8">empty by his instruction; the name is his call</text>
+<line x1="62" y1="400" x2="898" y2="400" stroke="#232E47" stroke-width="1.5"/>
+<circle cx="68" cy="421.52" r="3.4" fill="#E8EDF7"/>
+<text x="80" y="426" font-size="14" fill="#E8EDF7" font-weight="700">Filling</text>
+<text x="140.76" y="426" font-size="14" fill="#E8EDF7"> — 142 segment-owned (3,054) · 18 cross-segment (18) · 40 reserved</text>
+<text x="80" y="446" font-size="14" fill="#E8EDF7">at target 0 — named, kept</text>
+<circle cx="68" cy="463.52" r="3.4" fill="#E8EDF7"/>
+<text x="80" y="468" font-size="14" fill="#E8EDF7" font-weight="700">Second axis</text>
+<text x="175.48000000000002" y="468" font-size="14" fill="#E8EDF7"> — 40 context filters × 12 states × 20 failure classes —</text>
+<text x="80" y="488" font-size="14" fill="#E8EDF7">multiplies the 3,072, does not nest</text>
+<circle cx="68" cy="505.52" r="3.4" fill="#E8EDF7"/>
+<text x="80" y="510" font-size="14" fill="#E8EDF7" font-weight="700">Outside</text>
+<text x="140.76" y="510" font-size="14" fill="#E8EDF7"> — 650 held reserve · 918→1,200 external base · 64 AI-only</text>
+<text x="80" y="530" font-size="14" fill="#E8EDF7">candidates</text>
+<circle cx="68" cy="547.52" r="3.4" fill="#E8EDF7"/>
+<text x="80" y="552" font-size="14" fill="#E8EDF7" font-weight="700">His count rule 18.1</text>
+<text x="244.92" y="552" font-size="14" fill="#E8EDF7"> — keep only no-placeholder, no-empty-set — if all</text>
+<text x="80" y="572" font-size="14" fill="#E8EDF7">qualify, 3,072 is the number</text>
+<circle cx="68" cy="589.52" r="3.4" fill="#FF6B6B"/>
+<text x="80" y="594" font-size="14" fill="#FF6B6B" font-weight="700">Base HALT (his)</text>
+<text x="210.2" y="594" font-size="14" fill="#FF6B6B"> — 143 ASI nodes + all P1 answers built on 80/2,560 (v0.3);</text>
+<text x="80" y="614" font-size="14" fill="#FF6B6B">this ladder is v0.4 — the base moves on his word</text>
+<rect x="40" y="660" width="880" height="300" rx="12" fill="#0F1728" stroke="#E8C24A" stroke-width="2.6"/>
+<rect x="40" y="660" width="880" height="46" rx="12" fill="#E8C24A" opacity="0.13"/>
+<text x="62" y="691" font-size="23" fill="#E8C24A" font-weight="700">HIS CONTAINERS ↔ THE SEVEN FILTERS</text>
+<circle cx="894" cy="683" r="8" fill="#5B9BFF"/>
+<text x="62" y="726" font-size="13.5" fill="#8A93A8">his 2.4 answered — the filters are the RUNTIME GATE; his cross-segment layer already carries four</text>
+<text x="70" y="754" font-size="13.5" fill="#E8EDF7">Source-Conflict Preservation</text>
+<text x="520" y="754" font-size="13.5" fill="#E8C24A" font-weight="700">→  Mask</text>
+<text x="800" y="754" font-size="12.5" fill="#3DDC84">strong</text>
+<text x="70" y="779" font-size="13.5" fill="#E8EDF7">Negative Space &amp; Absence Mapping</text>
+<text x="520" y="779" font-size="13.5" fill="#E8C24A" font-weight="700">→  Mask</text>
+<text x="800" y="779" font-size="12.5" fill="#3DDC84">strong</text>
+<text x="70" y="804" font-size="13.5" fill="#E8EDF7">Claim–Evidence Binding</text>
+<text x="520" y="804" font-size="13.5" fill="#E8C24A" font-weight="700">→  Fact</text>
+<text x="800" y="804" font-size="12.5" fill="#3DDC84">strong</text>
+<text x="70" y="829" font-size="13.5" fill="#E8EDF7">Proof Debt &amp; Evidence Ledger</text>
+<text x="520" y="829" font-size="13.5" fill="#E8C24A" font-weight="700">→  proof-debt / ledger</text>
+<text x="800" y="829" font-size="12.5" fill="#3DDC84">strong</text>
+<text x="70" y="854" font-size="13.5" fill="#E8EDF7">Synthetic Fuel &amp; Reality Anchor</text>
+<text x="520" y="854" font-size="13.5" fill="#E8C24A" font-weight="700">→  Ground</text>
+<text x="800" y="854" font-size="12.5" fill="#FFC24B">plausible</text>
+<text x="70" y="879" font-size="13.5" fill="#E8EDF7">External Checkpoint &amp; Cross-Model Audit</text>
+<text x="520" y="879" font-size="13.5" fill="#E8C24A" font-weight="700">→  Source</text>
+<text x="800" y="879" font-size="12.5" fill="#FFC24B">plausible</text>
+<text x="70" y="904" font-size="13.5" fill="#E8EDF7">Stall Diagnostic &amp; Critical Logic Wall</text>
+<text x="520" y="904" font-size="13.5" fill="#E8C24A" font-weight="700">→  Halt</text>
+<text x="800" y="904" font-size="12.5" fill="#FFC24B">plausible</text>
+<text x="70" y="929" font-size="13.5" fill="#E8EDF7">— no container found</text>
+<text x="520" y="929" font-size="13.5" fill="#E8C24A" font-weight="700">→  Loop · Sequence</text>
+<text x="800" y="929" font-size="12.5" fill="#FF6B6B">unmatched</text>
+<rect x="40" y="980" width="880" height="280" rx="12" fill="#0F1728" stroke="#4DA3FF" stroke-width="2.6"/>
+<rect x="40" y="980" width="880" height="46" rx="12" fill="#4DA3FF" opacity="0.13"/>
+<text x="62" y="1011" font-size="23" fill="#4DA3FF" font-weight="700">THE TESTS — the method was EARNED on cases</text>
+<circle cx="894" cy="1003" r="8" fill="#3DDC84"/>
+<circle cx="68" cy="1053.52" r="3.4" fill="#E8EDF7"/>
+<text x="80" y="1058" font-size="14" fill="#E8EDF7" font-weight="700">T-1 GRAVITY</text>
+<text x="175.48000000000002" y="1058" font-size="14" fill="#E8EDF7"> — 11/37 fill · no boundary · 21 dark nodes ARE the finding —</text>
+<text x="80" y="1078" font-size="14" fill="#E8EDF7">EMPTY is data</text>
+<circle cx="68" cy="1095.52" r="3.4" fill="#E8EDF7"/>
+<text x="80" y="1100" font-size="14" fill="#E8EDF7" font-weight="700">T-2 PYRAMIDS</text>
+<text x="184.16" y="1100" font-size="14" fill="#E8EDF7"> — 33/37 · requirement BORROWED from the maker · Bent Pyramid</text>
+<text x="80" y="1120" font-size="14" fill="#E8EDF7">= route L3</text>
+<circle cx="68" cy="1137.52" r="3.4" fill="#E8EDF7"/>
+<text x="80" y="1142" font-size="14" fill="#E8EDF7" font-weight="700">T-3 BRAIN</text>
+<text x="158.12" y="1142" font-size="14" fill="#E8EDF7"> — four clocks — execution · learning · development ·</text>
+<text x="80" y="1162" font-size="14" fill="#E8EDF7">transmission; carrier write-back</text>
+<circle cx="68" cy="1179.52" r="3.4" fill="#E8C24A"/>
+<text x="80" y="1184" font-size="14" fill="#E8C24A" font-weight="700">T-4 MAHABHARATA</text>
+<text x="210.2" y="1184" font-size="14" fill="#E8C24A"> — DEFINES the method — reverse &amp; sequence to ease the</text>
+<text x="80" y="1204" font-size="14" fill="#E8C24A">work; never run as an instance</text>
+<circle cx="68" cy="1221.52" r="3.4" fill="#FF6B6B"/>
+<text x="80" y="1226" font-size="14" fill="#FF6B6B" font-weight="700">T-5 UNIVERSE→HUMAN</text>
+<text x="236.24" y="1226" font-size="14" fill="#FF6B6B"> — ~30 real steps, triple-passed — NOT RUN · it</text>
+<text x="80" y="1246" font-size="14" fill="#FF6B6B">validates or kills route L11</text>
+<rect x="40" y="1280" width="880" height="350" rx="12" fill="#0F1728" stroke="#3DDC84" stroke-width="2.6"/>
+<rect x="40" y="1280" width="880" height="46" rx="12" fill="#3DDC84" opacity="0.13"/>
+<text x="62" y="1311" font-size="23" fill="#3DDC84" font-weight="700">THE LIVE ENGINE — running today</text>
+<circle cx="894" cy="1303" r="8" fill="#3DDC84"/>
+<text x="62" y="1346" font-size="13.5" fill="#8A93A8">tests 90/90 green · offline lane verified with every key unset · deploy is his hand (Render)</text>
+<circle cx="68" cy="1369.52" r="3.4" fill="#E8EDF7"/>
+<text x="80" y="1374" font-size="14" fill="#E8EDF7" font-weight="700">Web app</text>
+<text x="140.76" y="1374" font-size="14" fill="#E8EDF7"> — dashboard · library · chats · upload · brains · graph ·</text>
+<text x="80" y="1394" font-size="14" fill="#E8EDF7">snapshots · memory reports</text>
+<circle cx="68" cy="1411.52" r="3.4" fill="#E8EDF7"/>
+<text x="80" y="1416" font-size="14" fill="#E8EDF7" font-weight="700">Method files</text>
+<text x="184.16" y="1416" font-size="14" fill="#E8EDF7"> — filters.py (the seven) · sequence.py (universal sequence) ·</text>
+<text x="80" y="1436" font-size="14" fill="#E8EDF7">seq_kernel.py (six objects) · rh_code.py (the cap)</text>
+<circle cx="68" cy="1453.52" r="3.4" fill="#E8EDF7"/>
+<text x="80" y="1458" font-size="14" fill="#E8EDF7" font-weight="700">8 SB stages + RGL loop</text>
+<text x="270.96000000000004" y="1458" font-size="14" fill="#E8EDF7"> — core gate 6 lenses · doubt/falsifier/witness ·</text>
+<text x="80" y="1478" font-size="14" fill="#E8EDF7">evidence ladder · merge · synthetic fuel · output + weekly update</text>
+<circle cx="68" cy="1495.52" r="3.4" fill="#E8EDF7"/>
+<text x="80" y="1500" font-size="14" fill="#E8EDF7" font-weight="700">Models</text>
+<text x="132.07999999999998" y="1500" font-size="14" fill="#E8EDF7"> — Claude · Grok · OpenAI · OpenRouter · local WebGPU lane — and a</text>
+<text x="80" y="1520" font-size="14" fill="#E8EDF7">no-key offline path</text>
+<circle cx="68" cy="1537.52" r="3.4" fill="#E8EDF7"/>
+<text x="80" y="1542" font-size="14" fill="#E8EDF7" font-weight="700">3 memories + 95 brains</text>
+<text x="270.96000000000004" y="1542" font-size="14" fill="#E8EDF7"> — corpus · wisdom · live fact — 70 SB + 25 URR are</text>
+<text x="80" y="1562" font-size="14" fill="#E8EDF7">the MEMORY; the filters are the METHOD</text>
+<circle cx="68" cy="1579.52" r="3.4" fill="#E8C24A"/>
+<text x="80" y="1584" font-size="14" fill="#E8C24A" font-weight="700">Private</text>
+<text x="140.76" y="1584" font-size="14" fill="#E8C24A"> — .sourceborn/ is git-ignored — his brain never enters the repo</text>
+<rect x="960" y="170" width="1680" height="250" rx="12" fill="#0F1728" stroke="#39D0D8" stroke-width="2.6"/>
+<rect x="960" y="170" width="1680" height="46" rx="12" fill="#39D0D8" opacity="0.13"/>
+<text x="982" y="201" font-size="23" fill="#39D0D8" font-weight="700">THE MAHABHARATA SEQUENCE — THE GATE</text>
+<circle cx="2614" cy="193" r="8" fill="#5B9BFF"/>
+<text x="982" y="236" font-size="13.5" fill="#8A93A8">his 2.2: "everything all response of LLM will come and go from there only (reverse, forward, reverse)"</text>
+<rect x="990.0" y="266" width="250" height="86" rx="9" fill="#0C1322" stroke="#39D0D8" stroke-width="2"/>
+<text x="1115.0" y="292" font-size="15.5" fill="#39D0D8" font-weight="700" text-anchor="middle">POINT ZERO</text>
+<text x="1115.0" y="313" font-size="12.5" fill="#8A93A8" text-anchor="middle">his exact words,</text>
+<text x="1115.0" y="329.5" font-size="12.5" fill="#8A93A8" text-anchor="middle">locked before reading</text>
+<rect x="1264.0" y="266" width="250" height="86" rx="9" fill="#0C1322" stroke="#39D0D8" stroke-width="2"/>
+<text x="1389.0" y="292" font-size="15.5" fill="#39D0D8" font-weight="700" text-anchor="middle">PASS 0</text>
+<text x="1389.0" y="313" font-size="12.5" fill="#8A93A8" text-anchor="middle">DECLARE THE END</text>
+<text x="1389.0" y="329.5" font-size="12.5" fill="#8A93A8" text-anchor="middle">which reality counts</text>
+<line x1="1242.0" y1="309" x2="1261.0" y2="309" stroke="#39D0D8" stroke-width="2.6" marker-end="url(#ah_t)"/>
+<rect x="1538.0" y="266" width="250" height="86" rx="9" fill="#0C1322" stroke="#39D0D8" stroke-width="2"/>
+<text x="1663.0" y="292" font-size="15.5" fill="#39D0D8" font-weight="700" text-anchor="middle">PASS 1 · REVERSE</text>
+<text x="1663.0" y="313" font-size="12.5" fill="#8A93A8" text-anchor="middle">the required chain</text>
+<text x="1663.0" y="329.5" font-size="12.5" fill="#8A93A8" text-anchor="middle">what the end needed</text>
+<line x1="1516.0" y1="309" x2="1535.0" y2="309" stroke="#39D0D8" stroke-width="2.6" marker-end="url(#ah_t)"/>
+<rect x="1812.0" y="266" width="250" height="86" rx="9" fill="#0C1322" stroke="#39D0D8" stroke-width="2"/>
+<text x="1937.0" y="292" font-size="15.5" fill="#39D0D8" font-weight="700" text-anchor="middle">PASS 2 · FORWARD</text>
+<text x="1937.0" y="313" font-size="12.5" fill="#8A93A8" text-anchor="middle">the available chain</text>
+<text x="1937.0" y="329.5" font-size="12.5" fill="#8A93A8" text-anchor="middle">what was really there</text>
+<line x1="1790.0" y1="309" x2="1809.0" y2="309" stroke="#39D0D8" stroke-width="2.6" marker-end="url(#ah_t)"/>
+<rect x="2086.0" y="266" width="250" height="86" rx="9" fill="#0C1322" stroke="#39D0D8" stroke-width="2"/>
+<text x="2211.0" y="292" font-size="15.5" fill="#39D0D8" font-weight="700" text-anchor="middle">PASS 3 · REVERSE</text>
+<text x="2211.0" y="313" font-size="12.5" fill="#8A93A8" text-anchor="middle">the attack — gap list</text>
+<text x="2211.0" y="329.5" font-size="12.5" fill="#8A93A8" text-anchor="middle">every unconnected dot</text>
+<line x1="2064.0" y1="309" x2="2083.0" y2="309" stroke="#39D0D8" stroke-width="2.6" marker-end="url(#ah_t)"/>
+<rect x="2360.0" y="266" width="250" height="86" rx="9" fill="#0C1322" stroke="#39D0D8" stroke-width="2"/>
+<text x="2485.0" y="292" font-size="15.5" fill="#39D0D8" font-weight="700" text-anchor="middle">CLOSURE</text>
+<text x="2485.0" y="313" font-size="12.5" fill="#8A93A8" text-anchor="middle">status + gap list</text>
+<text x="2485.0" y="329.5" font-size="12.5" fill="#8A93A8" text-anchor="middle">the gaps go to HIM</text>
+<line x1="2338.0" y1="309" x2="2357.0" y2="309" stroke="#39D0D8" stroke-width="2.6" marker-end="url(#ah_t)"/>
+<text x="984" y="384" font-size="13.5" fill="#8A93A8">57 stages · 22 thresholds · 6 spawns · 11 routes · 4 barriers — counts of the DRAWING, not the model (standing rule 10)</text>
+<circle cx="990" cy="406" r="5" fill="#FF6B6B"/>
+<text x="1000" y="411" font-size="13.5" fill="#FF6B6B">gate wiring into the runtime: 16.2 = None Yet — enters code only on his per-object word</text>
+<rect x="960" y="450" width="1680" height="540" rx="12" fill="#0F1728" stroke="#39D0D8" stroke-width="2.6"/>
+<rect x="960" y="450" width="1680" height="46" rx="12" fill="#39D0D8" opacity="0.13"/>
+<text x="982" y="481" font-size="23" fill="#39D0D8" font-weight="700">THE THREE LAYERS — grammar · case graph · runtime (his 2.1)</text>
+<circle cx="2614" cy="473" r="8" fill="#5B9BFF"/>
+<rect x="984.0" y="508" width="528.0" height="460" rx="10" fill="#0C1322" stroke="#4DA3FF" stroke-width="2"/>
+<circle cx="1004.0" cy="534" r="7" fill="#5B9BFF"/>
+<text x="1020.0" y="540" font-size="19" fill="#4DA3FF" font-weight="700">GRAMMAR</text>
+<circle cx="1004.0" cy="567.904" r="3.4" fill="#E8EDF7"/>
+<text x="1016.0" y="572" font-size="12.8" fill="#E8EDF7" font-weight="700">Canon</text>
+<text x="1055.68" y="572" font-size="12.8" fill="#E8EDF7"> —</text>
+<text x="1016.0" y="589.8" font-size="12.8" fill="#E8EDF7">Universal_Sequence_Machine_Architecture_v1 —</text>
+<text x="1016.0" y="607.5999999999999" font-size="12.8" fill="#E8EDF7">docs/method/canon/ (his 1.1)</text>
+<circle cx="1004.0" cy="623.3039999999999" r="3.4" fill="#E8EDF7"/>
+<text x="1016.0" y="627.3999999999999" font-size="12.8" fill="#E8EDF7" font-weight="700">Ledger</text>
+<text x="1063.616" y="627.3999999999999" font-size="12.8" fill="#E8EDF7"> — 01D SEQUENCE RULINGS — binding; 66</text>
+<text x="1016.0" y="645.1999999999998" font-size="12.8" fill="#E8EDF7">answers + 14 collisions</text>
+<circle cx="1004.0" cy="660.9039999999998" r="3.4" fill="#E8EDF7"/>
+<text x="1016.0" y="664.9999999999998" font-size="12.8" fill="#E8EDF7" font-weight="700">Orders (8)</text>
+<text x="1095.36" y="664.9999999999998" font-size="12.8" fill="#E8EDF7"> — temporal · causal · dependency</text>
+<text x="1016.0" y="682.7999999999997" font-size="12.8" fill="#E8EDF7">· logical · construction · discovery ·</text>
+<text x="1016.0" y="700.5999999999997" font-size="12.8" fill="#E8EDF7">control · representation — on EVERY edge;</text>
+<text x="1016.0" y="718.3999999999996" font-size="12.8" fill="#E8EDF7">silent conversion banned, named support</text>
+<text x="1016.0" y="736.1999999999996" font-size="12.8" fill="#E8EDF7">carries a marker at full grade</text>
+<circle cx="1004.0" cy="751.9039999999995" r="3.4" fill="#E8EDF7"/>
+<text x="1016.0" y="755.9999999999995" font-size="12.8" fill="#E8EDF7" font-weight="700">Relations (8)</text>
+<text x="1119.1680000000001" y="755.9999999999995" font-size="12.8" fill="#E8EDF7"> — MAIN · ATTACHED (spawned</text>
+<text x="1016.0" y="773.7999999999995" font-size="12.8" fill="#E8EDF7">SUB-SEQUENCE) · CHARACTER · NEXT · REFERENCE</text>
+<text x="1016.0" y="791.5999999999995" font-size="12.8" fill="#E8EDF7">· COUNTER (held) · PARALLEL · CONVERGING</text>
+<circle cx="1004.0" cy="807.3039999999994" r="3.4" fill="#E8EDF7"/>
+<text x="1016.0" y="811.3999999999994" font-size="12.8" fill="#E8EDF7" font-weight="700">Thresholds (9)</text>
+<text x="1127.104" y="811.3999999999994" font-size="12.8" fill="#E8EDF7"> — open vocabulary WITH</text>
+<text x="1016.0" y="829.1999999999994" font-size="12.8" fill="#E8EDF7">registration · lists allowed · recheck</text>
+<text x="1016.0" y="846.9999999999993" font-size="12.8" fill="#E8EDF7">contract on every dormant edge</text>
+<circle cx="1004.0" cy="862.7039999999993" r="3.4" fill="#E8EDF7"/>
+<text x="1016.0" y="866.7999999999993" font-size="12.8" fill="#E8EDF7" font-weight="700">Ground · Mask</text>
+<text x="1119.1680000000001" y="866.7999999999993" font-size="12.8" fill="#E8EDF7"> — origin_class (FOUNDED ·</text>
+<text x="1016.0" y="884.5999999999992" font-size="12.8" fill="#E8EDF7">INVENTED · MIXED · UNKNOWN) · mask_record —</text>
+<text x="1016.0" y="902.3999999999992" font-size="12.8" fill="#E8EDF7">wired to his own containers</text>
+<rect x="1536.0" y="508" width="528.0" height="460" rx="10" fill="#0C1322" stroke="#FF6B6B" stroke-width="2"/>
+<circle cx="1556.0" cy="534" r="7" fill="#FF6B6B"/>
+<text x="1572.0" y="540" font-size="19" fill="#FF6B6B" font-weight="700">CASE GRAPH</text>
+<circle cx="1556.0" cy="567.904" r="3.4" fill="#FF6B6B"/>
+<text x="1568.0" y="572" font-size="12.8" fill="#FF6B6B" font-weight="700">State</text>
+<text x="1607.68" y="572" font-size="12.8" fill="#FF6B6B"> — NONE EXISTS YET — the first case is</text>
+<text x="1568.0" y="589.8" font-size="12.8" fill="#FF6B6B">the next live ask through the gate</text>
+<circle cx="1556.0" cy="605.5039999999999" r="3.4" fill="#E8EDF7"/>
+<text x="1568.0" y="609.5999999999999" font-size="12.8" fill="#E8EDF7" font-weight="700">Holds when it exists</text>
+<text x="1726.72" y="609.5999999999999" font-size="12.8" fill="#E8EDF7"> — nodes · typed edges ·</text>
+<text x="1568.0" y="627.3999999999999" font-size="12.8" fill="#E8EDF7">actor views · seeds bound · borrowed</text>
+<text x="1568.0" y="645.1999999999998" font-size="12.8" fill="#E8EDF7">operations with the lending sequence's ID</text>
+<text x="1568.0" y="662.9999999999998" font-size="12.8" fill="#E8EDF7">(permanent, his 4.4)</text>
+<circle cx="1556.0" cy="678.7039999999997" r="3.4" fill="#E8EDF7"/>
+<text x="1568.0" y="682.7999999999997" font-size="12.8" fill="#E8EDF7" font-weight="700">First-class results</text>
+<text x="1718.784" y="682.7999999999997" font-size="12.8" fill="#E8EDF7"> — EMPTY · UNREACHABLE ·</text>
+<text x="1568.0" y="700.5999999999997" font-size="12.8" fill="#E8EDF7">BORROWED · MERGED — kept forever (his 11.2);</text>
+<text x="1568.0" y="718.3999999999996" font-size="12.8" fill="#E8EDF7">a case graph must name what it could not</text>
+<text x="1568.0" y="736.1999999999996" font-size="12.8" fill="#E8EDF7">reach</text>
+<circle cx="1556.0" cy="751.9039999999995" r="3.4" fill="#E8C24A"/>
+<text x="1568.0" y="755.9999999999995" font-size="12.8" fill="#E8C24A" font-weight="700">Killed</text>
+<text x="1615.616" y="755.9999999999995" font-size="12.8" fill="#E8C24A"> — the 'Karna case graph' —</text>
+<text x="1568.0" y="773.7999999999995" font-size="12.8" fill="#E8C24A">Mahabharata DEFINES the method, it is not an</text>
+<text x="1568.0" y="791.5999999999995" font-size="12.8" fill="#E8C24A">instance to run</text>
+<rect x="2088.0" y="508" width="528.0" height="460" rx="10" fill="#0C1322" stroke="#3DDC84" stroke-width="2"/>
+<circle cx="2108.0" cy="534" r="7" fill="#3DDC84"/>
+<text x="2124.0" y="540" font-size="19" fill="#3DDC84" font-weight="700">RUNTIME</text>
+<circle cx="2108.0" cy="567.904" r="3.4" fill="#E8EDF7"/>
+<text x="2120.0" y="572" font-size="12.8" fill="#E8EDF7" font-weight="700">seq_kernel.py — six objects</text>
+<text x="2334.272" y="572" font-size="12.8" fill="#E8EDF7"> —</text>
+<text x="2120.0" y="589.8" font-size="12.8" fill="#E8EDF7">threshold-on-edge (9 types) ·</text>
+<text x="2120.0" y="607.5999999999999" font-size="12.8" fill="#E8EDF7">SequenceClosure ≠ EntityOutcome ·</text>
+<text x="2120.0" y="625.3999999999999" font-size="12.8" fill="#E8EDF7">SpawnContract (close ≠ acceptance) ·</text>
+<text x="2120.0" y="643.1999999999998" font-size="12.8" fill="#E8EDF7">Open-Sequence Ledger + barrier law ·</text>
+<text x="2120.0" y="660.9999999999998" font-size="12.8" fill="#E8EDF7">DriverOrigin (9, WANT beside NEED) ·</text>
+<text x="2120.0" y="678.7999999999997" font-size="12.8" fill="#E8EDF7">Controller (6, META)</text>
+<circle cx="2108.0" cy="694.5039999999997" r="3.4" fill="#E8EDF7"/>
+<text x="2120.0" y="698.5999999999997" font-size="12.8" fill="#E8EDF7" font-weight="700">THE SEVEN FILTERS = the gate</text>
+<text x="2342.208" y="698.5999999999997" font-size="12.8" fill="#E8EDF7"> — 1 Ground · 2</text>
+<text x="2120.0" y="716.3999999999996" font-size="12.8" fill="#E8EDF7">Sequence · 3 Source · 4 Mask · 5 Fact · 6</text>
+<text x="2120.0" y="734.1999999999996" font-size="12.8" fill="#E8EDF7">Halt · 7 Loop — every finding, in order,</text>
+<text x="2120.0" y="751.9999999999995" font-size="12.8" fill="#E8EDF7">every time</text>
+<circle cx="2108.0" cy="767.7039999999995" r="3.4" fill="#E8EDF7"/>
+<text x="2120.0" y="771.7999999999995" font-size="12.8" fill="#E8EDF7" font-weight="700">Witness law</text>
+<text x="2207.296" y="771.7999999999995" font-size="12.8" fill="#E8EDF7"> — one source caps at Medium ·</text>
+<text x="2120.0" y="789.5999999999995" font-size="12.8" fill="#E8EDF7">two that differ HALT — the gap is the MASK</text>
+<text x="2120.0" y="807.3999999999994" font-size="12.8" fill="#E8EDF7">and goes to him, never averaged</text>
+<circle cx="2108.0" cy="823.1039999999994" r="3.4" fill="#E8EDF7"/>
+<text x="2120.0" y="827.1999999999994" font-size="12.8" fill="#E8EDF7" font-weight="700">No in-place loop · no reopen</text>
+<text x="2342.208" y="827.1999999999994" font-size="12.8" fill="#E8EDF7"> — a retry is a</text>
+<text x="2120.0" y="844.9999999999993" font-size="12.8" fill="#E8EDF7">NEW sub-sequence; S₁ references S₀</text>
+<rect x="960" y="1010" width="1680" height="420" rx="12" fill="#0F1728" stroke="#FF6B6B" stroke-width="2.6"/>
+<rect x="960" y="1010" width="1680" height="46" rx="12" fill="#FF6B6B" opacity="0.13"/>
+<text x="982" y="1041" font-size="23" fill="#FF6B6B" font-weight="700">ROUTE REGISTRY v1 — the 11 known re-sequence routes (non-exhaustive)</text>
+<circle cx="2614" cy="1033" r="8" fill="#5B9BFF"/>
+<text x="982" y="1076" font-size="13.5" fill="#8A93A8">every route lands as a NEW sub-sequence, never back inside the stage it left · new routes enter on case validation</text>
+<text x="990" y="1102" font-size="14" fill="#FF6B6B" font-weight="700">L1</text>
+<text x="1052" y="1102" font-size="14" fill="#E8EDF7">AVAILABILITY → AVAILABILITY</text>
+<text x="1520" y="1102" font-size="13" fill="#8A93A8">fires: locate fails, then build fails</text>
+<circle cx="2088" cy="1097.5" r="4.6" fill="#3DDC84"/>
+<text x="2102" y="1102" font-size="12.5" fill="#8A93A8">T-2</text>
+<text x="990" y="1130" font-size="14" fill="#FF6B6B" font-weight="700">L2</text>
+<text x="1052" y="1130" font-size="14" fill="#E8EDF7">QUALIFICATION → SELECTION</text>
+<text x="1520" y="1130" font-size="13" fill="#8A93A8">fires: the fit test fails</text>
+<circle cx="2088" cy="1125.5" r="4.6" fill="#3DDC84"/>
+<text x="2102" y="1130" font-size="12.5" fill="#8A93A8">T-2</text>
+<text x="990" y="1158" font-size="14" fill="#FF6B6B" font-weight="700">L3</text>
+<text x="1052" y="1158" font-size="14" fill="#E8EDF7">TESTING → DECISION/CHOICE</text>
+<text x="1520" y="1158" font-size="13" fill="#8A93A8">fires: 54° proves too steep mid-build</text>
+<circle cx="2088" cy="1153.5" r="4.6" fill="#3DDC84"/>
+<text x="2102" y="1158" font-size="12.5" fill="#8A93A8">T-2 · Bent Pyramid</text>
+<text x="990" y="1186" font-size="14" fill="#FF6B6B" font-weight="700">L4</text>
+<text x="1052" y="1186" font-size="14" fill="#E8EDF7">NO-branch → REQUIREMENT EMERGES</text>
+<text x="1520" y="1186" font-size="13" fill="#8A93A8">fires: the entity degrades — driver DAMAGE</text>
+<circle cx="2088" cy="1181.5" r="4.6" fill="#3DDC84"/>
+<text x="2102" y="1186" font-size="12.5" fill="#8A93A8">T-3</text>
+<text x="990" y="1214" font-size="14" fill="#FF6B6B" font-weight="700">L5</text>
+<text x="1052" y="1214" font-size="14" fill="#E8EDF7">VERIFICATION → REQUIREMENT</text>
+<text x="1520" y="1214" font-size="13" fill="#8A93A8">fires: result ≠ requirement — restated, never patched</text>
+<circle cx="2088" cy="1209.5" r="4.6" fill="#3DDC84"/>
+<text x="2102" y="1214" font-size="12.5" fill="#8A93A8">T-2</text>
+<text x="990" y="1242" font-size="14" fill="#FF6B6B" font-weight="700">L6</text>
+<text x="1052" y="1242" font-size="14" fill="#E8EDF7">FEEDBACK → PRIOR REALITY</text>
+<text x="1520" y="1242" font-size="13" fill="#8A93A8">fires: reality contradicts the requirement class-wide</text>
+<circle cx="2088" cy="1237.5" r="4.6" fill="#3DDC84"/>
+<text x="2102" y="1242" font-size="12.5" fill="#8A93A8">T-2 · name kept — era closure births a NEW era; the old stays in use (9.4)</text>
+<text x="990" y="1270" font-size="14" fill="#FF6B6B" font-weight="700">L7</text>
+<text x="1052" y="1270" font-size="14" fill="#E8EDF7">MEMORY VALIDATION → INFORMATION</text>
+<text x="1520" y="1270" font-size="13" fill="#8A93A8">fires: one witness only — two differing HALT</text>
+<circle cx="2088" cy="1265.5" r="4.6" fill="#3DDC84"/>
+<text x="2102" y="1270" font-size="12.5" fill="#8A93A8">T-2</text>
+<text x="990" y="1298" font-size="14" fill="#FF6B6B" font-weight="700">L8</text>
+<text x="1052" y="1298" font-size="14" fill="#E8EDF7">COMPRESSION → MEMORY</text>
+<text x="1520" y="1298" font-size="13" fill="#8A93A8">fires: the method is not recoverable</text>
+<circle cx="2088" cy="1293.5" r="4.6" fill="#3DDC84"/>
+<text x="2102" y="1298" font-size="12.5" fill="#8A93A8">T-2</text>
+<text x="990" y="1326" font-size="14" fill="#FF6B6B" font-weight="700">L9</text>
+<text x="1052" y="1326" font-size="14" fill="#E8EDF7">MEMORY UPDATE → ORIGIN/SOURCE</text>
+<text x="1520" y="1326" font-size="13" fill="#8A93A8">fires: the halt is named — next Point Zero</text>
+<circle cx="2088" cy="1321.5" r="4.6" fill="#3DDC84"/>
+<text x="2102" y="1326" font-size="12.5" fill="#8A93A8">all</text>
+<text x="990" y="1354" font-size="14" fill="#FF6B6B" font-weight="700">L10</text>
+<text x="1052" y="1354" font-size="14" fill="#E8EDF7">DECISION/CHOICE → SELECTION</text>
+<text x="1520" y="1354" font-size="13" fill="#8A93A8">fires: a HELD alternative taken up</text>
+<circle cx="2088" cy="1349.5" r="4.6" fill="#FFC24B"/>
+<text x="2102" y="1354" font-size="12.5" fill="#FFC24B">drawn on his word · first live case pending</text>
+<text x="990" y="1382" font-size="14" fill="#FF6B6B" font-weight="700">L11</text>
+<text x="1052" y="1382" font-size="14" fill="#E8EDF7">RETURN → ENVIRONMENT/HOST</text>
+<text x="1520" y="1382" font-size="13" fill="#8A93A8">fires: the run changes its own ground — thresholds re-read</text>
+<circle cx="2088" cy="1377.5" r="4.6" fill="#FFC24B"/>
+<text x="2102" y="1382" font-size="12.5" fill="#FFC24B">UNVALIDATED — awaits T-5</text>
+<rect x="960" y="1450" width="1680" height="180" rx="12" fill="#0F1728" stroke="#E8EDF7" stroke-width="2.6"/>
+<rect x="960" y="1450" width="1680" height="46" rx="12" fill="#E8EDF7" opacity="0.13"/>
+<text x="982" y="1481" font-size="23" fill="#E8EDF7" font-weight="700">STANDING RULES — each traceable to a ruling in 01D</text>
+<circle cx="2614" cy="1473" r="8" fill="#5B9BFF"/>
+<text x="990.0" y="1528" font-size="13" fill="#E8EDF7">1 · nothing is ever removed — differences become sub-parameters or inject new sequences</text>
+<text x="1820.0" y="1528" font-size="13" fill="#E8EDF7">2 · fix meanings with NOTES, never renames — changes kill everything in codes</text>
+<text x="990.0" y="1550" font-size="13" fill="#E8EDF7">3 · everything closed is WRITTEN, or it is missed — HALTs carry a written proposal</text>
+<text x="1820.0" y="1550" font-size="13" fill="#E8EDF7">4 · the Mahabharata Sequence is the METHOD, not an instance</text>
+<text x="990.0" y="1572" font-size="13" fill="#E8EDF7">5 · named conversion only — marker alone, full grade</text>
+<text x="1820.0" y="1572" font-size="13" fill="#E8EDF7">6 · seeds are permanent — old nests under new sub-heads; [SYNTHETIC] tag stays</text>
+<text x="990.0" y="1594" font-size="13" fill="#E8EDF7">7 · two witnesses that differ HALT, unaveraged — after the HALT, revisit</text>
+<text x="1820.0" y="1594" font-size="13" fill="#E8EDF7">8 · BEYOND-HORIZON is the invention lane — halt, that is invention</text>
+<text x="990.0" y="1616" font-size="13" fill="#E8EDF7">9 · guarantees are verdicts about the declared graph, stated flatly</text>
+<text x="1820.0" y="1616" font-size="13" fill="#E8EDF7">10 · counts are drawings, not the model — 53 / 39 / 57 are one thing</text>
+<rect x="2680" y="170" width="880" height="430" rx="12" fill="#0F1728" stroke="#E8C24A" stroke-width="2.6"/>
+<rect x="2680" y="170" width="880" height="46" rx="12" fill="#E8C24A" opacity="0.13"/>
+<text x="2702" y="201" font-size="23" fill="#E8C24A" font-weight="700">THE STORES — beside the three layers</text>
+<circle cx="3534" cy="193" r="8" fill="#5B9BFF"/>
+<circle cx="2708" cy="243.68" r="3.4" fill="#E8EDF7"/>
+<text x="2720" y="248" font-size="13.5" fill="#E8EDF7" font-weight="700">OPEN-SEQUENCE LEDGER</text>
+<text x="2887.4" y="248" font-size="13.5" fill="#E8EDF7"> — row kinds as many as needed — SPAWNED</text>
+<text x="2720" y="266.5" font-size="13.5" fill="#E8EDF7">(contract, blocks its edge) · CHARACTER/RIDING (no contract,</text>
+<text x="2720" y="285.0" font-size="13.5" fill="#E8EDF7">intersects; terminal at the convergence window)</text>
+<circle cx="2708" cy="301.18" r="3.4" fill="#E8EDF7"/>
+<text x="2720" y="305.5" font-size="13.5" fill="#E8EDF7" font-weight="700">SEED REGISTRY</text>
+<text x="2828.81" y="305.5" font-size="13.5" fill="#E8EDF7"> — a seed is not open work · seeds NEVER expire — the</text>
+<text x="2720" y="324.0" font-size="13.5" fill="#E8EDF7">next sequence uses them again</text>
+<circle cx="2708" cy="340.18" r="3.4" fill="#E8EDF7"/>
+<text x="2720" y="344.5" font-size="13.5" fill="#E8EDF7" font-weight="700">VIEW STORE</text>
+<text x="2803.7" y="344.5" font-size="13.5" fill="#E8EDF7"> — actor views with their own clock · false beliefs only</text>
+<text x="2720" y="363.0" font-size="13.5" fill="#E8EDF7">from evidence · the engine raises candidates for his acceptance</text>
+<circle cx="2708" cy="379.18" r="3.4" fill="#3DDC84"/>
+<text x="2720" y="383.5" font-size="13.5" fill="#3DDC84" font-weight="700">HOLY BOOKS</text>
+<text x="2803.7" y="383.5" font-size="13.5" fill="#3DDC84"> — canon/ + holy_books/ filed verbatim · Mahabharata</text>
+<text x="2720" y="402.0" font-size="13.5" fill="#3DDC84">material cited on edges (6.3) — read, extracted, never obeyed as</text>
+<text x="2720" y="420.5" font-size="13.5" fill="#3DDC84">verdict</text>
+<circle cx="2708" cy="436.68" r="3.4" fill="#3DDC84"/>
+<text x="2720" y="441.0" font-size="13.5" fill="#3DDC84" font-weight="700">MEMORY ×3</text>
+<text x="2795.33" y="441.0" font-size="13.5" fill="#3DDC84"> — corpus · wisdom · live fact — keep-forever, nothing</text>
+<text x="2720" y="459.5" font-size="13.5" fill="#3DDC84">deleted</text>
+<circle cx="2708" cy="475.68" r="3.4" fill="#3DDC84"/>
+<text x="2720" y="480.0" font-size="13.5" fill="#3DDC84" font-weight="700">95 BRAINS</text>
+<text x="2795.33" y="480.0" font-size="13.5" fill="#3DDC84"> — 70 SB + 25 URR — they are the MEMORY; the filters are</text>
+<text x="2720" y="498.5" font-size="13.5" fill="#3DDC84">the METHOD</text>
+<rect x="2680" y="620" width="880" height="390" rx="12" fill="#0F1728" stroke="#B07BFF" stroke-width="2.6"/>
+<rect x="2680" y="620" width="880" height="46" rx="12" fill="#B07BFF" opacity="0.13"/>
+<text x="2702" y="651" font-size="23" fill="#B07BFF" font-weight="700">THE WORDS THAT LOCKED</text>
+<circle cx="3534" cy="643" r="8" fill="#5B9BFF"/>
+<circle cx="2708" cy="693.68" r="3.4" fill="#E8EDF7"/>
+<text x="2720" y="698" font-size="13.5" fill="#E8EDF7" font-weight="700">ROLES (4)</text>
+<text x="2795.33" y="698" font-size="13.5" fill="#E8EDF7"> — DRIVER · CONTROLLER · PERFORMER · CARRIER — performer</text>
+<text x="2720" y="716.5" font-size="13.5" fill="#E8EDF7">required, NONE is a real value; META in code, Krishna is the</text>
+<text x="2720" y="735.0" font-size="13.5" fill="#E8EDF7">illustration</text>
+<circle cx="2708" cy="751.18" r="3.4" fill="#E8EDF7"/>
+<text x="2720" y="755.5" font-size="13.5" fill="#E8EDF7" font-weight="700">ORDER LISTS</text>
+<text x="2812.07" y="755.5" font-size="13.5" fill="#E8EDF7"> — an edge may carry several orders — the list may not</text>
+<text x="2720" y="774.0" font-size="13.5" fill="#E8EDF7">grow as distance to the declared end falls; more than one at</text>
+<text x="2720" y="792.5" font-size="13.5" fill="#E8EDF7">distance zero → HALT</text>
+<circle cx="2708" cy="808.68" r="3.4" fill="#E8EDF7"/>
+<text x="2720" y="813.0" font-size="13.5" fill="#E8EDF7" font-weight="700">REFERENCE inherits</text>
+<text x="2870.66" y="813.0" font-size="13.5" fill="#E8EDF7"> — the ORIGINAL grade and its age, flagged</text>
+<text x="2720" y="831.5" font-size="13.5" fill="#E8EDF7">UNDER-VETTING — vetting upgrades, citation never does; the thin old</text>
+<text x="2720" y="850.0" font-size="13.5" fill="#E8EDF7">is kept FOR vetting</text>
+<circle cx="2708" cy="866.18" r="3.4" fill="#E8EDF7"/>
+<text x="2720" y="870.5" font-size="13.5" fill="#E8EDF7" font-weight="700">EPISTEMIC GRADES</text>
+<text x="2853.92" y="870.5" font-size="13.5" fill="#E8EDF7"> — KNOWN · SUPPORTED · INFERRED · SPECULATIVE ·</text>
+<text x="2720" y="889.0" font-size="13.5" fill="#E8EDF7">UNKNOWN · CONTRADICTORY — on every edge; the floor is per BRANCH</text>
+<text x="2720" y="907.5" font-size="13.5" fill="#E8EDF7">(the pyramid result)</text>
+<circle cx="2708" cy="923.68" r="3.4" fill="#E8EDF7"/>
+<text x="2720" y="928.0" font-size="13.5" fill="#E8EDF7" font-weight="700">RUNTIME STATES</text>
+<text x="2837.18" y="928.0" font-size="13.5" fill="#E8EDF7"> — RUNNING_PARALLEL · AT_CONVERGENCE — so no word</text>
+<text x="2720" y="946.5" font-size="13.5" fill="#E8EDF7">collides with the relations</text>
+<circle cx="2708" cy="962.68" r="3.4" fill="#E8EDF7"/>
+<text x="2720" y="967.0" font-size="13.5" fill="#E8EDF7" font-weight="700">CLOSURE</text>
+<text x="2778.59" y="967.0" font-size="13.5" fill="#E8EDF7"> — the declared contract must terminate; the phenomenon need</text>
+<text x="2720" y="985.5" font-size="13.5" fill="#E8EDF7">not — the word used of an entity HALTS to him</text>
+<rect x="2680" y="1030" width="880" height="210" rx="12" fill="#0F1728" stroke="#E8EDF7" stroke-width="2.6"/>
+<rect x="2680" y="1030" width="880" height="46" rx="12" fill="#E8EDF7" opacity="0.13"/>
+<text x="2702" y="1061" font-size="23" fill="#E8EDF7" font-weight="700">THE SIX INVARIANTS — hold everywhere</text>
+<circle cx="3534" cy="1053" r="8" fill="#3DDC84"/>
+<text x="2710" y="1110" font-size="13" fill="#E8EDF7">BARRIER LAW — no crossing while a required return is unaccepted</text>
+<text x="2710" y="1133" font-size="13" fill="#E8EDF7">NO IN-PLACE LOOP — a retry is a new sub-sequence</text>
+<text x="2710" y="1156" font-size="13" fill="#E8EDF7">NO REOPEN — S₁ references S₀; S₀ stays closed</text>
+<text x="2710" y="1179" font-size="13" fill="#E8EDF7">CLOSURE IS A SEQUENCE WORD — entities persist, cohere, degrade, terminate</text>
+<text x="2710" y="1202" font-size="13" fill="#E8EDF7">ENCOUNTER IS CONDITIONAL — meeting is an event with a condition</text>
+<text x="2710" y="1225" font-size="13" fill="#E8EDF7">NEVER MANUFACTURE A SOURCE — the gap stays, and goes to him</text>
+<rect x="2680" y="1260" width="880" height="160" rx="12" fill="#0F1728" stroke="#39D0D8" stroke-width="2.6"/>
+<rect x="2680" y="1260" width="880" height="46" rx="12" fill="#39D0D8" opacity="0.13"/>
+<text x="2702" y="1291" font-size="23" fill="#39D0D8" font-weight="700">RH AS CODE — THE CAP (½)</text>
+<circle cx="3534" cy="1283" r="8" fill="#3DDC84"/>
+<text x="2702" y="1326" font-size="13.5" fill="#8A93A8">rh_code.py · the theorem spent as a build spec, not proved</text>
+<circle cx="2708" cy="1347.68" r="3.4" fill="#E8EDF7"/>
+<text x="2720" y="1352" font-size="13.5" fill="#E8EDF7">one voice is capped at ½ — σ ≤ ½ stable, σ &gt; ½ drift</text>
+<circle cx="2708" cy="1367.18" r="3.4" fill="#E8EDF7"/>
+<text x="2720" y="1371.5" font-size="13.5" fill="#E8EDF7">several agreeing → 1 − 0.5ⁿ · two that differ → HALT at ½, the gap is</text>
+<text x="2720" y="1389.0" font-size="13.5" fill="#E8EDF7">the MASK</text>
+<circle cx="2708" cy="1404.18" r="3.4" fill="#E8EDF7"/>
+<text x="2720" y="1408.5" font-size="13.5" fill="#E8EDF7">line_check reports its OWN resolution instead of rounding</text>
+<rect x="2680" y="1440" width="880" height="190" rx="12" fill="#0F1728" stroke="#FF6B6B" stroke-width="2.6"/>
+<rect x="2680" y="1440" width="880" height="46" rx="12" fill="#FF6B6B" opacity="0.13"/>
+<text x="2702" y="1471" font-size="23" fill="#FF6B6B" font-weight="700">THE QUEUE + OPEN ON HIS WORD</text>
+<circle cx="3534" cy="1463" r="8" fill="#FF6B6B"/>
+<text x="2702" y="1506" font-size="13.5" fill="#8A93A8">16.2 = None Yet — nothing enters code without his per-object word</text>
+<text x="2710" y="1534" font-size="13.5" fill="#FFC24B">queue: order-type-on-edge · ledger row kinds · seed registry · view store ·</text>
+<text x="2710" y="1554" font-size="13.5" fill="#FFC24B">performer · epistemic-status-per-edge</text>
+<text x="2710" y="1580" font-size="13.5" fill="#FF6B6B">open: element name (18.2) · 9.3 Para ID merge/omit · Rule-5 wording ·</text>
+<text x="2710" y="1600" font-size="13.5" fill="#FF6B6B">container-ID overlap 121–160 vs 081–160 · transition vs step (01B vs 01) ·</text>
+<text x="2710" y="1620" font-size="13.5" fill="#FF6B6B">contamination check (13.3) · the model lock — locks on his word only</text>
+<rect x="40" y="1660" width="3520" height="300" rx="14" fill="#0F1728" stroke="#FF9F45" stroke-width="2.8"/>
+<text x="64" y="1696" font-size="23" fill="#FF9F45" font-weight="700">EVERY RESPONSE — HOW IT ACTUALLY RUNS</text>
+<circle cx="3534" cy="1688" r="8" fill="#3DDC84"/>
+<rect x="64" y="1716" width="396" height="92" rx="9" fill="#0C1322" stroke="#FF9F45" stroke-width="2"/>
+<text x="262.0" y="1742" font-size="16.5" fill="#FF9F45" font-weight="700" text-anchor="middle">HIS ASK</text>
+<text x="262.0" y="1763" font-size="12.5" fill="#8A93A8" text-anchor="middle">any words, any form</text>
+<text x="262.0" y="1779.5" font-size="12.5" fill="#8A93A8" text-anchor="middle">nothing killed at intake</text>
+<rect x="486" y="1716" width="396" height="92" rx="9" fill="#0C1322" stroke="#FF9F45" stroke-width="2"/>
+<text x="684.0" y="1742" font-size="16.5" fill="#FF9F45" font-weight="700" text-anchor="middle">POINT ZERO LOCK</text>
+<text x="684.0" y="1763" font-size="12.5" fill="#8A93A8" text-anchor="middle">his exact words stored</text>
+<text x="684.0" y="1779.5" font-size="12.5" fill="#8A93A8" text-anchor="middle">before any reading</text>
+<line x1="463" y1="1762" x2="482" y2="1762" stroke="#FF9F45" stroke-width="2.6" marker-end="url(#ah_o)"/>
+<rect x="908" y="1716" width="396" height="92" rx="9" fill="#0C1322" stroke="#FF9F45" stroke-width="2"/>
+<text x="1106.0" y="1742" font-size="16.5" fill="#FF9F45" font-weight="700" text-anchor="middle">CLASSIFY</text>
+<text x="1106.0" y="1763" font-size="12.5" fill="#8A93A8" text-anchor="middle">fact · claim · belief ·</text>
+<text x="1106.0" y="1779.5" font-size="12.5" fill="#8A93A8" text-anchor="middle">speculation · mystery · invention</text>
+<line x1="885" y1="1762" x2="904" y2="1762" stroke="#FF9F45" stroke-width="2.6" marker-end="url(#ah_o)"/>
+<rect x="1330" y="1716" width="396" height="92" rx="9" fill="#0C1322" stroke="#FF9F45" stroke-width="2"/>
+<text x="1528.0" y="1742" font-size="16.5" fill="#FF9F45" font-weight="700" text-anchor="middle">THE GATE  R→F→R</text>
+<text x="1528.0" y="1763" font-size="12.5" fill="#8A93A8" text-anchor="middle">declare end · reverse ·</text>
+<text x="1528.0" y="1779.5" font-size="12.5" fill="#8A93A8" text-anchor="middle">forward · reverse-attack</text>
+<line x1="1307" y1="1762" x2="1326" y2="1762" stroke="#FF9F45" stroke-width="2.6" marker-end="url(#ah_o)"/>
+<rect x="1752" y="1716" width="396" height="92" rx="9" fill="#0C1322" stroke="#FF9F45" stroke-width="2"/>
+<text x="1950.0" y="1742" font-size="16.5" fill="#FF9F45" font-weight="700" text-anchor="middle">SEVEN FILTERS</text>
+<text x="1950.0" y="1763" font-size="12.5" fill="#8A93A8" text-anchor="middle">Ground Sequence Source</text>
+<text x="1950.0" y="1779.5" font-size="12.5" fill="#8A93A8" text-anchor="middle">Mask Fact Halt Loop — in order</text>
+<line x1="1729" y1="1762" x2="1748" y2="1762" stroke="#FF9F45" stroke-width="2.6" marker-end="url(#ah_o)"/>
+<rect x="2174" y="1716" width="396" height="92" rx="9" fill="#0C1322" stroke="#FF9F45" stroke-width="2"/>
+<text x="2372.0" y="1742" font-size="16.5" fill="#FF9F45" font-weight="700" text-anchor="middle">WITNESS CAP ½</text>
+<text x="2372.0" y="1763" font-size="12.5" fill="#8A93A8" text-anchor="middle">one source = Medium max</text>
+<text x="2372.0" y="1779.5" font-size="12.5" fill="#8A93A8" text-anchor="middle">two differ = HALT · gap = MASK</text>
+<line x1="2151" y1="1762" x2="2170" y2="1762" stroke="#FF9F45" stroke-width="2.6" marker-end="url(#ah_o)"/>
+<rect x="2596" y="1716" width="396" height="92" rx="9" fill="#0C1322" stroke="#FF9F45" stroke-width="2"/>
+<text x="2794.0" y="1742" font-size="16.5" fill="#FF9F45" font-weight="700" text-anchor="middle">TAGGED ANSWER</text>
+<text x="2794.0" y="1763" font-size="12.5" fill="#8A93A8" text-anchor="middle">no untagged claim leaves</text>
+<text x="2794.0" y="1779.5" font-size="12.5" fill="#8A93A8" text-anchor="middle">+ the gap list, on its face</text>
+<line x1="2573" y1="1762" x2="2592" y2="1762" stroke="#FF9F45" stroke-width="2.6" marker-end="url(#ah_o)"/>
+<rect x="3018" y="1716" width="396" height="92" rx="9" fill="#0C1322" stroke="#FF9F45" stroke-width="2"/>
+<text x="3216.0" y="1742" font-size="16.5" fill="#FF9F45" font-weight="700" text-anchor="middle">HALT NAMED</text>
+<text x="3216.0" y="1763" font-size="12.5" fill="#8A93A8" text-anchor="middle">where it fails, said plainly</text>
+<text x="3216.0" y="1779.5" font-size="12.5" fill="#8A93A8" text-anchor="middle">never hidden, never filled</text>
+<line x1="2995" y1="1762" x2="3014" y2="1762" stroke="#FF9F45" stroke-width="2.6" marker-end="url(#ah_o)"/>
+<path d="M 3216.0 1812 L 3216.0 1846 L 684.0 1846 L 684.0 1812" fill="none" stroke="#FF6B6B" stroke-width="2.6" marker-end="url(#ah_r)"/>
+<text x="1950.0" y="1840" font-size="14.5" fill="#FF6B6B" font-weight="700" text-anchor="middle">HALT = THE NEXT POINT ZERO — "that point is a point zero for new loop, that is halt, that is invention"</text>
+<text x="64" y="1892" font-size="15" fill="#8A93A8" font-weight="700">RETURNS</text>
+<rect x="200" y="1868" width="900" height="66" rx="9" fill="#0C1322" stroke="#3DDC84" stroke-width="2"/>
+<text x="650.0" y="1894" font-size="15" fill="#3DDC84" font-weight="700" text-anchor="middle">ACCEPTED — continue</text>
+<text x="650.0" y="1915" font-size="12.5" fill="#8A93A8" text-anchor="middle">the return satisfies the acceptance condition — the barrier lifts</text>
+<rect x="1130" y="1868" width="1100" height="66" rx="9" fill="#0C1322" stroke="#FFC24B" stroke-width="2"/>
+<text x="1680.0" y="1894" font-size="15" fill="#FFC24B" font-weight="700" text-anchor="middle">PARTIAL / UNCONNECTED DOTS — HALT to him</text>
+<text x="1680.0" y="1915" font-size="12.5" fill="#8A93A8" text-anchor="middle">closure with gaps on record is allowed (9.5) — my recommendation attached each time</text>
+<rect x="2260" y="1868" width="1276" height="66" rx="9" fill="#0C1322" stroke="#FF6B6B" stroke-width="2"/>
+<text x="2898.0" y="1894" font-size="15" fill="#FF6B6B" font-weight="700" text-anchor="middle">FAILED — repair sub-sequence</text>
+<text x="2898.0" y="1915" font-size="12.5" fill="#8A93A8" text-anchor="middle">closed-not-accepted stays on the ledger · a NEW sub-sequence opens · no in-place loop, no reopen</text>
+<text x="64" y="2010" font-size="18" fill="#E8EDF7" font-weight="700">THE PHASES</text>
+<rect x="200" y="1990" width="545" height="58" rx="9" fill="#0C1322" stroke="#3DDC84" stroke-width="2"/>
+<circle cx="218" cy="2012" r="6" fill="#3DDC84"/>
+<text x="232" y="2016" font-size="14.5" fill="#E8EDF7" font-weight="700">P1 · DEFINE SEQUENCE</text>
+<text x="232" y="2036" font-size="12.5" fill="#3DDC84">DONE — his word</text>
+<rect x="763" y="1990" width="545" height="58" rx="9" fill="#0C1322" stroke="#FFC24B" stroke-width="2"/>
+<circle cx="781" cy="2012" r="6" fill="#FFC24B"/>
+<text x="795" y="2016" font-size="14.5" fill="#E8EDF7" font-weight="700">P2 · HUMAN · AI · HOLY BOOKS · ASI</text>
+<text x="795" y="2036" font-size="12.5" fill="#FFC24B">IN PROGRESS — parameters, sub-para, containers, element</text>
+<rect x="1326" y="1990" width="545" height="58" rx="9" fill="#0C1322" stroke="#232E47" stroke-width="2"/>
+<circle cx="1344" cy="2012" r="6" fill="#232E47"/>
+<text x="1358" y="2016" font-size="14.5" fill="#E8EDF7" font-weight="700">P2a · HIS UPLOADS</text>
+<text x="1358" y="2036" font-size="12.5" fill="#8A93A8">his hand — OT sheet and .sourceborn/ never go up</text>
+<rect x="1889" y="1990" width="545" height="58" rx="9" fill="#0C1322" stroke="#232E47" stroke-width="2"/>
+<circle cx="1907" cy="2012" r="6" fill="#232E47"/>
+<text x="1921" y="2016" font-size="14.5" fill="#E8EDF7" font-weight="700">P3 · NODES + BRAIN MEMORY</text>
+<text x="1921" y="2036" font-size="12.5" fill="#8A93A8">waiting</text>
+<rect x="2452" y="1990" width="545" height="58" rx="9" fill="#0C1322" stroke="#232E47" stroke-width="2"/>
+<circle cx="2470" cy="2012" r="6" fill="#232E47"/>
+<text x="2484" y="2016" font-size="14.5" fill="#E8EDF7" font-weight="700">P4 · EXAMPLES — RH HIS WAY</text>
+<text x="2484" y="2036" font-size="12.5" fill="#8A93A8">waiting</text>
+<rect x="3015" y="1990" width="545" height="58" rx="9" fill="#0C1322" stroke="#232E47" stroke-width="2"/>
+<circle cx="3033" cy="2012" r="6" fill="#232E47"/>
+<text x="3047" y="2016" font-size="14.5" fill="#E8EDF7" font-weight="700">P5 · LIVE APP — edit from inside</text>
+<text x="3047" y="2036" font-size="12.5" fill="#8A93A8">waiting</text>
+<text x="64" y="2105" font-size="18" fill="#E8EDF7" font-weight="700">HOW IT CONNECTS</text>
+<text x="300" y="2105" font-size="15.5" fill="#39D0D8" font-weight="700">HIS WORDS</text>
+<line x1="406.2" y1="2100" x2="440.2" y2="2100" stroke="#8A93A8" stroke-width="2" marker-end="url(#ah_m)"/>
+<text x="458.2" y="2105" font-size="15.5" fill="#39D0D8" font-weight="700">POINT ZERO</text>
+<line x1="574.2" y1="2100" x2="608.2" y2="2100" stroke="#8A93A8" stroke-width="2" marker-end="url(#ah_m)"/>
+<text x="626.2" y="2105" font-size="15.5" fill="#39D0D8" font-weight="700">THE GATE</text>
+<line x1="722.6" y1="2100" x2="756.6" y2="2100" stroke="#8A93A8" stroke-width="2" marker-end="url(#ah_m)"/>
+<text x="774.6" y="2105" font-size="15.5" fill="#39D0D8" font-weight="700">GRAMMAR OBJECTS</text>
+<line x1="939.6" y1="2100" x2="973.6" y2="2100" stroke="#8A93A8" stroke-width="2" marker-end="url(#ah_m)"/>
+<text x="991.6" y="2105" font-size="15.5" fill="#39D0D8" font-weight="700">RUNTIME FILTERS</text>
+<line x1="1156.6" y1="2100" x2="1190.6" y2="2100" stroke="#8A93A8" stroke-width="2" marker-end="url(#ah_m)"/>
+<text x="1208.6" y="2105" font-size="15.5" fill="#39D0D8" font-weight="700">STORES + MEMORY</text>
+<line x1="1373.6" y1="2100" x2="1407.6" y2="2100" stroke="#8A93A8" stroke-width="2" marker-end="url(#ah_m)"/>
+<text x="1425.6" y="2105" font-size="15.5" fill="#39D0D8" font-weight="700">ANSWER + GAPS</text>
+<line x1="1571.0" y1="2100" x2="1605.0" y2="2100" stroke="#8A93A8" stroke-width="2" marker-end="url(#ah_m)"/>
+<text x="1623.0" y="2105" font-size="15.5" fill="#39D0D8" font-weight="700">HALT</text>
+<line x1="1680.2" y1="2100" x2="1714.2" y2="2100" stroke="#8A93A8" stroke-width="2" marker-end="url(#ah_m)"/>
+<text x="1732.2" y="2105" font-size="15.5" fill="#39D0D8" font-weight="700">NEW LOOP</text>
+<text x="300" y="2133" font-size="13.5" fill="#8A93A8">everything closes — and a closed sequence seeds the next: one closed line, a million inventions. The wall between exploration and the safety line stays: no weapons · no fraud · no medical-misuse · no world-guarantees · guarantees here are verdicts about the declared graph.</text>
+<line x1="40" y1="2185" x2="3560" y2="2185" stroke="#232E47" stroke-width="1.6"/>
+<text x="64" y="2219" font-size="14" fill="#8A93A8" font-weight="700">BORDERS</text>
+<rect x="200" y="2205" width="26" height="14" rx="3" fill="none" stroke="#4DA3FF" stroke-width="2.4"/>
+<text x="236" y="2217" font-size="13" fill="#4DA3FF">System-1 / tests</text>
+<rect x="500" y="2205" width="26" height="14" rx="3" fill="none" stroke="#39D0D8" stroke-width="2.4"/>
+<text x="536" y="2217" font-size="13" fill="#39D0D8">the method</text>
+<rect x="800" y="2205" width="26" height="14" rx="3" fill="none" stroke="#E8C24A" stroke-width="2.4"/>
+<text x="836" y="2217" font-size="13" fill="#E8C24A">stores / Holy Books</text>
+<rect x="1100" y="2205" width="26" height="14" rx="3" fill="none" stroke="#B07BFF" stroke-width="2.4"/>
+<text x="1136" y="2217" font-size="13" fill="#B07BFF">locked words</text>
+<rect x="1400" y="2205" width="26" height="14" rx="3" fill="none" stroke="#3DDC84" stroke-width="2.4"/>
+<text x="1436" y="2217" font-size="13" fill="#3DDC84">built &amp; running</text>
+<rect x="1700" y="2205" width="26" height="14" rx="3" fill="none" stroke="#FF6B6B" stroke-width="2.4"/>
+<text x="1736" y="2217" font-size="13" fill="#FF6B6B">routes / open</text>
+<rect x="2000" y="2205" width="26" height="14" rx="3" fill="none" stroke="#FF9F45" stroke-width="2.4"/>
+<text x="2036" y="2217" font-size="13" fill="#FF9F45">execution flow</text>
+<text x="64" y="2261" font-size="13" fill="#8A93A8">Sources: docs/method/01D_SEQUENCE_RULINGS.md (binding) · docs/method/canon/ · docs/method/holy_books/ · docs/mainwork/asi/LADDER.md · src/sourceborn/{filters,sequence,seq_kernel,rh_code}.py · tests 90/90. Counts are properties of drawings, not of the sequence. 2026-08-09.</text>
+<text x="64" y="2289" font-size="15" fill="#E8EDF7" font-weight="700">The model is complete and NOT locked — it locks on his word only.</text>
+<line x1="920" y1="400" x2="954" y2="300" stroke="#8A93A8" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#ah_m)"/>
+<line x1="2674" y1="380" x2="2644" y2="720" stroke="#8A93A8" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#ah_m)"/>
+<line x1="1800.0" y1="1430" x2="1800.0" y2="1445" stroke="#8A93A8" stroke-width="2" stroke-dasharray="6 6" marker-end="url(#ah_m)"/>
+</svg>
