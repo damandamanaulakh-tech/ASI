@@ -1,0 +1,11 @@
+Human Container Domain (examples),Corresponding AI Capability Family Pattern,Metaphor / ASO Principle Applied,Required LLM Structural Consequence
+"Homeostasis, Arousal, Energy Budgeting","Resource, latency, token and cost monitoring",Latent Result + Downstream-Critical Change,"Token, latency and cost states must be first-class ledger rows, not hidden side effects"
+"Working Memory, Selective Attention","Context window, attention routing, long-context",Actor View,Each context window is an Actor View; different sessions are different Sequences
+"Metacognition, Confidence, Calibration","Uncertainty calibration, claim–evidence binding",Never Manufacture a Source,Confidence must be recorded with provenance; gaps stay gaps
+"Error Detection, Failure Diagnosis, Repair","Tool-hallucination detection, self-repair loops",No In-Place Loop,Every repair opens a new Sequence ID; the failed attempt stays closed
+"Theory of Mind, Perspective Taking","Multi-agent modelling, audience modelling",Actor View + Seed before Carrier,"Model of another agent is a separate Sequence, never assumed identical to the primary Sequence"
+Moral Judgment vs Moral Action,"Refusal calibration, harm-severity classification",Exception Contract,Refusal or permission must carry the higher rule that authorised the exception
+"Social Learning, Cultural Transmission","Benchmark versioning, harness provenance",Observer / Writer,Training data and evaluation harnesses are Writer Sequences; they are not the capability itself
+"Expertise, Boundary of Competence","Evaluation-awareness, out-of-domain risk",Rule Inertia,A high score on an old harness does not automatically transfer; the rule must be re-tested
+"Agency, Intent, Ownership of Action","Sabotage detection, scheming monitoring",Controller Mandatory,Every transition must record which controller authorised it
+"Memory Validation, Source Monitoring","Source-conflict preservation, second-witness requirement",Count-Quorum Threshold,Single-source claims remain provisional until independent return is accepted
