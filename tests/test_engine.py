@@ -1237,6 +1237,52 @@ def test_seq_want_is_a_driver_never_a_stage():
     assert led.finished() and led.archive == ["EAT", "COOK"]
 
 
+def test_mypage_every_save_is_a_new_version_and_all_are_kept():
+    """MY PAGE obeys the house law: every save is a new version, none is
+    lost, and restoring an old layout references it instead of reopening."""
+    import shutil
+    import tempfile
+    from sourceborn import mypage
+    root = tempfile.mkdtemp(prefix="sb_mypage_")
+    try:
+        first = mypage.load_layout(root)
+        assert first["version"] == 0 and first["sections"]
+        v1 = mypage.save_layout(root, first, note="one")
+        v2 = mypage.save_layout(root, v1, note="two")
+        assert (v1["version"], v2["version"]) == (1, 2)
+        versions = mypage.list_versions(root)
+        assert [v["version"] for v in versions] == [1, 2]
+        restored = mypage.save_layout(root, mypage.get_version(root, 1),
+                                      note="back", references=1)
+        assert restored["version"] == 3 and restored["references"] == 1
+        assert mypage.get_version(root, 1)["note"] == "one"  # untouched
+    finally:
+        shutil.rmtree(root, ignore_errors=True)
+
+
+def test_mypage_blocks_are_parked_never_deleted_and_unknowns_are_flagged():
+    """A parked block survives the save, and an unknown WHAT/HOW is kept
+    with a flag instead of being dropped — classify, don't reject."""
+    import shutil
+    import tempfile
+    from sourceborn import mypage
+    root = tempfile.mkdtemp(prefix="sb_mypage_")
+    try:
+        lay = mypage.default_layout()
+        lay["sections"][0]["blocks"][0]["parked"] = True
+        lay["sections"][0]["blocks"].append(
+            {"id": "bx", "title": "?", "what": "no-such-feed",
+             "how": "card", "parked": False})
+        saved = mypage.save_layout(root, lay)
+        blocks = saved["sections"][0]["blocks"]
+        assert blocks[0]["parked"] is True          # parked, still present
+        assert blocks[-1]["flag"].startswith("unknown what")
+        again = mypage.load_layout(root)
+        assert again["sections"][0]["blocks"][0]["parked"] is True
+    finally:
+        shutil.rmtree(root, ignore_errors=True)
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0
