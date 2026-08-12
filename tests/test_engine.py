@@ -225,6 +225,186 @@ def test_weekly_pull_accumulates_and_is_readable():
             assert "weekly_run" in f.read()
 
 
+def test_weekly_ledger_is_paged_never_capped():
+    """The reviewer caught this: `runs` was counted by parsing a 52-row page,
+    so the pill, the panel header and MY PAGE all stopped counting at 52 and
+    older runs were unreachable through the app."""
+    import json
+    import os
+    from sourceborn import scheduler
+    eng = _engine()
+    root = eng.memory.root
+    d = os.path.join(root, "weekly")
+    os.makedirs(d, exist_ok=True)
+    for i in range(60):                                # 60 > the 52 page size
+        with open(os.path.join(d, f"weekly_202601{i:02d}000000.json"), "w",
+                  encoding="utf-8") as f:
+            json.dump({"at": f"2026-01-{i:02d} 00:00:00", "updated": i}, f)
+
+    assert scheduler.count_runs(root) == 60            # counted, not parsed
+    assert scheduler.status(root)["runs"] == 60        # the pill tells the truth
+    assert len(scheduler.history(root)) == 52          # one page
+    tail = scheduler.history(root, limit=52, offset=52)
+    assert len(tail) == 8                             # and the rest is reachable
+    assert scheduler.history(root)[0]["at"] > tail[-1]["at"]
+
+    # a stray file must not push a real run out of the page
+    with open(os.path.join(d, "notes.txt"), "w", encoding="utf-8") as f:
+        f.write("hand note")
+    assert scheduler.count_runs(root) == 60
+    assert len(scheduler.history(root)) == 52
+
+    # same-second suffixes sort numerically, not lexicographically
+    for n in ("", "_2", "_10"):
+        with open(os.path.join(d, f"weekly_20270101000000{n}.json"), "w",
+                  encoding="utf-8") as f:
+            json.dump({"at": "2027-01-01 00:00:00", "n": n or "1"}, f)
+    assert scheduler.history(root)[0]["file"] == "weekly_20270101000000_10.json"
+
+
+def test_a_corrupt_weekly_file_never_takes_a_route_down():
+    """A process recycled mid-write leaves a truncated run behind. `do_GET`
+    has no exception handler, so an unguarded json.load would drop the
+    connection instead of answering."""
+    import os
+    from sourceborn import scheduler
+    eng = _engine()
+    root = eng.memory.root
+    scheduler.run_weekly(eng, root)
+    d = os.path.join(root, "weekly")
+    with open(os.path.join(d, "weekly_20991231000000.json"), "w",
+              encoding="utf-8") as f:
+        f.write('{"at":"2099-12-31 00:00:00","updated":9')   # cut off
+
+    h = scheduler.history(root)                     # does not raise
+    assert h[0]["file"] == "weekly_20991231000000.json"
+    assert h[0]["unreadable"] is True               # and it SAYS it is corrupt
+    assert scheduler.latest(root) is not None       # falls back to a good run
+    assert scheduler.get_run(root, "weekly_20991231000000.json") is None
+    assert scheduler.count_runs(root) == 2          # still counted as kept
+
+
+def test_two_pulls_in_the_same_second_never_overwrite_each_other():
+    """The first fix for this was `while os.path.exists()` then open(...,'w') —
+    a TOCTOU. This app is a ThreadingHTTPServer WITH a daemon thread calling
+    the same function, so the reviewer reproduced 8-12 lost runs out of 24
+    concurrent pulls. The filesystem has to arbitrate, not us."""
+    import threading
+    from sourceborn import scheduler
+    eng = _engine()
+    root = eng.memory.root
+
+    class _Fixed:                       # every run claims the same second
+        def __init__(self, real): self.real = real
+        def weekly_update(self):
+            r = self.real.weekly_update()
+            r["at"] = "2026-08-12 12:00:00"
+            return r
+
+    class _Eng:
+        def __init__(self, e):
+            self.brains, self.memory, self.unfiled = _Fixed(e.brains), e.memory, e.unfiled
+
+    N = 12
+    gate = threading.Barrier(N)
+    errs = []
+
+    def one():
+        try:
+            gate.wait()
+            scheduler.run_weekly(_Eng(eng), root)
+        except Exception as exc:                     # noqa: BLE001
+            errs.append(exc)
+
+    ts = [threading.Thread(target=one) for _ in range(N)]
+    for t in ts:
+        t.start()
+    for t in ts:
+        t.join()
+    assert not errs, errs
+    assert scheduler.count_runs(root) == N, scheduler.count_runs(root)
+
+
+def test_weekly_routes_over_http_are_behind_the_lock():
+    """The claims are about ROUTES, so they get tested as routes."""
+    import base64
+    import json
+    import os
+    import threading
+    import urllib.error
+    import urllib.request
+    from sourceborn import scheduler, server
+
+    eng = _engine()
+    root = eng.memory.root
+    scheduler.run_weekly(eng, root)
+    run = scheduler.history(root)[0]["file"]
+
+    old = (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+           server.SB_ACCESS_PASS)
+    server.ENGINE, server.SB_ROOT = eng, root
+    server.SB_ACCESS_USER, server.SB_ACCESS_PASS = "him", "letmein"
+    httpd = server.ThreadingHTTPServer(("127.0.0.1", 0), server.Handler)
+    threading.Thread(target=httpd.serve_forever, daemon=True).start()
+    base = "http://127.0.0.1:%d" % httpd.server_address[1]
+
+    def get(p, auth=True):
+        r = urllib.request.Request(base + p)
+        if auth:
+            tok = base64.b64encode(b"him:letmein").decode()
+            r.add_header("Authorization", "Basic " + tok)
+        try:
+            with urllib.request.urlopen(r, timeout=10) as resp:
+                return resp.status, resp.read()
+        except urllib.error.HTTPError as e:
+            return e.code, e.read()
+
+    try:
+        for p in ("/weekly", "/weekly/file?name=" + run):
+            assert get(p, auth=False)[0] == 401, p   # locked, like every route
+            assert p not in server.OPEN_PATHS
+
+        code, body = get("/weekly")
+        assert code == 200
+        d = json.loads(body)
+        assert d["runs"] == 1 and d["shown"] == 1
+        assert d["status"]["state"] == "current"
+        assert d["phrase"].startswith("current — last")
+        assert d["history"][0]["file"] == run
+        assert d["latest"]["total"] == 95
+
+        # a bad query must answer, not drop the connection (do_GET has no
+        # handler, so int('abc') here would kill the socket)
+        assert get("/weekly?limit=abc&offset=zzz")[0] == 200
+
+        assert get("/weekly/file?name=" + run)[0] == 200
+        for bad in ("../master_log.jsonl", "weekly_nope.json",
+                    "weekly_x.txt", ""):
+            assert get("/weekly/file?name=" + bad)[0] == 404, bad
+
+        code, body = get("/health", auth=False)       # the Render probe stays open
+        assert code == 200
+        h = json.loads(body)
+        assert h["weekly"]["runs"] == 1
+        assert h["weekly_phrase"].startswith("current")
+    finally:
+        httpd.shutdown()
+        httpd.server_close()
+        (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+         server.SB_ACCESS_PASS) = old
+
+
+def test_brains_update_keeps_the_shape_the_dashboard_reads():
+    """The button prints `d.updated+'/'+d.total`. run_weekly must not have
+    changed that contract while adding digest/novelty to the same payload."""
+    from sourceborn import scheduler
+    eng = _engine()
+    res = scheduler.run_weekly(eng, eng.memory.root)
+    assert isinstance(res.get("updated"), int)
+    assert isinstance(res.get("total"), int)
+    assert "digest" in res and "novelty" in res
+
+
 def test_weekly_phrase_says_three_states_not_two():
     """The dashboard pill and MY PAGE both said 'active' the moment one run
     existed, however stale, and MY PAGE read a key that never existed."""

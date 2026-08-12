@@ -76,7 +76,7 @@ Live on Render as a web app. All 8 SB stages implemented (Core Gate 6 lenses,
 Doubt/Falsifier/Witness, Evidence ladder, Dot-Connection/Merge, Synthetic Fuel,
 Risk/Embodied/Non-Resolution, output + weekly update), the RGL recursive loop, 95
 configured node brains, 3 memories (corpus/wisdom/live fact), multi-model
-(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (101 tests).
+(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (106 tests).
 
 **A full audit ran 2026-08-12 (four read-only sweeps).** It produced a 20-item
 prioritized fix list; the honest finding is that the frame is real but much of the
@@ -98,13 +98,19 @@ answer-time "second recompute" was removed so the ring shows what the engine
 actually received. **Item 04 (the weekly pull, visible and cumulative):**
 `scheduler.run_weekly` is the ONE job the hourly daemon and the manual button both
 call, so a hand-pull no longer skips the novelty pass; every run is kept as its own
-dated file under `<SB_ROOT>/weekly/` (nothing overwritten — same-second runs get a
-suffix); `GET /weekly` + `GET /weekly/file?name=` serve the ledger; the dashboard
-has a real panel (pill click or *Weekly pull*) listing every run with brains
-refreshed / new connections / novelty candidates; the pill reads three states
-(never run · overdue · current) instead of saying "active" forever after one run;
-the permanently-blank MY PAGE weekly row now reads the truth (`_weekly_phrase`);
-and a failed novelty pass is reported instead of swallowed by `except: pass`.
+dated file under `<SB_ROOT>/weekly/`, created with mode `"x"` so the filesystem
+guarantees no run is overwritten (a check-then-write lost 7 of 12 concurrent pulls
+— this server answers on threads *and* runs a daemon thread calling the same
+function); `GET /weekly` (paged via `?offset=`) + `GET /weekly/file?name=` serve
+the ledger; the dashboard has a real panel (pill click or *Weekly pull*) with an
+*Older runs* page and the true kept count — counted by `listdir`, never by parsing
+a page, so it cannot start under-reporting; the pill reads three states (never
+run · overdue · current) instead of saying "active" forever after one run; the
+label is composed ONCE server-side (`_weekly_phrase`/`status()["state"]`) and only
+displayed by the pill and the MY PAGE row, which used to be permanently blank; and
+a failed novelty pass, a failed history write and a corrupt run file are each
+reported rather than swallowed. Every value the panel interpolates is escaped —
+run files can arrive from a restored backup, so they are untrusted input.
 
 **The queue lives in the repo: `docs/AUDIT_2026-08-12_WORKLIST.md`** — all 20 items
 verbatim with live status, updated in the same commit that closes one. Items 05–08

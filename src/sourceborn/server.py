@@ -270,10 +270,25 @@ def _memory_report(limit: int = 3) -> dict:
     return {"at": _now(), "totals": mem.stats(), "nodes": nodes}
 
 
+def _int_arg(qs: dict, name: str, default: int, lo: int, hi: int) -> int:
+    """A query integer that cannot raise. `do_GET` has no exception handler,
+    so an `int('abc')` here would drop the connection instead of answering."""
+    try:
+        v = int((qs.get(name) or [str(default)])[0])
+    except Exception:
+        return default
+    return max(lo, min(v, hi))
+
+
 def _weekly_phrase(st: dict) -> str:
     """One honest sentence for the weekly pull — three states, not two.
     Never run is NOT the same as ran-and-overdue, and the old two-state
-    pill collapsed both into 'due'."""
+    pill collapsed both into 'due'.
+
+    This is the ONLY place the label is composed. The pill, the panel and the
+    MY PAGE row all display what the server sends; none of them re-derives it,
+    because the same rule written three times in two languages is a rule that
+    will eventually disagree with itself."""
     lr = st.get("last_weekly_update")
     if not lr:
         return "never run"
@@ -622,15 +637,10 @@ fetch('/health').then(r=>r.json()).then(d=>{
   document.getElementById('mname').textContent=(labels[d.model]||d.model).split(' ')[0];
   if(d.model!=='offline')document.getElementById('pdot').classList.add('live');
   document.getElementById('bpill').textContent=d.brains||95;
-  const w=d.weekly||{};
   // three states, not two: never run / overdue / current. The old pill said
-  // "active" the moment a single run existed, even months stale.
-  const lab=!w.last_weekly_update?'never run':(w.due_now?'overdue':'current');
-  const p=document.getElementById('wpill');
-  p.innerHTML='weekly <b>'+lab+'</b>'+(w.runs?' <span class=muted>'+w.runs+'</span>':'');
-  p.title='weekly pull — '+(w.last_weekly_update?'last ran '+w.last_weekly_update:'has never run')
-    +' · '+(w.runs||0)+' run(s) kept. Click to open the ledger.';
-  p.style.cursor='pointer'; p.onclick=loadWeekly;
+  // "active" the moment a single run existed, even months stale. The label is
+  // composed server-side (_weekly_phrase) — never re-derived here.
+  drawWpill(d.weekly||{},d.weekly_phrase||'');
 });
 fetch('/persist').then(r=>r.json()).then(p=>{
   const el=document.getElementById('ppill'); if(!el)return;
@@ -1138,7 +1148,9 @@ async function saveBrain(id){
   try{const d=await (await fetch('/brain/settings',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)})).json();
     st.textContent=d.ok?'saved ✓':'error'; loadBrains();}catch(e){st.textContent='error'}
 }
+let WMSG='';                         // survives the panel being re-rendered
 function _wsay(msg){                 // the button lives in two places
+  WMSG=msg;
   ['bstat','bstat2'].forEach(id=>{const e=document.getElementById(id);
     if(e)e.textContent=msg;});
 }
@@ -1146,39 +1158,72 @@ async function weeklyUpdate(){
   _wsay('running the weekly pull…');
   try{const d=await (await fetch('/brains/update',{method:'POST',headers:{'content-type':'application/json'},body:'{}'})).json();
     _wsay('updated '+d.updated+'/'+d.total);
-    loadBrains(); loadWeekly();      // the pull is now visible, not silent
+    loadBrains(); refreshWpill();
+    // Only redraw the ledger if the ledger is what he is looking at. The
+    // centre column is his ANSWER pane — refreshing a side panel must never
+    // destroy an answer he did not ask us to replace.
+    if(document.getElementById('wpanel'))loadWeekly();
+    else _wsay('updated '+d.updated+'/'+d.total+' — open Weekly pull to see the run');
   }catch(e){_wsay('error')}
+}
+function drawWpill(s,phrase){
+  const p=document.getElementById('wpill'); if(!p)return;
+  p.innerHTML='weekly <b>'+esc(String(s.state||'—'))+'</b>'+
+    (s.runs?' <span class=muted>'+esc(String(s.runs))+'</span>':'');
+  p.title='weekly pull — '+(phrase||'')+' · '+(s.runs||0)+
+    ' run(s) kept. Click to open the ledger.';
+  p.style.cursor='pointer'; p.onclick=loadWeekly;
+}
+async function refreshWpill(){
+  try{const d=await (await fetch('/health')).json();
+    drawWpill(d.weekly||{},d.weekly_phrase||'');}catch(e){}
 }
 // THE WEEKLY PULL, MADE VISIBLE. Before this the pull ran in a daemon thread
 // and wrote one file it overwrote every time — there was no way to see that it
 // had ever happened, or what it learned. Every run is now kept and listed.
+// Every interpolated value is escaped: a run file can arrive from a restored
+// backup, so these numbers are untrusted input, not our own arithmetic.
 function _wrow(r,i){
+  const num=v=>v==null?'—':esc(String(v));
+  if(r.unreadable)
+    return '<div class=lane><span class=muted>'+esc(String(r.file||''))+'</span> '+
+      '<span class="badge bad">unreadable — the file is corrupt or was cut off mid-write</span></div>';
   const err=r.novelty_error;
-  return '<div class=lane><span class=muted>'+esc((r.at||r.file||'').slice(0,16))+'</span> '+
+  return '<div class=lane><span class=muted>'+esc(String(r.at||r.file||'').slice(0,16))+'</span> '+
     (i===0?'<span class="badge ok">latest</span> ':'')+
-    '<b>'+(r.brains==null?'—':r.brains)+'</b> brains refreshed · '+
-    '<b>'+((r.new_connections==null)?'—':r.new_connections)+'</b> new connections · '+
+    '<b>'+num(r.brains)+'</b> brains refreshed · '+
+    '<b>'+num(r.new_connections)+'</b> new connections · '+
     (err?'<span class="badge warn">novelty failed: '+esc(String(err))+'</span>'
-        :'<b>'+((r.candidates==null)?'—':r.candidates)+'</b> novelty candidate(s)')+
-    ' <a class=muted href="/weekly/file?name='+encodeURIComponent(r.file)+'" download>'+esc(r.file)+'</a></div>';
+        :'<b>'+num(r.candidates)+'</b> novelty candidate(s)')+
+    ' <a class=muted href="/weekly/file?name='+encodeURIComponent(r.file)+'" download>'+esc(String(r.file||''))+'</a></div>';
 }
-async function loadWeekly(){
+async function loadWeekly(off){
+  off=off||0;
   const st=document.getElementById('repstat'); if(st)st.textContent='loading…';
-  try{const d=await (await fetch('/weekly')).json();
-    const s=d.status||{}, h=d.history||[];
-    const cls=!s.last_weekly_update?'warn':(s.due_now?'warn':'ok');
-    document.getElementById('out').innerHTML='<div class="card fade"><div class=k>Weekly pull &middot; the ledger '+
-      '<span class=num>'+h.length+' run(s) kept</span></div>'+
-      '<div style="margin-bottom:8px"><span class="badge '+cls+'">'+esc(d.phrase||'')+'</span> '+
+  try{const d=await (await fetch('/weekly?offset='+off)).json();
+    const s=d.status||{}, h=d.history||[], runs=d.runs||0;
+    const shown=off+h.length;
+    const cls=s.state==='current'?'ok':'warn';
+    // Never-run and ran-but-no-runs-kept are DIFFERENT sentences. Saying "it
+    // has never run" under a badge that reads "overdue — last <date>" is the
+    // same two-state lie this item exists to remove.
+    const empty=s.last_weekly_update
+      ? 'no runs are kept yet — this brain ran under the older code, which overwrote a single file. The ledger starts with the next pull.'
+      : 'it has never run — press the button and the first run is kept forever';
+    document.getElementById('out').innerHTML='<div class="card fade" id=wpanel><div class=k>Weekly pull &middot; the ledger '+
+      '<span class=num>'+esc(String(runs))+' run(s) kept'+
+      (shown<runs?' · showing '+(off+1)+'–'+shown:'')+'</span></div>'+
+      '<div style="margin-bottom:8px"><span class="badge '+cls+'">'+esc(String(d.phrase||''))+'</span> '+
       '<span class=muted>cadence is 7 days; the pull refreshes every brain’s settings, synthesises the week into each brain’s memory, then hunts parameters that never existed. Nothing is overwritten — each run is its own dated file.</span></div>'+
       '<div class=hactions style="margin-bottom:8px"><button class=btn onclick=weeklyUpdate()>Run the pull now</button>'+
       '<span class=status id=bstat2></span></div>'+
-      (h.length?h.map(_wrow).join(''):'<span class=muted>it has never run — press the button and the first run is kept forever</span>')+
+      (h.length?h.map(_wrow).join(''):'<span class=muted>'+empty+'</span>')+
+      (shown<runs?'<div class=hactions style="margin-top:8px"><button class="btn sm" onclick="loadWeekly('+shown+')">Older runs →</button></div>':'')+
+      (off?'<div class=hactions style="margin-top:8px"><button class="btn sm" onclick="loadWeekly(0)">← Newest</button></div>':'')+
       '</div>';
     if(st)st.textContent='';
-    const lab=!s.last_weekly_update?'never run':(s.due_now?'overdue':'current');
-    document.getElementById('wpill').innerHTML='weekly <b>'+lab+'</b>'+
-      (s.runs?' <span class=muted>'+s.runs+'</span>':'');
+    const b2=document.getElementById('bstat2'); if(b2)b2.textContent=WMSG;
+    drawWpill(s,d.phrase||'');
   }catch(e){if(st)st.textContent='error'}
 }
 loadBrains(); loadSnapshots();
@@ -1282,10 +1327,12 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 self._send(200, json.dumps(d).encode(), "application/json")
         elif path == "/health":
+            wst = scheduler.status(SB_ROOT)
             body = json.dumps({"ok": True, "model": ENGINE.model.name,
                                "models": model_status(),
                                "brains": len(ENGINE.brains.all()),
-                               "weekly": scheduler.status(SB_ROOT)})
+                               "weekly": wst,
+                               "weekly_phrase": _weekly_phrase(wst)})
             self._send(200, body.encode(), "application/json")
         elif path == "/diag":          # tiny connectivity self-test for one model
             name = (qs.get("model") or ["openrouter"])[0]
@@ -1339,22 +1386,36 @@ class Handler(BaseHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(body)
         elif path == "/weekly":
-            # the accumulated pull ledger — every run kept, newest first
+            # the accumulated pull ledger — newest first, PAGED not capped:
+            # `runs` is the true count and `offset` reaches every older run, so
+            # no run on disk is unreachable through the app.
+            st = scheduler.status(SB_ROOT)
+            lim = _int_arg(qs, "limit", 52, 1, 500)
+            off = _int_arg(qs, "offset", 0, 0, 10 ** 9)
+            hist = scheduler.history(SB_ROOT, limit=lim, offset=off)
             self._send(200, json.dumps({
-                "status": scheduler.status(SB_ROOT),
-                "phrase": _weekly_phrase(scheduler.status(SB_ROOT)),
-                "history": scheduler.history(SB_ROOT),
+                "status": st, "phrase": _weekly_phrase(st),
+                "runs": st["runs"], "shown": len(hist),
+                "limit": lim, "offset": off,
+                "history": hist,
                 "latest": scheduler.latest(SB_ROOT)}).encode(),
                 "application/json")
         elif path == "/weekly/file":
-            run = scheduler.get_run(SB_ROOT, (qs.get("name") or [""])[0])
+            fn = (qs.get("name") or [""])[0]
+            run = scheduler.get_run(SB_ROOT, fn)
             if run is None:
                 self._send(404, b'{"error":"no such weekly run"}',
                            "application/json")
             else:
-                self._send(200, json.dumps(run, ensure_ascii=False,
-                                           indent=2).encode(),
-                           "application/json")
+                body = json.dumps(run, ensure_ascii=False, indent=2).encode()
+                safe = re.sub(r"[^0-9A-Za-z_.-]", "", fn)
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Disposition",
+                                 f'attachment; filename="{safe}"')
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
         elif path == "/library":
             self._send(200, json.dumps(_library()).encode(), "application/json")
         elif path == "/snapshots":
