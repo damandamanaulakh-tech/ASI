@@ -142,7 +142,7 @@ function drawMoves(){
  if(!MOVES.length){w.style.display='none';return}
  w.style.display='';
  const verb={park:'parked',unpark:'returned',force:'forced in',release:'released'};
- ol.innerHTML=MOVES.map(m=>`<li><b>${verb[m.a]||m.a}</b> ${esc(m.id)}${
+ ol.innerHTML=MOVES.map(m=>`<li><b>${esc(verb[m.a]||m.a)}</b> ${esc(m.id)}${
    pname(m.id)?' <span style="color:var(--mut)">'+esc(pname(m.id))+'</span>':''}</li>`).join('');
 }
 async function j(u,opt){const r=await fetch(u,opt);return r.json()}
@@ -278,8 +278,9 @@ function renderAnswer(adopted){
  ${(LAST.payload.halts||[]).length?`<div class=gap>HALT, named: ${esc(LAST.payload.halts.join(' · '))}</div>`:''}
  ${(LAST.hand.deselected||[]).length||(LAST.hand.forced||[]).length?
   `<div class=adopt>ADOPTED — the engine ran again with your hand: ${
-   (LAST.hand.deselected||[]).length?'without '+LAST.hand.deselected.join(', '):''} ${
-   (LAST.hand.forced||[]).length?'· forced in '+LAST.hand.forced.join(', '):''}. Nothing deleted — parked brains return on click.</div>`:''}`;
+   (LAST.hand.deselected||[]).length?'without '+esc(LAST.hand.deselected.join(', ')):''} ${
+   (LAST.hand.forced||[]).length?'· forced in '+esc(LAST.hand.forced.join(', ')):''}. Nothing deleted — parked brains return on click.${
+   (LAST.hand.dropped_by_cap||[]).length?' <b style="color:var(--warn)">'+LAST.hand.dropped_by_cap.length+' forced pick(s) exceeded the 40 cap and did NOT reach the engine: '+esc(LAST.hand.dropped_by_cap.join(', '))+'</b>':''}</div>`:''}`;
  if(adopted){a.classList.remove('pulse');void a.offsetWidth;a.classList.add('pulse')}
 }
 async function ask(isAdopt){

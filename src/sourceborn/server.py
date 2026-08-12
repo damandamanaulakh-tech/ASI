@@ -1396,11 +1396,19 @@ class Handler(BaseHTTPRequestHandler):
                     "select": select, "deselect": deselect,
                     "actions": actions, "hand": hand}
                 payload["chat_id"] = _save_chat(question, payload, "engine")
-                ENGINE.memory.master_log({
-                    "event": "selection", "chat": payload["chat_id"],
-                    "actions": actions, "forced": hand.get("forced", []),
-                    "deselected": hand.get("deselected", []),
-                    "speaking": len(hand.get("speaking", []))})
+                try:
+                    # summary only — the full move-by-move replay lives on the
+                    # chat record; the sacred log keeps a compact trace so it
+                    # doesn't accumulate the whole history on every ask. And a
+                    # best-effort audit write must never sink an answer that is
+                    # already saved (a disk fault here used to 500 the reply).
+                    ENGINE.memory.master_log({
+                        "event": "selection", "chat": payload["chat_id"],
+                        "moves": len(actions), "forced": hand.get("forced", []),
+                        "deselected": hand.get("deselected", []),
+                        "speaking": len(hand.get("speaking", []))})
+                except Exception:
+                    pass
                 self._send(200, json.dumps(
                     {"payload": payload, "lit": lit, "hand": hand}).encode(),
                     "application/json")
