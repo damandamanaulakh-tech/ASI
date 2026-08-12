@@ -1373,6 +1373,14 @@ def test_front_door_auth_gate():
     assert not basic_auth_ok("Basic !!!notbase64!!!", "sourceborn", "s3cret")
     assert not basic_auth_ok("Basic " + _b64.b64encode(b"nocolon").decode(),
                              "sourceborn", "s3cret")
+    # a non-ASCII password must never raise (compare bytes, not str) — a
+    # strong password with an accent must lock, not brick the app
+    assert basic_auth_ok(hdr("sourceborn", "pä55wörd"), "sourceborn", "pä55wörd")
+    assert not basic_auth_ok(hdr("sourceborn", "wrong"), "sourceborn", "pä55wörd")
+    # the scheme token is case-insensitive per RFC 7617
+    good = hdr("sourceborn", "s3cret")
+    assert basic_auth_ok(good.replace("Basic", "basic"), "sourceborn", "s3cret")
+    assert basic_auth_ok(good.replace("Basic", "BASIC"), "sourceborn", "s3cret")
     # the health path stays open by policy so Render's probe never 401s
     from sourceborn.server import OPEN_PATHS
     assert "/health" in OPEN_PATHS

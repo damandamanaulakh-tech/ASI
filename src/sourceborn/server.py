@@ -66,20 +66,25 @@ OPEN_PATHS = frozenset({"/health"})
 def basic_auth_ok(auth_header: str, user: str, password: str) -> bool:
     """Pure check for an HTTP Basic `Authorization` header, constant-time.
     Kept module-level and side-effect-free so it is unit-tested directly
-    (the request handler can't be exercised without a live socket)."""
+    (the request handler can't be exercised without a live socket).
+
+    Compares raw bytes, so a non-ASCII password/username can never raise —
+    a strong password with an accented character must not brick the app.
+    The scheme token is matched case-insensitively per RFC 7617."""
     if not password:                       # no lock configured → app is open
         return True
-    if not auth_header.startswith("Basic "):
+    scheme, _, rest = auth_header.partition(" ")
+    if scheme.lower() != "basic" or not rest:
         return False
     try:
-        raw = base64.b64decode(auth_header[6:]).decode("utf-8", "ignore")
+        raw = base64.b64decode(rest)       # bytes, not decoded to str
     except Exception:
         return False
-    got_user, sep, got_pass = raw.partition(":")
+    got_user, sep, got_pass = raw.partition(b":")
     if not sep:                            # malformed, no colon
         return False
-    ok_user = hmac.compare_digest(got_user, user)
-    ok_pass = hmac.compare_digest(got_pass, password)
+    ok_user = hmac.compare_digest(got_user, user.encode("utf-8"))
+    ok_pass = hmac.compare_digest(got_pass, password.encode("utf-8"))
     return ok_user and ok_pass
 
 
@@ -1705,6 +1710,12 @@ def main() -> None:
     port = int(os.environ.get("PORT", "8000"))
     srv = ThreadingHTTPServer(("0.0.0.0", port), Handler)
     print(f"Sourceborn web service on http://0.0.0.0:{port}  (model: {ENGINE.model.name})")
+    if not SB_ACCESS_PASS:
+        print("!! OPEN — no SB_ACCESS_PASS set: every route is reachable by "
+              "anyone with the URL. Set SB_ACCESS_PASS in the environment to "
+              "lock the front door.")
+    else:
+        print(f"lock: on — HTTP Basic auth required (user: {SB_ACCESS_USER})")
     srv.serve_forever()
 
 
