@@ -27,6 +27,7 @@ Render Disk at ``.sourceborn`` or use a DB (docs/RECOMMENDATION.md, Phase 3).
 from __future__ import annotations
 
 import base64
+import hmac
 import json
 import os
 import re
@@ -48,6 +49,38 @@ SB_ROOT = os.environ.get("SB_ROOT", ".sourceborn")
 ENGINE = SourcebornEngine(root=SB_ROOT)
 SNAP_DIR = os.path.join(SB_ROOT, "_snapshots")
 CHAT_DIR = os.path.join(SB_ROOT, "chats")
+
+# --- the front-door gate ------------------------------------------------
+# The whole app is private (audit item 01). If SB_ACCESS_PASS is set, every
+# route requires HTTP Basic auth: the browser prompts once natively, fetch()
+# reuses the credentials, and curl works with -u. If it is NOT set the app
+# stays open — so local dev and the offline demo are unchanged, and nothing
+# breaks until the owner deliberately turns the lock on in Render.
+SB_ACCESS_USER = os.environ.get("SB_ACCESS_USER", "sourceborn")
+SB_ACCESS_PASS = os.environ.get("SB_ACCESS_PASS", "")
+# Render's health check hits this with no credentials, so it must stay open.
+# It only reports booleans about which keys exist, never private content.
+OPEN_PATHS = frozenset({"/health"})
+
+
+def basic_auth_ok(auth_header: str, user: str, password: str) -> bool:
+    """Pure check for an HTTP Basic `Authorization` header, constant-time.
+    Kept module-level and side-effect-free so it is unit-tested directly
+    (the request handler can't be exercised without a live socket)."""
+    if not password:                       # no lock configured → app is open
+        return True
+    if not auth_header.startswith("Basic "):
+        return False
+    try:
+        raw = base64.b64decode(auth_header[6:]).decode("utf-8", "ignore")
+    except Exception:
+        return False
+    got_user, sep, got_pass = raw.partition(":")
+    if not sep:                            # malformed, no colon
+        return False
+    ok_user = hmac.compare_digest(got_user, user)
+    ok_pass = hmac.compare_digest(got_pass, password)
+    return ok_user and ok_pass
 
 
 def _save_chat(question: str, payload: dict, kind: str = "ask") -> str:
@@ -1122,7 +1155,32 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self, *args) -> None:
         pass
 
+    def _guard(self) -> bool:
+        """True if the request may proceed. When SB_ACCESS_PASS is unset the
+        app is open. When it is set, every path except the health check needs
+        matching HTTP Basic credentials."""
+        if not SB_ACCESS_PASS or urlparse(self.path).path in OPEN_PATHS:
+            return True
+        if basic_auth_ok(self.headers.get("Authorization", ""),
+                         SB_ACCESS_USER, SB_ACCESS_PASS):
+            return True
+        # Close the connection: an unauthenticated POST may carry a body we
+        # never read, and leaving it on a keep-alive socket desyncs the next
+        # request. A fresh request (with credentials) reconnects cleanly.
+        self.close_connection = True
+        self.send_response(401)
+        self.send_header("WWW-Authenticate", 'Basic realm="Sourceborn"')
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Connection", "close")
+        body = b'{"error":"authentication required"}'
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+        return False
+
     def do_GET(self) -> None:
+        if not self._guard():
+            return
         route = urlparse(self.path)
         path, qs = route.path, parse_qs(route.query)
         if path in ("/", "/index.html"):
@@ -1282,6 +1340,8 @@ class Handler(BaseHTTPRequestHandler):
             self._send(404, b'{"error":"not found"}', "application/json")
 
     def do_POST(self) -> None:
+        if not self._guard():
+            return
         try:
             n = int(self.headers.get("Content-Length", 0))
             data = json.loads(self.rfile.read(n) or b"{}")

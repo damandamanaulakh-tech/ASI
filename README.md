@@ -57,6 +57,14 @@ var `ANTHROPIC_API_KEY` to turn on real Claude reasoning. (Render's disk is
 ephemeral; to keep the brain's memory across deploys, enable the optional Render
 Disk in `render.yaml` or move memory to a DB — see `docs/RECOMMENDATION.md`.)
 
+**Lock the front door.** The app is private but has no password until you set one.
+In the Render dashboard set **`SB_ACCESS_PASS`** to a strong password and the whole
+app requires it — the browser prompts once (HTTP Basic auth), and `fetch`/`curl -u`
+carry it automatically. `GET /health` stays open so Render's health check still
+works. Leave `SB_ACCESS_PASS` unset and the app is open to anyone with the URL, so
+**set it before you expose anything private.** Optional `SB_ACCESS_USER` (default
+`sourceborn`).
+
 
 ## Feed your brain (continuous learning)
 ```bash
@@ -92,6 +100,7 @@ Your private brain is written to `.sourceborn/` (git-ignored — never committed
 - **CI**: GitHub Actions runs the test suite on every push/PR
 
 ## HTTP API
+All routes except `GET /health` require HTTP Basic auth when `SB_ACCESS_PASS` is set.
 `GET /` UI · `GET /health` · `POST /ask {question,model,public}` (runs the
 per-node SB↔URR walk; returns `walk.steps` + `walk.holds`) ·
 `POST /review {question,id,action,data}` — the human review queue,

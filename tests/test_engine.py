@@ -1349,6 +1349,35 @@ def test_ladder_hand_deselect_and_force_change_the_recall_notes():
     assert "P-X-08" in forced and "P-X-08" in hand3["forced"]
 
 
+def test_front_door_auth_gate():
+    """Audit item 01 — the app is lockable. basic_auth_ok is the pure check
+    behind the request guard; every credential path is asserted here so the
+    lock is covered by the suite, not just eyeballed."""
+    import base64 as _b64
+    from sourceborn.server import basic_auth_ok
+
+    def hdr(user, pw):
+        return "Basic " + _b64.b64encode(f"{user}:{pw}".encode()).decode()
+
+    # no password configured → the app is open, any header passes
+    assert basic_auth_ok("", "sourceborn", "") is True
+    assert basic_auth_ok(hdr("x", "y"), "sourceborn", "") is True
+    # locked: correct credentials pass
+    assert basic_auth_ok(hdr("sourceborn", "s3cret"), "sourceborn", "s3cret")
+    # locked: wrong password, wrong user, missing header, non-basic scheme,
+    # malformed base64, and a value with no colon all fail
+    assert not basic_auth_ok(hdr("sourceborn", "nope"), "sourceborn", "s3cret")
+    assert not basic_auth_ok(hdr("intruder", "s3cret"), "sourceborn", "s3cret")
+    assert not basic_auth_ok("", "sourceborn", "s3cret")
+    assert not basic_auth_ok("Bearer s3cret", "sourceborn", "s3cret")
+    assert not basic_auth_ok("Basic !!!notbase64!!!", "sourceborn", "s3cret")
+    assert not basic_auth_ok("Basic " + _b64.b64encode(b"nocolon").decode(),
+                             "sourceborn", "s3cret")
+    # the health path stays open by policy so Render's probe never 401s
+    from sourceborn.server import OPEN_PATHS
+    assert "/health" in OPEN_PATHS
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

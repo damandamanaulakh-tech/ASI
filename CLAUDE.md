@@ -76,7 +76,17 @@ Live on Render as a web app. All 8 SB stages implemented (Core Gate 6 lenses,
 Doubt/Falsifier/Witness, Evidence ladder, Dot-Connection/Merge, Synthetic Fuel,
 Risk/Embodied/Non-Resolution, output + weekly update), the RGL recursive loop, 95
 configured node brains, 3 memories (corpus/wisdom/live fact), multi-model
-(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (66 tests).
+(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (97 tests).
+
+**A full audit ran 2026-08-12 (four read-only sweeps).** It produced a 20-item
+prioritized fix list; the honest finding is that the frame is real but much of the
+reasoning core is not yet wired (offline model echoes the prompt, 4 of 7 filters
+are no-op passes, the 25 URR review nodes are dead code, 90 of 95 brains hold no
+memory). The owner directed working through it **phase by phase, slow and steady,
+syncing every folder as we go**. **Phase 0 — the front-door lock:** every route
+except `GET /health` now requires HTTP Basic auth when `SB_ACCESS_PASS` is set
+(`server.basic_auth_ok`, tested); unset = open, so local dev is unchanged. Do not
+present half-wired work as finished — verify before claiming done.
 
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
