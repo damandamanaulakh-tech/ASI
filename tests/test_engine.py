@@ -1386,6 +1386,29 @@ def test_front_door_auth_gate():
     assert "/health" in OPEN_PATHS
 
 
+def test_recall_notes_keeps_his_order_and_never_drops_a_forced_pick():
+    """The selection ledger must not be re-sorted, and a parameter he
+    forced in must never be the one silently cut by the cap."""
+    from sourceborn import ladder
+    reg = {"parameters": [{"id": f"P-{i}", "name": f"n{i}", "container": "C",
+                           "filled": True, "contains": "x"} for i in range(50)]}
+    lit = {"parameters": [{"id": f"P-{i}"} for i in range(40)]}
+    notes, hand = ladder.recall_notes(
+        reg, lit, select=["P-49", "P-45"], deselect=["P-3", "P-1"], limit=40)
+    ids = [p["id"] for p in hand["speaking"]]
+    assert ids[0] == "P-49" and ids[1] == "P-45"        # forced first
+    assert hand["forced"] == ["P-49", "P-45"]           # his order, not sorted
+    assert hand["deselected"] == ["P-3", "P-1"]         # his order, not sorted
+    assert "P-3" not in ids and "P-1" not in ids        # deselected gone
+    assert hand["dropped_by_cap"] == []                 # forced never dropped
+    # under a tight cap the forced picks still survive; lit is what yields
+    _, h2 = ladder.recall_notes(reg, lit, select=["P-49", "P-45"],
+                                deselect=[], limit=3)
+    assert h2["speaking"][0]["id"] == "P-49"
+    assert h2["speaking"][1]["id"] == "P-45"
+    assert h2["dropped_by_cap"] == []
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

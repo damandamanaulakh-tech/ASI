@@ -197,24 +197,42 @@ def activate(question: str, registry: dict, extra_text: str = "") -> dict:
             "parameters": lit_params}
 
 
+def _uniq(seq) -> list:
+    """Order-preserving de-dup — his sequence is never re-sorted away."""
+    seen, out = set(), []
+    for x in seq:
+        if x not in seen:
+            seen.add(x)
+            out.append(x)
+    return out
+
+
 def recall_notes(registry: dict, lit: dict, select: list[str],
-                 deselect: list[str], limit: int = 14) -> tuple[str, dict]:
-    """The context the real engine run receives: contents of (lit + his
-    forced selects) minus his deselects. This is the adoption mechanism —
-    change the hand, change the run."""
+                 deselect: list[str], limit: int = 40) -> tuple[str, dict]:
+    """The context the real engine run receives: contents of (his forced
+    selects + lit) minus his deselects. This is the adoption mechanism —
+    change the hand, change the run.
+
+    Forced picks are placed FIRST so that if the list is capped, a
+    parameter he deliberately forced in is never the one silently dropped.
+    The returned `hand` preserves his order, never a re-sort."""
     by_id = {p["id"]: p for p in registry.get("parameters", [])}
+    des = set(deselect or [])
     chosen: dict[str, dict] = {}
-    for p in lit.get("parameters", []):
-        chosen[p["id"]] = p
-    for pid in select or []:
+    for pid in select or []:               # forced first — never truncated away
         p = by_id.get(pid)
-        if p and p.get("filled"):
+        if p and p.get("filled") and pid not in des:
             chosen[pid] = {**p, "reason": "forced in by his hand"}
-    for pid in deselect or []:
-        chosen.pop(pid, None)
+    for p in lit.get("parameters", []):    # then whatever the question lit
+        if p["id"] in des:
+            continue
+        chosen.setdefault(p["id"], p)
     speaking = list(chosen.values())[:limit]
+    kept = {p["id"] for p in speaking}
     notes = "\n".join(f"- {p['id']} {p.get('name','')}: {p.get('contains','')}"
                       for p in speaking)
     return notes, {"speaking": speaking,
-                   "deselected": sorted(set(deselect or [])),
-                   "forced": sorted(x for x in (select or []) if x in chosen)}
+                   "deselected": _uniq(deselect or []),
+                   "forced": _uniq(x for x in (select or []) if x in kept),
+                   "dropped_by_cap": _uniq(x for x in (select or [])
+                                           if x in chosen and x not in kept)}

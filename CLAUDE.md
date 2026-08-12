@@ -83,10 +83,21 @@ prioritized fix list; the honest finding is that the frame is real but much of t
 reasoning core is not yet wired (offline model echoes the prompt, 4 of 7 filters
 are no-op passes, the 25 URR review nodes are dead code, 90 of 95 brains hold no
 memory). The owner directed working through it **phase by phase, slow and steady,
-syncing every folder as we go**. **Phase 0 — the front-door lock:** every route
-except `GET /health` now requires HTTP Basic auth when `SB_ACCESS_PASS` is set
-(`server.basic_auth_ok`, tested); unset = open, so local dev is unchanged. Do not
-present half-wired work as finished — verify before claiming done.
+syncing every folder as we go**, and chose to keep the corpus in place but make the
+GitHub repo private (his call on the exposure item). **Phase 0 — the front-door
+lock:** every route except `GET /health` now requires HTTP Basic auth when
+`SB_ACCESS_PASS` is set (`server.basic_auth_ok`, tested; compares bytes so a
+non-ASCII password can't 500 the app); unset = open, so local dev is unchanged.
+**Phase 1 — the two he named. Item 03 (selection ledger):** on THE ENGINE page his
+park/force actions are now an ordered move-log — shown live ("YOUR MOVES — IN
+ORDER"), sent with the ask, stored on the chat so reopening replays it, written to
+the master log as a `selection` event, and restored from localStorage across
+reload. `ladder.recall_notes` preserves his order (never re-sorted), places forced
+picks first so the cap can never silently drop one, and the misleading
+answer-time "second recompute" was removed so the ring shows what the engine
+actually received. Item 04 (weekly pull made visible) is next. Do not present
+half-wired work as finished — verify before claiming done, and run an independent
+review of each phase's diff before asking him to merge.
 
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding

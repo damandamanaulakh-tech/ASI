@@ -1372,10 +1372,14 @@ class Handler(BaseHTTPRequestHandler):
                 return
             try:
                 reg = ladder.load_registry(SB_ROOT)
+                select = data.get("select") or []
+                deselect = data.get("deselect") or []
+                actions = data.get("actions") or []   # his ordered moves
+                # ONE activation → the lit set and the hand are exactly what
+                # the engine receives; nothing is recomputed after the answer
+                # and shown as if it were the input (that used to mislead).
                 lit = ladder.activate(question, reg)
-                notes, hand = ladder.recall_notes(
-                    reg, lit, data.get("select") or [],
-                    data.get("deselect") or [])
+                notes, hand = ladder.recall_notes(reg, lit, select, deselect)
                 run_text = question
                 if notes:
                     run_text += ("\n\n[recall notes from the selected "
@@ -1384,13 +1388,19 @@ class Handler(BaseHTTPRequestHandler):
                                       or "offline").lower())
                 walk = ENGINE.run_walk(run_text, model=model)
                 payload = self._walk_dict(walk["result"], walk, model.name)
+                # the selection ledger travels WITH the answer: reopening the
+                # chat replays exactly which brains were parked/forced, in his
+                # order. This is the one human decision that used to leave no
+                # trace anywhere; now it is on the chat and in the master log.
+                payload["selection"] = {
+                    "select": select, "deselect": deselect,
+                    "actions": actions, "hand": hand}
                 payload["chat_id"] = _save_chat(question, payload, "engine")
-                # second pass: let the engine's own words light more entries
-                answer_text = (payload.get("output") or {}).get("answer", "")
-                lit = ladder.activate(question, reg, extra_text=answer_text)
-                notes, hand = ladder.recall_notes(
-                    reg, lit, data.get("select") or [],
-                    data.get("deselect") or [])
+                ENGINE.memory.master_log({
+                    "event": "selection", "chat": payload["chat_id"],
+                    "actions": actions, "forced": hand.get("forced", []),
+                    "deselected": hand.get("deselected", []),
+                    "speaking": len(hand.get("speaking", []))})
                 self._send(200, json.dumps(
                     {"payload": payload, "lit": lit, "hand": hand}).encode(),
                     "application/json")
