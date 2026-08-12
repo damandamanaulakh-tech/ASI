@@ -180,6 +180,80 @@ def test_weekly_scheduler_due_then_not():
     assert scheduler.status(root)["last_weekly_update"]
 
 
+def test_weekly_pull_accumulates_and_is_readable():
+    """Item 04. The pull used to overwrite one file and run a DIFFERENT, smaller
+    job when pressed by hand. Now: one shared job, every run kept, readable."""
+    import os
+    from sourceborn import scheduler
+    eng = _engine()
+    root = eng.memory.root
+
+    st = scheduler.status(root)                        # never run
+    assert st["last_weekly_update"] is None and st["runs"] == 0
+    assert st["due_now"] is True
+    assert scheduler.latest(root) is None
+    assert scheduler.history(root) == []
+
+    r1 = scheduler.run_weekly(eng, root)
+    assert "digest" in r1 and "novelty" in r1          # the FULL job, not a bump
+    assert "error" not in (r1["novelty"] or {}), r1["novelty"]
+    r2 = scheduler.run_weekly(eng, root)               # a second, same second
+    assert r2
+
+    h = scheduler.history(root)
+    assert len(h) == 2, h                              # accumulated, not clobbered
+    files = [x["file"] for x in h]
+    assert len(set(files)) == 2                        # no same-second collision
+    assert all(f.startswith("weekly_") for f in files)
+    assert scheduler.status(root)["runs"] == 2
+    assert scheduler.status(root)["due_now"] is False   # ran -> not due
+
+    latest = scheduler.latest(root)
+    assert latest and latest.get("total") == 95
+    got = scheduler.get_run(root, h[0]["file"])
+    assert got and got.get("at") == h[0]["at"]
+
+    # the reader is path-guarded: no traversal, no non-weekly file
+    assert scheduler.get_run(root, "../master_log.jsonl") is None
+    assert scheduler.get_run(root, "weekly_nope.json") is None
+    assert scheduler.get_run(root, "") is None
+
+    # the pull is in the sacred log
+    log = os.path.join(root, "master_log.jsonl")
+    if os.path.exists(log):
+        with open(log, encoding="utf-8") as f:
+            assert "weekly_run" in f.read()
+
+
+def test_weekly_phrase_says_three_states_not_two():
+    """The dashboard pill and MY PAGE both said 'active' the moment one run
+    existed, however stale, and MY PAGE read a key that never existed."""
+    from sourceborn.server import _weekly_phrase
+    assert _weekly_phrase({"last_weekly_update": None,
+                           "due_now": True}) == "never run"
+    assert _weekly_phrase({"last_weekly_update": "2026-01-01 00:00:00",
+                           "due_now": True}).startswith("overdue")
+    assert _weekly_phrase({"last_weekly_update": "2026-08-12 00:00:00",
+                           "due_now": False}).startswith("current")
+
+
+def test_novelty_failure_is_visible_not_swallowed():
+    """A broken novelty pass used to vanish silently — the weekly run looked
+    clean while half of it had not happened."""
+    from sourceborn import scheduler, novelty
+    eng = _engine()
+    real = novelty.run_novelty_pass
+    novelty.run_novelty_pass = lambda *a, **k: (_ for _ in ()).throw(
+        OSError("disk full"))
+    try:
+        res = scheduler.run_weekly(eng, eng.memory.root)
+    finally:
+        novelty.run_novelty_pass = real
+    assert "disk full" in res["novelty"]["error"]
+    assert scheduler.history(eng.memory.root)[0]["novelty_error"]
+    assert res["updated"] is not None                  # the rest still ran
+
+
 def test_doubt_engine_bites_on_overclaim():
     from sourceborn.doubt import doubt_engine, falsifier, witness
     d = doubt_engine("This is obviously always true and guaranteed.", False, 0)

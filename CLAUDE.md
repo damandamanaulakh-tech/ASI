@@ -76,7 +76,7 @@ Live on Render as a web app. All 8 SB stages implemented (Core Gate 6 lenses,
 Doubt/Falsifier/Witness, Evidence ladder, Dot-Connection/Merge, Synthetic Fuel,
 Risk/Embodied/Non-Resolution, output + weekly update), the RGL recursive loop, 95
 configured node brains, 3 memories (corpus/wisdom/live fact), multi-model
-(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (97 tests).
+(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (101 tests).
 
 **A full audit ran 2026-08-12 (four read-only sweeps).** It produced a 20-item
 prioritized fix list; the honest finding is that the frame is real but much of the
@@ -95,9 +95,23 @@ the master log as a `selection` event, and restored from localStorage across
 reload. `ladder.recall_notes` preserves his order (never re-sorted), places forced
 picks first so the cap can never silently drop one, and the misleading
 answer-time "second recompute" was removed so the ring shows what the engine
-actually received. Item 04 (weekly pull made visible) is next. Do not present
-half-wired work as finished — verify before claiming done, and run an independent
-review of each phase's diff before asking him to merge.
+actually received. **Item 04 (the weekly pull, visible and cumulative):**
+`scheduler.run_weekly` is the ONE job the hourly daemon and the manual button both
+call, so a hand-pull no longer skips the novelty pass; every run is kept as its own
+dated file under `<SB_ROOT>/weekly/` (nothing overwritten — same-second runs get a
+suffix); `GET /weekly` + `GET /weekly/file?name=` serve the ledger; the dashboard
+has a real panel (pill click or *Weekly pull*) listing every run with brains
+refreshed / new connections / novelty candidates; the pill reads three states
+(never run · overdue · current) instead of saying "active" forever after one run;
+the permanently-blank MY PAGE weekly row now reads the truth (`_weekly_phrase`);
+and a failed novelty pass is reported instead of swallowed by `except: pass`.
+
+**The queue lives in the repo: `docs/AUDIT_2026-08-12_WORKLIST.md`** — all 20 items
+verbatim with live status, updated in the same commit that closes one. Items 05–08
+(real model / the four dead filters / the URR nodes / the 90 empty brains) are the
+ones that make it actually reason; nothing closed so far has changed that. Do not
+present half-wired work as finished — verify before claiming done, and run an
+independent review of each phase's diff before asking him to merge.
 
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
