@@ -146,6 +146,36 @@ function draw(d){
       '</div>');
   }
 
+  const li=d.live_intent;
+  if(li){
+    const lc=li.counts;
+    o.push('<h2>LIVE INTENT — GENERATED FROM THE ACTIVE PARAMETERS</h2>'+
+      '<div class=card><div class=count>'+
+      `<div><div class=k>ACTIVE CONTAINERS</div><b>${lc.active_containers}</b></div>`+
+      `<div><div class=k>MOTIVES RAISED</div><b>${lc.motives_raised}</b> <span class=mine>of ${lc.motive_rows}</span></div>`+
+      `<div><div class=k>FORMS APPLICABLE</div><b>${lc.forms_applicable}</b> <span class=mine>of ${lc.form_rows}</span></div>`+
+      `<div><div class=k>INTENT CANDIDATES</div><b>${lc.intents_generated}</b></div>`+
+      `<div><div class=k>ADDED TO BANK</div><b class=zero>${lc.native_parameters_added}</b></div>`+
+      '</div>'+
+      `<div class=law style=margin-top:6px>${esc(li.law)}</div>`+
+      `<div class=mine>${esc(li.refuses)}</div>`+
+      `<div class=mine>${esc(li.confidence.row)} = ${esc(li.confidence.level)} — ${esc(li.confidence.why)}</div>`+
+      `<div class=mine>reachable but not active: ${lc.motives_reachable_not_active}</div></div>`);
+    const seen={}, uniq=[];
+    li.candidates.forEach(x=>{ if(!seen[x.why]){seen[x.why]=1; uniq.push(x);} });
+    o.push('<div class=card><table><tr><th>the WHY (his motive row)</th>'+
+      '<th>raised by</th><th>state</th><th>matched row</th><th>the SHAPE</th>'+
+      '<th>status</th></tr>'+
+      uniq.map(x=>`<tr><td>${esc(x.why)} <span class=mine>${esc(x.why_p)}</span></td>`+
+        `<td class=pid>${esc(x.raised_by.container)}</td>`+
+        `<td><span class="st ${esc(x.raised_by.state)}">${esc(x.raised_by.state)}</span></td>`+
+        `<td class=mine>${esc(x.raised_by.matched_row)} ${esc(x.raised_by.matched_p)}</td>`+
+        `<td class=mine>${esc(x.shape)} ${esc(x.shape_p)}</td>`+
+        `<td class=zero>${esc(x.status)}</td></tr>`).join('')+
+      `</table><div class=mine>one row per distinct motive; each is crossed with `+
+      `${lc.forms_applicable} intent forms. chosen = ${esc(String(li.chosen))}</div></div>`);
+  }
+
   if(d.fork){
     const f=d.fork;
     o.push(`<h2>EVENT FORK — ${esc(f.event)}</h2><div class=card>`);

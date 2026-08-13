@@ -3518,6 +3518,123 @@ def test_the_generation_and_weighting_routes_are_reachable():
     assert "statepacks" in eng
 
 
+
+# --- LIVE INTENT GENERATION: the bottleneck he named -----------------------
+
+def test_intent_is_generated_from_his_own_rows_not_a_table():
+    from sourceborn import intents as I
+    assert len(I.motive_rows()) == 40, "CON-064 is the WHY"
+    assert len(I.form_rows()) == 40, "CON-063 is the SHAPE"
+    m = {x["name"]: x for x in I.motive_rows()}
+    assert m["Stated motive"]["p"] == "P2525"
+    assert m["Motive-inference confidence"]["p"] == "P2564"
+    f = {x["name"]: x for x in I.form_rows()}
+    assert f["Immediate-intention formation"]["p"] == "P2485"
+
+
+def test_more_parameters_active_means_more_intent():
+    """His concept, and it must be computed, not asserted:
+    'as much parameters we plug, we will generate more pattern and intent'."""
+    from sourceborn import intents as I
+    sc = I.scaling()
+    assert sc["monotonic"] is True
+    first, last = sc["curve"][0], sc["curve"][-1]
+    assert first["active_containers"] == 1 and last["active_containers"] == 80
+    assert last["intents_generated"] > first["intents_generated"] * 5, \
+        (first, last)
+    assert last["motives_raised"] > first["motives_raised"]
+    assert sc["ceiling"]["max_pairs"] == 40 * 40
+
+
+def test_the_motive_links_are_computed_and_the_fabrications_are_gated():
+    """Naive head-word matching gave 200 edges and about a third were lexical
+    coincidences — 'Face-saving motive' -> 'Face detection'. Perception, motor,
+    attention-mechanics and language cannot originate a motive."""
+    from sourceborn import intents as I
+    assert set(I.BLOCKED_HOSTS) == {"SEG-02", "SEG-03", "SEG-04", "SEG-07"}
+    ml = I.motive_links()
+    for name, v in ml.items():
+        for e in v["edges"]:
+            assert e["segment"] not in I.BLOCKED_HOSTS, (name, e)
+            assert e["matched"] and e["matched_p"], e
+    st = I.stats()
+    assert st["link_edges"] == 133, st["link_edges"]
+    assert st["motives_linked"] == 35
+    # the specific fabrications must be gone
+    faces = [e["matched"] for e in ml["Face-saving motive"]["edges"]]
+    assert "Face detection" not in faces
+    rec = [e["matched"] for e in ml["Recognition/status need"]["edges"]]
+    assert "Shape recognition" not in rec
+
+
+def test_motives_with_no_echo_in_the_bank_are_reported_as_absences():
+    from sourceborn import intents as I
+    u = {x["motive"]: x for x in I.unlinked()}
+    assert len(u) == 5
+    assert u["Stated motive"]["absence"] is False, "machinery, not a motive"
+    assert u["Operating (actual) motive"]["absence"] is False
+    for real in ("Security need", "Mating/attraction motive",
+                 "Revenge/retaliation motive"):
+        assert u[real]["absence"] is True, real
+    assert I.stats()["real_absences"] == 3
+
+
+def test_a_different_brain_state_generates_different_intent():
+    """The join his bottleneck needed: the state pack decides which containers
+    are active, and the intent is generated from those."""
+    from sourceborn import intents as I
+    a = I.from_state_pack("The King", "SP-27", "ABDICATE")
+    b = I.from_state_pack("The King", "SP-24")
+    assert a["counts"]["motives_raised"] > b["counts"]["motives_raised"], \
+        "divided loyalty raises social motives; exhaustion raises body ones"
+    assert a["counts"]["intents_generated"] != b["counts"]["intents_generated"]
+    segs_b = {c["raised_by"]["segment"] for c in b["candidates"]}
+    assert segs_b == {"SEG-01"}, "the exhausted pack raises only body motives"
+    assert a["identity"]["locked"] is True
+    assert b["identity"]["locked"] is True
+
+
+def test_generated_intent_never_concludes_and_never_enters_the_bank():
+    from sourceborn import intents as I, human_registry as hr
+    before = len(hr.parameters())
+    g = I.generate("ABDICATE", ["CON-071", "CON-072", "CON-063"])
+    assert g["chosen"] is None
+    assert g["confidence"]["level"] == "LOW"
+    assert g["counts"]["native_parameters_added"] == 0
+    for c in g["candidates"]:
+        assert c["status"] == "INTENT CANDIDATE"
+        assert c["in_bank"] is False and c["is_native_parameter"] is False
+        assert c["concluded"] is False
+        assert c["why_p"].startswith("P") and c["shape_p"].startswith("P")
+        assert c["raised_by"]["matched_row"], "every intent cites its evidence"
+    assert len(hr.parameters()) == before == 3204
+
+
+def test_the_scope_chooses_the_intent_form_not_a_guess():
+    from sourceborn import intents as I
+    cur = I.generate("GO", ["CON-071"], scope=I.CURRENT)
+    fut = I.generate("GO", ["CON-071"], scope=I.FUTURE)
+    cs = {c["shape"] for c in cur["candidates"]}
+    fs = {c["shape"] for c in fut["candidates"]}
+    assert "Immediate-intention formation" in cs
+    assert "Future-intention formation" in fs
+    assert "Future-intention formation" not in cs
+    cond = I.generate("GO", ["CON-071"], scope=I.CURRENT, conditional=True)
+    assert any("Contingent intention" in c["shape"] for c in cond["candidates"])
+
+
+def test_live_intent_reaches_the_generation_run_and_its_routes():
+    from sourceborn import statepacks as S
+    r = S.run("The King", "SP-27", "ABDICATE")
+    assert "live_intent" in r
+    li = r["live_intent"]
+    assert li["counts"]["intents_generated"] > 0
+    assert "MORE PARAMETERS ACTIVE" in li["law"]
+    src = open("src/sourceborn/server.py").read()
+    assert '"/intents"' in src and '"/intents/run"' in src
+    assert "intents" in src
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

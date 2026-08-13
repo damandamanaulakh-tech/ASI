@@ -640,6 +640,11 @@ def run(who: str = "", pack_id: str = "SP-01", event: str = "",
                      "approved candidates": 0},
         "gate": "every candidate is REVIEW_REQUIRED. Nothing here promotes.",
     }
+    # LIVE INTENT — generated from the pack's own active containers, not
+    # looked up. This is the bottleneck he named: "system is not generating the
+    # new intent live".
+    from . import intents as _intents
+    out["live_intent"] = _intents.from_state_pack(who, pack_id, event or "")
     if event:
         out["fork"] = fork_event(event)
         if out["fork"].get("known") and event.strip().upper() == "ABDICATE":

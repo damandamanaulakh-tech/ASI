@@ -38,6 +38,7 @@ from urllib.parse import urlparse, parse_qs
 from . import asi_pyramid
 from . import asipage
 from . import generationpage
+from . import intents
 from . import statepacks
 from . import weighting
 from . import enginepage
@@ -1365,6 +1366,17 @@ class Handler(BaseHTTPRequestHandler):
                  "rubrics": list(statepacks.RUBRICS_25),
                  "events": sorted(statepacks.EVENT_FORKS)}).encode(),
                 "application/json")
+        elif path == "/intents":
+            # the live intent generator, and the proof of his concept
+            self._send(200, json.dumps(
+                {"stats": intents.stats(),
+                 "scaling": intents.scaling(),
+                 "unlinked": intents.unlinked(),
+                 "motive_rows": [m["name"] for m in intents.motive_rows()],
+                 "form_rows": [f["name"] for f in intents.form_rows()],
+                 "links": {k: v["reachable_from"]
+                           for k, v in intents.motive_links().items()}}).encode(),
+                "application/json")
         elif path == "/weighting":
             # this module was reachable from nothing; it is reachable now
             self._send(200, json.dumps(weighting.stats()).encode(),
@@ -1744,6 +1756,15 @@ class Handler(BaseHTTPRequestHandler):
                 pack_id=(data.get("pack") or "SP-01").strip(),
                 event=(data.get("event") or "").strip(),
                 rubrics=tuple(data.get("rubrics") or ()))
+            self._send(200, json.dumps(res).encode(), "application/json")
+            return
+        if self.path == "/intents/run":
+            res = intents.generate(
+                event=(data.get("event") or "").strip(),
+                active_containers=data.get("containers") or [],
+                scope=(data.get("scope") or intents.CURRENT),
+                conditional=bool(data.get("conditional")),
+                conflict=bool(data.get("conflict")))
             self._send(200, json.dumps(res).encode(), "application/json")
             return
         if self.path == "/weighting/run":

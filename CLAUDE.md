@@ -453,6 +453,38 @@ evidence. 40 routes come back as 40, seven frames as seven. His EVIDENCE_LEDGER,
 contradiction penalty and Falsifier columns are named in his workbook and empty.
 Same gap in the code and in the file.
 
+**THE BOTTLENECK HE NAMED IS CLOSED — LIVE INTENT GENERATION (2026-08-13) —
+`intents.py`, `/intents`.** *"concept is simple as much parameters we plug, we
+will generate more pattern and intent / as of now main bottleneck is system is
+not generating the new intent live"*. He was right and the diagnosis was exact:
+`EVENT_FORKS` was a **hardcoded dict of ten events**, and
+`INTERPRETATION_FRAMES` returned **seven frames whatever the ask was**. Neither
+read the bank, so plugging parameters changed nothing. **Now intent is built at
+runtime from his own rows** — `CON-064` Motive/Needs/Values (40 rows = the WHY)
+crossed with `CON-063` Intent Formation (40 rows = the SHAPE), ceiling 1,600 —
+gated by which containers are active. **His concept is computed, not asserted:**
+1 container → 8 intents · 8 → 48 · 48 → 84 · 80 → **140**, monotonic, with a test
+asserting the curve. **The motive→container links are COMPUTED over his bank, not
+typed**, and perception/sensorimotor/attention-mechanics/language are **blocked
+from hosting a motive** — which removed **67 lexical fabrications** of exactly the
+Samrath kind (*Face-saving motive → "Face detection"*, *Power/control need →
+"Power-grip control"*): 200 edges → 133. Residual noise is on screen with its
+evidence, not claimed clean. **Three real motives have no echo anywhere in the
+3,204** — `P2536 Security need`, `P2549 Mating/attraction`, `P2552
+Revenge/retaliation` — reported as absences, not filled in. **The join the
+bottleneck needed is `from_state_pack()`:** SP-27 Divided-Loyalty raises 18
+motives → 126 candidates from SEG-09; SP-24 Exhausted raises 3 → 21 and a test
+asserts they are **only SEG-01** body motives. The intent FORM is chosen by the
+scope (`Future-intention formation` cannot appear under a CURRENT scope, tested).
+Every candidate is runtime — `in_bank False`, no P id of its own, citing the
+motive P, the form P, the container, the state and the matched evidence row;
+`chosen` stays None and `Motive-inference confidence` (P2564) stays LOW. 199
+tests green, 148 WHAT EXISTS anchors resolve. **PR #40 merged (`ef99f4c`) — the
+whole reasoning core is on `main` and Render auto-deploys it.** **The one
+bottleneck left, stated: nothing kills a candidate.** 154 intents come back as
+154 whatever is known; generate → evidence → contradiction → falsification →
+survivor set has no survivor stage, in the code or in his workbook.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

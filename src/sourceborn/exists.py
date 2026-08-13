@@ -105,6 +105,27 @@ MAP: list[dict] = [
     "state": RUNS,
     "note": "his seven candidates stay unresolved, and a test proves P2250 "
             "Sadness never enters the activated set because he cried."},
+   {"his": "as much parameters we plug, we will generate more pattern and "
+           "intent / main bottleneck is system is not generating the new "
+           "intent live",
+    "where": [("intents.py", "def generate("),
+              ("intents.py", "def scaling("),
+              ("intents.py", "def motive_links("),
+              ("intents.py", "BLOCKED_HOSTS = ("),
+              ("intents.py", "def from_state_pack(")],
+    "state": RUNS,
+    "note": "the bottleneck he named, closed. Intent is now generated at "
+            "runtime from CON-064 (the WHY, 40 rows) x CON-063 (the SHAPE, 40 "
+            "rows), gated by which containers are active — so the count rises "
+            "with the parameters plugged: 1 container -> 8 intents, 80 -> 140, "
+            "monotonic and tested. The motive->container links are COMPUTED "
+            "over his bank, and perception/motor/attention/language are blocked "
+            "from hosting a motive, which removed 67 lexical fabrications "
+            "(200 edges -> 133). Three real motives (Security, Mating, Revenge) "
+            "have no echo anywhere in the 3,204 and are reported as absences. "
+            "Nothing enters the bank, chosen stays None, and motive-inference "
+            "confidence stays LOW. /intents, POST /intents/run, and the live "
+            "block on /generation."},
    {"his": "keep the identity fixed, change the active parameter set, "
            "situation and circumstance",
     "where": [("statepacks.py", "def identity_lock("),
