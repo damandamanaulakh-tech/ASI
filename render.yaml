@@ -12,6 +12,14 @@ services:
     healthCheckPath: /health
     autoDeploy: true
     envVars:
+      # THE FRONT-DOOR LOCK. Set SB_ACCESS_PASS to any strong password in the
+      # Render dashboard and the whole app requires it (browser prompts once;
+      # health check stays open so Render can still probe it). Leave it unset
+      # and the app is open to anyone with the URL. Set it.
+      - key: SB_ACCESS_PASS
+        sync: false
+      - key: SB_ACCESS_USER      # optional; defaults to "sourceborn"
+        sync: false
       # Add these in the Render dashboard (sync:false = secret, never committed).
       - key: ANTHROPIC_API_KEY
         sync: false

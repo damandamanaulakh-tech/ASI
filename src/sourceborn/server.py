@@ -27,6 +27,7 @@ Render Disk at ``.sourceborn`` or use a DB (docs/RECOMMENDATION.md, Phase 3).
 from __future__ import annotations
 
 import base64
+import hmac
 import json
 import os
 import re
@@ -34,9 +35,20 @@ from dataclasses import asdict
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
 
+from . import asi_pyramid
+from . import asipage
+from . import generationpage
+from . import statepacks
+from . import weighting
 from . import enginepage
+from . import exists
 from . import ladder
 from . import mypage
+from . import patterns as patternmem
+from . import readingpage
+from . import human_registry
+from . import senses as sensemem
+from . import router as rubric_router
 from . import scheduler
 from .engine import SourcebornEngine, NO_LIVE
 from .extract import extract_text
@@ -48,6 +60,43 @@ SB_ROOT = os.environ.get("SB_ROOT", ".sourceborn")
 ENGINE = SourcebornEngine(root=SB_ROOT)
 SNAP_DIR = os.path.join(SB_ROOT, "_snapshots")
 CHAT_DIR = os.path.join(SB_ROOT, "chats")
+
+# --- the front-door gate ------------------------------------------------
+# The whole app is private (audit item 01). If SB_ACCESS_PASS is set, every
+# route requires HTTP Basic auth: the browser prompts once natively, fetch()
+# reuses the credentials, and curl works with -u. If it is NOT set the app
+# stays open — so local dev and the offline demo are unchanged, and nothing
+# breaks until the owner deliberately turns the lock on in Render.
+SB_ACCESS_USER = os.environ.get("SB_ACCESS_USER", "sourceborn")
+SB_ACCESS_PASS = os.environ.get("SB_ACCESS_PASS", "")
+# Render's health check hits this with no credentials, so it must stay open.
+# It only reports booleans about which keys exist, never private content.
+OPEN_PATHS = frozenset({"/health"})
+
+
+def basic_auth_ok(auth_header: str, user: str, password: str) -> bool:
+    """Pure check for an HTTP Basic `Authorization` header, constant-time.
+    Kept module-level and side-effect-free so it is unit-tested directly
+    (the request handler can't be exercised without a live socket).
+
+    Compares raw bytes, so a non-ASCII password/username can never raise —
+    a strong password with an accented character must not brick the app.
+    The scheme token is matched case-insensitively per RFC 7617."""
+    if not password:                       # no lock configured → app is open
+        return True
+    scheme, _, rest = auth_header.partition(" ")
+    if scheme.lower() != "basic" or not rest:
+        return False
+    try:
+        raw = base64.b64decode(rest)       # bytes, not decoded to str
+    except Exception:
+        return False
+    got_user, sep, got_pass = raw.partition(b":")
+    if not sep:                            # malformed, no colon
+        return False
+    ok_user = hmac.compare_digest(got_user, user.encode("utf-8"))
+    ok_pass = hmac.compare_digest(got_pass, password.encode("utf-8"))
+    return ok_user and ok_pass
 
 
 def _save_chat(question: str, payload: dict, kind: str = "ask") -> str:
@@ -232,16 +281,46 @@ def _memory_report(limit: int = 3) -> dict:
     return {"at": _now(), "totals": mem.stats(), "nodes": nodes}
 
 
+def _int_arg(qs: dict, name: str, default: int, lo: int, hi: int) -> int:
+    """A query integer that cannot raise. `do_GET` has no exception handler,
+    so an `int('abc')` here would drop the connection instead of answering."""
+    try:
+        v = int((qs.get(name) or [str(default)])[0])
+    except Exception:
+        return default
+    return max(lo, min(v, hi))
+
+
+def _weekly_phrase(st: dict) -> str:
+    """One honest sentence for the weekly pull — three states, not two.
+    Never run is NOT the same as ran-and-overdue, and the old two-state
+    pill collapsed both into 'due'.
+
+    This is the ONLY place the label is composed. The pill, the panel and the
+    MY PAGE row all display what the server sends; none of them re-derives it,
+    because the same rule written three times in two languages is a rule that
+    will eventually disagree with itself."""
+    lr = st.get("last_weekly_update")
+    if not lr:
+        return "never run"
+    return ("overdue — last " + str(lr) if st.get("due_now")
+            else "current — last " + str(lr))
+
+
 def _page_feeds() -> dict:
     """Resolve every live WHAT for MY PAGE in one call. His-owned sources
     (text, links) live inside the layout itself and are not resolved here."""
     feeds: dict = {}
     try:
         n_brains = len(ENGINE.brains.all())
+        w = scheduler.status(SB_ROOT)
+        # the weekly row said nothing for months because it read a key the
+        # scheduler never returned. It now says the truth in three states.
         feeds["health"] = {"rows": [
             ["model", ENGINE.model.name],
             ["brains", str(n_brains)],
-            ["weekly", str(scheduler.status(SB_ROOT).get("status", ""))]],
+            ["weekly", _weekly_phrase(w)],
+            ["weekly runs kept", str(w.get("runs", 0))]],
             "number": n_brains, "label": "node brains"}
     except Exception as e:
         feeds["health"] = {"rows": [["error", str(e)[:80]]]}
@@ -271,7 +350,7 @@ def _page_feeds() -> dict:
     except Exception as e:
         feeds["library"] = {"rows": [["error", str(e)[:80]]]}
     feeds["brains"] = {"number": len(ENGINE.brains.all()),
-                       "label": "70 SB + 25 URR — the MEMORY; the filters are the METHOD"}
+                       "label": "node brains — the MEMORY; the seven filters are the METHOD"}
     feeds["ladder"] = {"rows": [list(r) for r in mypage.LADDER_ROWS],
                        "number": "3,072", "label": "parameters · Phase-1 done"}
     feeds["filters"] = {"rows": mypage.FILTERS, "number": 7,
@@ -460,6 +539,8 @@ details[open]>summary:before{content:"\25be  "}
     <div class=hactions style="margin-top:6px;display:flex;gap:8px;flex-wrap:wrap">
       <a class="btn sm" href="/engine">⚙ THE ENGINE — ask &amp; watch the ladder</a>
       <a class="btn sm" href="/page">▦ MY PAGE — what · where · how</a>
+      <a class="btn sm" href="/reading">◉ THE READING — split · match · route · correct</a>
+      <a class="btn sm" href="/exists">◈ WHAT EXISTS — your understanding, in the code</a>
     </div></div>
   <div class=card><div class=k>Chats &middot; stored <span class=num id=chatn></span></div><div class=hist id=hist><span class=muted>empty</span></div></div>
   <div class=card>
@@ -482,7 +563,8 @@ details[open]>summary:before{content:"\25be  "}
           <button class="btn sm" onclick=saveSnapshot()>Save snapshot</button>
           <button class="btn sm" onclick=loadMasterLog()>Master log</button>
           <button class="btn sm" onclick=loadUnfiled()>Unfiled</button>
-          <button class="btn sm" onclick=runNovelty()>Novelty pass</button></div>
+          <button class="btn sm" onclick=runNovelty()>Novelty pass</button>
+          <button class="btn sm" onclick=loadWeekly()>Weekly pull</button></div>
         <div class=hactions style="margin-top:6px"><a class="btn sm" href="/export" download>⬇ Backup brain</a>
           <label class="btn sm" style="display:inline-flex;align-items:center;cursor:pointer">⬆ Restore<input type=file id=restorefile accept=".zip" style="display:none" onchange=restoreBrain()></label></div>
         <div class=status id=repstat style="margin-top:6px"></div>
@@ -568,8 +650,10 @@ fetch('/health').then(r=>r.json()).then(d=>{
   document.getElementById('mname').textContent=(labels[d.model]||d.model).split(' ')[0];
   if(d.model!=='offline')document.getElementById('pdot').classList.add('live');
   document.getElementById('bpill').textContent=d.brains||95;
-  const set=d.weekly&&d.weekly.last_weekly_update;
-  document.getElementById('wpill').innerHTML='weekly <b>'+(set?'active':'due')+'</b>';
+  // three states, not two: never run / overdue / current. The old pill said
+  // "active" the moment a single run existed, even months stale. The label is
+  // composed server-side (_weekly_phrase) — never re-derived here.
+  drawWpill(d.weekly||{},d.weekly_phrase||'');
 });
 fetch('/persist').then(r=>r.json()).then(p=>{
   const el=document.getElementById('ppill'); if(!el)return;
@@ -579,16 +663,34 @@ document.getElementById('examples').innerHTML=EXAMPLES.map(e=>'<span class=chip>
 document.querySelectorAll('#examples .chip').forEach((c,i)=>c.onclick=()=>{
   const q=document.getElementById('q');q.value=EXAMPLES[i];q.focus()});
 
+// HIS FRAME: 1 - 10 - 8 - 40. He quit 70-25 and it was still rendering here —
+// that was the defect he caught. This draws HIS ladder, and it fills from the
+// Human Functional Registry (his own document), not from a hardcoded list.
+var FRAME=null, LITSEG=null;   // var: drawPyr() is called from the boot sequence above this line
 function drawPyr(firedStages,counts){
-  firedStages=firedStages||new Set(); counts=counts||{};
-  let html='';
-  for(let i=STAGES.length-1;i>=0;i--){
-    const s=STAGES[i], n=+s[0], on=firedStages.has(n), w=44+(8-n)*7;
-    const c=counts[n]?(' · '+counts[n]+' fired'):'';
-    html+='<div class="plvl'+(on?' on':'')+'" style="width:'+w+'%">SB'+n+' '+esc(s[1])+c+'</div>';
-  }
-  html+='<div class=plvl style="width:100%;opacity:.65">URR · 25 verification gates</div>';
-  document.getElementById('pyr').innerHTML=html;
+  const el=document.getElementById('pyr'); if(!el)return;
+  if(!FRAME){ el.innerHTML='<span class=muted>loading his registry…</span>';
+    fetch('/registry').then(r=>r.json()).then(d=>{FRAME=d; drawPyr(firedStages,counts);})
+      .catch(()=>{el.innerHTML='<span class=muted>registry unavailable</span>';}); return; }
+  const f=FRAME.stats||{}, segs=FRAME.segments||[];
+  const lit=LITSEG||{};
+  let html='<div class=plvl style="width:100%" title="one functional system">'+
+    'SYSTEM · 1 <span class=muted>ASI</span></div>';
+  const wmax=100, wmin=46;
+  segs.forEach((sg,i)=>{
+    const n=lit[sg.id]||0, w=wmin+(wmax-wmin)*(1-i/Math.max(1,segs.length-1));
+    html+='<div class="plvl'+(n?' on':'')+'" style="width:'+w+'%" title="'+esc(sg.name)+'">'+
+      esc(sg.id)+' '+esc(sg.name)+' <span class=muted>'+sg.containers+' containers · '+
+      sg.parameters+'</span>'+(n?' <b>· '+n+' fired</b>':'')+'</div>';
+  });
+  html+='<div class=plvl style="width:100%;opacity:.7">'+
+    (f.containers||80)+' CONTAINERS · '+(f.parameters||3204)+' NAMED SUB-PARAMETERS'+
+    ' <span class=muted>1 - 10 - 8 - 40</span></div>'+
+    '<div class=plvl style="width:100%;opacity:.55">'+(f.universal_filters||40)+
+    ' universal filters · '+(f.operating_states||12)+' states · '+
+    (f.failure_classes||20)+' failure classes · '+(f.operating_chain||30)+
+    '-step chain</div>';
+  el.innerHTML=html;
 }
 async function drawHist(){
   const h=document.getElementById('hist');
@@ -742,13 +844,22 @@ function confWhy(d){const o=d.output||{}; if((''+o.confidence).toLowerCase()!=='
   if(holds.length)return 'Low because '+holds.length+' node'+(holds.length>1?'s':'')+' held — e.g. '+esc(holds[0].why)+' Clear it in the review queue to raise confidence.';
   return 'Low — doubt bit or an open gap; see the node walk below.';}
 function walkRow(s){
-  const mp=(s.matrix_pass!=null)?(' <span class="'+((s.matrix_flags||[]).length?'hl':'muted')+'" style="font-size:11px">URR '+s.matrix_pass+'/25'+((s.matrix_flags||[]).length?' ⚑'+s.matrix_flags.length:'')+'</span>'):'';
+  // "URR n/25" was wrong twice: it is a 0-to-7 FILTER count, and the 25 are gone.
+  const mp=(s.matrix_pass!=null)?(' <span class="'+((s.matrix_flags||[]).length?'hl':'muted')+'" style="font-size:11px">'+s.matrix_pass+'/7 filters'+((s.matrix_flags||[]).length?' ⚑'+s.matrix_flags.length:'')+'</span>'):'';
   const fl=(s.matrix_flags&&s.matrix_flags.length)?('<br><span class=hl style="margin-left:18px;font-size:11.5px">⚑ '+esc(s.matrix_flags.join(' · '))+'</span>'):'';
-  return '<div class=lane><span class="vd '+s.verdict+'">●</span> <b>'+esc(s.sb_id)+'</b> '+esc(s.sb_name)+': <b>'+esc(s.verdict)+'</b>'+mp+(s.memory_written?' <span class=memok>memory ✓</span>':'')+'<br><span class=muted style="margin-left:18px">'+esc(s.why)+'</span>'+fl+'</div>';}
+  // HIS CORRECTION: "SB-1 it should show what this app taken as point zero and
+  // so on, at every points only then i can correct". The row carried a
+  // DESCRIPTION of the work and the actual content nowhere. TOOK is the content.
+  const sub=(lbl,v)=>v?('<div class=lane style="margin-left:18px;border:0;padding:2px 0">'+
+    '<span class=muted style="font-size:11px">'+lbl+'</span> '+
+    '<span style="font-size:12.5px;white-space:pre-wrap">'+esc(v)+'</span></div>'):'';
+  return '<div class=lane><span class="vd '+s.verdict+'">●</span> <b>'+esc(s.sb_id)+'</b> '+esc(s.sb_name)+': <b>'+esc(s.verdict)+'</b>'+mp+(s.memory_written?' <span class=memok>memory ✓</span>':'')+
+    sub('ITS JOB',s.job)+sub('WHAT IT TOOK',s.took)+sub('WHAT IT MADE OF IT',s.produced)+
+    (s.produced?'':'<br><span class=muted style="margin-left:18px">'+esc(s.why)+'</span>')+fl+'</div>';}
 function matrixCard(d){const m=(d.walk||{}).matrix; if(!m)return '';
   const by=Object.entries(m.by_urr||{}).sort((a,b)=>b[1]-a[1]);
-  return '<div class=card><div class=k>70×25 URR matrix — no skips <span class=num>'+m.total+' micro-reviews</span></div>'+
-    '<div class=lane>every node reviewed by all '+m.per_node+' URR filters: <b class=gd>'+(m.total-m.flags)+' pass</b>'+(m.flags?' · <b class=hl>'+m.flags+' flagged</b>':' · 0 flags')+'</div>'+
+  return '<div class=card><div class=k>The seven filters — no skips <span class=num>'+m.total+' micro-reviews</span></div>'+
+    '<div class=lane>every node reviewed by all '+m.per_node+' filters (Ground·Sequence·Source·Mask·Fact·Halt·Loop): <b class=gd>'+(m.total-m.flags)+' pass</b>'+(m.flags?' · <b class=hl>'+m.flags+' flagged</b>':' · 0 flags')+'</div>'+
     (by.length?('<div class=lane><b>flags by filter</b> '+by.map(([u,n])=>'<span class=tag>'+esc(u)+' ×'+n+'</span>').join(' ')+'</div>'):'')+
     ((m.flagged||[]).length?('<details><summary>flagged details ('+m.flagged.length+')</summary>'+m.flagged.map(f=>'<div class=lane><b>'+esc(f.sb)+'</b> ⚑ '+esc(f.urr)+' · '+esc(f.code)+'</div>').join('')+'</details>'):'')+'</div>';}
 function walkCard(d){const w=d.walk; if(!w||!w.steps)return '';
@@ -807,7 +918,12 @@ function auditCard(d){const L=(d.output||{}).lanes||{}, a=L.audit; if(!a)return 
 function reviewQueue(d){const h=(d.walk&&d.walk.holds)||[]; if(!h.length)return '';
   const cards=h.map(x=>{const a=x.ask||{};
     return '<div class=hold><div><b>'+esc(x.sb_id)+'</b> '+esc(x.name)+' <span class="badge warn">hold</span></div>'+
-    '<div class=fivew><div><b>What</b>'+esc(a.what||x.why||'—')+'</div><div><b>Why</b>'+esc(a.why||'—')+'</div>'+
+    // HIS CORRECTION: every hold used to read identically, so a human could not
+    // tell what the system was actually asking. The node's JOB and the node's
+    // OWN FINDING come first now — that is the part he has to read to correct it.
+    (a.job?'<div class=lane style="margin:6px 0"><span class=muted>THIS NODE\'S JOB</span> '+esc(a.job)+'</div>':'')+
+    (a.found?'<div class=lane style="margin:6px 0"><span class=muted>WHAT IT FOUND</span> '+esc(a.found)+'</div>':'')+
+    '<div class=fivew><div><b>What it needs</b>'+esc(a.what||x.why||'—')+'</div><div><b>Why</b>'+esc(a.why||'—')+'</div>'+
     '<div><b>How</b>'+esc(a.how||'—')+'</div><div><b>When</b>'+esc(a.when||'now')+'</div></div>'+
     ((a.options&&a.options.length)?'<div class=fivew style="margin-top:6px"><div style="grid-column:1/-1"><b>Options</b> '+a.options.map(o=>'<span class=tag>'+esc(o)+'</span>').join(' ')+'</div></div>':'')+
     '<textarea class=in id="hd_'+esc(x.sb_id)+'" placeholder="paste the data / source asked for, then Add data & re-run" style="min-height:46px"></textarea>'+
@@ -980,7 +1096,7 @@ async function drawInterGraph(){
         g.fillStyle=isSB?'#7d8699':'#a78bfa';g.font='11px Inter,sans-serif';
         g.textAlign=lx<cx?'right':'left';g.fillText(id,lx,ly+3);}}
     g.fillStyle='#5b6477';g.font='12px Inter,sans-serif';g.textAlign='center';
-    g.fillText('outer ring: 70 SB working nodes · inner ring: 25 URR verifiers',cx,H-14);
+    g.fillText('outer ring: SB working nodes · inner ring: URR verifiers (memory, not method)',cx,H-14);
     IG=pos;
     c.onclick=ev=>{const b=c.getBoundingClientRect(),
       mx=(ev.clientX-b.left)*(W/b.width),my=(ev.clientY-b.top)*(H/b.height);
@@ -1077,10 +1193,83 @@ async function saveBrain(id){
   try{const d=await (await fetch('/brain/settings',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)})).json();
     st.textContent=d.ok?'saved ✓':'error'; loadBrains();}catch(e){st.textContent='error'}
 }
+let WMSG='';                         // survives the panel being re-rendered
+function _wsay(msg){                 // the button lives in two places
+  WMSG=msg;
+  ['bstat','bstat2'].forEach(id=>{const e=document.getElementById(id);
+    if(e)e.textContent=msg;});
+}
 async function weeklyUpdate(){
-  const b=document.getElementById('bstat'); b.textContent='updating…';
+  _wsay('running the weekly pull…');
   try{const d=await (await fetch('/brains/update',{method:'POST',headers:{'content-type':'application/json'},body:'{}'})).json();
-    b.textContent='updated '+d.updated+'/'+d.total;}catch(e){b.textContent='error'}
+    _wsay('updated '+d.updated+'/'+d.total);
+    loadBrains(); refreshWpill();
+    // Only redraw the ledger if the ledger is what he is looking at. The
+    // centre column is his ANSWER pane — refreshing a side panel must never
+    // destroy an answer he did not ask us to replace.
+    if(document.getElementById('wpanel'))loadWeekly();
+    else _wsay('updated '+d.updated+'/'+d.total+' — open Weekly pull to see the run');
+  }catch(e){_wsay('error')}
+}
+function drawWpill(s,phrase){
+  const p=document.getElementById('wpill'); if(!p)return;
+  p.innerHTML='weekly <b>'+esc(String(s.state||'—'))+'</b>'+
+    (s.runs?' <span class=muted>'+esc(String(s.runs))+'</span>':'');
+  p.title='weekly pull — '+(phrase||'')+' · '+(s.runs||0)+
+    ' run(s) kept. Click to open the ledger.';
+  p.style.cursor='pointer'; p.onclick=loadWeekly;
+}
+async function refreshWpill(){
+  try{const d=await (await fetch('/health')).json();
+    drawWpill(d.weekly||{},d.weekly_phrase||'');}catch(e){}
+}
+// THE WEEKLY PULL, MADE VISIBLE. Before this the pull ran in a daemon thread
+// and wrote one file it overwrote every time — there was no way to see that it
+// had ever happened, or what it learned. Every run is now kept and listed.
+// Every interpolated value is escaped: a run file can arrive from a restored
+// backup, so these numbers are untrusted input, not our own arithmetic.
+function _wrow(r,i){
+  const num=v=>v==null?'—':esc(String(v));
+  if(r.unreadable)
+    return '<div class=lane><span class=muted>'+esc(String(r.file||''))+'</span> '+
+      '<span class="badge bad">unreadable — the file is corrupt or was cut off mid-write</span></div>';
+  const err=r.novelty_error;
+  return '<div class=lane><span class=muted>'+esc(String(r.at||r.file||'').slice(0,16))+'</span> '+
+    (i===0?'<span class="badge ok">latest</span> ':'')+
+    '<b>'+num(r.brains)+'</b> brains refreshed · '+
+    '<b>'+num(r.new_connections)+'</b> new connections · '+
+    (err?'<span class="badge warn">novelty failed: '+esc(String(err))+'</span>'
+        :'<b>'+num(r.candidates)+'</b> novelty candidate(s)')+
+    ' <a class=muted href="/weekly/file?name='+encodeURIComponent(r.file)+'" download>'+esc(String(r.file||''))+'</a></div>';
+}
+async function loadWeekly(off){
+  off=off||0;
+  const st=document.getElementById('repstat'); if(st)st.textContent='loading…';
+  try{const d=await (await fetch('/weekly?offset='+off)).json();
+    const s=d.status||{}, h=d.history||[], runs=d.runs||0;
+    const shown=off+h.length;
+    const cls=s.state==='current'?'ok':'warn';
+    // Never-run and ran-but-no-runs-kept are DIFFERENT sentences. Saying "it
+    // has never run" under a badge that reads "overdue — last <date>" is the
+    // same two-state lie this item exists to remove.
+    const empty=s.last_weekly_update
+      ? 'no runs are kept yet — this brain ran under the older code, which overwrote a single file. The ledger starts with the next pull.'
+      : 'it has never run — press the button and the first run is kept forever';
+    document.getElementById('out').innerHTML='<div class="card fade" id=wpanel><div class=k>Weekly pull &middot; the ledger '+
+      '<span class=num>'+esc(String(runs))+' run(s) kept'+
+      (shown<runs?' · showing '+(off+1)+'–'+shown:'')+'</span></div>'+
+      '<div style="margin-bottom:8px"><span class="badge '+cls+'">'+esc(String(d.phrase||''))+'</span> '+
+      '<span class=muted>cadence is 7 days; the pull refreshes every brain’s settings, synthesises the week into each brain’s memory, then hunts parameters that never existed. Nothing is overwritten — each run is its own dated file.</span></div>'+
+      '<div class=hactions style="margin-bottom:8px"><button class=btn onclick=weeklyUpdate()>Run the pull now</button>'+
+      '<span class=status id=bstat2></span></div>'+
+      (h.length?h.map(_wrow).join(''):'<span class=muted>'+empty+'</span>')+
+      (shown<runs?'<div class=hactions style="margin-top:8px"><button class="btn sm" onclick="loadWeekly('+shown+')">Older runs →</button></div>':'')+
+      (off?'<div class=hactions style="margin-top:8px"><button class="btn sm" onclick="loadWeekly(0)">← Newest</button></div>':'')+
+      '</div>';
+    if(st)st.textContent='';
+    const b2=document.getElementById('bstat2'); if(b2)b2.textContent=WMSG;
+    drawWpill(s,d.phrase||'');
+  }catch(e){if(st)st.textContent='error'}
 }
 loadBrains(); loadSnapshots();
 document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.metaKey||e.ctrlKey))ask()});
@@ -1122,7 +1311,32 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self, *args) -> None:
         pass
 
+    def _guard(self) -> bool:
+        """True if the request may proceed. When SB_ACCESS_PASS is unset the
+        app is open. When it is set, every path except the health check needs
+        matching HTTP Basic credentials."""
+        if not SB_ACCESS_PASS or urlparse(self.path).path in OPEN_PATHS:
+            return True
+        if basic_auth_ok(self.headers.get("Authorization", ""),
+                         SB_ACCESS_USER, SB_ACCESS_PASS):
+            return True
+        # Close the connection: an unauthenticated POST may carry a body we
+        # never read, and leaving it on a keep-alive socket desyncs the next
+        # request. A fresh request (with credentials) reconnects cleanly.
+        self.close_connection = True
+        self.send_response(401)
+        self.send_header("WWW-Authenticate", 'Basic realm="Sourceborn"')
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Connection", "close")
+        body = b'{"error":"authentication required"}'
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+        return False
+
     def do_GET(self) -> None:
+        if not self._guard():
+            return
         route = urlparse(self.path)
         path, qs = route.path, parse_qs(route.query)
         if path in ("/", "/index.html"):
@@ -1133,6 +1347,102 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/engine":
             self._send(200, enginepage.PAGE.encode("utf-8"),
                        "text/html; charset=utf-8")
+        elif path == "/reading":
+            self._send(200, readingpage.PAGE.encode("utf-8"),
+                       "text/html; charset=utf-8")
+        elif path == "/asi":
+            # THE PYRAMID — his answer on screen, one ask over his 3,204
+            self._send(200, asipage.PAGE.encode("utf-8"),
+                       "text/html; charset=utf-8")
+        elif path == "/generation":
+            # THE GENERATION — same person, changed conditions, new brain
+            self._send(200, generationpage.PAGE.encode("utf-8"),
+                       "text/html; charset=utf-8")
+        elif path == "/generation/packs":
+            self._send(200, json.dumps(
+                {"packs": statepacks.packs_index(),
+                 "stats": statepacks.stats(),
+                 "rubrics": list(statepacks.RUBRICS_25),
+                 "events": sorted(statepacks.EVENT_FORKS)}).encode(),
+                "application/json")
+        elif path == "/weighting":
+            # this module was reachable from nothing; it is reachable now
+            self._send(200, json.dumps(weighting.stats()).encode(),
+                       "application/json")
+        elif path == "/asi/stats":
+            self._send(200, json.dumps(asi_pyramid.stats()).encode(),
+                       "application/json")
+        elif path == "/patterns":
+            cands = patternmem.load_candidates(SB_ROOT)
+            self._send(200, json.dumps({
+                "candidates": cands,
+                "approved": patternmem.load_approved(SB_ROOT),
+                "writebacks": patternmem.writebacks(SB_ROOT, 50),
+                "stats": patternmem.stats(SB_ROOT),
+                "below": patternmem.refresh_candidates(SB_ROOT)
+                         .get("below_threshold", [])}).encode(),
+                "application/json")
+        elif path == "/registry":
+            # HIS 3,204, from HIS document — the frame is 1-10-8-40
+            segs = [{"id": f"SEG-{s['n']:02d}", "n": s["n"], "name": s["name"],
+                     "containers": len(s.get("containers", [])),
+                     "parameters": sum(len(c.get("subs", []))
+                                       for c in s.get("containers", []))}
+                    for s in human_registry.segments()]
+            self._send(200, json.dumps({
+                "stats": human_registry.stats(),
+                "frame": human_registry.frame(),
+                "segments": segs,
+                "universal_filters": human_registry.universal_filters(),
+                "operating_states": human_registry.operating_states(),
+                "failure_classes": human_registry.failure_classes(),
+                "operating_chain": human_registry.operating_chain()}).encode(),
+                "application/json")
+        elif path == "/registry/container":
+            c = human_registry.container((qs.get("id") or [""])[0])
+            if c is None:
+                self._send(404, b'{"error":"no such container"}',
+                           "application/json")
+            else:
+                self._send(200, json.dumps(c).encode(), "application/json")
+        elif path == "/registry/activate":
+            q = (qs.get("q") or [""])[0]
+            self._send(200, json.dumps(
+                human_registry.activate(q, _int_arg(qs, "limit", 40, 1, 400))
+                ).encode(), "application/json")
+        elif path == "/senses":
+            self._send(200, json.dumps({
+                "senses": sensemem.load(SB_ROOT),
+                "writebacks": sensemem.writebacks(SB_ROOT, 50),
+                "stats": sensemem.stats(SB_ROOT),
+                "return_dimensions": list(sensemem.RETURN_DIMENSIONS),
+                "valences": list(sensemem.MEMORY_VALENCE)}).encode(),
+                "application/json")
+        elif path == "/micro":
+            # walk all the way back down: every micro-sequence, or one ask's
+            aid = (qs.get("ask") or [""])[0]
+            ms = patternmem.load_micro(SB_ROOT)
+            if aid:
+                ms = [m for m in ms if m.get("ask") == aid]
+            self._send(200, json.dumps(ms[-_int_arg(qs, "n", 200, 1, 5000):]
+                                       ).encode(), "application/json")
+        elif path == "/flow":
+            self._send(200, json.dumps({
+                "positions": rubric_router.FLOW_POSITIONS,
+                "segments": rubric_router.SEGMENT_ROLE,
+                "mechanisms": rubric_router.MECHANISMS}).encode(),
+                "application/json")
+        elif path == "/exists":
+            self._send(200, exists.PAGE.encode("utf-8"),
+                       "text/html; charset=utf-8")
+        elif path == "/exists/data":
+            # his understanding, located in the code and CHECKED against the
+            # real source on every open — so the map cannot go stale into a lie
+            d = exists.verify()
+            d["ladder"] = exists.ladder_reading(ladder.load_registry(SB_ROOT))
+            d["at"] = _now()
+            self._send(200, json.dumps(d, ensure_ascii=False).encode(),
+                       "application/json")
         elif path == "/engine/registry":
             self._send(200, json.dumps(ladder.load_registry(SB_ROOT)).encode(),
                        "application/json")
@@ -1158,10 +1468,12 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 self._send(200, json.dumps(d).encode(), "application/json")
         elif path == "/health":
+            wst = scheduler.status(SB_ROOT)
             body = json.dumps({"ok": True, "model": ENGINE.model.name,
                                "models": model_status(),
                                "brains": len(ENGINE.brains.all()),
-                               "weekly": scheduler.status(SB_ROOT)})
+                               "weekly": wst,
+                               "weekly_phrase": _weekly_phrase(wst)})
             self._send(200, body.encode(), "application/json")
         elif path == "/diag":          # tiny connectivity self-test for one model
             name = (qs.get("model") or ["openrouter"])[0]
@@ -1211,6 +1523,37 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_response(200)
                 self.send_header("Content-Type", "text/markdown; charset=utf-8")
                 self.send_header("Content-Disposition", f'attachment; filename="{fn}"')
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+        elif path == "/weekly":
+            # the accumulated pull ledger — newest first, PAGED not capped:
+            # `runs` is the true count and `offset` reaches every older run, so
+            # no run on disk is unreachable through the app.
+            st = scheduler.status(SB_ROOT)
+            lim = _int_arg(qs, "limit", 52, 1, 500)
+            off = _int_arg(qs, "offset", 0, 0, 10 ** 9)
+            hist = scheduler.history(SB_ROOT, limit=lim, offset=off)
+            self._send(200, json.dumps({
+                "status": st, "phrase": _weekly_phrase(st),
+                "runs": st["runs"], "shown": len(hist),
+                "limit": lim, "offset": off,
+                "history": hist,
+                "latest": scheduler.latest(SB_ROOT)}).encode(),
+                "application/json")
+        elif path == "/weekly/file":
+            fn = (qs.get("name") or [""])[0]
+            run = scheduler.get_run(SB_ROOT, fn)
+            if run is None:
+                self._send(404, b'{"error":"no such weekly run"}',
+                           "application/json")
+            else:
+                body = json.dumps(run, ensure_ascii=False, indent=2).encode()
+                safe = re.sub(r"[^0-9A-Za-z_.-]", "", fn)
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Disposition",
+                                 f'attachment; filename="{safe}"')
                 self.send_header("Content-Length", str(len(body)))
                 self.end_headers()
                 self.wfile.write(body)
@@ -1282,6 +1625,8 @@ class Handler(BaseHTTPRequestHandler):
             self._send(404, b'{"error":"not found"}', "application/json")
 
     def do_POST(self) -> None:
+        if not self._guard():
+            return
         try:
             n = int(self.headers.get("Content-Length", 0))
             data = json.loads(self.rfile.read(n) or b"{}")
@@ -1307,10 +1652,14 @@ class Handler(BaseHTTPRequestHandler):
                 return
             try:
                 reg = ladder.load_registry(SB_ROOT)
+                select = data.get("select") or []
+                deselect = data.get("deselect") or []
+                actions = data.get("actions") or []   # his ordered moves
+                # ONE activation → the lit set and the hand are exactly what
+                # the engine receives; nothing is recomputed after the answer
+                # and shown as if it were the input (that used to mislead).
                 lit = ladder.activate(question, reg)
-                notes, hand = ladder.recall_notes(
-                    reg, lit, data.get("select") or [],
-                    data.get("deselect") or [])
+                notes, hand = ladder.recall_notes(reg, lit, select, deselect)
                 run_text = question
                 if notes:
                     run_text += ("\n\n[recall notes from the selected "
@@ -1319,13 +1668,27 @@ class Handler(BaseHTTPRequestHandler):
                                       or "offline").lower())
                 walk = ENGINE.run_walk(run_text, model=model)
                 payload = self._walk_dict(walk["result"], walk, model.name)
+                # the selection ledger travels WITH the answer: reopening the
+                # chat replays exactly which brains were parked/forced, in his
+                # order. This is the one human decision that used to leave no
+                # trace anywhere; now it is on the chat and in the master log.
+                payload["selection"] = {
+                    "select": select, "deselect": deselect,
+                    "actions": actions, "hand": hand}
                 payload["chat_id"] = _save_chat(question, payload, "engine")
-                # second pass: let the engine's own words light more entries
-                answer_text = (payload.get("output") or {}).get("answer", "")
-                lit = ladder.activate(question, reg, extra_text=answer_text)
-                notes, hand = ladder.recall_notes(
-                    reg, lit, data.get("select") or [],
-                    data.get("deselect") or [])
+                try:
+                    # summary only — the full move-by-move replay lives on the
+                    # chat record; the sacred log keeps a compact trace so it
+                    # doesn't accumulate the whole history on every ask. And a
+                    # best-effort audit write must never sink an answer that is
+                    # already saved (a disk fault here used to 500 the reply).
+                    ENGINE.memory.master_log({
+                        "event": "selection", "chat": payload["chat_id"],
+                        "moves": len(actions), "forced": hand.get("forced", []),
+                        "deselected": hand.get("deselected", []),
+                        "speaking": len(hand.get("speaking", []))})
+                except Exception:
+                    pass
                 self._send(200, json.dumps(
                     {"payload": payload, "lit": lit, "hand": hand}).encode(),
                     "application/json")
@@ -1374,6 +1737,116 @@ class Handler(BaseHTTPRequestHandler):
                 self._send(400, json.dumps({"error": f"restore failed: {exc}"}).encode(),
                            "application/json")
             return
+        if self.path == "/generation/run":
+            # one locked identity, one brain-state, optionally one forked event
+            res = statepacks.run(
+                who=(data.get("who") or "").strip(),
+                pack_id=(data.get("pack") or "SP-01").strip(),
+                event=(data.get("event") or "").strip(),
+                rubrics=tuple(data.get("rubrics") or ()))
+            self._send(200, json.dumps(res).encode(), "application/json")
+            return
+        if self.path == "/weighting/run":
+            ask = (data.get("ask") or "").strip()
+            if not ask:
+                self._send(400, json.dumps({"error": "no ask"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(weighting.run(ask)).encode(),
+                       "application/json")
+            return
+        if self.path == "/asi/run":
+            # one ask -> his PRIOR/CURRENT split, his two tiers over the 3,204,
+            # the causal gap, his pattern candidate. The chart is generated
+            # here, not typed anywhere.
+            ask = (data.get("ask") or "").strip()
+            if not ask:
+                self._send(400, json.dumps(
+                    {"error": "no ask"}).encode(), "application/json")
+                return
+            res = asi_pyramid.full_run(ask)
+            res["chart"] = asi_pyramid.chart(res)
+            self._send(200, json.dumps(res).encode(), "application/json")
+            return
+        if self.path == "/reading/ask":
+            q = str(data.get("question", "") or "").strip()
+            if not q:
+                self._send(400, b'{"error":"empty ask"}', "application/json")
+                return
+            model = get_model(str(data.get("model", "offline") or "offline").lower())
+            r = ENGINE.read(q, str(data.get("ask") or ""), model=model)
+            r["flow"] = rubric_router.flow_view(r["route"])
+            walk = r.pop("walk")
+            payload = self._walk_dict(walk["result"], walk, model.name)
+            out = payload.get("output") or {}
+            r["walk"] = {"result": {"output": {
+                "answer": out.get("answer"),
+                "confidence": out.get("confidence"),
+                "penetration_score": out.get("penetration_score")}},
+                "model": model.name}
+            r["chat_id"] = _save_chat(q, payload, "reading")
+            try:
+                ENGINE.memory.master_log({
+                    "event": "reading", "ask": r["ask"],
+                    "micro": len(r["micro_sequences"]),
+                    "repeats": len(r["relations_to_prior"]),
+                    "candidates": r["candidates"].get("created", []),
+                    "mechanisms": [m["key"] for m in r["route"]["mechanisms"]]})
+            except Exception:
+                pass
+            self._send(200, json.dumps(r, ensure_ascii=False).encode(),
+                       "application/json")
+            return
+        if self.path == "/patterns/review":
+            res = patternmem.review(SB_ROOT, str(data.get("id", "")),
+                                    str(data.get("action", "")),
+                                    data.get("fields") or {},
+                                    str(data.get("note", "") or ""))
+            if res.get("error"):
+                self._send(400, json.dumps(res).encode(), "application/json")
+                return
+            try:
+                ENGINE.memory.master_log({
+                    "event": "rubric_writeback",
+                    "candidate": res["candidate"]["id"],
+                    "action": data.get("action"),
+                    "new_version": res["candidate"]["version"],
+                    "spawned": res.get("spawned", [])})
+            except Exception:
+                pass
+            self._send(200, json.dumps(res, ensure_ascii=False).encode(),
+                       "application/json")
+            return
+        if self.path == "/senses/teach":
+            res = sensemem.teach(
+                SB_ROOT, str(data.get("word", "")),
+                str(data.get("his_reading", "")),
+                str(data.get("default_reading", "") or ""),
+                str(data.get("kind", "word_sense") or "word_sense"),
+                data.get("blocks_classes"), data.get("adds_facts"),
+                str(data.get("status") or sensemem.STATUS_USER),
+                str(data.get("note", "") or ""),
+                str(data.get("refuses", "") or ""))
+            if res.get("error"):
+                self._send(400, json.dumps(res).encode(), "application/json")
+                return
+            try:
+                ENGINE.memory.master_log({
+                    "event": "sense_writeback", "id": res["sense"]["id"],
+                    "word": res["sense"]["word"],
+                    "version": res["sense"]["version"]})
+            except Exception:
+                pass
+            self._send(200, json.dumps(res, ensure_ascii=False).encode(),
+                       "application/json")
+            return
+        if self.path == "/senses/reject":
+            res = sensemem.reject(SB_ROOT, str(data.get("id", "")),
+                                  str(data.get("note", "") or ""))
+            code = 400 if res.get("error") else 200
+            self._send(code, json.dumps(res, ensure_ascii=False).encode(),
+                       "application/json")
+            return
         if self.path == "/novelty/run":
             from .novelty import run_novelty_pass
             res = run_novelty_pass(SB_ROOT, ENGINE.memory, ENGINE.unfiled)
@@ -1419,8 +1892,10 @@ class Handler(BaseHTTPRequestHandler):
                        "application/json")
             return
         if self.path == "/brains/update":
-            res = ENGINE.brains.weekly_update()          # refresh settings
-            res["digest"] = ENGINE.memory.weekly_digest()  # synthesise the week
+            # the manual "Weekly pull" runs the SAME full job as the scheduler
+            # (settings refresh + digest + novelty), kept as a dated history
+            # file — no longer the partial that skipped the novelty pass.
+            res = scheduler.run_weekly(ENGINE, SB_ROOT)
             self._send(200, json.dumps(res).encode(), "application/json")
             return
         if self.path == "/brain/settings":
@@ -1645,6 +2120,12 @@ def main() -> None:
     port = int(os.environ.get("PORT", "8000"))
     srv = ThreadingHTTPServer(("0.0.0.0", port), Handler)
     print(f"Sourceborn web service on http://0.0.0.0:{port}  (model: {ENGINE.model.name})")
+    if not SB_ACCESS_PASS:
+        print("!! OPEN — no SB_ACCESS_PASS set: every route is reachable by "
+              "anyone with the URL. Set SB_ACCESS_PASS in the environment to "
+              "lock the front door.")
+    else:
+        print(f"lock: on — HTTP Basic auth required (user: {SB_ACCESS_USER})")
     srv.serve_forever()
 
 

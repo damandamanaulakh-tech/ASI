@@ -180,6 +180,367 @@ def test_weekly_scheduler_due_then_not():
     assert scheduler.status(root)["last_weekly_update"]
 
 
+def test_weekly_pull_accumulates_and_is_readable():
+    """Item 04. The pull used to overwrite one file and run a DIFFERENT, smaller
+    job when pressed by hand. Now: one shared job, every run kept, readable."""
+    import os
+    from sourceborn import scheduler
+    eng = _engine()
+    root = eng.memory.root
+
+    st = scheduler.status(root)                        # never run
+    assert st["last_weekly_update"] is None and st["runs"] == 0
+    assert st["due_now"] is True
+    assert scheduler.latest(root) is None
+    assert scheduler.history(root) == []
+
+    r1 = scheduler.run_weekly(eng, root)
+    assert "digest" in r1 and "novelty" in r1          # the FULL job, not a bump
+    assert "error" not in (r1["novelty"] or {}), r1["novelty"]
+    r2 = scheduler.run_weekly(eng, root)               # a second, same second
+    assert r2
+
+    h = scheduler.history(root)
+    assert len(h) == 2, h                              # accumulated, not clobbered
+    files = [x["file"] for x in h]
+    assert len(set(files)) == 2                        # no same-second collision
+    assert all(f.startswith("weekly_") for f in files)
+    assert scheduler.status(root)["runs"] == 2
+    assert scheduler.status(root)["due_now"] is False   # ran -> not due
+
+    latest = scheduler.latest(root)
+    assert latest and latest.get("total") == 95
+    got = scheduler.get_run(root, h[0]["file"])
+    assert got and got.get("at") == h[0]["at"]
+
+    # the reader is path-guarded: no traversal, no non-weekly file
+    assert scheduler.get_run(root, "../master_log.jsonl") is None
+    assert scheduler.get_run(root, "weekly_nope.json") is None
+    assert scheduler.get_run(root, "") is None
+
+    # the pull is in the sacred log
+    log = os.path.join(root, "master_log.jsonl")
+    if os.path.exists(log):
+        with open(log, encoding="utf-8") as f:
+            assert "weekly_run" in f.read()
+
+
+def test_what_exists_map_resolves_to_real_code():
+    """His ask: "i want to know the existence of my understanding in the code
+    file". Every reference on the page must point at a line that is really
+    there — a map that has gone stale is a map that lies. This test IS the
+    guard: move a line the page cites and this goes red."""
+    from sourceborn import exists
+    v = exists.verify()
+    gone = [(h["module"], h["anchor"], h.get("why"))
+            for g in v["groups"] for r in g["rows"] for h in r["hits"]
+            if not h["found"]]
+    assert not gone, gone
+    assert v["checked"] >= 60           # the map is real, not three rows
+    assert v["missing"] == 0
+
+    # every row is his words + a state + an honest note; no placeholders
+    states = set()
+    for g in v["groups"]:
+        assert g["group"] and g["rows"]
+        for r in g["rows"]:
+            assert r["his"].strip() and r["note"].strip()
+            assert r["state"] in exists.STATE_NOTE
+            states.add(r["state"])
+            # an ABSENT row must cite nowhere; anything else must cite code
+            if r["state"] == exists.ABSENT:
+                assert not r["hits"], r["his"]
+            else:
+                assert r["hits"], r["his"]
+    assert exists.ABSENT in states       # the absences are stated, not hidden
+    assert exists.RUNS in states
+
+    # the absences and the seams are both present and both say his words
+    assert len(v["absences"]) >= 4
+    assert all(a["what"] and a["why"] and a["his"] for a in v["absences"])
+    assert len(v["seams"]) >= 4
+    assert all(s["code"] and s["his"] for s in v["seams"])
+
+    # rubric = parameter: the count is read from the registry, never written
+    from sourceborn import ladder
+    lr = exists.ladder_reading(ladder.seed_registry())
+    assert lr["rubrics_total"] == 3072
+    assert lr["rubrics_filled"] == 18       # the honest number, today
+    assert lr["containers_total"] == 200
+
+
+def test_what_exists_notices_when_the_code_moves_away():
+    """The self-check has to actually be able to fail, or it is decoration."""
+    from sourceborn import exists
+    h = exists._find("ladder.py", "TOTAL_PARAMS = 3072")
+    assert h["found"] and isinstance(h["line"], int)
+    miss = exists._find("ladder.py", "this string is not in the file anywhere")
+    assert miss["found"] is False and miss["line"] is None and miss["why"]
+    nofile = exists._find("no_such_module.py", "x")
+    assert nofile["found"] is False and nofile["why"] == "module not found"
+
+
+def test_what_exists_page_is_served_and_locked():
+    import base64
+    import json
+    import threading
+    import urllib.error
+    import urllib.request
+    from sourceborn import server
+
+    eng = _engine()
+    old = (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+           server.SB_ACCESS_PASS)
+    server.ENGINE, server.SB_ROOT = eng, eng.memory.root
+    server.SB_ACCESS_USER, server.SB_ACCESS_PASS = "him", "letmein"
+    httpd = server.ThreadingHTTPServer(("127.0.0.1", 0), server.Handler)
+    threading.Thread(target=httpd.serve_forever, daemon=True).start()
+    base = "http://127.0.0.1:%d" % httpd.server_address[1]
+
+    def get(p, auth=True):
+        r = urllib.request.Request(base + p)
+        if auth:
+            r.add_header("Authorization", "Basic " +
+                         base64.b64encode(b"him:letmein").decode())
+        try:
+            with urllib.request.urlopen(r, timeout=10) as resp:
+                return resp.status, resp.read()
+        except urllib.error.HTTPError as e:
+            return e.code, e.read()
+
+    try:
+        for p in ("/exists", "/exists/data"):
+            assert get(p, auth=False)[0] == 401, p     # behind the lock
+            assert p not in server.OPEN_PATHS
+        code, body = get("/exists")
+        assert code == 200 and b"WHAT EXISTS" in body
+        assert b"rubric means" in body.lower() or b"Rubric means" in body
+        code, body = get("/exists/data")
+        assert code == 200
+        d = json.loads(body)
+        assert d["missing"] == 0 and d["checked"] >= 60
+        assert d["ladder"]["rubrics_filled"] == 18
+        assert d["ladder"]["rubrics_total"] == 3072
+        assert d["at"] and d["absences"] and d["seams"]
+        # the dashboard actually links to it — the gap that hid the last pages
+        code, home = get("/")
+        assert code == 200 and b'href="/exists"' in home
+    finally:
+        httpd.shutdown()
+        httpd.server_close()
+        (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+         server.SB_ACCESS_PASS) = old
+
+
+def test_weekly_ledger_is_paged_never_capped():
+    """The reviewer caught this: `runs` was counted by parsing a 52-row page,
+    so the pill, the panel header and MY PAGE all stopped counting at 52 and
+    older runs were unreachable through the app."""
+    import json
+    import os
+    from sourceborn import scheduler
+    eng = _engine()
+    root = eng.memory.root
+    d = os.path.join(root, "weekly")
+    os.makedirs(d, exist_ok=True)
+    for i in range(60):                                # 60 > the 52 page size
+        with open(os.path.join(d, f"weekly_202601{i:02d}000000.json"), "w",
+                  encoding="utf-8") as f:
+            json.dump({"at": f"2026-01-{i:02d} 00:00:00", "updated": i}, f)
+
+    assert scheduler.count_runs(root) == 60            # counted, not parsed
+    assert scheduler.status(root)["runs"] == 60        # the pill tells the truth
+    assert len(scheduler.history(root)) == 52          # one page
+    tail = scheduler.history(root, limit=52, offset=52)
+    assert len(tail) == 8                             # and the rest is reachable
+    assert scheduler.history(root)[0]["at"] > tail[-1]["at"]
+
+    # a stray file must not push a real run out of the page
+    with open(os.path.join(d, "notes.txt"), "w", encoding="utf-8") as f:
+        f.write("hand note")
+    assert scheduler.count_runs(root) == 60
+    assert len(scheduler.history(root)) == 52
+
+    # same-second suffixes sort numerically, not lexicographically
+    for n in ("", "_2", "_10"):
+        with open(os.path.join(d, f"weekly_20270101000000{n}.json"), "w",
+                  encoding="utf-8") as f:
+            json.dump({"at": "2027-01-01 00:00:00", "n": n or "1"}, f)
+    assert scheduler.history(root)[0]["file"] == "weekly_20270101000000_10.json"
+
+
+def test_a_corrupt_weekly_file_never_takes_a_route_down():
+    """A process recycled mid-write leaves a truncated run behind. `do_GET`
+    has no exception handler, so an unguarded json.load would drop the
+    connection instead of answering."""
+    import os
+    from sourceborn import scheduler
+    eng = _engine()
+    root = eng.memory.root
+    scheduler.run_weekly(eng, root)
+    d = os.path.join(root, "weekly")
+    with open(os.path.join(d, "weekly_20991231000000.json"), "w",
+              encoding="utf-8") as f:
+        f.write('{"at":"2099-12-31 00:00:00","updated":9')   # cut off
+
+    h = scheduler.history(root)                     # does not raise
+    assert h[0]["file"] == "weekly_20991231000000.json"
+    assert h[0]["unreadable"] is True               # and it SAYS it is corrupt
+    assert scheduler.latest(root) is not None       # falls back to a good run
+    assert scheduler.get_run(root, "weekly_20991231000000.json") is None
+    assert scheduler.count_runs(root) == 2          # still counted as kept
+
+
+def test_two_pulls_in_the_same_second_never_overwrite_each_other():
+    """The first fix for this was `while os.path.exists()` then open(...,'w') —
+    a TOCTOU. This app is a ThreadingHTTPServer WITH a daemon thread calling
+    the same function, so the reviewer reproduced 8-12 lost runs out of 24
+    concurrent pulls. The filesystem has to arbitrate, not us."""
+    import threading
+    from sourceborn import scheduler
+    eng = _engine()
+    root = eng.memory.root
+
+    class _Fixed:                       # every run claims the same second
+        def __init__(self, real): self.real = real
+        def weekly_update(self):
+            r = self.real.weekly_update()
+            r["at"] = "2026-08-12 12:00:00"
+            return r
+
+    class _Eng:
+        def __init__(self, e):
+            self.brains, self.memory, self.unfiled = _Fixed(e.brains), e.memory, e.unfiled
+
+    N = 12
+    gate = threading.Barrier(N)
+    errs = []
+
+    def one():
+        try:
+            gate.wait()
+            scheduler.run_weekly(_Eng(eng), root)
+        except Exception as exc:                     # noqa: BLE001
+            errs.append(exc)
+
+    ts = [threading.Thread(target=one) for _ in range(N)]
+    for t in ts:
+        t.start()
+    for t in ts:
+        t.join()
+    assert not errs, errs
+    assert scheduler.count_runs(root) == N, scheduler.count_runs(root)
+
+
+def test_weekly_routes_over_http_are_behind_the_lock():
+    """The claims are about ROUTES, so they get tested as routes."""
+    import base64
+    import json
+    import os
+    import threading
+    import urllib.error
+    import urllib.request
+    from sourceborn import scheduler, server
+
+    eng = _engine()
+    root = eng.memory.root
+    scheduler.run_weekly(eng, root)
+    run = scheduler.history(root)[0]["file"]
+
+    old = (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+           server.SB_ACCESS_PASS)
+    server.ENGINE, server.SB_ROOT = eng, root
+    server.SB_ACCESS_USER, server.SB_ACCESS_PASS = "him", "letmein"
+    httpd = server.ThreadingHTTPServer(("127.0.0.1", 0), server.Handler)
+    threading.Thread(target=httpd.serve_forever, daemon=True).start()
+    base = "http://127.0.0.1:%d" % httpd.server_address[1]
+
+    def get(p, auth=True):
+        r = urllib.request.Request(base + p)
+        if auth:
+            tok = base64.b64encode(b"him:letmein").decode()
+            r.add_header("Authorization", "Basic " + tok)
+        try:
+            with urllib.request.urlopen(r, timeout=10) as resp:
+                return resp.status, resp.read()
+        except urllib.error.HTTPError as e:
+            return e.code, e.read()
+
+    try:
+        for p in ("/weekly", "/weekly/file?name=" + run):
+            assert get(p, auth=False)[0] == 401, p   # locked, like every route
+            assert p not in server.OPEN_PATHS
+
+        code, body = get("/weekly")
+        assert code == 200
+        d = json.loads(body)
+        assert d["runs"] == 1 and d["shown"] == 1
+        assert d["status"]["state"] == "current"
+        assert d["phrase"].startswith("current — last")
+        assert d["history"][0]["file"] == run
+        assert d["latest"]["total"] == 95
+
+        # a bad query must answer, not drop the connection (do_GET has no
+        # handler, so int('abc') here would kill the socket)
+        assert get("/weekly?limit=abc&offset=zzz")[0] == 200
+
+        assert get("/weekly/file?name=" + run)[0] == 200
+        for bad in ("../master_log.jsonl", "weekly_nope.json",
+                    "weekly_x.txt", ""):
+            assert get("/weekly/file?name=" + bad)[0] == 404, bad
+
+        code, body = get("/health", auth=False)       # the Render probe stays open
+        assert code == 200
+        h = json.loads(body)
+        assert h["weekly"]["runs"] == 1
+        assert h["weekly_phrase"].startswith("current")
+    finally:
+        httpd.shutdown()
+        httpd.server_close()
+        (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+         server.SB_ACCESS_PASS) = old
+
+
+def test_brains_update_keeps_the_shape_the_dashboard_reads():
+    """The button prints `d.updated+'/'+d.total`. run_weekly must not have
+    changed that contract while adding digest/novelty to the same payload."""
+    from sourceborn import scheduler
+    eng = _engine()
+    res = scheduler.run_weekly(eng, eng.memory.root)
+    assert isinstance(res.get("updated"), int)
+    assert isinstance(res.get("total"), int)
+    assert "digest" in res and "novelty" in res
+
+
+def test_weekly_phrase_says_three_states_not_two():
+    """The dashboard pill and MY PAGE both said 'active' the moment one run
+    existed, however stale, and MY PAGE read a key that never existed."""
+    from sourceborn.server import _weekly_phrase
+    assert _weekly_phrase({"last_weekly_update": None,
+                           "due_now": True}) == "never run"
+    assert _weekly_phrase({"last_weekly_update": "2026-01-01 00:00:00",
+                           "due_now": True}).startswith("overdue")
+    assert _weekly_phrase({"last_weekly_update": "2026-08-12 00:00:00",
+                           "due_now": False}).startswith("current")
+
+
+def test_novelty_failure_is_visible_not_swallowed():
+    """A broken novelty pass used to vanish silently — the weekly run looked
+    clean while half of it had not happened."""
+    from sourceborn import scheduler, novelty
+    eng = _engine()
+    real = novelty.run_novelty_pass
+    novelty.run_novelty_pass = lambda *a, **k: (_ for _ in ()).throw(
+        OSError("disk full"))
+    try:
+        res = scheduler.run_weekly(eng, eng.memory.root)
+    finally:
+        novelty.run_novelty_pass = real
+    assert "disk full" in res["novelty"]["error"]
+    assert scheduler.history(eng.memory.root)[0]["novelty_error"]
+    assert res["updated"] is not None                  # the rest still ran
+
+
 def test_doubt_engine_bites_on_overclaim():
     from sourceborn.doubt import doubt_engine, falsifier, witness
     d = doubt_engine("This is obviously always true and guaranteed.", False, 0)
@@ -1349,6 +1710,1814 @@ def test_ladder_hand_deselect_and_force_change_the_recall_notes():
     assert "P-X-08" in forced and "P-X-08" in hand3["forced"]
 
 
+def test_front_door_auth_gate():
+    """Audit item 01 — the app is lockable. basic_auth_ok is the pure check
+    behind the request guard; every credential path is asserted here so the
+    lock is covered by the suite, not just eyeballed."""
+    import base64 as _b64
+    from sourceborn.server import basic_auth_ok
+
+    def hdr(user, pw):
+        return "Basic " + _b64.b64encode(f"{user}:{pw}".encode()).decode()
+
+    # no password configured → the app is open, any header passes
+    assert basic_auth_ok("", "sourceborn", "") is True
+    assert basic_auth_ok(hdr("x", "y"), "sourceborn", "") is True
+    # locked: correct credentials pass
+    assert basic_auth_ok(hdr("sourceborn", "s3cret"), "sourceborn", "s3cret")
+    # locked: wrong password, wrong user, missing header, non-basic scheme,
+    # malformed base64, and a value with no colon all fail
+    assert not basic_auth_ok(hdr("sourceborn", "nope"), "sourceborn", "s3cret")
+    assert not basic_auth_ok(hdr("intruder", "s3cret"), "sourceborn", "s3cret")
+    assert not basic_auth_ok("", "sourceborn", "s3cret")
+    assert not basic_auth_ok("Bearer s3cret", "sourceborn", "s3cret")
+    assert not basic_auth_ok("Basic !!!notbase64!!!", "sourceborn", "s3cret")
+    assert not basic_auth_ok("Basic " + _b64.b64encode(b"nocolon").decode(),
+                             "sourceborn", "s3cret")
+    # a non-ASCII password must never raise (compare bytes, not str) — a
+    # strong password with an accent must lock, not brick the app
+    assert basic_auth_ok(hdr("sourceborn", "pä55wörd"), "sourceborn", "pä55wörd")
+    assert not basic_auth_ok(hdr("sourceborn", "wrong"), "sourceborn", "pä55wörd")
+    # the scheme token is case-insensitive per RFC 7617
+    good = hdr("sourceborn", "s3cret")
+    assert basic_auth_ok(good.replace("Basic", "basic"), "sourceborn", "s3cret")
+    assert basic_auth_ok(good.replace("Basic", "BASIC"), "sourceborn", "s3cret")
+    # the health path stays open by policy so Render's probe never 401s
+    from sourceborn.server import OPEN_PATHS
+    assert "/health" in OPEN_PATHS
+
+
+def test_recall_notes_keeps_his_order_and_never_drops_a_forced_pick():
+    """The selection ledger must not be re-sorted, and a parameter he
+    forced in must never be the one silently cut by the cap."""
+    from sourceborn import ladder
+    reg = {"parameters": [{"id": f"P-{i}", "name": f"n{i}", "container": "C",
+                           "filled": True, "contains": "x"} for i in range(50)]}
+    lit = {"parameters": [{"id": f"P-{i}"} for i in range(40)]}
+    notes, hand = ladder.recall_notes(
+        reg, lit, select=["P-49", "P-45"], deselect=["P-3", "P-1"], limit=40)
+    ids = [p["id"] for p in hand["speaking"]]
+    assert ids[0] == "P-49" and ids[1] == "P-45"        # forced first
+    assert hand["forced"] == ["P-49", "P-45"]           # his order, not sorted
+    assert hand["deselected"] == ["P-3", "P-1"]         # his order, not sorted
+    assert "P-3" not in ids and "P-1" not in ids        # deselected gone
+    assert hand["dropped_by_cap"] == []                 # forced never dropped
+    # under a tight cap the forced picks still survive; lit is what yields
+    _, h2 = ladder.recall_notes(reg, lit, select=["P-49", "P-45"],
+                                deselect=[], limit=3)
+    assert h2["speaking"][0]["id"] == "P-49"
+    assert h2["speaking"][1]["id"] == "P-45"
+    assert h2["dropped_by_cap"] == []
+
+
+# ===========================================================================
+# THE MACHINE HE SPECIFIED — micro-sequences, pattern memory, the router.
+# His canon: docs/method/canon/THE_MACHINE_AS_HE_STATES_IT.md
+# ===========================================================================
+
+HIS_FIVE = [
+    ("S1", "My friend asked me to drop him somewhere. "
+           "He didn't tell me where we were going."),
+    ("S2", "He used my car again and left another person with me."),
+    ("S3", "He again did not explain the full plan beforehand."),
+    ("S4", "He asked me to drive him and didn't say where."),
+    ("S5", "He didn't tell me the reason and I had already committed to go."),
+]
+HIS_CTX = {"self_established": True, "self_surface": "me",
+           "other_surface": "he"}
+
+
+def test_micro_reproduces_his_own_worked_example():
+    """His spec IS the test: "He didn't tell me where we were going." must
+    decompose into the exact fields he listed, and INTENT must stay unknown."""
+    from sourceborn import micro
+    d = micro.decompose("He didn't tell me where we were going.", "Q-1", 0)
+    assert [e["side"] for e in d["entities"]].count("other") >= 1
+    assert [e["side"] for e in d["entities"]].count("self") >= 1
+    assert d["relation"] and "↔" in d["relation"][0]
+    assert any(a["verb"] == "tell" and "disclosure" in a["classes"]
+               for a in d["actions"])
+    assert "didn't" in d["negation"]
+    assert d["information_object"] == "location / destination"
+    assert d["information_state"]["known_to_self"] == "false"
+    assert "maybe" in d["information_state"]["known_to_other"]
+    assert "before participation" in d["expected_information"]
+    assert d["actual_information"] == "not supplied"
+    assert d["temporal_relation"] == "request / action preceded disclosure"
+    assert "informed decision" in d["dependency"]
+    assert "≠" in d["expectation_difference"]
+    # every effect he named is offered, and NONE is chosen
+    for e in ("uncertainty", "confusion", "loss of control", "feeling used",
+              "irritation", "distrust"):
+        assert e in d["possible_human_effect"], e
+    assert d["his_feeling"] == ""              # his field, never filled by us
+    # RULE 1 — intent is never concluded from one event
+    assert d["intent"]["status"] == "UNKNOWN — not directly observed"
+    assert d["repetition_link"].startswith("search prior")
+    assert "partial-information" in d["pattern_contribution"]
+
+
+def test_one_sentence_never_becomes_a_pattern():
+    """His reason for the whole refinement: "otherwise the machine would create
+    millions of false patterns from single occurrences."
+    """
+    import tempfile
+    from sourceborn import micro, patterns
+    root = tempfile.mkdtemp()
+    patterns.store_micro(root, micro.decompose_all(
+        "He didn't tell me where we were going.", "S1", HIS_CTX))
+    r = patterns.refresh_candidates(root)
+    assert r["created"] == []                        # nothing surfaced
+    assert patterns.load_candidates(root) == []
+    assert patterns.count_micro(root) == 1           # but the reading is kept
+    assert r["surface_at"] == 5                      # his ruling
+    assert r["below_threshold"] and r["below_threshold"][0]["needs"] == 5
+
+
+def test_his_five_events_surface_exactly_one_candidate_at_the_fifth():
+    """The arrangement is the UNION of steps across linked events — his own S2
+    carries no disclosure fact and his S3 no resource fact, yet both belong."""
+    import tempfile
+    from sourceborn import micro, patterns
+    root = tempfile.mkdtemp()
+    created_at = None
+    for i, (ask, text) in enumerate(HIS_FIVE, start=1):
+        patterns.store_micro(root, micro.decompose_all(text, ask, HIS_CTX))
+        r = patterns.refresh_candidates(root)
+        if r["created"]:
+            created_at = i
+    assert created_at == 5, f"surfaced at event {created_at}, not the fifth"
+    cands = patterns.load_candidates(root)
+    assert len(cands) == 1
+    c = cands[0]
+    assert c["id"] == "PATTERN-CANDIDATE-001"
+    assert c["repetition_count"] == 5
+    assert sorted(c["evidence_asks"]) == ["S1", "S2", "S3", "S4", "S5"]
+    # the arrangement carries his steps IN ORDER, each with its own support
+    op = c["observed_pattern"]
+    for step in ("A needs a resource or help from B",
+                 "A reveals only part of the plan",
+                 "B becomes committed before the full context is known",
+                 "A obtains the desired result"):
+        assert step in op, step
+    assert "seen in" in op and "of 5 asks" in op
+    # the machine does NOT conclude
+    assert c["intent_status"] == "INFERRED / NOT DIRECTLY OBSERVED"
+    assert "manipulative" not in op.lower()
+    assert len(c["possible_interpretations"]) >= 4
+    assert "other / unknown" in c["possible_interpretations"]
+    # one witness (him) → Medium cap, his own Source rule
+    assert c["confidence"]["cap"] == patterns.CONF_CAP_INFERRED
+    assert c["confidence"]["value"] <= patterns.CONF_CAP_INFERRED
+    # the six that never collapse — five of them still empty, and they are his
+    assert c["what_happened"]
+    for f in ("his_interpretation", "his_feeling", "his_principle",
+              "his_decision", "his_result"):
+        assert c[f] == "", f
+    # R-F-R / Doubt ran BEFORE he ever sees it — his flow puts it there
+    assert len(c["rfr"]["r_f_r"]) == 3
+    assert c["rfr"]["r_f_r"][0]["pass"].startswith("reverse")
+    assert c["rfr"]["r_f_r"][1]["pass"].startswith("forward")
+    assert c["rfr"]["r_f_r"][2]["pass"].startswith("reverse")
+    assert "thin_steps" in c["rfr"]["r_f_r"][0]
+
+
+def test_his_review_writes_back_and_never_reopens():
+    """His six actions, and the no-reopen rule applied to his corrections."""
+    import tempfile
+    from sourceborn import micro, patterns
+    root = tempfile.mkdtemp()
+    for ask, text in HIS_FIVE:
+        patterns.store_micro(root, micro.decompose_all(text, ask, HIS_CTX))
+    patterns.refresh_candidates(root)
+    cid = patterns.load_candidates(root)[0]["id"]
+
+    res = patterns.review(root, cid, "approve", {
+        "name": "Instrumental-use pattern",
+        "his_interpretation": "Instrumental-use / exploitative relationship.",
+        "his_feeling": "Used / disrespected / taken for granted.",
+        "his_principle": "I do not want this relationship pattern.",
+        "his_decision": "Reduce/cut contact.",
+        "save_as": "personal pattern"}, note="APPROVED FOR MY PERSONAL RUBRIC")
+    k = res["candidate"]
+    assert k["status"] == "approved" and k["version"] == 2
+    assert k["his_feeling"].startswith("Used")
+    assert k["intent_status"].startswith("HIS RULING")
+    assert k["confidence"]["value"] <= 0.95       # never 1.00, ever
+    assert k["confidence"]["basis"].startswith("his ruling")
+    # NO REOPEN: v1 is kept whole and still says what it said
+    assert len(k["history"]) == 1
+    assert k["history"][0]["snapshot"]["status"] == "candidate"
+    assert k["history"][0]["snapshot"]["his_interpretation"] == ""
+    # the write-back is its own record, referencing the version it acted on
+    wb = res["writeback"]
+    assert wb["acted_on_version"] == 1 and wb["new_version"] == 2
+    assert "his_feeling" in wb["fields_he_set"]
+    assert patterns.writebacks(root)[-1]["candidate"] == cid
+
+    # his ruling reduces the threshold — "5 loops and reducing"
+    assert patterns.surface_at(root) == 4
+
+    # the approved pattern now reads a NEW sentence, carrying HIS words
+    seqs = micro.decompose_all(
+        "My cousin asked me to lend my car and didn't tell me why.", "Q-9",
+        HIS_CTX)
+    hits = patterns.activate(root, seqs)
+    assert hits, "an approved pattern must read a future sentence"
+    assert hits[0]["outcome"] in ("activate", "contribute evidence",
+                                 "modify confidence")
+    assert hits[0]["his_interpretation"].startswith("Instrumental-use")
+
+    # bad action is refused, unknown id is refused
+    assert patterns.review(root, cid, "obliterate")["error"]
+    assert patterns.review(root, "nope", "approve")["error"]
+
+
+def test_split_and_combine_close_records_without_deleting_them():
+    import tempfile
+    from sourceborn import micro, patterns
+    root = tempfile.mkdtemp()
+    for ask, text in HIS_FIVE:
+        patterns.store_micro(root, micro.decompose_all(text, ask, HIS_CTX))
+    patterns.refresh_candidates(root)
+    cid = patterns.load_candidates(root)[0]["id"]
+    res = patterns.review(root, cid, "split",
+                          {"into": ["Partial disclosure", "Resource dependence"]})
+    assert len(res["spawned"]) == 2
+    cands = {c["id"]: c for c in patterns.load_candidates(root)}
+    assert cands[cid]["status"] == "split"          # parent kept, not deleted
+    for sid in res["spawned"]:
+        assert cands[sid]["split_from"] == cid      # children reference it
+        assert cands[sid]["status"] == "candidate"
+    a, b = res["spawned"]
+    res2 = patterns.review(root, a, "combine", {"with": [b]})
+    assert res2["ok"]
+    cands = {c["id"]: c for c in patterns.load_candidates(root)}
+    assert cands[b]["status"] == "combined"
+    assert cands[b]["combined_into"] == a           # says where it went
+    assert cands[b]["history"], "the absorbed record keeps its own history"
+    assert patterns.review(root, a, "combine", {"with": []})["error"]
+
+
+def test_the_router_picks_mechanisms_from_the_structure():
+    """His rule: "the Engine should be selected from the structured problem,
+    rather than the Engine deciding what the problem is."
+    """
+    from sourceborn import micro, router
+    seqs = micro.decompose_all("He didn't tell me where we were going.",
+                               "Q-1", HIS_CTX)
+    r = router.route(seqs, "why do I feel uncomfortable with this person?")
+    keys = [m["key"] for m in r["mechanisms"]]
+    assert "sequence" in keys                # something already there
+    assert "relation" in keys                # a relation is named
+    assert "evidence" in keys                # something is missing from record
+    assert "meta" in keys                    # an absence has >1 reading
+    assert all(m["why"] for m in r["mechanisms"])   # never called without why
+    assert "selected from the structured problem" in r["rule"]
+
+    # an INVENTION routes differently — no ground to find
+    inv = router.route(micro.decompose_all("Build me a pricing app.", "Q-2"),
+                       "Build me a pricing app.")
+    assert "invention" in [m["key"] for m in inv["mechanisms"]]
+    assert "sequence" not in [m["key"] for m in inv["mechanisms"]]
+
+    # a repeat marked by him calls the pattern engine and names the unwired one
+    rep = router.route(micro.decompose_all(
+        "He again did not explain the full plan.", "Q-3", HIS_CTX), "again?")
+    assert "pattern_memory" in [m["key"] for m in rep["mechanisms"]]
+    assert "seq_kernel" in rep["unwired"]     # honest about what is not wired
+
+
+def test_the_flow_view_shows_every_position_and_which_segments_work_there():
+    """His SEG→flow placement, and his flow spine, both real."""
+    from sourceborn import micro, router
+    seqs = micro.decompose_all("He didn't tell me where we were going.",
+                               "Q-1", HIS_CTX)
+    fv = router.flow_view(router.route(seqs, "why?"))
+    assert [r["position"] for r in fv] == router.FLOW_POSITIONS
+    at = {r["position"]: r for r in fv}
+    assert "SEG-07" in at["ultra-micro splitter"]["segments"]
+    assert "SEG-08" in at["rubric view"]["segments"]
+    assert "SEG-05" in at["memory"]["segments"]
+    assert "SEG-10" in at["write-back"]["segments"]
+    assert len(router.SEGMENT_ROLE) == 10
+    assert all(s["at"] and s["serves"] for s in router.SEGMENT_ROLE)
+    assert router.segments_at("pattern candidate")
+
+
+def test_engine_read_runs_his_whole_flow():
+    from sourceborn import patterns
+    eng = _engine()
+    r = eng.read("My friend asked me to drop him somewhere and "
+                 "he didn't tell me where we were going.", "Q-1")
+    assert len(r["micro_sequences"]) == 1        # one sentence, one micro-seq
+    assert r["stored"] == 1
+    assert r["route"]["mechanisms"]
+    assert r["threshold"]["surface_at"] == 5
+    assert r["walk"]["result"].output.answer     # the answer still happens
+    assert r["stats"]["micro_sequences"] == 1
+    # a second, DIFFERENT ask compares against the first
+    r2 = eng.read("He again did not explain the full plan beforehand.", "Q-2")
+    assert r2["relations_to_prior"], "prior asks must be compared"
+    assert r2["relations_to_prior"][0]["prior_ask"] == "Q-1"
+    # this ask can never corroborate itself
+    assert all(x["prior_ask"] != "Q-2" for x in r2["relations_to_prior"])
+
+
+def test_reading_page_and_pattern_routes_are_served_and_locked():
+    import base64
+    import json
+    import threading
+    import urllib.error
+    import urllib.request
+    from sourceborn import micro, patterns, server
+
+    eng = _engine()
+    root = eng.memory.root
+    for ask, text in HIS_FIVE:
+        patterns.store_micro(root, micro.decompose_all(text, ask, HIS_CTX))
+    patterns.refresh_candidates(root)
+
+    old = (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+           server.SB_ACCESS_PASS)
+    server.ENGINE, server.SB_ROOT = eng, root
+    server.SB_ACCESS_USER, server.SB_ACCESS_PASS = "him", "letmein"
+    httpd = server.ThreadingHTTPServer(("127.0.0.1", 0), server.Handler)
+    threading.Thread(target=httpd.serve_forever, daemon=True).start()
+    base = "http://127.0.0.1:%d" % httpd.server_address[1]
+
+    def req(p, body=None, auth=True):
+        r = urllib.request.Request(
+            base + p, data=json.dumps(body).encode() if body is not None else None,
+            headers={"content-type": "application/json"} if body is not None else {})
+        if auth:
+            r.add_header("Authorization", "Basic " +
+                         base64.b64encode(b"him:letmein").decode())
+        try:
+            with urllib.request.urlopen(r, timeout=30) as resp:
+                return resp.status, resp.read()
+        except urllib.error.HTTPError as e:
+            return e.code, e.read()
+
+    try:
+        for p in ("/reading", "/patterns", "/micro", "/flow"):
+            assert req(p, auth=False)[0] == 401, p
+            assert p not in server.OPEN_PATHS
+        code, body = req("/reading")
+        assert code == 200 and b"THE READING" in body
+        assert b"WHAT I THINK IT MEANS" in body and b"HOW I FELT" in body
+
+        code, body = req("/patterns")
+        assert code == 200
+        d = json.loads(body)
+        assert len(d["candidates"]) == 1
+        assert d["stats"]["approved"] == 0
+
+        code, body = req("/reading/ask", {"question": "He didn't tell me "
+                                          "where we were going."})
+        assert code == 200
+        r = json.loads(body)
+        assert r["micro_sequences"][0]["information_object"] == \
+            "location / destination"
+        assert r["flow"] and len(r["flow"]) == len(
+            __import__("sourceborn.router", fromlist=["x"]).FLOW_POSITIONS)
+        assert r["route"]["mechanisms"]
+        assert r["walk"]["result"]["output"]["answer"]
+        assert req("/reading/ask", {"question": "   "})[0] == 400
+
+        cid = d["candidates"][0]["id"]
+        code, body = req("/patterns/review",
+                         {"id": cid, "action": "approve",
+                          "fields": {"his_interpretation": "Instrumental use.",
+                                     "his_feeling": "Used.",
+                                     "save_as": "personal pattern"}})
+        assert code == 200
+        assert json.loads(body)["candidate"]["status"] == "approved"
+        assert req("/patterns/review", {"id": cid, "action": "nope"})[0] == 400
+
+        # walk-all-the-way-back-down: the micro-sequences are readable by ask
+        code, body = req("/micro?ask=S1")
+        assert code == 200 and len(json.loads(body)) >= 1
+        assert req("/micro?n=abc")[0] == 200      # bad query answers, no drop
+
+        code, home = req("/")
+        assert code == 200 and b'href="/reading"' in home
+    finally:
+        httpd.shutdown()
+        httpd.server_close()
+        (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+         server.SB_ACCESS_PASS) = old
+
+
+
+def test_his_correction_of_left_and_nothing_changes_the_parse():
+    """His teaching, 2026-08-13: "left" is not departure, it is what REMAINS;
+    "nothing" is not zero, it is zero MATERIAL return. Filed in
+    docs/method/canon/LEFT_AND_NOTHING_HIS_CORRECTION.md."""
+    import tempfile
+    from sourceborn import micro, senses
+    root = tempfile.mkdtemp()
+    S = senses.active(root)
+    sent = ("A good person left with memories of their beloved and "
+            "responsibility keep them safe and alive")
+
+    # without his correction, "left" is a departure verb
+    plain = micro.decompose(sent, "Q", 0)
+    assert any(a["verb"] == "left" and "participation" in a["classes"]
+               for a in plain["actions"])
+
+    # with it, the departure reading is BLOCKED and both readings are kept
+    d = micro.decompose(sent, "Q", 0, {"self_established": True}, S)
+    left = next(a for a in d["actions"] if a["verb"] == "left")
+    assert "participation" not in left["classes"]
+    assert "participation" in left["blocked_by_his_sense"]
+    ids = {o["id"] for o in d["semantic_overrides"]}
+    assert "SENSE-001" in ids
+    o = next(o for o in d["semantic_overrides"] if o["id"] == "SENSE-001")
+    assert "departed" in o["default_reading"]          # what it WOULD have read
+    assert "remains with the person" in o["his_reading"]
+    assert o["status"] == senses.STATUS_USER
+
+    # the raw sentence is never altered
+    assert d["raw"] == sent
+
+    # his structure, found because he taught it
+    assert micro.F_RETURN_RESIDUAL in d["structural_facts"]
+    assert micro.F_DUTY_CONTINUES in d["structural_facts"]
+    assert micro.F_MEMORY_WEIGHTED in d["structural_facts"]
+    assert "emotional accumulation" in d["pattern_contribution"]
+    assert "responsibility persistence" in d["pattern_contribution"]
+    # and the false readings his correction removes
+    assert micro.F_THIRD_PARTY not in d["structural_facts"]
+    assert micro.F_REPEAT_MARKED not in d["structural_facts"]
+
+
+def test_nothing_is_never_read_as_zero_overall():
+    """His rule: "'nothing' itself must not be interpreted literally without
+    its dimension." An unstated dimension says unstated, never zero."""
+    import tempfile
+    from sourceborn import micro, senses
+    root = tempfile.mkdtemp()
+    S = senses.active(root)
+    d = micro.decompose("He worked for them and got nothing, only memories "
+                        "and moments.", "Q", 0, {"self_established": True}, S)
+    rr = d["return_reading"]["dimensions"]
+    assert "near zero" in rr["material"]
+    assert "does NOT mean zero overall" in rr["material"]
+    assert rr["emotional"] == "present"
+    assert rr["memory"] == "present"
+    assert rr["experiential"] == "present"
+    # dimensions he did not speak to are UNSTATED, not zero
+    assert rr["practical"] == "not stated"
+    assert set(rr) == set(senses.RETURN_DIMENSIONS)
+
+
+def test_memory_valence_is_never_used_as_value():
+    """His rule: "Good or bad, memories are always emotional count for human."
+    pleasantness != importance; pain != worthlessness."""
+    import tempfile
+    from sourceborn import micro, senses
+    root = tempfile.mkdtemp()
+    S = senses.active(root)
+    for text, want in (
+            ("I keep the good memories of her.", "positive"),
+            ("Only painful memories are left of that time.", "negative"),
+            ("The memories are still with me.", "unknown")):
+        d = micro.decompose(text, "Q", 0, {"self_established": True}, S)
+        mr = d["memory_reading"]
+        assert mr, text
+        assert mr["valence"] == want, (text, mr["valence"])
+        # significance NEVER varies with valence — that is the whole rule
+        assert mr["significance"] == \
+            "emotionally weighted regardless of valence"
+        assert "pain ≠ worthlessness" in mr["never"]
+
+
+def test_he_refuses_the_overgeneralisation_himself_and_it_is_recorded():
+    """He named the danger: "A person who gets nothing in return is
+    automatically good. That would be a dangerous overgeneralization." The
+    refusal lives ON the rule that could have produced it."""
+    import tempfile
+    from sourceborn import senses
+    root = tempfile.mkdtemp()
+    good = next(e for e in senses.active(root) if e["word"] == "good person")
+    assert good["status"] == senses.STATUS_REVIEW      # not fact yet
+    assert "NOT automatically good" in good["refuses"]
+    assert "dangerous overgeneralization" in good["refuses"]
+    assert "behavioural structure" in good["his_reading"]
+    mem = next(e for e in senses.active(root) if e["word"] == "memory")
+    assert "SEPARATELY from" in mem["his_reading"]
+    assert senses.stats(root)["with_refusal"] >= 2
+
+
+def test_teaching_a_sense_writes_back_and_never_reopens():
+    import tempfile
+    from sourceborn import senses
+    root = tempfile.mkdtemp()
+    r = senses.teach(root, "carry", "to hold responsibility over time, not to "
+                     "physically lift", "to physically lift something",
+                     note="his words")
+    assert r["ok"] and r["sense"]["version"] == 1
+    r2 = senses.teach(root, "carry", "to hold responsibility AND the cost of it",
+                      note="refined")
+    s = r2["sense"]
+    assert s["version"] == 2
+    assert len(s["history"]) == 1
+    assert s["history"][0]["snapshot"]["his_reading"].endswith("physically lift")
+    assert r2["writeback"]["acted_on_version"] == 1
+    assert r2["writeback"]["new_version"] == 2
+    assert senses.writebacks(root)[-1]["word"] == "carry"
+
+    # rejection CLOSES, never deletes
+    rj = senses.reject(root, s["id"], note="wrong after all")
+    assert rj["sense"]["status"] == "REJECTED BY HIM"
+    assert rj["sense"]["reject_note"] == "wrong after all"
+    assert any(e["id"] == s["id"] for e in senses.load(root))     # still there
+    assert not any(e["id"] == s["id"] for e in senses.active(root))
+
+    assert senses.teach(root, "", "x")["error"]
+    assert senses.teach(root, "x", "")["error"]
+    assert senses.teach(root, "x", "y", kind="nope")["error"]
+    assert senses.reject(root, "SENSE-999")["error"]
+
+
+def test_senses_routes_serve_and_teach_over_http():
+    import base64
+    import json
+    import threading
+    import urllib.error
+    import urllib.request
+    from sourceborn import server
+
+    eng = _engine()
+    old = (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+           server.SB_ACCESS_PASS)
+    server.ENGINE, server.SB_ROOT = eng, eng.memory.root
+    server.SB_ACCESS_USER, server.SB_ACCESS_PASS = "him", "letmein"
+    httpd = server.ThreadingHTTPServer(("127.0.0.1", 0), server.Handler)
+    threading.Thread(target=httpd.serve_forever, daemon=True).start()
+    base = "http://127.0.0.1:%d" % httpd.server_address[1]
+
+    def req(p, body=None, auth=True):
+        r = urllib.request.Request(
+            base + p, data=json.dumps(body).encode() if body is not None else None,
+            headers={"content-type": "application/json"} if body is not None else {})
+        if auth:
+            r.add_header("Authorization", "Basic " +
+                         base64.b64encode(b"him:letmein").decode())
+        try:
+            with urllib.request.urlopen(r, timeout=30) as resp:
+                return resp.status, resp.read()
+        except urllib.error.HTTPError as e:
+            return e.code, e.read()
+
+    try:
+        assert req("/senses", auth=False)[0] == 401
+        assert "/senses" not in server.OPEN_PATHS
+        code, body = req("/senses")
+        assert code == 200
+        d = json.loads(body)
+        assert len(d["senses"]) >= 4
+        assert d["stats"]["with_refusal"] >= 2
+        assert len(d["return_dimensions"]) == 8
+
+        code, body = req("/senses/teach",
+                         {"word": "left", "his_reading": "what remains, and "
+                          "the weight that stays with it",
+                          "note": "sharpened"})
+        assert code == 200
+        assert json.loads(body)["sense"]["version"] == 2   # write-back, not new
+        assert req("/senses/teach", {"word": "", "his_reading": "x"})[0] == 400
+
+        # and the reading now shows his corrections
+        code, body = req("/reading/ask", {"question": "A good person left with "
+                                          "memories of their beloved."})
+        assert code == 200
+        r = json.loads(body)
+        assert r["senses_fired"], "his corrections must appear in the reading"
+        assert any(o["id"] == "SENSE-001" for o in r["senses_fired"])
+        assert r["senses"]["senses"] >= 4
+
+        code, page = req("/reading")
+        assert b"DEFAULT LANGUAGE INTERPRETATION" in page
+        assert b"YOUR CORRECTION" in page
+    finally:
+        httpd.shutdown()
+        httpd.server_close()
+        (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+         server.SB_ACCESS_PASS) = old
+
+
+
+def test_human_means_the_physical_human_not_the_brain():
+    """His ruling: "Human = the physical human: body, appearance, biological
+    condition, safety, survival, ageing/life-extension, physical capacity.
+    Human is not the thinking/memory/reasoning brain."
+    """
+    from sourceborn import domains as D, human_registry as HR
+    q = ("A good person left with memories of their beloved and "
+         "responsibility keep them safe and alive")
+    w = D.route_words(q)
+    cls = w["classes"]
+    # his arrow chart, word for word
+    assert "good" in cls[D.VALUE_WISDOM]
+    assert "person" in cls[D.HUMAN_PHYSICAL]
+    assert "safe" in cls[D.HUMAN_PHYSICAL]
+    assert "alive" in cls[D.HUMAN_PHYSICAL]
+    assert "memories" in cls[D.BRAIN_MIND]
+    assert "beloved" in cls[D.RELATION_AFFECT]
+    assert "responsibility" in cls[D.RULE_DUTY]
+    assert "left with" in cls[D.RESULT_CONSEQUENCE]
+    # and the five things that are NOT Human physical, by his rule
+    for word in ("memories", "beloved", "responsibility", "good"):
+        assert word not in cls.get(D.HUMAN_PHYSICAL, []), word
+
+    # the containers HE named by hand — lexical overlap cannot find these
+    named = {t["container"] for t in w["his_targets"] if t["container"]}
+    assert {"CON-006", "CON-001", "CON-008"} <= named
+    sc = D.enforce_scope(HR.activate(q)["containers"], w)
+    human = [c for c in sc["in_scope"] if c["domain"] == D.HUMAN_PHYSICAL]
+    hids = {c["id"] for c in human}
+    assert {"CON-001", "CON-006", "CON-008"} <= hids
+    assert any(c.get("his_assignment") for c in human)
+    # memory stays in its own brain, never under Human
+    brain = {c["id"] for c in sc["in_scope"] if c["domain"] == D.BRAIN_MIND}
+    assert "CON-033" in brain               # Episodic Memory
+    assert not (brain & hids)               # the two never overlap
+
+
+def test_not_the_brain_is_an_explicit_boundary():
+    """His second test sentence, and the EXCLUSION / BOUNDARY node it needs."""
+    from sourceborn import domains as D, human_registry as HR
+    q = ("Humans are looking at their physical appearance and body life "
+         "extension, not the brain")
+    w = D.route_words(q)
+    assert D.BRAIN_MIND in w["excluded_classes"]
+    assert w["excluded"] and "not the brain" in w["excluded"][0]["text"].lower()
+    for word in ("physical", "appearance", "body"):
+        assert word in w["classes"][D.HUMAN_PHYSICAL], word
+    assert "looking at" in w["classes"][D.ATTENTION_GOAL]
+
+    sc = D.enforce_scope(HR.activate(q)["containers"], w)
+    # brain containers are reported OUT of scope with his reason, not deleted
+    out_brain = [c for c in sc["out_of_scope"] if c["domain"] == D.BRAIN_MIND]
+    assert out_brain
+    assert all("excluded this layer" in c["why_out"] for c in out_brain)
+    assert not any(c["domain"] == D.BRAIN_MIND for c in sc["in_scope"])
+    # and the body containers he pointed at are in
+    assert any(c["id"] in ("CON-015", "CON-011", "CON-001", "CON-007")
+               for c in sc["in_scope"])
+
+
+def test_the_overlay_never_touches_his_source_records():
+    """His instruction: separate the physical subset from the cognitive subset
+    "WITHOUT DELETING the original source records."
+    """
+    from sourceborn import domains as D, human_registry as HR
+    assert len(HR.parameters()) == 3204          # his count, unchanged
+    assert len(HR.containers()) == 80
+    c = HR.container("CON-015")
+    # his own name, not renamed to fit the split
+    assert c["name"] == "Body Schema, Body Image and Ownership"
+    assert len(c["subs"]) == 40
+    st = D.stats()
+    assert st["containers_classified"] == 80     # every one placed
+    assert st["mixed_flagged"] >= 8              # the ambiguous ones surfaced
+    assert "CON-015" in st["mixed"]              # the one HE flagged himself
+    assert "mental" in st["mixed"]["CON-015"].lower()
+    assert "untouched" in st["overlay_only"]
+    # every class he named exists and is used
+    used = set(D.CONTAINER_DOMAIN.values())
+    assert D.HUMAN_PHYSICAL in used and D.BRAIN_MIND in used
+    assert D.RELATION_AFFECT in used and D.RULE_DUTY in used
+    assert D.VALUE_WISDOM in used and D.ATTENTION_GOAL in used
+    # his scope lists, verbatim
+    assert "life continuation" in " ".join(D.HUMAN_INCLUDE) or \
+        "longevity" in D.HUMAN_INCLUDE
+    assert "memory" in D.HUMAN_EXCLUDE and "reasoning" in D.HUMAN_EXCLUDE
+
+
+def test_the_reading_reports_the_split():
+    eng = _engine()
+    r = eng.read("Humans are looking at their physical appearance and body "
+                 "life extension, not the brain", "Q-dom")
+    from sourceborn import domains as D
+    assert D.BRAIN_MIND in r["word_routes"]["excluded_classes"]
+    assert D.HUMAN_PHYSICAL in r["rubrics_lit"]["by_domain"]
+    assert r["rubrics_lit"]["out_of_scope"]
+    assert r["domains"]["containers_classified"] == 80
+    assert r["registry"]["parameters"] == 3204
+
+
+
+RICE = ("Do not judge him because he sells just rice, judge the idea of "
+        "business. His MBA helped him find flaws, think and plan better and "
+        "upscale to 800 crore revenue, instead of working for big firms. "
+        "No business is small.")
+
+
+def test_his_rice_mba_sentence_routes_to_his_own_node_classes():
+    """His arrow chart for this sentence, and his own observation that it has
+    almost zero Human-body activation."""
+    from sourceborn import domains as D
+    w = D.route_words(RICE)
+    cls = w["classes"]
+    assert "do not judge" in cls[D.JUDGMENT_BIAS]
+    assert "rice" in cls[D.PRODUCT_SURFACE]
+    assert "business" in cls[D.BUSINESS_SYSTEM]
+    assert "mba" in cls[D.EDUCATION_CAPABILITY]
+    assert "upscale" in cls[D.SCALE_GROWTH]
+    assert "revenue" in cls[D.RESULT_MEASUREMENT]
+    assert "instead of" in cls[D.COUNTERFACTUAL_PATH]
+    assert "find flaws" in cls[D.BRAIN_MIND]
+    # HIS OWN READING: "this sentence has almost zero Human-body activation"
+    assert D.HUMAN_PHYSICAL not in cls
+
+
+def test_a_stated_number_is_never_upgraded_to_a_verified_fact():
+    from sourceborn import claims as C
+    rows = C.read_claims(RICE)
+    by = {r["status"]: r for r in rows}
+    assert C.SOURCE_ASSERTED in by
+    assert "800" in by[C.SOURCE_ASSERTED]["text"]
+    assert by[C.SOURCE_ASSERTED]["verified_here"] is False
+    assert "never be shown as FACT" in by[C.SOURCE_ASSERTED]["refuses"]
+
+    # "MBA helped him" is a HYPOTHESIS and his alternatives are kept beside it
+    assert C.CAUSAL_HYPOTHESIS in by
+    alts = by[C.CAUSAL_HYPOTHESIS]["alternatives"]
+    for a in ("market timing", "capital", "luck", "team", "execution"):
+        assert a in alts, a
+    assert "must not be recorded as" in by[C.CAUSAL_HYPOTHESIS]["refuses"]
+
+    # "no business is small" is his value, not evidence
+    assert C.USER_VALUE in by
+    # "instead of working for big firms" is a counterfactual, not a verdict
+    assert C.COUNTERFACTUAL in by
+    assert "universally" in by[C.COUNTERFACTUAL]["refuses"]
+
+    # a plain statement with no figure and no causal word stays FACT-IN-SOURCE
+    plain = C.read_claims("He sells rice.")
+    assert plain[0]["status"] == C.FACT_IN_SOURCE
+    assert "not the same as being" in plain[0]["why"]
+
+
+def test_revenue_is_not_profit_is_not_a_good_business():
+    from sourceborn import claims as C
+    o = C.outcome_note(RICE)
+    assert "revenue" in o["named"]
+    assert "profit" in o["not_stated"]      # never assumed
+    assert "durability" in o["not_stated"]
+    assert o["his_rule"].startswith("HIGH REVENUE")
+    assert C.outcome_note("I feel tired today") == {}
+
+
+def test_the_judgment_gate_refuses_a_verdict_until_his_chain_is_walked():
+    """His words: "That is exactly the kind of reasoning your Rubric Pyramid
+    should FORCE before the ASI reaches a conclusion."
+    """
+    from sourceborn import claims as C
+    g = C.judgment_gate(RICE)
+    steps = {s["key"]: s for s in g["chain"]}
+    for k in ("visible_thing", "find_system", "capabilities", "inputs",
+              "execution", "results"):
+        assert steps[k]["met"], k
+    # his own reasoning never compared the alternatives, so the gate holds
+    assert steps["alternatives"]["met"] is False
+    assert g["may_judge"] is False
+    assert "JUDGMENT NOT SUPPORTED YET" in g["verdict"]
+    assert "COMPARE ALTERNATIVE EXPLANATIONS" in g["unmet"]
+    # the premature-verdict wording is caught by the second step
+    assert "shortcut" in steps["do_not_judge_yet"]["note"]
+
+    # a bare surface sentence reaches almost nothing
+    bare = C.judgment_gate("He just sells rice, small business.")
+    assert bare["may_judge"] is False
+    assert len(bare["unmet"]) >= 4
+
+
+def test_his_five_named_patterns_keep_the_mark_he_gave_them():
+    from sourceborn import claims as C
+    names = [p["name"] for p in C.HIS_PATTERNS]
+    assert "Surface Simplicity ≠ System Simplicity" in names
+    assert "Product Prestige ≠ Business Performance" in names
+    assert "MBA as Capability Amplifier" in names
+    checked = {p["name"] for p in C.HIS_PATTERNS if p["his_mark"] == "checked"}
+    unchecked = {p["name"] for p in C.HIS_PATTERNS if p["his_mark"] != "checked"}
+    assert len(checked) == 3 and len(unchecked) == 2      # his own marks
+    assert "MBA as Capability Amplifier" in unchecked
+    amp = next(p for p in C.HIS_PATTERNS if "Amplifier" in p["name"])
+    assert "AMPLIFIER" in amp["reading"]
+    assert amp["refuses"] == "MBA → success as a cause"
+    surf = next(p for p in C.HIS_PATTERNS if "Surface" in p["name"])
+    assert "tea stall" in surf["applies_to"] and "logistics" in surf["applies_to"]
+
+
+def test_the_reading_carries_the_gate_and_the_statuses():
+    eng = _engine()
+    r = eng.read(RICE, "Q-rice")
+    assert r["judgment_gate"]["may_judge"] is False
+    assert any(c["status"] == "SOURCE-ASSERTED / NOT VERIFIED HERE"
+               for c in r["claims"])
+    assert r["outcome_note"]["not_stated"]
+    assert len(r["his_named_patterns"]) == 5
+    from sourceborn import domains as D
+    assert D.HUMAN_PHYSICAL not in r["word_routes"]["classes"]
+
+
+
+FATHER = ("A father checks the front door five times every night. Their house "
+          "was robbed once years ago. The lock has since been replaced and he "
+          "knows he already checked it, but he goes back again because he says "
+          "he wants his family safe. His family gets irritated.")
+
+
+def test_same_action_changed_function():
+    """HIS principle: "identical physical action ≠ identical functional role."
+    CHECK #1 obtains information; CHECK #2-5 cannot obtain what #1 already did.
+    The pattern engine was blind to this because it keys on CONTENT, and five
+    checks have identical content — the difference is ORDINAL POSITION.
+    """
+    from sourceborn import repetition as R
+    r = R.read_repetition(FATHER)
+    assert r["applies"]
+    assert "checks" in r["actions"]
+    assert r["count"]["count"] == 5                 # from "five times"
+    assert r["count"]["exact"] is False or r["count"]["stated_as"]
+    assert r["actor_knows_already"] is True         # the source says so
+    assert r["same_action_changed_function"] is True
+
+    occ = r["occurrences"]
+    assert occ[0]["position"] == R.FIRST
+    assert occ[0]["function"] == R.FUNC_ACQUIRE
+    assert occ[0]["candidates"] == []               # the first is not open
+    for o in occ[1:]:
+        assert o["position"] == R.LATER
+        assert o["function"] == R.FUNC_CANNOT_ACQUIRE
+        assert "already knows" in o["function_status"]
+        # HIS candidates, held open and NONE chosen
+        for c in ("certainty", "reassurance", "ritual", "habit"):
+            assert c in o["candidates"], c
+        assert "does not pick" in o["refuses"]
+
+    assert "identical physical action" in r["his_principle"]
+    assert "rereading" in " ".join(r["generalises_to"])
+
+
+def test_position_gives_the_first_and_later_different_addresses():
+    """The fix itself: before this, five identical checks collapsed into ONE
+    signature and the pattern layer reported "this recurs"."""
+    from sourceborn import repetition as R
+    r = R.read_repetition(FATHER)
+    base = "resource:requested|disclosure:withheld"
+    first = R.position_signature(base, r["occurrences"][0])
+    later = R.position_signature(base, r["occurrences"][1])
+    assert first != later
+    assert first.endswith("occ:first") and later.endswith("occ:later")
+    assert base in first and base in later          # the content is preserved
+
+    # a single occurrence is not dressed up as a repetition
+    one = R.read_repetition("He checked the door.")
+    assert one["count"]["count"] == 1
+    assert one["occurrences"][0]["position"] == R.ONLY
+    assert one["same_action_changed_function"] is False
+    assert "absent, not zero" in one["count"]["why"]
+
+    # repetition WITHOUT the source saying he already knows is not a
+    # changed-function claim — it stays open
+    unknown = R.read_repetition("He checks the door five times every night.")
+    assert unknown["count"]["count"] == 5
+    assert unknown["actor_knows_already"] is False
+    assert unknown["same_action_changed_function"] is False
+    assert "OPEN" in unknown["occurrences"][1]["function_status"]
+
+    # a sentence with no information-action does not get this reading at all
+    none = R.read_repetition("He drove to work five times.")
+    assert none["applies"] is False
+
+
+def test_the_mask_extended_to_observer_position():
+    """HIS rule: BEHAVIOR ≠ MEANING. Two readings of ONE behaviour, and the
+    existing Source/Mask rule reused — two witnesses who differ HALT, the gap
+    goes to him, never averaged."""
+    from sourceborn import repetition as R
+    v = R.read_views(FATHER)
+    assert v["count"] == 2 and v["differ"] is True
+    by = {x["position"]: x for x in v["views"]}
+    assert R.ACTOR in by and R.OBSERVER in by
+    # the states must NOT bleed between the two readings
+    assert by[R.ACTOR]["states"] == ["safe"]
+    assert by[R.OBSERVER]["states"] == ["irritated"]
+    assert "SOURCE-STATED" in by[R.ACTOR]["status"]
+    assert "not necessarily the same thing" in by[R.ACTOR]["status"]
+    assert "not evidence" in by[R.OBSERVER]["status"]
+
+    m = v["mask"]
+    assert m["verdict"] == "HALT — the gap goes to him"
+    assert "not averaged" in m["refuses"]
+    assert "neither reading is preferred" in m["refuses"]
+    assert v["confidence_cap"].startswith("HALT")
+    assert "BEHAVIOR ≠ MEANING" in v["his_rule"]
+
+    # one view only → capped at Medium, his one-witness rule
+    solo = R.read_views("He goes back again because he says he wants them safe.")
+    assert solo["count"] == 1 and solo["differ"] is False
+    assert solo["mask"] == {}
+    assert "Medium" in solo["confidence_cap"]
+
+    # no marked view at all → says so, rather than inventing one
+    bare = R.read_views("The door was checked.")
+    assert bare["count"] == 0
+    assert "no view is marked" in bare["confidence_cap"]
+
+
+def test_the_reading_carries_position_and_the_two_views():
+    from sourceborn import micro
+    m = micro.decompose("He checks the door five times and he knows he "
+                        "already checked it.", "Q", 0)
+    assert m["repetition_reading"]["same_action_changed_function"] is True
+    assert "occ:first" in m["signature"]        # position is in the address now
+
+    eng = _engine()
+    r = eng.read(FATHER, "Q-father")
+    # THE BUG A BROWSER FOUND AND THE UNIT TESTS MISSED: the engine splits the
+    # ask into sentences, so "checks five times" (sentence 1) and "he knows he
+    # already checked it" (sentence 3) never met, and the reading said "not
+    # supported yet" on the exact example it was built for. Both of these must
+    # be read at ASK level.
+    assert r["repetition"], "the reading must carry the position analysis"
+    rr = r["repetition"][0]
+    assert rr["count"]["count"] == 5, "the count is in sentence 1"
+    assert rr["actor_knows_already"] is True, "the knowledge is in sentence 3"
+    assert rr["same_action_changed_function"] is True
+
+    assert r["views"], "the reading must carry the observer split"
+    v = r["views"][0]
+    assert v["differ"] is True
+    st = {x["position"]: x["states"] for x in v["views"]}
+    assert st["ACTOR"] == ["safe"], "his stated goal is in sentence 3"
+    assert st["OBSERVER"] == ["irritated"], "their state is in sentence 4"
+    assert v["mask"]["verdict"].startswith("HALT")
+
+    # the per-sentence rows are still kept — they are what the signature uses
+    assert r["repetition_per_sentence"]
+    assert r["repetition_stats"]["later_function_candidates"] == 6
+
+# ---------------------------------------------------------------------------
+# THE PYRAMID — his answer, built. docs/method/canon/THE_PYRAMID_HIS_ANSWER.md
+# ---------------------------------------------------------------------------
+
+HIS_SENTENCE = ("Samrath never like to go to school, he always cry, "
+                "but today is his birthday, he went very happy.")
+
+
+def test_his_flat_addressing_is_exact():
+    """SB-HFR-P0001..P3204 — he derived this by hand. Every number he cited must
+    land on the name he gave it, including the two containers holding 42."""
+    from sourceborn import asi_pyramid as P
+    assert P.bank_size() == 3204
+    assert P.container_span("CON-035") == (1361, 1400)
+    assert P.container_span("CON-036") == (1401, 1440)
+    assert P.container_span("CON-057") == (2243, 2284), "CON-042 holds 42"
+    assert P.container_span("CON-060") == (2365, 2404), "CON-057 holds 42 too"
+    assert P.container_span("CON-064") == (2525, 2564)
+    his = {1374: "Context-cued habit", 1403: "Context association",
+           1438: "Conditioned emotional response", 2243: "Core valence",
+           2254: "Happiness", 2282: "Emotional intensity",
+           2284: "Emotional-state transition", 2366: "Reward anticipation",
+           2368: "Hedonic", 2376: "Approach behaviour", 2388: "Social reward",
+           2454: "Effort willingness", 2464: "Approach motivation",
+           2465: "Avoidance motivation", 2500: "Intention revision",
+           2514: "Opportunity-triggered intention",
+           2563: "Motive stability vs shift",
+           2564: "Motive-inference confidence"}
+    for flat, name in his.items():
+        got = P.param(flat)["name"]
+        assert name.lower() in got.lower(), f"P{flat}: his '{name}' vs '{got}'"
+    assert P.flat_of("CON-057", 12) == 2254
+    assert P.param(2254)["sb_id"] == "SB-HFR-P2254"
+
+
+def test_his_eighteen_on_his_sentence():
+    """His count, not near his count: 7 strong + 11 candidate = 18 / 3204."""
+    from sourceborn import asi_pyramid as P
+    a = P.activate(HIS_SENTENCE)
+    c = a["counts"]
+    assert c["strong"] == 7, c
+    assert c["candidate"] == 11, c
+    assert c["working"] == 18
+    assert c["inactive"] == 3186
+    assert c["pct"] == 0.56
+    strong = {r["flat"] for r in a["strong"]}
+    assert strong == {1403, 2243, 2254, 2282, 2284, 2368, 2376}, strong
+    cand = {r["flat"] for r in a["candidate"]}
+    assert cand == {1374, 1438, 2366, 2388, 2454, 2464, 2465, 2500, 2514,
+                    2563, 2564}, cand
+    # his chart marked P2564 HIT while his list places it under CANDIDATE —
+    # carried, not silently resolved
+    note = [r for r in a["candidate"] if r["flat"] == 2564][0]
+    assert "his chart" in note["his_note"]
+
+
+def test_prior_and_current_are_two_scopes_not_one_flat_sentence():
+    from sourceborn import asi_pyramid as P
+    s = P.read_scopes(HIS_SENTENCE)
+    assert s["time_scopes"] == 2
+    prior = [r["clause"] for r in s[P.PRIOR]]
+    cur = [r["clause"] for r in s[P.CURRENT]]
+    assert any("never" in c for c in prior)
+    assert any("always cry" in c for c in prior)
+    assert any("birthday" in c for c in cur)
+    assert any("went very happy" in c for c in cur), \
+        "a clause with no marker of its own continues the scope it is in"
+    assert s["edge_word"] == "but"
+
+
+def test_same_event_shell_is_one_object_with_two_routes():
+    from sourceborn import asi_pyramid as P
+    sh = P.event_shell(HIS_SENTENCE)
+    assert sh["shell"] == "GO_TO_SCHOOL", sh["shell"]
+    assert sh["object"] == "school", "'to go' is the infinitive, not the place"
+    assert sh["unchanged"] is True
+    kinds = {v["surface"]: v["kind"] for v in sh["verb_forms"]}
+    assert kinds["went"] == "actual behaviour"
+    assert kinds["go"] == "stated/desired"
+
+
+def test_crying_is_never_upgraded_to_sadness():
+    from sourceborn import asi_pyramid as P
+    r = P.run(HIS_SENTENCE)
+    beh = r["behaviour_not_state"]["readings"]
+    assert beh and beh[0]["behaviour"] == "cry"
+    assert beh[0]["status"] == "unresolved"
+    assert "possible sadness" in beh[0]["possible"]
+    assert len(beh[0]["possible"]) == 7, "his seven, including 'possible other'"
+    # and Sadness itself must not be in the activated set
+    flats = {x["flat"] for x in r["activation"]["strong"]} | \
+            {x["flat"] for x in r["activation"]["candidate"]}
+    assert 2250 not in flats, "P2250 Sadness is not a fact because he cried"
+
+
+def test_causality_is_not_closed_and_the_branches_are_opened():
+    from sourceborn import asi_pyramid as P
+    d = P.run(HIS_SENTENCE)["difference"]
+    assert d["status"] == "CAUSALITY NOT PROVEN"
+    assert d["what_changed"] == ["birthday"]
+    assert "BIRTHDAY = today" in d["we_know"]
+    assert any("caused" in x for x in d["we_do_not_know"])
+    assert len(d["hidden_branches"]) == 10, "his ten"
+    assert "gifts?" in d["hidden_branches"]
+    assert "fabrication" in d["fabrication_example"]
+
+
+def test_two_intent_candidates_are_never_blended():
+    from sourceborn import asi_pyramid as P
+    i = P.run(HIS_SENTENCE)["intent"]
+    assert len(i["candidates"]) == 2
+    assert i["blended"] is False
+    ids = {c["id"] for c in i["candidates"]}
+    assert ids == {"INTENT CANDIDATE A", "INTENT CANDIDATE B"}
+
+
+def test_pattern_candidate_carries_his_four_guards():
+    from sourceborn import asi_pyramid as P
+    pc = P.run(HIS_SENTENCE)["pattern_candidate"]
+    assert pc["id"] == "PC-CONTEXT-INTENT-001"
+    assert pc["assembled"] is True
+    assert pc["guards"]["evidence_cases"] == "1 current contrast"
+    assert pc["guards"]["cause"] == "UNKNOWN"
+    assert pc["guards"]["generalization"] == "NOT ALLOWED YET"
+    refused = {x["claim"] for x in pc["refused"]}
+    assert "Birthday makes children like school." in refused
+    assert pc["next"] == ["DOUBT / R-F-R", "USER REVIEW"]
+
+
+def test_the_rule_has_no_fixed_number_after_the_plus_signs():
+    from sourceborn import asi_pyramid as P
+    assert P.THE_RULE["no_fixed_number"] is True
+    assert P.THE_RULE["sum"][-1] == "..."
+    assert "PRIOR PATTERN" in P.THE_RULE["machine"]
+
+
+def test_sequence_runtime_objects_are_not_parameters():
+    from sourceborn import asi_pyramid as P
+    rt = P.run(HIS_SENTENCE)["runtime"]
+    got = {o["what"]: o["n"] for o in rt["objects"]}
+    assert got["time scopes"] == 2
+    assert got["contrast edge"] == 1
+    assert got["contextual event"] == 1
+    assert got["emotional state transition"] == 1
+    assert got["intent-state candidates"] == 2
+    assert got["causal gap"] == 1
+    assert rt["then"] == ["PATTERN CANDIDATE", "DOUBT / R-F-R", "USER REVIEW"]
+
+
+def test_it_is_a_mechanism_not_a_lookup_of_his_sentence():
+    """Different words, same shape -> the same 18. A flat report -> almost
+    nothing. This is the test that fails if the routes are hard-wired to the
+    literal words 'Samrath', 'school' or 'birthday'."""
+    from sourceborn import asi_pyramid as P
+    other = ("Ravi never wants to go to the gym, he always shouted, "
+             "but today is his match, he went really excited.")
+    a = P.activate(other)
+    assert a["counts"]["strong"] == 7
+    assert a["counts"]["candidate"] == 11
+    assert P.event_shell(other)["shell"] == "GO_TO_GYM"
+    assert P.run(other)["difference"]["what_changed"] == ["match"]
+
+    flat = P.activate("He went to school today.")
+    assert flat["counts"]["strong"] == 0, "no flip, no history, no claim"
+    assert flat["counts"]["working"] == 1
+
+
+def test_positive_words_do_not_all_collapse_into_happiness():
+    """His v1.0 source separates the emotions and says they must not be
+    collapsed. "excited" is his Excitement, never his Happiness."""
+    from sourceborn import asi_pyramid as P
+    a = P.activate("Ravi never wants to go to the gym, he always shouted, "
+                   "but today is his match, he went really excited.")
+    flats = {r["flat"]: r for r in a["strong"]}
+    assert 2256 in flats, "P2256 Excitement"
+    assert 2254 not in flats, "P2254 Happiness must not fire on 'excited'"
+    assert flats[2256]["by"] == "word -> his name (mine, correctable)"
+    b = P.activate(HIS_SENTENCE)
+    his = {r["flat"]: r for r in b["strong"]}
+    assert his[2254]["by"] == "HIS ASSIGNMENT", "'happy'->Happiness is his row"
+
+
+def test_a_shape_he_has_not_named_is_reported_unnamed_not_empty():
+    from sourceborn import asi_pyramid as P
+    pc = P.run("Meera always laughed about the exam, but today is her result, "
+               "she went very worried.")["pattern_candidate"]
+    assert pc["assembled"] is False
+    assert pc["missing"], "it must say which part of his form is absent"
+    assert pc["unnamed_shape"] is True, \
+        "positive prior -> negative today is a real shape he has not named"
+
+
+def test_his_chart_is_generated_from_the_run_not_typed_out():
+    from sourceborn import asi_pyramid as P
+    text = P.chart(P.run(HIS_SENTENCE))
+    for must in ("PRIOR / REPEATED", "CURRENT / TODAY", "SAME EVENT SHELL",
+                 "GO_TO_SCHOOL", "WORKING ACTIVE SET      18 / 3204",
+                 "3186 remain inactive", "P2243-P2284", "DOUBT / R-F-R"):
+        assert must in text, must
+
+
+
+# --- HIS SECOND RUN: the 16 containers, the row matcher, the ASI additions ---
+
+def test_his_sixteen_containers_and_every_range_he_gave():
+    """He gave 16 container ranges and 5 segment ranges by hand. All 21 exact,
+    including CON-043 at P1683 which needs the CON-042 offset of 42 carried."""
+    from sourceborn import asi_pyramid as P
+    his = {"CON-017": (641, 680), "CON-020": (761, 800),
+           "CON-033": (1281, 1320), "CON-035": (1361, 1400),
+           "CON-043": (1683, 1722), "CON-044": (1723, 1762),
+           "CON-045": (1763, 1802), "CON-052": (2043, 2082),
+           "CON-054": (2123, 2162), "CON-057": (2243, 2284),
+           "CON-058": (2285, 2324), "CON-060": (2365, 2404),
+           "CON-061": (2405, 2444), "CON-062": (2445, 2484),
+           "CON-063": (2485, 2524), "CON-064": (2525, 2564)}
+    for cid, span in his.items():
+        assert P.container_span(cid) == span, cid
+    assert [c for c, _ in P.HIS_CONTAINERS] == sorted(his), "his 16, his order"
+    # his per-segment container counts: 2 / 2 / 3 / 2 / 7
+    from collections import Counter
+    got = Counter(P.param(P.container_span(c)[0])["segment"]
+                  for c, _ in P.HIS_CONTAINERS)
+    assert dict(got) == {"SEG-03": 2, "SEG-05": 2, "SEG-06": 3,
+                         "SEG-07": 2, "SEG-08": 7}, dict(got)
+
+
+def test_the_row_level_matcher_resolves_what_he_would_not_invent():
+    """His line: "I won't invent the P-row count." The payload is decoded here,
+    so the count is real, per-container, and checkable row by row."""
+    from sourceborn import asi_pyramid as P
+    r = P.rows_for(HIS_SENTENCE)
+    c = r["counts"]
+    assert c["containers"] == 16, "all 16 of his regions fire"
+    assert c["segments"] == 5
+    assert c["rows"] > 80, "16 containers != 16 parameters"
+    assert c["rows"] == c["source_grounded"] + c["inferred"] + c["held_open"]
+    assert c["untouched"] == c["bank"] - c["rows"]
+    # every row must resolve to a real name inside its own container's span
+    for row in r["rows"]:
+        lo, hi = P.container_span(row["container"])
+        assert lo <= row["flat"] <= hi, row
+        assert row["name"] == P.param(row["flat"])["name"]
+        assert row["by"] in ("HIS ASSIGNMENT", "resolved here (correctable)")
+    # the guard row against false causality must be present and source-grounded
+    corr = [x for x in r["rows"]
+            if "Correlation-vs-causation" in x["name"]]
+    assert corr and corr[0]["tier"] == P.SOURCE_GROUNDED
+    # Sadness must still be HELD, never source-grounded
+    sad = [x for x in r["rows"] if x["name"] == "Sadness"]
+    assert sad and sad[0]["tier"] == P.HELD
+
+
+def test_the_named_actor_is_no_longer_invisible():
+    from sourceborn import asi_pyramid as P
+    assert P.actor_name(HIS_SENTENCE) == "Samrath"
+    assert P.actor_name("but today is his birthday") == "", \
+        "no name present, so none is invented"
+
+
+def test_eleven_runtime_relations_and_the_last_one_is_association_only():
+    from sourceborn import asi_pyramid as P
+    rel = P.relations(HIS_SENTENCE)
+    assert rel["count"] == 11, rel["count"]
+    assert rel["not_parameters"] is True
+    ids = [x["id"] for x in rel["relations"]]
+    assert ids[0] == "R01" and ids[-1] == "R11"
+    last = rel["relations"][-1]
+    assert last["note"] == P.ASSOCIATION_ONLY
+    assert last["rel"] == "<->", "association is symmetric, not an arrow"
+    rep = [x for x in rel["relations"] if "repeated historical" in x["to"]]
+    assert rep and "not an enumeration" in rep[0]["note"]
+
+
+def test_seven_interpretations_and_h7_prevents_false_causality():
+    from sourceborn import asi_pyramid as P
+    i = P.interpretations(HIS_SENTENCE)
+    assert i["count"] == 7
+    assert i["none_concluded"] is True
+    h = {x["id"]: x for x in i["candidates"]}
+    assert h["H1"]["status"] == "REVIEW"
+    assert h["H2"]["status"] == "SYNTHETIC CANDIDATE"
+    assert "unrelated" in h["H7"]["title"]
+    assert "PREVENTS FALSE CAUSALITY" in h["H7"]["detail"]
+    assert "always kept" in h["H7"]["status"]
+    # the frames are general — the context word is substituted, not hard-coded
+    other = P.interpretations("Ravi never wants to go to the gym, he always "
+                             "shouted, but today is his match, he went really "
+                             "excited.")
+    assert "match" in {x["id"]: x for x in other["candidates"]}["H7"]["title"]
+
+
+def test_three_pattern_candidates_from_his_run():
+    from sourceborn import asi_pyramid as P
+    pcs = P.pattern_candidates(HIS_SENTENCE)
+    assert pcs["count"] == 3
+    got = {x["id"]: x for x in pcs["candidates"]}
+    assert got["PC-01"]["equals"].startswith("DIFFERENT AFFECT")
+    assert "does not destroy" in got["PC-02"]["equals"]
+    assert "DIFFERENT INTENT" in got["PC-03"]["equals"]
+
+
+def test_learning_strengthens_the_prior_rule_and_never_duplicates_it():
+    from sourceborn import asi_pyramid as P
+    r = P.reinforce(HIS_SENTENCE)
+    # two prior rules now apply here — RULE-001 (same event, different path)
+    # and RULE-002 (role changes active interpretation), which he named as
+    # already existing in the BJP message
+    assert r["strengthened"] == 2, [x["id"] for x in r["rules"]]
+    assert r["new_rules_invented"] == 0
+    assert {x["id"] for x in r["rules"]} == {"RULE-001", "RULE-002"}
+    rule = r["rules"][0]
+    assert rule["applies_here"] is True
+    assert rule["support"] == 1 and rule["support_after"] == 2
+    assert rule["action"] == "SUPPORT +1"
+    assert rule["duplicate_created"] is False
+    assert rule["taught_by"] == "the mall example"
+    # a sentence the rule does not cover must leave it untouched
+    flat = P.reinforce("He went to school today.")
+    assert flat["strengthened"] == 0
+    assert flat["rules"][0]["action"] == "not touched"
+
+
+def test_the_three_counters_and_nothing_is_promoted_without_him():
+    from sourceborn import asi_pyramid as P
+    r = P.full_run(HIS_SENTENCE)
+    ex = dict(r["counters"]["existing"])
+    assert ex["Total registered P rows"] == 3204
+    assert ex["Candidate containers hit"] == 16
+    assert ex["Existing parameters added"] == 0
+    assert ex["Existing parameters modified"] == 0
+    gen = dict(r["counters"]["generated"])
+    assert gen["Parent Sequence"] == 1
+    assert gen["Child comparison Sequences"] == 2
+    assert gen["Runtime relations"] == 11
+    assert gen["Interpretation candidates"] == 7
+    assert gen["Pattern candidates"] == 3
+    assert gen["Existing deep rule strengthened"] == 2
+    assert all(v == 0 for _k, v in r["counters"]["promoted"]), \
+        "nothing is promoted until he approves"
+
+
+def test_a_third_party_absolute_is_a_source_generalization_not_his_value():
+    """His correction: "never"/"always" here are SOURCE generalizations, and
+    they do not assert every single historical visit."""
+    from sourceborn import claims
+    third = claims.read_claims("Samrath never like to go to school, "
+                              "he always cry.")
+    assert third and third[0]["status"] == claims.SOURCE_GENERALIZATION
+    assert "never an enumeration" in third[0]["why"]
+    mine = claims.read_claims("I never trust a number without a source.")
+    assert mine and mine[0]["status"] == claims.USER_VALUE
+
+
+
+# --- HIS MALL EXAMPLE: three scopes, six routes, and the stated motive -----
+
+MALL = ("I dont want to go to mall, i'm not well. "
+        "i dont want to go to mall, i'm not interested to walk. "
+        "I dont like crowd. "
+        "I had visited few days back. "
+        "i will b going on weekend. "
+        "i will be going with my Girlfriend.")
+
+
+def test_the_mall_needs_a_third_time_scope():
+    """Samrath needed PRIOR vs CURRENT. The mall needs FUTURE, and it needs
+    TENSE to place a clause when none of his markers appear — "few days back"
+    and "weekend" are in neither of his lists."""
+    from sourceborn import asi_pyramid as P
+    sc = P.read_scopes(MALL)
+    assert sc["time_scopes"] == 3, sc["time_scopes"]
+    assert not sc["unscoped"], "every clause must land somewhere"
+    prior = [r["clause"] for r in sc[P.PRIOR]]
+    fut = [r["clause"] for r in sc[P.FUTURE]]
+    cur = [r["clause"] for r in sc[P.CURRENT]]
+    assert any("few days back" in c for c in prior)
+    assert len(fut) == 2 and all("will" in c for c in fut)
+    assert any("dont like crowd" in c for c in cur)
+    assert P.event_shell(MALL, sc)["shell"] == "GO_TO_MALL"
+
+
+def test_a_companion_is_not_the_actor():
+    """The first version returned "Girlfriend" as the actor of his own six
+    sentences. First person wins, and a name after "with my" is a companion."""
+    from sourceborn import asi_pyramid as P
+    assert P.first_person(MALL) is True
+    assert P.actor_name(MALL) == "", "no third-party actor here — it is him"
+    assert P.companion(MALL) == "Girlfriend"
+    # and the Samrath case must not regress
+    assert P.actor_name("Samrath never like to go to school, he always cry.") \
+        == "Samrath"
+    assert P.companion("Samrath never like to go to school.") == ""
+
+
+def test_six_intent_routes_on_one_event_shell():
+    """His point: "Event is same going to mall / but the intent is keep
+    changing." Six positions, one shell, six distinct KINDS of reason, and they
+    are never averaged into one attitude to the mall."""
+    from sourceborn import asi_pyramid as P
+    ir = P.intent_routes(MALL)
+    assert ir["shell"] == "GO_TO_MALL"
+    assert ir["count"] == 6, ir["count"]
+    assert len(ir["distinct_reason_kinds"]) == 6, ir["distinct_reason_kinds"]
+    assert ir["blended"] is False and ir["collapsed"] is False
+    assert len(ir["scopes_used"]) == 3
+    kinds = [r["reason_kinds"][0] for r in ir["routes"]]
+    assert kinds == ["BODY / PHYSICAL CONDITION", "EFFORT / INCLINATION",
+                     "STANDING PREFERENCE", "RECENCY / ALREADY DONE",
+                     "SCHEDULE / PLAN", "COMPANION / RELATIONSHIP"], kinds
+    # the refusal negates the WANTING, not the going — his "left" law again
+    assert "negates the WANTING" in ir["routes"][0]["stance"]
+    # a route unit is (sentence, scope): Samrath is ONE sentence and still
+    # yields TWO routes, because the scope changes inside it
+    sam = P.intent_routes("Samrath never like to go to school, he always cry, "
+                          "but today is his birthday, he went very happy.")
+    assert sam["count"] == 2, sam["count"]
+    assert P.intent_routes("He went to school today.")["count"] == 1
+
+
+def test_the_reason_is_stated_here_and_never_upgraded_to_verified():
+    """Samrath's source never says why. His mall source says why every time —
+    so CON-064.01 Stated motive is SOURCE-GROUNDED while CON-064.02 Operating
+    (actual) motive stays HELD. Saying a reason is not verifying it."""
+    from sourceborn import asi_pyramid as P
+    rs = P.stated_reasons(MALL)
+    assert len(rs) == 6
+    assert all(r["status"] == "STATED IN SOURCE" for r in rs)
+    assert all(r["verified"] is False for r in rs)
+    rows = {r["flat"]: r for r in P.rows_for(MALL)["rows"]}
+    stated = P.flat_of("CON-064", 1)
+    operating = P.flat_of("CON-064", 2)
+    assert rows[stated]["tier"] == P.SOURCE_GROUNDED
+    assert rows[stated]["name"] == "Stated motive"
+    assert rows[operating]["tier"] == P.HELD
+    assert rows[operating]["name"] == "Operating (actual) motive"
+    # and on Samrath the motive is ABSENT, not merely unverified
+    sam = P.signals("Samrath never like to go to school, he always cry, but "
+                    "today is his birthday, he went very happy.")
+    assert "motive_absent" in sam
+    assert "stated_reason" not in P._mall_signals(
+        "Samrath never like to go to school.", P.read_scopes(""),
+        {"shell": None}, {})
+
+
+def test_two_time_scopes_are_not_a_contradiction():
+    from sourceborn import asi_pyramid as P
+    cc = P.contradiction_check(MALL)
+    assert cc["count"] >= 1
+    assert cc["same_scope_count"] == 0, "there is no same-scope clash here"
+    f = cc["findings"][0]
+    assert f["looks_like"] == "CONTRADICTION"
+    assert f["verdict"].startswith("NOT A CONTRADICTION")
+    assert f["scope_a"] == P.CURRENT and f["scope_b"] == P.FUTURE
+
+
+def test_the_body_fires_here_and_stayed_silent_on_samrath():
+    """His ruling both ways: Human = the body. Samrath never reports a body and
+    SEG-01 must not fire. "i'm not well" IS a body report, so it must."""
+    from sourceborn import asi_pyramid as P
+    mall = {r["segment"] for r in P.rows_for(MALL)["rows"]}
+    assert "SEG-01" in mall, "\"i'm not well\" is a body statement"
+    sam = {r["segment"] for r in P.rows_for(
+        "Samrath never like to go to school, he always cry, but today is his "
+        "birthday, he went very happy.")["rows"]}
+    assert "SEG-01" not in sam, "no body is reported in the Samrath sentence"
+    # and "not well" must not be upgraded into a named condition
+    body = {r["name"]: r for r in P.rows_for(MALL)["rows"]
+            if r["container"] == "CON-004"}
+    assert body["Fatigue sensation"]["tier"] == P.HELD
+    assert body["Body-signal interpretation"]["tier"] == P.SOURCE_GROUNDED
+    # pain is never claimed — it is not stated anywhere in his six lines
+    assert not [r for r in P.rows_for(MALL)["rows"]
+                if r["container"] == "CON-006"], "pain is not stated"
+
+
+def test_the_rule_recognises_its_own_founding_example_as_the_origin():
+    """RULE-001 says taught_by "the mall example". The first version demanded a
+    valence flip — a Samrath-shaped test — and scored 0 on the mall, the very
+    example the rule is named after. Re-running the origin must also NOT inflate
+    its own support."""
+    from sourceborn import asi_pyramid as P
+    mall = P.reinforce(MALL)["rules"][0]
+    assert mall["shell"] == "GO_TO_MALL"
+    assert mall["routes_seen"] == 6
+    assert mall["is_origin"] is True
+    assert mall["action"].startswith("ORIGIN")
+    assert mall["support_after"] == mall["support"], "origin adds no support"
+    sam = P.reinforce("Samrath never like to go to school, he always cry, but "
+                      "today is his birthday, he went very happy.")
+    assert sam["strengthened"] == 2, "RULE-001 and RULE-002 both apply"
+    assert sam["rules"][0]["action"] == "SUPPORT +1"
+    assert sam["rules"][0]["support_after"] == 2
+    assert sam["new_rules_invented"] == 0
+    flat = P.reinforce("He went to school today.")
+    assert flat["strengthened"] == 0
+    assert flat["rules"][0]["action"] == "not touched"
+
+
+def test_the_samrath_numbers_do_not_move_when_the_mall_layer_is_added():
+    """His 18, his 16 containers and the 106 rows are a fixed result. Anything
+    added for the mall that changes them is a regression, not a feature."""
+    from sourceborn import asi_pyramid as P
+    a = P.activate(HIS_SENTENCE)["counts"]
+    assert (a["strong"], a["candidate"], a["working"]) == (7, 11, 18)
+    r = P.rows_for(HIS_SENTENCE)["counts"]
+    assert r["rows"] == 106 and r["containers"] == 16 and r["segments"] == 5
+    assert r["source_grounded"] == 59 and r["inferred"] == 27
+    assert r["held_open"] == 20
+
+
+def test_negations_are_not_reported_as_contextual_events():
+    from sourceborn import asi_pyramid as P
+    ctx = P.signals(MALL).get("context_event", {}).get("nouns", [])
+    for junk in ("dont", "not", "im", "well", "going"):
+        assert junk not in ctx, junk
+    assert P.signals(HIS_SENTENCE)["context_event"]["nouns"] == ["birthday"]
+
+
+
+# --- CONTEXTUAL PARAMETER WEIGHTING: his BJP example, alive not approved -----
+
+BJP = ("BJP had one role available: prime-ministerial candidate for the 2014 "
+       "Lok Sabha election. L.K. Advani was very senior, a party founder with "
+       "a long history and experience. Narendra Modi was less senior than "
+       "Advani, but Modi was the most popular leader with three consecutive "
+       "Gujarat election victories and strong organisational backing including "
+       "the RSS, and the cadre enthusiasm and campaign mobilisation were his. "
+       "The objective was to win the 2014 election. "
+       "Advani opposed the move and had resigned from party posts.")
+
+OTHER_DOMAINS = {
+ "SPORTS": ("The club had one captain's job to fill. Rahul Bose had played the "
+            "most matches and was the longest serving player in the squad. "
+            "Imran Shaikh had won the last three tournaments and the dressing "
+            "room followed him. The season target was promotion."),
+ "MEDICINE": ("One surgeon was needed for Friday's emergency list. Dr Menon "
+              "had thirty years in the department and deep expertise. Dr Rao "
+              "had done the most of these cases in the last year. The "
+              "objective was to clear the backlog safely."),
+ "BUSINESS": ("There was one seat on the board to fill. My uncle founded the "
+              "firm and carries its institutional memory. My cousin brought "
+              "in the last four clients. The board's aim for the year was new "
+              "revenue."),
+ "SCHOOL": ("The school had one head-boy position to fill. Aman Verma was the "
+            "oldest student and had been there longest. Kabir Shah was the "
+            "most popular boy and had won the last two debate victories. The "
+            "objective was to win the inter-school championship."),
+ "FAMILY": ("The family had to choose one trustee for the property. My "
+            "grandfather started the house and knows how it was built. My "
+            "brother had brought in the last four tenants. The aim was "
+            "continuity and to be a custodian of the place."),
+}
+
+
+def test_each_candidate_keeps_only_its_own_attributed_axes():
+    """One sentence naming both people made every candidate inherit every
+    quality — Advani was credited with Modi's popularity. Attribution is by
+    nearest mention, and "less senior than" gives LOW, not HIGH."""
+    from sourceborn import weighting as W
+    sel = W.read_selection(BJP)
+    assert sel["candidate_count"] == 2, "L.K. Advani and Advani are one person"
+    by = {c["who"]: {a["axis"]: a["direction"] for a in c["axes"]}
+          for c in sel["candidates"]}
+    adv = [k for k in by if "Advani" in k][0]
+    modi = [k for k in by if "Modi" in k][0]
+    assert by[adv]["SENIORITY / TENURE"] == "HIGH"
+    assert "CURRENT POPULARITY / SUPPORT" not in by[adv], "no leakage"
+    assert "RECENT RECORD" not in by[adv], "no leakage"
+    assert by[modi]["CURRENT POPULARITY / SUPPORT"] == "HIGH"
+    assert by[modi]["RECENT RECORD"] == "HIGH"
+    assert by[modi].get("SENIORITY / TENURE") != "HIGH", \
+        "\"less senior than Advani\" must never credit Modi with seniority"
+
+
+def test_the_objective_sets_the_weights_and_a_different_objective_flips_them():
+    """SAME PARAMETERS + DIFFERENT OBJECTIVE -> DIFFERENT IMPORTANCE ->
+    DIFFERENT DECISION. His mechanism, and his own counterfactual."""
+    from sourceborn import weighting as W
+    w = W.weigh(BJP)
+    assert w["objective_type"] == "COMPETITIVE WIN"
+    assert w["weights"]["SENIORITY / TENURE"] == W.NOT_DECISIVE
+    assert w["weights"]["CURRENT POPULARITY / SUPPORT"] == W.DOMINANT
+    assert [x for x in w["favoured"] if "Modi" in x], w["favoured"]
+    cf = W.counterfactual(BJP)
+    assert cf["counterfactual_objective"] == "STEWARDSHIP / COUNSEL / CONTINUITY"
+    assert cf["flip_count"] >= 5
+    flips = {f["axis"]: f for f in cf["weight_flips"]}
+    assert flips["SENIORITY / TENURE"][
+        "under_STEWARDSHIP / COUNSEL / CONTINUITY"] == W.DOMINANT
+    assert cf["selection_changes"] is True
+    assert [x for x in cf["favoured_counterfactual"] if "Advani" in x]
+    assert "not a claim about history" in cf["refuses"]
+
+
+def test_rank_on_one_axis_is_not_fitness_for_the_role():
+    from sourceborn import weighting as W
+    rf = W.rank_is_not_fitness(BJP)
+    assert any("Advani" in x for x in rf["highest_on_axis"])
+    assert rf["answer"].startswith("YES")
+    assert rf["therefore_most_suitable"] == "NOT AUTOMATIC"
+    assert rf["asks_instead"] == ["Popular for what?", "Experienced for what?",
+                                 "Senior for what?",
+                                 "Selected for what objective?"]
+
+
+def test_the_two_lessons_he_refused_cannot_be_learnt():
+    from sourceborn import weighting as W
+    claims = {r["claim"] for r in W.REFUSED_LESSONS}
+    assert "young leader > senior leader" in claims
+    assert "popularity > experience" in claims
+    assert W.MAY_LEARN == "PARAMETER IMPORTANCE IS ITSELF CONTEXT-DEPENDENT."
+    for r in W.REFUSED_LESSONS:
+        assert r["his_verdict"], r
+
+
+def test_the_candidate_is_alive_and_not_approved_and_cannot_self_promote():
+    from sourceborn import weighting as W
+    c = W.candidate(BJP)
+    assert c["id"] == "PC-WEIGHT-001"
+    assert c["status"] == "ALIVE — NOT APPROVED"
+    assert c["support"] == 1 and c["canonical"] == 0
+    assert c["gate"]["cross_domain_required"] is True
+    assert set(c["gate"]["domains_he_named"]) == {
+        "business", "family", "sports", "medicine", "school"}
+    assert c["gate"]["who_approves"].startswith("him")
+    assert W.stats()["canonical"] == 0
+
+
+def test_it_fires_outside_politics_in_every_domain_he_named():
+    """His gate: the next example must come from a completely different domain
+    and the structure must fire again without being forced. Five cases, five
+    domains, and the selection must flip under the counterfactual objective in
+    every one — otherwise the mechanism is only re-describing the outcome."""
+    from sourceborn import weighting as W
+    p = W.cross_domain_probe(OTHER_DOMAINS)
+    assert p["fired"] == 5, [c for c in p["cases"] if not c["fires"]]
+    assert p["flipped_under_counterfactual"] == 5
+    assert set(p["domains_fired"]) == set(OTHER_DOMAINS)
+    assert p["still_not_approved"] is True
+    by = {c["case"]: c for c in p["cases"]}
+    # the objective is read from the case, not assumed — two of these are
+    # STEWARDSHIP objectives and there the SENIOR person must win, which is
+    # the proof the mechanism is not "young beats old"
+    assert by["FAMILY"]["objective_type"] == \
+        "STEWARDSHIP / COUNSEL / CONTINUITY"
+    assert by["FAMILY"]["favoured"] == ["My grandfather"]
+    assert by["BUSINESS"]["favoured"] == ["My uncle"]
+    assert by["MEDICINE"]["objective_type"] == "THROUGHPUT / EXECUTION / SAFETY"
+    assert by["SPORTS"]["objective_type"] == "COMPETITIVE WIN"
+    assert by["SPORTS"]["favoured"] == ["Imran Shaikh"]
+
+
+def test_no_objective_means_no_weighting_is_legal():
+    from sourceborn import weighting as W
+    flat = ("There was one seat to fill. Aman Verma was the oldest. "
+            "Kabir Shah was the most popular.")
+    w = W.weigh(flat)
+    assert w["weights"] == {}
+    assert w["verdict"].startswith("NO WEIGHTING")
+    assert "cannot be read without an objective" in w["refuses"]
+    assert W.read_selection(flat)["applies"] is False
+    assert "no objective is named" in W.read_selection(flat)["why_not"]
+
+
+def test_his_registry_already_names_the_mechanism():
+    from sourceborn import asi_pyramid as P, weighting as W
+    assert P.param(P.flat_of("CON-047", 4))["name"] == "Attribute weighting"
+    rows = {r["name"]: r for r in W.rows_for(BJP)["rows"]}
+    assert rows["Attribute weighting"]["tier"] == P.SOURCE_GROUNDED
+    assert rows["Value ranking"]["tier"] == P.SOURCE_GROUNDED
+    # the biases seniority and popularity can set are NAMED, never asserted
+    assert rows["Authority bias"]["tier"] == P.HELD
+    assert rows["Halo effect"]["tier"] == P.HELD
+    assert W.rows_for(BJP)["counts"]["containers"] >= 7
+
+
+
+# --- THE GENERATION: same person, changed conditions, different brain -------
+
+def test_the_identity_is_locked_and_a_pack_is_not_a_person():
+    from sourceborn import statepacks as S
+    lk = S.identity_lock("The King")
+    assert lk["identity"] == "The King" and lk["locked"] is True
+    assert "does not change" in lk["rule"]
+    assert "personality type" in lk["not"]
+    # every pack is a state OF one identity, carrying a neutral MODEL label
+    models = [p["model"] for p in S.STATE_PACKS]
+    assert len(models) == len(set(models)), "each model letter is distinct"
+    assert all(len(m) == 1 for m in models)
+
+
+def test_container_times_state_generates_a_runtime_address_not_a_parameter():
+    """His law: INSTANTIATED ADDRESS != NATIVE PARAMETER."""
+    from sourceborn import statepacks as S
+    a = S.runtime_address(6, S.DOMINANT)
+    assert a["address"] == "CON-006@DOMINANT"
+    assert a["container_name"] == "Pain and Protective Signalling"
+    assert a["is_native_parameter"] is False and a["in_bank"] is False
+    assert a["law"] == S.RUNTIME_LAW
+    assert a["native_span"] == [201, 240], "it says which native rows it hangs off"
+    # crossed with one of his 25 rubrics it is still an address
+    b = S.runtime_address(6, S.DOMINANT, "Falsifier")
+    assert b["address"] == "CON-006@DOMINANT/Falsifier"
+    assert b["in_bank"] is False
+
+
+def test_the_bank_never_grows_however_much_is_generated():
+    """The one test whose only job is to prove the generation adds nothing."""
+    from sourceborn import statepacks as S, human_registry as hr
+    before = len(hr.parameters())
+    for p in S.STATE_PACKS:
+        r = S.generate("The King", p["id"], rubrics=S.RUBRICS_25)
+        assert r["counts"]["native_parameters_added"] == 0
+        assert r["counts"]["native_parameters_modified"] == 0
+        assert r["counts"]["rubric_addresses"] == \
+            r["counts"]["containers"] * len(S.RUBRICS_25)
+    assert len(hr.parameters()) == before == 3204
+
+
+def test_his_twenty_five_rubrics_are_the_same_for_every_container():
+    """His discovery: 80 x 25 = 2,000 INSTANTIATED ADDRESSES, and the 2,000 is
+    NOT added to the 3,204."""
+    from sourceborn import statepacks as S
+    assert len(S.RUBRICS_25) == 25
+    assert S.RUBRICS_25[0] == "Presence"
+    assert S.RUBRICS_25[-1] == "Confidence"
+    assert "Falsifier" in S.RUBRICS_25 and "Contradiction Risk" in S.RUBRICS_25
+    cap = S.capacity()
+    assert cap["container_x_rubric"] == 80 * 25 == 2000
+    assert cap["native_bank"] == 3204, "the 2,000 was not added"
+    assert cap["at_current_fill"] == 3204 * 40 * 12
+    assert "NOT added to the 3,204" in cap["law"]
+
+
+def test_same_signal_two_brains_and_the_machine_does_not_choose():
+    from sourceborn import statepacks as S
+    r = S.same_signal_different_history("I need to speak with you privately.")
+    reads = {x["pack"]: x["reads_as"] for x in r["readings"]}
+    assert "strategic" in reads["SP-22"]
+    assert "important/private" in reads["SP-23"]
+    assert r["same_identity"] is True
+    assert r["chosen"] is None, "the history that decides is not in the signal"
+    assert "CHANGED HISTORY" in r["law"]
+
+
+def test_the_pairs_that_are_the_same_man():
+    from sourceborn import statepacks as S
+    a, b = S.pack("SP-19"), S.pack("SP-20")
+    assert b["pairs_with"] == "SP-19"
+    assert "SAME MAN" in b["pair_note"]
+    assert S.pack("SP-23")["pairs_with"] == "SP-22"
+    # and a state that itself forks
+    assert len(S.pack("SP-26")["forks"]) == 5
+    assert "even one brain-state must fork" in S.pack("SP-26")["law"]
+
+
+def test_the_body_pack_reaches_below_reasoning():
+    """His SP-24: decision difference may originate below 'reasoning'."""
+    from sourceborn import statepacks as S
+    g = S.generate("The King", "SP-24")
+    segs = {a["segment"] for a in g["addresses"]}
+    assert "SEG-01" in segs, "sleep, energy, pain, autonomic are body containers"
+    assert "SEG-04" in segs, "and they change working memory and inhibition"
+    names = {a["container_name"] for a in g["addresses"]}
+    assert "Working Memory" in names
+    assert "Pain and Protective Signalling" in names
+    assert "HYPOTHESES TO TEST" in g["pack"]["holds"]
+
+
+def test_ten_event_forks_and_none_is_chosen():
+    from sourceborn import statepacks as S
+    assert len(S.EVENT_FORKS) == 10
+    tot = 0
+    for name in S.EVENT_FORKS:
+        f = S.fork_event(name)
+        assert f["known"] is True and f["count"] >= 3
+        assert f["chosen"] is None
+        assert f["refuses"]
+        assert f["law"] == "VISIBLE ACTION != HIDDEN INTENT"
+        tot += f["count"]
+    assert tot == 40, tot
+    tax = S.fork_event("RAISE_TAX")
+    assert "GREED automatically" in tax["refuses"]
+    assert "where does the money actually go?" in tax["still_open"]
+    cen = S.fork_event("CENSUS")
+    assert "WHAT WAS COUNTED?" in cen["asks"]
+    mon = S.fork_event("DESTROY_MONUMENT")
+    assert "INTENTIONALLY DESTROYED" in mon["refuses"]
+    # a shape he has not named is reported unnamed, not forked on a guess
+    unk = S.fork_event("BUILD_A_SHIP")
+    assert unk["known"] is False and unk["count"] == 0
+    assert "unnamed" in unk["note"]
+
+
+def test_formal_state_is_not_functional_state():
+    from sourceborn import statepacks as S
+    fv = S.formal_vs_functional()
+    assert fv["law"] == "FORMAL STATE != FUNCTIONAL STATE"
+    assert fv["functional_state"].startswith("UNKNOWN")
+    assert "army loyalty" in fv["may_retain"]
+    assert any("CEO" in x for x in fv["cross_domain_to_watch"])
+    assert "repeatedly in other domains" in fv["his_gate"]
+
+
+def test_all_seven_of_his_workbook_findings_are_kept_with_verification():
+    from sourceborn import statepacks as S
+    assert len(S.WORKBOOK_FINDINGS) == 7
+    for f in S.WORKBOOK_FINDINGS:
+        assert f["verified"], f
+    text = " ".join(f["verified"] for f in S.WORKBOOK_FINDINGS)
+    assert "P1999" in text and "$B$2:$B$2001" in text
+    assert "ABS(L4)" in text
+    assert "1 distinct edge-set" in text
+    assert "manual" in text
+
+
+def test_every_candidate_is_review_required_and_nothing_is_canonical():
+    from sourceborn import statepacks as S
+    assert len(S.CANDIDATES) == 7
+    for c in S.CANDIDATES:
+        assert c["status"] == S.REVIEW_REQUIRED, c["id"]
+        assert c["canonical"] == 0, c["id"]
+        assert c["form"] and c["found_in"]
+    ids = {c["id"] for c in S.CANDIDATES}
+    assert "RC-DOMAIN-RUBRIC-INSTANTIATION-001" in ids
+    assert "RC-NO-EVIDENCE-NO-RANK-001" in ids
+    assert "RC-FORMAL-VS-FUNCTIONAL-001" in ids
+    r = S.run("The King", "SP-01", "ABDICATE")
+    assert all(v == 0 for v in r["promoted"].values())
+    assert S.stats()["canonical"] == 0
+
+
+def test_the_twelve_prose_only_kings_are_not_counted_as_brains():
+    from sourceborn import statepacks as S
+    assert len(S.PROSE_ONLY) == 12
+    assert "Shadow / Hidden King" in S.PROSE_ONLY
+    packs = {p["name"] for p in S.STATE_PACKS}
+    for name in S.PROSE_ONLY:
+        assert name not in packs, name
+
+
+def test_the_generation_and_weighting_routes_are_reachable():
+    """weighting was importable and reachable from nothing. Both are wired."""
+    from sourceborn import server
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/generation"', '"/generation/packs"', '"/generation/run"',
+                  '"/weighting"', '"/weighting/run"'):
+        assert route in src, route
+    assert "statepacks" in src and "weighting" in src
+    eng = open("src/sourceborn/engine.py").read()
+    assert "asi_pyramid" in eng, "the Pyramid must be in the answer path"
+    assert "statepacks" in eng
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0
@@ -1357,7 +3526,6 @@ def _run_all():
         print(f"  ok  {fn.__name__}")
         passed += 1
     print(f"\n{passed}/{len(fns)} tests passed")
-
 
 if __name__ == "__main__":
     _run_all()

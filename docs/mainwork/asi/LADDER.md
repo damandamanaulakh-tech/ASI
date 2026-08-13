@@ -38,3 +38,25 @@ This file is the tracker. It is added to, never rewritten. `it was, we keep addi
 - **Unresolved ID overlap:** "Extended Capability Node 121–160" vs the catalog's "New Containers 081–160" — needs the workbook itself.
 
 **Confidence: Medium** — one lane's recorded measurement of the workbook (the `.xlsx` sits outside git). Goes High on a second independent reading.
+
+---
+
+## HIS RULING, 2026-08-13 — the base HALT is CLOSED
+
+> **"3072 is the count"**
+
+The base HALT recorded above — *"all 143 ASI nodes and all four Phase-1 answers
+were built on 80 / 2,560 (v0.3) … nothing more is measured against 80 / 2,560
+until he moves the base"* — **is answered. He moved the base.** 3,072 is current.
+
+Nothing above is deleted: the version ladder (2,000 → 2,560 → 2,592 → 3,072)
+stays as the record of versions, not drift, and the earlier analysis built on
+80 / 2,560 keeps its own history. This is added to, never rewritten.
+
+**Also delivered the same day** — his placement of the native Human bank
+`SB-ASI-P0001 … SB-ASI-P2560` across `CON-001 … CON-080` and `SEG-01 … SEG-10`,
+filed verbatim at `docs/method/canon/THE_2560_PLACED_ON_THE_ARCHITECTURE.md`. It
+arrived with the instruction **"do not go to count and details, focus on work
+flow"**, so the flow was built from it and **no count was moved by it**. The
+seam between 3,072 and that 2,560 bank is recorded in
+`docs/method/01D_SEQUENCE_RULINGS.md` and waits on him.

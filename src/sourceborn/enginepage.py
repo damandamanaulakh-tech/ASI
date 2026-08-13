@@ -112,6 +112,13 @@ svg text{font-family:'Inter',-apple-system,Segoe UI,sans-serif}
    <h3>200 CONTAINERS — LIT (the frame)</h3><div class=count id=concount></div><div class=chips id=conchips></div>
    <h3>3,072 PARAMETERS — SPEAKING <em>· the work happens here</em></h3>
    <div class=count id=parcount></div><div class=chips id=parchips></div>
+   <div id=moveswrap style="display:none">
+     <h3 style="display:flex;align-items:center;gap:8px">YOUR MOVES — IN ORDER
+       <button id=movesclear title="clear your selection"
+         style="margin-left:auto;font:inherit;font-size:11px;border:1px solid var(--line2);
+         background:var(--panel2);color:var(--mut);border-radius:7px;padding:2px 9px;cursor:pointer">reset</button></h3>
+     <ol id=moves style="margin:0;padding-left:22px;font-size:12.5px;color:var(--ink)"></ol>
+   </div>
    <div id=detail></div>
   </div>
  </div>
@@ -124,7 +131,20 @@ await the workbook; the engine never invents a brain.</div>
 </div><script>
 let REG=null,LIT={segments:[],containers:[],parameters:[]},LAST=null,openId=null;
 const DES=new Set(),SEL=new Set();
+let MOVES=[];                 // his ordered park/force/unpark/release log
 const $=q=>document.querySelector(q);
+const pname=id=>{const p=REG&&REG.parameters.find(x=>x.id===id);return p?p.name||'':''};
+function persist(){try{localStorage.setItem('sb_engine',JSON.stringify(
+  {q:$('#q').value,des:[...DES],sel:[...SEL],moves:MOVES}));}catch(e){}}
+function logMove(a,id){MOVES.push({a,id,at:Date.now()});persist();drawMoves()}
+function drawMoves(){
+ const w=$('#moveswrap'),ol=$('#moves');
+ if(!MOVES.length){w.style.display='none';return}
+ w.style.display='';
+ const verb={park:'parked',unpark:'returned',force:'forced in',release:'released'};
+ ol.innerHTML=MOVES.map(m=>`<li><b>${esc(verb[m.a]||m.a)}</b> ${esc(m.id)}${
+   pname(m.id)?' <span style="color:var(--mut)">'+esc(pname(m.id))+'</span>':''}</li>`).join('');
+}
 async function j(u,opt){const r=await fetch(u,opt);return r.json()}
 const NS='http://www.w3.org/2000/svg',CX=330,CY=330,R_PAR=304,R_CON=238,R_SEG=132;
 function pt(r,i,n){const a=-Math.PI/2+2*Math.PI*i/n;return[CX+r*Math.cos(a),CY+r*Math.sin(a)]}
@@ -227,9 +247,13 @@ function openCard(id){
   <div class=tog><button class="${DES.has(id)?'des':'sel'}" onclick="togglePark('${s.id}')">${DES.has(id)?'PARKED — click to return':'click to PARK (parks its containers and their parameters)'}</button></div></div>`}
  drawRail();
 }
-function togglePark(id){DES.has(id)?DES.delete(id):(DES.add(id),SEL.delete(id));
+function togglePark(id){
+ if(DES.has(id)){DES.delete(id);logMove('unpark',id);}
+ else{DES.add(id);SEL.delete(id);logMove('park',id);}
  if(LAST)ask(true);else{drawRing();drawRail();if(openId)openCard(openId)}}
-function toggleForce(id){SEL.has(id)?SEL.delete(id):(SEL.add(id),DES.delete(id));
+function toggleForce(id){
+ if(SEL.has(id)){SEL.delete(id);logMove('release',id);}
+ else{SEL.add(id);DES.delete(id);logMove('force',id);}
  if(LAST)ask(true);else{drawRing();drawRail();if(openId)openCard(openId)}}
 function drawStages(){
  $('#stages').innerHTML=[["POINT ZERO",LAST?'his exact words locked':'waiting'],
@@ -254,8 +278,9 @@ function renderAnswer(adopted){
  ${(LAST.payload.halts||[]).length?`<div class=gap>HALT, named: ${esc(LAST.payload.halts.join(' · '))}</div>`:''}
  ${(LAST.hand.deselected||[]).length||(LAST.hand.forced||[]).length?
   `<div class=adopt>ADOPTED — the engine ran again with your hand: ${
-   (LAST.hand.deselected||[]).length?'without '+LAST.hand.deselected.join(', '):''} ${
-   (LAST.hand.forced||[]).length?'· forced in '+LAST.hand.forced.join(', '):''}. Nothing deleted — parked brains return on click.</div>`:''}`;
+   (LAST.hand.deselected||[]).length?'without '+esc(LAST.hand.deselected.join(', ')):''} ${
+   (LAST.hand.forced||[]).length?'· forced in '+esc(LAST.hand.forced.join(', ')):''}. Nothing deleted — parked brains return on click.${
+   (LAST.hand.dropped_by_cap||[]).length?' <b style="color:var(--warn)">'+LAST.hand.dropped_by_cap.length+' forced pick(s) exceeded the 40 cap and did NOT reach the engine: '+esc(LAST.hand.dropped_by_cap.join(', '))+'</b>':''}</div>`:''}`;
  if(adopted){a.classList.remove('pulse');void a.offsetWidth;a.classList.add('pulse')}
 }
 async function ask(isAdopt){
@@ -263,19 +288,29 @@ async function ask(isAdopt){
  $('#spin').style.display='inline';$('#askbtn').disabled=true;
  try{
   const r=await j('/engine/ask',{method:'POST',headers:{'Content-Type':'application/json'},
-   body:JSON.stringify({question:q,deselect:[...DES],select:[...SEL]})});
+   body:JSON.stringify({question:q,deselect:[...DES],select:[...SEL],actions:MOVES})});
   if(r.error){alert(r.error);return}
-  LIT=r.lit;LAST=r;
-  drawRing();drawRail();drawStages();renderAnswer(isAdopt);
+  LIT=r.lit;LAST=r;persist();
+  drawRing();drawRail();drawStages();drawMoves();renderAnswer(isAdopt);
   if(openId)openCard(openId);
  }finally{$('#spin').style.display='none';$('#askbtn').disabled=false}
 }
+function restore(){
+ try{const s=JSON.parse(localStorage.getItem('sb_engine')||'null');if(!s)return;
+  if(s.q)$('#q').value=s.q;
+  (s.des||[]).forEach(x=>DES.add(x));(s.sel||[]).forEach(x=>SEL.add(x));
+  MOVES=Array.isArray(s.moves)?s.moves:[];
+ }catch(e){}
+}
+function resetMoves(){DES.clear();SEL.clear();MOVES=[];persist();
+ drawRing();drawRail();drawStages();drawMoves();if(openId)openCard(openId);}
 async function boot(){
- REG=await j('/engine/registry');indexRing();
+ REG=await j('/engine/registry');indexRing();restore();
  $('#regline').innerHTML='registry v'+REG.version+' · '+REG.totals.parameters_filled+' of '
   +REG.totals.parameters+' parameters filled — the rest await the workbook (upload lands them here, each selectable)'
   +'<span class=spin id=spin> · the engine is running…</span>';
- drawRing();drawRail();drawStages();
+ drawRing();drawRail();drawStages();drawMoves();
+ $('#movesclear').addEventListener('click',resetMoves);
  document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')ask(false)});
 }
 boot();

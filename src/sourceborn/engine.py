@@ -44,6 +44,8 @@ from .node_work import (Finding, SB_WORK, SUPPORT_CHECKS, URR_CHECKS, URRReview,
                         WalkContext)
 from .nodes import (CLOSING_URR, SB_NODES, SB_PRIMARY_URR, SUPPORT_AFTER,
                     URR_NODES, sb_by_id)
+from . import asi_pyramid
+from . import statepacks
 from .pyramid import UnfiledQueue, file_finding, file_urr, unfiled_from_input
 from .urr_matrix import MATRIX, review_node
 from .parameters import COMPARISON_AXES, PARAMETER_BANK
@@ -86,6 +88,13 @@ class NodeStep:
     can_loop_back: bool
     matrix_pass: int = 0                    # of the 7 filters this node cleared
     matrix_flags: list[str] = field(default_factory=list)   # "FIL-3:hold"
+    # HIS CORRECTION: "SB-1 it should show what this app taken as point zero and
+    # so on, at every points only then i can correct". A node's line used to say
+    # "raw source locked untouched: 77 chars" — a DESCRIPTION of the work, with
+    # the actual content nowhere on screen. These two fields are the content.
+    job: str = ""            # what this node's job IS, in the node map's words
+    took: str = ""           # the material this node actually worked on
+    produced: str = ""       # what it actually made of it
 
 
 class SourcebornEngine:
@@ -563,6 +572,130 @@ class SourcebornEngine:
         return RunResult(out, micro, matched, list(self.trace), gaps, proofs, halts)
 
     # -- RGL: Recursive Genesis Loop ---------------------------------------
+    # -- THE READING: his canon flow, end to end ---------------------------
+    def read(self, raw_text: str, ask_id: str = "",
+             model: BaseModel | None = None, thread: int = 40) -> dict:
+        """RAW SENTENCE → micro-sequences → match to IDs → small brains →
+        engine selection → local result → store trace → compare with prior
+        sequences → repetition detection → candidate pattern → HIS review.
+
+        His canon flow, in order, with nothing skipped. `run_walk` still does
+        the node work and the seven filters; this wraps it with the layer that
+        was missing — the ultra-micro split, the pattern memory, and the router
+        that picks mechanisms FROM the structured problem.
+
+        The pattern layer never decides intent and never picks his feeling.
+        Everything it produces is a candidate for him."""
+        from . import claims, domains, human_registry, ladder, micro, patterns, repetition, router, senses
+        root = self.memory.root
+        aid = ask_id or ("Q-" + str(abs(hash(raw_text)) % 10 ** 8))
+
+        # 1 · ULTRA-MICRO DECOMPOSITION — context carried from the thread, so a
+        #     sentence in a long conversation does not lose who it is about
+        prior = patterns.load_micro(root, limit=thread)
+        ctx = micro.context_from(prior)
+        sense_entries = senses.active(root)
+        seqs = micro.decompose_all(raw_text, aid, ctx, sense_entries)
+
+        # 2 · COMPARE WITH PRIOR SEQUENCES — before storing, so "prior" means
+        #     prior and this ask cannot corroborate itself
+        rel = []
+        for m in seqs:
+            for p in prior:
+                r = micro.relates(m, p)
+                if r["repeat"]:
+                    rel.append({"micro": m["id"], "prior": p["id"],
+                                "prior_ask": p.get("ask", ""),
+                                "prior_sentence": p.get("raw", ""), **r})
+
+        # 3 · WHAT HIS APPROVED PATTERNS SAY, and where this ask goes AGAINST
+        #     one of them
+        hits = patterns.activate(root, seqs)
+        against = patterns.contradictions(root, seqs)
+
+        # 4 · MATCH TO EXISTING IDS — HIS 3,204, from HIS document.
+        #     Was the 18-entry stub registry; his frame is 1-10-8-40 and every
+        #     name here is his own, so a hit is a real name, not an ID number.
+        lit = human_registry.activate(raw_text)
+        # HIS RULING: Human = the physical human, NOT the brain. Words are routed
+        # to his node classes first, and a container may only be reported under
+        # HUMAN BODY if a word actually routed there. "not the brain" is an
+        # explicit boundary, so that layer is reported out of scope.
+        word_routes = domains.route_words(raw_text)
+        # HIS RULING: every claim keeps the status HE gave that KIND of claim,
+        # and no judgment is formed before his chain is walked.
+        claim_rows = claims.read_claims(raw_text)
+        # both of these read the WHOLE ask, for the reason above
+        r_ask = repetition.read_repetition(raw_text)
+        v_ask = repetition.read_views(raw_text)
+        gate = claims.judgment_gate(raw_text)
+        outcome = claims.outcome_note(raw_text)
+        scoped = domains.enforce_scope(lit.get("containers", []), word_routes)
+        lit["by_domain"] = domains.split_by_domain(scoped["in_scope"])
+        lit["containers"] = scoped["in_scope"]
+        lit["out_of_scope"] = scoped["out_of_scope"]
+        reg = ladder.load_registry(root)          # kept: his own uploads live here
+
+        # 5 · ENGINE SELECTION — from the STRUCTURE, never the other way round
+        route = router.route(seqs, raw_text, prior_repeats=len(rel),
+                             approved_hits=len(hits),
+                             conflicting=len({h["pattern"] for h in hits}))
+
+        # 6 · STORE TRACE, then let the repetition surface a candidate
+        stored = patterns.store_micro(root, seqs)
+        surfaced = patterns.refresh_candidates(root)
+
+        # 7 · LOCAL RESULT — the node work and the seven filters, with what his
+        #     approved rubrics say fed in as context
+        notes = "\n".join(
+            f"- {p['id']} {p['name']} (in {p['container_name']}, "
+            f"{p['segment_name']})" for p in lit.get("parameters", [])[:24])
+        hand = {"speaking": lit.get("parameters", []), "forced": [],
+                "deselected": [], "dropped_by_cap": []}
+        run_text = raw_text
+        if notes:
+            run_text += ("\n\n[the human sub-parameters this ask touched, from "
+                         "his Human Functional Registry]:\n" + notes)
+        if hits:
+            run_text += "\n\n[his approved patterns bearing on this]:\n" + "\n".join(
+                f"- {h['name']}: {h['his_interpretation']} ({h['outcome']})"
+                for h in hits[:6])
+        walk = self.run_walk(run_text, model=model)
+
+        return {"ask": aid, "raw": raw_text,
+                "senses_fired": [o for m in seqs
+                                 for o in m.get("semantic_overrides", [])],
+                "senses": senses.stats(root),
+                "micro_sequences": seqs, "stored": stored,
+                "relations_to_prior": rel,
+                "pattern_hits": hits, "contradictions": against,
+                "rubrics_lit": lit, "rubric_hand": hand,
+                "registry": human_registry.stats(),
+                "word_routes": word_routes,
+                "domains": domains.stats(),
+                "claims": claim_rows,
+                "judgment_gate": gate,
+                "outcome_note": outcome,
+                "his_named_patterns": claims.HIS_PATTERNS,
+                # ASK-LEVEL, not per sentence. A repetition and the knowledge
+                # state that makes it interesting are usually in DIFFERENT
+                # sentences ("checks five times" … "he knows he already
+                # checked it"), and the actor's view and the observer's view
+                # almost always are. Read per sentence, they never meet.
+                "repetition": ([r_ask] if r_ask.get("applies") else []),
+                "views": ([v_ask] if v_ask.get("views") else []),
+                "repetition_per_sentence": [
+                    m.get("repetition_reading", {}) for m in seqs
+                    if m.get("repetition_reading", {}).get("applies")],
+                "repetition_stats": repetition.stats(),
+                "route": route,
+                "candidates": surfaced,
+                "open_candidates": [c for c in patterns.load_candidates(root)
+                                    if c["status"] == "candidate"],
+                "threshold": patterns.threshold_reading(root),
+                "stats": patterns.stats(root),
+                "walk": walk}
+
     def run_recursive(self, raw_text: str, loops: int = 3,
                       model: BaseModel | None = None, converge: float = 0.30) -> dict:
         """The RGL (RGL.txt): the loop's shape is invariant, the content
@@ -595,54 +728,76 @@ class SourcebornEngine:
             "loop_count": len(history), "converged": converged, "history": history}}
 
     @staticmethod
-    def _walk_ask(node_id: str, halt: str | None, target: str) -> dict:
-        """The human gate, made explicit: tell the user exactly *what* to give,
-        *why*, *how*, and *when* — so a hold is never a blank 'Evidence'."""
+    def _walk_ask(node_id: str, halt: str | None, target: str,
+                  found: str = "", job: str = "") -> dict:
+        """The human gate, in THIS node's terms.
+
+        HIS CORRECTION: every hold showed the same four lines, so SB-55
+        High-Risk Merge Review and SB-56 Override Ledger asked for identical
+        things and neither said what it was actually doing. "just shit, how a
+        human read what is ask of system here" — he was right.
+
+        So every ask now carries the node's OWN job and the node's OWN finding.
+        The halt type still shapes what is needed; the node says why IT is
+        asking."""
         h = halt or ""
+        base = {"node": node_id, "job": job or "(no job recorded for this node)",
+                "found": (found or "").strip()[:300] or "(nothing recorded)"}
+
+        def ask(what, why, how, when, options):
+            return {**base, "what": what, "why": why, "how": how, "when": when,
+                    "options": options, "for": target}
         if h == HaltType.EVIDENCE.value or node_id == "SB-33":
-            return {"what": "A current source or data point that backs the claim",
-                    "why": "The claim isn't grounded in live fact yet (stays Low)",
-                    "how": "Paste a link, figure or number below — or upload the source file",
-                    "when": "Now — before it can be rated FACT",
-                    "options": ["Paste a source/number, then Add data & re-run",
-                                "Mark it a Belief (unproven) and continue",
-                                "Re-loop this node to search again"],
-                    "for": target}
+            return ask(
+                f"A source or data point for what {node_id} is checking: "
+                + (job or target),
+                f"{node_id} ({target}) reported: {base['found']} — so it is "
+                "not grounded in live fact yet and stays Low",
+                "Paste a link, figure or number below — or upload the source "
+                "file. It goes to THIS node and the node re-runs.",
+                "Now — before this node's finding can be rated FACT",
+                [f"Paste a source for {target}, then Add data & re-run",
+                 "Mark THIS finding a Belief (unproven) and continue",
+                 f"Re-loop {node_id} to search again"])
         if h == HaltType.SAFETY.value:
-            return {"what": "The legitimate context / authorization",
-                    "why": "This touches a hard safety line — it is mapped, never executed",
-                    "how": "State who you are and the lawful purpose",
-                    "when": "Before anything proceeds",
-                    "options": ["State who you are + lawful purpose",
-                                "Keep it mapped only (don't execute)",
-                                "Drop this line and re-loop"],
-                    "for": target}
+            return ask(
+                "The legitimate context / authorization",
+                f"{node_id} ({target}) hit a hard safety line: {base['found']} "
+                "— it is mapped, never executed",
+                "State who you are and the lawful purpose",
+                "Before anything proceeds",
+                ["State who you are + lawful purpose",
+                 "Keep it mapped only (don't execute)",
+                 "Drop this line and re-loop"])
         if h == HaltType.LOGIC.value:
-            return {"what": "Proof for the absolute claim, or softer wording",
-                    "why": "An over-claim (always / never / guaranteed) was detected",
-                    "how": "Give a counter-example test, or qualify the statement",
-                    "when": "Now",
-                    "options": ["Soften the absolute (drop always/never)",
-                                "Give a counter-example test",
-                                "Approve as a Claim, not a Fact"],
-                    "for": target}
+            return ask(
+                "Proof for the absolute claim, or softer wording",
+                f"{node_id} ({target}) found an over-claim: {base['found']}",
+                "Give a counter-example test, or qualify the statement",
+                "Now",
+                ["Soften the absolute (drop always/never)",
+                 "Give a counter-example test",
+                 "Approve as a Claim, not a Fact"])
         if node_id == "SB-40":
-            return {"what": "Your approval to merge the connected sources",
-                    "why": "Two or more sources recur — a merge needs a human gate",
-                    "how": "Approve to combine them, or re-loop to keep them separate",
-                    "when": "Now",
-                    "options": ["Approve the merge",
-                                "Keep sources separate (re-loop)",
-                                "Add a third source first"],
-                    "for": target}
-        return {"what": "Your read on whether this holds",
-                "why": "Doubt bit or the node didn't sit right",
-                "how": "Add a note/data, re-loop, or approve as-is",
-                "when": "Now",
-                "options": ["Approve as-is",
-                            "Add a note/data, then re-run",
-                            "Re-loop this node"],
-                "for": target}
+            return ask(
+                "Your approval to merge the connected sources",
+                f"{node_id} ({target}) found: {base['found']} — two or more "
+                "sources recur, and a merge needs a human gate",
+                "Approve to combine them, or re-loop to keep them separate",
+                "Now",
+                ["Approve the merge", "Keep sources separate (re-loop)",
+                 "Add a third source first"])
+        return ask(
+            f"Your read on {node_id}'s finding — its job is: "
+            + (job or target),
+            f"{node_id} ({target}) reported: {base['found']}"
+            + (f" · halt: {h}" if h else " · no halt named, it just did not sit"),
+            "Add a note or data for THIS node, re-loop it, or approve its "
+            "finding as it stands",
+            "Now",
+            [f"Approve {node_id}'s finding as-is",
+             f"Add a note/data for {node_id}, then re-run",
+             f"Re-loop {node_id}"])
 
     def run_walk(self, raw_text: str, model: BaseModel | None = None,
                  live_override: str | None = None) -> dict:
@@ -698,6 +853,20 @@ class SourcebornEngine:
             cfg = self.brains.get(sb_id)
             name = cfg.name if cfg else sb_id
             node = sb_by_id(sb_id)
+            _job = getattr(node, "purpose", "") or ""   # the node map's own words
+            # WHAT THIS NODE ACTUALLY TOOK — the content, not a description of
+            # it. SB-01 takes the raw source verbatim; that is Point Zero and he
+            # has to be able to read it to correct it.
+            if sb_id in ("SB-01", "SB-04"):
+                _took = "POINT ZERO, exactly as you wrote it:\n" + ctx.raw_text
+            elif sb_id == "SB-02":
+                _took = "the raw ask, to separate into channels:\n" + ctx.raw_text
+            elif ctx.channels:
+                _took = "the ask, separated into channels: " + " | ".join(
+                    f"{k}: {'; '.join(v)[:90]}" for k, v in
+                    list(ctx.channels.items())[:4])
+            else:
+                _took = ctx.raw_text[:400]
             try:
                 f = SB_WORK[sb_id](ctx)
             except Exception as exc:                 # a node must never kill the walk
@@ -759,13 +928,16 @@ class SourcebornEngine:
                 ctx.holds_so_far.append(f"{sb_id}: {why[:60]}")
                 holds.append({"sb_id": sb_id, "name": name, "urr_id": gate,
                               "why": why, "halt": halt,
-                              "ask": self._walk_ask(sb_id, halt, name)})
+                              "ask": self._walk_ask(sb_id, halt, name,
+                                                    found=f.text,
+                                                    job=_job)})
             steps.append(NodeStep(
                 sb_id=sb_id, sb_name=name, action="node_work", urr_id=gate,
                 verdict=verdict, halt=f.halt, why=f.text[:220],
                 memory_written=True, can_loop_back=(verdict == "hold"),
                 matrix_pass=len(gates) - len(flags),
-                matrix_flags=[f"{u}:{c}" for u, c in flags.items()]))
+                matrix_flags=[f"{u}:{c}" for u, c in flags.items()],
+                job=_job, took=_took, produced=f.text[:400]))
 
         def run_urr(urr_id: str, sb_ids: tuple[str, ...],
                     sink: list[dict]) -> URRReview:
