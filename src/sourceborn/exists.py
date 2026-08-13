@@ -150,6 +150,33 @@ MAP: list[dict] = [
             "Nothing enters the bank, chosen stays None, and motive-inference "
             "confidence stays LOW. /intents, POST /intents/run, and the live "
             "block on /generation."},
+   {"his": "Falsifier / What would flip it",
+    "where": [("intent_ledger.py", "def kill("),
+              ("intent_ledger.py", "def survivors("),
+              ("intent_ledger.py", "def signature("),
+              ("intent_ledger.py", "def promote("),
+              ("intent_ledger.py", "def semantic_loss("),
+              ("intent_ledger.py", "def namespaces(")],
+    "state": RUNS,
+    "note": "the killing step, and it is his. His LIVE_INTENT_ENGINE sheet fills "
+            "a falsifier on all ten candidates beside Support and Counterexample "
+            "counts, which is the survivor stage I had reported missing. A "
+            "candidate dies two ways, both his: its falsifier is met, or "
+            "counterexamples reach support. NOTHING IS DELETED — a killed row "
+            "keeps its falsifier and the reason it died. An UNTESTED candidate is "
+            "reported untested, never as a survivor. His rule 4 is enforced by "
+            "building the novelty signature from state_change/target/constraint "
+            "and NEVER from the intent sentence, so a full re-wording returns "
+            "novel=False. Promotion needs evidence + falsifier + recurrence (>=2 "
+            "sequences) + his word, and even then creates no parameter. A "
+            "parameter candidate opens only on REPEATED semantic loss. His "
+            "namespace ruling is enforced: the workbook's 2,000 WB-P ADDRESSES "
+            "and the registry's 3,204 SB-HFR-P PARAMETERS are never merged or "
+            "summed, and map_in refuses to pair S04 (Religion) with SEG-04 "
+            "(Attention) just because the numbers match. His ten states already "
+            "existed here as SP-19..SP-28 and were matched, not re-typed. 13 "
+            "workbook findings reported, 0 corrections to his file. /ledger, "
+            "POST /ledger/run, POST /ledger/kill."},
    {"his": "keep the identity fixed, change the active parameter set, "
            "situation and circumstance",
     "where": [("statepacks.py", "def identity_lock("),

@@ -39,7 +39,7 @@ from . import asi_pyramid
 from . import asipage
 from . import generationpage
 from . import growth
-from . import intents
+from . import intent_ledger, intents
 from . import statepacks
 from . import weighting
 from . import enginepage
@@ -1383,6 +1383,15 @@ class Handler(BaseHTTPRequestHandler):
                  "links": {k: v["reachable_from"]
                            for k, v in intents.motive_links().items()}}).encode(),
                 "application/json")
+        elif path == "/ledger":
+            # his LIVE_INTENT_ENGINE + INTENT_LEDGER: one event, ten states, ten
+            # falsifiers, nothing chosen — and the workbook audit beside it
+            self._send(200, json.dumps(
+                {"stats": intent_ledger.stats(),
+                 "run": intent_ledger.his_run(),
+                 "from_core": intent_ledger.from_core(),
+                 "audit": intent_ledger.workbook_audit()}).encode(),
+                "application/json")
         elif path == "/weighting":
             # this module was reachable from nothing; it is reachable now
             self._send(200, json.dumps(weighting.stats()).encode(),
@@ -1793,6 +1802,23 @@ class Handler(BaseHTTPRequestHandler):
                 conditional=bool(data.get("conditional")),
                 conflict=bool(data.get("conflict")))
             self._send(200, json.dumps(res).encode(), "application/json")
+            return
+        if self.path == "/ledger/run":
+            # his ten candidates, gated. `verdicts` is optional: with none handed
+            # in, every candidate comes back UNTESTED rather than as a survivor.
+            self._send(200, json.dumps(
+                intent_ledger.his_run(data.get("verdicts") or None)).encode(),
+                "application/json")
+            return
+        if self.path == "/ledger/kill":
+            # the survivor stage: evidence -> contradiction -> falsification.
+            # Nothing is deleted; a killed row keeps its falsifier and its reason.
+            cands = [intent_ledger.candidate(c)
+                     for c in (data.get("candidates") or
+                               list(intent_ledger.HIS_CANDIDATES))]
+            self._send(200, json.dumps(intent_ledger.survivors(
+                cands, data.get("verdicts") or None)).encode(),
+                "application/json")
             return
         if self.path == "/weighting/run":
             ask = (data.get("ask") or "").strip()

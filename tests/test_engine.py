@@ -3435,7 +3435,9 @@ def test_the_body_pack_reaches_below_reasoning():
 
 def test_ten_event_forks_and_none_is_chosen():
     from sourceborn import statepacks as S
-    assert len(S.EVENT_FORKS) == 10
+    # ten from his King sequences + ADVISOR_PRIVATE_MEETING from the
+    # ASI0001_tablet_run workbook. Nothing was removed to make room for it.
+    assert len(S.EVENT_FORKS) == 11
     tot = 0
     for name in S.EVENT_FORKS:
         f = S.fork_event(name)
@@ -3444,7 +3446,10 @@ def test_ten_event_forks_and_none_is_chosen():
         assert f["refuses"]
         assert f["law"] == "VISIBLE ACTION != HIDDEN INTENT"
         tot += f["count"]
-    assert tot == 40, tot
+    assert tot == 50, tot
+    adv = S.fork_event("ADVISOR_PRIVATE_MEETING")
+    assert adv["count"] == 10, "one route per brain-state of the same king"
+    assert "SAME EVENT != SAME INTENT" in adv["refuses"]
     tax = S.fork_event("RAISE_TAX")
     assert "GREED automatically" in tax["refuses"]
     assert "where does the money actually go?" in tax["still_open"]
@@ -3720,8 +3725,9 @@ def test_the_seed_is_computed_from_the_modules_and_is_idempotent():
     by = s1["counts"]["by_kind"]
     assert by[G.ADDRESS] == 58, "every container x state pair generated"
     assert by[G.RUBRIC] == 25, "his 25 universal dimensions"
-    assert by[G.INTENT_ROUTE] == 40, "his forty intent routes"
-    assert by[G.EVENT] == 10
+    assert by[G.INTENT_ROUTE] == 50, "40 King routes + his 10 advisor-meeting ones"
+    assert by[G.EVENT] == 11
+    assert by[G.RULE] == 18, "10 + his 7 live-intent rules + the namespace ruling"
     assert by[G.STATE] == 6
     assert by[G.PARAM] == 3, "the three motives with no echo in the bank"
     # the three that got a home
@@ -3752,6 +3758,185 @@ def test_the_growth_routes_are_reachable():
     for route in ('"/growth"', '"/growth/add"', '"/growth/seed"'):
         assert route in src, route
     assert "growth" in src
+
+
+# ---------------------------------------------------------------------------
+# THE LIVE INTENT LEDGER AND THE KILL — his ASI0001_tablet_run_LIVE_INTENT_v2
+# workbook. The falsifier column he filled is the survivor stage.
+# ---------------------------------------------------------------------------
+
+def test_his_ten_candidates_are_one_event_ten_states_none_chosen():
+    from sourceborn import intent_ledger as L
+    r = L.his_run()
+    assert len(L.HIS_CANDIDATES) == 10
+    assert r["one_event"] is True
+    assert r["event"] == "Advisor requests a private meeting"
+    assert r["chosen"] is None
+    assert len({c["state"] for c in r["candidates"]}) == 10, "ten distinct states"
+    assert len({c["event"] for c in r["candidates"]}) == 1, "one event"
+    # HOLD is a valid resting state — his own gate says so
+    assert all(c["user_decision"] == "HOLD" for c in r["candidates"])
+    assert all(c["canonical"] is False for c in r["candidates"])
+    assert all(c["in_bank"] is False for c in r["candidates"])
+
+
+def test_every_candidate_names_what_would_flip_it():
+    """The killing step needs a target. His sheet supplies one per row."""
+    from sourceborn import intent_ledger as L
+    r = L.his_run()
+    assert r["all_falsifiable"] is True
+    for c in r["candidates"]:
+        assert c["falsifier"], c["id"]
+        assert c["falsifiable"] is True
+
+
+def test_a_candidate_with_no_falsifier_cannot_be_killed_and_says_so():
+    from sourceborn import intent_ledger as L
+    bare = dict(L.HIS_CANDIDATES[0])
+    bare["falsifier"] = ""
+    c = L.candidate(bare)
+    assert c["falsifiable"] is False
+    out = L.kill(c, falsifier_met=True, counterexamples=99)
+    assert out["cannot_be_killed"] is True
+    assert out["survives"] is True, "nothing can reach it"
+    assert "defect in the candidate, not a strength" in out["why"]
+
+
+def test_the_kill_eliminates_on_evidence_and_deletes_nothing():
+    """generate -> evidence -> contradiction -> falsification -> survivor set."""
+    from sourceborn import intent_ledger as L
+    r = L.his_run(verdicts={
+        "LI-002": {"falsifier_met": True,
+                   "evidence": "the advisor arrives with a written challenge"},
+        "LI-004": {"falsifier_met": False, "counterexamples": 0},
+        "LI-006": {"counterexamples": 2, "evidence": "two reports of normal work"},
+    })
+    assert r["counts"]["generated"] == 10
+    assert r["counts"]["killed"] == 2, r["counts"]
+    assert r["counts"]["survived"] == 1, r["counts"]
+    assert r["counts"]["untested"] == 7, "not tested is not survived"
+    assert r["counts"]["deleted"] == 0
+    assert r["survivor_set"] == ["LI-004"]
+    assert set(r["killed_set"]) == {"LI-002", "LI-006"}
+    dead = [c for c in r["candidates"] if c["status"] == L.KILLED]
+    for d in dead:
+        assert d["deleted"] is False and d["row_kept"] is True
+        assert d["falsifier"], "a killed row keeps what would have flipped it"
+        assert d["killed_by"]
+    # killed two different ways, both his
+    by = {d["id"]: d["why"] for d in dead}
+    assert "falsifier met" in by["LI-002"]
+    assert "counterexamples (2) reached support (1)" in by["LI-006"]
+
+
+def test_new_wording_is_not_novelty():
+    """His rule 4, and the reason the signature excludes the intent sentence."""
+    from sourceborn import intent_ledger as L
+    base = dict(L.HIS_CANDIDATES[3])
+    reworded = dict(base, id="X-REWORDED",
+                    intent="Treat the private meeting as a chance to check "
+                           "whether the advisor can be relied on before handing "
+                           "him more power.")
+    n = L.novelty(reworded, [base])
+    assert n["novel"] is False
+    assert n["collides_with"] == base["id"]
+    assert n["wording_differs"] is True
+    assert "wording is not novelty" in n["why"]
+    # change what it PREDICTS and it is new
+    changed = dict(base, id="X-CHANGED",
+                   state_change="remove the advisor from the channel entirely",
+                   target="the court, not the advisor")
+    assert L.novelty(changed, [base])["novel"] is True
+    assert "intent" not in L.BEHAVIOUR_FIELDS, "novelty is never judged on wording"
+
+
+def test_promotion_requires_recurrence_evidence_falsifier_and_his_word():
+    from sourceborn import intent_ledger as L
+    c = L.candidate(dict(L.HIS_CANDIDATES[0]))
+    p = L.promote(c)
+    assert p["promoted"] is False and p["canonical"] is False
+    assert p["new_parameter_created"] is False
+    joined = " | ".join(p["unmet"])
+    assert "recurrence" in joined and "user approval" in joined
+    assert "R-F-R" in joined and "evidence" in joined
+    # one sequence is not recurrence
+    assert L.promote(c, sequences_seen=1, evidence=True, rfr_passed=True,
+                     user_approved=True)["promoted"] is False
+    ok = L.promote(c, sequences_seen=2, evidence=True, rfr_passed=True,
+                   user_approved=True)
+    assert ok["promoted"] is True and ok["unmet"] == []
+    assert ok["new_parameter_created"] is False, "new intent != new parameter"
+
+
+def test_a_parameter_opens_only_on_repeated_semantic_loss():
+    from sourceborn import intent_ledger as L
+    # expressible in his existing rows -> no new parameter, however often it fails
+    have = L.semantic_loss("reduce hidden-threat uncertainty before granting "
+                           "influence", failures=5)
+    assert have["expressible_in_existing_vocabulary"] is True
+    assert have["opens_parameter_candidate"] is False
+    assert have["matched_rows"]
+    # nowhere in the bank, but only one failure -> his rule says REPEATEDLY
+    once = L.semantic_loss("flarnak the zibbering wompus", failures=1)
+    assert once["expressible_in_existing_vocabulary"] is False
+    assert once["opens_parameter_candidate"] is False
+    assert "REPEATEDLY" in once["why"] or "Not yet" in once["why"]
+    twice = L.semantic_loss("flarnak the zibbering wompus", failures=2)
+    assert twice["opens_parameter_candidate"] is True
+
+
+def test_the_two_banks_are_never_merged():
+    """His ruling: do not silently merge namespaces."""
+    from sourceborn import intent_ledger as L
+    ns = L.namespaces()
+    assert ns["merged"] is False
+    assert ns["workbook"]["count"] == 2000 and ns["workbook"]["unit"] == "ADDRESS"
+    assert ns["registry"]["count"] == 3204 and ns["registry"]["unit"] == "PARAMETER"
+    assert ns["workbook"]["count"] + ns["registry"]["count"] != 3204 + 0
+    assert "must never be summed" in ns["collision"]
+    # and the segment ids collide too — ordinal position is NOT a mapping
+    m = L.map_in("S04")
+    assert m["workbook_name"] == "Religion, Ritual & Cosmology"
+    assert m["registry_same_ordinal_name"] == "Attention and Executive Control"
+    assert m["same_subject"] is False and m["mapped"] is False
+    assert m["merged"] is False
+    assert "Ordinal position is not a mapping" in m["held_for_him"]
+
+
+def test_his_ten_states_already_exist_in_the_core():
+    """mostly wording meaning are are exist in the core — so match, don't retype."""
+    from sourceborn import intent_ledger as L
+    r = L.from_core()
+    assert r["counts"]["his_candidates"] == 10
+    assert r["counts"]["states_matched_to_packs"] == 10
+    assert r["counts"]["states_missing_from_core"] == 0
+    assert r["counts"]["native_parameters_added"] == 0
+    packs = [row["pack"] for row in r["rows"]]
+    assert packs == ["SP-%d" % n for n in range(19, 29)]
+    # the generated count is a function of what is plugged in, per state
+    counts = {row["pack"]: row["intents_generated"] for row in r["rows"]}
+    assert counts["SP-24"] < counts["SP-27"], "exhausted raises fewer than divided"
+    assert all(v > 0 for v in counts.values())
+
+
+def test_the_workbook_findings_are_reported_not_corrected():
+    from sourceborn import intent_ledger as L
+    a = L.workbook_audit()
+    assert a["sheets"] == 19
+    assert a["counts"]["corrections_made_to_his_file"] == 0
+    assert a["counts"]["findings"] == a["counts"]["verified"] == 13
+    txt = " ".join(f["finding"] + f["consequence"] for f in L.WORKBOOK_FINDINGS)
+    assert "K001 Lawgiver" in txt, "the dashboard's leading hypothesis at score 0"
+    assert "P1999 and P2000" in txt, "the SUMIF range is off by two"
+    assert "ABS(" in txt, "a contradicted score reads as strong"
+    assert "16 / 18 / 19" in txt, "three counts of the same file"
+    assert "F04" in txt and "F03" in txt, "his family ids against his own sheet"
+
+
+def test_the_ledger_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/ledger"', '"/ledger/run"', '"/ledger/kill"'):
+        assert route in src, route
 
 
 def _run_all():

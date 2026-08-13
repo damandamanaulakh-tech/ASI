@@ -529,6 +529,29 @@ EVENT_FORKS = {
                "religious authority", "information networks"],
    "refuses": "FORMAL POWER != FUNCTIONAL POWER. OFFICIAL ROLE ENDS != "
               "INFLUENCE ENDS."},
+ # The eleventh, from his ASI0001_tablet_run_LIVE_INTENT_v2 workbook. Its ten
+ # routes are one per brain-state of the SAME king — the only fork here where the
+ # route is selected by the actor's state rather than by the resource flow, and
+ # the only one where every route arrives with a falsifier. Held in full in
+ # `intent_ledger.HIS_CANDIDATES`.
+ "ADVISOR_PRIVATE_MEETING": {
+   "routes": ["insecure legitimacy -> obtain visible confirmation of authority",
+              "secure legitimacy -> gather decision-relevant information",
+              "grieving -> narrow or defer to protect essential duty",
+              "suspicious after betrayal -> verify the advisor's account",
+              "trusting after reliability -> receive what cannot be said publicly",
+              "exhausted -> defer irreversible commitments",
+              "victory-elevated -> explore expansion, but check the confidence",
+              "defeat-shaken -> separate controllable causes from noise",
+              "divided loyalty -> expose which obligations conflict",
+              "legacy-anxious -> test whether the decision survives his absence"],
+   "open": ["who asked for privacy — the king or the advisor?",
+            "what does the advisor gain from the setting?",
+            "is the meeting about the issue or about the relationship?"],
+   "asks": ["WHAT STATE IS THE KING IN?", "WHAT WOULD FLIP THIS READING?"],
+   "refuses": "SAME EVENT != SAME INTENT. A private meeting reads ten different "
+              "ways on ten states of the same man, and each reading names what "
+              "would flip it."},
 }
 
 

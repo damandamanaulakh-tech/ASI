@@ -519,6 +519,54 @@ of his own CLAUDE.md and concern what the engine *executes*, not how the paramet
 set grows — not silently read into an instruction about growth; his call if he
 wants it changed.
 
+**THE KILLING STEP IS CLOSED, AND HE SUPPLIED IT (2026-08-13) —
+`intent_ledger.py`, `/ledger`.** *"merge this one too / and read the file as
+well"* — `ASI0001_tablet_run_LIVE_INTENT_v2.xlsx`, 19 sheets, read whole. At the
+end of the last build I reported one gap open: *nothing eliminates a fork on
+evidence; generate → evidence → contradiction → falsification → survivor set has
+no survivor stage, in the code or in his workbook.* **His `LIVE_INTENT_ENGINE`
+sheet carries the column I did not have — `Falsifier / What would flip it` — and
+it is FILLED on all ten candidates**, beside Support and Counterexample counts.
+Canon at `docs/method/canon/THE_LIVE_INTENT_LEDGER_AND_THE_KILL.md`. What he ran:
+**ONE actor · ONE event ("Advisor requests a private meeting") · TEN brain-states ·
+TEN intents · NONE chosen**, deltas 0.73–0.99, HOLD on every row. **His ten states
+already existed here as SP-19..SP-28, so they were MATCHED, not re-typed** — his
+own rule; `from_core()` proves the join (10 of 10, 0 missing, 663 candidates
+raised). What was new is the EVENT: `ADVISOR_PRIVATE_MEETING` is the **11th**
+`EVENT_FORKS` entry, the only one whose route is selected by the actor's *state*
+rather than the resource flow. **The kill runs two ways, both his** — the falsifier
+is met, or counterexamples reach support — and **NOTHING IS DELETED**: a killed row
+keeps its falsifier and the reason it died. **An UNTESTED candidate is reported
+untested, never as a survivor** ("nobody checked" is not "it held"). **His rule 4
+has teeth because the novelty signature is built from `state_change · target ·
+constraint` and NEVER from the intent sentence** — a full re-wording returns
+`novel: False`, and a test pins it. Promotion needs evidence + falsifier +
+recurrence (≥2 sequences) + his word, and **even when it passes it creates no
+parameter**; a parameter candidate opens only on **REPEATED** semantic loss (rule
+7). **His namespace ruling closed the seam I had left open:** he calls the 2,000
+ADDRESSES himself and rules *do not silently merge namespaces*, so `WB-P` (2,000
+addresses) and `SB-HFR-P` (3,204 parameters) are never merged or summed — and
+`map_in()` **refuses to pair S04 (Religion, Ritual & Cosmology) with SEG-04
+(Attention and Executive Control)** just because the numbers match; the real
+correspondence is held for him. **13 workbook findings, 0 corrections to his
+file** — the load-bearing one: **the tablet engine computes zero.** All 100
+characters score 0/Weak/Hold, the RANK tie-break makes rank equal row order, and
+the DASHBOARD therefore reports **"K001 Lawgiver"** as the leading hypothesis while
+his `ASI-0001_RUN` sheet names Priest-King / Divine Son — the run was reasoned in
+prose and never entered the machinery. Also: the `$B$2:$B$2001` range still
+excludes **P1999 and P2000**; `ABS()` in both confidence bands makes a contradicted
+score read *"Very strong"*; 60 loop nodes `Not started`, 500 evidence rows
+`Unverified`, 500 memory nodes `Unused` **including the Falsifier column**; and
+three counts of the same file (16 / 18 / 19). Growth seed **199 → 218** (EVENT
+10→11, INTENT_ROUTE 40→50, RULE 10→18); **PARAM stays 3, the bank stays 3,207 —
+nothing was added to it.** A hardcoded event list in the page JS would have kept
+his 11th event invisible; the page now takes the list from the server. 217 tests
+green, 158 WHAT EXISTS anchors resolve. **Left open and stated:** the survivor
+stage runs on verdicts handed in per call — there is no persisted evidence ledger
+accumulating support and counterexamples across sessions, which is what his 500
+empty evidence rows and 500 empty memory nodes are for; and `ARD_5_LOOPS`, his
+five-loop reverse/forward walk, is not in this core at all.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

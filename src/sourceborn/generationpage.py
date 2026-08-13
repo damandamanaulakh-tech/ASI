@@ -71,22 +71,69 @@ ul{margin:4px 0 0 18px;padding:0}li{margin:2px 0}
     <button id=run>GENERATE</button>
   </div>
   <div id=out></div>
+  <div id=led></div>
 </main>
 <script>
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,
   c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
-const EVENTS=["RAISE_TAX","LOWER_TAX","RELEASE_PRISONERS","CENSUS",
-"BUILD_ROAD","CHANGE_LANGUAGE","DESTROY_MONUMENT","REFUSE_WAR",
-"APPOINT_RIVAL","ABDICATE"];
-
+// the event list comes from the server, never from a copy typed in here — a
+// hardcoded list is how his eleventh event would have stayed invisible
 async function boot(){
   const r=await fetch('/generation/packs'); const d=await r.json();
   document.getElementById('pack').innerHTML=d.packs.map(p=>
     `<option value="${esc(p.id)}">${esc(p.id)} &middot; ${esc(p.name)} &middot; MODEL ${esc(p.model)}</option>`).join('');
-  document.getElementById('ev').innerHTML+=EVENTS.map(e=>
-    `<option value="${e}">${e.replace(/_/g,' ')}</option>`).join('');
+  document.getElementById('ev').innerHTML+=(d.events||[]).map(e=>
+    `<option value="${esc(e)}">${esc(String(e).replace(/_/g,' '))}</option>`).join('');
+  ledger();
   go();
+}
+
+// HIS LIVE INTENT LEDGER — one event, ten states, ten falsifiers, none chosen
+async function ledger(){
+  let d; try{ d=await (await fetch('/ledger')).json(); }catch(e){ return; }
+  const r=d.run, c=r.counts, o=[];
+  o.push('<h2>HIS LIVE INTENT LEDGER &mdash; ONE EVENT, TEN STATES, TEN FALSIFIERS</h2>'+
+    `<div class=card><div class=lock>&ldquo;${esc(r.event)}&rdquo;</div>`+
+    `<div class=mine>actor: ${esc(r.actor)} &middot; shell ${esc(r.event_shell)}</div>`+
+    '<div class=count style=margin-top:8px>'+
+    `<div><div class=k>CANDIDATES</div><b>${c.generated}</b></div>`+
+    `<div><div class=k>FALSIFIABLE</div><b class=zero>${r.all_falsifiable?c.generated:'NO'}</b></div>`+
+    `<div><div class=k>TESTED</div><b>${c.tested}</b></div>`+
+    `<div><div class=k>KILLED</div><b>${c.killed}</b></div>`+
+    `<div><div class=k>SURVIVED</div><b>${c.survived}</b></div>`+
+    `<div><div class=k>UNTESTED</div><b>${c.untested}</b></div>`+
+    `<div><div class=k>DELETED</div><b class=zero>${c.deleted}</b></div>`+
+    `<div><div class=k>CANONICAL</div><b class=zero>${d.stats.canonical_intents}</b></div>`+
+    `</div><div class=law style=margin-top:6px>${esc(r.law)}</div>`+
+    `<div class=mine>${esc(r.refuses)}</div></div>`);
+  o.push('<div class=card><table><tr><th>id</th><th>brain-state</th>'+
+    '<th>pack here</th><th>the intent he generated</th><th>&Delta;</th>'+
+    '<th>what would flip it</th><th>status</th></tr>'+
+    r.candidates.map(x=>`<tr><td class=pid>${esc(x.id)}</td>`+
+      `<td>${esc(x.state)}</td><td class=mine>${esc(x.pack)}</td>`+
+      `<td>${esc(x.intent)}</td><td class=mine>${esc(x.novelty_delta)}</td>`+
+      `<td class=mine>${esc(x.falsifier)}</td>`+
+      `<td class=${x.status==='KILLED'?'law':'zero'}>${esc(x.status)}`+
+      (x.tested?'':' <span class=mine>untested</span>')+`</td></tr>`).join('')+
+    '</table></div>');
+  const ns=r.namespaces;
+  o.push('<h2>THE TWO BANKS &mdash; MAPPED IN, NEVER MERGED</h2><div class=card><table>'+
+    '<tr><th>bank</th><th>prefix</th><th>count</th><th>unit</th><th>grid</th></tr>'+
+    [ns.workbook,ns.registry].map(b=>`<tr><td>${esc(b.source)}</td>`+
+      `<td class=pid>${esc(b.ns)}</td><td><b>${b.count}</b></td>`+
+      `<td>${esc(b.unit)}</td><td class=mine>${esc(b.grid)}</td></tr>`).join('')+
+    `</table><div class=law>${esc(ns.collision)}</div>`+
+    `<div class=mine>his rule: ${esc(ns.rule)} &middot; merged = ${ns.merged}</div></div>`);
+  const a=d.audit;
+  o.push(`<h2>WHAT HIS WORKBOOK ACTUALLY CONTAINS &mdash; ${a.counts.findings} FINDINGS, ${a.counts.corrections_made_to_his_file} CORRECTIONS</h2>`+
+    '<div class=card><table><tr><th>#</th><th>where</th><th>finding</th>'+
+    '<th>consequence</th></tr>'+
+    a.findings.map(f=>`<tr><td class=pid>${esc(f.id)}</td>`+
+      `<td class=mine>${esc(f.where)}</td><td>${esc(f.finding)}</td>`+
+      `<td class=law>${esc(f.consequence)}</td></tr>`).join('')+
+    `</table><div class=mine>${esc(a.rule)}</div></div>`);
+  document.getElementById('led').innerHTML=o.join('');
 }
 
 function draw(d){

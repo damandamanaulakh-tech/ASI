@@ -203,6 +203,7 @@ def report(root: str) -> dict:
 def seed_items() -> list:
     """Built from the modules, not typed. Each row says what surfaced it."""
     from . import asi_pyramid as P
+    from . import intent_ledger as L
     from . import intents as I
     from . import statepacks as S
     from . import weighting as W
@@ -280,6 +281,17 @@ def seed_items() -> list:
     for k in P.REASON_KINDS:
         it(AXIS, "REASON KIND: " + k, "the mall example", "asi_pyramid",
            "the KIND of reason given for the same event")
+
+    # his LIVE INTENT GENERATION CONTRACT — seven rules from the
+    # ASI0001_tablet_run workbook, plus the namespace ruling that came with them
+    for c in L.CONTRACT:
+        it(RULE, "LIVE INTENT RULE %d" % c["n"],
+           "his ASI0001_tablet_run LIVE_INTENT_ENGINE sheet", "intent_ledger",
+           "%s — %s" % (c["action"], c["meaning"]))
+    it(RULE, "REGISTRY BOUNDARY", "his ASI0001_tablet_run gate table",
+       "intent_ledger", L.NAMESPACE_RULE + " — the workbook's 2,000 addresses and "
+       "the registry's %d parameters are two banks, both written P####"
+       % len(hr.parameters()))
 
     # the three motives with no echo anywhere in the bank — recorded as growth
     # targets rather than left as a note
