@@ -584,7 +584,7 @@ class SourcebornEngine:
 
         The pattern layer never decides intent and never picks his feeling.
         Everything it produces is a candidate for him."""
-        from . import human_registry, ladder, micro, patterns, router, senses
+        from . import domains, human_registry, ladder, micro, patterns, router, senses
         root = self.memory.root
         aid = ask_id or ("Q-" + str(abs(hash(raw_text)) % 10 ** 8))
 
@@ -615,6 +615,15 @@ class SourcebornEngine:
         #     Was the 18-entry stub registry; his frame is 1-10-8-40 and every
         #     name here is his own, so a hit is a real name, not an ID number.
         lit = human_registry.activate(raw_text)
+        # HIS RULING: Human = the physical human, NOT the brain. Words are routed
+        # to his node classes first, and a container may only be reported under
+        # HUMAN BODY if a word actually routed there. "not the brain" is an
+        # explicit boundary, so that layer is reported out of scope.
+        word_routes = domains.route_words(raw_text)
+        scoped = domains.enforce_scope(lit.get("containers", []), word_routes)
+        lit["by_domain"] = domains.split_by_domain(scoped["in_scope"])
+        lit["containers"] = scoped["in_scope"]
+        lit["out_of_scope"] = scoped["out_of_scope"]
         reg = ladder.load_registry(root)          # kept: his own uploads live here
 
         # 5 · ENGINE SELECTION — from the STRUCTURE, never the other way round
@@ -652,6 +661,8 @@ class SourcebornEngine:
                 "pattern_hits": hits, "contradictions": against,
                 "rubrics_lit": lit, "rubric_hand": hand,
                 "registry": human_registry.stats(),
+                "word_routes": word_routes,
+                "domains": domains.stats(),
                 "route": route,
                 "candidates": surfaced,
                 "open_candidates": [c for c in patterns.load_candidates(root)

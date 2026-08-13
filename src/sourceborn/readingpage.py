@@ -280,6 +280,36 @@ function render(d){
   // HIS CORRECTION: "attached details of each 3000 point, add it there instead
   // of just ID numbers." Every row now carries his own name for the thing, the
   // container it lives in, his note on that container, and what modulates it.
+  // HIS RULING: Human = the physical human. Each word goes to ITS OWN brain.
+  const WR=d.word_routes||{};
+  h+='<div class=sec><h2>Which brain each word goes to</h2><span class=n>Human = the physical human, not the brain</span></div>';
+  h+='<div class=blk>'+
+    Object.entries(WR.classes||{}).map(([cls,words])=>
+      '<div class=lane><b>'+esc(cls)+'</b> &nbsp;'+ (words||[]).map(w=>'<span class=chip>'+esc(w)+'</span>').join(' ')+'</div>').join('')+
+    ((WR.excluded||[]).length?('<div class=warnbox style="margin-top:8px">'+
+      WR.excluded.map(e=>'&ldquo;'+esc(e.text)+'&rdquo; &rarr; <b>'+esc(e.excludes)+
+      '</b> is <b>OUT of scope</b> for this ask &mdash; '+esc(e.why)).join('<br>')+'</div>'):'')+
+    ((WR.his_targets||[]).length?('<div class=note style="margin-top:8px">CONTAINERS YOU NAMED YOURSELF (not lexical hits):</div>'+
+      WR.his_targets.filter(t=>t.container).map(t=>'<div class=lane><b>'+esc(t.container)+
+      '</b> from &ldquo;'+esc(t.trigger)+'&rdquo; <span class=note>&mdash; '+esc(t.why)+'</span></div>').join('')):'')+
+    '<div class=note style="margin-top:8px">'+esc(WR.rule||'')+'</div></div>';
+  const BD=lit.by_domain||{};
+  if(Object.keys(BD).length){
+    h+='<div class=sec><h2>Container hits, split by brain</h2><span class=n>your source records untouched &mdash; this is an overlay</span></div>';
+    h+='<div class=blk>'+Object.entries(BD).map(([dom,cs])=>
+      '<div class=ms><div class=raw>'+esc(dom)+'</div>'+
+      cs.map(c=>'<div class=lane><b>'+esc(c.id)+'</b> '+esc(c.name)+
+        (c.his_assignment?' <span class="badge ok">you named it</span>':'')+
+        (c.mixed?' <span class="badge warn">MIXED</span>':'')+
+        '<div class=note>'+esc(c.reason||'')+'</div>'+
+        (c.mixed?'<div class=warnbox>'+esc(c.mixed)+'</div>':'')+'</div>').join('')+
+      '</div>').join('')+'</div>';
+  }
+  if((lit.out_of_scope||[]).length){
+    h+='<div class=blk><div class=note>MOVED OUT OF SCOPE &mdash; kept with the reason, never deleted, so you can see the machine\'s first reading beside the corrected one:</div>'+
+      lit.out_of_scope.map(c=>'<div class=lane><b>'+esc(c.id)+'</b> '+esc(c.name)+
+        ' <span class=note>['+esc(c.domain)+'] &mdash; '+esc(c.why_out||'')+'</span></div>').join('')+'</div>';
+  }
   const R=d.registry||{};
   h+='<div class=blk>'+
     '<div class=note style="margin-bottom:8px">Matched against <b>'+esc(String(R.parameters||0))+

@@ -2309,6 +2309,107 @@ def test_senses_routes_serve_and_teach_over_http():
 
 
 
+def test_human_means_the_physical_human_not_the_brain():
+    """His ruling: "Human = the physical human: body, appearance, biological
+    condition, safety, survival, ageing/life-extension, physical capacity.
+    Human is not the thinking/memory/reasoning brain."
+    """
+    from sourceborn import domains as D, human_registry as HR
+    q = ("A good person left with memories of their beloved and "
+         "responsibility keep them safe and alive")
+    w = D.route_words(q)
+    cls = w["classes"]
+    # his arrow chart, word for word
+    assert "good" in cls[D.VALUE_WISDOM]
+    assert "person" in cls[D.HUMAN_PHYSICAL]
+    assert "safe" in cls[D.HUMAN_PHYSICAL]
+    assert "alive" in cls[D.HUMAN_PHYSICAL]
+    assert "memories" in cls[D.BRAIN_MIND]
+    assert "beloved" in cls[D.RELATION_AFFECT]
+    assert "responsibility" in cls[D.RULE_DUTY]
+    assert "left with" in cls[D.RESULT_CONSEQUENCE]
+    # and the five things that are NOT Human physical, by his rule
+    for word in ("memories", "beloved", "responsibility", "good"):
+        assert word not in cls.get(D.HUMAN_PHYSICAL, []), word
+
+    # the containers HE named by hand — lexical overlap cannot find these
+    named = {t["container"] for t in w["his_targets"] if t["container"]}
+    assert {"CON-006", "CON-001", "CON-008"} <= named
+    sc = D.enforce_scope(HR.activate(q)["containers"], w)
+    human = [c for c in sc["in_scope"] if c["domain"] == D.HUMAN_PHYSICAL]
+    hids = {c["id"] for c in human}
+    assert {"CON-001", "CON-006", "CON-008"} <= hids
+    assert any(c.get("his_assignment") for c in human)
+    # memory stays in its own brain, never under Human
+    brain = {c["id"] for c in sc["in_scope"] if c["domain"] == D.BRAIN_MIND}
+    assert "CON-033" in brain               # Episodic Memory
+    assert not (brain & hids)               # the two never overlap
+
+
+def test_not_the_brain_is_an_explicit_boundary():
+    """His second test sentence, and the EXCLUSION / BOUNDARY node it needs."""
+    from sourceborn import domains as D, human_registry as HR
+    q = ("Humans are looking at their physical appearance and body life "
+         "extension, not the brain")
+    w = D.route_words(q)
+    assert D.BRAIN_MIND in w["excluded_classes"]
+    assert w["excluded"] and "not the brain" in w["excluded"][0]["text"].lower()
+    for word in ("physical", "appearance", "body"):
+        assert word in w["classes"][D.HUMAN_PHYSICAL], word
+    assert "looking at" in w["classes"][D.ATTENTION_GOAL]
+
+    sc = D.enforce_scope(HR.activate(q)["containers"], w)
+    # brain containers are reported OUT of scope with his reason, not deleted
+    out_brain = [c for c in sc["out_of_scope"] if c["domain"] == D.BRAIN_MIND]
+    assert out_brain
+    assert all("excluded this layer" in c["why_out"] for c in out_brain)
+    assert not any(c["domain"] == D.BRAIN_MIND for c in sc["in_scope"])
+    # and the body containers he pointed at are in
+    assert any(c["id"] in ("CON-015", "CON-011", "CON-001", "CON-007")
+               for c in sc["in_scope"])
+
+
+def test_the_overlay_never_touches_his_source_records():
+    """His instruction: separate the physical subset from the cognitive subset
+    "WITHOUT DELETING the original source records."
+    """
+    from sourceborn import domains as D, human_registry as HR
+    assert len(HR.parameters()) == 3204          # his count, unchanged
+    assert len(HR.containers()) == 80
+    c = HR.container("CON-015")
+    # his own name, not renamed to fit the split
+    assert c["name"] == "Body Schema, Body Image and Ownership"
+    assert len(c["subs"]) == 40
+    st = D.stats()
+    assert st["containers_classified"] == 80     # every one placed
+    assert st["mixed_flagged"] >= 8              # the ambiguous ones surfaced
+    assert "CON-015" in st["mixed"]              # the one HE flagged himself
+    assert "mental" in st["mixed"]["CON-015"].lower()
+    assert "untouched" in st["overlay_only"]
+    # every class he named exists and is used
+    used = set(D.CONTAINER_DOMAIN.values())
+    assert D.HUMAN_PHYSICAL in used and D.BRAIN_MIND in used
+    assert D.RELATION_AFFECT in used and D.RULE_DUTY in used
+    assert D.VALUE_WISDOM in used and D.ATTENTION_GOAL in used
+    # his scope lists, verbatim
+    assert "life continuation" in " ".join(D.HUMAN_INCLUDE) or \
+        "longevity" in D.HUMAN_INCLUDE
+    assert "memory" in D.HUMAN_EXCLUDE and "reasoning" in D.HUMAN_EXCLUDE
+
+
+def test_the_reading_reports_the_split():
+    eng = _engine()
+    r = eng.read("Humans are looking at their physical appearance and body "
+                 "life extension, not the brain", "Q-dom")
+    from sourceborn import domains as D
+    assert D.BRAIN_MIND in r["word_routes"]["excluded_classes"]
+    assert D.HUMAN_PHYSICAL in r["rubrics_lit"]["by_domain"]
+    assert r["rubrics_lit"]["out_of_scope"]
+    assert r["domains"]["containers_classified"] == 80
+    assert r["registry"]["parameters"] == 3204
+
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

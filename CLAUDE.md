@@ -77,7 +77,7 @@ Live on Render as a web app. All 8 SB stages implemented (Core Gate 6 lenses,
 Doubt/Falsifier/Witness, Evidence ladder, Dot-Connection/Merge, Synthetic Fuel,
 Risk/Embodied/Non-Resolution, output + weekly update), the RGL recursive loop, 95
 configured node brains, 3 memories (corpus/wisdom/live fact), multi-model
-(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (124 tests).
+(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (128 tests).
 
 **A full audit ran 2026-08-12 (four read-only sweeps).** It produced a 20-item
 prioritized fix list; the honest finding is that the frame is real but much of the
@@ -192,6 +192,30 @@ it. `/registry`, `/registry/container?id=`, `/registry/activate?q=`. THE READING
 matches against all 3,204 with IDF weighting (a word in forty of his names is
 weaker evidence than a rare one) and prints **his names, his container notes and
 what modulates them — never bare ID numbers**.
+
+**HUMAN MEANS THE BODY, NOT THE BRAIN (2026-08-13) — `domains.py`.** His
+ontology correction, canon at
+`docs/method/canon/HUMAN_IS_THE_BODY_NOT_THE_BRAIN.md`: **Human = the physical
+human — body, appearance, biological condition, safety, survival,
+ageing/life-extension, physical capacity. Human is NOT the thinking/memory/
+reasoning brain.** MEMORY · EMOTION · REASONING · MORALITY · RESPONSIBILITY are
+each ≠ Human physical and belong to other brains. He also found that his own
+registry is a **mixed organism+cognition model**, so all 3,204 must NOT be
+treated as the Human bank — and he ordered the split made **without deleting the
+original source records**. So `domains.py` is an OVERLAY: his document stays
+byte-for-byte, and the overlay says which brain each container serves. His eight
+node classes are real (HUMAN BODY · BRAIN/MIND · RELATION/AFFECT · VALUE/WISDOM ·
+RULE/DUTY/ASI · RESULT/CONSEQUENCE · ATTENTION/GOAL · EXCLUSION/BOUNDARY); all 80
+containers are classified; **11 are marked MIXED with the reason, including
+CON-015 which HE flagged himself** — marked and surfaced, never resolved by me.
+`route_words()` is his arrow chart executable. `HIS_CONTAINER_TARGETS` holds the
+containers he named by hand (safe→CON-006, alive→CON-001+CON-008,
+keep-working→CON-007) because lexical matching can never find them — they are
+labelled **HIS ASSIGNMENT** wherever shown. `enforce_scope()` means a container
+can only be reported under HUMAN BODY if a word actually routed there, and
+anything that fails is moved to `out_of_scope` **with the reason kept**, so his
+first machine reading stays visible beside the corrected one. **"not the brain"
+is an explicit boundary**: that layer is reported out of scope, never as a hit.
 
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
