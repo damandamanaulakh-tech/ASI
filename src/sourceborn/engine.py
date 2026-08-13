@@ -86,6 +86,13 @@ class NodeStep:
     can_loop_back: bool
     matrix_pass: int = 0                    # of the 7 filters this node cleared
     matrix_flags: list[str] = field(default_factory=list)   # "FIL-3:hold"
+    # HIS CORRECTION: "SB-1 it should show what this app taken as point zero and
+    # so on, at every points only then i can correct". A node's line used to say
+    # "raw source locked untouched: 77 chars" — a DESCRIPTION of the work, with
+    # the actual content nowhere on screen. These two fields are the content.
+    job: str = ""            # what this node's job IS, in the node map's words
+    took: str = ""           # the material this node actually worked on
+    produced: str = ""       # what it actually made of it
 
 
 class SourcebornEngine:
@@ -577,7 +584,7 @@ class SourcebornEngine:
 
         The pattern layer never decides intent and never picks his feeling.
         Everything it produces is a candidate for him."""
-        from . import ladder, micro, patterns, router, senses
+        from . import human_registry, ladder, micro, patterns, router, senses
         root = self.memory.root
         aid = ask_id or ("Q-" + str(abs(hash(raw_text)) % 10 ** 8))
 
@@ -604,9 +611,11 @@ class SourcebornEngine:
         hits = patterns.activate(root, seqs)
         against = patterns.contradictions(root, seqs)
 
-        # 4 · MATCH TO EXISTING IDS — the rubrics (his 3,072) this ask touches
-        reg = ladder.load_registry(root)
-        lit = ladder.activate(raw_text, reg)
+        # 4 · MATCH TO EXISTING IDS — HIS 3,204, from HIS document.
+        #     Was the 18-entry stub registry; his frame is 1-10-8-40 and every
+        #     name here is his own, so a hit is a real name, not an ID number.
+        lit = human_registry.activate(raw_text)
+        reg = ladder.load_registry(root)          # kept: his own uploads live here
 
         # 5 · ENGINE SELECTION — from the STRUCTURE, never the other way round
         route = router.route(seqs, raw_text, prior_repeats=len(rel),
@@ -619,10 +628,15 @@ class SourcebornEngine:
 
         # 7 · LOCAL RESULT — the node work and the seven filters, with what his
         #     approved rubrics say fed in as context
-        notes, hand = ladder.recall_notes(reg, lit, [], [])
+        notes = "\n".join(
+            f"- {p['id']} {p['name']} (in {p['container_name']}, "
+            f"{p['segment_name']})" for p in lit.get("parameters", [])[:24])
+        hand = {"speaking": lit.get("parameters", []), "forced": [],
+                "deselected": [], "dropped_by_cap": []}
         run_text = raw_text
         if notes:
-            run_text += "\n\n[rubrics this ask touched]:\n" + notes
+            run_text += ("\n\n[the human sub-parameters this ask touched, from "
+                         "his Human Functional Registry]:\n" + notes)
         if hits:
             run_text += "\n\n[his approved patterns bearing on this]:\n" + "\n".join(
                 f"- {h['name']}: {h['his_interpretation']} ({h['outcome']})"
@@ -637,6 +651,7 @@ class SourcebornEngine:
                 "relations_to_prior": rel,
                 "pattern_hits": hits, "contradictions": against,
                 "rubrics_lit": lit, "rubric_hand": hand,
+                "registry": human_registry.stats(),
                 "route": route,
                 "candidates": surfaced,
                 "open_candidates": [c for c in patterns.load_candidates(root)
@@ -677,54 +692,76 @@ class SourcebornEngine:
             "loop_count": len(history), "converged": converged, "history": history}}
 
     @staticmethod
-    def _walk_ask(node_id: str, halt: str | None, target: str) -> dict:
-        """The human gate, made explicit: tell the user exactly *what* to give,
-        *why*, *how*, and *when* — so a hold is never a blank 'Evidence'."""
+    def _walk_ask(node_id: str, halt: str | None, target: str,
+                  found: str = "", job: str = "") -> dict:
+        """The human gate, in THIS node's terms.
+
+        HIS CORRECTION: every hold showed the same four lines, so SB-55
+        High-Risk Merge Review and SB-56 Override Ledger asked for identical
+        things and neither said what it was actually doing. "just shit, how a
+        human read what is ask of system here" — he was right.
+
+        So every ask now carries the node's OWN job and the node's OWN finding.
+        The halt type still shapes what is needed; the node says why IT is
+        asking."""
         h = halt or ""
+        base = {"node": node_id, "job": job or "(no job recorded for this node)",
+                "found": (found or "").strip()[:300] or "(nothing recorded)"}
+
+        def ask(what, why, how, when, options):
+            return {**base, "what": what, "why": why, "how": how, "when": when,
+                    "options": options, "for": target}
         if h == HaltType.EVIDENCE.value or node_id == "SB-33":
-            return {"what": "A current source or data point that backs the claim",
-                    "why": "The claim isn't grounded in live fact yet (stays Low)",
-                    "how": "Paste a link, figure or number below — or upload the source file",
-                    "when": "Now — before it can be rated FACT",
-                    "options": ["Paste a source/number, then Add data & re-run",
-                                "Mark it a Belief (unproven) and continue",
-                                "Re-loop this node to search again"],
-                    "for": target}
+            return ask(
+                f"A source or data point for what {node_id} is checking: "
+                + (job or target),
+                f"{node_id} ({target}) reported: {base['found']} — so it is "
+                "not grounded in live fact yet and stays Low",
+                "Paste a link, figure or number below — or upload the source "
+                "file. It goes to THIS node and the node re-runs.",
+                "Now — before this node's finding can be rated FACT",
+                [f"Paste a source for {target}, then Add data & re-run",
+                 "Mark THIS finding a Belief (unproven) and continue",
+                 f"Re-loop {node_id} to search again"])
         if h == HaltType.SAFETY.value:
-            return {"what": "The legitimate context / authorization",
-                    "why": "This touches a hard safety line — it is mapped, never executed",
-                    "how": "State who you are and the lawful purpose",
-                    "when": "Before anything proceeds",
-                    "options": ["State who you are + lawful purpose",
-                                "Keep it mapped only (don't execute)",
-                                "Drop this line and re-loop"],
-                    "for": target}
+            return ask(
+                "The legitimate context / authorization",
+                f"{node_id} ({target}) hit a hard safety line: {base['found']} "
+                "— it is mapped, never executed",
+                "State who you are and the lawful purpose",
+                "Before anything proceeds",
+                ["State who you are + lawful purpose",
+                 "Keep it mapped only (don't execute)",
+                 "Drop this line and re-loop"])
         if h == HaltType.LOGIC.value:
-            return {"what": "Proof for the absolute claim, or softer wording",
-                    "why": "An over-claim (always / never / guaranteed) was detected",
-                    "how": "Give a counter-example test, or qualify the statement",
-                    "when": "Now",
-                    "options": ["Soften the absolute (drop always/never)",
-                                "Give a counter-example test",
-                                "Approve as a Claim, not a Fact"],
-                    "for": target}
+            return ask(
+                "Proof for the absolute claim, or softer wording",
+                f"{node_id} ({target}) found an over-claim: {base['found']}",
+                "Give a counter-example test, or qualify the statement",
+                "Now",
+                ["Soften the absolute (drop always/never)",
+                 "Give a counter-example test",
+                 "Approve as a Claim, not a Fact"])
         if node_id == "SB-40":
-            return {"what": "Your approval to merge the connected sources",
-                    "why": "Two or more sources recur — a merge needs a human gate",
-                    "how": "Approve to combine them, or re-loop to keep them separate",
-                    "when": "Now",
-                    "options": ["Approve the merge",
-                                "Keep sources separate (re-loop)",
-                                "Add a third source first"],
-                    "for": target}
-        return {"what": "Your read on whether this holds",
-                "why": "Doubt bit or the node didn't sit right",
-                "how": "Add a note/data, re-loop, or approve as-is",
-                "when": "Now",
-                "options": ["Approve as-is",
-                            "Add a note/data, then re-run",
-                            "Re-loop this node"],
-                "for": target}
+            return ask(
+                "Your approval to merge the connected sources",
+                f"{node_id} ({target}) found: {base['found']} — two or more "
+                "sources recur, and a merge needs a human gate",
+                "Approve to combine them, or re-loop to keep them separate",
+                "Now",
+                ["Approve the merge", "Keep sources separate (re-loop)",
+                 "Add a third source first"])
+        return ask(
+            f"Your read on {node_id}'s finding — its job is: "
+            + (job or target),
+            f"{node_id} ({target}) reported: {base['found']}"
+            + (f" · halt: {h}" if h else " · no halt named, it just did not sit"),
+            "Add a note or data for THIS node, re-loop it, or approve its "
+            "finding as it stands",
+            "Now",
+            [f"Approve {node_id}'s finding as-is",
+             f"Add a note/data for {node_id}, then re-run",
+             f"Re-loop {node_id}"])
 
     def run_walk(self, raw_text: str, model: BaseModel | None = None,
                  live_override: str | None = None) -> dict:
@@ -780,6 +817,20 @@ class SourcebornEngine:
             cfg = self.brains.get(sb_id)
             name = cfg.name if cfg else sb_id
             node = sb_by_id(sb_id)
+            _job = getattr(node, "purpose", "") or ""   # the node map's own words
+            # WHAT THIS NODE ACTUALLY TOOK — the content, not a description of
+            # it. SB-01 takes the raw source verbatim; that is Point Zero and he
+            # has to be able to read it to correct it.
+            if sb_id in ("SB-01", "SB-04"):
+                _took = "POINT ZERO, exactly as you wrote it:\n" + ctx.raw_text
+            elif sb_id == "SB-02":
+                _took = "the raw ask, to separate into channels:\n" + ctx.raw_text
+            elif ctx.channels:
+                _took = "the ask, separated into channels: " + " | ".join(
+                    f"{k}: {'; '.join(v)[:90]}" for k, v in
+                    list(ctx.channels.items())[:4])
+            else:
+                _took = ctx.raw_text[:400]
             try:
                 f = SB_WORK[sb_id](ctx)
             except Exception as exc:                 # a node must never kill the walk
@@ -841,13 +892,16 @@ class SourcebornEngine:
                 ctx.holds_so_far.append(f"{sb_id}: {why[:60]}")
                 holds.append({"sb_id": sb_id, "name": name, "urr_id": gate,
                               "why": why, "halt": halt,
-                              "ask": self._walk_ask(sb_id, halt, name)})
+                              "ask": self._walk_ask(sb_id, halt, name,
+                                                    found=f.text,
+                                                    job=_job)})
             steps.append(NodeStep(
                 sb_id=sb_id, sb_name=name, action="node_work", urr_id=gate,
                 verdict=verdict, halt=f.halt, why=f.text[:220],
                 memory_written=True, can_loop_back=(verdict == "hold"),
                 matrix_pass=len(gates) - len(flags),
-                matrix_flags=[f"{u}:{c}" for u, c in flags.items()]))
+                matrix_flags=[f"{u}:{c}" for u, c in flags.items()],
+                job=_job, took=_took, produced=f.text[:400]))
 
         def run_urr(urr_id: str, sb_ids: tuple[str, ...],
                     sink: list[dict]) -> URRReview:

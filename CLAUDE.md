@@ -7,8 +7,9 @@ wins — stop me and point here.
 ## What this project is
 **Sourceborn (SBUR)** — a private, continuously-learning reasoning engine; a
 **control layer around a base model**, not a new trained model. It clones the
-user's mind, runs **SB + URR** over a **pyramid of 70 SB + 25 URR local brains**,
-and gets wiser every use. Principle: **"eternal example, present fact; more
+user's mind, runs over the frame HE set — **1 - 10 - 8 - 40** (1 system · 10 segments ·
+8 containers each · 40 named sub-parameters per container = 80 containers,
+3,204 named) — and gets wiser every use. Principle: **"eternal example, present fact; more
 parameters, more outcome."**
 
 ## Single source of truth
@@ -168,6 +169,29 @@ with NO REOPEN; a rejected sense is CLOSED, never deleted. `/senses`,
 pattern is a LOOP, not a line (care → responsibility → action → moments → memory
 → meaning → renewed responsibility); the pattern record is still an ordered
 chain, and making it cyclic waits on his word.
+
+**HIS FRAME IS 1-10-8-40, AND THE 70-25 IS OFF THE SCREEN TOO (2026-08-13).**
+He caught it still rendering after he killed it: *"we quit 70-25 things and adopt
+new frame work of 1-10-8-40 / why still it show 70-25"*. He was right and it was
+my failure. `human_registry.py` loads **his own document**
+(`ASI_Claude_Parameters.docx` — HUMAN FUNCTIONAL REGISTRY v1.0) whole:
+**10 segments · 80 containers · 3,204 named sub-parameters · 40 universal
+filters · 12 operating states · 20 failure classes · 30-step operating chain**,
+parsed with **zero containers disagreeing with their stated target**. Every name
+is HIS. `data/human_registry.json` is the file. Three more of his corrections,
+all from the same message: **(1)** the ENGINE PYRAMID now draws his ladder from
+that registry, `URR n/25` is gone (it was a 0-to-7 filter count wearing a 25
+label), and "70×25 URR matrix" is now "the seven filters"; **(2)** every held
+node's ask used to read identically — SB-55 and SB-56 asked for the same thing
+and neither said what it was doing — so `_walk_ask` now carries **the node's own
+job and the node's own finding** first; **(3)** the node walk showed a
+*description* of the work ("raw source locked untouched: 77 chars") with the
+content nowhere, so `NodeStep` now carries **job · took · produced** and SB-01
+prints **the actual Point Zero text** he wrote, at every node, so he can correct
+it. `/registry`, `/registry/container?id=`, `/registry/activate?q=`. THE READING
+matches against all 3,204 with IDF weighting (a word in forty of his names is
+weaker evidence than a rare one) and prints **his names, his container notes and
+what modulates them — never bare ID numbers**.
 
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding

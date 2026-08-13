@@ -277,10 +277,35 @@ function render(d){
   }
   h+='<div class=sec><h2>Matched to existing IDs</h2><span class=n>the rubrics this ask touched</span></div>';
   const lit=d.rubrics_lit||{};
-  h+='<div class=blk>'+kv([['SEG IDs',(lit.segments||[]).map(s=>s.id+' '+s.name).join('\n')],
-    ['CON IDs',(lit.containers||[]).map(c=>c.id+' '+(c.name||'')).join('\n')],
-    ['P IDs',(lit.parameters||[]).map(p=>p.id+' '+(p.name||'')).join('\n')]])+
-    '<div class=note style="margin-top:6px">Only filled rubrics can be matched. What is empty is empty, and this says so rather than inventing a hit.</div></div>';
+  // HIS CORRECTION: "attached details of each 3000 point, add it there instead
+  // of just ID numbers." Every row now carries his own name for the thing, the
+  // container it lives in, his note on that container, and what modulates it.
+  const R=d.registry||{};
+  h+='<div class=blk>'+
+    '<div class=note style="margin-bottom:8px">Matched against <b>'+esc(String(R.parameters||0))+
+    '</b> named sub-parameters in <b>'+esc(String(R.containers||0))+'</b> containers across <b>'+
+    esc(String(R.segments||0))+'</b> segments &mdash; frame <b>'+esc(R.frame||'1 - 10 - 8 - 40')+
+    '</b>. Every name below is yours, from '+esc(String(R.source||''))+'.</div>'+
+    '<div class=note>SEGMENTS</div>'+
+    ((lit.segments||[]).map(s=>'<div class=lane><b>'+esc(s.id)+'</b> '+esc(s.name)+
+      ' <span class=note>'+(s.fired_containers||0)+' of its '+s.containers+' containers fired</span></div>').join('')
+      ||'<div class=note>none</div>')+
+    '<div class=note style="margin-top:8px">CONTAINERS</div>'+
+    ((lit.containers||[]).map(c=>'<div class=ms><div class=raw>'+esc(c.id)+' &middot; '+esc(c.name)+'</div>'+
+      kv([['segment',c.segment+' '+(c.segment_name||'')],
+          ['your note on it',c.note],
+          ['what modulates it',c.modulators],
+          ['named sub-parameters',String(c.count)],
+          ['why it fired',c.reason]])+'</div>').join('')||'<div class=note>none</div>')+
+    '<div class=note style="margin-top:8px">SUB-PARAMETERS &mdash; your names, not ID numbers</div>'+
+    ((lit.parameters||[]).map(p=>'<div class=lane><b>'+esc(p.id)+'</b> '+esc(p.name)+
+      ' <span class=note>&mdash; '+esc(p.container_name)+' &middot; '+esc(p.segment_name)+
+      ' &middot; matched: '+esc((p.matched||[]).join(', '))+'</span></div>').join('')
+      ||'<div class=note>none</div>')+
+    ((lit.dropped||0)?'<div class=note style="margin-top:6px">'+lit.dropped+
+      ' further hit(s) not shown &mdash; capped so one container cannot flood the view. '+
+      'The number is stated, never hidden.</div>':'')+
+    '</div>';
 
   h+='<div class=sec><h2>Engine selection &mdash; from the structure, not the other way round</h2><span class=n>'+((d.route||{}).mechanisms||[]).length+' mechanism(s)</span></div>';
   h+='<div class=blk>'+((d.route||{}).mechanisms||[]).map(m=>

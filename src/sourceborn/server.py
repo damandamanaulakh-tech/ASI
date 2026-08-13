@@ -41,6 +41,7 @@ from . import ladder
 from . import mypage
 from . import patterns as patternmem
 from . import readingpage
+from . import human_registry
 from . import senses as sensemem
 from . import router as rubric_router
 from . import scheduler
@@ -344,7 +345,7 @@ def _page_feeds() -> dict:
     except Exception as e:
         feeds["library"] = {"rows": [["error", str(e)[:80]]]}
     feeds["brains"] = {"number": len(ENGINE.brains.all()),
-                       "label": "70 SB + 25 URR — the MEMORY; the filters are the METHOD"}
+                       "label": "node brains — the MEMORY; the seven filters are the METHOD"}
     feeds["ladder"] = {"rows": [list(r) for r in mypage.LADDER_ROWS],
                        "number": "3,072", "label": "parameters · Phase-1 done"}
     feeds["filters"] = {"rows": mypage.FILTERS, "number": 7,
@@ -657,16 +658,34 @@ document.getElementById('examples').innerHTML=EXAMPLES.map(e=>'<span class=chip>
 document.querySelectorAll('#examples .chip').forEach((c,i)=>c.onclick=()=>{
   const q=document.getElementById('q');q.value=EXAMPLES[i];q.focus()});
 
+// HIS FRAME: 1 - 10 - 8 - 40. He quit 70-25 and it was still rendering here —
+// that was the defect he caught. This draws HIS ladder, and it fills from the
+// Human Functional Registry (his own document), not from a hardcoded list.
+var FRAME=null, LITSEG=null;   // var: drawPyr() is called from the boot sequence above this line
 function drawPyr(firedStages,counts){
-  firedStages=firedStages||new Set(); counts=counts||{};
-  let html='';
-  for(let i=STAGES.length-1;i>=0;i--){
-    const s=STAGES[i], n=+s[0], on=firedStages.has(n), w=44+(8-n)*7;
-    const c=counts[n]?(' · '+counts[n]+' fired'):'';
-    html+='<div class="plvl'+(on?' on':'')+'" style="width:'+w+'%">SB'+n+' '+esc(s[1])+c+'</div>';
-  }
-  html+='<div class=plvl style="width:100%;opacity:.65">URR · 25 verification gates</div>';
-  document.getElementById('pyr').innerHTML=html;
+  const el=document.getElementById('pyr'); if(!el)return;
+  if(!FRAME){ el.innerHTML='<span class=muted>loading his registry…</span>';
+    fetch('/registry').then(r=>r.json()).then(d=>{FRAME=d; drawPyr(firedStages,counts);})
+      .catch(()=>{el.innerHTML='<span class=muted>registry unavailable</span>';}); return; }
+  const f=FRAME.stats||{}, segs=FRAME.segments||[];
+  const lit=LITSEG||{};
+  let html='<div class=plvl style="width:100%" title="one functional system">'+
+    'SYSTEM · 1 <span class=muted>ASI</span></div>';
+  const wmax=100, wmin=46;
+  segs.forEach((sg,i)=>{
+    const n=lit[sg.id]||0, w=wmin+(wmax-wmin)*(1-i/Math.max(1,segs.length-1));
+    html+='<div class="plvl'+(n?' on':'')+'" style="width:'+w+'%" title="'+esc(sg.name)+'">'+
+      esc(sg.id)+' '+esc(sg.name)+' <span class=muted>'+sg.containers+' containers · '+
+      sg.parameters+'</span>'+(n?' <b>· '+n+' fired</b>':'')+'</div>';
+  });
+  html+='<div class=plvl style="width:100%;opacity:.7">'+
+    (f.containers||80)+' CONTAINERS · '+(f.parameters||3204)+' NAMED SUB-PARAMETERS'+
+    ' <span class=muted>1 - 10 - 8 - 40</span></div>'+
+    '<div class=plvl style="width:100%;opacity:.55">'+(f.universal_filters||40)+
+    ' universal filters · '+(f.operating_states||12)+' states · '+
+    (f.failure_classes||20)+' failure classes · '+(f.operating_chain||30)+
+    '-step chain</div>';
+  el.innerHTML=html;
 }
 async function drawHist(){
   const h=document.getElementById('hist');
@@ -820,13 +839,22 @@ function confWhy(d){const o=d.output||{}; if((''+o.confidence).toLowerCase()!=='
   if(holds.length)return 'Low because '+holds.length+' node'+(holds.length>1?'s':'')+' held — e.g. '+esc(holds[0].why)+' Clear it in the review queue to raise confidence.';
   return 'Low — doubt bit or an open gap; see the node walk below.';}
 function walkRow(s){
-  const mp=(s.matrix_pass!=null)?(' <span class="'+((s.matrix_flags||[]).length?'hl':'muted')+'" style="font-size:11px">URR '+s.matrix_pass+'/25'+((s.matrix_flags||[]).length?' ⚑'+s.matrix_flags.length:'')+'</span>'):'';
+  // "URR n/25" was wrong twice: it is a 0-to-7 FILTER count, and the 25 are gone.
+  const mp=(s.matrix_pass!=null)?(' <span class="'+((s.matrix_flags||[]).length?'hl':'muted')+'" style="font-size:11px">'+s.matrix_pass+'/7 filters'+((s.matrix_flags||[]).length?' ⚑'+s.matrix_flags.length:'')+'</span>'):'';
   const fl=(s.matrix_flags&&s.matrix_flags.length)?('<br><span class=hl style="margin-left:18px;font-size:11.5px">⚑ '+esc(s.matrix_flags.join(' · '))+'</span>'):'';
-  return '<div class=lane><span class="vd '+s.verdict+'">●</span> <b>'+esc(s.sb_id)+'</b> '+esc(s.sb_name)+': <b>'+esc(s.verdict)+'</b>'+mp+(s.memory_written?' <span class=memok>memory ✓</span>':'')+'<br><span class=muted style="margin-left:18px">'+esc(s.why)+'</span>'+fl+'</div>';}
+  // HIS CORRECTION: "SB-1 it should show what this app taken as point zero and
+  // so on, at every points only then i can correct". The row carried a
+  // DESCRIPTION of the work and the actual content nowhere. TOOK is the content.
+  const sub=(lbl,v)=>v?('<div class=lane style="margin-left:18px;border:0;padding:2px 0">'+
+    '<span class=muted style="font-size:11px">'+lbl+'</span> '+
+    '<span style="font-size:12.5px;white-space:pre-wrap">'+esc(v)+'</span></div>'):'';
+  return '<div class=lane><span class="vd '+s.verdict+'">●</span> <b>'+esc(s.sb_id)+'</b> '+esc(s.sb_name)+': <b>'+esc(s.verdict)+'</b>'+mp+(s.memory_written?' <span class=memok>memory ✓</span>':'')+
+    sub('ITS JOB',s.job)+sub('WHAT IT TOOK',s.took)+sub('WHAT IT MADE OF IT',s.produced)+
+    (s.produced?'':'<br><span class=muted style="margin-left:18px">'+esc(s.why)+'</span>')+fl+'</div>';}
 function matrixCard(d){const m=(d.walk||{}).matrix; if(!m)return '';
   const by=Object.entries(m.by_urr||{}).sort((a,b)=>b[1]-a[1]);
-  return '<div class=card><div class=k>70×25 URR matrix — no skips <span class=num>'+m.total+' micro-reviews</span></div>'+
-    '<div class=lane>every node reviewed by all '+m.per_node+' URR filters: <b class=gd>'+(m.total-m.flags)+' pass</b>'+(m.flags?' · <b class=hl>'+m.flags+' flagged</b>':' · 0 flags')+'</div>'+
+  return '<div class=card><div class=k>The seven filters — no skips <span class=num>'+m.total+' micro-reviews</span></div>'+
+    '<div class=lane>every node reviewed by all '+m.per_node+' filters (Ground·Sequence·Source·Mask·Fact·Halt·Loop): <b class=gd>'+(m.total-m.flags)+' pass</b>'+(m.flags?' · <b class=hl>'+m.flags+' flagged</b>':' · 0 flags')+'</div>'+
     (by.length?('<div class=lane><b>flags by filter</b> '+by.map(([u,n])=>'<span class=tag>'+esc(u)+' ×'+n+'</span>').join(' ')+'</div>'):'')+
     ((m.flagged||[]).length?('<details><summary>flagged details ('+m.flagged.length+')</summary>'+m.flagged.map(f=>'<div class=lane><b>'+esc(f.sb)+'</b> ⚑ '+esc(f.urr)+' · '+esc(f.code)+'</div>').join('')+'</details>'):'')+'</div>';}
 function walkCard(d){const w=d.walk; if(!w||!w.steps)return '';
@@ -885,7 +913,12 @@ function auditCard(d){const L=(d.output||{}).lanes||{}, a=L.audit; if(!a)return 
 function reviewQueue(d){const h=(d.walk&&d.walk.holds)||[]; if(!h.length)return '';
   const cards=h.map(x=>{const a=x.ask||{};
     return '<div class=hold><div><b>'+esc(x.sb_id)+'</b> '+esc(x.name)+' <span class="badge warn">hold</span></div>'+
-    '<div class=fivew><div><b>What</b>'+esc(a.what||x.why||'—')+'</div><div><b>Why</b>'+esc(a.why||'—')+'</div>'+
+    // HIS CORRECTION: every hold used to read identically, so a human could not
+    // tell what the system was actually asking. The node's JOB and the node's
+    // OWN FINDING come first now — that is the part he has to read to correct it.
+    (a.job?'<div class=lane style="margin:6px 0"><span class=muted>THIS NODE\'S JOB</span> '+esc(a.job)+'</div>':'')+
+    (a.found?'<div class=lane style="margin:6px 0"><span class=muted>WHAT IT FOUND</span> '+esc(a.found)+'</div>':'')+
+    '<div class=fivew><div><b>What it needs</b>'+esc(a.what||x.why||'—')+'</div><div><b>Why</b>'+esc(a.why||'—')+'</div>'+
     '<div><b>How</b>'+esc(a.how||'—')+'</div><div><b>When</b>'+esc(a.when||'now')+'</div></div>'+
     ((a.options&&a.options.length)?'<div class=fivew style="margin-top:6px"><div style="grid-column:1/-1"><b>Options</b> '+a.options.map(o=>'<span class=tag>'+esc(o)+'</span>').join(' ')+'</div></div>':'')+
     '<textarea class=in id="hd_'+esc(x.sb_id)+'" placeholder="paste the data / source asked for, then Add data & re-run" style="min-height:46px"></textarea>'+
@@ -1058,7 +1091,7 @@ async function drawInterGraph(){
         g.fillStyle=isSB?'#7d8699':'#a78bfa';g.font='11px Inter,sans-serif';
         g.textAlign=lx<cx?'right':'left';g.fillText(id,lx,ly+3);}}
     g.fillStyle='#5b6477';g.font='12px Inter,sans-serif';g.textAlign='center';
-    g.fillText('outer ring: 70 SB working nodes · inner ring: 25 URR verifiers',cx,H-14);
+    g.fillText('outer ring: SB working nodes · inner ring: URR verifiers (memory, not method)',cx,H-14);
     IG=pos;
     c.onclick=ev=>{const b=c.getBoundingClientRect(),
       mx=(ev.clientX-b.left)*(W/b.width),my=(ev.clientY-b.top)*(H/b.height);
@@ -1322,6 +1355,34 @@ class Handler(BaseHTTPRequestHandler):
                 "below": patternmem.refresh_candidates(SB_ROOT)
                          .get("below_threshold", [])}).encode(),
                 "application/json")
+        elif path == "/registry":
+            # HIS 3,204, from HIS document — the frame is 1-10-8-40
+            segs = [{"id": f"SEG-{s['n']:02d}", "n": s["n"], "name": s["name"],
+                     "containers": len(s.get("containers", [])),
+                     "parameters": sum(len(c.get("subs", []))
+                                       for c in s.get("containers", []))}
+                    for s in human_registry.segments()]
+            self._send(200, json.dumps({
+                "stats": human_registry.stats(),
+                "frame": human_registry.frame(),
+                "segments": segs,
+                "universal_filters": human_registry.universal_filters(),
+                "operating_states": human_registry.operating_states(),
+                "failure_classes": human_registry.failure_classes(),
+                "operating_chain": human_registry.operating_chain()}).encode(),
+                "application/json")
+        elif path == "/registry/container":
+            c = human_registry.container((qs.get("id") or [""])[0])
+            if c is None:
+                self._send(404, b'{"error":"no such container"}',
+                           "application/json")
+            else:
+                self._send(200, json.dumps(c).encode(), "application/json")
+        elif path == "/registry/activate":
+            q = (qs.get("q") or [""])[0]
+            self._send(200, json.dumps(
+                human_registry.activate(q, _int_arg(qs, "limit", 40, 1, 400))
+                ).encode(), "application/json")
         elif path == "/senses":
             self._send(200, json.dumps({
                 "senses": sensemem.load(SB_ROOT),
