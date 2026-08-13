@@ -65,3 +65,33 @@ The review's findings are recorded here too, including my own bugs.
 | 04 | The panel printed "it has never run" *under* a badge reading "overdue — last 2026-07-01" — on the exact upgrade path his live app is on. The two-state lie this item exists to remove, reintroduced in the empty-list branch | same | the two states now have two different sentences |
 | 04 | Three numbers went into `innerHTML` unescaped. They come from disk, and `POST /restore` accepts `weekly/*.json` from any zip — so a restored backup could have run script in his dashboard | same | escaped; verified in a browser that a payload renders as text and injects zero nodes |
 | 04 | I claimed one shared helper composed the label; it was three implementations in two languages that happened to agree | same | the server sends the phrase and the state word; the pill and MY PAGE only display them |
+
+## WHAT EXISTS — the page he asked for (2026-08-13)
+
+His words: *"i want to know the existence of my understanding in the code file and
+i want to use the tool so i can know what u did"* → *"yes build it into the app as
+a page i can open"* → *"rubric means paramters the 3000"*.
+
+`GET /exists` — his understanding located in the code, row by row: **his words →
+the file and line where it already lives → what state it is actually in** (RUNS ·
+BUILT-NOT-WIRED · THIN · PARTIAL · ABSENT). Plus the four **absences** stated as
+absences, and the four **seams** where the code and his word disagree, surfaced
+rather than quietly decided.
+
+**His ruling recorded: rubric = parameter = the 3,072.** So the rubric store was
+never missing — `ladder.py` is it, and `save_registry` already versions every
+edit. What is missing is that **18 of 3,072 carry anything**, and that a rubric
+holds a name plus free text rather than how it is recognised and how it is graded.
+The page reads that count from his registry live; it is never written by hand.
+
+**The page verifies itself.** Every reference carries an anchor that must still be
+present in the named module; the source is read on each open and the real current
+line number is reported, or the reference turns red. A hand-written map of "where
+things live" goes stale the first time a line moves — this one cannot. It caught
+one of my own errors while being built (`file_item` does not exist; the function
+is `file_finding`). 70 references, all resolving.
+
+Two seams worth his word: `run_recursive(loops = 3)` against his *"we decided 5
+loops and reducing"* — the **reducing is real** (it stops early when the product
+stops changing), only the count differs, and it is unchanged until he says; and
+the RGL sub-loops are **six**, not five.

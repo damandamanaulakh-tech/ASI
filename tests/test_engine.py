@@ -225,6 +225,113 @@ def test_weekly_pull_accumulates_and_is_readable():
             assert "weekly_run" in f.read()
 
 
+def test_what_exists_map_resolves_to_real_code():
+    """His ask: "i want to know the existence of my understanding in the code
+    file". Every reference on the page must point at a line that is really
+    there — a map that has gone stale is a map that lies. This test IS the
+    guard: move a line the page cites and this goes red."""
+    from sourceborn import exists
+    v = exists.verify()
+    gone = [(h["module"], h["anchor"], h.get("why"))
+            for g in v["groups"] for r in g["rows"] for h in r["hits"]
+            if not h["found"]]
+    assert not gone, gone
+    assert v["checked"] >= 60           # the map is real, not three rows
+    assert v["missing"] == 0
+
+    # every row is his words + a state + an honest note; no placeholders
+    states = set()
+    for g in v["groups"]:
+        assert g["group"] and g["rows"]
+        for r in g["rows"]:
+            assert r["his"].strip() and r["note"].strip()
+            assert r["state"] in exists.STATE_NOTE
+            states.add(r["state"])
+            # an ABSENT row must cite nowhere; anything else must cite code
+            if r["state"] == exists.ABSENT:
+                assert not r["hits"], r["his"]
+            else:
+                assert r["hits"], r["his"]
+    assert exists.ABSENT in states       # the absences are stated, not hidden
+    assert exists.RUNS in states
+
+    # the absences and the seams are both present and both say his words
+    assert len(v["absences"]) >= 4
+    assert all(a["what"] and a["why"] and a["his"] for a in v["absences"])
+    assert len(v["seams"]) >= 4
+    assert all(s["code"] and s["his"] for s in v["seams"])
+
+    # rubric = parameter: the count is read from the registry, never written
+    from sourceborn import ladder
+    lr = exists.ladder_reading(ladder.seed_registry())
+    assert lr["rubrics_total"] == 3072
+    assert lr["rubrics_filled"] == 18       # the honest number, today
+    assert lr["containers_total"] == 200
+
+
+def test_what_exists_notices_when_the_code_moves_away():
+    """The self-check has to actually be able to fail, or it is decoration."""
+    from sourceborn import exists
+    h = exists._find("ladder.py", "TOTAL_PARAMS = 3072")
+    assert h["found"] and isinstance(h["line"], int)
+    miss = exists._find("ladder.py", "this string is not in the file anywhere")
+    assert miss["found"] is False and miss["line"] is None and miss["why"]
+    nofile = exists._find("no_such_module.py", "x")
+    assert nofile["found"] is False and nofile["why"] == "module not found"
+
+
+def test_what_exists_page_is_served_and_locked():
+    import base64
+    import json
+    import threading
+    import urllib.error
+    import urllib.request
+    from sourceborn import server
+
+    eng = _engine()
+    old = (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+           server.SB_ACCESS_PASS)
+    server.ENGINE, server.SB_ROOT = eng, eng.memory.root
+    server.SB_ACCESS_USER, server.SB_ACCESS_PASS = "him", "letmein"
+    httpd = server.ThreadingHTTPServer(("127.0.0.1", 0), server.Handler)
+    threading.Thread(target=httpd.serve_forever, daemon=True).start()
+    base = "http://127.0.0.1:%d" % httpd.server_address[1]
+
+    def get(p, auth=True):
+        r = urllib.request.Request(base + p)
+        if auth:
+            r.add_header("Authorization", "Basic " +
+                         base64.b64encode(b"him:letmein").decode())
+        try:
+            with urllib.request.urlopen(r, timeout=10) as resp:
+                return resp.status, resp.read()
+        except urllib.error.HTTPError as e:
+            return e.code, e.read()
+
+    try:
+        for p in ("/exists", "/exists/data"):
+            assert get(p, auth=False)[0] == 401, p     # behind the lock
+            assert p not in server.OPEN_PATHS
+        code, body = get("/exists")
+        assert code == 200 and b"WHAT EXISTS" in body
+        assert b"rubric means" in body.lower() or b"Rubric means" in body
+        code, body = get("/exists/data")
+        assert code == 200
+        d = json.loads(body)
+        assert d["missing"] == 0 and d["checked"] >= 60
+        assert d["ladder"]["rubrics_filled"] == 18
+        assert d["ladder"]["rubrics_total"] == 3072
+        assert d["at"] and d["absences"] and d["seams"]
+        # the dashboard actually links to it — the gap that hid the last pages
+        code, home = get("/")
+        assert code == 200 and b'href="/exists"' in home
+    finally:
+        httpd.shutdown()
+        httpd.server_close()
+        (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+         server.SB_ACCESS_PASS) = old
+
+
 def test_weekly_ledger_is_paged_never_capped():
     """The reviewer caught this: `runs` was counted by parsing a 52-row page,
     so the pill, the panel header and MY PAGE all stopped counting at 52 and

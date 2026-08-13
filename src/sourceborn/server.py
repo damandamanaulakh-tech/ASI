@@ -36,6 +36,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
 
 from . import enginepage
+from . import exists
 from . import ladder
 from . import mypage
 from . import scheduler
@@ -528,6 +529,7 @@ details[open]>summary:before{content:"\25be  "}
     <div class=hactions style="margin-top:6px;display:flex;gap:8px;flex-wrap:wrap">
       <a class="btn sm" href="/engine">⚙ THE ENGINE — ask &amp; watch the ladder</a>
       <a class="btn sm" href="/page">▦ MY PAGE — what · where · how</a>
+      <a class="btn sm" href="/exists">◈ WHAT EXISTS — your understanding, in the code</a>
     </div></div>
   <div class=card><div class=k>Chats &middot; stored <span class=num id=chatn></span></div><div class=hist id=hist><span class=muted>empty</span></div></div>
   <div class=card>
@@ -1302,6 +1304,17 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/engine":
             self._send(200, enginepage.PAGE.encode("utf-8"),
                        "text/html; charset=utf-8")
+        elif path == "/exists":
+            self._send(200, exists.PAGE.encode("utf-8"),
+                       "text/html; charset=utf-8")
+        elif path == "/exists/data":
+            # his understanding, located in the code and CHECKED against the
+            # real source on every open — so the map cannot go stale into a lie
+            d = exists.verify()
+            d["ladder"] = exists.ladder_reading(ladder.load_registry(SB_ROOT))
+            d["at"] = _now()
+            self._send(200, json.dumps(d, ensure_ascii=False).encode(),
+                       "application/json")
         elif path == "/engine/registry":
             self._send(200, json.dumps(ladder.load_registry(SB_ROOT)).encode(),
                        "application/json")
