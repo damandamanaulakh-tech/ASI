@@ -2968,8 +2968,12 @@ def test_three_pattern_candidates_from_his_run():
 def test_learning_strengthens_the_prior_rule_and_never_duplicates_it():
     from sourceborn import asi_pyramid as P
     r = P.reinforce(HIS_SENTENCE)
-    assert r["strengthened"] == 1
+    # two prior rules now apply here — RULE-001 (same event, different path)
+    # and RULE-002 (role changes active interpretation), which he named as
+    # already existing in the BJP message
+    assert r["strengthened"] == 2, [x["id"] for x in r["rules"]]
     assert r["new_rules_invented"] == 0
+    assert {x["id"] for x in r["rules"]} == {"RULE-001", "RULE-002"}
     rule = r["rules"][0]
     assert rule["applies_here"] is True
     assert rule["support"] == 1 and rule["support_after"] == 2
@@ -2996,7 +3000,7 @@ def test_the_three_counters_and_nothing_is_promoted_without_him():
     assert gen["Runtime relations"] == 11
     assert gen["Interpretation candidates"] == 7
     assert gen["Pattern candidates"] == 3
-    assert gen["Existing deep rule strengthened"] == 1
+    assert gen["Existing deep rule strengthened"] == 2
     assert all(v == 0 for _k, v in r["counters"]["promoted"]), \
         "nothing is promoted until he approves"
 
@@ -3149,7 +3153,7 @@ def test_the_rule_recognises_its_own_founding_example_as_the_origin():
     assert mall["support_after"] == mall["support"], "origin adds no support"
     sam = P.reinforce("Samrath never like to go to school, he always cry, but "
                       "today is his birthday, he went very happy.")
-    assert sam["strengthened"] == 1
+    assert sam["strengthened"] == 2, "RULE-001 and RULE-002 both apply"
     assert sam["rules"][0]["action"] == "SUPPORT +1"
     assert sam["rules"][0]["support_after"] == 2
     assert sam["new_rules_invented"] == 0
@@ -3176,6 +3180,164 @@ def test_negations_are_not_reported_as_contextual_events():
     for junk in ("dont", "not", "im", "well", "going"):
         assert junk not in ctx, junk
     assert P.signals(HIS_SENTENCE)["context_event"]["nouns"] == ["birthday"]
+
+
+
+# --- CONTEXTUAL PARAMETER WEIGHTING: his BJP example, alive not approved -----
+
+BJP = ("BJP had one role available: prime-ministerial candidate for the 2014 "
+       "Lok Sabha election. L.K. Advani was very senior, a party founder with "
+       "a long history and experience. Narendra Modi was less senior than "
+       "Advani, but Modi was the most popular leader with three consecutive "
+       "Gujarat election victories and strong organisational backing including "
+       "the RSS, and the cadre enthusiasm and campaign mobilisation were his. "
+       "The objective was to win the 2014 election. "
+       "Advani opposed the move and had resigned from party posts.")
+
+OTHER_DOMAINS = {
+ "SPORTS": ("The club had one captain's job to fill. Rahul Bose had played the "
+            "most matches and was the longest serving player in the squad. "
+            "Imran Shaikh had won the last three tournaments and the dressing "
+            "room followed him. The season target was promotion."),
+ "MEDICINE": ("One surgeon was needed for Friday's emergency list. Dr Menon "
+              "had thirty years in the department and deep expertise. Dr Rao "
+              "had done the most of these cases in the last year. The "
+              "objective was to clear the backlog safely."),
+ "BUSINESS": ("There was one seat on the board to fill. My uncle founded the "
+              "firm and carries its institutional memory. My cousin brought "
+              "in the last four clients. The board's aim for the year was new "
+              "revenue."),
+ "SCHOOL": ("The school had one head-boy position to fill. Aman Verma was the "
+            "oldest student and had been there longest. Kabir Shah was the "
+            "most popular boy and had won the last two debate victories. The "
+            "objective was to win the inter-school championship."),
+ "FAMILY": ("The family had to choose one trustee for the property. My "
+            "grandfather started the house and knows how it was built. My "
+            "brother had brought in the last four tenants. The aim was "
+            "continuity and to be a custodian of the place."),
+}
+
+
+def test_each_candidate_keeps_only_its_own_attributed_axes():
+    """One sentence naming both people made every candidate inherit every
+    quality — Advani was credited with Modi's popularity. Attribution is by
+    nearest mention, and "less senior than" gives LOW, not HIGH."""
+    from sourceborn import weighting as W
+    sel = W.read_selection(BJP)
+    assert sel["candidate_count"] == 2, "L.K. Advani and Advani are one person"
+    by = {c["who"]: {a["axis"]: a["direction"] for a in c["axes"]}
+          for c in sel["candidates"]}
+    adv = [k for k in by if "Advani" in k][0]
+    modi = [k for k in by if "Modi" in k][0]
+    assert by[adv]["SENIORITY / TENURE"] == "HIGH"
+    assert "CURRENT POPULARITY / SUPPORT" not in by[adv], "no leakage"
+    assert "RECENT RECORD" not in by[adv], "no leakage"
+    assert by[modi]["CURRENT POPULARITY / SUPPORT"] == "HIGH"
+    assert by[modi]["RECENT RECORD"] == "HIGH"
+    assert by[modi].get("SENIORITY / TENURE") != "HIGH", \
+        "\"less senior than Advani\" must never credit Modi with seniority"
+
+
+def test_the_objective_sets_the_weights_and_a_different_objective_flips_them():
+    """SAME PARAMETERS + DIFFERENT OBJECTIVE -> DIFFERENT IMPORTANCE ->
+    DIFFERENT DECISION. His mechanism, and his own counterfactual."""
+    from sourceborn import weighting as W
+    w = W.weigh(BJP)
+    assert w["objective_type"] == "COMPETITIVE WIN"
+    assert w["weights"]["SENIORITY / TENURE"] == W.NOT_DECISIVE
+    assert w["weights"]["CURRENT POPULARITY / SUPPORT"] == W.DOMINANT
+    assert [x for x in w["favoured"] if "Modi" in x], w["favoured"]
+    cf = W.counterfactual(BJP)
+    assert cf["counterfactual_objective"] == "STEWARDSHIP / COUNSEL / CONTINUITY"
+    assert cf["flip_count"] >= 5
+    flips = {f["axis"]: f for f in cf["weight_flips"]}
+    assert flips["SENIORITY / TENURE"][
+        "under_STEWARDSHIP / COUNSEL / CONTINUITY"] == W.DOMINANT
+    assert cf["selection_changes"] is True
+    assert [x for x in cf["favoured_counterfactual"] if "Advani" in x]
+    assert "not a claim about history" in cf["refuses"]
+
+
+def test_rank_on_one_axis_is_not_fitness_for_the_role():
+    from sourceborn import weighting as W
+    rf = W.rank_is_not_fitness(BJP)
+    assert any("Advani" in x for x in rf["highest_on_axis"])
+    assert rf["answer"].startswith("YES")
+    assert rf["therefore_most_suitable"] == "NOT AUTOMATIC"
+    assert rf["asks_instead"] == ["Popular for what?", "Experienced for what?",
+                                 "Senior for what?",
+                                 "Selected for what objective?"]
+
+
+def test_the_two_lessons_he_refused_cannot_be_learnt():
+    from sourceborn import weighting as W
+    claims = {r["claim"] for r in W.REFUSED_LESSONS}
+    assert "young leader > senior leader" in claims
+    assert "popularity > experience" in claims
+    assert W.MAY_LEARN == "PARAMETER IMPORTANCE IS ITSELF CONTEXT-DEPENDENT."
+    for r in W.REFUSED_LESSONS:
+        assert r["his_verdict"], r
+
+
+def test_the_candidate_is_alive_and_not_approved_and_cannot_self_promote():
+    from sourceborn import weighting as W
+    c = W.candidate(BJP)
+    assert c["id"] == "PC-WEIGHT-001"
+    assert c["status"] == "ALIVE — NOT APPROVED"
+    assert c["support"] == 1 and c["canonical"] == 0
+    assert c["gate"]["cross_domain_required"] is True
+    assert set(c["gate"]["domains_he_named"]) == {
+        "business", "family", "sports", "medicine", "school"}
+    assert c["gate"]["who_approves"].startswith("him")
+    assert W.stats()["canonical"] == 0
+
+
+def test_it_fires_outside_politics_in_every_domain_he_named():
+    """His gate: the next example must come from a completely different domain
+    and the structure must fire again without being forced. Five cases, five
+    domains, and the selection must flip under the counterfactual objective in
+    every one — otherwise the mechanism is only re-describing the outcome."""
+    from sourceborn import weighting as W
+    p = W.cross_domain_probe(OTHER_DOMAINS)
+    assert p["fired"] == 5, [c for c in p["cases"] if not c["fires"]]
+    assert p["flipped_under_counterfactual"] == 5
+    assert set(p["domains_fired"]) == set(OTHER_DOMAINS)
+    assert p["still_not_approved"] is True
+    by = {c["case"]: c for c in p["cases"]}
+    # the objective is read from the case, not assumed — two of these are
+    # STEWARDSHIP objectives and there the SENIOR person must win, which is
+    # the proof the mechanism is not "young beats old"
+    assert by["FAMILY"]["objective_type"] == \
+        "STEWARDSHIP / COUNSEL / CONTINUITY"
+    assert by["FAMILY"]["favoured"] == ["My grandfather"]
+    assert by["BUSINESS"]["favoured"] == ["My uncle"]
+    assert by["MEDICINE"]["objective_type"] == "THROUGHPUT / EXECUTION / SAFETY"
+    assert by["SPORTS"]["objective_type"] == "COMPETITIVE WIN"
+    assert by["SPORTS"]["favoured"] == ["Imran Shaikh"]
+
+
+def test_no_objective_means_no_weighting_is_legal():
+    from sourceborn import weighting as W
+    flat = ("There was one seat to fill. Aman Verma was the oldest. "
+            "Kabir Shah was the most popular.")
+    w = W.weigh(flat)
+    assert w["weights"] == {}
+    assert w["verdict"].startswith("NO WEIGHTING")
+    assert "cannot be read without an objective" in w["refuses"]
+    assert W.read_selection(flat)["applies"] is False
+    assert "no objective is named" in W.read_selection(flat)["why_not"]
+
+
+def test_his_registry_already_names_the_mechanism():
+    from sourceborn import asi_pyramid as P, weighting as W
+    assert P.param(P.flat_of("CON-047", 4))["name"] == "Attribute weighting"
+    rows = {r["name"]: r for r in W.rows_for(BJP)["rows"]}
+    assert rows["Attribute weighting"]["tier"] == P.SOURCE_GROUNDED
+    assert rows["Value ranking"]["tier"] == P.SOURCE_GROUNDED
+    # the biases seniority and popularity can set are NAMED, never asserted
+    assert rows["Authority bias"]["tier"] == P.HELD
+    assert rows["Halo effect"]["tier"] == P.HELD
+    assert W.rows_for(BJP)["counts"]["containers"] >= 7
 
 
 def _run_all():

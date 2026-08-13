@@ -1385,6 +1385,19 @@ PRIOR_RULES = [
      # rule is named after. The condition is not the flip. It is one event
      # shell carrying more than one intent route.
      "condition": "one event shell carries more than one intent route"},
+    # He lists this as an EXISTING rule in the BJP message with SUPPORT +1. My
+    # ledger held only RULE-001, so the provenance is recorded rather than
+    # silently backdated: the nearest earlier teaching on record is the
+    # father/door example — same action, changed functional role.
+    {"id": "RULE-002",
+     "text": "Role changes active interpretation",
+     "taught_by": "the father/door example — same action, changed function "
+                  "(docs/method/canon/SAME_ACTION_CHANGED_FUNCTION.md)",
+     "named_as_existing_by_him": "the BJP/Advani-Modi message, 2026-08-13",
+     "origin_shell": None,
+     "support": 1,
+     "condition": "the role or objective around an action changes which "
+                  "reading of it is active"},
 ]
 
 

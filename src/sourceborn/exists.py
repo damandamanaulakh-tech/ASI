@@ -105,6 +105,24 @@ MAP: list[dict] = [
     "state": RUNS,
     "note": "his seven candidates stay unresolved, and a test proves P2250 "
             "Sadness never enters the activated set because he cried."},
+   {"his": "SAME PARAMETERS + DIFFERENT OBJECTIVE -> DIFFERENT PARAMETER "
+           "IMPORTANCE -> DIFFERENT DECISION",
+    "where": [("weighting.py", "def weigh("),
+              ("weighting.py", "def counterfactual("),
+              ("weighting.py", "def rank_is_not_fitness("),
+              ("weighting.py", "REFUSED_LESSONS = ["),
+              ("weighting.py", "def cross_domain_probe(")],
+    "state": RUNS,
+    "note": "his BJP/Advani-Modi mechanism, which he provisionally named "
+            "Contextual Parameter Weighting. On his sentence: 6 weight flips "
+            "under his own counterfactual objective and the selection changes "
+            "from Modi to Advani. His two refused lessons (young > senior, "
+            "popularity > experience) are stored so they cannot be learnt. "
+            "PC-WEIGHT-001 ships SUPPORT 1, CANONICAL 0, ALIVE — NOT APPROVED, "
+            "with his cross-domain gate on it; the probe fires 5 of 5 outside "
+            "politics and flips 5 of 5, and TWO of them favour the SENIOR "
+            "person, which is the proof it is not \"young beats old\". Only he "
+            "promotes it."},
    {"his": "Event is same going to mall / but the intent is keep changing",
     "where": [("asi_pyramid.py", "def intent_routes("),
               ("asi_pyramid.py", "FUTURE = "),

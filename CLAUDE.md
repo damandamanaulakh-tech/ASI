@@ -374,6 +374,41 @@ three pattern candidates are Samrath-shaped (valence flip + contextual event);
 the mall's shape — one event, N reasons, three scopes — has **no named pattern
 yet** and is reported unnamed, which is his call to make.
 
+**CONTEXTUAL PARAMETER WEIGHTING — HIS BJP EXAMPLE, ALIVE AND NOT APPROVED
+(2026-08-13) — `weighting.py`.** His mechanism, canon at
+`docs/method/canon/CONTEXTUAL_PARAMETER_WEIGHTING.md`: **SAME PARAMETERS +
+DIFFERENT OBJECTIVE → DIFFERENT PARAMETER IMPORTANCE → DIFFERENT DECISION.** BJP
+was not choosing "the most senior leader", it was choosing for a task —
+**highest seniority YES ≠ highest suitability NOT AUTOMATIC**. His own registry
+already names the mechanism: **`CON-047.04` = Attribute weighting**. Built: 7 axes
+generalised out of political vocabulary, 4 objective types (two HIS — the 2014
+`COMPETITIVE WIN` with his weight ordering, and the `STEWARDSHIP / COUNSEL /
+CONTINUITY` counterfactual he named himself; two MINE and labelled), ordinal bands
+in his idiom (`DOMINANT · HIGH · RELEVANT · RELEVANT BUT NOT DOMINANT`, no
+invented numbers). On his sentence: **6 weight flips and the selection changes
+from Modi to Advani** under his counterfactual — same parameters, same people,
+different objective. **30 exact P rows** (17/9/4) across 8 containers, with
+`CON-076.33 Authority bias`, `.16 Status-quo bias` and `.29 Halo effect` **named
+and HELD, never asserted of anyone**. His two refused lessons — *young leader >
+senior leader* and *popularity > experience* — are stored so they cannot be
+learnt; what it may learn is only **PARAMETER IMPORTANCE IS ITSELF
+CONTEXT-DEPENDENT**. **His date correction is held at `SOURCE-ASSERTED WITH
+CITATION`** — he cited Indian Express and Business Standard, this engine did not
+verify them, and it says so. **Two defects the example caught:** "L.K. Advani" and
+"Advani" counted as two candidates, and every candidate inherited every axis
+because one sentence names both men — now attribution is by **nearest mention**
+with a **direction**, so *"less senior than Advani"* gives Modi LOW and never
+credits him with seniority. **His gate is on the candidate, not off it:**
+`PC-WEIGHT-001` ships SUPPORT 1 · CANONICAL 0 · **ALIVE — NOT APPROVED**, with
+`cross_domain_required` and `who_approves = him`. The probe **first ran 3 of 5**
+— sports and school failed because a person named ONCE was invisible to the name
+parser (the Samrath actor bug again); fixed generally, it now fires **5 of 5 and
+the selection flips 5 of 5**, and **two of them favour the SENIOR person** (the
+family trustee and the board seat, both stewardship objectives), which is the
+proof it is not the lesson he refused. **RULE-002** *"Role changes active
+interpretation"* is recorded as his with its provenance (the father/door example)
+and surfaced rather than silently backdated.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·
