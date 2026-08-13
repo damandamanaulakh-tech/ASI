@@ -38,6 +38,10 @@ FACT_IN_SOURCE = "FACT-IN-SOURCE"
 CAUSAL_HYPOTHESIS = "CAUSAL HYPOTHESIS"
 SOURCE_ASSERTED = "SOURCE-ASSERTED / NOT VERIFIED HERE"
 USER_VALUE = "USER VALUE / GENERALIZATION"
+# His correction (2026-08-13, the Samrath run): an absolute about a THIRD
+# PARTY is a SOURCE generalization, not the owner's value. Same refusal —
+# it is not evidence either way — but the two must not wear one label.
+SOURCE_GENERALIZATION = "SOURCE GENERALIZATION"
 COUNTERFACTUAL = "COUNTERFACTUAL / ALTERNATIVE PATH"
 
 # his own list of what else could explain an outcome
@@ -106,11 +110,35 @@ def read_claims(sentence: str) -> list[dict]:
                        "shown as FACT."})
 
     for m in _ABSOLUTE.finditer(s):
+        # WHOSE absolute is it? "I never trust them" is his value. "he always
+        # cry" is the SOURCE generalizing about someone else. His words:
+        # "never" = source generalization / "always" = source generalization /
+        # NOT automatically: every single historical school visit = crying.
+        # scope the pronoun test to the CLAUSE holding the absolute, not the
+        # whole ask — "No business is small." must not inherit "him"/"his"
+        # from three sentences away, which is exactly what it did at first
+        lo = max((s.rfind(d, 0, m.start()) for d in ".;,!?"), default=-1) + 1
+        nxt = [i for i in (s.find(d, m.end()) for d in ".;,!?") if i != -1]
+        clause = s[lo:(min(nxt) if nxt else len(s))]
+        third = re.search(r"\b(he|she|they|him|her|them|his|their)\b",
+                          clause, re.I)
+        first = re.search(r"\b(i|me|my|mine|we|us|our)\b", clause, re.I)
+        # a NAMED third party counts too — "Samrath never like to go to school"
+        # carries no pronoun at all, and it is still not the owner's value
+        from .asi_pyramid import actor_name
+        named = actor_name(clause)
+        about_other = (bool(third) or bool(named)) and not first
         out.append({
-            "text": s, "trigger": m.group(0), "status": USER_VALUE,
-            "why": "an absolute or universal phrasing — your value or "
-                   "generalization, which is a different kind of thing from a "
-                   "measurement.",
+            "text": s, "trigger": m.group(0), "clause": clause.strip(),
+            "status": SOURCE_GENERALIZATION if about_other else USER_VALUE,
+            "why": ("an absolute about someone else — the SOURCE generalizing, "
+                    "not a measurement and not your own value. It does NOT "
+                    "assert every single instance: \"always cry\" is a gist of "
+                    "history, never an enumeration of every school visit."
+                    if about_other else
+                    "an absolute or universal phrasing — your value or "
+                    "generalization, which is a different kind of thing from a "
+                    "measurement."),
             "refuses": "it is not evidence, and it is not treated as one."})
         break
 

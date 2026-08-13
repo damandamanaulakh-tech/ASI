@@ -2864,6 +2864,155 @@ def test_his_chart_is_generated_from_the_run_not_typed_out():
         assert must in text, must
 
 
+
+# --- HIS SECOND RUN: the 16 containers, the row matcher, the ASI additions ---
+
+def test_his_sixteen_containers_and_every_range_he_gave():
+    """He gave 16 container ranges and 5 segment ranges by hand. All 21 exact,
+    including CON-043 at P1683 which needs the CON-042 offset of 42 carried."""
+    from sourceborn import asi_pyramid as P
+    his = {"CON-017": (641, 680), "CON-020": (761, 800),
+           "CON-033": (1281, 1320), "CON-035": (1361, 1400),
+           "CON-043": (1683, 1722), "CON-044": (1723, 1762),
+           "CON-045": (1763, 1802), "CON-052": (2043, 2082),
+           "CON-054": (2123, 2162), "CON-057": (2243, 2284),
+           "CON-058": (2285, 2324), "CON-060": (2365, 2404),
+           "CON-061": (2405, 2444), "CON-062": (2445, 2484),
+           "CON-063": (2485, 2524), "CON-064": (2525, 2564)}
+    for cid, span in his.items():
+        assert P.container_span(cid) == span, cid
+    assert [c for c, _ in P.HIS_CONTAINERS] == sorted(his), "his 16, his order"
+    # his per-segment container counts: 2 / 2 / 3 / 2 / 7
+    from collections import Counter
+    got = Counter(P.param(P.container_span(c)[0])["segment"]
+                  for c, _ in P.HIS_CONTAINERS)
+    assert dict(got) == {"SEG-03": 2, "SEG-05": 2, "SEG-06": 3,
+                         "SEG-07": 2, "SEG-08": 7}, dict(got)
+
+
+def test_the_row_level_matcher_resolves_what_he_would_not_invent():
+    """His line: "I won't invent the P-row count." The payload is decoded here,
+    so the count is real, per-container, and checkable row by row."""
+    from sourceborn import asi_pyramid as P
+    r = P.rows_for(HIS_SENTENCE)
+    c = r["counts"]
+    assert c["containers"] == 16, "all 16 of his regions fire"
+    assert c["segments"] == 5
+    assert c["rows"] > 80, "16 containers != 16 parameters"
+    assert c["rows"] == c["source_grounded"] + c["inferred"] + c["held_open"]
+    assert c["untouched"] == c["bank"] - c["rows"]
+    # every row must resolve to a real name inside its own container's span
+    for row in r["rows"]:
+        lo, hi = P.container_span(row["container"])
+        assert lo <= row["flat"] <= hi, row
+        assert row["name"] == P.param(row["flat"])["name"]
+        assert row["by"] in ("HIS ASSIGNMENT", "resolved here (correctable)")
+    # the guard row against false causality must be present and source-grounded
+    corr = [x for x in r["rows"]
+            if "Correlation-vs-causation" in x["name"]]
+    assert corr and corr[0]["tier"] == P.SOURCE_GROUNDED
+    # Sadness must still be HELD, never source-grounded
+    sad = [x for x in r["rows"] if x["name"] == "Sadness"]
+    assert sad and sad[0]["tier"] == P.HELD
+
+
+def test_the_named_actor_is_no_longer_invisible():
+    from sourceborn import asi_pyramid as P
+    assert P.actor_name(HIS_SENTENCE) == "Samrath"
+    assert P.actor_name("but today is his birthday") == "", \
+        "no name present, so none is invented"
+
+
+def test_eleven_runtime_relations_and_the_last_one_is_association_only():
+    from sourceborn import asi_pyramid as P
+    rel = P.relations(HIS_SENTENCE)
+    assert rel["count"] == 11, rel["count"]
+    assert rel["not_parameters"] is True
+    ids = [x["id"] for x in rel["relations"]]
+    assert ids[0] == "R01" and ids[-1] == "R11"
+    last = rel["relations"][-1]
+    assert last["note"] == P.ASSOCIATION_ONLY
+    assert last["rel"] == "<->", "association is symmetric, not an arrow"
+    rep = [x for x in rel["relations"] if "repeated historical" in x["to"]]
+    assert rep and "not an enumeration" in rep[0]["note"]
+
+
+def test_seven_interpretations_and_h7_prevents_false_causality():
+    from sourceborn import asi_pyramid as P
+    i = P.interpretations(HIS_SENTENCE)
+    assert i["count"] == 7
+    assert i["none_concluded"] is True
+    h = {x["id"]: x for x in i["candidates"]}
+    assert h["H1"]["status"] == "REVIEW"
+    assert h["H2"]["status"] == "SYNTHETIC CANDIDATE"
+    assert "unrelated" in h["H7"]["title"]
+    assert "PREVENTS FALSE CAUSALITY" in h["H7"]["detail"]
+    assert "always kept" in h["H7"]["status"]
+    # the frames are general — the context word is substituted, not hard-coded
+    other = P.interpretations("Ravi never wants to go to the gym, he always "
+                             "shouted, but today is his match, he went really "
+                             "excited.")
+    assert "match" in {x["id"]: x for x in other["candidates"]}["H7"]["title"]
+
+
+def test_three_pattern_candidates_from_his_run():
+    from sourceborn import asi_pyramid as P
+    pcs = P.pattern_candidates(HIS_SENTENCE)
+    assert pcs["count"] == 3
+    got = {x["id"]: x for x in pcs["candidates"]}
+    assert got["PC-01"]["equals"].startswith("DIFFERENT AFFECT")
+    assert "does not destroy" in got["PC-02"]["equals"]
+    assert "DIFFERENT INTENT" in got["PC-03"]["equals"]
+
+
+def test_learning_strengthens_the_prior_rule_and_never_duplicates_it():
+    from sourceborn import asi_pyramid as P
+    r = P.reinforce(HIS_SENTENCE)
+    assert r["strengthened"] == 1
+    assert r["new_rules_invented"] == 0
+    rule = r["rules"][0]
+    assert rule["applies_here"] is True
+    assert rule["support"] == 1 and rule["support_after"] == 2
+    assert rule["action"] == "SUPPORT +1"
+    assert rule["duplicate_created"] is False
+    assert rule["taught_by"] == "the mall example"
+    # a sentence the rule does not cover must leave it untouched
+    flat = P.reinforce("He went to school today.")
+    assert flat["strengthened"] == 0
+    assert flat["rules"][0]["action"] == "not touched"
+
+
+def test_the_three_counters_and_nothing_is_promoted_without_him():
+    from sourceborn import asi_pyramid as P
+    r = P.full_run(HIS_SENTENCE)
+    ex = dict(r["counters"]["existing"])
+    assert ex["Total registered P rows"] == 3204
+    assert ex["Candidate containers hit"] == 16
+    assert ex["Existing parameters added"] == 0
+    assert ex["Existing parameters modified"] == 0
+    gen = dict(r["counters"]["generated"])
+    assert gen["Parent Sequence"] == 1
+    assert gen["Child comparison Sequences"] == 2
+    assert gen["Runtime relations"] == 11
+    assert gen["Interpretation candidates"] == 7
+    assert gen["Pattern candidates"] == 3
+    assert gen["Existing deep rule strengthened"] == 1
+    assert all(v == 0 for _k, v in r["counters"]["promoted"]), \
+        "nothing is promoted until he approves"
+
+
+def test_a_third_party_absolute_is_a_source_generalization_not_his_value():
+    """His correction: "never"/"always" here are SOURCE generalizations, and
+    they do not assert every single historical visit."""
+    from sourceborn import claims
+    third = claims.read_claims("Samrath never like to go to school, "
+                              "he always cry.")
+    assert third and third[0]["status"] == claims.SOURCE_GENERALIZATION
+    assert "never an enumeration" in third[0]["why"]
+    mine = claims.read_claims("I never trust a number without a source.")
+    assert mine and mine[0]["status"] == claims.USER_VALUE
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

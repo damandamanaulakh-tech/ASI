@@ -1728,7 +1728,7 @@ class Handler(BaseHTTPRequestHandler):
                 self._send(400, json.dumps(
                     {"error": "no ask"}).encode(), "application/json")
                 return
-            res = asi_pyramid.run(ask)
+            res = asi_pyramid.full_run(ask)
             res["chart"] = asi_pyramid.chart(res)
             self._send(200, json.dumps(res).encode(), "application/json")
             return

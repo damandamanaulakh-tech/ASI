@@ -892,3 +892,530 @@ def annotations() -> list:
         ("sequence runtime objects that are not parameters",
          "pyramid.runtime_objects"),
     ]
+
+
+# ===========================================================================
+# HIS SECOND RUN (2026-08-13) — the 16 containers, the row-level matcher, and
+# the ASI additions layer.
+#
+# He revised the container set himself and drew the line honestly:
+#
+#   "I can currently verify the container-level hits exactly enough to show
+#    16/80 active regions. I cannot yet truthfully say something like 'P2251,
+#    P2267…' because the 3,204 row payload is compressed and the metadata alone
+#    does not expose each individual parameter name. I won't invent the P-row
+#    count."
+#
+# The payload IS decoded here (data/human_registry.json, all 3,204 names), so
+# the row-level matcher below is the thing he left open. Every row states which
+# signal reached it and who assigned it — his rows say HIS ASSIGNMENT, mine say
+# so and are correctable.
+#
+# All 16 of his container ranges and all 5 of his segment ranges were verified
+# exact against his document before any of this was written, including CON-043
+# starting at P1683, which only lands if the CON-042 offset of 42 is carried.
+# ===========================================================================
+
+SOURCE_GROUNDED = "SOURCE-GROUNDED"
+INFERRED = "CANDIDATE / INFERRED"
+HELD = "HELD OPEN"
+
+# His 16, with the HIT label he wrote on each one.
+HIS_CONTAINERS = [
+    ("CON-017", "readiness to go to school"),
+    ("CON-020", "he actually went today"),
+    ("CON-033", "usual school history vs today"),
+    ("CON-035", 'repeated "always cry" history'),
+    ("CON-043", "what changed between usual and today?"),
+    ("CON-044", "WHY happy today? cause unknown"),
+    ("CON-045", "SAME EVENT DIFFERENT STATE"),
+    ("CON-052", '"usual dislike + crying" versus "today happy"'),
+    ("CON-054", '"never" "always" "but today"'),
+    ("CON-057", "cry / very happy"),
+    ("CON-058", "crying = observed emotional signal, "
+                "happy = explicit affect label"),
+    ("CON-060", '"very happy"'),
+    ("CON-061", '"doesn\'t like" / crying'),
+    ("CON-062", "usual willingness vs today's participation"),
+    ("CON-063", "GO -> SCHOOL under two different states"),
+    ("CON-064", "asks WHY today's willingness changed — "
+                "BUT actual motive remains OPEN"),
+]
+
+# THE ROW-LEVEL MATCHER. (container, position) -> the signal that reaches it,
+# its tier, and the reason. Positions are into HIS OWN sub-parameter list, so
+# the flat P id is computed from his addressing, never typed by hand.
+ROW_ROUTES = {
+ "CON-017": [(9, "actual_behaviour", SOURCE_GROUNDED, "an action was available"),
+             (10, "context_event", INFERRED, "the context read as an opening"),
+             (23, "actual_behaviour", SOURCE_GROUNDED, "today's approach"),
+             (24, "negated_preference", INFERRED, "the usual side"),
+             (36, "valence_flip", INFERRED, "the cost was paid today"),
+             (38, "actual_behaviour", SOURCE_GROUNDED, "go/no-go was pre-set"),
+             (40, "context_event", INFERRED, "opportunity against the usual")],
+ "CON-020": [(6, "actual_behaviour", SOURCE_GROUNDED, '"went" is a Go decision'),
+             (7, "negated_preference", INFERRED, "the usual no-go"),
+             (15, "valence_flip", SOURCE_GROUNDED, "approach vs avoid, both present"),
+             (17, "actual_behaviour", SOURCE_GROUNDED, "he committed and went"),
+             (27, "repeated_context", INFERRED, "habit against today's goal"),
+             (29, "context_event", INFERRED, "a cue in the current scope"),
+             (32, "repeated_context", INFERRED, "the default the history set")],
+ "CON-033": [(3, "same_event", SOURCE_GROUNDED, "what happened is stated"),
+             (4, "same_event", SOURCE_GROUNDED, '"school" is the place'),
+             (5, "current_scope", SOURCE_GROUNDED, '"today" is the time'),
+             (6, "actor_named", SOURCE_GROUNDED, "the actor is named"),
+             (7, "contrast_edge", SOURCE_GROUNDED, "usual before today"),
+             (11, "stated_affect", SOURCE_GROUNDED, "the affect is on the record"),
+             (13, "prior_scope", SOURCE_GROUNDED, "two time contexts"),
+             (23, "generalization", SOURCE_GROUNDED,
+              '"never"/"always" is a GIST of history, not an enumeration '
+              'of every visit')],
+ "CON-035": [(7, "repeated_context", SOURCE_GROUNDED, "school -> crying, stated as repeated"),
+             (13, "repeated_context", INFERRED, "how strong the habit is, not stated"),
+             (14, "repeated_context", SOURCE_GROUNDED, "context-cued — HIS ROW"),
+             (28, "repeated_context", INFERRED, "what triggers it is not stated"),
+             (31, "repeated_context", HELD, "routine vs habit is not decided"),
+             (32, "repeated_context", INFERRED, "the default behaviour")],
+ "CON-043": [(1, "context_event", HELD, "cause and effect are not separated yet"),
+             (2, "context_event", SOURCE_GROUNDED,
+              "co-occurrence is not causation — this row IS the guard"),
+             (6, "context_event", HELD, "a confound is possible and unnamed"),
+             (9, "context_event", HELD, "more than one cause may hold"),
+             (13, "contrast_edge", INFERRED, "the usual day is the counterfactual"),
+             (17, "contrast_edge", INFERRED, "but-for the birthday, unknown"),
+             (19, "context_event", INFERRED, "the context may only enable"),
+             (39, "context_event", HELD, "a hidden variable is live — his H7")],
+ "CON-044": [(9, "context_event", SOURCE_GROUNDED, "this is ambiguity, not risk"),
+             (10, "context_event", SOURCE_GROUNDED, "the ambiguity is held, not closed"),
+             (11, "motive_absent", SOURCE_GROUNDED, "the unknown is quantified as unknown"),
+             (28, "context_event", HELD, "unknown unknowns remain"),
+             (30, "motive_absent", SOURCE_GROUNDED, "the hedge is appropriate here"),
+             (36, "motive_absent", SOURCE_GROUNDED, "evidence is NOT enough to stop"),
+             (38, "valence_flip", SOURCE_GROUNDED, "the flip is the surprise")],
+ "CON-045": [(9, "context_event", SOURCE_GROUNDED, "crying is the symptom, not the cause"),
+             (11, "generalization", SOURCE_GROUNDED, "the assumptions are surfaced"),
+             (12, "motive_absent", SOURCE_GROUNDED, "given separated from unknown"),
+             (14, "contrast_edge", SOURCE_GROUNDED, "same event, two frames"),
+             (28, "context_event", SOURCE_GROUNDED, "the changed variable is the key one"),
+             (31, "motive_absent", SOURCE_GROUNDED, "this is ill-defined and says so"),
+             (38, "context_event", SOURCE_GROUNDED,
+              '"why does he like school now" would be the wrong problem')],
+ "CON-052": [(3, "contrast_edge", SOURCE_GROUNDED, "the two clauses are linked"),
+             (5, "actor_named", SOURCE_GROUNDED, '"he"/"his" resolve to the named actor'),
+             (6, "actor_named", SOURCE_GROUNDED, "one actor across both scopes"),
+             (16, "same_event", SOURCE_GROUNDED, "one situation model, two states"),
+             (17, "contrast_edge", SOURCE_GROUNDED, "today updates the model"),
+             (19, "current_scope", SOURCE_GROUNDED, '"today" is the connective'),
+             (20, "contrast_edge", SOURCE_GROUNDED, '"but" is the marker'),
+             (26, "valence_flip", SOURCE_GROUNDED, "the two states are inconsistent"),
+             (34, "motive_absent", SOURCE_GROUNDED, "the ambiguity is held open")],
+ "CON-054": [(7, "generalization", SOURCE_GROUNDED, '"never like" presupposes he goes'),
+             (8, "prior_scope", SOURCE_GROUNDED, "the history is the given"),
+             (19, "generalization", SOURCE_GROUNDED,
+              '"never"/"always" read as source generalization, NOT as every '
+              'single historical visit'),
+             (23, "current_scope", HELD, '"today" has no date to resolve to'),
+             (27, "contrast_edge", SOURCE_GROUNDED, "the exception is appropriate"),
+             (30, "motive_absent", HELD, "the subtext is not concluded"),
+             (31, "generalization", SOURCE_GROUNDED, "literal vs meant, reconciled")],
+ "CON-057": [(1, "valence_flip", SOURCE_GROUNDED, "historical negative vs current positive"),
+             (12, "stated_affect", SOURCE_GROUNDED, '"happy" — HIS ROW'),
+             (39, "repeated_context", INFERRED, "a standing mood is possible"),
+             (40, "intensifier", SOURCE_GROUNDED, '"very" — HIS ROW'),
+             (42, "valence_flip", SOURCE_GROUNDED, "prior state != today — HIS ROW"),
+             (3, "affect_behaviour", HELD, "one of his seven, none chosen"),
+             (4, "affect_behaviour", HELD, "one of his seven, none chosen"),
+             (6, "affect_behaviour", HELD, "one of his seven, none chosen"),
+             (8, "affect_behaviour", HELD,
+              "Sadness stays HELD — he cried, that is all the source says"),
+             (10, "affect_behaviour", HELD, "one of his seven, none chosen")],
+ "CON-058": [(12, "stated_affect", SOURCE_GROUNDED, "the valence is identifiable"),
+             (14, "stated_affect", SOURCE_GROUNDED, '"happy" is an explicit label'),
+             (17, "context_event", HELD, "the cause of the affect is not attributed"),
+             (26, "stated_affect", SOURCE_GROUNDED, "affect read from text"),
+             (32, "valence_flip", SOURCE_GROUNDED, "context congruence checked"),
+             (34, "valence_flip", SOURCE_GROUNDED, "the shift is detected"),
+             (22, "affect_behaviour", HELD,
+              "crying may mask something — not decided")],
+ "CON-060": [(2, "context_event", INFERRED, "birthday -> anticipation — HIS ROW"),
+             (4, "negated_preference", SOURCE_GROUNDED,
+              "historically LOW liking — HIS ROW"),
+             (12, "actual_behaviour", SOURCE_GROUNDED,
+              "today he actually goes happily — HIS ROW"),
+             (22, "context_event", INFERRED, "novelty — his H4"),
+             (24, "context_event", INFERRED, "social reward — HIS ROW"),
+             (35, "valence_flip", SOURCE_GROUNDED, "better than expected")],
+ "CON-061": [(13, "negated_preference", HELD,
+              '"never like to go" is NOT "never goes" — avoidance stays HELD'),
+             (18, "affect_behaviour", HELD, "goal blockage is not stated"),
+             (28, "affect_behaviour", HELD, "withdrawal is not stated")],
+ "CON-062": [(3, "actual_behaviour", INFERRED, "commitment today"),
+             (4, "valence_flip", INFERRED, "the task's value may have changed"),
+             (10, "valence_flip", INFERRED,
+              "historically low / today higher — HIS ROW"),
+             (20, "actual_behaviour", INFERRED, "today's approach — HIS ROW"),
+             (21, "negated_preference", INFERRED,
+              "historical avoidance — HIS ROW")],
+ "CON-063": [(16, "contrast_edge", INFERRED,
+              "the usual pattern changes today — HIS ROW"),
+             (24, "context_event", INFERRED, "an intention conditional on the day"),
+             (30, "context_event", INFERRED,
+              "opportunity-triggered — HIS ROW"),
+             (40, "motive_absent", SOURCE_GROUNDED,
+              "intent is separated from motive, which is the point")],
+ "CON-064": [(1, "motive_absent", SOURCE_GROUNDED, "no motive is stated"),
+             (3, "motive_absent", HELD, "the hidden motive stays a hypothesis"),
+             (33, "context_event", HELD, "competing motives are possible"),
+             (39, "contrast_edge", INFERRED,
+              "motive stability vs shift — HIS ROW"),
+             (40, "motive_absent", SOURCE_GROUNDED,
+              "motive-inference confidence is LOW — HIS ROW")],
+}
+
+# Signals his 16 containers need that the first pass did not produce.
+def _extra_signals(text: str, scopes: dict, shell: dict, sig: dict) -> dict:
+    out = dict(sig)
+    if scopes.get(PRIOR):
+        out["prior_scope"] = {"why": "a historical scope is present"}
+    if scopes.get(CURRENT):
+        out["current_scope"] = {"why": "a current scope is present"}
+    if shell.get("shell"):
+        out["same_event"] = {"why": "one event object across both scopes"}
+    name = actor_name(text)
+    if name:
+        out["actor_named"] = {"name": name,
+                              "why": "a named actor, not only pronouns"}
+    gen = _has(text, ("never", "always", "every time", "everyone", "all",
+                      "every day", "everyday"))
+    if gen:
+        out["generalization"] = {
+            "words": gen,
+            "why": "source generalization — NOT an enumeration. \"always cry\" "
+                   "does not assert every single historical school visit "
+                   "ended in crying"}
+    if sig.get("stated_positive") or sig.get("stated_negative"):
+        out["stated_affect"] = {"why": "an affect is stated in the source"}
+    if sig.get("_behaviours_seen"):
+        out["affect_behaviour"] = {"behaviours": sig["_behaviours_seen"],
+                                   "why": "an affect BEHAVIOUR, which is a "
+                                          "signal and never a state"}
+    return out
+
+
+def actor_name(text: str) -> str:
+    """The named actor. micro.py finds only pronouns, so "Samrath" — the
+    subject of the whole story — was invisible. A capitalised token that is not
+    a sentence-initial function word and matches nothing in any lexicon is
+    reported as a NAME; anything else is left alone rather than guessed."""
+    known = set(PRIOR_MARKERS) | set(CURRENT_MARKERS) | set(CONTRAST) | \
+        set(INTENSIFIERS) | set(POSITIVE_AFFECT) | set(NEGATIVE_AFFECT) | \
+        set(AFFECT_BEHAVIOUR) | set(DESIRE_VERBS) | set(ACTUAL_PAST) | \
+        set(PRESENT_OF) | {"the", "he", "she", "they", "it", "his", "her",
+                           "their", "a", "an", "and", "is", "was", "to"}
+    for tok in re.findall(r"\b[A-Z][a-z]{2,}\b", text or ""):
+        if tok.lower() not in known:
+            return tok
+    return ""
+
+
+def rows_for(text: str, sig: dict = None, scopes: dict = None,
+             shell: dict = None) -> dict:
+    """THE ROW-LEVEL MATCHER — the exact P rows inside his 16 containers.
+
+    This is the number he would not invent. Each row carries the signal that
+    reached it, its tier, and whether he named it."""
+    scopes = scopes or read_scopes(text)
+    shell = shell or event_shell(text, scopes)
+    sig = _extra_signals(text, scopes, shell,
+                         sig if sig is not None else
+                         signals(text, scopes, shell))
+    his_named = {(s, f) for s, f, _t, _w in ROUTES}
+    his_flats = {f for _s, f, _t, _w in ROUTES}
+    out, tiers = [], {SOURCE_GROUNDED: 0, INFERRED: 0, HELD: 0}
+    for cid, label in HIS_CONTAINERS:
+        for pos, signal, tier, why in ROW_ROUTES.get(cid, []):
+            if signal not in sig:
+                continue
+            flat = flat_of(cid, pos)
+            p = param(flat)
+            out.append({
+                "flat": flat, "p": p["p"], "sb_id": p["sb_id"],
+                "name": p["name"], "pos": pos,
+                "container": cid, "container_name": p["container_name"],
+                "container_label": label,
+                "segment": p["segment"], "segment_name": p["segment_name"],
+                "tier": tier, "signal": signal, "why": why,
+                "by": "HIS ASSIGNMENT" if flat in his_flats
+                      else "resolved here (correctable)",
+            })
+            tiers[tier] += 1
+    out.sort(key=lambda r: r["flat"])
+    by_con, by_seg = {}, {}
+    for r in out:
+        by_con[r["container"]] = by_con.get(r["container"], 0) + 1
+        by_seg[r["segment"]] = by_seg.get(r["segment"], 0) + 1
+    return {
+        "rows": out,
+        "counts": {
+            "rows": len(out),
+            "source_grounded": tiers[SOURCE_GROUNDED],
+            "inferred": tiers[INFERRED],
+            "held_open": tiers[HELD],
+            "containers": len(by_con),
+            "containers_total": 80,
+            "segments": len(by_seg),
+            "segments_total": 10,
+            "bank": bank_size(),
+            "untouched": bank_size() - len(out),
+            "pct": round(100.0 * len(out) / bank_size(), 2),
+        },
+        "by_container": by_con,
+        "by_segment": by_seg,
+        "his_line": "16 containers != 16 parameters. Several individual P rows "
+                    "inside each container can fire.",
+        "resolved": "the row payload IS decoded here, so the count he would "
+                    "not invent is now a real number he can check row by row",
+    }
+
+
+# ---------------------------------------------------------------------------
+# THE ASI ADDITIONS — above the 3,204, and they are not new parameters
+# ---------------------------------------------------------------------------
+
+ASSOCIATION_ONLY = "ASSOCIATION ONLY — not causality"
+
+
+def relations(text: str, scopes: dict = None, shell: dict = None,
+              sig: dict = None) -> dict:
+    """His runtime relations. Generated from the parse, numbered as he numbered
+    them. They are NOT new P parameters and are never written to the bank."""
+    scopes = scopes or read_scopes(text)
+    shell = shell or event_shell(text, scopes)
+    sig = sig if sig is not None else signals(text, scopes, shell)
+    name = actor_name(text) or "(actor)"
+    obj = shell.get("object") or "(object)"
+    verb = (shell.get("verb_forms") or [{"lemma": "(action)"}])[0]["lemma"]
+    beh = (sig.get("_behaviours_seen") or [None])[0]
+    pos = sig.get("stated_positive", {}).get("words") or \
+        sig.get("stated_negative", {}).get("words") or []
+    ctx = sig.get("context_event", {}).get("nouns") or []
+    rep = sig.get("repeated_context", {}).get("markers") or []
+    R = []
+
+    def add(a, arrow, b, note=""):
+        R.append({"id": "R%02d" % (len(R) + 1), "from": a, "rel": arrow,
+                  "to": b, "note": note})
+
+    add(name, "->", obj)
+    add(name, "->", verb)
+    if scopes.get(PRIOR):
+        add("usual-state", "->", obj)
+        if sig.get("negated_preference"):
+            add("usual-state", "->", "dislike")
+        if beh:
+            add("usual-state", "->", beh)
+            if rep:
+                add(beh, "->", "repeated historical observation",
+                    "from %s — a generalization, not an enumeration"
+                    % ", ".join(rep))
+    if scopes.get(CURRENT):
+        for c in ctx[:1]:
+            add("today", "->", c)
+        if sig.get("actual_behaviour"):
+            add("today", "->", "%s-going" % obj)
+        for w in pos[:1]:
+            add("today", "->", w)
+    if scopes.get(PRIOR) and scopes.get(CURRENT):
+        add("usual Sequence", "<->", "today Sequence", "comparison")
+        if ctx and pos:
+            add("%s-context" % ctx[0], "<->", "changed affect",
+                ASSOCIATION_ONLY)
+    return {"relations": R, "count": len(R),
+            "not_parameters": True,
+            "his_rule": "They are not new P parameters."}
+
+
+# His seven interpretation frames. The context word is substituted; the frames
+# themselves are general, and H7 is structural — it is what stops the machine
+# closing a cause.
+INTERPRETATION_FRAMES = [
+    ("H1", "{ctx} changed the meaning of {obj}",
+     "normally {obj} = ordinary/undesired activity; "
+     "today {obj} + {ctx} = special experience", "REVIEW"),
+    ("H2", "the social surrounding changed",
+     "friends · classmates · teachers · attention · celebration — "
+     "none are in the source", "SYNTHETIC CANDIDATE"),
+    ("H3", "reward expectation",
+     "cake · gifts · celebration · recognition", "OPEN / SYNTHETIC"),
+    ("H4", "novelty",
+     "ordinary day vs special day", "OPEN"),
+    ("H5", "relationship effect",
+     "he may have wanted to see a particular person", "UNKNOWN"),
+    ("H6", "a different activity",
+     "normal work may not have been expected today", "UNKNOWN"),
+    ("H7", "{ctx} is unrelated",
+     "{ctx} happens today AND the affect happens today, but some completely "
+     "different factor could explain it. THIS CANDIDATE PREVENTS FALSE "
+     "CAUSALITY.", "COUNTEREXAMPLE — always kept"),
+]
+
+
+def interpretations(text: str, sig: dict = None, shell: dict = None) -> dict:
+    shell = shell or event_shell(text)
+    sig = sig if sig is not None else signals(text)
+    ctx = (sig.get("context_event", {}).get("nouns") or ["(context)"])[0]
+    obj = shell.get("object") or "(event)"
+    out = []
+    for hid, title, detail, status in INTERPRETATION_FRAMES:
+        out.append({"id": hid,
+                    "title": title.format(ctx=ctx, obj=obj),
+                    "detail": detail.format(ctx=ctx, obj=obj),
+                    "status": status})
+    return {"candidates": out, "count": len(out),
+            "none_concluded": True,
+            "his_rule": "ASI can generate possible explanations. It must not "
+                        "invent one."}
+
+
+# His three pattern candidates from this run.
+def pattern_candidates(text: str, sig: dict = None) -> dict:
+    sig = sig if sig is not None else signals(text)
+    flip = "valence_flip" in sig
+    ctx = "context_event" in sig
+    out = [
+     {"id": "PC-01", "title": "Context-dependent affect/willingness",
+      "form": ["SAME EVENT", "CHANGED CONTEXT"],
+      "equals": "DIFFERENT AFFECT / PARTICIPATION STATE",
+      "strength": "very strong" if (flip and ctx) else "not assembled",
+      "assembled": flip and ctx},
+     {"id": "PC-02", "title": "Baseline with an exception",
+      "form": ["BASELINE: event -> dislike / negative behaviour",
+               "EXCEPTION: event + today's context -> positive affect"],
+      "equals": "EXCEPTION does not destroy BASELINE, and BASELINE does not "
+                "invalidate EXCEPTION",
+      "strength": "the rule this teaches", "assembled": flip},
+     {"id": "PC-03", "title": "Intent is not permanently attached to the event",
+      "form": ["GO -> SCHOOL cannot permanently mean \"I don't want to go\"",
+               "because today the same event exists under a different active "
+               "Pyramid configuration"],
+      "equals": "SAME EVENT + DIFFERENT ACTIVE PYRAMID PATH = DIFFERENT INTENT",
+      "strength": "supports his earlier rule", "assembled": flip and ctx},
+    ]
+    return {"candidates": out, "count": len(out),
+            "assembled": sum(1 for c in out if c["assembled"])}
+
+
+# ---------------------------------------------------------------------------
+# LEARNING = REINFORCEMENT, NOT DUPLICATION
+# ---------------------------------------------------------------------------
+
+# His prior rules, with the example that taught each. A new example that fits
+# an existing rule adds SUPPORT — it never creates a second copy of the rule.
+PRIOR_RULES = [
+    {"id": "RULE-001",
+     "text": "Same event + different Pyramid path = different intent",
+     "taught_by": "the mall example",
+     "support": 1},
+]
+
+
+def reinforce(text: str, sig: dict = None) -> dict:
+    """His instruction, exactly: strengthened, not newly created.
+
+        PRIOR USER RULE: Same event + different Pyramid path = different intent
+        CURRENT EXAMPLE: SUPPORT +1
+
+        Not: invent another duplicate rule
+    """
+    sig = sig if sig is not None else signals(text)
+    out = []
+    for r in PRIOR_RULES:
+        applies = "valence_flip" in sig and "context_event" in sig
+        out.append({**r,
+                    "applies_here": applies,
+                    "support_after": r["support"] + (1 if applies else 0),
+                    "action": "SUPPORT +1" if applies else "not touched",
+                    "duplicate_created": False})
+    return {"rules": out,
+            "strengthened": sum(1 for r in out if r["applies_here"]),
+            "new_rules_invented": 0,
+            "his_rule": "I call it strengthened rather than newly created "
+                        "because you already taught this rule with the mall "
+                        "example. That is exactly how learning should work. "
+                        "Not: invent another duplicate rule."}
+
+
+def counters(rowres: dict, rel: dict, interp: dict, pcs: dict,
+             reinf: dict, scopes: dict) -> dict:
+    """His three boxes, in his order and with his labels."""
+    c = rowres["counts"]
+    return {
+     "existing": [
+      ("Total registered P rows", c["bank"]),
+      ("Total containers", c["containers_total"]),
+      ("Candidate containers hit", c["containers"]),
+      ("Exact P-row hits", c["rows"]),
+      ("  of which SOURCE-GROUNDED", c["source_grounded"]),
+      ("  of which CANDIDATE / INFERRED", c["inferred"]),
+      ("  of which HELD OPEN", c["held_open"]),
+      ("Existing parameters added", 0),
+      ("Existing parameters modified", 0),
+     ],
+     "generated": [
+      ("Parent Sequence", 1),
+      ("Child comparison Sequences",
+       sum(1 for k in (PRIOR, CURRENT) if scopes.get(k))),
+      ("Runtime relations", rel["count"]),
+      ("Interpretation candidates", interp["count"]),
+      ("Pattern candidates", pcs["count"]),
+      ("Existing deep rule strengthened", reinf["strengthened"]),
+     ],
+     "promoted": [
+      ("New canonical parameters", 0),
+      ("New approved patterns", 0),
+      ("New approved rubrics", 0),
+      ("User corrections", 0),
+     ],
+     "gate": "PROMOTED KNOWLEDGE stays at zero until he approves. Nothing here "
+             "writes to his bank.",
+    }
+
+
+def full_run(text: str) -> dict:
+    """HIS STANDARD DISPLAY FORMAT, in his order:
+
+        3,204 hits -> two Sequences -> differences -> ASI additions ->
+        existing-pattern reinforcement / new candidate -> answer
+    """
+    base = run(text)
+    scopes, shell = base["scopes"], base["shell"]
+    sig = signals(text, scopes, shell)
+    rowres = rows_for(text, sig, scopes, shell)
+    rel = relations(text, scopes, shell, sig)
+    interp = interpretations(text, sig, shell)
+    pcs = pattern_candidates(text, sig)
+    reinf = reinforce(text, sig)
+    return {
+        **base,
+        "sequences": {
+            "parent": {"id": "PARENT", "event": shell.get("shell"),
+                       "children": 2 if (scopes.get(PRIOR) and
+                                         scopes.get(CURRENT)) else 1},
+            "seq_a": {"id": "SEQ-A / USUAL", "scope": PRIOR,
+                      "chain": [c["clause"] for c in scopes.get(PRIOR, [])]},
+            "seq_b": {"id": "SEQ-B / TODAY", "scope": CURRENT,
+                      "chain": [c["clause"] for c in scopes.get(CURRENT, [])]},
+        },
+        "his_containers": [{"id": cid, "label": lab,
+                            "span": container_span(cid),
+                            "rows": rowres["by_container"].get(cid, 0)}
+                           for cid, lab in HIS_CONTAINERS],
+        "row_level": rowres,
+        "relations": rel,
+        "interpretations": interp,
+        "pattern_candidates": pcs,
+        "reinforcement": reinf,
+        "counters": counters(rowres, rel, interp, pcs, reinf, scopes),
+        "format": "3,204 hits -> two Sequences -> differences -> ASI additions "
+                  "-> existing-pattern reinforcement / new candidate -> answer",
+    }

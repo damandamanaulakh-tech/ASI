@@ -299,6 +299,44 @@ information-seeking actions). One thing surfaced and NOT resolved: in his chart 
 marked **P2564** HIT, in his final list he placed it under CANDIDATE — his list is
 followed and his chart mark is carried beside it.
 
+**HIS SECOND RUN — 16 CONTAINERS, AND THE NUMBER HE REFUSED TO INVENT
+(2026-08-13).** He revised the container set himself and drew an honesty line:
+*"I can currently verify the container-level hits exactly enough to show 16/80
+active regions… **I won't invent the P-row count**"* — because his payload was
+compressed. **That was the one thing this side could close.** All 21 ranges he
+gave by hand were verified exact FIRST (16 containers + 5 segments, including
+`CON-043 = P1683`, which only lands if the CON-042 offset of 42 is carried), then
+`rows_for()` ran the matcher against the decoded 3,204: **106 exact P rows —
+59 SOURCE-GROUNDED · 27 CANDIDATE/INFERRED · 20 HELD OPEN — across all 16 of his
+containers and 5 segments, 3,098 untouched.** His per-segment counts reproduce
+exactly (2/2/3/2/7). His line *"16 containers ≠ 16 parameters"* is why the row
+layer exists. The guard rows are named, not buried: **P1684
+Correlation-vs-causation** is SOURCE-GROUNDED and is the guard against
+`birthday → caused happy`; **P2250 Sadness** is HELD OPEN; **P2417 Avoidance
+behaviour** is HELD because *"never like to go"* is not *"never goes"*; **P2141
+Overstatement/hyperbole** is where his rule lands that *never/always* is a
+**source generalization, not every single historical visit**. **The ASI additions
+layer is built above the bank and never writes to it:** 11 runtime relations
+(R11 carries `ASSOCIATION ONLY — not causality`), 7 interpretation candidates
+(H7 *"the context is unrelated"* is always kept — it is what prevents false
+causality), 3 pattern candidates (PC-02: *exception does not destroy baseline,
+baseline does not invalidate exception*). **Learning is reinforcement, not
+duplication** — his instruction built literally: RULE-001 (taught by the mall
+example) goes SUPPORT 1→2 with `duplicate_created = False` and
+`new_rules_invented = 0`; a sentence the rule does not cover leaves it untouched.
+**His three counters are now the standard display** and `PROMOTED KNOWLEDGE`
+stays at 0 until he approves. `/asi` renders **his** named order —
+*3,204 hits → two Sequences → differences → ASI additions → existing-pattern
+reinforcement / new candidate → answer* — with the format string printed on the
+page so it cannot quietly drift. **A correction to my own report:** I had listed
+`claims.py` flagging *"never"* as a defect; his run shows the classification was
+right and only the LABEL was wrong. An absolute about a third party is a
+**SOURCE GENERALIZATION**, not the owner's value — `claims.py` now carries both,
+scoped to the clause holding the absolute (the first attempt let *"No business is
+small."* inherit "him"/"his" from three sentences away) and detecting a named
+third party with no pronoun at all. `actor_name()` also closes the earlier defect
+where "Samrath" was invisible to the parser.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

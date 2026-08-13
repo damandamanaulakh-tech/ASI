@@ -14,7 +14,7 @@ PAGE = r"""<!doctype html><html lang=en><head><meta charset=utf-8>
 <title>THE PYRAMID — one ask over his 3,204</title>
 <style>
 :root{--bg:#07090c;--ink:#e8eef6;--dim:#8fa3b8;--line:#1b2430;--card:#0d1218;
---strong:#4ade80;--cand:#fbbf24;--halt:#f87171;--his:#60a5fa}
+--strong:#4ade80;--cand:#fbbf24;--halt:#f87171;--his:#60a5fa;--gen:#c084fc}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
 font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
@@ -57,6 +57,23 @@ pre{margin:0;white-space:pre-wrap;font:inherit;color:var(--dim)}
 .chart pre{white-space:pre;color:var(--ink);font-size:12px}
 ul{margin:4px 0 0 18px;padding:0}li{margin:2px 0}
 .note{color:var(--cand);font-size:11.5px;margin-top:4px}
+.fmt{color:var(--dim);font-size:11px;letter-spacing:.06em;margin:10px 0 18px;
+padding:8px 10px;border:1px dashed var(--line);border-radius:6px}
+.box{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.box h3{margin:0;padding:8px 12px;font-size:11px;letter-spacing:.14em;
+background:#101822;color:var(--dim);font-weight:400}
+.box table{font-size:12px}.box td:last-child{text-align:right;
+font-variant-numeric:tabular-nums}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:900px){.three{grid-template-columns:1fr}}
+.gen{color:var(--gen)}
+.rel{display:grid;grid-template-columns:44px 1fr 40px 1fr;gap:2px 8px;
+font-size:12px;align-items:baseline}
+.rel .id{color:var(--his)}
+.assoc{color:var(--halt);grid-column:1/-1;font-size:11px;padding-left:52px}
+.tierS{color:var(--strong)}.tierC{color:var(--cand)}.tierH{color:var(--halt)}
+.cf{cursor:pointer;color:var(--dim);font-size:11px;
+border-bottom:1px dotted var(--line)}
 </style></head><body>
 <header>
   <h1>THE PYRAMID — ONE ASK OVER HIS 3,204</h1>
@@ -90,6 +107,19 @@ function draw(d){
   const o=[];
   const sc=d.scopes, sh=d.shell, c=d.activation.counts;
 
+  o.push('<div class=fmt>'+esc(d.format)+'</div>');
+
+  o.push('<h2>THE THREE COUNTERS</h2><div class=three>');
+  [['EXISTING 3,204 SYSTEM','existing',''],
+   ['GENERATED FOR THIS SEQUENCE','generated','gen'],
+   ['PROMOTED KNOWLEDGE — YOURS','promoted','']].forEach(([t,k,cl])=>{
+    o.push(`<div class=box><h3>${esc(t)}</h3><table>`+
+      d.counters[k].map(([label,v])=>`<tr><td>${esc(label)}</td>`+
+        `<td class="${cl}">${esc(v)}</td></tr>`).join('')+'</table></div>');
+  });
+  o.push('</div>');
+  o.push(`<div class=mine>${esc(d.counters.gate)}</div>`);
+
   o.push('<h2>THE SPLIT — NOT ONE FLAT SENTENCE</h2><div class=two>');
   [['PRIOR / REPEATED SEQUENCES','PRIOR / REPEATED'],
    ['CURRENT / TODAY SEQUENCE','CURRENT / TODAY']].forEach(([label,key])=>{
@@ -115,7 +145,35 @@ function draw(d){
       t.seeded_by_class?' (same class as his table)':''}</td></tr>`).join('')+
     '</table></div>');
 
-  o.push('<h2>WORKING ACTIVE SET</h2><div class=card><div class=count>'+
+  const rl=d.row_level, rc=rl.counts;
+  o.push('<h2>ROW-LEVEL MATCHER — THE EXACT P ROWS</h2><div class=card>'+
+    '<div class=count>'+
+    `<div><div class=k>EXACT P-ROW HITS</div><b>${rc.rows}</b></div>`+
+    `<div><div class=k>SOURCE-GROUNDED</div><b class=tierS>${rc.source_grounded}</b></div>`+
+    `<div><div class=k>CANDIDATE / INFERRED</div><b class=tierC>${rc.inferred}</b></div>`+
+    `<div><div class=k>HELD OPEN</div><b class=tierH>${rc.held_open}</b></div>`+
+    `<div><div class=k>CONTAINERS</div><b>${rc.containers} / ${rc.containers_total}</b></div>`+
+    `<div><div class=k>SEGMENTS</div><b>${rc.segments} / ${rc.segments_total}</b></div>`+
+    `<div><div class=k>UNTOUCHED</div><b class=mine>${rc.untouched}</b></div>`+
+    `</div><div class=mine style=margin-top:6px>${esc(rl.his_line)}</div>`+
+    `<div class=mine>${esc(rl.resolved)}</div></div>`);
+
+  o.push('<div class=card><table><tr><th>segment</th><th>container</th>'+
+    '<th>his span</th><th>rows</th><th>his HIT label</th></tr>'+
+    d.his_containers.map(h=>`<tr><td class=mine>${esc(h.id.slice(0,3))}</td>`+
+      `<td class=pid>${esc(h.id)}</td>`+
+      `<td class=mine>P${h.span[0]}-P${h.span[1]}</td>`+
+      `<td>${h.rows}</td><td>${esc(h.label)}</td></tr>`).join('')+'</table></div>');
+
+  o.push('<div class=card><table><tr><th>P id</th><th>his name for it</th>'+
+    '<th>tier</th><th>container</th><th>why</th><th>by</th></tr>'+
+    rl.rows.map(r=>`<tr><td class=pid>${esc(r.p)}</td><td>${esc(r.name)}</td>`+
+      `<td class="${r.tier==='SOURCE-GROUNDED'?'tierS':
+        r.tier==='HELD OPEN'?'tierH':'tierC'}">${esc(r.tier)}</td>`+
+      `<td class=mine>${esc(r.container)}</td><td>${esc(r.why)}</td>`+
+      `<td class=mine>${esc(r.by)}</td></tr>`).join('')+'</table></div>');
+
+  o.push('<h2>THE 18 HE NAMED HIMSELF</h2><div class=card><div class=count>'+
     `<div><div class=k>CONFIRMED / STRONG</div><b class=t-strong>${c.strong}</b></div>`+
     `<div><div class=k>CANDIDATE / INFERRED</div><b class=t-cand>${c.candidate}</b></div>`+
     `<div><div class=k>WORKING / BANK</div><b>${c.working} / ${c.bank}</b></div>`+
@@ -157,6 +215,42 @@ function draw(d){
     o.push('<div class=k style=margin-top:8px>OPENED AS HYPOTHESES, NOT INVENTED</div><div>'+
       df.hidden_branches.map(b=>`<span class=pill>${esc(b)}</span>`).join('')+'</div>');
   o.push(`<div class=mine style=margin-top:8px>${esc(df.fabrication_example)}</div></div>`);
+
+  const rel=d.relations;
+  o.push('<h2>ASI ADDITIONS — RUNTIME RELATIONS, NOT PARAMETERS</h2>'+
+    '<div class=card><div class=rel>'+
+    rel.relations.map(x=>`<span class=id>${esc(x.id)}</span>`+
+      `<span>${esc(x.from)}</span><span class=gen>${esc(x.rel)}</span>`+
+      `<span>${esc(x.to)}</span>`+
+      (x.note?`<span class=assoc>${esc(x.note)}</span>`:'')).join('')+
+    `</div><div class=mine style=margin-top:8px>${esc(rel.his_rule)} `+
+    `Generated = ${rel.count}.</div></div>`);
+
+  const ip=d.interpretations;
+  o.push('<h2>INTERPRETATION CANDIDATES — NONE CONCLUDED</h2><div class=card>'+
+    '<table><tr><th>id</th><th>candidate</th><th>detail</th><th>status</th></tr>'+
+    ip.candidates.map(h=>`<tr><td class=pid>${esc(h.id)}</td>`+
+      `<td>${esc(h.title)}</td><td class=mine>${esc(h.detail)}</td>`+
+      `<td class="${h.id==='H7'?'tierH':'tierC'}">${esc(h.status)}</td></tr>`
+      ).join('')+`</table><div class=mine>${esc(ip.his_rule)}</div></div>`);
+
+  const pcs=d.pattern_candidates;
+  o.push('<h2>PATTERN CANDIDATES</h2><div class=two>'+
+    pcs.candidates.map(x=>`<div class=card><div class=k>${esc(x.id)} &middot; ${
+      esc(x.title)}</div><pre>${x.form.map(esc).join('\n+\n')}\n=\n${
+      esc(x.equals)}</pre><div class=note>${esc(x.strength)}</div></div>`
+      ).join('')+'</div>');
+
+  const rf=d.reinforcement;
+  o.push('<h2>LEARNING — STRENGTHENED, NOT DUPLICATED</h2><div class=card>'+
+    rf.rules.map(x=>`<div><span class=pid>${esc(x.id)}</span> ${esc(x.text)}`+
+      `<div class=mine>taught by ${esc(x.taught_by)}</div>`+
+      `<div>SUPPORT ${x.support} &rarr; <b class=tierS>${x.support_after}</b>`+
+      ` &nbsp; <span class=pill>${esc(x.action)}</span>`+
+      `<span class=pill>duplicate created = ${x.duplicate_created}</span></div>`+
+      `</div>`).join('')+
+    `<div class=mine style=margin-top:8px>${esc(rf.his_rule)}</div>`+
+    `<div class=k>NEW RULES INVENTED: ${rf.new_rules_invented}</div></div>`);
 
   if(d.intent.candidates.length){
     o.push('<h2>INTENT — TWO ROUTES, NEVER BLENDED</h2><div class=two>');

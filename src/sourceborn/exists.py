@@ -105,6 +105,33 @@ MAP: list[dict] = [
     "state": RUNS,
     "note": "his seven candidates stay unresolved, and a test proves P2250 "
             "Sadness never enters the activated set because he cried."},
+   {"his": "I won't invent the P-row count",
+    "where": [("asi_pyramid.py", "def rows_for("),
+              ("asi_pyramid.py", "ROW_ROUTES = {"),
+              ("asi_pyramid.py", "HIS_CONTAINERS = [")],
+    "state": RUNS,
+    "note": "he could verify 16/80 containers but not the exact P rows, "
+            "because his payload was compressed. It is decoded here, so the "
+            "matcher he named as missing now returns 106 exact rows inside his "
+            "16 containers — 59 SOURCE-GROUNDED, 27 INFERRED, 20 HELD OPEN — "
+            "each row checkable against his own name for it. All 21 ranges he "
+            "gave by hand verified exact first."},
+   {"his": "They are not new P parameters",
+    "where": [("asi_pyramid.py", "def relations("),
+              ("asi_pyramid.py", "ASSOCIATION_ONLY = "),
+              ("asi_pyramid.py", "INTERPRETATION_FRAMES = [")],
+    "state": RUNS,
+    "note": "11 runtime relations, 7 interpretation candidates, 3 pattern "
+            "candidates — generated above the bank and never written into it. "
+            "R11 carries ASSOCIATION ONLY, and H7 (the context is unrelated) "
+            "is always kept because it is what prevents false causality."},
+   {"his": "SUPPORT +1 — not: invent another duplicate rule",
+    "where": [("asi_pyramid.py", "PRIOR_RULES = ["),
+              ("asi_pyramid.py", "def reinforce(")],
+    "state": RUNS,
+    "note": "a new example that fits an existing rule adds support and returns "
+            "duplicate_created False. new_rules_invented is 0. A sentence the "
+            "rule does not cover leaves it untouched."},
    {"his": "CAUSALITY NOT PROVEN — ASI should open them as hypotheses, not "
            "invent one",
     "where": [("asi_pyramid.py", "def difference("),
