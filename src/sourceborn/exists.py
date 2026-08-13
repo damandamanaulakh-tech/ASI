@@ -186,6 +186,38 @@ MAP: list[dict] = [
             "basic_over is False and is HIS call, not a threshold I set. "
             "/growing, /growing/coverage, POST /growing/place, "
             "POST /growing/grow."},
+   {"his": "u got some intent from files / now make algorithm which can make "
+           "itself",
+    "where": [("selfmake.py", "def steps("),
+              ("selfmake.py", "def propose("),
+              ("selfmake.py", "def extend("),
+              ("selfmake.py", "def generation("),
+              ("selfmake.py", "CROSS_ROLE_REQUIRED"),
+              ("selfmake.py", "def bias_report(")],
+    "state": RUNS,
+    "note": "every pipeline here before this one had a FIXED step list written by "
+            "me. This one does not: steps() returns the spine plus every step the "
+            "algorithm has written for itself, loaded from the ledger at call "
+            "time, so its body is data and it grows. Its own steps come from HIS "
+            "material: 13,848 events over 217 files reduce to 96 computed "
+            "(role -> container) arrangements, and an arrangement at or over "
+            "support 5 (his own PATTERN-CANDIDATE number) earns a step carrying "
+            "its support as evidence. A COMBINATION step is two arrangements that "
+            "co-occur in one example and CROSS ROLE — which is his rain example's "
+            "own shape, an ACTION meeting an INFERENCE. Without a cross test 80 "
+            "arrangements gave 2,627 combinations of a possible 3,160, a step for "
+            "nearly every pair; cross-segment removed only 238 because ACTION "
+            "spans SEG-03 and SEG-06; cross-role is the test that bites and "
+            "rejects 512, reporting the count. Measured: generation 0 = 5 steps, "
+            "after one extend = 2,204, and extending again on the same material "
+            "writes 0 — it grows once, it does not inflate. Every self-written "
+            "step carries a falsifier so it can be killed on evidence; none is "
+            "canonical, none creates a parameter, none reaches an answer without "
+            "his word. The bias is reported on every call: role_of defaults to "
+            "ACTION, which carries 79.6% of all seats, so the steps are "
+            "ACTION-weighted for a partly mechanical reason — fixable only by "
+            "superseding, never by deletion, and his call. /selfmake, POST "
+            "/selfmake/propose, POST /selfmake/extend, POST /selfmake/run."},
    {"his": "Falsifier / What would flip it",
     "where": [("intent_ledger.py", "def kill("),
               ("intent_ledger.py", "def survivors("),

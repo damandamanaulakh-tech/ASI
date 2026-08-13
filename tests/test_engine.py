@@ -4093,6 +4093,129 @@ def test_the_growing_routes_are_reachable():
         assert route in src, route
 
 
+# ---------------------------------------------------------------------------
+# THE ALGORITHM THAT MAKES ITSELF — "now make algorithm which can make itself".
+# The claim is that its own step list grows. These tests are the claim.
+# ---------------------------------------------------------------------------
+
+_SM_FILES = None
+
+
+def _sm_files():
+    """A small, fixed slice of his material — enough to produce arrangements
+    without reading all 217 files in every test."""
+    global _SM_FILES
+    if _SM_FILES is None:
+        from sourceborn import filemap as F
+        _SM_FILES = tuple(F.readable(".")[:25])
+    return _SM_FILES
+
+
+def test_the_step_list_is_not_a_constant():
+    from sourceborn import selfmake as S
+    root = _growth_root()
+    before = S.steps(root)
+    assert before["counts"]["written"] == 0
+    assert before["counts"]["total"] == len(S.SPINE)
+    assert S.generation(root) == 0
+    S.extend(root, _sm_files(), repo=".")
+    after = S.steps(root)
+    assert after["counts"]["written"] > 0, "it wrote nothing for itself"
+    assert after["counts"]["total"] > before["counts"]["total"]
+    assert S.generation(root) == after["counts"]["written"]
+    # the spine is untouched — growth is additive
+    assert after["spine"] == before["spine"] == list(S.SPINE)
+
+
+def test_it_grows_once_and_re_running_is_a_no_op():
+    """It must not inflate itself by being called again on the same material."""
+    from sourceborn import selfmake as S
+    root = _growth_root()
+    a = S.extend(root, _sm_files(), repo=".")
+    assert a["wrote"] > 0
+    b = S.extend(root, _sm_files(), repo=".")
+    assert b["wrote"] == 0, "same material must open no new step"
+    assert b["generation_before"] == b["generation_after"] == a["generation_after"]
+    assert b["removed"] == 0
+
+
+def test_every_self_written_step_names_its_evidence_and_its_falsifier():
+    from sourceborn import selfmake as S
+    root = _growth_root()
+    S.extend(root, _sm_files(), repo=".")
+    written = S.written_steps(root)
+    assert written
+    for r in written:
+        assert r["surfaced_by"], r
+        assert r.get("falsifier"), "a step with no falsifier can never be killed"
+        assert r.get("step_kind") in ("ARRANGEMENT", "COMBINATION"), r
+        assert r.get("canonical") is False
+        if r["step_kind"] == "ARRANGEMENT":
+            assert r["support"] >= S.SUPPORT_BAR
+        else:
+            assert r["shared_support"] >= S.COMBINE_BAR
+
+
+def test_a_combination_must_cross_role_and_no_example_produced_it():
+    """his 'new combinations on new thoughts' — different KINDS of happening
+    meeting, which is his own rain example's shape."""
+    from sourceborn import selfmake as S
+    root = _growth_root()
+    p = S.propose(root, _sm_files(), repo=".")
+    assert p["cross_role_required"] is True
+    combos = p["new_combination_steps"]
+    if combos:
+        for c in combos:
+            assert c["left"]["role"] != c["right"]["role"], c
+            assert c["crosses_role"] is True
+            assert c["produced_by_any_single_example"] is False
+    # same-role pairs are rejected, and the number rejected is reported
+    assert "combinations_rejected_same_role" in p["counts"]
+
+
+def test_the_algorithm_applies_more_steps_after_it_extends_itself():
+    from sourceborn import selfmake as S
+    root = _growth_root()
+    a = S.run(root, RAIN, "rain")
+    assert a["generation"] == 0
+    assert a["counts"]["fired"] == 0
+    S.extend(root, _sm_files(), repo=".")
+    b = S.run(root, RAIN, "rain")
+    assert b["generation"] > a["generation"]
+    assert b["steps_applied"]["total"] > a["steps_applied"]["total"], \
+        "the same input must now pass through more algorithm"
+    assert b["counts"]["parameters_created"] == 0
+    assert b["chosen"] is None
+
+
+def test_the_material_it_learnt_from_is_reported_with_its_bias():
+    """The role reader defaults to ACTION. Said out loud, because every
+    self-written step inherits it."""
+    from sourceborn import selfmake as S
+    br = S.bias_report(_sm_files(), repo=".")
+    assert br["seats_by_role"]
+    assert br["action_share"] > 0
+    assert "fallback, not a finding" in br["why"]
+    assert "superseding, never by deletion" in br["consequence"]
+    assert br["his_call"]
+
+
+def test_the_harvest_reports_unreadable_files_instead_of_skipping():
+    """A silent skip once made the whole harvest return zero files."""
+    from sourceborn import selfmake as S
+    root = _growth_root()
+    p = S.propose(root, ("no/such/file/anywhere.txt",), repo=".")
+    assert p["material"]["unreadable"] == 1, p["material"]
+    assert p["material"]["unreadable_paths"] == ["no/such/file/anywhere.txt"]
+
+
+def test_the_selfmake_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/selfmake"', '"/selfmake/propose"', '"/selfmake/extend"',
+                  '"/selfmake/run"'):
+        assert route in src, route
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

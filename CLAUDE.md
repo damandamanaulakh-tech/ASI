@@ -613,6 +613,39 @@ does **not** reliably pick the right row out of 3,204 — his rain example still
 part. Also: 3 of the 217 files return zero events, and all three are genuinely
 event-free (a `desktop.ini` fragment and two non-text files).
 
+**THE ALGORITHM THAT MAKES ITSELF (2026-08-13) — `selfmake.py`, `/selfmake`.**
+His order: *"keep doing / u got some intent from files / now make algorithm which
+can make itself"*. Canon: `docs/method/canon/THE_GROWING_PHASE.md` §10. **Every
+pipeline here before this one had a FIXED step list written by me. This one does
+not:** `steps()` returns the spine plus every step the algorithm has written for
+itself, loaded from the ledger at call time — so its body is data and it grows,
+checkable in one number, `generation()`. **Its own steps come from HIS material:**
+13,848 events over 217 files reduce to **96 computed `(role → container)`
+arrangements**, and one at or over support **5** (his own PATTERN-CANDIDATE number)
+earns a step carrying its support as evidence. A **COMBINATION** step is two
+arrangements that co-occur in one example and **CROSS ROLE** — which is his rain
+example's own shape, an ACTION meeting an INFERENCE. That criterion was tightened
+twice and the numbers are on the record: with no cross test, 80 arrangements gave
+**2,627 combinations of a possible 3,160** — a step for nearly every pair, which is
+not a finding; cross-*segment* removed only **238**, because ACTION spans SEG-03 and
+SEG-06 both; **cross-role is the test that bites**, rejecting 512 and reporting the
+count, and it yields 2,119 combinations across all twelve role pairs. **Measured
+end to end: generation 0 = 5 steps · after one extend = 2,204 · extending again on
+the same material writes 0.** It grows once; it does not inflate. Every self-written
+step carries a **falsifier** so it can be killed on evidence; **none is canonical,
+none creates a parameter (`PARAM` stays 3, the bank stays 3,207), none reaches an
+answer without his word.** The `STEP` series is new in the growth ledger. **The bias
+is reported on every call, not buried:** `role_of` defaults to ACTION, which carries
+**79.6%** of all seats, so every step written is ACTION-weighted for a reason that
+is partly mechanical — fixable only by superseding, never deletion, and his call.
+Two defects fixed in the building: the ledger root and the repo root were conflated
+so the harvest silently read 0 files while reporting success (unreadable files are
+now counted and named), and the run loop carried dead locals. 235 tests green, 171
+anchors resolve; verified live over HTTP including the no-op second extend. **Still
+coarse and said plainly:** only **1** self-written step fires on his rain example,
+because that example seats on just 2 IDs — the self-extension is sound, the
+row-level seating it depends on is still the open part.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

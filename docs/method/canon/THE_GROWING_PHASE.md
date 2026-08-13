@@ -241,3 +241,101 @@ So the tablet is not the point either. The tablet is the **test surface** for th
 node-brain method: one artifact, many brains, each brain producing a different
 intent for the same visible thing, and the method judged on whether that works at
 all.
+
+---
+
+## 10. THE ALGORITHM THAT MAKES ITSELF
+
+> keep doing / u got some intent from files / **now make algorithm which can make
+> itself**
+
+`src/sourceborn/selfmake.py`.
+
+### What "makes itself" means here, precisely
+
+Every pipeline in this repo before this one had a **fixed** list of steps written
+by me. This one does not. `steps(root)` returns
+
+    THE SPINE  +  every step the algorithm has written for itself so far
+
+loaded from the growth ledger **at call time**. The algorithm's own body is data.
+After `extend()` runs, the next call to the same function has more steps in it than
+the last one did, and the whole claim is checkable in one number: `generation()`.
+
+### Where its own steps come from — his material, never my typing
+
+| | |
+|---|---|
+| **HARVEST** | every event in his files with its role and the container it seats on — 13,848 events across 217 files |
+| **ARRANGEMENT** | the `(role → container)` pairings that RECUR. **96 distinct, computed, none typed** |
+| **STEP** | an arrangement at or over the support bar (**5** — his own PATTERN-CANDIDATE number) that is not already a step becomes one, carrying its support as evidence |
+| **COMBINATION** | two arrangements that co-occur in the same example open a composite step **that no single example produced** — his *new combinations on new thoughts* |
+| **EXTEND** | the new steps are appended. Nothing removed. The generation number rises |
+
+### The combination rule, and how it was tightened
+
+First attempt: no cross test. 80 arrangements produced **2,627 combinations out of
+a possible 3,160** — a step for nearly every pair, which is not a finding.
+
+Requiring the pair to cross **segments** removed only 238, because ACTION spans
+SEG-03 and SEG-06 both.
+
+**Cross-ROLE is the test that bites.** Two happenings of the same kind in two
+containers is co-occurrence inside one mode. A combination earns a step when
+**different kinds of happening meet** — and that is precisely his rain example's
+shape: the father **puts** water in the air (ACTION) and the kids **conclude** it is
+raining (INFERENCE). The insight is the two modes meeting, not either alone.
+
+With cross-role required: **2,119 combination steps across all twelve role pairs**
+— ACTION×INFERENCE 256, ACTION×STATE 256, ACTION×SPEECH 256, INFERENCE×STATE 239,
+SPEECH×STATE 245, ACTION×OBSERVATION 238, OBSERVATION×STATE 174,
+INFERENCE×SPEECH 229, INFERENCE×OBSERVATION 121, OBSERVATION×SPEECH 92,
+ACTION×FEELING 12, FEELING×STATE 1. **512 same-role pairs rejected and the count
+reported.**
+
+### Measured, end to end
+
+```
+generation 0          spine 5    written 0       total 5
+after one extend      spine 5    written 2,199   total 2,204
+extend again, same material                      wrote 0     (no-op)
+removed 0 · parameters created 0 · canonical 0
+```
+
+The same rain input passes through **5** steps before and **2,204** after. That is
+the self-making, and it is one number.
+
+### Why it does not run away
+
+A second pass over the same files writes **nothing** — the arrangements are
+identical, so no step is new. It grows when new material arrives, or when a
+combination not yet open becomes reachable. The combination space is pairs of a
+finite arrangement set, so it terminates. A test pins both halves: it grows once,
+and running again is a no-op.
+
+### What it refuses
+
+Every self-written step carries a **falsifier** — his own column from the
+LIVE_INTENT_ENGINE sheet — so a step the material stops supporting can be killed on
+evidence instead of living forever. None is canonical. None creates a parameter.
+None is applied to an answer without his word.
+
+### The bias in what it learnt from — stated, not buried
+
+`role_of()` returns **ACTION** whenever no observation, inference, speech or feeling
+marker is present. On his corpus that fallback carries **79.6%** of all seats. So
+the arrangements — and therefore every step written above — are ACTION-weighted for
+a reason that is **partly mechanical, not only real**. `bias_report()` returns this
+on every call.
+
+A better role reader would redistribute them, and the steps already written would
+need revisiting — **by superseding, never by deletion.** Whether ACTION-as-default
+is acceptable for the growing phase, or whether the role reader is the next thing
+to fix, is **his call**.
+
+### Still coarse, and said plainly
+
+Only **1** self-written step fires on his rain example, because that example seats
+on just 2 IDs. The self-extension mechanism is sound and demonstrable; the
+row-level seating precision it depends on is still the open part, exactly as
+recorded in section 5.

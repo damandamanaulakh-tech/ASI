@@ -39,7 +39,7 @@ from . import asi_pyramid
 from . import asipage
 from . import generationpage
 from . import growth
-from . import filemap, growing, intent_ledger, intents
+from . import filemap, growing, intent_ledger, intents, selfmake
 from . import statepacks
 from . import weighting
 from . import enginepage
@@ -1383,6 +1383,15 @@ class Handler(BaseHTTPRequestHandler):
                  "links": {k: v["reachable_from"]
                            for k, v in intents.motive_links().items()}}).encode(),
                 "application/json")
+        elif path == "/selfmake":
+            # the algorithm's own body: the spine plus every step it has written
+            # for itself. Not a constant.
+            self._send(200, json.dumps(
+                {"stats": selfmake.stats(SB_ROOT),
+                 "steps": selfmake.steps(SB_ROOT),
+                 "generation": selfmake.generation(SB_ROOT),
+                 "bias": selfmake.bias_report(repo=".")}).encode(),
+                "application/json")
         elif path == "/growing":
             # the growing phase: every file divided by what it does to the base,
             # and the motto made mechanical
@@ -1815,6 +1824,30 @@ class Handler(BaseHTTPRequestHandler):
                 conditional=bool(data.get("conditional")),
                 conflict=bool(data.get("conflict")))
             self._send(200, json.dumps(res).encode(), "application/json")
+            return
+        if self.path == "/selfmake/propose":
+            # what new steps his material opens — computed, not written yet
+            self._send(200, json.dumps(selfmake.propose(
+                SB_ROOT, bar=int(data.get("bar") or selfmake.SUPPORT_BAR),
+                repo=".")).encode(), "application/json")
+            return
+        if self.path == "/selfmake/extend":
+            # WRITE them. The algorithm is longer afterwards. Appends only.
+            self._send(200, json.dumps(selfmake.extend(
+                SB_ROOT, bar=int(data.get("bar") or selfmake.SUPPORT_BAR),
+                limit=int(data.get("limit") or 0), repo=".")).encode(),
+                "application/json")
+            return
+        if self.path == "/selfmake/run":
+            # run the algorithm as it currently stands
+            text = (data.get("text") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "no text"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(selfmake.run(
+                SB_ROOT, text, (data.get("name") or "").strip())).encode(),
+                "application/json")
             return
         if self.path == "/growing/place":
             # place one example. There is no answer here — only where it sits.
