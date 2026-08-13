@@ -77,7 +77,7 @@ Live on Render as a web app. All 8 SB stages implemented (Core Gate 6 lenses,
 Doubt/Falsifier/Witness, Evidence ladder, Dot-Connection/Merge, Synthetic Fuel,
 Risk/Embodied/Non-Resolution, output + weekly update), the RGL recursive loop, 95
 configured node brains, 3 memories (corpus/wisdom/live fact), multi-model
-(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (134 tests).
+(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (138 tests).
 
 **A full audit ran 2026-08-12 (four read-only sweeps).** It produced a 20-item
 prioritized fix list; the honest finding is that the frame is real but much of the
@@ -238,6 +238,27 @@ alternatives. His five patterns are stored with the marks HE gave them (3
 checked, 2 unchecked). `domains.py` gained his seven new node classes, and on
 this sentence **HUMAN BODY does not fire at all** — which is what he said should
 happen, and is the proof the body/brain split holds.
+
+**SAME ACTION / CHANGED FUNCTION, AND THE MASK BY OBSERVER POSITION
+(2026-08-13) — `repetition.py`.** From his fictional father/door test; he chose
+both himself ("go for 1 & 3"). Canon:
+`docs/method/canon/SAME_ACTION_CHANGED_FUNCTION.md`. **(1)** His principle
+*"identical physical action ≠ identical functional role"* — CHECK #1 acquires the
+information, CHECK #2-5 cannot acquire what #1 already did. The pattern engine
+was structurally blind to this because it keys on CONTENT and five checks have
+identical content; the difference is **ordinal position**. `read_repetition()`
+adds that axis, `position_signature()` gives the first and later occurrences
+**different addresses** so the pattern layer can see a difference where the words
+show none, and what the later checks ARE doing is held open with his six
+candidates and **none chosen**. A later occurrence is only ruled out from
+acquiring when the source says the actor already knows; otherwise it stays OPEN.
+**(2)** BEHAVIOR ≠ MEANING — `read_views()` separates ACTOR from OBSERVER and
+**reuses Filter 3 / Source rather than inventing a rule**: two witnesses who
+differ HALT, the gap goes to him, never averaged, neither reading preferred. One
+view caps at Medium. **A browser caught a bug the unit tests missed**: the engine
+splits an ask into sentences, so the count (sentence 1) and the knowledge state
+(sentence 3) never met and the app said "not supported yet" on the very example
+it was built for — both readings now run at ASK level and a test pins that.
 
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding

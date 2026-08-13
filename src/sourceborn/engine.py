@@ -584,7 +584,7 @@ class SourcebornEngine:
 
         The pattern layer never decides intent and never picks his feeling.
         Everything it produces is a candidate for him."""
-        from . import claims, domains, human_registry, ladder, micro, patterns, router, senses
+        from . import claims, domains, human_registry, ladder, micro, patterns, repetition, router, senses
         root = self.memory.root
         aid = ask_id or ("Q-" + str(abs(hash(raw_text)) % 10 ** 8))
 
@@ -623,6 +623,9 @@ class SourcebornEngine:
         # HIS RULING: every claim keeps the status HE gave that KIND of claim,
         # and no judgment is formed before his chain is walked.
         claim_rows = claims.read_claims(raw_text)
+        # both of these read the WHOLE ask, for the reason above
+        r_ask = repetition.read_repetition(raw_text)
+        v_ask = repetition.read_views(raw_text)
         gate = claims.judgment_gate(raw_text)
         outcome = claims.outcome_note(raw_text)
         scoped = domains.enforce_scope(lit.get("containers", []), word_routes)
@@ -672,6 +675,17 @@ class SourcebornEngine:
                 "judgment_gate": gate,
                 "outcome_note": outcome,
                 "his_named_patterns": claims.HIS_PATTERNS,
+                # ASK-LEVEL, not per sentence. A repetition and the knowledge
+                # state that makes it interesting are usually in DIFFERENT
+                # sentences ("checks five times" … "he knows he already
+                # checked it"), and the actor's view and the observer's view
+                # almost always are. Read per sentence, they never meet.
+                "repetition": ([r_ask] if r_ask.get("applies") else []),
+                "views": ([v_ask] if v_ask.get("views") else []),
+                "repetition_per_sentence": [
+                    m.get("repetition_reading", {}) for m in seqs
+                    if m.get("repetition_reading", {}).get("applies")],
+                "repetition_stats": repetition.stats(),
                 "route": route,
                 "candidates": surfaced,
                 "open_candidates": [c for c in patterns.load_candidates(root)

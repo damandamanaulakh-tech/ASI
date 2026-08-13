@@ -533,6 +533,11 @@ def decompose(sentence: str, ask_id: str = "", index: int = 0,
         interps.append("other / unknown")
 
     sig = signature(facts, info_obj)
+    _rep = __import__("sourceborn.repetition", fromlist=["x"])
+    _rr = _rep.read_repetition(sentence)
+    if _rr.get("same_action_changed_function"):
+        # the first occurrence and the later ones are no longer one address
+        sig = _rep.position_signature(sig, _rr["occurrences"][0])
     ms_id = "MS-" + hashlib.sha256(
         (ask_id + "|" + str(index) + "|" + sentence).encode()).hexdigest()[:10]
 
@@ -571,6 +576,14 @@ def decompose(sentence: str, ask_id: str = "", index: int = 0,
         "repeat_markers": repeats,
         # the addressing used to find prior similar events
         "inherited_from_context": inherited,
+        # HIS PRINCIPLE: identical physical action ≠ identical functional role.
+        # Content alone made five checks one address; position is the axis that
+        # was missing. See repetition.py.
+        "repetition_reading": (__import__("sourceborn.repetition",
+                                          fromlist=["x"])
+                               .read_repetition(sentence)),
+        "views": (__import__("sourceborn.repetition", fromlist=["x"])
+                  .read_views(sentence)),
         # HIS corrections that fired, with the default reading kept beside his
         "semantic_overrides": fired,
         "return_reading": (__import__("sourceborn.senses", fromlist=["x"])

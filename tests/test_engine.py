@@ -2526,6 +2526,145 @@ def test_the_reading_carries_the_gate_and_the_statuses():
 
 
 
+FATHER = ("A father checks the front door five times every night. Their house "
+          "was robbed once years ago. The lock has since been replaced and he "
+          "knows he already checked it, but he goes back again because he says "
+          "he wants his family safe. His family gets irritated.")
+
+
+def test_same_action_changed_function():
+    """HIS principle: "identical physical action ≠ identical functional role."
+    CHECK #1 obtains information; CHECK #2-5 cannot obtain what #1 already did.
+    The pattern engine was blind to this because it keys on CONTENT, and five
+    checks have identical content — the difference is ORDINAL POSITION.
+    """
+    from sourceborn import repetition as R
+    r = R.read_repetition(FATHER)
+    assert r["applies"]
+    assert "checks" in r["actions"]
+    assert r["count"]["count"] == 5                 # from "five times"
+    assert r["count"]["exact"] is False or r["count"]["stated_as"]
+    assert r["actor_knows_already"] is True         # the source says so
+    assert r["same_action_changed_function"] is True
+
+    occ = r["occurrences"]
+    assert occ[0]["position"] == R.FIRST
+    assert occ[0]["function"] == R.FUNC_ACQUIRE
+    assert occ[0]["candidates"] == []               # the first is not open
+    for o in occ[1:]:
+        assert o["position"] == R.LATER
+        assert o["function"] == R.FUNC_CANNOT_ACQUIRE
+        assert "already knows" in o["function_status"]
+        # HIS candidates, held open and NONE chosen
+        for c in ("certainty", "reassurance", "ritual", "habit"):
+            assert c in o["candidates"], c
+        assert "does not pick" in o["refuses"]
+
+    assert "identical physical action" in r["his_principle"]
+    assert "rereading" in " ".join(r["generalises_to"])
+
+
+def test_position_gives_the_first_and_later_different_addresses():
+    """The fix itself: before this, five identical checks collapsed into ONE
+    signature and the pattern layer reported "this recurs"."""
+    from sourceborn import repetition as R
+    r = R.read_repetition(FATHER)
+    base = "resource:requested|disclosure:withheld"
+    first = R.position_signature(base, r["occurrences"][0])
+    later = R.position_signature(base, r["occurrences"][1])
+    assert first != later
+    assert first.endswith("occ:first") and later.endswith("occ:later")
+    assert base in first and base in later          # the content is preserved
+
+    # a single occurrence is not dressed up as a repetition
+    one = R.read_repetition("He checked the door.")
+    assert one["count"]["count"] == 1
+    assert one["occurrences"][0]["position"] == R.ONLY
+    assert one["same_action_changed_function"] is False
+    assert "absent, not zero" in one["count"]["why"]
+
+    # repetition WITHOUT the source saying he already knows is not a
+    # changed-function claim — it stays open
+    unknown = R.read_repetition("He checks the door five times every night.")
+    assert unknown["count"]["count"] == 5
+    assert unknown["actor_knows_already"] is False
+    assert unknown["same_action_changed_function"] is False
+    assert "OPEN" in unknown["occurrences"][1]["function_status"]
+
+    # a sentence with no information-action does not get this reading at all
+    none = R.read_repetition("He drove to work five times.")
+    assert none["applies"] is False
+
+
+def test_the_mask_extended_to_observer_position():
+    """HIS rule: BEHAVIOR ≠ MEANING. Two readings of ONE behaviour, and the
+    existing Source/Mask rule reused — two witnesses who differ HALT, the gap
+    goes to him, never averaged."""
+    from sourceborn import repetition as R
+    v = R.read_views(FATHER)
+    assert v["count"] == 2 and v["differ"] is True
+    by = {x["position"]: x for x in v["views"]}
+    assert R.ACTOR in by and R.OBSERVER in by
+    # the states must NOT bleed between the two readings
+    assert by[R.ACTOR]["states"] == ["safe"]
+    assert by[R.OBSERVER]["states"] == ["irritated"]
+    assert "SOURCE-STATED" in by[R.ACTOR]["status"]
+    assert "not necessarily the same thing" in by[R.ACTOR]["status"]
+    assert "not evidence" in by[R.OBSERVER]["status"]
+
+    m = v["mask"]
+    assert m["verdict"] == "HALT — the gap goes to him"
+    assert "not averaged" in m["refuses"]
+    assert "neither reading is preferred" in m["refuses"]
+    assert v["confidence_cap"].startswith("HALT")
+    assert "BEHAVIOR ≠ MEANING" in v["his_rule"]
+
+    # one view only → capped at Medium, his one-witness rule
+    solo = R.read_views("He goes back again because he says he wants them safe.")
+    assert solo["count"] == 1 and solo["differ"] is False
+    assert solo["mask"] == {}
+    assert "Medium" in solo["confidence_cap"]
+
+    # no marked view at all → says so, rather than inventing one
+    bare = R.read_views("The door was checked.")
+    assert bare["count"] == 0
+    assert "no view is marked" in bare["confidence_cap"]
+
+
+def test_the_reading_carries_position_and_the_two_views():
+    from sourceborn import micro
+    m = micro.decompose("He checks the door five times and he knows he "
+                        "already checked it.", "Q", 0)
+    assert m["repetition_reading"]["same_action_changed_function"] is True
+    assert "occ:first" in m["signature"]        # position is in the address now
+
+    eng = _engine()
+    r = eng.read(FATHER, "Q-father")
+    # THE BUG A BROWSER FOUND AND THE UNIT TESTS MISSED: the engine splits the
+    # ask into sentences, so "checks five times" (sentence 1) and "he knows he
+    # already checked it" (sentence 3) never met, and the reading said "not
+    # supported yet" on the exact example it was built for. Both of these must
+    # be read at ASK level.
+    assert r["repetition"], "the reading must carry the position analysis"
+    rr = r["repetition"][0]
+    assert rr["count"]["count"] == 5, "the count is in sentence 1"
+    assert rr["actor_knows_already"] is True, "the knowledge is in sentence 3"
+    assert rr["same_action_changed_function"] is True
+
+    assert r["views"], "the reading must carry the observer split"
+    v = r["views"][0]
+    assert v["differ"] is True
+    st = {x["position"]: x["states"] for x in v["views"]}
+    assert st["ACTOR"] == ["safe"], "his stated goal is in sentence 3"
+    assert st["OBSERVER"] == ["irritated"], "their state is in sentence 4"
+    assert v["mask"]["verdict"].startswith("HALT")
+
+    # the per-sentence rows are still kept — they are what the signature uses
+    assert r["repetition_per_sentence"]
+    assert r["repetition_stats"]["later_function_candidates"] == 6
+
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

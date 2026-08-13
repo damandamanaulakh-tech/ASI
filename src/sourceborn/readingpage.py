@@ -374,6 +374,34 @@ function render(d){
       ['NOT stated',(ON.not_stated||[]).join(', ')],['your rule',ON.his_rule],
       ['reading',ON.reading]])+'</div>';
   }
+  // HIS PRINCIPLE: identical physical action ≠ identical functional role
+  if((d.repetition||[]).length){
+    h+='<div class=sec><h2>Same action, changed function</h2><span class=n>position in the repetition, not the words</span></div>';
+    h+='<div class=blk>'+d.repetition.map(rr=>
+      '<div class=ms><div class=raw>'+esc((rr.actions||[]).join(' · '))+'</div>'+
+      kv([['stated count',String((rr.count||{}).count)+'  ('+esc((rr.count||{}).stated_as||'not stated')+')'],
+          ['actor already knows',rr.actor_knows_already?'yes — the source says so':'not stated'],
+          ['SAME ACTION / CHANGED FUNCTION',rr.same_action_changed_function?'YES':'not supported yet'],
+          ['reading',rr.reading]])+
+      (rr.occurrences||[]).map(o=>'<div class=lane><b>#'+o.index+'</b> '+esc(o.position)+
+        ' &mdash; '+esc(o.function)+'<div class=note>'+esc(o.function_status)+'</div>'+
+        ((o.candidates||[]).length?'<div class=note>open, none chosen: '+
+          (o.candidates||[]).map(c=>'<span class=chip>'+esc(c)+'</span>').join(' ')+'</div>':'')+
+        '</div>').join('')+
+      '<div class=note style="margin-top:6px">generalises to: '+esc((rr.generalises_to||[]).join(' · '))+'</div>'+
+      '</div>').join('')+'</div>';
+  }
+  // THE MASK, by observer position — the rule already in the engine, reused
+  if((d.views||[]).length){
+    h+='<div class=sec><h2>Whose reading is this &mdash; behaviour is not meaning</h2></div><div class=blk>'+
+      d.views.map(v=>(v.views||[]).map(x=>'<div class=lane><b>'+esc(x.position)+'</b> &ldquo;'+esc(x.marker)+'&rdquo;'+
+        ((x.states||[]).length?' &rarr; '+(x.states||[]).map(t=>'<span class=chip>'+esc(t)+'</span>').join(' '):'')+
+        '<div class=note>'+esc(x.status)+'</div></div>').join('')+
+        (v.mask&&v.mask.verdict?'<div class=warnbox><b>'+esc(v.mask.kind)+'</b> &mdash; '+esc(v.mask.what)+
+          '<br><b>'+esc(v.mask.verdict)+'</b><br>'+esc(v.mask.refuses)+'</div>':'')+
+        '<div class=note>confidence: '+esc(v.confidence_cap||'')+'</div>'+
+        '<div class=note>'+esc(v.his_rule||'')+'</div>').join('')+'</div>';
+  }
   const G=d.judgment_gate||{};
   if(G.chain){
     h+='<div class=sec><h2>The judgment gate</h2><span class=n>'+esc(G.verdict||'')+'</span></div>';
