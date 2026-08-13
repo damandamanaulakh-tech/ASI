@@ -72,6 +72,49 @@ MAP: list[dict] = [
             "the seven filters below for what Filter 7 actually returns."},
   ]},
 
+ {"group": "THE PYRAMID — his answer, built (2026-08-13)",
+  "rows": [
+   {"his": "my reading u shit that is ASI / which u supposed to build",
+    "where": [("asi_pyramid.py", "def run("),
+              ("asi_pyramid.py", "ROUTES = ["),
+              ("asipage.py", "THE PYRAMID — ONE ASK OVER HIS 3,204")],
+    "state": RUNS,
+    "note": "his own reading of the Samrath sentence, executable. On his "
+            "sentence it returns HIS numbers: 7 STRONG + 11 CANDIDATE = 18 of "
+            "3,204 (0.56%), 3,186 inactive. Route /asi, POST /asi/run. It is "
+            "not a lookup — different words in the same shape return the same "
+            "18, and a flat report returns 1."},
+   {"his": "SB-HFR-P0001..SB-HFR-P3204",
+    "where": [("asi_pyramid.py", "def _flat("),
+              ("asi_pyramid.py", "def container_span(")],
+    "state": RUNS,
+    "note": "his flat addressing, which he derived by hand. All 18 numbers he "
+            "cited land on the name he gave them, and all 8 container ranges "
+            "match — including the two containers holding 42 instead of 40."},
+   {"his": "split it into historical pattern vs current exception, not one "
+           "flat sentence",
+    "where": [("asi_pyramid.py", "def read_scopes("),
+              ("asi_pyramid.py", "def event_shell(")],
+    "state": RUNS,
+    "note": "PRIOR/REPEATED against CURRENT/TODAY, and the SAME EVENT SHELL "
+            "held ONCE with two routes. The event never changed; the condition "
+            "around it did."},
+   {"his": "CRYING is not automatically SADNESS",
+    "where": [("asi_pyramid.py", "AFFECT_BEHAVIOUR = {"),
+              ("asi_pyramid.py", "def behaviour_not_state(")],
+    "state": RUNS,
+    "note": "his seven candidates stay unresolved, and a test proves P2250 "
+            "Sadness never enters the activated set because he cried."},
+   {"his": "CAUSALITY NOT PROVEN — ASI should open them as hypotheses, not "
+           "invent one",
+    "where": [("asi_pyramid.py", "def difference("),
+              ("asi_pyramid.py", "def pattern_candidate(")],
+    "state": RUNS,
+    "note": "his ten hidden branches are opened, the fabrication he named is "
+            "kept on the record as refused, and PC-CONTEXT-INTENT-001 carries "
+            "his four guards — generalization NOT ALLOWED YET."},
+  ]},
+
  {"group": "THE LADDER — and rubric means parameter, the 3,072",
   "rows": [
    {"his": "we have then we divided multiple parameters "
@@ -469,14 +512,24 @@ MAP: list[dict] = [
 # THE ABSENCES — stated as absences, in his words. Not a work list, not a
 # proposal. What has no existence anywhere in the code.
 ABSENCES: list[dict] = [
- {"what": "A rubric still holds a name and free text — not how it is "
-          "recognised, nor how it is graded.",
-  "why": "This is the one that did NOT get built. The ultra-micro split is now "
-         "real, but matching a sentence to a RUBRIC is still 4-letter word "
-         "overlap, because there is nothing richer inside the entry to match "
-         "against. 'in the language of rubrics so it can pick' needs the entry "
-         "itself to say what picks it.",
+ {"what": "3,186 of his 3,204 have no route to them. Only 18 do.",
+  "why": "NARROWED, not closed. Lexical matching over his names scores ZERO on "
+         "his own Samrath sentence — cry, happy, birthday, school, never, "
+         "always, today, went appear in 0 of his 3,204 names. asi_pyramid "
+         "replaced word-matching with SIGNAL routing for the rows he assigned "
+         "himself, and that mechanism generalises to any sentence of the same "
+         "shape. But it reaches 18 parameters. The other 3,186 are reachable "
+         "only when a signal is named for them — by him, or authored and "
+         "corrected by him.",
   "his": "everything must be in the language or rubrics so it can pick"},
+ {"what": "Behavioural repetition has no ordinal-position axis.",
+  "why": "repetition.py gives a first occurrence and a later occurrence "
+         "different addresses only for INFORMATION-seeking actions — CHECK #1 "
+         "acquires, CHECK #2-5 cannot. 'he always cry' is behavioural, and "
+         "read_repetition returns applies False on it. asi_pyramid reads the "
+         "repetition as a standing pattern, which is a different thing from "
+         "position.",
+  "his": "he always cry"},
  {"what": "The SUB-PARAMETER and ELEMENT levels hold nothing.",
   "why": "Empty by his own instruction — he left the level unopened and "
          "unnamed. Recorded as empty, not as missing, and no placeholder was "

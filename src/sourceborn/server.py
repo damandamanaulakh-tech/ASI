@@ -35,6 +35,8 @@ from dataclasses import asdict
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
 
+from . import asi_pyramid
+from . import asipage
 from . import enginepage
 from . import exists
 from . import ladder
@@ -1345,6 +1347,13 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/reading":
             self._send(200, readingpage.PAGE.encode("utf-8"),
                        "text/html; charset=utf-8")
+        elif path == "/asi":
+            # THE PYRAMID — his answer on screen, one ask over his 3,204
+            self._send(200, asipage.PAGE.encode("utf-8"),
+                       "text/html; charset=utf-8")
+        elif path == "/asi/stats":
+            self._send(200, json.dumps(asi_pyramid.stats()).encode(),
+                       "application/json")
         elif path == "/patterns":
             cands = patternmem.load_candidates(SB_ROOT)
             self._send(200, json.dumps({
@@ -1709,6 +1718,19 @@ class Handler(BaseHTTPRequestHandler):
             except Exception as exc:
                 self._send(400, json.dumps({"error": f"restore failed: {exc}"}).encode(),
                            "application/json")
+            return
+        if self.path == "/asi/run":
+            # one ask -> his PRIOR/CURRENT split, his two tiers over the 3,204,
+            # the causal gap, his pattern candidate. The chart is generated
+            # here, not typed anywhere.
+            ask = (data.get("ask") or "").strip()
+            if not ask:
+                self._send(400, json.dumps(
+                    {"error": "no ask"}).encode(), "application/json")
+                return
+            res = asi_pyramid.run(ask)
+            res["chart"] = asi_pyramid.chart(res)
+            self._send(200, json.dumps(res).encode(), "application/json")
             return
         if self.path == "/reading/ask":
             q = str(data.get("question", "") or "").strip()

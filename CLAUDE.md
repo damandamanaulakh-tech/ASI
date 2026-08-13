@@ -260,6 +260,45 @@ splits an ask into sentences, so the count (sentence 1) and the knowledge state
 (sentence 3) never met and the app said "not supported yet" on the very example
 it was built for — both readings now run at ASK level and a test pins that.
 
+**THE PYRAMID IS BUILT, BECAUSE HE WROTE IT AND I HAD CALLED IT MINE
+(2026-08-13) — `asi_pyramid.py`, `/asi`.** On the Samrath sentence I reported
+"the machine, today: 0" beside "MY READING: 51" and he cut it down: *"what the
+fuck is machine today / who the hell is that, r u fucking that much drifting /
+**my reading u shit that is ASI / which u supposed to build**"*. He was right —
+there is one system, and labelling the real reading *mine* while leaving the
+engine at zero was drift with an excuse on it. He then wrote the answer himself,
+and it is canon at `docs/method/canon/THE_PYRAMID_HIS_ANSWER.md`. **It is now
+executable and it returns HIS numbers, not near them:** 7 STRONG /
+SOURCE-GROUNDED + 11 CANDIDATE / INFERRED = **18 of 3,204 (0.56%), 3,186
+inactive** — the same 18 flat IDs, the same tiers. **His flat addressing
+`SB-HFR-P0001..SB-HFR-P3204`** is the spine: he derived it by hand and all 18
+numbers he cited land exactly on the name he gave them, all 8 container ranges
+match, including the two containers holding 42 instead of 40 (CON-042, CON-057).
+Built: **the split** (PRIOR/REPEATED against CURRENT/TODAY — *"not one flat
+sentence"*), **the SAME EVENT SHELL** held ONCE with two routes (`GO_TO_SCHOOL`
+never changed; the condition around it did), **his tiny-words table** as the
+actual parser (never · always · but · today · birthday · very · happy · went),
+**CRYING ≠ SADNESS** with his seven candidates unresolved and a test whose only
+job is to prove P2250 Sadness never enters the set, **CAUSALITY NOT PROVEN** with
+his ten hidden branches opened as hypotheses and the fabrication he named kept on
+the record as refused, **two intent candidates never blended**, and
+**PC-CONTEXT-INTENT-001** with his four guards (`cause = UNKNOWN`,
+`generalization = NOT ALLOWED YET`). **It is a mechanism, not a lookup:** the same
+shape in different words returns the same 18 with `GO_TO_GYM` as the shell, a flat
+report returns 1, and a shape he has not named is reported *unnamed* rather than
+empty. Two defects of mine that his sentence exposed and are fixed: the shell
+read `GO_TO_GO` (the infinitive taken for the destination), and every positive
+word collapsed into his *Happiness* — now "excited" resolves to his own
+**P2256 Excitement**, because his v1.0 source says these must not be collapsed;
+rows he assigned read HIS ASSIGNMENT, rows I mapped say so and are correctable.
+**Still open and stated as absences, not hidden:** 3,186 of his 3,204 have no
+route to them — the signal mechanism reaches 18, and the rest need a signal named
+for them; and behavioural repetition still has no ordinal-position axis (*"he
+always cry"* returns `applies False` in `repetition.py`, which only covers
+information-seeking actions). One thing surfaced and NOT resolved: in his chart he
+marked **P2564** HIT, in his final list he placed it under CANDIDATE — his list is
+followed and his chart mark is carried beside it.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

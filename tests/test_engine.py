@@ -2663,6 +2663,205 @@ def test_the_reading_carries_position_and_the_two_views():
     assert r["repetition_per_sentence"]
     assert r["repetition_stats"]["later_function_candidates"] == 6
 
+# ---------------------------------------------------------------------------
+# THE PYRAMID — his answer, built. docs/method/canon/THE_PYRAMID_HIS_ANSWER.md
+# ---------------------------------------------------------------------------
+
+HIS_SENTENCE = ("Samrath never like to go to school, he always cry, "
+                "but today is his birthday, he went very happy.")
+
+
+def test_his_flat_addressing_is_exact():
+    """SB-HFR-P0001..P3204 — he derived this by hand. Every number he cited must
+    land on the name he gave it, including the two containers holding 42."""
+    from sourceborn import asi_pyramid as P
+    assert P.bank_size() == 3204
+    assert P.container_span("CON-035") == (1361, 1400)
+    assert P.container_span("CON-036") == (1401, 1440)
+    assert P.container_span("CON-057") == (2243, 2284), "CON-042 holds 42"
+    assert P.container_span("CON-060") == (2365, 2404), "CON-057 holds 42 too"
+    assert P.container_span("CON-064") == (2525, 2564)
+    his = {1374: "Context-cued habit", 1403: "Context association",
+           1438: "Conditioned emotional response", 2243: "Core valence",
+           2254: "Happiness", 2282: "Emotional intensity",
+           2284: "Emotional-state transition", 2366: "Reward anticipation",
+           2368: "Hedonic", 2376: "Approach behaviour", 2388: "Social reward",
+           2454: "Effort willingness", 2464: "Approach motivation",
+           2465: "Avoidance motivation", 2500: "Intention revision",
+           2514: "Opportunity-triggered intention",
+           2563: "Motive stability vs shift",
+           2564: "Motive-inference confidence"}
+    for flat, name in his.items():
+        got = P.param(flat)["name"]
+        assert name.lower() in got.lower(), f"P{flat}: his '{name}' vs '{got}'"
+    assert P.flat_of("CON-057", 12) == 2254
+    assert P.param(2254)["sb_id"] == "SB-HFR-P2254"
+
+
+def test_his_eighteen_on_his_sentence():
+    """His count, not near his count: 7 strong + 11 candidate = 18 / 3204."""
+    from sourceborn import asi_pyramid as P
+    a = P.activate(HIS_SENTENCE)
+    c = a["counts"]
+    assert c["strong"] == 7, c
+    assert c["candidate"] == 11, c
+    assert c["working"] == 18
+    assert c["inactive"] == 3186
+    assert c["pct"] == 0.56
+    strong = {r["flat"] for r in a["strong"]}
+    assert strong == {1403, 2243, 2254, 2282, 2284, 2368, 2376}, strong
+    cand = {r["flat"] for r in a["candidate"]}
+    assert cand == {1374, 1438, 2366, 2388, 2454, 2464, 2465, 2500, 2514,
+                    2563, 2564}, cand
+    # his chart marked P2564 HIT while his list places it under CANDIDATE —
+    # carried, not silently resolved
+    note = [r for r in a["candidate"] if r["flat"] == 2564][0]
+    assert "his chart" in note["his_note"]
+
+
+def test_prior_and_current_are_two_scopes_not_one_flat_sentence():
+    from sourceborn import asi_pyramid as P
+    s = P.read_scopes(HIS_SENTENCE)
+    assert s["time_scopes"] == 2
+    prior = [r["clause"] for r in s[P.PRIOR]]
+    cur = [r["clause"] for r in s[P.CURRENT]]
+    assert any("never" in c for c in prior)
+    assert any("always cry" in c for c in prior)
+    assert any("birthday" in c for c in cur)
+    assert any("went very happy" in c for c in cur), \
+        "a clause with no marker of its own continues the scope it is in"
+    assert s["edge_word"] == "but"
+
+
+def test_same_event_shell_is_one_object_with_two_routes():
+    from sourceborn import asi_pyramid as P
+    sh = P.event_shell(HIS_SENTENCE)
+    assert sh["shell"] == "GO_TO_SCHOOL", sh["shell"]
+    assert sh["object"] == "school", "'to go' is the infinitive, not the place"
+    assert sh["unchanged"] is True
+    kinds = {v["surface"]: v["kind"] for v in sh["verb_forms"]}
+    assert kinds["went"] == "actual behaviour"
+    assert kinds["go"] == "stated/desired"
+
+
+def test_crying_is_never_upgraded_to_sadness():
+    from sourceborn import asi_pyramid as P
+    r = P.run(HIS_SENTENCE)
+    beh = r["behaviour_not_state"]["readings"]
+    assert beh and beh[0]["behaviour"] == "cry"
+    assert beh[0]["status"] == "unresolved"
+    assert "possible sadness" in beh[0]["possible"]
+    assert len(beh[0]["possible"]) == 7, "his seven, including 'possible other'"
+    # and Sadness itself must not be in the activated set
+    flats = {x["flat"] for x in r["activation"]["strong"]} | \
+            {x["flat"] for x in r["activation"]["candidate"]}
+    assert 2250 not in flats, "P2250 Sadness is not a fact because he cried"
+
+
+def test_causality_is_not_closed_and_the_branches_are_opened():
+    from sourceborn import asi_pyramid as P
+    d = P.run(HIS_SENTENCE)["difference"]
+    assert d["status"] == "CAUSALITY NOT PROVEN"
+    assert d["what_changed"] == ["birthday"]
+    assert "BIRTHDAY = today" in d["we_know"]
+    assert any("caused" in x for x in d["we_do_not_know"])
+    assert len(d["hidden_branches"]) == 10, "his ten"
+    assert "gifts?" in d["hidden_branches"]
+    assert "fabrication" in d["fabrication_example"]
+
+
+def test_two_intent_candidates_are_never_blended():
+    from sourceborn import asi_pyramid as P
+    i = P.run(HIS_SENTENCE)["intent"]
+    assert len(i["candidates"]) == 2
+    assert i["blended"] is False
+    ids = {c["id"] for c in i["candidates"]}
+    assert ids == {"INTENT CANDIDATE A", "INTENT CANDIDATE B"}
+
+
+def test_pattern_candidate_carries_his_four_guards():
+    from sourceborn import asi_pyramid as P
+    pc = P.run(HIS_SENTENCE)["pattern_candidate"]
+    assert pc["id"] == "PC-CONTEXT-INTENT-001"
+    assert pc["assembled"] is True
+    assert pc["guards"]["evidence_cases"] == "1 current contrast"
+    assert pc["guards"]["cause"] == "UNKNOWN"
+    assert pc["guards"]["generalization"] == "NOT ALLOWED YET"
+    refused = {x["claim"] for x in pc["refused"]}
+    assert "Birthday makes children like school." in refused
+    assert pc["next"] == ["DOUBT / R-F-R", "USER REVIEW"]
+
+
+def test_the_rule_has_no_fixed_number_after_the_plus_signs():
+    from sourceborn import asi_pyramid as P
+    assert P.THE_RULE["no_fixed_number"] is True
+    assert P.THE_RULE["sum"][-1] == "..."
+    assert "PRIOR PATTERN" in P.THE_RULE["machine"]
+
+
+def test_sequence_runtime_objects_are_not_parameters():
+    from sourceborn import asi_pyramid as P
+    rt = P.run(HIS_SENTENCE)["runtime"]
+    got = {o["what"]: o["n"] for o in rt["objects"]}
+    assert got["time scopes"] == 2
+    assert got["contrast edge"] == 1
+    assert got["contextual event"] == 1
+    assert got["emotional state transition"] == 1
+    assert got["intent-state candidates"] == 2
+    assert got["causal gap"] == 1
+    assert rt["then"] == ["PATTERN CANDIDATE", "DOUBT / R-F-R", "USER REVIEW"]
+
+
+def test_it_is_a_mechanism_not_a_lookup_of_his_sentence():
+    """Different words, same shape -> the same 18. A flat report -> almost
+    nothing. This is the test that fails if the routes are hard-wired to the
+    literal words 'Samrath', 'school' or 'birthday'."""
+    from sourceborn import asi_pyramid as P
+    other = ("Ravi never wants to go to the gym, he always shouted, "
+             "but today is his match, he went really excited.")
+    a = P.activate(other)
+    assert a["counts"]["strong"] == 7
+    assert a["counts"]["candidate"] == 11
+    assert P.event_shell(other)["shell"] == "GO_TO_GYM"
+    assert P.run(other)["difference"]["what_changed"] == ["match"]
+
+    flat = P.activate("He went to school today.")
+    assert flat["counts"]["strong"] == 0, "no flip, no history, no claim"
+    assert flat["counts"]["working"] == 1
+
+
+def test_positive_words_do_not_all_collapse_into_happiness():
+    """His v1.0 source separates the emotions and says they must not be
+    collapsed. "excited" is his Excitement, never his Happiness."""
+    from sourceborn import asi_pyramid as P
+    a = P.activate("Ravi never wants to go to the gym, he always shouted, "
+                   "but today is his match, he went really excited.")
+    flats = {r["flat"]: r for r in a["strong"]}
+    assert 2256 in flats, "P2256 Excitement"
+    assert 2254 not in flats, "P2254 Happiness must not fire on 'excited'"
+    assert flats[2256]["by"] == "word -> his name (mine, correctable)"
+    b = P.activate(HIS_SENTENCE)
+    his = {r["flat"]: r for r in b["strong"]}
+    assert his[2254]["by"] == "HIS ASSIGNMENT", "'happy'->Happiness is his row"
+
+
+def test_a_shape_he_has_not_named_is_reported_unnamed_not_empty():
+    from sourceborn import asi_pyramid as P
+    pc = P.run("Meera always laughed about the exam, but today is her result, "
+               "she went very worried.")["pattern_candidate"]
+    assert pc["assembled"] is False
+    assert pc["missing"], "it must say which part of his form is absent"
+    assert pc["unnamed_shape"] is True, \
+        "positive prior -> negative today is a real shape he has not named"
+
+
+def test_his_chart_is_generated_from_the_run_not_typed_out():
+    from sourceborn import asi_pyramid as P
+    text = P.chart(P.run(HIS_SENTENCE))
+    for must in ("PRIOR / REPEATED", "CURRENT / TODAY", "SAME EVENT SHELL",
+                 "GO_TO_SCHOOL", "WORKING ACTIVE SET      18 / 3204",
+                 "3186 remain inactive", "P2243-P2284", "DOUBT / R-F-R"):
+        assert must in text, must
 
 
 def _run_all():
@@ -2673,7 +2872,6 @@ def _run_all():
         print(f"  ok  {fn.__name__}")
         passed += 1
     print(f"\n{passed}/{len(fns)} tests passed")
-
 
 if __name__ == "__main__":
     _run_all()
