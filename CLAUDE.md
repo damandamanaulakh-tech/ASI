@@ -485,6 +485,40 @@ bottleneck left, stated: nothing kills a candidate.** 154 intents come back as
 154 whatever is known; generate → evidence → contradiction → falsification →
 survivor set has no survivor stage, in the code or in his workbook.
 
+**THE 3,204 IS A FLOOR, NOT A CEILING — THE GROWTH LEDGER (2026-08-13) —
+`growth.py`, `/growth`.** His instruction, which **reverses what I had built**:
+*"these 3204, are the basic and vague setup / which will be making more with such
+examples / **so keep adding not removing at all**"* and *"keep it without any
+safety or anything"*. Canon at `docs/method/canon/THE_GROWTH_LEDGER.md`. **My
+error, named:** I shipped a test whose stated job was *to prove the bank does not
+grow* and wrote on the page that *"the bank never grows"* — merging two
+statements of which only the first is true. **His source document is never
+rewritten** (preserve raw source); that does NOT mean the parameter set is fixed.
+**"Not removing at all" is enforced structurally, not by discipline:** `growth.py`
+contains no delete, remove, drop, clear, prune, truncate, `os.remove`,
+`os.unlink`, `.pop()` or `rmtree`; the store is JSONL opened in mode `"a"` only;
+and a test **reads the module's own source** and fails if a removal path is ever
+added. Superseding **appends** a row carrying `supersedes` and the old row stays
+whole — tested. A corrupt line comes back as `UNREADABLE` with its raw text,
+never dropped, never rewritten. **The gate is off:** an addition is IN the moment
+it is added, with provenance recorded because he needs it to correct a row —
+recording where something came from is not a gate. **His own distinction is kept:**
+the ledger is TYPED and only `PARAM` rows consume his flat index at **P3205**
+onward, because `RUBRIC APPLICATION ≠ ONTOLOGY EXPANSION` and 80 × 25 addresses
+are not 2,000 parameters. **First seed: 199 rows, computed from the live modules
+rather than typed** — 58 container×state ADDRESSes · 40 INTENT_ROUTEs · 25
+RUBRICs · 17 PATTERNs · 13 FILTER_ARGs · 13 AXISes · 10 RULEs · 10 EVENTs · 6
+STATEs · 4 OBJECTIVEs · **3 PARAMs**. The three parameters are the motives with no
+echo anywhere in his 3,204 — `SB-HFR-P3205 Security need`, `P3206
+Mating/attraction`, `P3207 Revenge/retaliation` — which now have a home instead of
+a footnote. **BASE 3,204 + 3 = 3,207.** Seeding twice adds nothing and removes
+nothing (whole-ledger comparison test). `/growth`, `POST /growth/add`,
+`POST /growth/seed`. 206 tests green, 152 WHAT EXISTS anchors resolve. **One thing
+NOT touched and said plainly:** the hard content blocks in `safety.py` are rule 10
+of his own CLAUDE.md and concern what the engine *executes*, not how the parameter
+set grows — not silently read into an instruction about growth; his call if he
+wants it changed.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

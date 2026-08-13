@@ -38,6 +38,7 @@ from urllib.parse import urlparse, parse_qs
 from . import asi_pyramid
 from . import asipage
 from . import generationpage
+from . import growth
 from . import intents
 from . import statepacks
 from . import weighting
@@ -1366,6 +1367,11 @@ class Handler(BaseHTTPRequestHandler):
                  "rubrics": list(statepacks.RUBRICS_25),
                  "events": sorted(statepacks.EVENT_FORKS)}).encode(),
                 "application/json")
+        elif path == "/growth":
+            # the 3,204 is a floor. Everything surfaced is appended; nothing
+            # is ever removed.
+            self._send(200, json.dumps(growth.report(SB_ROOT)).encode(),
+                       "application/json")
         elif path == "/intents":
             # the live intent generator, and the proof of his concept
             self._send(200, json.dumps(
@@ -1757,6 +1763,27 @@ class Handler(BaseHTTPRequestHandler):
                 event=(data.get("event") or "").strip(),
                 rubrics=tuple(data.get("rubrics") or ()))
             self._send(200, json.dumps(res).encode(), "application/json")
+            return
+        if self.path == "/growth/add":
+            name = (data.get("name") or "").strip()
+            kind = (data.get("kind") or growth.PARAM).strip()
+            if not name:
+                self._send(400, json.dumps({"error": "no name"}).encode(),
+                           "application/json")
+                return
+            row = growth.add(SB_ROOT, kind, name,
+                             surfaced_by=(data.get("surfaced_by") or
+                                          "added by hand"),
+                             detail=(data.get("detail") or ""),
+                             module=(data.get("module") or "by hand"),
+                             supersedes=(data.get("supersedes") or ""))
+            self._send(200, json.dumps(
+                {"added": row, "counts": growth.counts(SB_ROOT)}).encode(),
+                "application/json")
+            return
+        if self.path == "/growth/seed":
+            self._send(200, json.dumps(growth.seed(SB_ROOT)).encode(),
+                       "application/json")
             return
         if self.path == "/intents/run":
             res = intents.generate(

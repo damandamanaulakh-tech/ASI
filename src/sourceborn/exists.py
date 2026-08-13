@@ -105,6 +105,30 @@ MAP: list[dict] = [
     "state": RUNS,
     "note": "his seven candidates stay unresolved, and a test proves P2250 "
             "Sadness never enters the activated set because he cried."},
+   {"his": "these 3204, are the basic and vague setup / which will be making "
+           "more with such examples / so keep adding not removing at all",
+    "where": [("growth.py", "BASE = 3204"),
+              ("growth.py", "def add("),
+              ("growth.py", "def seed_items("),
+              ("growth.py", "SERIES = {")],
+    "state": RUNS,
+    "note": "his reversal of what I had built. I had shipped a test whose "
+            "stated job was to prove the bank does not grow, and wrote on the "
+            "page that the bank never grows — treating his base as a ceiling. "
+            "It is a floor. growth.py is APPEND-ONLY: no delete, remove, drop, "
+            "clear, prune, truncate, os.remove, os.unlink, .pop or rmtree "
+            "anywhere in it, the store opens in mode \"a\" only, and a test "
+            "reads the module's own source to prove a removal path can never be "
+            "added. Superseding appends a row referencing the old one and the "
+            "old row stays whole. The gate is off — an addition is in the moment "
+            "it is added; provenance is recorded because he needs it to correct "
+            "a row, which is not a gate. Typed series, and only PARAM consumes "
+            "his flat index at P3205 onward, because RUBRIC APPLICATION != "
+            "ONTOLOGY EXPANSION. First seed: 199 rows computed from the live "
+            "modules, of which 3 are new parameters — Security need, "
+            "Mating/attraction, Revenge/retaliation, the three with no echo "
+            "anywhere in his 3,204. Base 3,204 + 3 = 3,207. /growth, POST "
+            "/growth/add, POST /growth/seed."},
    {"his": "as much parameters we plug, we will generate more pattern and "
            "intent / main bottleneck is system is not generating the new "
            "intent live",

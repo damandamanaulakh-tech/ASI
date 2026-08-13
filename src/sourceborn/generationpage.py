@@ -59,7 +59,7 @@ ul{margin:4px 0 0 18px;padding:0}li{margin:2px 0}
   <h1>THE GENERATION — SAME PERSON, MANY BRAINS</h1>
   <div class=sub>identity locked &middot; conditions change &middot; container
   &times; state generates a RUNTIME ADDRESS &middot; instantiated address is not
-  a native parameter &middot; the bank never grows</div>
+  a native parameter &middot; his source document is never rewritten, and the system GROWS &mdash; additions go to the growth ledger, nothing is ever removed</div>
 </header>
 <main>
   <div class=row>

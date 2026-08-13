@@ -3635,6 +3635,125 @@ def test_live_intent_reaches_the_generation_run_and_its_routes():
     assert "intents" in src
 
 
+
+# --- THE GROWTH LEDGER: the 3,204 is a floor -------------------------------
+
+def _growth_root(tmp="growth_test"):
+    import tempfile, os
+    d = os.path.join(tempfile.mkdtemp(prefix="sb_growth_"), tmp)
+    os.makedirs(d, exist_ok=True)
+    return d
+
+
+def test_the_module_has_no_removal_path_at_all():
+    """His instruction: 'keep adding not removing at all'. Enforced by the
+    shape of the code, not by discipline — so it is checked by reading the
+    source, and a future edit that adds a delete fails this test."""
+    import re
+    src = open("src/sourceborn/growth.py").read()
+    body = src[src.index("def _dir("):]      # skip the docstring
+    for banned in ("def delete", "def remove", "def drop", "def clear",
+                   "def prune", "def truncate", "os.remove", "os.unlink",
+                   ".pop(", "shutil.rmtree"):
+        assert banned not in body, banned
+    # and the store must only ever be opened for append or read
+    modes = re.findall(r'open\([^)]*?,\s*"([arw+bx]+)"', body)
+    assert set(modes) <= {"a", "r"}, modes
+
+
+def test_growth_appends_and_the_base_is_never_renumbered():
+    from sourceborn import growth as G, human_registry as hr
+    root = _growth_root()
+    assert G.BASE == 3204
+    assert G.FIRST_GROWN_P == 3205
+    r1 = G.add(root, G.PARAM, "Test motive one", "a unit test", module="tests")
+    r2 = G.add(root, G.PARAM, "Test motive two", "a unit test", module="tests")
+    assert r1["id"] == "SB-HFR-P3205", r1["id"]
+    assert r2["id"] == "SB-HFR-P3206", r2["id"]
+    assert r1["in_base"] is False
+    c = G.counts(root)
+    assert c["base"] == 3204
+    assert c["grown_parameters"] == 2
+    assert c["total_parameters"] == 3206
+    assert c["removals_possible"] == 0
+    # his source document is untouched — that is a different statement from
+    # "the bank never grows", which is what I had wrongly written
+    assert len(hr.parameters()) == 3204
+
+
+def test_only_parameters_consume_his_flat_index():
+    """DOMAIN CONTAINER != RUBRIC. Rubrics, states, addresses and the rest grow
+    their own series and do not inflate the parameter count."""
+    from sourceborn import growth as G
+    root = _growth_root()
+    G.add(root, G.RUBRIC, "Presence", "his 25", module="tests")
+    G.add(root, G.STATE, "Conflicted", "his profiles", module="tests")
+    G.add(root, G.ADDRESS, "CON-006@DOMINANT", "a brain-state", module="tests")
+    c = G.counts(root)
+    assert c["grown_rows"] == 3
+    assert c["grown_parameters"] == 0
+    assert c["total_parameters"] == 3204, "addresses are not parameters"
+    ids = [r["id"] for r in G.load(root)]
+    assert ids == ["SB-RUBRIC-001", "SB-STATE-001", "SB-ADDR-0001"], ids
+
+
+def test_superseding_keeps_the_old_row_whole():
+    from sourceborn import growth as G
+    root = _growth_root()
+    old = G.add(root, G.RULE, "RULE-X", "first reading", module="tests",
+                detail="the first way he put it")
+    new = G.add(root, G.RULE, "RULE-X revised", "his correction",
+                module="tests", supersedes=old["id"],
+                detail="the later way he put it")
+    rows = G.load(root)
+    assert len(rows) == 2, "superseding appends; it does not replace"
+    assert rows[0]["detail"] == "the first way he put it"
+    assert new["supersedes"] == old["id"]
+    assert G.counts(root)["grown_rows"] == 2
+
+
+def test_the_seed_is_computed_from_the_modules_and_is_idempotent():
+    from sourceborn import growth as G
+    root = _growth_root()
+    s1 = G.seed(root)
+    assert s1["added"] > 150, s1["added"]
+    by = s1["counts"]["by_kind"]
+    assert by[G.ADDRESS] == 58, "every container x state pair generated"
+    assert by[G.RUBRIC] == 25, "his 25 universal dimensions"
+    assert by[G.INTENT_ROUTE] == 40, "his forty intent routes"
+    assert by[G.EVENT] == 10
+    assert by[G.STATE] == 6
+    assert by[G.PARAM] == 3, "the three motives with no echo in the bank"
+    # the three that got a home
+    params = [r["name"] for r in G.load(root) if r["kind"] == G.PARAM]
+    assert set(params) == {"Security need", "Mating/attraction motive",
+                           "Revenge/retaliation motive"}, params
+    # seeding again adds nothing and removes nothing
+    before = G.load(root)
+    s2 = G.seed(root)
+    assert s2["added"] == 0
+    assert G.load(root) == before
+
+
+def test_every_grown_row_carries_where_it_came_from():
+    """Recording provenance is not a gate — he needs it to correct a row."""
+    from sourceborn import growth as G
+    root = _growth_root()
+    G.seed(root)
+    for r in G.load(root):
+        assert r["surfaced_by"], r
+        assert r["module"], r
+        assert r["kind"] in G.SERIES, r
+        assert r["base"] == 3204
+
+
+def test_the_growth_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/growth"', '"/growth/add"', '"/growth/seed"'):
+        assert route in src, route
+    assert "growth" in src
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

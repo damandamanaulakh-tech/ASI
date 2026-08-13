@@ -35,8 +35,19 @@ AND HIS LAW ON WHAT THAT MEANS:
 
     Across these 10, I would still add zero canonical parameters.
 
-So nothing here writes to the bank. Every generated address is runtime, and a
-test exists whose only job is to prove the bank does not grow.
+So nothing here REWRITES his source document — that stays byte-for-byte, and a
+test proves human_registry still reports 3,204.
+
+But the system GROWS. His later instruction:
+
+    these 3204, are the basic and vague setup
+    which will be making more with such examples
+    so keep adding not removing at all
+
+So every generated address is also APPENDED to the growth ledger
+(`growth.py`), which is append-only and has no removal path. Base 3,204 is a
+floor. The two statements are different and I had wrongly merged them into "the
+bank never grows".
 
 Canon: docs/method/canon/THE_GENERATION_SAME_PERSON_MANY_BRAINS.md
 """
