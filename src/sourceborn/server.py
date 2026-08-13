@@ -37,6 +37,9 @@ from urllib.parse import urlparse, parse_qs
 
 from . import asi_pyramid
 from . import asipage
+from . import generationpage
+from . import statepacks
+from . import weighting
 from . import enginepage
 from . import exists
 from . import ladder
@@ -1351,6 +1354,21 @@ class Handler(BaseHTTPRequestHandler):
             # THE PYRAMID — his answer on screen, one ask over his 3,204
             self._send(200, asipage.PAGE.encode("utf-8"),
                        "text/html; charset=utf-8")
+        elif path == "/generation":
+            # THE GENERATION — same person, changed conditions, new brain
+            self._send(200, generationpage.PAGE.encode("utf-8"),
+                       "text/html; charset=utf-8")
+        elif path == "/generation/packs":
+            self._send(200, json.dumps(
+                {"packs": statepacks.packs_index(),
+                 "stats": statepacks.stats(),
+                 "rubrics": list(statepacks.RUBRICS_25),
+                 "events": sorted(statepacks.EVENT_FORKS)}).encode(),
+                "application/json")
+        elif path == "/weighting":
+            # this module was reachable from nothing; it is reachable now
+            self._send(200, json.dumps(weighting.stats()).encode(),
+                       "application/json")
         elif path == "/asi/stats":
             self._send(200, json.dumps(asi_pyramid.stats()).encode(),
                        "application/json")
@@ -1718,6 +1736,24 @@ class Handler(BaseHTTPRequestHandler):
             except Exception as exc:
                 self._send(400, json.dumps({"error": f"restore failed: {exc}"}).encode(),
                            "application/json")
+            return
+        if self.path == "/generation/run":
+            # one locked identity, one brain-state, optionally one forked event
+            res = statepacks.run(
+                who=(data.get("who") or "").strip(),
+                pack_id=(data.get("pack") or "SP-01").strip(),
+                event=(data.get("event") or "").strip(),
+                rubrics=tuple(data.get("rubrics") or ()))
+            self._send(200, json.dumps(res).encode(), "application/json")
+            return
+        if self.path == "/weighting/run":
+            ask = (data.get("ask") or "").strip()
+            if not ask:
+                self._send(400, json.dumps({"error": "no ask"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(weighting.run(ask)).encode(),
+                       "application/json")
             return
         if self.path == "/asi/run":
             # one ask -> his PRIOR/CURRENT split, his two tiers over the 3,204,

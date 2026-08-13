@@ -409,6 +409,50 @@ proof it is not the lesson he refused. **RULE-002** *"Role changes active
 interpretation"* is recorded as his with its provenance (the father/door example)
 and surfaced rather than silently backdated.
 
+**THE GENERATION — SAME PERSON, MANY BRAINS (2026-08-13) — `statepacks.py`,
+`/generation`.** His order: *"now build this generation in the app"*, after his
+correction *"your file is about the king HIMSELF: keep the identity fixed, change
+the active parameter set, situation and circumstance"*. Canon at
+`docs/method/canon/THE_GENERATION_SAME_PERSON_MANY_BRAINS.md`. **The generator is
+`container × state`, and it is measurably new:** 0 of 36 (container-name + state)
+pairs from his 18-Kings file exist anywhere in the 3,204 — *Compensated* and
+*Conflicted* appear in **0** of his names. His own sheet states the capacity
+(`2560 × 40 × 12`); at current fill that is `3,204 × 40 × 12 = 1,537,920`.
+**His law is enforced, not described:** `INSTANTIATED ADDRESS ≠ NATIVE PARAMETER`
+— every address is runtime, carries no P id, and a test generates all 16 packs
+crossed with all 25 rubrics and proves the bank stays at **3,204**. **His 25
+universal dimensions are extracted verbatim** and his discovery verified — 80
+containers, exactly **1 distinct 25-dimension tuple**, so his 2,000 is
+`80 × 25 = 2,000 INSTANTIATED ADDRESSES` and is **NOT added to the 3,204**.
+**16 state packs** (the 6 from his Kings file that carried real container-state
+boxes, plus the **10 brains of the SAME king** he wrote), labelled MODEL A..P
+because *"PERSONALITY ≠ ONE STATIC PROFILE"* — 43 of 80 containers, 6 of 12
+states (six still unnamed and recorded as unnamed), 58 pairs. **The twelve
+prose-only kings are NOT counted as brains** — they carry a written meaning and
+zero container assignments. His pairs work: SP-19/SP-20 *"can be the SAME MAN"*,
+and SP-22/SP-23 read *"I need to speak with you privately"* as *possibly
+strategic* vs *probably important* with `chosen = None`. **SP-26 Defeat-Shaken
+forks five ways** (*"even one brain-state must fork"*); **SP-24 Exhausted fires
+SEG-01 body containers AND SEG-04 working memory** — *"decision difference may
+originate below reasoning"* — with his guard that those are HYPOTHESES TO TEST.
+**10 event forks · 40 intent routes · none chosen**, each with his refusal
+(`TAX INCREASE ≠ GREED`, `OBJECT DISAPPEARS ≠ KING DESTROYED IT`,
+`PROMOTION ≠ AFFECTION`); an unnamed shape is reported unnamed. **All 7 of his
+findings against his own workbook were verified against the file** — including
+the formula reading `$B$2:$B$2001` when P-rows are 4..2003 (so P1999/P2000 are
+excluded), `ABS(L4)` turning −0.80 into "Very strong", 1 distinct edge-set across
+five loops, and `L1..L5 Adj.` being manual — and kept as findings, not corrected.
+**7 candidates, every one `REVIEW_REQUIRED`, canonical 0**, including his freshest
+`RC-FORMAL-VS-FUNCTIONAL-001` with his cross-domain gate on it. **Also fixed two
+reachability defects I had reported:** `weighting.py` was importable from nothing
+and now has `/weighting` + `POST /weighting/run`; and `engine.py` now imports
+`asi_pyramid` and `statepacks`, so the Pyramid is in the answer path instead of
+behind one page. 191 tests green, 143 WHAT EXISTS anchors resolve.
+**Still missing and stated:** the killing step — nothing eliminates a fork on
+evidence. 40 routes come back as 40, seven frames as seven. His EVIDENCE_LEDGER,
+contradiction penalty and Falsifier columns are named in his workbook and empty.
+Same gap in the code and in the file.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

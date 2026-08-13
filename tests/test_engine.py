@@ -3340,6 +3340,184 @@ def test_his_registry_already_names_the_mechanism():
     assert W.rows_for(BJP)["counts"]["containers"] >= 7
 
 
+
+# --- THE GENERATION: same person, changed conditions, different brain -------
+
+def test_the_identity_is_locked_and_a_pack_is_not_a_person():
+    from sourceborn import statepacks as S
+    lk = S.identity_lock("The King")
+    assert lk["identity"] == "The King" and lk["locked"] is True
+    assert "does not change" in lk["rule"]
+    assert "personality type" in lk["not"]
+    # every pack is a state OF one identity, carrying a neutral MODEL label
+    models = [p["model"] for p in S.STATE_PACKS]
+    assert len(models) == len(set(models)), "each model letter is distinct"
+    assert all(len(m) == 1 for m in models)
+
+
+def test_container_times_state_generates_a_runtime_address_not_a_parameter():
+    """His law: INSTANTIATED ADDRESS != NATIVE PARAMETER."""
+    from sourceborn import statepacks as S
+    a = S.runtime_address(6, S.DOMINANT)
+    assert a["address"] == "CON-006@DOMINANT"
+    assert a["container_name"] == "Pain and Protective Signalling"
+    assert a["is_native_parameter"] is False and a["in_bank"] is False
+    assert a["law"] == S.RUNTIME_LAW
+    assert a["native_span"] == [201, 240], "it says which native rows it hangs off"
+    # crossed with one of his 25 rubrics it is still an address
+    b = S.runtime_address(6, S.DOMINANT, "Falsifier")
+    assert b["address"] == "CON-006@DOMINANT/Falsifier"
+    assert b["in_bank"] is False
+
+
+def test_the_bank_never_grows_however_much_is_generated():
+    """The one test whose only job is to prove the generation adds nothing."""
+    from sourceborn import statepacks as S, human_registry as hr
+    before = len(hr.parameters())
+    for p in S.STATE_PACKS:
+        r = S.generate("The King", p["id"], rubrics=S.RUBRICS_25)
+        assert r["counts"]["native_parameters_added"] == 0
+        assert r["counts"]["native_parameters_modified"] == 0
+        assert r["counts"]["rubric_addresses"] == \
+            r["counts"]["containers"] * len(S.RUBRICS_25)
+    assert len(hr.parameters()) == before == 3204
+
+
+def test_his_twenty_five_rubrics_are_the_same_for_every_container():
+    """His discovery: 80 x 25 = 2,000 INSTANTIATED ADDRESSES, and the 2,000 is
+    NOT added to the 3,204."""
+    from sourceborn import statepacks as S
+    assert len(S.RUBRICS_25) == 25
+    assert S.RUBRICS_25[0] == "Presence"
+    assert S.RUBRICS_25[-1] == "Confidence"
+    assert "Falsifier" in S.RUBRICS_25 and "Contradiction Risk" in S.RUBRICS_25
+    cap = S.capacity()
+    assert cap["container_x_rubric"] == 80 * 25 == 2000
+    assert cap["native_bank"] == 3204, "the 2,000 was not added"
+    assert cap["at_current_fill"] == 3204 * 40 * 12
+    assert "NOT added to the 3,204" in cap["law"]
+
+
+def test_same_signal_two_brains_and_the_machine_does_not_choose():
+    from sourceborn import statepacks as S
+    r = S.same_signal_different_history("I need to speak with you privately.")
+    reads = {x["pack"]: x["reads_as"] for x in r["readings"]}
+    assert "strategic" in reads["SP-22"]
+    assert "important/private" in reads["SP-23"]
+    assert r["same_identity"] is True
+    assert r["chosen"] is None, "the history that decides is not in the signal"
+    assert "CHANGED HISTORY" in r["law"]
+
+
+def test_the_pairs_that_are_the_same_man():
+    from sourceborn import statepacks as S
+    a, b = S.pack("SP-19"), S.pack("SP-20")
+    assert b["pairs_with"] == "SP-19"
+    assert "SAME MAN" in b["pair_note"]
+    assert S.pack("SP-23")["pairs_with"] == "SP-22"
+    # and a state that itself forks
+    assert len(S.pack("SP-26")["forks"]) == 5
+    assert "even one brain-state must fork" in S.pack("SP-26")["law"]
+
+
+def test_the_body_pack_reaches_below_reasoning():
+    """His SP-24: decision difference may originate below 'reasoning'."""
+    from sourceborn import statepacks as S
+    g = S.generate("The King", "SP-24")
+    segs = {a["segment"] for a in g["addresses"]}
+    assert "SEG-01" in segs, "sleep, energy, pain, autonomic are body containers"
+    assert "SEG-04" in segs, "and they change working memory and inhibition"
+    names = {a["container_name"] for a in g["addresses"]}
+    assert "Working Memory" in names
+    assert "Pain and Protective Signalling" in names
+    assert "HYPOTHESES TO TEST" in g["pack"]["holds"]
+
+
+def test_ten_event_forks_and_none_is_chosen():
+    from sourceborn import statepacks as S
+    assert len(S.EVENT_FORKS) == 10
+    tot = 0
+    for name in S.EVENT_FORKS:
+        f = S.fork_event(name)
+        assert f["known"] is True and f["count"] >= 3
+        assert f["chosen"] is None
+        assert f["refuses"]
+        assert f["law"] == "VISIBLE ACTION != HIDDEN INTENT"
+        tot += f["count"]
+    assert tot == 40, tot
+    tax = S.fork_event("RAISE_TAX")
+    assert "GREED automatically" in tax["refuses"]
+    assert "where does the money actually go?" in tax["still_open"]
+    cen = S.fork_event("CENSUS")
+    assert "WHAT WAS COUNTED?" in cen["asks"]
+    mon = S.fork_event("DESTROY_MONUMENT")
+    assert "INTENTIONALLY DESTROYED" in mon["refuses"]
+    # a shape he has not named is reported unnamed, not forked on a guess
+    unk = S.fork_event("BUILD_A_SHIP")
+    assert unk["known"] is False and unk["count"] == 0
+    assert "unnamed" in unk["note"]
+
+
+def test_formal_state_is_not_functional_state():
+    from sourceborn import statepacks as S
+    fv = S.formal_vs_functional()
+    assert fv["law"] == "FORMAL STATE != FUNCTIONAL STATE"
+    assert fv["functional_state"].startswith("UNKNOWN")
+    assert "army loyalty" in fv["may_retain"]
+    assert any("CEO" in x for x in fv["cross_domain_to_watch"])
+    assert "repeatedly in other domains" in fv["his_gate"]
+
+
+def test_all_seven_of_his_workbook_findings_are_kept_with_verification():
+    from sourceborn import statepacks as S
+    assert len(S.WORKBOOK_FINDINGS) == 7
+    for f in S.WORKBOOK_FINDINGS:
+        assert f["verified"], f
+    text = " ".join(f["verified"] for f in S.WORKBOOK_FINDINGS)
+    assert "P1999" in text and "$B$2:$B$2001" in text
+    assert "ABS(L4)" in text
+    assert "1 distinct edge-set" in text
+    assert "manual" in text
+
+
+def test_every_candidate_is_review_required_and_nothing_is_canonical():
+    from sourceborn import statepacks as S
+    assert len(S.CANDIDATES) == 7
+    for c in S.CANDIDATES:
+        assert c["status"] == S.REVIEW_REQUIRED, c["id"]
+        assert c["canonical"] == 0, c["id"]
+        assert c["form"] and c["found_in"]
+    ids = {c["id"] for c in S.CANDIDATES}
+    assert "RC-DOMAIN-RUBRIC-INSTANTIATION-001" in ids
+    assert "RC-NO-EVIDENCE-NO-RANK-001" in ids
+    assert "RC-FORMAL-VS-FUNCTIONAL-001" in ids
+    r = S.run("The King", "SP-01", "ABDICATE")
+    assert all(v == 0 for v in r["promoted"].values())
+    assert S.stats()["canonical"] == 0
+
+
+def test_the_twelve_prose_only_kings_are_not_counted_as_brains():
+    from sourceborn import statepacks as S
+    assert len(S.PROSE_ONLY) == 12
+    assert "Shadow / Hidden King" in S.PROSE_ONLY
+    packs = {p["name"] for p in S.STATE_PACKS}
+    for name in S.PROSE_ONLY:
+        assert name not in packs, name
+
+
+def test_the_generation_and_weighting_routes_are_reachable():
+    """weighting was importable and reachable from nothing. Both are wired."""
+    from sourceborn import server
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/generation"', '"/generation/packs"', '"/generation/run"',
+                  '"/weighting"', '"/weighting/run"'):
+        assert route in src, route
+    assert "statepacks" in src and "weighting" in src
+    eng = open("src/sourceborn/engine.py").read()
+    assert "asi_pyramid" in eng, "the Pyramid must be in the answer path"
+    assert "statepacks" in eng
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

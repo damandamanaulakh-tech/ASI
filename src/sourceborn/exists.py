@@ -105,6 +105,29 @@ MAP: list[dict] = [
     "state": RUNS,
     "note": "his seven candidates stay unresolved, and a test proves P2250 "
             "Sadness never enters the activated set because he cried."},
+   {"his": "keep the identity fixed, change the active parameter set, "
+           "situation and circumstance",
+    "where": [("statepacks.py", "def identity_lock("),
+              ("statepacks.py", "def runtime_address("),
+              ("statepacks.py", "STATE_PACKS = ["),
+              ("statepacks.py", "RUBRICS_25 = ("),
+              ("statepacks.py", "def fork_event("),
+              ("statepacks.py", "WORKBOOK_FINDINGS = ["),
+              ("generationpage.py", "THE GENERATION — SAME PERSON, MANY BRAINS")],
+    "state": RUNS,
+    "note": "the generation. 16 state packs (6 from his Kings file that carried "
+            "real container-state boxes, plus the 10 brains of the SAME king he "
+            "added), 43 of 80 containers, 6 of 12 states, 58 container-state "
+            "pairs. Measured: 0 of 36 (container+state) pairs from his file "
+            "exist in the 3,204 bank, so container x state IS a generator — and "
+            "his law INSTANTIATED ADDRESS != NATIVE PARAMETER is enforced by a "
+            "test that generates every pack x all 25 rubrics and proves the "
+            "bank stays at 3,204. His 25 universal dimensions extracted "
+            "verbatim (80 containers, 1 distinct tuple — his own discovery). "
+            "10 event forks, 40 intent routes, none chosen. All 7 of his "
+            "workbook findings verified against the file and kept as findings. "
+            "7 candidates, all REVIEW_REQUIRED, canonical 0. Routes "
+            "/generation, /generation/packs, POST /generation/run."},
    {"his": "SAME PARAMETERS + DIFFERENT OBJECTIVE -> DIFFERENT PARAMETER "
            "IMPORTANCE -> DIFFERENT DECISION",
     "where": [("weighting.py", "def weigh("),
