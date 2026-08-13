@@ -33,7 +33,7 @@ h2{font-size:12px;letter-spacing:.16em;color:var(--dim);margin:26px 0 8px;
 border-bottom:1px solid var(--line);padding-bottom:6px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:8px;
 padding:12px 14px;margin-bottom:10px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
 @media(max-width:820px){.two{grid-template-columns:1fr}}
 .k{color:var(--dim);font-size:11px;letter-spacing:.1em}
 .clause{padding:3px 0}
@@ -121,14 +121,16 @@ function draw(d){
   o.push(`<div class=mine>${esc(d.counters.gate)}</div>`);
 
   o.push('<h2>THE SPLIT — NOT ONE FLAT SENTENCE</h2><div class=two>');
-  [['PRIOR / REPEATED SEQUENCES','PRIOR / REPEATED'],
-   ['CURRENT / TODAY SEQUENCE','CURRENT / TODAY']].forEach(([label,key])=>{
+  [['PRIOR / REPEATED','PRIOR / REPEATED'],
+   ['CURRENT / TODAY','CURRENT / TODAY'],
+   ['FUTURE / PLANNED','FUTURE / PLANNED']].forEach(([label,key])=>{
     const list=sc[key]||[];
     o.push(`<div class=card><div class=k>${esc(label)}</div>`+
       (list.length?list.map(r=>`<div class=clause>"${esc(r.clause)}"`+
-        (r.prior_markers.concat(r.current_markers,r.contrast).map(m=>
+        (r.prior_markers.concat(r.current_markers,r.future_markers||[],r.contrast).map(m=>
           `<span class=pill>${esc(m)}</span>`).join(''))+
         (r.scope_inherited?'<span class=pill>scope inherited</span>':'')+
+        (r.scope_by_tense?'<span class=pill>placed by tense</span>':'')+
         '</div>').join(''):'<div class=mine>nothing in this scope</div>')+
       '</div>');
   });
@@ -137,6 +139,53 @@ function draw(d){
     <div class=shell>${esc(sh.shell||'(no shell found)')}</div>
     <div class=mine>${sh.unchanged?'held ONCE with two routes — the event did not change':
       'only one route present — no contrast in this ask'}</div></div>`);
+
+  const ir=d.intent_routes, ac=d.actor;
+  if(ir && ir.count){
+    o.push(`<h2>INTENT ROUTES — ${ir.count} ON ONE EVENT SHELL</h2>`+
+      '<div class=card>'+
+      `<div class=mine>${esc(ir.his_words)}</div>`+
+      `<div class=shell>${esc(ir.shell||'')}</div>`+
+      '<table><tr><th>#</th><th>scope</th><th>the position he states</th>'+
+      '<th>his reason</th><th>kind of reason</th><th>stance</th></tr>'+
+      ir.routes.map(r=>`<tr><td class=pid>${r.n}</td>`+
+        `<td class=mine>${esc(r.scope)}</td><td>${esc(r.position)}</td>`+
+        `<td class=mine>${r.reason_is_the_line?'(the line is the reason)':esc(r.reason)}</td>`+
+        `<td class=gen>${r.reason_kinds.map(esc).join('<br>')}</td>`+
+        `<td>${esc(r.stance)}</td></tr>`).join('')+'</table>'+
+      `<div class=mine style=margin-top:8px>${esc(ir.refuses)}</div>`+
+      `<div class=k>DISTINCT KINDS OF REASON: ${ir.distinct_reason_kinds.length}`+
+      ` &middot; SCOPES USED: ${ir.scopes_used.length}</div></div>`);
+  }
+  if(ac){
+    o.push('<div class=card><div class=k>WHO IS ACTING</div>'+
+      `<div>${ac.first_person?'FIRST PERSON — the speaker is the actor':
+        (ac.named?'NAMED ACTOR: '+esc(ac.named):'no actor named')}</div>`+
+      (ac.companion?`<div class=gen>COMPANION: ${esc(ac.companion)} `+
+        `<span class=mine>&mdash; ${esc(ac.rule)}</span></div>`:'')+
+      '</div>');
+  }
+  if(d.contradiction && d.contradiction.count){
+    o.push('<h2>WHAT LOOKS LIKE A CONTRADICTION AND IS NOT</h2><div class=card>'+
+      d.contradiction.findings.map(f=>`<div style=margin-bottom:8px>`+
+        `<span class=halt>${esc(f.looks_like)}</span> &rarr; `+
+        `<span class=tierS>${esc(f.verdict)}</span>`+
+        `<div class=mine>${esc(f.scope_a)}: ${f.members_a.map(esc).join(' &middot; ')}</div>`+
+        `<div class=mine>${esc(f.scope_b)}: ${f.members_b.map(esc).join(' &middot; ')}</div>`+
+        `<div class=mine>${esc(f.why)}</div></div>`).join('')+
+      `<div class=k>REAL SAME-SCOPE CLASHES: ${d.contradiction.same_scope_count}</div>`+
+      `<div class=mine>${esc(d.contradiction.his_rule)}</div></div>`);
+  }
+  if(d.stated_reasons && d.stated_reasons.length){
+    o.push('<h2>THE REASON IS IN THE SOURCE — STATED, NOT VERIFIED</h2>'+
+      '<div class=card><table><tr><th>his clause</th><th>kind</th>'+
+      '<th>status</th><th>what it refuses</th></tr>'+
+      d.stated_reasons.map(r=>`<tr><td>${esc(r.clause)}</td>`+
+        `<td class=gen>${r.kinds.map(esc).join(' &middot; ')}</td>`+
+        `<td class=tierS>${esc(r.status)}</td>`+
+        `<td class=mine>${esc(r.refuses)}</td></tr>`).join('')+
+      '</table></div>');
+  }
 
   o.push('<h2>THE TINY WORDS DO MOST OF THE WORK</h2><div class=card><table>'+
     '<tr><th>word</th><th>what it does</th><th>scope</th></tr>'+
@@ -247,7 +296,10 @@ function draw(d){
       `<div class=mine>taught by ${esc(x.taught_by)}</div>`+
       `<div>SUPPORT ${x.support} &rarr; <b class=tierS>${x.support_after}</b>`+
       ` &nbsp; <span class=pill>${esc(x.action)}</span>`+
-      `<span class=pill>duplicate created = ${x.duplicate_created}</span></div>`+
+      `<span class=pill>duplicate created = ${x.duplicate_created}</span>`+
+      (x.is_origin?'<span class=pill style="border-color:#22507a;color:#60a5fa">'+
+        'this ask IS the origin — no support added</span>':'')+
+      `<span class=pill>routes seen = ${x.routes_seen}</span></div>`+
       `</div>`).join('')+
     `<div class=mine style=margin-top:8px>${esc(rf.his_rule)}</div>`+
     `<div class=k>NEW RULES INVENTED: ${rf.new_rules_invented}</div></div>`);

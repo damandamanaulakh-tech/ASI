@@ -105,6 +105,24 @@ MAP: list[dict] = [
     "state": RUNS,
     "note": "his seven candidates stay unresolved, and a test proves P2250 "
             "Sadness never enters the activated set because he cried."},
+   {"his": "Event is same going to mall / but the intent is keep changing",
+    "where": [("asi_pyramid.py", "def intent_routes("),
+              ("asi_pyramid.py", "FUTURE = "),
+              ("asi_pyramid.py", "def stated_reasons("),
+              ("asi_pyramid.py", "def contradiction_check("),
+              ("asi_pyramid.py", "def companion(")],
+    "state": RUNS,
+    "note": "his mall example run. It scored almost nothing at first — all 8 "
+            "clauses unscoped, one intent route where he shows six, "
+            "\"Girlfriend\" returned as the actor, motive reported ABSENT when "
+            "he states it every line, and reinforce() at 0 on the example "
+            "RULE-001 is named after. Now: a THIRD scope (FUTURE) with tense "
+            "placing unmarked clauses, first person outranking any capitalised "
+            "noun, 6 routes on one shell across 3 scopes with 6 distinct KINDS "
+            "of reason, the stated motive SOURCE-GROUNDED while the operating "
+            "motive stays HELD, and two time scopes reported as NOT a "
+            "contradiction. SEG-01 fires on \"i'm not well\" and stayed silent "
+            "on Samrath — his body/brain ruling both ways."},
    {"his": "I won't invent the P-row count",
     "where": [("asi_pyramid.py", "def rows_for("),
               ("asi_pyramid.py", "ROW_ROUTES = {"),

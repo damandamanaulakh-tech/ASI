@@ -337,6 +337,43 @@ small."* inherit "him"/"his" from three sentences away) and detecting a named
 third party with no pronoun at all. `actor_name()` also closes the earlier defect
 where "Samrath" was invisible to the parser.
 
+**HIS MALL EXAMPLE — RUN, AND IT CAUGHT FIVE OF MY DEFECTS (2026-08-13).**
+*"now run same on my mall example / what i can expect from u, a lie only"*. His
+source was pulled from this session's transcript, not retyped from memory, and
+filed at `docs/method/canon/THE_MALL_EXAMPLE_RUN.md`. **The first run failed
+almost completely and the failure is on the record:** all 8 clauses unscoped
+(my markers were `never/always/today/but`; his are *"few days back"* and
+*"weekend"*, and there was **no FUTURE scope in the code at all**),
+`actor_name` returned **"Girlfriend"** — his companion made the subject of his
+own sentences — six intents collapsed to **one**, `motive_absent` fired when he
+**states** the motive every line, and `reinforce()` returned **0 on the example
+RULE-001 is literally named after** (`taught_by: "the mall example"`). What the
+example forced: **a THIRD time scope** (`FUTURE / PLANNED`) with **tense placing
+any clause his markers do not name, and inheritance legal only inside a
+sentence**; **first person outranking any capitalised noun**, with *a companion
+is not the actor* as an explicit rule; **6 intent routes on ONE shell**
+(`GO_TO_MALL`) across 3 scopes with **6 distinct KINDS of reason** — body ·
+effort · standing preference · recency · schedule · relationship — never
+averaged, where the **route unit is `(sentence, scope)`** so Samrath's single
+sentence still yields 2 and a flat report yields 1; **the stated motive split
+from the operating one** (`P2525 Stated motive` SOURCE-GROUNDED,
+`P2526 Operating (actual) motive` HELD — saying a reason is not verifying it,
+which is what Samrath lacked entirely); and **two time scopes reported as NOT a
+contradiction**, with real same-scope clashes counted separately at 0.
+**72 exact P rows · 34 / 24 / 14 · 21 of 80 containers · 8 of 10 segments.**
+**SEG-01 fires here and stayed silent on Samrath** — his *Human = the body*
+ruling proving itself in both directions on `"i'm not well"`, with
+`P0133 Fatigue sensation` HELD because *"not well"* does not say which state and
+**CON-006 Pain never firing at all** because pain is nowhere in his lines.
+`RULE-001` gained its own stated condition — *one event shell carries more than
+one intent route* — so the mall reads **ORIGIN** and adds **no** support, or the
+machine inflates its own history by re-reading what taught it. A test now pins
+Samrath's fixed result (18 · 106 rows · 16 containers · 59/27/20) so anything
+added for the mall that moves it is a regression. **Still open, stated:** the
+three pattern candidates are Samrath-shaped (valence flip + contextual event);
+the mall's shape — one event, N reasons, three scopes — has **no named pattern
+yet** and is reported unnamed, which is his call to make.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

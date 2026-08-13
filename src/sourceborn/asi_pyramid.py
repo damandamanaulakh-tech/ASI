@@ -282,6 +282,20 @@ def _clauses(text: str) -> list:
     return [p for p in parts if p]
 
 
+def _clause_rows(text: str) -> list:
+    """Clauses with the sentence they came from. Scope inheritance is only
+    legal INSIDE a sentence — across sentences the tense decides, or "he went
+    very happy" would inherit from a sentence it has nothing to do with."""
+    rows, sent = [], 0
+    for part in re.split(r"(?<=[.!?])\s+|\s+/\s+", text or ""):
+        if not part.strip():
+            continue
+        for cl in _clauses(part):
+            rows.append({"clause": cl.strip(), "sent": sent})
+        sent += 1
+    return rows
+
+
 def _has(text: str, words) -> list:
     low = " " + (text or "").lower() + " "
     out = []
@@ -292,36 +306,46 @@ def _has(text: str, words) -> list:
 
 
 def read_scopes(text: str) -> dict:
-    """PRIOR / REPEATED SEQUENCES against CURRENT / TODAY SEQUENCE.
+    """PRIOR / REPEATED, CURRENT / TODAY and FUTURE / PLANNED.
 
-    His rule: do not treat it as one flat sentence. Markers decide the scope,
-    not position — a clause with a prior marker is history wherever it sits."""
-    out = {PRIOR: [], CURRENT: [], "unscoped": [], "edge": None,
-           "edge_word": None}
-    carry = None
-    for cl in _clauses(text):
+    His rule: do not treat it as one flat sentence. Markers decide the scope
+    where there is one. Where there is none, inheritance applies only inside a
+    sentence, and otherwise the TENSE decides — because "I had visited few days
+    back" and "i will b going on weekend" each carry their own time and no
+    marker from his Samrath table appears in either."""
+    out = {PRIOR: [], CURRENT: [], FUTURE: [], "unscoped": [],
+           "edge": None, "edge_word": None}
+    carry, carry_sent = None, None
+    for row in _clause_rows(text):
+        cl = row["clause"]
         pri = _has(cl, PRIOR_MARKERS)
         cur = _has(cl, CURRENT_MARKERS)
+        fut = _has(cl, FUTURE_MARKERS)
         con = _has(cl, CONTRAST)
-        row = {"clause": cl.strip(), "prior_markers": pri,
-               "current_markers": cur, "contrast": con}
+        rec = {"clause": cl, "prior_markers": pri, "current_markers": cur,
+               "future_markers": fut, "contrast": con, "sent": row["sent"],
+               "tense": _tense(cl)}
         if con and not out["edge"]:
-            out["edge"] = cl.strip()
+            out["edge"] = cl
             out["edge_word"] = con[0]
-        if pri and not cur:
-            out[PRIOR].append(row)
-            carry = PRIOR
+        if fut and not pri:
+            scope = FUTURE
+        elif pri and not cur:
+            scope = PRIOR
         elif cur or con:
-            out[CURRENT].append(row)
-            carry = CURRENT
-        elif carry:
-            # a clause with no marker of its own continues the scope it is in —
-            # "he always cry" belongs to history, "he went very happy" to today
-            row["scope_inherited"] = carry
-            out[carry].append(row)
+            scope = CURRENT
+        elif carry is not None and carry_sent == row["sent"]:
+            scope = carry
+            rec["scope_inherited"] = carry
         else:
-            out["unscoped"].append(row)
-    out["time_scopes"] = sum(1 for k in (PRIOR, CURRENT) if out[k])
+            scope = rec["tense"]
+            rec["scope_by_tense"] = scope
+        rec["scope"] = scope
+        out[scope].append(rec)
+        out.setdefault("ordered", []).append(rec)
+        carry, carry_sent = scope, row["sent"]
+    out.setdefault("ordered", [])
+    out["time_scopes"] = sum(1 for k in (PRIOR, CURRENT, FUTURE) if out[k])
     out["his_rule"] = ("split it into historical pattern vs current exception, "
                        "not one flat sentence")
     return out
@@ -456,7 +480,12 @@ def signals(text: str, scopes: dict = None, shell: dict = None) -> dict:
         set(AFFECT_BEHAVIOUR) | set(DESIRE_VERBS) | set(ACTUAL_PAST) | \
         set(PRESENT_OF) | {"is", "was", "his", "her", "he", "she", "they",
                            "the", "a", "an", "to", "of", "and", "it", "very",
-                           "in", "on", "at", "for", "him", "them", "their"}
+                           "in", "on", "at", "for", "him", "them", "their",
+                           # negations and contractions are not events. "dont"
+                           # was being reported as a contextual event.
+                           "dont", "doesnt", "didnt", "cant", "wont", "not",
+                           "no", "im", "ive", "well", "just", "also", "then",
+                           "with", "my", "our", "me", "i"}
     for w in re.findall(r"[a-z]+", cur_txt):
         if w in known or len(w) < 3:
             continue
@@ -1112,9 +1141,19 @@ def actor_name(text: str) -> str:
         set(AFFECT_BEHAVIOUR) | set(DESIRE_VERBS) | set(ACTUAL_PAST) | \
         set(PRESENT_OF) | {"the", "he", "she", "they", "it", "his", "her",
                            "their", "a", "an", "and", "is", "was", "to"}
+    # FIRST PERSON WINS. "I dont want to go to mall" is HIM, and the one
+    # capitalised noun in the sentence must never outrank that — the bug this
+    # closes made "Girlfriend" the actor of his own six sentences.
+    if first_person(text):
+        return ""
     for tok in re.findall(r"\b[A-Z][a-z]{2,}\b", text or ""):
-        if tok.lower() not in known:
-            return tok
+        if tok.lower() in known:
+            continue
+        # a name introduced by "with my/her/his" is a COMPANION, not the actor
+        if re.search(r"\bwith\s+(?:my|her|his|our|their)\s+" + re.escape(tok),
+                     text or "", re.I):
+            continue
+        return tok
     return ""
 
 
@@ -1129,20 +1168,30 @@ def rows_for(text: str, sig: dict = None, scopes: dict = None,
     sig = _extra_signals(text, scopes, shell,
                          sig if sig is not None else
                          signals(text, scopes, shell))
-    his_named = {(s, f) for s, f, _t, _w in ROUTES}
+    sig = _mall_signals(text, scopes, shell, sig)
     his_flats = {f for _s, f, _t, _w in ROUTES}
     out, tiers = [], {SOURCE_GROUNDED: 0, INFERRED: 0, HELD: 0}
-    for cid, label in HIS_CONTAINERS:
-        for pos, signal, tier, why in ROW_ROUTES.get(cid, []):
+    seen_rows = set()
+    for cid, label in HIS_CONTAINERS + EXTRA_CONTAINERS:
+        table = list(ROW_ROUTES.get(cid, [])) + \
+            list(MALL_ROWS_IN_HIS_16.get(cid, [])) + \
+            list(EXTRA_ROW_ROUTES.get(cid, []))
+        for pos, signal, tier, why in table:
             if signal not in sig:
                 continue
             flat = flat_of(cid, pos)
+            if flat in seen_rows:
+                continue
+            seen_rows.add(flat)
             p = param(flat)
             out.append({
                 "flat": flat, "p": p["p"], "sb_id": p["sb_id"],
                 "name": p["name"], "pos": pos,
                 "container": cid, "container_name": p["container_name"],
                 "container_label": label,
+                "container_by": "HIS RULING" if any(
+                    c == cid for c, _l in HIS_CONTAINERS)
+                    else "resolved here (correctable)",
                 "segment": p["segment"], "segment_name": p["segment_name"],
                 "tier": tier, "signal": signal, "why": why,
                 "by": "HIS ASSIGNMENT" if flat in his_flats
@@ -1192,7 +1241,8 @@ def relations(text: str, scopes: dict = None, shell: dict = None,
     scopes = scopes or read_scopes(text)
     shell = shell or event_shell(text, scopes)
     sig = sig if sig is not None else signals(text, scopes, shell)
-    name = actor_name(text) or "(actor)"
+    name = actor_name(text) or ("I (the speaker)" if first_person(text)
+                                else "(actor)")
     obj = shell.get("object") or "(object)"
     verb = (shell.get("verb_forms") or [{"lemma": "(action)"}])[0]["lemma"]
     beh = (sig.get("_behaviours_seen") or [None])[0]
@@ -1225,11 +1275,23 @@ def relations(text: str, scopes: dict = None, shell: dict = None,
             add("today", "->", "%s-going" % obj)
         for w in pos[:1]:
             add("today", "->", w)
+    for r in stated_reasons(text):
+        add("stated reason", "->", r["kinds"][0],
+            "STATED IN SOURCE, not verified — the operating motive stays open")
+    who = companion(text)
+    if who:
+        add("future participation", "->", "with " + who,
+            "a companion, not the actor")
+    if scopes.get(FUTURE):
+        add("future intention", "->", "%s-going" % obj, "stated, not yet done")
     if scopes.get(PRIOR) and scopes.get(CURRENT):
         add("usual Sequence", "<->", "today Sequence", "comparison")
         if ctx and pos:
             add("%s-context" % ctx[0], "<->", "changed affect",
                 ASSOCIATION_ONLY)
+    if scopes.get(CURRENT) and scopes.get(FUTURE):
+        add("present position", "<->", "future intention",
+            "two scopes — NOT a contradiction")
     return {"relations": R, "count": len(R),
             "not_parameters": True,
             "his_rule": "They are not new P parameters."}
@@ -1315,7 +1377,14 @@ PRIOR_RULES = [
     {"id": "RULE-001",
      "text": "Same event + different Pyramid path = different intent",
      "taught_by": "the mall example",
-     "support": 1},
+     "origin_shell": "GO_TO_MALL",
+     "support": 1,
+     # The rule's OWN condition, stated so it can be checked rather than
+     # guessed at. The first version demanded a valence flip, which is a
+     # Samrath-shaped test — so it scored 0 on the mall, the very example the
+     # rule is named after. The condition is not the flip. It is one event
+     # shell carrying more than one intent route.
+     "condition": "one event shell carries more than one intent route"},
 ]
 
 
@@ -1326,18 +1395,37 @@ def reinforce(text: str, sig: dict = None) -> dict:
         CURRENT EXAMPLE: SUPPORT +1
 
         Not: invent another duplicate rule
-    """
-    sig = sig if sig is not None else signals(text)
+
+    And one thing he did not have to say: re-running the example that TAUGHT a
+    rule is not new evidence for it. The origin is reported as the origin and
+    the support count is left alone, or the machine inflates its own history."""
+    ir = intent_routes(text)
+    shell = ir.get("shell")
     out = []
     for r in PRIOR_RULES:
-        applies = "valence_flip" in sig and "context_event" in sig
+        applies = ir["count"] > 1 and bool(shell)
+        is_origin = bool(shell) and shell == r.get("origin_shell")
+        if is_origin:
+            action = "ORIGIN — this is the example that taught the rule"
+            after = r["support"]
+        elif applies:
+            action = "SUPPORT +1"
+            after = r["support"] + 1
+        else:
+            action = "not touched"
+            after = r["support"]
         out.append({**r,
                     "applies_here": applies,
-                    "support_after": r["support"] + (1 if applies else 0),
-                    "action": "SUPPORT +1" if applies else "not touched",
+                    "is_origin": is_origin,
+                    "routes_seen": ir["count"],
+                    "shell": shell,
+                    "support_after": after,
+                    "action": action,
                     "duplicate_created": False})
     return {"rules": out,
-            "strengthened": sum(1 for r in out if r["applies_here"]),
+            "strengthened": sum(1 for r in out
+                                if r["applies_here"] and not r["is_origin"]),
+            "origin_runs": sum(1 for r in out if r["is_origin"]),
             "new_rules_invented": 0,
             "his_rule": "I call it strengthened rather than newly created "
                         "because you already taught this rule with the mall "
@@ -1364,11 +1452,12 @@ def counters(rowres: dict, rel: dict, interp: dict, pcs: dict,
      "generated": [
       ("Parent Sequence", 1),
       ("Child comparison Sequences",
-       sum(1 for k in (PRIOR, CURRENT) if scopes.get(k))),
+       sum(1 for k in (PRIOR, CURRENT, FUTURE) if scopes.get(k))),
       ("Runtime relations", rel["count"]),
       ("Interpretation candidates", interp["count"]),
       ("Pattern candidates", pcs["count"]),
       ("Existing deep rule strengthened", reinf["strengthened"]),
+      ("Rule origin re-run (no support added)", reinf["origin_runs"]),
      ],
      "promoted": [
       ("New canonical parameters", 0),
@@ -1415,7 +1504,385 @@ def full_run(text: str) -> dict:
         "interpretations": interp,
         "pattern_candidates": pcs,
         "reinforcement": reinf,
+        "intent_routes": intent_routes(text),
+        "stated_reasons": stated_reasons(text),
+        "contradiction": contradiction_check(text),
+        "actor": {"named": actor_name(text),
+                  "first_person": first_person(text),
+                  "companion": companion(text),
+                  "rule": "a companion is not the actor"},
         "counters": counters(rowres, rel, interp, pcs, reinf, scopes),
         "format": "3,204 hits -> two Sequences -> differences -> ASI additions "
                   "-> existing-pattern reinforcement / new candidate -> answer",
     }
+
+
+# ===========================================================================
+# THE MALL EXAMPLE (2026-08-13) — what it exposed, and what it forced.
+#
+# His words:
+#
+#     I dont want to go to mall, i'm not well
+#     i dont want to go to mall, i'm not interested to walk
+#     I dont like crowd
+#     I had visited few days back
+#     i will b going on weekend
+#     i will be going with my Girlfriend
+#
+#     Event is same going to mall
+#     but the intent is keep changing
+#
+# Run on the Samrath-shaped machine it scored almost nothing: all 8 clauses
+# unscoped, ONE intent route where he shows six, actor_name returned
+# "Girlfriend", motive reported ABSENT when he states it three times, and
+# reinforce() returned 0 on the example RULE-001 is literally named after.
+# Every one of those was my defect. What the example forces:
+#
+#   1. A THIRD time scope. Samrath needed PRIOR vs CURRENT. This needs FUTURE,
+#      and it needs tense to decide scope when no marker is present.
+#   2. FIRST PERSON. The actor is him. A capitalised token must never outrank
+#      "I".
+#   3. STATED motive. Samrath had none; here the reason is given every time —
+#      so CON-064.01 Stated motive is SOURCE-GROUNDED while CON-064.02
+#      Operating (actual) motive stays HELD. A self-reported reason is not a
+#      verified one.
+#   4. N intent routes on one shell, not two. That is the whole example.
+#   5. A NOT-A-CONTRADICTION guard: "I dont want to go" (present) against
+#      "i will b going on weekend" (future) is not a contradiction. It is two
+#      time scopes, and a naive machine calls it a conflict.
+# ===========================================================================
+
+FUTURE = "FUTURE / PLANNED"
+
+FUTURE_MARKERS = ("will", "shall", "going to", "gonna", "tomorrow",
+                  "next week", "next month", "next time", "weekend",
+                  "later", "soon", "planning to", "plan to")
+PAST_ONEOFF_MARKERS = ("had", "yesterday", "ago", "days back", "week back",
+                       "month back", "last week", "last month", "last time",
+                       "already", "just now")
+
+# "visited" was missing, and it is the verb his own example turns on.
+ACTUAL_PAST.update({"visited": "visit", "walked": "walk", "wanted": "want",
+                    "liked": "like", "went": "go"})
+
+REASON_KINDS = {
+    "BODY / PHYSICAL CONDITION": (
+        "not well", "unwell", "sick", "ill", "not feeling", "fever", "pain",
+        "headache", "injured", "hurt", "weak", "exhausted"),
+    "EFFORT / INCLINATION": (
+        "not interested", "no interest", "cant be bothered", "lazy",
+        "no energy", "too far", "tiring", "tired", "effort"),
+    "STANDING PREFERENCE": (
+        "dont like", "don't like", "do not like", "hate", "cant stand",
+        "dislike", "not my thing"),
+    "RECENCY / ALREADY DONE": (
+        "days back", "week back", "already", "just went", "already been",
+        "had visited", "last time"),
+    "SCHEDULE / PLAN": (
+        "weekend", "tomorrow", "next week", "later", "soon", "next time"),
+    "COMPANION / RELATIONSHIP": (
+        "with my", "with her", "with him", "with them", "together"),
+}
+
+
+def _tense(clause: str) -> str:
+    """Which scope a clause belongs to when no marker names one. Tense decides,
+    because "I had visited" and "i will b going" carry their own time."""
+    low = (clause or "").lower()
+    if _has(low, FUTURE_MARKERS[:6]) or re.search(r"\bwill\b|\bshall\b", low):
+        return FUTURE
+    if _has(low, PAST_ONEOFF_MARKERS) or \
+            any(w in ACTUAL_PAST for w in re.findall(r"[a-z]+", low)):
+        return PRIOR
+    return CURRENT
+
+
+def first_person(text: str) -> bool:
+    """Is the speaker the actor? "I dont want to go" is him, and no capitalised
+    noun in the sentence outranks that."""
+    return bool(re.search(r"(?<![a-z])(i|i'?m|im|me|my|mine|we|us|our)"
+                          r"(?![a-z])", (text or "").lower()))
+
+
+def companion(text: str) -> str:
+    """Who he says he is going WITH. This is not the actor — the bug that made
+    "Girlfriend" the subject of his own sentences came from confusing the two."""
+    m = re.search(r"\bwith\s+(?:my|her|his|our|their)\s+([A-Za-z]+)",
+                  text or "", re.I)
+    return m.group(1) if m else ""
+
+
+def stated_reasons(text: str) -> list:
+    """The reason he gives, clause by clause.
+
+    Samrath's source never says why he cried. His mall source says why every
+    single time — so the reason is IN the source and must be reported as
+    stated, not inferred. What it must NOT do is treat a self-reported reason
+    as a verified one: that is CON-064.02 Operating (actual) motive, and it
+    stays HELD."""
+    out = []
+    for cl in _clauses(text):
+        c = cl.strip()
+        kinds = [k for k, words in REASON_KINDS.items() if _has(c, words)]
+        if not kinds:
+            continue
+        out.append({"clause": c, "kinds": kinds,
+                    "status": "STATED IN SOURCE",
+                    "verified": False,
+                    "refuses": "a reason he states is not a reason verified. "
+                               "The operating motive stays open."})
+    return out
+
+
+def intent_routes(text: str) -> dict:
+    """N routes off ONE event shell — his actual point.
+
+    "Event is same going to mall / but the intent is keep changing." So the
+    output is one shell with one route per POSITION HE STATES, none of them
+    collapsed into "he dislikes malls" and none of them blended.
+
+    A route is one of his lines. The reason clause inside a line belongs TO
+    that line — counting it as a route of its own turned his six into eight,
+    which is the first thing this function got wrong."""
+    scopes = read_scopes(text)
+    shell = event_shell(text, scopes)
+    all_reason_words = tuple(w for ws in REASON_KINDS.values() for w in ws)
+    groups, key = [], None
+    for rec in scopes["ordered"]:
+        k = (rec["sent"], rec["scope"])
+        if k != key:
+            groups.append({"key": k, "clauses": []})
+            key = k
+        groups[-1]["clauses"].append(rec["clause"])
+    routes = []
+    for g in groups:
+        clauses = g["clauses"]
+        head = clauses[0]
+        low = head.lower()
+        rest = clauses[1:]
+        # the position is carried by the head clause; the reason by the rest,
+        # or by the head itself when the head IS the reason ("I dont like crowd")
+        neg = bool(re.search(r"\b(dont|don'?t|not|didnt|didn'?t|never|no)\b",
+                             low))
+        scope = g["key"][1]
+        kinds = sorted({k for c in clauses for k, words in REASON_KINDS.items()
+                        if _has(c, words)})
+        if scope == FUTURE:
+            stance = "WILL PARTICIPATE — stated future intention"
+        elif scope == PRIOR:
+            stance = "DID PARTICIPATE — actual past behaviour"
+        elif neg and re.search(r"\b(want|wanna|going|go)\b", low):
+            stance = ("DOES NOT WANT TO PARTICIPATE — stated present "
+                      "intention. It negates the WANTING, not the going.")
+        elif neg:
+            stance = "STANDING DISLIKE — a preference, not a decision"
+        else:
+            stance = "position stated without a direction the source names"
+        routes.append({
+            "n": len(routes) + 1, "line": " , ".join(clauses),
+            "position": head, "reason": " , ".join(rest) if rest else head,
+            "reason_is_the_line": not rest,
+            "scope": scope, "negated": neg, "stance": stance,
+            "reason_kinds": kinds or ["NOT STATED IN THIS LINE"],
+        })
+    kinds_seen = sorted({k for r in routes for k in r["reason_kinds"]
+                         if k != "NOT STATED IN THIS LINE"})
+    return {
+        "shell": shell.get("shell"),
+        "routes": routes,
+        "count": len(routes),
+        "distinct_reason_kinds": kinds_seen,
+        "scopes_used": sorted({r["scope"] for r in routes}),
+        "blended": False,
+        "collapsed": False,
+        "refuses": "the event is one object. Each route is its own reading and "
+                   "they are never averaged into a single attitude to the "
+                   "event.",
+        "his_words": "Event is same going to mall / but the intent is keep "
+                     "changing",
+    }
+
+
+def contradiction_check(text: str) -> dict:
+    """"I dont want to go" against "i will b going on weekend" is NOT a
+    contradiction. It is two time scopes. A machine that flags it as a conflict
+    has collapsed his example back into one flat sentence.
+
+    Reported once per scope pair with its members listed — a cross product of
+    every clause against every other clause is noise, not a finding."""
+    routes = intent_routes(text)["routes"]
+    neg_now = [r["position"] for r in routes
+               if r["scope"] == CURRENT and r["negated"]]
+    pos_future = [r["position"] for r in routes
+                  if r["scope"] == FUTURE and not r["negated"]]
+    past = [r["position"] for r in routes if r["scope"] == PRIOR]
+    findings = []
+    if neg_now and pos_future:
+        findings.append({
+            "looks_like": "CONTRADICTION",
+            "verdict": "NOT A CONTRADICTION — different time scope",
+            "scope_a": CURRENT, "members_a": neg_now,
+            "scope_b": FUTURE, "members_b": pos_future,
+            "why": "a present disinclination and a future intention are two "
+                   "positions in two scopes. Only a same-scope clash is a "
+                   "contradiction.",
+        })
+    if neg_now and past:
+        findings.append({
+            "looks_like": "CONTRADICTION",
+            "verdict": "NOT A CONTRADICTION — different time scope",
+            "scope_a": CURRENT, "members_a": neg_now,
+            "scope_b": PRIOR, "members_b": past,
+            "why": "not wanting to go now does not contradict having gone "
+                   "before.",
+        })
+    # a same-scope clash WOULD be a contradiction, and is counted separately
+    same = []
+    for scope in (CURRENT, PRIOR, FUTURE):
+        yes = [r["position"] for r in routes
+               if r["scope"] == scope and not r["negated"]
+               and re.search(r"\b(go|going|visit|visited|went)\b",
+                             r["position"], re.I)]
+        no = [r["position"] for r in routes
+              if r["scope"] == scope and r["negated"]
+              and re.search(r"\b(go|going|want)\b", r["position"], re.I)]
+        if yes and no:
+            same.append({"scope": scope, "yes": yes, "no": no,
+                         "verdict": "SAME-SCOPE CLASH — this one is real"})
+    return {"findings": findings, "count": len(findings),
+            "same_scope_clashes": same,
+            "same_scope_count": len(same),
+            "his_rule": "PRIOR PATTERN != CURRENT INTENT, and neither of them "
+                        "is FUTURE INTENT."}
+
+
+# The extra containers this example reaches. HIS 16 stay his; these are marked
+# as resolved here and are correctable.
+EXTRA_CONTAINERS = [
+    ("CON-004", "\"i'm not well\" — a BODY statement, so SEG-01 must fire"),
+    ("CON-007", "\"not interested to walk\" — effort, and the body's budget"),
+    ("CON-016", "\"few days back\" / \"weekend\" — elapsed and forward time"),
+    ("CON-037", "visited recently — reward history"),
+    ("CON-039", "\"i will b going on weekend\" — a future intention held"),
+    ("CON-046", "\"on weekend\" / \"with my Girlfriend\" — a plan with another"),
+    ("CON-071", "\"with my Girlfriend\" — going with someone, stated"),
+]
+
+EXTRA_ROW_ROUTES = {
+ "CON-004": [(27, "reason_body", SOURCE_GROUNDED,
+              "a body signal is being interpreted and reported"),
+             (30, "reason_body", SOURCE_GROUNDED,
+              "discomfort is mapped — he says he is not well"),
+             (13, "reason_body", HELD,
+              "\"not well\" does not say WHICH state — fatigue is one "
+              "candidate, not the answer"),
+             (39, "reason_body", INFERRED, "the state is tagged to the choice")],
+ "CON-007": [(6, "reason_effort", SOURCE_GROUNDED,
+              "walking is valued as effort and declined"),
+             (15, "reason_effort", INFERRED, "perceived exertion of the walk"),
+             (18, "reason_effort", INFERRED, "conserving rather than spending"),
+             (1, "reason_effort", HELD, "physical fatigue is not stated"),
+             (33, "reason_body", HELD,
+              "linking \"not well\" to the lethargy is NOT stated — held")],
+ "CON-016": [(27, "past_single", SOURCE_GROUNDED, "\"few days back\" is elapsed time"),
+             (31, "future_scope", SOURCE_GROUNDED,
+              "past visit, present position and weekend plan form a timeline"),
+             (21, "past_single", INFERRED, "how long ago is approximate"),
+             (38, "future_scope", INFERRED, "what comes next is named")],
+ "CON-037": [(26, "past_single", SOURCE_GROUNDED, "a reward history exists"),
+             (30, "reason_recency", INFERRED,
+              "satiation is a READING of \"few days back\", not his word")],
+ "CON-039": [(1, "future_scope", SOURCE_GROUNDED, "a future intention is formed"),
+             (4, "future_scope", SOURCE_GROUNDED, "\"weekend\" is time-based"),
+             (19, "future_scope", SOURCE_GROUNDED, "the WHEN is stated"),
+             (20, "future_scope", INFERRED, "whether it survives the delay is open")],
+ "CON-046": [(8, "future_scope", INFERRED, "the weekend is a time budget"),
+             (38, "companion", SOURCE_GROUNDED,
+              "the plan includes another person, stated"),
+             (27, "future_scope", INFERRED, "commitment against flexibility")],
+ "CON-071": [(3, "companion", SOURCE_GROUNDED, "going WITH someone is proximity"),
+             (10, "companion", INFERRED, "affiliation is a reading, not his word"),
+             (11, "companion", HELD, "a belonging need is not stated")],
+}
+
+# Rows inside HIS 16 that only this example reaches.
+MALL_ROWS_IN_HIS_16 = {
+ "CON-020": [(1, "multi_reason", SOURCE_GROUNDED,
+              "competing actions are compared across six positions"),
+             (7, "stated_intention_negative", SOURCE_GROUNDED,
+              "\"dont want to go\" is a no-go, stated")],
+ "CON-033": [(3, "past_single", SOURCE_GROUNDED, "a past visit is reported"),
+             (5, "past_single", SOURCE_GROUNDED, "\"few days back\""),
+             (36, "past_single", INFERRED, "the exact day has decayed")],
+ "CON-043": [(36, "stated_reason", SOURCE_GROUNDED,
+              "he attributes his own cause — stated, not verified")],
+ "CON-060": [(4, "reason_preference", SOURCE_GROUNDED,
+              "\"I dont like crowd\" is stated low liking of the crowd"),
+             (24, "companion", INFERRED, "company may carry social reward")],
+ "CON-061": [(13, "reason_preference", HELD,
+              "disliking crowds is not the same as avoiding the mall")],
+ "CON-063": [(1, "stated_intention_negative", SOURCE_GROUNDED,
+              "an immediate intention is stated"),
+             (2, "future_scope", SOURCE_GROUNDED,
+              "a future intention is stated"),
+             (12, "multi_reason", SOURCE_GROUNDED,
+              "competing intentions across scopes"),
+             (22, "stated_intention_negative", SOURCE_GROUNDED,
+              "willingness is not intention — he separates them himself"),
+             (40, "stated_reason", SOURCE_GROUNDED,
+              "intent separated from motive")],
+ "CON-064": [(1, "stated_reason", SOURCE_GROUNDED,
+              "THE STATED MOTIVE IS PRESENT — this is what Samrath lacked"),
+             (2, "stated_reason", HELD,
+              "the OPERATING motive is not verified by him saying it"),
+             (7, "stated_intention_negative", SOURCE_GROUNDED,
+              "an avoidance motive is stated"),
+             (34, "multi_reason", INFERRED,
+              "six reasons imply a priority order he has not ranked")],
+}
+
+
+def _mall_signals(text: str, scopes: dict, shell: dict, sig: dict) -> dict:
+    """The signals this example needs and the Samrath pass never produced."""
+    out = dict(sig)
+    if scopes.get(FUTURE):
+        out["future_scope"] = {"why": "a future scope is present"}
+    single_past = [r for r in scopes.get(PRIOR, [])
+                   if not r.get("prior_markers") or
+                   _has(r["clause"], PAST_ONEOFF_MARKERS)]
+    if single_past:
+        out["past_single"] = {"why": "a one-off past event, not a habit"}
+    reasons = stated_reasons(text)
+    if reasons:
+        out["stated_reason"] = {
+            "count": len(reasons),
+            "why": "the reason is IN the source. It is stated, not verified."}
+        # motive is NOT absent when he states it
+        out.pop("motive_absent", None)
+        kinds = {k for r in reasons for k in r["kinds"]}
+        for kind, key in (("BODY / PHYSICAL CONDITION", "reason_body"),
+                          ("EFFORT / INCLINATION", "reason_effort"),
+                          ("STANDING PREFERENCE", "reason_preference"),
+                          ("RECENCY / ALREADY DONE", "reason_recency"),
+                          ("SCHEDULE / PLAN", "reason_schedule"),
+                          ("COMPANION / RELATIONSHIP", "reason_companion")):
+            if kind in kinds:
+                out[key] = {"why": kind}
+        if len(kinds) > 1:
+            out["multi_reason"] = {
+                "kinds": sorted(kinds),
+                "why": "more than one KIND of reason for the same event"}
+    if companion(text):
+        out["companion"] = {"who": companion(text),
+                            "why": "a companion is named — not the actor"}
+    if re.search(r"\b(dont|don'?t|do not|didn'?t)\s+(want|wanna|like|feel)\b",
+                 text or "", re.I):
+        out["stated_intention_negative"] = {
+            "why": "a stated present disinclination — it negates the WANTING, "
+                   "not the going"}
+    if scopes.get(FUTURE):
+        out["stated_intention_positive"] = {
+            "why": "a stated future intention to participate"}
+    if first_person(text):
+        out["first_person"] = {"why": "the speaker is the actor"}
+    return out

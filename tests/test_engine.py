@@ -3013,6 +3013,171 @@ def test_a_third_party_absolute_is_a_source_generalization_not_his_value():
     assert mine and mine[0]["status"] == claims.USER_VALUE
 
 
+
+# --- HIS MALL EXAMPLE: three scopes, six routes, and the stated motive -----
+
+MALL = ("I dont want to go to mall, i'm not well. "
+        "i dont want to go to mall, i'm not interested to walk. "
+        "I dont like crowd. "
+        "I had visited few days back. "
+        "i will b going on weekend. "
+        "i will be going with my Girlfriend.")
+
+
+def test_the_mall_needs_a_third_time_scope():
+    """Samrath needed PRIOR vs CURRENT. The mall needs FUTURE, and it needs
+    TENSE to place a clause when none of his markers appear — "few days back"
+    and "weekend" are in neither of his lists."""
+    from sourceborn import asi_pyramid as P
+    sc = P.read_scopes(MALL)
+    assert sc["time_scopes"] == 3, sc["time_scopes"]
+    assert not sc["unscoped"], "every clause must land somewhere"
+    prior = [r["clause"] for r in sc[P.PRIOR]]
+    fut = [r["clause"] for r in sc[P.FUTURE]]
+    cur = [r["clause"] for r in sc[P.CURRENT]]
+    assert any("few days back" in c for c in prior)
+    assert len(fut) == 2 and all("will" in c for c in fut)
+    assert any("dont like crowd" in c for c in cur)
+    assert P.event_shell(MALL, sc)["shell"] == "GO_TO_MALL"
+
+
+def test_a_companion_is_not_the_actor():
+    """The first version returned "Girlfriend" as the actor of his own six
+    sentences. First person wins, and a name after "with my" is a companion."""
+    from sourceborn import asi_pyramid as P
+    assert P.first_person(MALL) is True
+    assert P.actor_name(MALL) == "", "no third-party actor here — it is him"
+    assert P.companion(MALL) == "Girlfriend"
+    # and the Samrath case must not regress
+    assert P.actor_name("Samrath never like to go to school, he always cry.") \
+        == "Samrath"
+    assert P.companion("Samrath never like to go to school.") == ""
+
+
+def test_six_intent_routes_on_one_event_shell():
+    """His point: "Event is same going to mall / but the intent is keep
+    changing." Six positions, one shell, six distinct KINDS of reason, and they
+    are never averaged into one attitude to the mall."""
+    from sourceborn import asi_pyramid as P
+    ir = P.intent_routes(MALL)
+    assert ir["shell"] == "GO_TO_MALL"
+    assert ir["count"] == 6, ir["count"]
+    assert len(ir["distinct_reason_kinds"]) == 6, ir["distinct_reason_kinds"]
+    assert ir["blended"] is False and ir["collapsed"] is False
+    assert len(ir["scopes_used"]) == 3
+    kinds = [r["reason_kinds"][0] for r in ir["routes"]]
+    assert kinds == ["BODY / PHYSICAL CONDITION", "EFFORT / INCLINATION",
+                     "STANDING PREFERENCE", "RECENCY / ALREADY DONE",
+                     "SCHEDULE / PLAN", "COMPANION / RELATIONSHIP"], kinds
+    # the refusal negates the WANTING, not the going — his "left" law again
+    assert "negates the WANTING" in ir["routes"][0]["stance"]
+    # a route unit is (sentence, scope): Samrath is ONE sentence and still
+    # yields TWO routes, because the scope changes inside it
+    sam = P.intent_routes("Samrath never like to go to school, he always cry, "
+                          "but today is his birthday, he went very happy.")
+    assert sam["count"] == 2, sam["count"]
+    assert P.intent_routes("He went to school today.")["count"] == 1
+
+
+def test_the_reason_is_stated_here_and_never_upgraded_to_verified():
+    """Samrath's source never says why. His mall source says why every time —
+    so CON-064.01 Stated motive is SOURCE-GROUNDED while CON-064.02 Operating
+    (actual) motive stays HELD. Saying a reason is not verifying it."""
+    from sourceborn import asi_pyramid as P
+    rs = P.stated_reasons(MALL)
+    assert len(rs) == 6
+    assert all(r["status"] == "STATED IN SOURCE" for r in rs)
+    assert all(r["verified"] is False for r in rs)
+    rows = {r["flat"]: r for r in P.rows_for(MALL)["rows"]}
+    stated = P.flat_of("CON-064", 1)
+    operating = P.flat_of("CON-064", 2)
+    assert rows[stated]["tier"] == P.SOURCE_GROUNDED
+    assert rows[stated]["name"] == "Stated motive"
+    assert rows[operating]["tier"] == P.HELD
+    assert rows[operating]["name"] == "Operating (actual) motive"
+    # and on Samrath the motive is ABSENT, not merely unverified
+    sam = P.signals("Samrath never like to go to school, he always cry, but "
+                    "today is his birthday, he went very happy.")
+    assert "motive_absent" in sam
+    assert "stated_reason" not in P._mall_signals(
+        "Samrath never like to go to school.", P.read_scopes(""),
+        {"shell": None}, {})
+
+
+def test_two_time_scopes_are_not_a_contradiction():
+    from sourceborn import asi_pyramid as P
+    cc = P.contradiction_check(MALL)
+    assert cc["count"] >= 1
+    assert cc["same_scope_count"] == 0, "there is no same-scope clash here"
+    f = cc["findings"][0]
+    assert f["looks_like"] == "CONTRADICTION"
+    assert f["verdict"].startswith("NOT A CONTRADICTION")
+    assert f["scope_a"] == P.CURRENT and f["scope_b"] == P.FUTURE
+
+
+def test_the_body_fires_here_and_stayed_silent_on_samrath():
+    """His ruling both ways: Human = the body. Samrath never reports a body and
+    SEG-01 must not fire. "i'm not well" IS a body report, so it must."""
+    from sourceborn import asi_pyramid as P
+    mall = {r["segment"] for r in P.rows_for(MALL)["rows"]}
+    assert "SEG-01" in mall, "\"i'm not well\" is a body statement"
+    sam = {r["segment"] for r in P.rows_for(
+        "Samrath never like to go to school, he always cry, but today is his "
+        "birthday, he went very happy.")["rows"]}
+    assert "SEG-01" not in sam, "no body is reported in the Samrath sentence"
+    # and "not well" must not be upgraded into a named condition
+    body = {r["name"]: r for r in P.rows_for(MALL)["rows"]
+            if r["container"] == "CON-004"}
+    assert body["Fatigue sensation"]["tier"] == P.HELD
+    assert body["Body-signal interpretation"]["tier"] == P.SOURCE_GROUNDED
+    # pain is never claimed — it is not stated anywhere in his six lines
+    assert not [r for r in P.rows_for(MALL)["rows"]
+                if r["container"] == "CON-006"], "pain is not stated"
+
+
+def test_the_rule_recognises_its_own_founding_example_as_the_origin():
+    """RULE-001 says taught_by "the mall example". The first version demanded a
+    valence flip — a Samrath-shaped test — and scored 0 on the mall, the very
+    example the rule is named after. Re-running the origin must also NOT inflate
+    its own support."""
+    from sourceborn import asi_pyramid as P
+    mall = P.reinforce(MALL)["rules"][0]
+    assert mall["shell"] == "GO_TO_MALL"
+    assert mall["routes_seen"] == 6
+    assert mall["is_origin"] is True
+    assert mall["action"].startswith("ORIGIN")
+    assert mall["support_after"] == mall["support"], "origin adds no support"
+    sam = P.reinforce("Samrath never like to go to school, he always cry, but "
+                      "today is his birthday, he went very happy.")
+    assert sam["strengthened"] == 1
+    assert sam["rules"][0]["action"] == "SUPPORT +1"
+    assert sam["rules"][0]["support_after"] == 2
+    assert sam["new_rules_invented"] == 0
+    flat = P.reinforce("He went to school today.")
+    assert flat["strengthened"] == 0
+    assert flat["rules"][0]["action"] == "not touched"
+
+
+def test_the_samrath_numbers_do_not_move_when_the_mall_layer_is_added():
+    """His 18, his 16 containers and the 106 rows are a fixed result. Anything
+    added for the mall that changes them is a regression, not a feature."""
+    from sourceborn import asi_pyramid as P
+    a = P.activate(HIS_SENTENCE)["counts"]
+    assert (a["strong"], a["candidate"], a["working"]) == (7, 11, 18)
+    r = P.rows_for(HIS_SENTENCE)["counts"]
+    assert r["rows"] == 106 and r["containers"] == 16 and r["segments"] == 5
+    assert r["source_grounded"] == 59 and r["inferred"] == 27
+    assert r["held_open"] == 20
+
+
+def test_negations_are_not_reported_as_contextual_events():
+    from sourceborn import asi_pyramid as P
+    ctx = P.signals(MALL).get("context_event", {}).get("nouns", [])
+    for junk in ("dont", "not", "im", "well", "going"):
+        assert junk not in ctx, junk
+    assert P.signals(HIS_SENTENCE)["context_event"]["nouns"] == ["birthday"]
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0
