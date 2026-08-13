@@ -584,7 +584,7 @@ class SourcebornEngine:
 
         The pattern layer never decides intent and never picks his feeling.
         Everything it produces is a candidate for him."""
-        from . import domains, human_registry, ladder, micro, patterns, router, senses
+        from . import claims, domains, human_registry, ladder, micro, patterns, router, senses
         root = self.memory.root
         aid = ask_id or ("Q-" + str(abs(hash(raw_text)) % 10 ** 8))
 
@@ -620,6 +620,11 @@ class SourcebornEngine:
         # HUMAN BODY if a word actually routed there. "not the brain" is an
         # explicit boundary, so that layer is reported out of scope.
         word_routes = domains.route_words(raw_text)
+        # HIS RULING: every claim keeps the status HE gave that KIND of claim,
+        # and no judgment is formed before his chain is walked.
+        claim_rows = claims.read_claims(raw_text)
+        gate = claims.judgment_gate(raw_text)
+        outcome = claims.outcome_note(raw_text)
         scoped = domains.enforce_scope(lit.get("containers", []), word_routes)
         lit["by_domain"] = domains.split_by_domain(scoped["in_scope"])
         lit["containers"] = scoped["in_scope"]
@@ -663,6 +668,10 @@ class SourcebornEngine:
                 "registry": human_registry.stats(),
                 "word_routes": word_routes,
                 "domains": domains.stats(),
+                "claims": claim_rows,
+                "judgment_gate": gate,
+                "outcome_note": outcome,
+                "his_named_patterns": claims.HIS_PATTERNS,
                 "route": route,
                 "candidates": surfaced,
                 "open_candidates": [c for c in patterns.load_candidates(root)

@@ -1,0 +1,282 @@
+"""CLAIM STATUS + THE JUDGMENT GATE — do not judge the visible thing yet.
+
+His ruling, 2026-08-13, from the rice/MBA test:
+
+    SOURCE CLAIMS
+      "he sells rice"          FACT-IN-SOURCE
+      "MBA helped him scale"   CAUSAL HYPOTHESIS
+      "800 crore revenue"      SOURCE-ASSERTED NUMBER, NOT VERIFIED HERE
+      "no business is small"   USER VALUE / GENERALIZATION
+
+    HIGH REVENUE ≠ automatically HIGH PROFIT ≠ automatically GOOD BUSINESS
+
+    VISIBLE THING → DO NOT JUDGE YET → FIND SYSTEM BEHIND IT →
+    IDENTIFY CAPABILITIES → IDENTIFY INPUTS → IDENTIFY EXECUTION →
+    MEASURE RESULTS → COMPARE ALTERNATIVE EXPLANATIONS → THEN FORM JUDGMENT
+
+    "That is exactly the kind of reasoning your Rubric Pyramid should FORCE
+     before the ASI reaches a conclusion."
+
+WHAT THIS MODULE REFUSES
+  * It will not upgrade a number he stated into a verified fact. A figure that
+    arrived in his sentence is SOURCE-ASSERTED, and it says so.
+  * It will not turn "X helped Y" into "X caused Y". A causal claim is a
+    HYPOTHESIS and the alternative explanations are kept beside it — his list:
+    experience, market timing, capital, relationships, execution, location,
+    demand, distribution, risk-taking, team, previous knowledge, luck.
+  * It will not let a judgment through before the chain is walked. The gate
+    reports which of his steps are unmet and what is still missing, rather than
+    delivering a conclusion built on a surface reading.
+"""
+from __future__ import annotations
+
+import re
+
+# ---------------------------------------------------------------------------
+# HIS STATUSES, in his words
+FACT_IN_SOURCE = "FACT-IN-SOURCE"
+CAUSAL_HYPOTHESIS = "CAUSAL HYPOTHESIS"
+SOURCE_ASSERTED = "SOURCE-ASSERTED / NOT VERIFIED HERE"
+USER_VALUE = "USER VALUE / GENERALIZATION"
+COUNTERFACTUAL = "COUNTERFACTUAL / ALTERNATIVE PATH"
+
+# his own list of what else could explain an outcome
+ALTERNATIVE_CAUSES = ("experience", "market timing", "capital",
+                      "relationships", "execution", "location", "demand",
+                      "distribution", "risk-taking", "team",
+                      "previous knowledge", "luck")
+
+# things that measure a business, kept apart because he separated them
+OUTCOME_LEVELS = ("revenue", "profit", "growth", "scale", "efficiency",
+                  "resilience", "market reach", "durability")
+
+_CAUSAL = re.compile(
+    r"\b(help\w*|caus\w*|because|due to|thanks to|led to|leads to|"
+    r"made him|made her|made them|enabled|allowed|so he|so she|so they|"
+    r"that'?s why|reason he|reason she)\b", re.I)
+_ABSOLUTE = re.compile(
+    r"\b(no \w+ is|every|always|never|all \w+ are|any \w+ is|"
+    r"nothing is|everyone|nobody)\b", re.I)
+_COUNTERFACTUAL = re.compile(
+    r"\b(instead of|rather than|if he had|if she had|if they had|"
+    r"could have|would have|otherwise|as opposed to)\b", re.I)
+# a number with a scale word, or a bare large figure
+_NUMBER = re.compile(
+    r"\b(\d[\d,.]*)\s*(crore|lakh|lac|million|billion|thousand|k|cr|bn|mn|%)?\b",
+    re.I)
+_MONEY_CTX = re.compile(
+    r"\b(revenue|turnover|sales|profit|income|worth|valuation|salary|"
+    r"crore|lakh|million|billion|rs|inr|usd|\$|₹)\b", re.I)
+
+
+def read_claims(sentence: str) -> list[dict]:
+    """Every claim in the sentence, with the status HE gave that KIND of claim.
+
+    Nothing is upgraded. A number he stated stays source-asserted; a causal
+    phrasing stays a hypothesis and carries his alternative causes."""
+    s = (sentence or "").strip()
+    if not s:
+        return []
+    out: list[dict] = []
+
+    for m in _CAUSAL.finditer(s):
+        out.append({
+            "text": s, "trigger": m.group(0), "status": CAUSAL_HYPOTHESIS,
+            "why": "the sentence links one thing to an outcome. That is a "
+                   "HYPOTHESIS about cause, not an established cause.",
+            "alternatives": list(ALTERNATIVE_CAUSES),
+            "refuses": "it must not be recorded as 'X caused Y'. His rule: "
+                       "preserve the contribution without making a false "
+                       "causal claim."})
+        break
+
+    for m in _NUMBER.finditer(s):
+        raw, unit = m.group(1), (m.group(2) or "")
+        if not unit and not _MONEY_CTX.search(s):
+            continue                      # a bare small number is not a figure
+        if len(raw.replace(",", "").replace(".", "")) < 2 and not unit:
+            continue
+        out.append({
+            "text": (raw + " " + unit).strip(), "trigger": m.group(0),
+            "status": SOURCE_ASSERTED,
+            "why": "a figure that arrived in your own sentence. It is kept as "
+                   "you said it and NOT upgraded to a verified fact.",
+            "verified_here": False,
+            "refuses": "no external verification happened, so it must never be "
+                       "shown as FACT."})
+
+    for m in _ABSOLUTE.finditer(s):
+        out.append({
+            "text": s, "trigger": m.group(0), "status": USER_VALUE,
+            "why": "an absolute or universal phrasing — your value or "
+                   "generalization, which is a different kind of thing from a "
+                   "measurement.",
+            "refuses": "it is not evidence, and it is not treated as one."})
+        break
+
+    for m in _COUNTERFACTUAL.finditer(s):
+        out.append({
+            "text": s, "trigger": m.group(0), "status": COUNTERFACTUAL,
+            "why": "a path not taken is being compared with the path taken. "
+                   "Both are held; neither is declared the better one.",
+            "refuses": "his rule: do not conclude entrepreneurship > "
+                       "employment universally. The same education can support "
+                       "different execution paths."})
+        break
+
+    if not out:
+        out.append({"text": s, "trigger": "", "status": FACT_IN_SOURCE,
+                    "why": "stated in your source, and kept exactly as stated. "
+                           "Being in the source is not the same as being "
+                           "externally verified."})
+    return out
+
+
+def outcome_note(sentence: str) -> dict:
+    """His separation: revenue is a signal, not the whole quality."""
+    low = (sentence or "").lower()
+    named = [o for o in OUTCOME_LEVELS if o in low]
+    if not named:
+        return {}
+    missing = [o for o in ("profit", "growth", "durability", "efficiency",
+                           "resilience") if o not in low]
+    return {"named": named, "not_stated": missing,
+            "his_rule": "HIGH REVENUE ≠ automatically HIGH PROFIT ≠ "
+                        "automatically GOOD BUSINESS",
+            "reading": "revenue is a useful outcome signal, not the whole "
+                       "business quality. What was not stated is reported as "
+                       "not stated, never assumed good."}
+
+
+# ---------------------------------------------------------------------------
+# THE JUDGMENT GATE — his ordered chain, and nothing judges before it is walked
+CHAIN = [
+    ("visible_thing", "VISIBLE THING",
+     "what is actually on the surface"),
+    ("do_not_judge_yet", "DO NOT JUDGE YET",
+     "the shortcut from surface to verdict is refused here"),
+    ("find_system", "FIND SYSTEM BEHIND IT",
+     "market · operations · capital · supply chain · pricing · distribution"),
+    ("capabilities", "IDENTIFY CAPABILITIES",
+     "planning · error detection · abstraction · scaling"),
+    ("inputs", "IDENTIFY INPUTS",
+     "education · experience · capital · relationships · timing"),
+    ("execution", "IDENTIFY EXECUTION",
+     "what was actually done, not what was known"),
+    ("results", "MEASURE RESULTS",
+     "revenue · profit · growth · scale · durability, each on its own"),
+    ("alternatives", "COMPARE ALTERNATIVE EXPLANATIONS",
+     "every other thing that could have produced this outcome"),
+    ("judgment", "THEN FORM JUDGMENT",
+     "and only then"),
+]
+
+# what in a sentence counts as evidence that a step was actually reached
+_STEP_SIGNALS = {
+    "visible_thing": r"\b(sell\w*|shop|stall|product|goods|item|rice|tea|"
+                     r"food|service)\b",
+    "find_system": r"\b(business|model|market|operation\w*|supply|"
+                   r"distribut\w*|pricing|margin|volume|customer\w*|demand)\b",
+    "capabilities": r"\b(plan\w*|find flaws?|flaw\w*|analys\w*|analyz\w*|"
+                    r"strateg\w*|scal\w*|upscal\w*|manage\w*|think\w*)\b",
+    "inputs": r"\b(mba|degree|educat\w*|experience|capital|money|"
+              r"relationship\w*|contact\w*|famil\w*|training|skill\w*)\b",
+    "execution": r"\b(built|build|ran|run|grew|grow|expand\w*|open\w*|"
+                 r"launch\w*|did|doing|work\w*)\b",
+    "results": r"\b(revenue|turnover|profit|crore|lakh|million|billion|"
+               r"growth|scale|sales)\b",
+    "alternatives": r"\b(or|other|also|maybe|could be|might be|besides|"
+                    r"apart from|luck|timing)\b",
+}
+_JUDGMENT_WORDS = re.compile(
+    r"\b(small|big|great|good|bad|better|worse|successful|failure|"
+    r"just a|only a|nothing but|merely)\b", re.I)
+
+
+def judgment_gate(sentence: str) -> dict:
+    """Walk his chain and report what is actually met — before any judgment.
+
+    This is the gate he asked the Rubric Pyramid to FORCE. It does not block an
+    answer; it states which steps the material supports and which are missing,
+    so a verdict built on a surface reading is visible as one."""
+    low = (sentence or "").lower()
+    steps = []
+    for key, label, detail in CHAIN:
+        if key == "do_not_judge_yet":
+            judged = bool(_JUDGMENT_WORDS.search(low))
+            steps.append({"key": key, "step": label, "detail": detail,
+                          "met": True,
+                          "note": ("a judgment word is present — the shortcut "
+                                   "from surface to verdict is exactly what "
+                                   "this step refuses"
+                                   if judged else
+                                   "no premature verdict in the wording")})
+            continue
+        if key == "judgment":
+            continue
+        pat = _STEP_SIGNALS.get(key, "")
+        hits = sorted({m.group(0) for m in re.finditer(pat, low)}) if pat else []
+        steps.append({"key": key, "step": label, "detail": detail,
+                      "met": bool(hits), "evidence": hits,
+                      "note": ("" if hits else
+                               "nothing in the ask reaches this step yet")})
+    unmet = [s["step"] for s in steps if not s["met"]]
+    return {
+        "chain": steps,
+        "unmet": unmet,
+        "may_judge": not unmet,
+        "verdict": ("the chain is walked — a judgment is now supported"
+                    if not unmet else
+                    "JUDGMENT NOT SUPPORTED YET — " + str(len(unmet)) +
+                    " step(s) unmet: " + " · ".join(unmet)),
+        "his_rule": "VISIBLE THING → DO NOT JUDGE YET → FIND SYSTEM BEHIND IT "
+                    "→ IDENTIFY CAPABILITIES → IDENTIFY INPUTS → IDENTIFY "
+                    "EXECUTION → MEASURE RESULTS → COMPARE ALTERNATIVE "
+                    "EXPLANATIONS → THEN FORM JUDGMENT",
+    }
+
+
+# ---------------------------------------------------------------------------
+# HIS NAMED PATTERNS from this test, with the status HE gave each
+HIS_PATTERNS = [
+    {"name": "Surface Simplicity ≠ System Simplicity",
+     "his_mark": "checked",
+     "reading": "A simple visible product can sit on top of a highly "
+                "sophisticated business system.",
+     "applies_to": ["tea stall", "rice seller", "transport company",
+                    "cleaning business", "food distribution", "repair shop",
+                    "agriculture", "logistics"],
+     "refuses": "simple product = small achievement is an unsupported "
+                "shortcut"},
+    {"name": "Product Prestige ≠ Business Performance",
+     "his_mark": "checked",
+     "reading": "Product (ordinary / premium / fashionable / simple) and "
+                "business (revenue · profit · growth · scale · efficiency · "
+                "resilience · market reach) are DIFFERENT RUBRICS.",
+     "refuses": "ordinary product → ordinary business, without evidence"},
+    {"name": "Evaluate at Correct Abstraction Level",
+     "his_mark": "checked",
+     "reading": "Judge the outcome at the level it actually lives at, not at "
+                "the level it is most visible at.",
+     "refuses": "comparing a product's prestige with a business's performance"},
+    {"name": "MBA as Capability Amplifier",
+     "his_mark": "unchecked",
+     "reading": "Education may act as a capability AMPLIFIER rather than being "
+                "the underlying source of the opportunity or success.",
+     "refuses": "MBA → success as a cause"},
+    {"name": "Entrepreneurship vs Employment Leverage",
+     "his_mark": "unchecked",
+     "reading": "The same education can support different execution paths. The "
+                "interesting part is the application of capability.",
+     "refuses": "entrepreneurship > employment, universally"},
+]
+
+
+def stats() -> dict:
+    return {"statuses": [FACT_IN_SOURCE, CAUSAL_HYPOTHESIS, SOURCE_ASSERTED,
+                         USER_VALUE, COUNTERFACTUAL],
+            "alternative_causes": len(ALTERNATIVE_CAUSES),
+            "chain_steps": len(CHAIN),
+            "his_patterns": len(HIS_PATTERNS),
+            "checked_by_him": sum(1 for p in HIS_PATTERNS
+                                  if p["his_mark"] == "checked")}

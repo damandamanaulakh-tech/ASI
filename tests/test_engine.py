@@ -2410,6 +2410,122 @@ def test_the_reading_reports_the_split():
 
 
 
+RICE = ("Do not judge him because he sells just rice, judge the idea of "
+        "business. His MBA helped him find flaws, think and plan better and "
+        "upscale to 800 crore revenue, instead of working for big firms. "
+        "No business is small.")
+
+
+def test_his_rice_mba_sentence_routes_to_his_own_node_classes():
+    """His arrow chart for this sentence, and his own observation that it has
+    almost zero Human-body activation."""
+    from sourceborn import domains as D
+    w = D.route_words(RICE)
+    cls = w["classes"]
+    assert "do not judge" in cls[D.JUDGMENT_BIAS]
+    assert "rice" in cls[D.PRODUCT_SURFACE]
+    assert "business" in cls[D.BUSINESS_SYSTEM]
+    assert "mba" in cls[D.EDUCATION_CAPABILITY]
+    assert "upscale" in cls[D.SCALE_GROWTH]
+    assert "revenue" in cls[D.RESULT_MEASUREMENT]
+    assert "instead of" in cls[D.COUNTERFACTUAL_PATH]
+    assert "find flaws" in cls[D.BRAIN_MIND]
+    # HIS OWN READING: "this sentence has almost zero Human-body activation"
+    assert D.HUMAN_PHYSICAL not in cls
+
+
+def test_a_stated_number_is_never_upgraded_to_a_verified_fact():
+    from sourceborn import claims as C
+    rows = C.read_claims(RICE)
+    by = {r["status"]: r for r in rows}
+    assert C.SOURCE_ASSERTED in by
+    assert "800" in by[C.SOURCE_ASSERTED]["text"]
+    assert by[C.SOURCE_ASSERTED]["verified_here"] is False
+    assert "never be shown as FACT" in by[C.SOURCE_ASSERTED]["refuses"]
+
+    # "MBA helped him" is a HYPOTHESIS and his alternatives are kept beside it
+    assert C.CAUSAL_HYPOTHESIS in by
+    alts = by[C.CAUSAL_HYPOTHESIS]["alternatives"]
+    for a in ("market timing", "capital", "luck", "team", "execution"):
+        assert a in alts, a
+    assert "must not be recorded as" in by[C.CAUSAL_HYPOTHESIS]["refuses"]
+
+    # "no business is small" is his value, not evidence
+    assert C.USER_VALUE in by
+    # "instead of working for big firms" is a counterfactual, not a verdict
+    assert C.COUNTERFACTUAL in by
+    assert "universally" in by[C.COUNTERFACTUAL]["refuses"]
+
+    # a plain statement with no figure and no causal word stays FACT-IN-SOURCE
+    plain = C.read_claims("He sells rice.")
+    assert plain[0]["status"] == C.FACT_IN_SOURCE
+    assert "not the same as being" in plain[0]["why"]
+
+
+def test_revenue_is_not_profit_is_not_a_good_business():
+    from sourceborn import claims as C
+    o = C.outcome_note(RICE)
+    assert "revenue" in o["named"]
+    assert "profit" in o["not_stated"]      # never assumed
+    assert "durability" in o["not_stated"]
+    assert o["his_rule"].startswith("HIGH REVENUE")
+    assert C.outcome_note("I feel tired today") == {}
+
+
+def test_the_judgment_gate_refuses_a_verdict_until_his_chain_is_walked():
+    """His words: "That is exactly the kind of reasoning your Rubric Pyramid
+    should FORCE before the ASI reaches a conclusion."
+    """
+    from sourceborn import claims as C
+    g = C.judgment_gate(RICE)
+    steps = {s["key"]: s for s in g["chain"]}
+    for k in ("visible_thing", "find_system", "capabilities", "inputs",
+              "execution", "results"):
+        assert steps[k]["met"], k
+    # his own reasoning never compared the alternatives, so the gate holds
+    assert steps["alternatives"]["met"] is False
+    assert g["may_judge"] is False
+    assert "JUDGMENT NOT SUPPORTED YET" in g["verdict"]
+    assert "COMPARE ALTERNATIVE EXPLANATIONS" in g["unmet"]
+    # the premature-verdict wording is caught by the second step
+    assert "shortcut" in steps["do_not_judge_yet"]["note"]
+
+    # a bare surface sentence reaches almost nothing
+    bare = C.judgment_gate("He just sells rice, small business.")
+    assert bare["may_judge"] is False
+    assert len(bare["unmet"]) >= 4
+
+
+def test_his_five_named_patterns_keep_the_mark_he_gave_them():
+    from sourceborn import claims as C
+    names = [p["name"] for p in C.HIS_PATTERNS]
+    assert "Surface Simplicity ≠ System Simplicity" in names
+    assert "Product Prestige ≠ Business Performance" in names
+    assert "MBA as Capability Amplifier" in names
+    checked = {p["name"] for p in C.HIS_PATTERNS if p["his_mark"] == "checked"}
+    unchecked = {p["name"] for p in C.HIS_PATTERNS if p["his_mark"] != "checked"}
+    assert len(checked) == 3 and len(unchecked) == 2      # his own marks
+    assert "MBA as Capability Amplifier" in unchecked
+    amp = next(p for p in C.HIS_PATTERNS if "Amplifier" in p["name"])
+    assert "AMPLIFIER" in amp["reading"]
+    assert amp["refuses"] == "MBA → success as a cause"
+    surf = next(p for p in C.HIS_PATTERNS if "Surface" in p["name"])
+    assert "tea stall" in surf["applies_to"] and "logistics" in surf["applies_to"]
+
+
+def test_the_reading_carries_the_gate_and_the_statuses():
+    eng = _engine()
+    r = eng.read(RICE, "Q-rice")
+    assert r["judgment_gate"]["may_judge"] is False
+    assert any(c["status"] == "SOURCE-ASSERTED / NOT VERIFIED HERE"
+               for c in r["claims"])
+    assert r["outcome_note"]["not_stated"]
+    assert len(r["his_named_patterns"]) == 5
+    from sourceborn import domains as D
+    assert D.HUMAN_PHYSICAL not in r["word_routes"]["classes"]
+
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

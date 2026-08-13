@@ -360,6 +360,36 @@ function render(d){
       d.contradictions.map(c=>'<div class=warnbox><b>'+esc(c.name)+'</b><br>'+esc(c.sentence)+'<br>'+esc(c.why)+'</div>').join('')+'</div>';
   }
 
+  // HIS RULING: a stated number is never upgraded to a verified fact, and a
+  // causal phrasing stays a hypothesis with the alternatives kept beside it.
+  if((d.claims||[]).length){
+    h+='<div class=sec><h2>Claim status &mdash; nothing upgraded</h2></div><div class=blk>'+
+      d.claims.map(c=>'<div class=ms><div class=raw>'+esc(c.trigger||c.text)+'</div>'+
+        kv([['STATUS',c.status],['why',c.why],['it refuses',c.refuses||''],
+            ['alternatives kept',(c.alternatives||[]).join(' · ')]])+'</div>').join('')+'</div>';
+  }
+  const ON=d.outcome_note||{};
+  if(ON.named){
+    h+='<div class=blk>'+kv([['outcomes named',(ON.named||[]).join(', ')],
+      ['NOT stated',(ON.not_stated||[]).join(', ')],['your rule',ON.his_rule],
+      ['reading',ON.reading]])+'</div>';
+  }
+  const G=d.judgment_gate||{};
+  if(G.chain){
+    h+='<div class=sec><h2>The judgment gate</h2><span class=n>'+esc(G.verdict||'')+'</span></div>';
+    h+='<div class=blk>'+G.chain.map(st=>'<div class=lane>'+(st.met?'<span class="badge ok">met</span>':'<span class="badge bad">unmet</span>')+
+      ' <b>'+esc(st.step)+'</b> <span class=note>'+esc(st.detail)+'</span>'+
+      ((st.evidence||[]).length?'<div class=note>evidence: '+esc(st.evidence.join(', '))+'</div>':'')+
+      (st.note?'<div class=note>'+esc(st.note)+'</div>':'')+'</div>').join('')+
+      '<div class=note style="margin-top:8px">'+esc(G.his_rule||'')+'</div></div>';
+  }
+  if((d.his_named_patterns||[]).length){
+    h+='<div class=sec><h2>Patterns you named yourself</h2></div><div class=blk>'+
+      d.his_named_patterns.map(p2=>'<div class=lane>'+
+        (p2.his_mark==='checked'?'<span class="badge ok">you checked it</span>':'<span class=badge>unchecked</span>')+
+        ' <b>'+esc(p2.name)+'</b><div class=note>'+esc(p2.reading)+'</div>'+
+        '<div class=note>it refuses: '+esc(p2.refuses)+'</div></div>').join('')+'</div>';
+  }
   h+='<div class=sec><h2>Answer</h2><span class=n>last, as you asked</span></div>';
   h+='<div class=ans>'+esc(out.answer||'(no answer)')+
     '<div class=note style="margin-top:8px">confidence '+esc(String(out.confidence||''))+

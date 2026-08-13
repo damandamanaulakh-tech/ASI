@@ -48,9 +48,20 @@ RULE_DUTY = "RULE / DUTY / ASI"        # responsibility, obligation, governance
 RESULT_CONSEQUENCE = "RESULT / CONSEQUENCE"   # left with, got, outcome
 ATTENTION_GOAL = "ATTENTION / PRIORITY / GOAL"
 EXCLUSION = "EXCLUSION / BOUNDARY"     # "not the brain" — an explicit NOT
+# added on his rice/MBA test, from his own arrow chart for that sentence
+JUDGMENT_BIAS = "JUDGMENT / BIAS"
+PRODUCT_SURFACE = "PRODUCT / SURFACE APPEARANCE"
+BUSINESS_SYSTEM = "BUSINESS-MODEL / SYSTEM"
+EDUCATION_CAPABILITY = "EDUCATION / CAPABILITY INPUT"
+SCALE_GROWTH = "SCALE / GROWTH"
+RESULT_MEASUREMENT = "RESULT / MEASUREMENT"
+COUNTERFACTUAL_PATH = "ALTERNATIVE PATH / COUNTERFACTUAL"
 
 CLASSES = (HUMAN_PHYSICAL, BRAIN_MIND, RELATION_AFFECT, VALUE_WISDOM,
-           RULE_DUTY, RESULT_CONSEQUENCE, ATTENTION_GOAL, EXCLUSION)
+           RULE_DUTY, RESULT_CONSEQUENCE, ATTENTION_GOAL, EXCLUSION,
+           JUDGMENT_BIAS, PRODUCT_SURFACE, BUSINESS_SYSTEM,
+           EDUCATION_CAPABILITY, SCALE_GROWTH, RESULT_MEASUREMENT,
+           COUNTERFACTUAL_PATH)
 
 # ---------------------------------------------------------------------------
 # HUMAN_DOMAIN_SCOPE — his lists, verbatim.
@@ -195,6 +206,30 @@ WORD_ROUTES: list[tuple[str, str, str]] = [
     (r"\b(left with|left|got|gained|received|retain\w*|remain\w*|outcome|"
      r"result|end up|ended up|nothing in return)\b",
      RESULT_CONSEQUENCE, "what remains — result / consequence"),
+    # --- his rice/MBA chart: these are NOT Human physical -----------------
+    (r"\b(do not judge|don'?t judge|judge|judging|judgment|assume|assuming|"
+     r"just a|only a|merely|nothing but|prestige)\b",
+     JUDGMENT_BIAS, "judgment / bias — the shortcut from surface to verdict"),
+    (r"\b(rice|tea|product|goods|item|sells?|selling|shop|stall|brand)\b",
+     PRODUCT_SURFACE, "the visible product — surface appearance only"),
+    (r"\b(business|company|firm|model|market|customer\w*|supply|distribut\w*|"
+     r"pricing|margin|volume|operation\w*|enterprise|trade)\b",
+     BUSINESS_SYSTEM, "the business system behind the product"),
+    (r"\b(mba|degree|educat\w*|qualif\w*|training|course|school|college|"
+     r"studied|learning)\b",
+     EDUCATION_CAPABILITY, "education as a capability INPUT, not a cause"),
+    (r"\b(scale|scaling|upscal\w*|grow\w*|growth|expand\w*|bigger|"
+     r"multiply|volume)\b",
+     SCALE_GROWTH, "scale / growth"),
+    (r"\b(revenue|turnover|profit|sales|income|crore|lakh|million|billion|"
+     r"figure\w*|number\w*|measur\w*)\b",
+     RESULT_MEASUREMENT, "result / measurement — a signal, not the whole quality"),
+    (r"\b(instead of|rather than|otherwise|could have|would have|"
+     r"alternative|if he had|if she had)\b",
+     COUNTERFACTUAL_PATH, "the path not taken, held beside the path taken"),
+    (r"\b(find flaws?|flaw\w*|error\w*|mistake\w*|problem detection|"
+     r"weakness\w*|check\w*)\b",
+     BRAIN_MIND, "error detection — a meta/cognitive capability"),
     # --- ATTENTION / PRIORITY / GOAL -------------------------------------
     (r"\b(looking at|looking for|focus\w*|priorit\w*|want\w*|chase|chasing|"
      r"aim\w*|goal|trying|pursu\w*|attention)\b",

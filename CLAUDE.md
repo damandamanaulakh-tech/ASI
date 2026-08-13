@@ -77,7 +77,7 @@ Live on Render as a web app. All 8 SB stages implemented (Core Gate 6 lenses,
 Doubt/Falsifier/Witness, Evidence ladder, Dot-Connection/Merge, Synthetic Fuel,
 Risk/Embodied/Non-Resolution, output + weekly update), the RGL recursive loop, 95
 configured node brains, 3 memories (corpus/wisdom/live fact), multi-model
-(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (128 tests).
+(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (134 tests).
 
 **A full audit ran 2026-08-12 (four read-only sweeps).** It produced a 20-item
 prioritized fix list; the honest finding is that the frame is real but much of the
@@ -216,6 +216,28 @@ can only be reported under HUMAN BODY if a word actually routed there, and
 anything that fails is moved to `out_of_scope` **with the reason kept**, so his
 first machine reading stays visible beside the corrected one. **"not the brain"
 is an explicit boundary**: that layer is reported out of scope, never as a hit.
+
+**SURFACE ≠ SYSTEM, AND NOTHING IS UPGRADED (2026-08-13) — `claims.py`.** His
+rice/MBA test, canon at `docs/method/canon/DO_NOT_JUDGE_THE_VISIBLE_THING.md`:
+*"The ASI should not collapse all of that into 'MBA = success.'"* Four claim
+statuses are now real and **nothing is ever upgraded** — a figure he stated is
+`SOURCE-ASSERTED / NOT VERIFIED HERE`, a causal phrasing is a `CAUSAL HYPOTHESIS`
+carrying all twelve of his alternative causes (experience · market timing ·
+capital · relationships · execution · location · demand · distribution ·
+risk-taking · team · previous knowledge · luck), an absolute is
+`USER VALUE / GENERALIZATION` and not evidence, and a path-not-taken is a
+`COUNTERFACTUAL` that must never conclude entrepreneurship beats employment.
+`outcome_note()` enforces **HIGH REVENUE ≠ HIGH PROFIT ≠ GOOD BUSINESS** by
+reporting what was **not stated** rather than assuming it good. **`judgment_gate()`
+is the thing he asked the Rubric Pyramid to FORCE**: his nine steps — VISIBLE
+THING → DO NOT JUDGE YET → FIND SYSTEM → CAPABILITIES → INPUTS → EXECUTION →
+RESULTS → COMPARE ALTERNATIVE EXPLANATIONS → THEN JUDGE — each reported met or
+unmet with evidence. On his own sentence it returns **JUDGMENT NOT SUPPORTED
+YET**, because the one step his own reasoning skipped was comparing the
+alternatives. His five patterns are stored with the marks HE gave them (3
+checked, 2 unchecked). `domains.py` gained his seven new node classes, and on
+this sentence **HUMAN BODY does not fire at all** — which is what he said should
+happen, and is the proof the body/brain split holds.
 
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
