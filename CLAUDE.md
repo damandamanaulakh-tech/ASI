@@ -76,7 +76,7 @@ Live on Render as a web app. All 8 SB stages implemented (Core Gate 6 lenses,
 Doubt/Falsifier/Witness, Evidence ladder, Dot-Connection/Merge, Synthetic Fuel,
 Risk/Embodied/Non-Resolution, output + weekly update), the RGL recursive loop, 95
 configured node brains, 3 memories (corpus/wisdom/live fact), multi-model
-(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (106 tests).
+(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (118 tests).
 
 **A full audit ran 2026-08-12 (four read-only sweeps).** It produced a 20-item
 prioritized fix list; the honest finding is that the frame is real but much of the
@@ -118,6 +118,34 @@ verbatim with live status, updated in the same commit that closes one. Items 05�
 ones that make it actually reason; nothing closed so far has changed that. Do not
 present half-wired work as finished — verify before claiming done, and run an
 independent review of each phase's diff before asking him to merge.
+
+**THE MACHINE IS NOW PLUGGED IN (2026-08-13, on his word "so plug it in the
+system / make change in al file where its required / no place holder, skipping
+data / 3072 is the count").** His canon is filed verbatim at
+`docs/method/canon/THE_MACHINE_AS_HE_STATES_IT.md` and
+`docs/method/canon/THE_2560_PLACED_ON_THE_ARCHITECTURE.md`, and his rulings are
+in `docs/method/01D_SEQUENCE_RULINGS.md` §20. What was built:
+`micro.py` splits every sentence into a **micro-sequence** carrying his exact
+field list (ENTITY · RELATION · ACTION · NEGATION · INFORMATION OBJECT/STATE ·
+EXPECTED vs ACTUAL · TEMPORAL RELATION · DEPENDENCY · EXPECTATION DIFFERENCE ·
+POSSIBLE HUMAN EFFECT · INTENT · REPETITION LINK · PATTERN CONTRIBUTION), with
+**intent NEVER concluded from one event** and **his feeling never picked**;
+`patterns.py` keeps every micro-sequence, finds the arrangement that recurs as
+the **union of steps across linked events** (each step carrying its own support —
+his own S2 has no disclosure fact and S3 no resource fact, yet both belong),
+surfaces a **PATTERN-CANDIDATE at 5 repeats** (his ruling; the *reducing* rule is
+MY reading and says so on screen), runs **R-F-R / Doubt before he ever sees it**,
+holds **the six that never collapse** with five of them empty and his, offers all
+**six of his actions** (approve · reject · rename · split · combine · redefine),
+and enforces **NO REOPEN** — every edit appends a write-back referencing the
+version it acted on and the prior version is kept whole; `router.py` selects
+mechanisms **FROM the structured problem** (never the reverse) and carries his
+SEG→flow placement; `/reading` is the microscope — his RUBRIC VIEW with the
+editable fields, the answer last. **Item 20 is CLOSED by "3072 is the count"**
+(the 80/2,560 base HALT is answered) and **item 18 is placed by him** at the
+write-back sequence. One occurrence can never become a pattern — a test exists
+whose only job is to prove that. **OPEN SEAM, surfaced not decided:** "rubric
+means paramters the 3000" against "Human Parameter ≠ Rubric"; nothing was moved.
 
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding

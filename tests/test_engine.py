@@ -1770,6 +1770,346 @@ def test_recall_notes_keeps_his_order_and_never_drops_a_forced_pick():
     assert h2["dropped_by_cap"] == []
 
 
+# ===========================================================================
+# THE MACHINE HE SPECIFIED — micro-sequences, pattern memory, the router.
+# His canon: docs/method/canon/THE_MACHINE_AS_HE_STATES_IT.md
+# ===========================================================================
+
+HIS_FIVE = [
+    ("S1", "My friend asked me to drop him somewhere. "
+           "He didn't tell me where we were going."),
+    ("S2", "He used my car again and left another person with me."),
+    ("S3", "He again did not explain the full plan beforehand."),
+    ("S4", "He asked me to drive him and didn't say where."),
+    ("S5", "He didn't tell me the reason and I had already committed to go."),
+]
+HIS_CTX = {"self_established": True, "self_surface": "me",
+           "other_surface": "he"}
+
+
+def test_micro_reproduces_his_own_worked_example():
+    """His spec IS the test: "He didn't tell me where we were going." must
+    decompose into the exact fields he listed, and INTENT must stay unknown."""
+    from sourceborn import micro
+    d = micro.decompose("He didn't tell me where we were going.", "Q-1", 0)
+    assert [e["side"] for e in d["entities"]].count("other") >= 1
+    assert [e["side"] for e in d["entities"]].count("self") >= 1
+    assert d["relation"] and "↔" in d["relation"][0]
+    assert any(a["verb"] == "tell" and "disclosure" in a["classes"]
+               for a in d["actions"])
+    assert "didn't" in d["negation"]
+    assert d["information_object"] == "location / destination"
+    assert d["information_state"]["known_to_self"] == "false"
+    assert "maybe" in d["information_state"]["known_to_other"]
+    assert "before participation" in d["expected_information"]
+    assert d["actual_information"] == "not supplied"
+    assert d["temporal_relation"] == "request / action preceded disclosure"
+    assert "informed decision" in d["dependency"]
+    assert "≠" in d["expectation_difference"]
+    # every effect he named is offered, and NONE is chosen
+    for e in ("uncertainty", "confusion", "loss of control", "feeling used",
+              "irritation", "distrust"):
+        assert e in d["possible_human_effect"], e
+    assert d["his_feeling"] == ""              # his field, never filled by us
+    # RULE 1 — intent is never concluded from one event
+    assert d["intent"]["status"] == "UNKNOWN — not directly observed"
+    assert d["repetition_link"].startswith("search prior")
+    assert "partial-information" in d["pattern_contribution"]
+
+
+def test_one_sentence_never_becomes_a_pattern():
+    """His reason for the whole refinement: "otherwise the machine would create
+    millions of false patterns from single occurrences."
+    """
+    import tempfile
+    from sourceborn import micro, patterns
+    root = tempfile.mkdtemp()
+    patterns.store_micro(root, micro.decompose_all(
+        "He didn't tell me where we were going.", "S1", HIS_CTX))
+    r = patterns.refresh_candidates(root)
+    assert r["created"] == []                        # nothing surfaced
+    assert patterns.load_candidates(root) == []
+    assert patterns.count_micro(root) == 1           # but the reading is kept
+    assert r["surface_at"] == 5                      # his ruling
+    assert r["below_threshold"] and r["below_threshold"][0]["needs"] == 5
+
+
+def test_his_five_events_surface_exactly_one_candidate_at_the_fifth():
+    """The arrangement is the UNION of steps across linked events — his own S2
+    carries no disclosure fact and his S3 no resource fact, yet both belong."""
+    import tempfile
+    from sourceborn import micro, patterns
+    root = tempfile.mkdtemp()
+    created_at = None
+    for i, (ask, text) in enumerate(HIS_FIVE, start=1):
+        patterns.store_micro(root, micro.decompose_all(text, ask, HIS_CTX))
+        r = patterns.refresh_candidates(root)
+        if r["created"]:
+            created_at = i
+    assert created_at == 5, f"surfaced at event {created_at}, not the fifth"
+    cands = patterns.load_candidates(root)
+    assert len(cands) == 1
+    c = cands[0]
+    assert c["id"] == "PATTERN-CANDIDATE-001"
+    assert c["repetition_count"] == 5
+    assert sorted(c["evidence_asks"]) == ["S1", "S2", "S3", "S4", "S5"]
+    # the arrangement carries his steps IN ORDER, each with its own support
+    op = c["observed_pattern"]
+    for step in ("A needs a resource or help from B",
+                 "A reveals only part of the plan",
+                 "B becomes committed before the full context is known",
+                 "A obtains the desired result"):
+        assert step in op, step
+    assert "seen in" in op and "of 5 asks" in op
+    # the machine does NOT conclude
+    assert c["intent_status"] == "INFERRED / NOT DIRECTLY OBSERVED"
+    assert "manipulative" not in op.lower()
+    assert len(c["possible_interpretations"]) >= 4
+    assert "other / unknown" in c["possible_interpretations"]
+    # one witness (him) → Medium cap, his own Source rule
+    assert c["confidence"]["cap"] == patterns.CONF_CAP_INFERRED
+    assert c["confidence"]["value"] <= patterns.CONF_CAP_INFERRED
+    # the six that never collapse — five of them still empty, and they are his
+    assert c["what_happened"]
+    for f in ("his_interpretation", "his_feeling", "his_principle",
+              "his_decision", "his_result"):
+        assert c[f] == "", f
+    # R-F-R / Doubt ran BEFORE he ever sees it — his flow puts it there
+    assert len(c["rfr"]["r_f_r"]) == 3
+    assert c["rfr"]["r_f_r"][0]["pass"].startswith("reverse")
+    assert c["rfr"]["r_f_r"][1]["pass"].startswith("forward")
+    assert c["rfr"]["r_f_r"][2]["pass"].startswith("reverse")
+    assert "thin_steps" in c["rfr"]["r_f_r"][0]
+
+
+def test_his_review_writes_back_and_never_reopens():
+    """His six actions, and the no-reopen rule applied to his corrections."""
+    import tempfile
+    from sourceborn import micro, patterns
+    root = tempfile.mkdtemp()
+    for ask, text in HIS_FIVE:
+        patterns.store_micro(root, micro.decompose_all(text, ask, HIS_CTX))
+    patterns.refresh_candidates(root)
+    cid = patterns.load_candidates(root)[0]["id"]
+
+    res = patterns.review(root, cid, "approve", {
+        "name": "Instrumental-use pattern",
+        "his_interpretation": "Instrumental-use / exploitative relationship.",
+        "his_feeling": "Used / disrespected / taken for granted.",
+        "his_principle": "I do not want this relationship pattern.",
+        "his_decision": "Reduce/cut contact.",
+        "save_as": "personal pattern"}, note="APPROVED FOR MY PERSONAL RUBRIC")
+    k = res["candidate"]
+    assert k["status"] == "approved" and k["version"] == 2
+    assert k["his_feeling"].startswith("Used")
+    assert k["intent_status"].startswith("HIS RULING")
+    assert k["confidence"]["value"] <= 0.95       # never 1.00, ever
+    assert k["confidence"]["basis"].startswith("his ruling")
+    # NO REOPEN: v1 is kept whole and still says what it said
+    assert len(k["history"]) == 1
+    assert k["history"][0]["snapshot"]["status"] == "candidate"
+    assert k["history"][0]["snapshot"]["his_interpretation"] == ""
+    # the write-back is its own record, referencing the version it acted on
+    wb = res["writeback"]
+    assert wb["acted_on_version"] == 1 and wb["new_version"] == 2
+    assert "his_feeling" in wb["fields_he_set"]
+    assert patterns.writebacks(root)[-1]["candidate"] == cid
+
+    # his ruling reduces the threshold — "5 loops and reducing"
+    assert patterns.surface_at(root) == 4
+
+    # the approved pattern now reads a NEW sentence, carrying HIS words
+    seqs = micro.decompose_all(
+        "My cousin asked me to lend my car and didn't tell me why.", "Q-9",
+        HIS_CTX)
+    hits = patterns.activate(root, seqs)
+    assert hits, "an approved pattern must read a future sentence"
+    assert hits[0]["outcome"] in ("activate", "contribute evidence",
+                                 "modify confidence")
+    assert hits[0]["his_interpretation"].startswith("Instrumental-use")
+
+    # bad action is refused, unknown id is refused
+    assert patterns.review(root, cid, "obliterate")["error"]
+    assert patterns.review(root, "nope", "approve")["error"]
+
+
+def test_split_and_combine_close_records_without_deleting_them():
+    import tempfile
+    from sourceborn import micro, patterns
+    root = tempfile.mkdtemp()
+    for ask, text in HIS_FIVE:
+        patterns.store_micro(root, micro.decompose_all(text, ask, HIS_CTX))
+    patterns.refresh_candidates(root)
+    cid = patterns.load_candidates(root)[0]["id"]
+    res = patterns.review(root, cid, "split",
+                          {"into": ["Partial disclosure", "Resource dependence"]})
+    assert len(res["spawned"]) == 2
+    cands = {c["id"]: c for c in patterns.load_candidates(root)}
+    assert cands[cid]["status"] == "split"          # parent kept, not deleted
+    for sid in res["spawned"]:
+        assert cands[sid]["split_from"] == cid      # children reference it
+        assert cands[sid]["status"] == "candidate"
+    a, b = res["spawned"]
+    res2 = patterns.review(root, a, "combine", {"with": [b]})
+    assert res2["ok"]
+    cands = {c["id"]: c for c in patterns.load_candidates(root)}
+    assert cands[b]["status"] == "combined"
+    assert cands[b]["combined_into"] == a           # says where it went
+    assert cands[b]["history"], "the absorbed record keeps its own history"
+    assert patterns.review(root, a, "combine", {"with": []})["error"]
+
+
+def test_the_router_picks_mechanisms_from_the_structure():
+    """His rule: "the Engine should be selected from the structured problem,
+    rather than the Engine deciding what the problem is."
+    """
+    from sourceborn import micro, router
+    seqs = micro.decompose_all("He didn't tell me where we were going.",
+                               "Q-1", HIS_CTX)
+    r = router.route(seqs, "why do I feel uncomfortable with this person?")
+    keys = [m["key"] for m in r["mechanisms"]]
+    assert "sequence" in keys                # something already there
+    assert "relation" in keys                # a relation is named
+    assert "evidence" in keys                # something is missing from record
+    assert "meta" in keys                    # an absence has >1 reading
+    assert all(m["why"] for m in r["mechanisms"])   # never called without why
+    assert "selected from the structured problem" in r["rule"]
+
+    # an INVENTION routes differently — no ground to find
+    inv = router.route(micro.decompose_all("Build me a pricing app.", "Q-2"),
+                       "Build me a pricing app.")
+    assert "invention" in [m["key"] for m in inv["mechanisms"]]
+    assert "sequence" not in [m["key"] for m in inv["mechanisms"]]
+
+    # a repeat marked by him calls the pattern engine and names the unwired one
+    rep = router.route(micro.decompose_all(
+        "He again did not explain the full plan.", "Q-3", HIS_CTX), "again?")
+    assert "pattern_memory" in [m["key"] for m in rep["mechanisms"]]
+    assert "seq_kernel" in rep["unwired"]     # honest about what is not wired
+
+
+def test_the_flow_view_shows_every_position_and_which_segments_work_there():
+    """His SEG→flow placement, and his flow spine, both real."""
+    from sourceborn import micro, router
+    seqs = micro.decompose_all("He didn't tell me where we were going.",
+                               "Q-1", HIS_CTX)
+    fv = router.flow_view(router.route(seqs, "why?"))
+    assert [r["position"] for r in fv] == router.FLOW_POSITIONS
+    at = {r["position"]: r for r in fv}
+    assert "SEG-07" in at["ultra-micro splitter"]["segments"]
+    assert "SEG-08" in at["rubric view"]["segments"]
+    assert "SEG-05" in at["memory"]["segments"]
+    assert "SEG-10" in at["write-back"]["segments"]
+    assert len(router.SEGMENT_ROLE) == 10
+    assert all(s["at"] and s["serves"] for s in router.SEGMENT_ROLE)
+    assert router.segments_at("pattern candidate")
+
+
+def test_engine_read_runs_his_whole_flow():
+    from sourceborn import patterns
+    eng = _engine()
+    r = eng.read("My friend asked me to drop him somewhere and "
+                 "he didn't tell me where we were going.", "Q-1")
+    assert len(r["micro_sequences"]) == 1        # one sentence, one micro-seq
+    assert r["stored"] == 1
+    assert r["route"]["mechanisms"]
+    assert r["threshold"]["surface_at"] == 5
+    assert r["walk"]["result"].output.answer     # the answer still happens
+    assert r["stats"]["micro_sequences"] == 1
+    # a second, DIFFERENT ask compares against the first
+    r2 = eng.read("He again did not explain the full plan beforehand.", "Q-2")
+    assert r2["relations_to_prior"], "prior asks must be compared"
+    assert r2["relations_to_prior"][0]["prior_ask"] == "Q-1"
+    # this ask can never corroborate itself
+    assert all(x["prior_ask"] != "Q-2" for x in r2["relations_to_prior"])
+
+
+def test_reading_page_and_pattern_routes_are_served_and_locked():
+    import base64
+    import json
+    import threading
+    import urllib.error
+    import urllib.request
+    from sourceborn import micro, patterns, server
+
+    eng = _engine()
+    root = eng.memory.root
+    for ask, text in HIS_FIVE:
+        patterns.store_micro(root, micro.decompose_all(text, ask, HIS_CTX))
+    patterns.refresh_candidates(root)
+
+    old = (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+           server.SB_ACCESS_PASS)
+    server.ENGINE, server.SB_ROOT = eng, root
+    server.SB_ACCESS_USER, server.SB_ACCESS_PASS = "him", "letmein"
+    httpd = server.ThreadingHTTPServer(("127.0.0.1", 0), server.Handler)
+    threading.Thread(target=httpd.serve_forever, daemon=True).start()
+    base = "http://127.0.0.1:%d" % httpd.server_address[1]
+
+    def req(p, body=None, auth=True):
+        r = urllib.request.Request(
+            base + p, data=json.dumps(body).encode() if body is not None else None,
+            headers={"content-type": "application/json"} if body is not None else {})
+        if auth:
+            r.add_header("Authorization", "Basic " +
+                         base64.b64encode(b"him:letmein").decode())
+        try:
+            with urllib.request.urlopen(r, timeout=30) as resp:
+                return resp.status, resp.read()
+        except urllib.error.HTTPError as e:
+            return e.code, e.read()
+
+    try:
+        for p in ("/reading", "/patterns", "/micro", "/flow"):
+            assert req(p, auth=False)[0] == 401, p
+            assert p not in server.OPEN_PATHS
+        code, body = req("/reading")
+        assert code == 200 and b"THE READING" in body
+        assert b"WHAT I THINK IT MEANS" in body and b"HOW I FELT" in body
+
+        code, body = req("/patterns")
+        assert code == 200
+        d = json.loads(body)
+        assert len(d["candidates"]) == 1
+        assert d["stats"]["approved"] == 0
+
+        code, body = req("/reading/ask", {"question": "He didn't tell me "
+                                          "where we were going."})
+        assert code == 200
+        r = json.loads(body)
+        assert r["micro_sequences"][0]["information_object"] == \
+            "location / destination"
+        assert r["flow"] and len(r["flow"]) == len(
+            __import__("sourceborn.router", fromlist=["x"]).FLOW_POSITIONS)
+        assert r["route"]["mechanisms"]
+        assert r["walk"]["result"]["output"]["answer"]
+        assert req("/reading/ask", {"question": "   "})[0] == 400
+
+        cid = d["candidates"][0]["id"]
+        code, body = req("/patterns/review",
+                         {"id": cid, "action": "approve",
+                          "fields": {"his_interpretation": "Instrumental use.",
+                                     "his_feeling": "Used.",
+                                     "save_as": "personal pattern"}})
+        assert code == 200
+        assert json.loads(body)["candidate"]["status"] == "approved"
+        assert req("/patterns/review", {"id": cid, "action": "nope"})[0] == 400
+
+        # walk-all-the-way-back-down: the micro-sequences are readable by ask
+        code, body = req("/micro?ask=S1")
+        assert code == 200 and len(json.loads(body)) >= 1
+        assert req("/micro?n=abc")[0] == 200      # bad query answers, no drop
+
+        code, home = req("/")
+        assert code == 200 and b'href="/reading"' in home
+    finally:
+        httpd.shutdown()
+        httpd.server_close()
+        (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+         server.SB_ACCESS_PASS) = old
+
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

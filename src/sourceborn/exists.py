@@ -132,10 +132,9 @@ MAP: list[dict] = [
            "for that need to break it down in ultra micro level",
     "where": [("ladder.py", "def activate("), ("ladder.py", "def recall_notes(")],
     "state": THIN,
-    "note": "the split exists: your words are matched against the filled "
-            "rubrics and what matched is what reaches the engine. It matches "
-            "on 4-letter word overlap, against 18 entries. That is the thin "
-            "ancestor of ultra-micro, not ultra-micro."},
+    "note": "the rubric match is still 4-letter word overlap against the "
+            "filled entries. The ULTRA-MICRO split itself is now real and is "
+            "a different thing — see the group below."},
   ]},
 
  {"group": "REPETITION → THE SMALL BRAIN NOTICES → IT PROPOSES → YOU ALLOW",
@@ -203,6 +202,162 @@ MAP: list[dict] = [
     "state": RUNS,
     "note": "your own sentence is in the file. What cannot be parked is kept "
             "and comes to you — nothing is discarded."},
+  ]},
+
+ {"group": "BUILT FROM HIS CANON — the ultra-micro splitter",
+  "rows": [
+   {"his": "in each sentence and ask there is sequence of description for "
+           "that need to break it down in ultra micro level",
+    "where": [("micro.py", "def decompose("),
+              ("micro.py", "def decompose_all("),
+              ("micro.py", "def split_sentences(")],
+    "state": RUNS,
+    "note": "every sentence becomes a micro-sequence carrying HIS field list: "
+            "ENTITY · RELATION · ACTION · NEGATION · INFORMATION OBJECT · "
+            "INFORMATION STATE · EXPECTED vs ACTUAL · TEMPORAL RELATION · "
+            "DEPENDENCY · EXPECTATION DIFFERENCE · POSSIBLE HUMAN EFFECT · "
+            "INTENT · REPETITION LINK · PATTERN CONTRIBUTION. Tested against "
+            "his own worked example, field by field."},
+   {"his": "INTENT: UNKNOWN from this event alone",
+    "where": [("micro.py", "UNKNOWN — not directly observed")],
+    "state": RUNS,
+    "note": "a single event NEVER yields an intent. The clues are listed and "
+            "the conclusion is refused, every time, by construction."},
+   {"his": "POSSIBLE HUMAN EFFECT — uncertainty, confusion, loss of control, "
+           "feeling used, irritation, distrust",
+    "where": [("micro.py", "EFFECTS_BY_FACT"),
+              ("micro.py", '"his_feeling": ""')],
+    "state": RUNS,
+    "note": "the machine lists what a structure CAN produce in a person and "
+            "never picks which he felt. `his_feeling` ships empty."},
+   {"his": "context",
+    "where": [("micro.py", "def context_from("),
+              ("micro.py", "inherited from context")],
+    "state": RUNS,
+    "note": "his own S3 names no 'me' at all, so without carrying the "
+            "established participants forward that sentence loses its relation "
+            "and drops out of the arrangement. Anything inherited is MARKED as "
+            "inherited, never presented as if the sentence said it."},
+  ]},
+
+ {"group": "BUILT FROM HIS CANON — pattern memory, and only with his approval",
+  "rows": [
+   {"his": "EVERY SENTENCE GENERATES A MICRO-SEQUENCE REPRESENTATION … "
+           "otherwise the machine would create millions of false patterns "
+           "from single occurrences",
+    "where": [("patterns.py", "def store_micro("),
+              ("patterns.py", "def refresh_candidates(")],
+    "state": RUNS,
+    "note": "the representation is always kept; a PATTERN only surfaces after "
+            "repetition. One occurrence can never become a pattern — there is "
+            "a test whose whole job is to prove that."},
+   {"his": "when small brain saw repetition and notice few parameters are "
+           "getting in different have",
+    "where": [("patterns.py", "def group_repeats("),
+              ("micro.py", "def relates(")],
+    "state": RUNS,
+    "note": "the arrangement is the UNION of steps across LINKED events, each "
+            "step carrying its own support count — because his own S2 has no "
+            "disclosure fact and his S3 no resource fact, yet both belong to "
+            "one arrangement."},
+   {"his": "we decided 5 loops and reducing",
+    "where": [("patterns.py", "def surface_at("),
+              ("patterns.py", "SURFACE_START = 5")],
+    "state": PARTIAL,
+    "note": "the 5 is his and is enforced. The REDUCTION rule — each approved "
+            "pattern buys one off the count, never below 2 — is MY reading of "
+            "'reducing' and says so on screen, awaiting his word."},
+   {"his": "PATTERN-CANDIDATE-017 … Possible interpretations … Intent status: "
+           "INFERRED / NOT DIRECTLY OBSERVED … Confidence",
+    "where": [("patterns.py", "INFERRED / NOT DIRECTLY OBSERVED"),
+              ("patterns.py", "def _confidence(")],
+    "state": RUNS,
+    "note": "his record, field for field. Confidence has a stated formula and "
+            "is capped at Medium while intent is inferred — one witness is "
+            "him, and his own Source rule caps that. Nothing ever reads 1.00."},
+   {"his": "WHAT HAPPENED / WHAT I THINK IT MEANS / HOW I FELT / WHAT "
+           "PRINCIPLE I APPLY / WHAT DECISION I MADE / WHAT RESULT FOLLOWED — "
+           "those should never be collapsed into one field",
+    "where": [("patterns.py", '"his_interpretation": ""'),
+              ("patterns.py", '"his_result": ""')],
+    "state": RUNS,
+    "note": "six separate fields. The machine writes only the first; the other "
+            "five are his and stay empty until he writes them."},
+   {"his": "edit / reject / rename / split / combine / redefine",
+    "where": [("patterns.py", "ACTIONS = ("), ("patterns.py", "def review(")],
+    "state": RUNS,
+    "note": "all six. A split keeps the parent and spawns children that "
+            "reference it; a combine CLOSES the absorbed record and records "
+            "where it went. Nothing is ever deleted."},
+   {"his": "old case remains historically unchanged / new learning write-back "
+           "Sequence is created",
+    "where": [("patterns.py", "no_reopen"),
+              ("patterns.py", "def writebacks(")],
+    "state": RUNS,
+    "note": "NO REOPEN, applied to his corrections. Every edit appends a "
+            "write-back referencing the version it acted on, and the prior "
+            "version is kept whole and still readable."},
+   {"his": "PATTERN CANDIDATE → R-F-R / Doubt → YOU APPROVE",
+    "where": [("patterns.py", "def rfr_check(")],
+    "state": RUNS,
+    "note": "his second canon file puts the triple pass BETWEEN the candidate "
+            "and his approval, so no candidate reaches him unexamined: reverse "
+            "→ forward → reverse, then the Doubt engine. It marks what is thin "
+            "and rejects nothing."},
+   {"his": "future sentences can activate it",
+    "where": [("patterns.py", "def activate("),
+              ("patterns.py", "def contradictions(")],
+    "state": RUNS,
+    "note": "his five outcomes are named per sentence — activate · contribute "
+            "evidence · contradict · modify confidence · open a candidate. A "
+            "pattern that cannot be contradicted is a belief, so contradiction "
+            "is implemented too."},
+  ]},
+
+ {"group": "BUILT FROM HIS CANON — the router, and the flow made visible",
+  "rows": [
+   {"his": "the Engine should be selected from the structured problem, rather "
+           "than the Engine deciding what the problem is",
+    "where": [("router.py", "def route("), ("router.py", "MECHANISMS")],
+    "state": RUNS,
+    "note": "the walk used to be fixed — the same stages whatever the sentence "
+            "was. Now the STRUCTURE names the mechanisms, each with the reason "
+            "it was called, and a mechanism is never called without one."},
+   {"his": "SEG-01 … SEG-10, and where each works in the brain",
+    "where": [("router.py", "SEGMENT_ROLE"),
+              ("router.py", "FLOW_POSITIONS"),
+              ("router.py", "def flow_view(")],
+    "state": RUNS,
+    "note": "his own segment→flow-position placement, and his flow spine in "
+            "his order. THE READING page lights each position this run "
+            "actually reached and names the segments working there."},
+   {"his": "RUBRIC VIEW — SHOW activated P IDs · CON IDs · SEG IDs · relations "
+           "· patterns · emotions · intent · uncertainty · evidence",
+    "where": [("readingpage.py", "Matched to existing IDs"),
+              ("readingpage.py", "Ultra-micro decomposition")],
+    "state": RUNS,
+    "note": "the reading IS the page and the answer sits inside it, last, as "
+            "he asked."},
+   {"his": "let me edit and change that rubric so i can define the feeling, "
+           "emotions there, which will help for tool to use further",
+    "where": [("readingpage.py", "WHAT I THINK IT MEANS"),
+              ("readingpage.py", "HOW I FELT"),
+              ("server.py", "/patterns/review")],
+    "state": RUNS,
+    "note": "THE ONE THAT WAS MISSING IS NOW BUILT. He writes his "
+            "interpretation, his feeling, his principle, his decision and his "
+            "result into a candidate, approves it, and the approved pattern "
+            "then reads future sentences carrying HIS words. Emotion finally "
+            "goes IN, not only out."},
+   {"his": "TRACEABLE UNDERSTANDING … the system should be capable of walking "
+           "all the way back down",
+    "where": [("server.py", 'elif path == "/micro":'),
+              ("server.py", 'elif path == "/flow":')],
+    "state": PARTIAL,
+    "note": "every micro-sequence is readable by ask, and the flow view shows "
+            "which mechanism was called and why. Not yet answerable: which "
+            "sub-parameter, which element — those levels are empty by his own "
+            "instruction."},
   ]},
 
  {"group": "EVERYTHING STARTS AT VAGUE LEVEL",
@@ -314,30 +469,31 @@ MAP: list[dict] = [
 # THE ABSENCES — stated as absences, in his words. Not a work list, not a
 # proposal. What has no existence anywhere in the code.
 ABSENCES: list[dict] = [
- {"what": "Nothing counts repeats across your separate asks.",
-  "why": "The dot pass is inside one ask. The weekly pull is between node "
-         "brains. Your five loops have nothing to count, because no arrangement "
-         "is remembered from one ask to the next.",
-  "his": "when small brain saw repetition"},
- {"what": "No pattern is stored as a thing.",
-  "why": "Patterns_Recognized is a number that goes up. There is no pattern "
-         "with its carryings, its repeat count, what it makes available, and a "
-         "status of proposed / allowed / refused.",
-  "his": "it will store that new pattern"},
- {"what": "No screen shows you a rubric to edit, and there is nowhere to put "
-          "feeling.",
-  "why": "The rubric IS the parameter and the registry already versions every "
-         "edit — so the store is there. But THE ENGINE page shows you names "
-         "and text and lets you park or force them; it never opens one up for "
-         "you to write into. Emotion is read out of your words, never in.",
-  "his": "let me edit and change that rubric so i can define the feeling"},
- {"what": "A rubric holds a name and free text — not how it is recognised, "
-          "nor how it is graded.",
-  "why": "That is why the split of a sentence into rubrics is 4-letter word "
-         "overlap: there is nothing richer in the entry to match against. "
-         "'in the language of rubrics so it can pick' needs the entry to say "
-         "what picks it.",
+ {"what": "A rubric still holds a name and free text — not how it is "
+          "recognised, nor how it is graded.",
+  "why": "This is the one that did NOT get built. The ultra-micro split is now "
+         "real, but matching a sentence to a RUBRIC is still 4-letter word "
+         "overlap, because there is nothing richer inside the entry to match "
+         "against. 'in the language of rubrics so it can pick' needs the entry "
+         "itself to say what picks it.",
   "his": "everything must be in the language or rubrics so it can pick"},
+ {"what": "The SUB-PARAMETER and ELEMENT levels hold nothing.",
+  "why": "Empty by his own instruction — he left the level unopened and "
+         "unnamed. Recorded as empty, not as missing, and no placeholder was "
+         "invented to fill it.",
+  "his": "Element (sub parameter or element, one u need to leave for now "
+         "empty) - None"},
+ {"what": "The sequence protocol still does not run inside a live answer.",
+  "why": "seq_kernel.py has no importer. His canon PLACES its entry at the "
+         "write-back / learning sequence, and patterns.review() now creates "
+         "exactly that — so the place exists and the bridge is one ruling "
+         "away. The router names it as unwired rather than pretending.",
+  "his": "new learning/write-back Sequence is created"},
+ {"what": "The 3,072 rubrics are still 18 filled.",
+  "why": "The machine around them is built and running; the vocabulary it "
+         "runs on is not loaded. This is his workbook upload, and the "
+         "importer has been waiting for it.",
+  "his": "rubric means paramters the 3000"},
 ]
 
 # WHERE THE CODE AND HIS WORD DISAGREE — surfaced, never silently picked.
@@ -360,8 +516,24 @@ SEAMS: list[dict] = [
   "code": "01A_INTENT — two surviving candidates HALT instead of being blended",
   "his": "each sentence always generate one pattern … "
          "it always have multiple carryings",
-  "note": "carryings are plural on the WORD; intent is single on the EVENT. "
-          "That is my reading of the seam, not your ruling."},
+  "note": "HE RESOLVED THIS HIMSELF: every sentence generates a MICRO-SEQUENCE "
+          "representation; a pattern is only what survives repetition. Built "
+          "that way. Kept here because the earlier phrasing is still on record."},
+ {"seam": "Is a rubric a parameter, or the thing that examines one?",
+  "code": "ladder.py — TOTAL_PARAMS = 3072, and the registry IS the rubric store",
+  "his": "\"rubric means paramters the 3000\"  vs, one message later, "
+         "\"Human Parameter ≠ Rubric. Parameter = what capability/state. "
+         "Rubric = how it is examined.\"",
+  "note": "Two of his own statements that do not sit together. NOTHING WAS "
+          "MOVED. He said focus on the work flow, so the flow was built and "
+          "this waits for one word."},
+ {"seam": "3,072 against a 2,560 bank in 80 containers",
+  "code": "ladder.py — TOTAL_PARAMS = 3072, TOTAL_CONTAINERS = 200",
+  "his": "\"3072 is the count\"  and then a full placement of "
+         "SB-ASI-P0001…P2560 across CON-001…CON-080",
+  "note": "3072 stays, on his explicit ruling. The 2,560 index is preserved "
+          "verbatim in canon and used for nothing but the record — he said do "
+          "not go to count and details."},
 ]
 
 

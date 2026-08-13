@@ -33,9 +33,9 @@ The review's findings are recorded here too, including my own bugs.
 | **15** | One correct number, everywhere | — | 2 hr | open — the test count is stale in several docs; README still advertises the killed 70×25 matrix. |
 | **16** | Clean the corpus | COR-1 | ½ day | open — **blocked behind 02**; I do not touch the corpus without his word. |
 | **17** | CI on pytest with a lint step | — | 1 hr | open |
-| **18** | Decide where the sequence kernel enters a live answer | ENG-4 | design | **his** — `seq_kernel.py` is validated code with zero importers; the LAW-formation bridge is unbuilt by design until he places it. |
+| **18** | Decide where the sequence kernel enters a live answer | ENG-4 | design | **HE PLACED IT** — his canon puts the entry at the **write-back / learning sequence**, and `patterns.review()` now creates exactly that (no reopen, prior version kept whole, new version references it). The place exists; the last step is his word that the bridge is confirmed. |
 | **19** | Land the workbook to fill the 3,072 | BRN-3 | you | **his** — the importer (`ladder.save_registry`, merge-by-id, every version kept) is built and waiting for his file. 18 of 3,072 filled today, and the page says so. |
-| **20** | Lock the parameter count | — | you | **his** — 2,560 / 2,592 / 3,072 still contested across his own documents. One word closes it. |
+| **20** | Lock the parameter count | — | you | **CLOSED BY HIS RULING 2026-08-13: "3072 is the count."** The base HALT that stood since the 80/2,560 work is answered — he moved the base. Version ladder kept as versions, not drift. |
 
 ## What the honest state is, after 01 · 03 · 04
 

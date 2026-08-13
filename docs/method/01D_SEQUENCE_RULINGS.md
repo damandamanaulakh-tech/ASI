@@ -305,3 +305,35 @@ closes each with its gap list.*
 - The contamination check (13.3) — only after his approval.
 - The **transition vs step** conflict between 01B and doc 01 — still surfaced, still his.
 - Anything in the C-10 queue entering code (16.2/16.3).
+
+---
+
+# RULINGS OF 2026-08-13 — the machine, and the count
+
+Added, never rewritten. His words are the ruling; the note says what was built.
+
+| # | His ruling, verbatim | What it settles | Built as |
+|---|---|---|---|
+| 20.1 | **"3072 is the count"** | **CLOSES the base HALT** that stood open since the 80/2,560 v0.3 work, and closes audit item 20. `TOTAL_PARAMS = 3072`, `TOTAL_CONTAINERS = 200`. The version ladder (2,000 → 2,560 → 2,592 → 3,072) stays on record as versions, not drift — nothing removed. | `ladder.py` |
+| 20.2 | **"i allowed one word to carry multiple reason … it always have multiple carryings"** | A sentence does not reduce to one reading. Carryings are plural on the WORD; intent stays single on the EVENT. Every possible interpretation is held, none chosen. | `micro.INTERPRETATIONS_BY_FACT`, `patterns.possible_interpretations` |
+| 20.3 | **"we decided 5 loops and reducing"** | A pattern surfaces at **5** repeats. The 5 is his and is enforced. **The reduction rule is NOT his** — "each approved pattern buys one off the count, never below 2" is my reading and is labelled as such on screen. | `patterns.surface_at()`, `threshold_reading()` |
+| 20.4 | **"its not about a person, its about the sequence and flow how ASI will work, how it will capture the connections"** | The friend example is the ILLUSTRATION of the method, never the subject — the same standing as Mahabharata material, which defines the method and is never itself run as a sequence. | the whole flow; `router.FLOW_POSITIONS` |
+| 20.5 | **"EVERY SENTENCE GENERATES A MICRO-SEQUENCE REPRESENTATION. Every micro-Sequence may: activate an existing pattern, contribute evidence to an existing pattern, contradict an existing pattern, modify confidence in a pattern, or create a candidate new pattern."** | **SUPERSEDES his own earlier "each sentence always generate one pattern."** His reason: *"otherwise the machine would create millions of false 'patterns' from single occurrences."* The earlier line stays on record as the same rule before the distinction was drawn. | `micro.decompose()`, `patterns.activate()`, `patterns.contradictions()` |
+| 20.6 | **"the Engine should be selected from the structured problem, rather than the Engine deciding what the problem is"** | Inverts the fixed walk. The structure names the mechanisms; a mechanism is never called without a stated reason. | `router.route()` |
+| 20.7 | **"WHAT HAPPENED / WHAT I THINK IT MEANS / HOW I FELT / WHAT PRINCIPLE I APPLY / WHAT DECISION I MADE / WHAT RESULT FOLLOWED — those should never be collapsed into one field"** | Six fields. The machine writes only the first. | `patterns` candidate record |
+| 20.8 | **"old case remains historically unchanged / new learning write-back Sequence is created"** | **NO REOPEN extended from sequences to his corrections.** And it PLACES where the sequence protocol enters a live answer — audit item 18 was open on exactly that question. | `patterns.review()`, `writebacks()` |
+| 20.9 | **PATTERN CANDIDATE → R-F-R / Doubt → YOU APPROVE** | The Mahabharata Sequence (reverse → forward → reverse) sits between the candidate and his approval, so nothing reaches him unexamined. It marks what is thin and rejects nothing. | `patterns.rfr_check()` |
+| 20.10 | **"do not go to count and details, focus on work flow"** | Standing instruction on the 2,560 placement: the SEG→flow placement and the layer distinction are built from; the container index is preserved as record only. | `router.SEGMENT_ROLE` |
+
+## OPEN SEAM — surfaced, NOT resolved (his rule: HALT, do not pick)
+
+Three of his own statements, all from 2026-08-13, that do not sit together:
+
+1. **"rubric means paramters the 3000"** — a rubric IS a parameter.
+2. **"Human Parameter ≠ Rubric. Parameter = what capability/state. Rubric = how it is examined."** — a rubric INTERROGATES a parameter.
+3. **"3072 is the count"** alongside a full placement of `SB-ASI-P0001…P2560` across `CON-001…CON-080`.
+
+**Nothing was moved.** `TOTAL_PARAMS` stays **3072** on his explicit ruling; the
+2,560 index is preserved verbatim in `canon/THE_2560_PLACED_ON_THE_ARCHITECTURE.md`
+and used for nothing but the record. Per 20.10 the work went into the flow.
+One word from him closes it.

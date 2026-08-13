@@ -39,6 +39,9 @@ from . import enginepage
 from . import exists
 from . import ladder
 from . import mypage
+from . import patterns as patternmem
+from . import readingpage
+from . import router as rubric_router
 from . import scheduler
 from .engine import SourcebornEngine, NO_LIVE
 from .extract import extract_text
@@ -529,6 +532,7 @@ details[open]>summary:before{content:"\25be  "}
     <div class=hactions style="margin-top:6px;display:flex;gap:8px;flex-wrap:wrap">
       <a class="btn sm" href="/engine">⚙ THE ENGINE — ask &amp; watch the ladder</a>
       <a class="btn sm" href="/page">▦ MY PAGE — what · where · how</a>
+      <a class="btn sm" href="/reading">◉ THE READING — split · match · route · correct</a>
       <a class="btn sm" href="/exists">◈ WHAT EXISTS — your understanding, in the code</a>
     </div></div>
   <div class=card><div class=k>Chats &middot; stored <span class=num id=chatn></span></div><div class=hist id=hist><span class=muted>empty</span></div></div>
@@ -1304,6 +1308,33 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/engine":
             self._send(200, enginepage.PAGE.encode("utf-8"),
                        "text/html; charset=utf-8")
+        elif path == "/reading":
+            self._send(200, readingpage.PAGE.encode("utf-8"),
+                       "text/html; charset=utf-8")
+        elif path == "/patterns":
+            cands = patternmem.load_candidates(SB_ROOT)
+            self._send(200, json.dumps({
+                "candidates": cands,
+                "approved": patternmem.load_approved(SB_ROOT),
+                "writebacks": patternmem.writebacks(SB_ROOT, 50),
+                "stats": patternmem.stats(SB_ROOT),
+                "below": patternmem.refresh_candidates(SB_ROOT)
+                         .get("below_threshold", [])}).encode(),
+                "application/json")
+        elif path == "/micro":
+            # walk all the way back down: every micro-sequence, or one ask's
+            aid = (qs.get("ask") or [""])[0]
+            ms = patternmem.load_micro(SB_ROOT)
+            if aid:
+                ms = [m for m in ms if m.get("ask") == aid]
+            self._send(200, json.dumps(ms[-_int_arg(qs, "n", 200, 1, 5000):]
+                                       ).encode(), "application/json")
+        elif path == "/flow":
+            self._send(200, json.dumps({
+                "positions": rubric_router.FLOW_POSITIONS,
+                "segments": rubric_router.SEGMENT_ROLE,
+                "mechanisms": rubric_router.MECHANISMS}).encode(),
+                "application/json")
         elif path == "/exists":
             self._send(200, exists.PAGE.encode("utf-8"),
                        "text/html; charset=utf-8")
@@ -1608,6 +1639,55 @@ class Handler(BaseHTTPRequestHandler):
             except Exception as exc:
                 self._send(400, json.dumps({"error": f"restore failed: {exc}"}).encode(),
                            "application/json")
+            return
+        if self.path == "/reading/ask":
+            q = str(data.get("question", "") or "").strip()
+            if not q:
+                self._send(400, b'{"error":"empty ask"}', "application/json")
+                return
+            model = get_model(str(data.get("model", "offline") or "offline").lower())
+            r = ENGINE.read(q, str(data.get("ask") or ""), model=model)
+            r["flow"] = rubric_router.flow_view(r["route"])
+            walk = r.pop("walk")
+            payload = self._walk_dict(walk["result"], walk, model.name)
+            out = payload.get("output") or {}
+            r["walk"] = {"result": {"output": {
+                "answer": out.get("answer"),
+                "confidence": out.get("confidence"),
+                "penetration_score": out.get("penetration_score")}},
+                "model": model.name}
+            r["chat_id"] = _save_chat(q, payload, "reading")
+            try:
+                ENGINE.memory.master_log({
+                    "event": "reading", "ask": r["ask"],
+                    "micro": len(r["micro_sequences"]),
+                    "repeats": len(r["relations_to_prior"]),
+                    "candidates": r["candidates"].get("created", []),
+                    "mechanisms": [m["key"] for m in r["route"]["mechanisms"]]})
+            except Exception:
+                pass
+            self._send(200, json.dumps(r, ensure_ascii=False).encode(),
+                       "application/json")
+            return
+        if self.path == "/patterns/review":
+            res = patternmem.review(SB_ROOT, str(data.get("id", "")),
+                                    str(data.get("action", "")),
+                                    data.get("fields") or {},
+                                    str(data.get("note", "") or ""))
+            if res.get("error"):
+                self._send(400, json.dumps(res).encode(), "application/json")
+                return
+            try:
+                ENGINE.memory.master_log({
+                    "event": "rubric_writeback",
+                    "candidate": res["candidate"]["id"],
+                    "action": data.get("action"),
+                    "new_version": res["candidate"]["version"],
+                    "spawned": res.get("spawned", [])})
+            except Exception:
+                pass
+            self._send(200, json.dumps(res, ensure_ascii=False).encode(),
+                       "application/json")
             return
         if self.path == "/novelty/run":
             from .novelty import run_novelty_pass

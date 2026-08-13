@@ -563,6 +563,84 @@ class SourcebornEngine:
         return RunResult(out, micro, matched, list(self.trace), gaps, proofs, halts)
 
     # -- RGL: Recursive Genesis Loop ---------------------------------------
+    # -- THE READING: his canon flow, end to end ---------------------------
+    def read(self, raw_text: str, ask_id: str = "",
+             model: BaseModel | None = None, thread: int = 40) -> dict:
+        """RAW SENTENCE → micro-sequences → match to IDs → small brains →
+        engine selection → local result → store trace → compare with prior
+        sequences → repetition detection → candidate pattern → HIS review.
+
+        His canon flow, in order, with nothing skipped. `run_walk` still does
+        the node work and the seven filters; this wraps it with the layer that
+        was missing — the ultra-micro split, the pattern memory, and the router
+        that picks mechanisms FROM the structured problem.
+
+        The pattern layer never decides intent and never picks his feeling.
+        Everything it produces is a candidate for him."""
+        from . import ladder, micro, patterns, router
+        root = self.memory.root
+        aid = ask_id or ("Q-" + str(abs(hash(raw_text)) % 10 ** 8))
+
+        # 1 · ULTRA-MICRO DECOMPOSITION — context carried from the thread, so a
+        #     sentence in a long conversation does not lose who it is about
+        prior = patterns.load_micro(root, limit=thread)
+        ctx = micro.context_from(prior)
+        seqs = micro.decompose_all(raw_text, aid, ctx)
+
+        # 2 · COMPARE WITH PRIOR SEQUENCES — before storing, so "prior" means
+        #     prior and this ask cannot corroborate itself
+        rel = []
+        for m in seqs:
+            for p in prior:
+                r = micro.relates(m, p)
+                if r["repeat"]:
+                    rel.append({"micro": m["id"], "prior": p["id"],
+                                "prior_ask": p.get("ask", ""),
+                                "prior_sentence": p.get("raw", ""), **r})
+
+        # 3 · WHAT HIS APPROVED PATTERNS SAY, and where this ask goes AGAINST
+        #     one of them
+        hits = patterns.activate(root, seqs)
+        against = patterns.contradictions(root, seqs)
+
+        # 4 · MATCH TO EXISTING IDS — the rubrics (his 3,072) this ask touches
+        reg = ladder.load_registry(root)
+        lit = ladder.activate(raw_text, reg)
+
+        # 5 · ENGINE SELECTION — from the STRUCTURE, never the other way round
+        route = router.route(seqs, raw_text, prior_repeats=len(rel),
+                             approved_hits=len(hits),
+                             conflicting=len({h["pattern"] for h in hits}))
+
+        # 6 · STORE TRACE, then let the repetition surface a candidate
+        stored = patterns.store_micro(root, seqs)
+        surfaced = patterns.refresh_candidates(root)
+
+        # 7 · LOCAL RESULT — the node work and the seven filters, with what his
+        #     approved rubrics say fed in as context
+        notes, hand = ladder.recall_notes(reg, lit, [], [])
+        run_text = raw_text
+        if notes:
+            run_text += "\n\n[rubrics this ask touched]:\n" + notes
+        if hits:
+            run_text += "\n\n[his approved patterns bearing on this]:\n" + "\n".join(
+                f"- {h['name']}: {h['his_interpretation']} ({h['outcome']})"
+                for h in hits[:6])
+        walk = self.run_walk(run_text, model=model)
+
+        return {"ask": aid, "raw": raw_text,
+                "micro_sequences": seqs, "stored": stored,
+                "relations_to_prior": rel,
+                "pattern_hits": hits, "contradictions": against,
+                "rubrics_lit": lit, "rubric_hand": hand,
+                "route": route,
+                "candidates": surfaced,
+                "open_candidates": [c for c in patterns.load_candidates(root)
+                                    if c["status"] == "candidate"],
+                "threshold": patterns.threshold_reading(root),
+                "stats": patterns.stats(root),
+                "walk": walk}
+
     def run_recursive(self, raw_text: str, loops: int = 3,
                       model: BaseModel | None = None, converge: float = 0.30) -> dict:
         """The RGL (RGL.txt): the loop's shape is invariant, the content
