@@ -41,6 +41,7 @@ from . import ladder
 from . import mypage
 from . import patterns as patternmem
 from . import readingpage
+from . import senses as sensemem
 from . import router as rubric_router
 from . import scheduler
 from .engine import SourcebornEngine, NO_LIVE
@@ -1321,6 +1322,14 @@ class Handler(BaseHTTPRequestHandler):
                 "below": patternmem.refresh_candidates(SB_ROOT)
                          .get("below_threshold", [])}).encode(),
                 "application/json")
+        elif path == "/senses":
+            self._send(200, json.dumps({
+                "senses": sensemem.load(SB_ROOT),
+                "writebacks": sensemem.writebacks(SB_ROOT, 50),
+                "stats": sensemem.stats(SB_ROOT),
+                "return_dimensions": list(sensemem.RETURN_DIMENSIONS),
+                "valences": list(sensemem.MEMORY_VALENCE)}).encode(),
+                "application/json")
         elif path == "/micro":
             # walk all the way back down: every micro-sequence, or one ask's
             aid = (qs.get("ask") or [""])[0]
@@ -1687,6 +1696,36 @@ class Handler(BaseHTTPRequestHandler):
             except Exception:
                 pass
             self._send(200, json.dumps(res, ensure_ascii=False).encode(),
+                       "application/json")
+            return
+        if self.path == "/senses/teach":
+            res = sensemem.teach(
+                SB_ROOT, str(data.get("word", "")),
+                str(data.get("his_reading", "")),
+                str(data.get("default_reading", "") or ""),
+                str(data.get("kind", "word_sense") or "word_sense"),
+                data.get("blocks_classes"), data.get("adds_facts"),
+                str(data.get("status") or sensemem.STATUS_USER),
+                str(data.get("note", "") or ""),
+                str(data.get("refuses", "") or ""))
+            if res.get("error"):
+                self._send(400, json.dumps(res).encode(), "application/json")
+                return
+            try:
+                ENGINE.memory.master_log({
+                    "event": "sense_writeback", "id": res["sense"]["id"],
+                    "word": res["sense"]["word"],
+                    "version": res["sense"]["version"]})
+            except Exception:
+                pass
+            self._send(200, json.dumps(res, ensure_ascii=False).encode(),
+                       "application/json")
+            return
+        if self.path == "/senses/reject":
+            res = sensemem.reject(SB_ROOT, str(data.get("id", "")),
+                                  str(data.get("note", "") or ""))
+            code = 400 if res.get("error") else 200
+            self._send(code, json.dumps(res, ensure_ascii=False).encode(),
                        "application/json")
             return
         if self.path == "/novelty/run":

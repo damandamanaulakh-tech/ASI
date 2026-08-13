@@ -246,6 +246,35 @@ function render(d){
   h+='<div class=sec><h2>Ultra-micro decomposition</h2><span class=n>'+(d.micro_sequences||[]).length+' sentence(s), each its own micro-sequence</span></div>';
   h+='<div class=blk>'+(d.micro_sequences||[]).map(microBlock).join('')+'</div>';
 
+  if((d.senses_fired||[]).length){
+    h+='<div class=sec><h2>Your corrections to the parse</h2><span class=n>'+
+      d.senses_fired.length+' fired &mdash; both readings kept, your sentence untouched</span></div>';
+    const seen={};
+    h+='<div class=blk>'+d.senses_fired.filter(o=>!seen[o.id]&&(seen[o.id]=1)).map(o=>
+      '<div class=ms><div class=raw>'+esc(o.word)+'</div>'+
+      kv([['SOURCE WORD',o.word],
+          ['DEFAULT LANGUAGE INTERPRETATION',o.default_reading],
+          ['YOUR CORRECTION',o.his_reading],
+          ['STATUS',o.status],
+          ['YOUR WORDS',o.his_words],
+          ['REFUSES',o.refuses],
+          ['blocked from the parse',(o.blocks_classes||[]).join(', ')],
+          ['facts it adds',(o.adds_facts||[]).join(', ')],
+          [o.id,'version '+o.version]])+'</div>').join('')+
+      '<div class=note>A first linguistic parse is a guess. These are the places you told it otherwise &mdash; and the machine\'s own reading is kept beside yours, never replaced silently.</div></div>';
+  }
+  const rr=(d.micro_sequences||[]).map(m=>m.return_reading).filter(x=>x&&x.dimensions)[0];
+  if(rr){
+    h+='<div class=sec><h2>Return, per dimension</h2><span class=n>&ldquo;nothing&rdquo; is never read literally without its dimension</span></div>';
+    h+='<div class=blk>'+kv(Object.entries(rr.dimensions).map(([k,v])=>[k,v]))+
+      '<div class=note style="margin-top:6px">'+esc(rr.rule)+'</div></div>';
+  }
+  const mr=(d.micro_sequences||[]).map(m=>m.memory_reading).filter(x=>x&&x.valence)[0];
+  if(mr){
+    h+='<div class=sec><h2>Memory &mdash; valence and significance, two fields</h2></div>';
+    h+='<div class=blk>'+kv([['VALENCE',mr.valence],['SIGNIFICANCE',mr.significance],
+      ['YOUR RULE',mr.his_rule],['NEVER',mr.never]])+'</div>';
+  }
   h+='<div class=sec><h2>Matched to existing IDs</h2><span class=n>the rubrics this ask touched</span></div>';
   const lit=d.rubrics_lit||{};
   h+='<div class=blk>'+kv([['SEG IDs',(lit.segments||[]).map(s=>s.id+' '+s.name).join('\n')],

@@ -76,7 +76,7 @@ Live on Render as a web app. All 8 SB stages implemented (Core Gate 6 lenses,
 Doubt/Falsifier/Witness, Evidence ladder, Dot-Connection/Merge, Synthetic Fuel,
 Risk/Embodied/Non-Resolution, output + weekly update), the RGL recursive loop, 95
 configured node brains, 3 memories (corpus/wisdom/live fact), multi-model
-(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (118 tests).
+(Claude/Grok/OpenAI), corpus ingest + persistent disk, CI green (124 tests).
 
 **A full audit ran 2026-08-12 (four read-only sweeps).** It produced a 20-item
 prioritized fix list; the honest finding is that the frame is real but much of the
@@ -146,6 +146,28 @@ editable fields, the answer last. **Item 20 is CLOSED by "3072 is the count"**
 write-back sequence. One occurrence can never become a pattern — a test exists
 whose only job is to prove that. **OPEN SEAM, surfaced not decided:** "rubric
 means paramters the 3000" against "Human Parameter ≠ Rubric"; nothing was moved.
+
+**HE CORRECTED THE PARSE ITSELF (2026-08-13) — `senses.py`.** His teaching is
+canon at `docs/method/canon/LEFT_AND_NOTHING_HIS_CORRECTION.md`: **"left" is not
+departure, it is what REMAINS with the person**; **"nothing" is not zero, it is
+zero MATERIAL return while the emotional/experiential return stays**; and
+**"Good or bad, memories are always emotional count for human"** — so valence is
+never a stand-in for value (`pleasantness ≠ importance`, `pain ≠ worthlessness`).
+`senses.py` is USER-DEFINED SEMANTIC CONTEXT, seeded with his four teachings in
+his own words. A sense actually changes the parse (`SENSE-001` blocks the
+`participation` class off "left", and the block is recorded), **both readings are
+always kept** so the screen shows what the machine would have thought, and the
+raw sentence is never altered. `return_reading()` grades all eight of his RETURN
+dimensions and an unstated one says *not stated*, never zero. `memory_reading()`
+returns valence and significance as TWO fields that never collapse. **He named a
+danger himself — "a person who gets nothing in return is automatically good" is a
+dangerous overgeneralization — and that refusal is stored ON the rule that could
+have produced it**, so it can never quietly grow into it. Edits are write-backs
+with NO REOPEN; a rejected sense is CLOSED, never deleted. `/senses`,
+`POST /senses/teach`, `POST /senses/reject`. **Left for him:** he pointed out his
+pattern is a LOOP, not a line (care → responsibility → action → moments → memory
+→ meaning → renewed responsibility); the pattern record is still an ordered
+chain, and making it cyclic waits on his word.
 
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding

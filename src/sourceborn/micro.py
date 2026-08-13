@@ -145,7 +145,7 @@ TIME_BEFORE = {"before", "beforehand", "in advance", "first", "already",
 TIME_AFTER = {"after", "then", "later", "afterwards", "afterward",
               "eventually", "finally", "in the end", "once"}
 REPEAT_WORDS = {"again", "always", "every time", "each time", "keeps",
-                "keep", "kept", "repeatedly", "constantly", "usually",
+                "keeps doing", "repeatedly", "constantly", "usually",
                 "often", "another time", "once more", "still", "never stops",
                 "second time", "third time", "as usual", "same thing"}
 UNCERTAIN_WORDS = {"maybe", "might", "may", "perhaps", "possibly", "seems",
@@ -181,13 +181,23 @@ F_BENEFIT_OTHER = "benefit:other_obtains_result"
 F_REPEAT_MARKED = "repeat:marked_by_him"
 F_UNCERTAIN = "state:uncertain"
 F_SELF_AFFECTED = "self:affected"
+# from HIS correction of "left" and "nothing" (senses.py) — a return has
+# dimensions, and what REMAINS is not the same as what departed
+F_RETURN_RESIDUAL = "return:residual"
+F_RETURN_MATERIAL_ABSENT = "return:material_absent"
+F_RETURN_EMOTIONAL = "return:emotional"
+F_GIVES_EFFORT = "gives:effort"
+F_DUTY_CONTINUES = "duty:continues"
+F_MEMORY_WEIGHTED = "memory:emotionally_weighted"
 
 # facts that carry a RELATION between people — a repeat needs at least one of
 # these, or two sentences about the same topic would look like a pattern.
 CORE_RELATION_FACTS = frozenset({
     F_DISCLOSURE_WITHHELD, F_RESOURCE_REQUESTED, F_RESOURCE_USED,
     F_PARTICIPATION_BEFORE, F_THIRD_PARTY, F_AGREEMENT_ABSENT,
-    F_EXPECTATION_BROKEN, F_ASYMMETRY_INFO, F_BENEFIT_OTHER})
+    F_EXPECTATION_BROKEN, F_ASYMMETRY_INFO, F_BENEFIT_OTHER,
+    F_RETURN_RESIDUAL, F_RETURN_MATERIAL_ABSENT, F_RETURN_EMOTIONAL,
+    F_GIVES_EFFORT, F_DUTY_CONTINUES})
 
 # what a structure CAN produce in a person. Held open — never chosen.
 EFFECTS_BY_FACT = {
@@ -202,6 +212,12 @@ EFFECTS_BY_FACT = {
     F_EXPECTATION_BROKEN: ["disappointment", "distrust"],
     F_BENEFIT_OTHER: ["feeling used", "one-sidedness"],
     F_REPEAT_MARKED: ["accumulated tiredness", "wearing down"],
+    # his teaching: what remains is emotional, and it counts either way
+    F_RETURN_RESIDUAL: ["meaning", "what remains after everything"],
+    F_RETURN_MATERIAL_ABSENT: ["unrewarded effort", "tiredness"],
+    F_RETURN_EMOTIONAL: ["attachment", "meaning", "emotional weight"],
+    F_GIVES_EFFORT: ["carrying it", "cost of care"],
+    F_DUTY_CONTINUES: ["responsibility that does not end", "weight"],
 }
 
 # what a structure MIGHT mean — every reading kept, none picked.
@@ -327,7 +343,8 @@ def _negation(sentence: str) -> list[str]:
 
 
 def decompose(sentence: str, ask_id: str = "", index: int = 0,
-              context: dict | None = None) -> dict:
+              context: dict | None = None,
+              sense_entries: list[dict] | None = None) -> dict:
     """One sentence → one micro-sequence, in HIS field names.
 
     CONTEXT is one of his named decomposition inputs, and it is load-bearing.
@@ -340,6 +357,19 @@ def decompose(sentence: str, ask_id: str = "", index: int = 0,
     Nothing here guesses intent and nothing here picks a feeling. Both are
     returned as open sets with a stated reason."""
     low = sentence.lower()
+    # HIS CORRECTIONS TO THE PARSE, applied before anything is concluded.
+    # "left" is not departure if he has said it means what REMAINS. Both
+    # readings are carried so the screen can show what the machine would have
+    # thought — the raw sentence is never altered.
+    fired: list[dict] = []
+    blocked: set[str] = set()
+    forced_facts: set[str] = set()
+    if sense_entries:
+        from . import senses as _senses
+        fired = _senses.applies_to(sentence, sense_entries)
+        for e in fired:
+            blocked.update(e.get("blocks_classes", []) or [])
+            forced_facts.update(e.get("adds_facts", []) or [])
     ents = _entities(sentence)
     inherited: list[dict] = []
     if context:
@@ -356,6 +386,12 @@ def decompose(sentence: str, ask_id: str = "", index: int = 0,
                               "side": "other", "kind": "inherited from context"})
         ents = ents + inherited
     acts = _actions(sentence)
+    if blocked:                      # his sense removes a wrong verb class
+        for a in acts:
+            kept = [c for c in a["classes"] if c not in blocked]
+            a["blocked_by_his_sense"] = [c for c in a["classes"]
+                                         if c in blocked]
+            a["classes"] = kept or ["general"]
     neg = _negation(sentence)
     info_obj, info_named_by = _information_object(sentence)
 
@@ -396,9 +432,11 @@ def decompose(sentence: str, ask_id: str = "", index: int = 0,
         facts.append(F_PARTICIPATION_BEFORE)
     # a third person put into my situation
     other_names = [e for e in ents if e["side"] == "other"]
-    if len(other_names) >= 2 and re.search(
-            r"\b(left|leave|leaving|another|someone|stranger|third|with me|"
-            r"in my|brought|bring)\b", low):
+    _tp = (r"\b(another|someone|stranger|third|with me|in my|brought|bring)\b"
+           if "participation" in blocked      # his sense killed the departure
+           else r"\b(left|leave|leaving|another|someone|stranger|third|"
+                r"with me|in my|brought|bring)\b")
+    if len(other_names) >= 2 and re.search(_tp, low):
         facts.append(F_THIRD_PARTY)
     if re.search(r"\b(without (my )?(asking|permission|consent|agreement)|"
                  r"never agreed|didn'?t agree|no agreement|without telling)\b", low):
@@ -415,6 +453,16 @@ def decompose(sentence: str, ask_id: str = "", index: int = 0,
         facts.append(F_UNCERTAIN)
     if has_self and (withheld or "resource" in classes or emo_clues):
         facts.append(F_SELF_AFFECTED)
+    # structure his teaching adds that no lexicon could have found
+    if re.search(r"\b(work\w*|car\w*|effort|time|protect\w*|give|gave|"
+                 r"giving|look after|raised|support\w*)\b", low) and has_other:
+        facts.append(F_GIVES_EFFORT)
+    if re.search(r"\b(keep them safe|keep them alive|still|continu\w*|"
+                 r"responsib\w*|duty|has to|have to|must)\b", low):
+        facts.append(F_DUTY_CONTINUES)
+    if re.search(r"\b(memor\w+|moment\w*)\b", low):
+        facts.append(F_MEMORY_WEIGHTED)
+    facts.extend(forced_facts)       # what HIS senses declare
     facts = sorted(set(facts))
 
     # --- INFORMATION STATE ------------------------------------------------
@@ -523,6 +571,12 @@ def decompose(sentence: str, ask_id: str = "", index: int = 0,
         "repeat_markers": repeats,
         # the addressing used to find prior similar events
         "inherited_from_context": inherited,
+        # HIS corrections that fired, with the default reading kept beside his
+        "semantic_overrides": fired,
+        "return_reading": (__import__("sourceborn.senses", fromlist=["x"])
+                           .return_reading(sentence, fired) if fired else {}),
+        "memory_reading": (__import__("sourceborn.senses", fromlist=["x"])
+                           .memory_reading(sentence, fired) if fired else {}),
         "structural_facts": facts,
         "signature": sig,
         "repetition_link": ("search prior micro-sequences sharing: "
@@ -555,6 +609,12 @@ def _contribution(facts: list[str]) -> str:
         named.append("unilateral expectation")
     if F_EXPECTATION_BROKEN in facts:
         named.append("expectation asymmetry")
+    if F_GIVES_EFFORT in facts and F_RETURN_MATERIAL_ABSENT in facts:
+        named.append("non-material return")
+    if F_RETURN_EMOTIONAL in facts or F_MEMORY_WEIGHTED in facts:
+        named.append("emotional accumulation")
+    if F_DUTY_CONTINUES in facts:
+        named.append("responsibility persistence")
     if F_ASYMMETRY_INFO in facts:
         named.append("information asymmetry")
     return "possible " + " + ".join(named) if named else \
@@ -584,7 +644,8 @@ def relates(a: dict, b: dict, min_overlap: int = 2) -> dict:
 
 
 def decompose_all(text: str, ask_id: str = "",
-                  context: dict | None = None) -> list[dict]:
+                  context: dict | None = None,
+                  sense_entries: list[dict] | None = None) -> list[dict]:
     """Every sentence in an ask becomes its own micro-sequence, with the
     participants carried forward as each sentence establishes them.
 
@@ -593,7 +654,7 @@ def decompose_all(text: str, ask_id: str = "",
     ctx = dict(context or {})
     out = []
     for i, s in enumerate(split_sentences(text)):
-        m = decompose(s, ask_id, i, ctx)
+        m = decompose(s, ask_id, i, ctx, sense_entries)
         out.append(m)
         for e in m["entities"]:
             if e["kind"] == "inherited from context":

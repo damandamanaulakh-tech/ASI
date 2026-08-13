@@ -2110,6 +2110,205 @@ def test_reading_page_and_pattern_routes_are_served_and_locked():
 
 
 
+def test_his_correction_of_left_and_nothing_changes_the_parse():
+    """His teaching, 2026-08-13: "left" is not departure, it is what REMAINS;
+    "nothing" is not zero, it is zero MATERIAL return. Filed in
+    docs/method/canon/LEFT_AND_NOTHING_HIS_CORRECTION.md."""
+    import tempfile
+    from sourceborn import micro, senses
+    root = tempfile.mkdtemp()
+    S = senses.active(root)
+    sent = ("A good person left with memories of their beloved and "
+            "responsibility keep them safe and alive")
+
+    # without his correction, "left" is a departure verb
+    plain = micro.decompose(sent, "Q", 0)
+    assert any(a["verb"] == "left" and "participation" in a["classes"]
+               for a in plain["actions"])
+
+    # with it, the departure reading is BLOCKED and both readings are kept
+    d = micro.decompose(sent, "Q", 0, {"self_established": True}, S)
+    left = next(a for a in d["actions"] if a["verb"] == "left")
+    assert "participation" not in left["classes"]
+    assert "participation" in left["blocked_by_his_sense"]
+    ids = {o["id"] for o in d["semantic_overrides"]}
+    assert "SENSE-001" in ids
+    o = next(o for o in d["semantic_overrides"] if o["id"] == "SENSE-001")
+    assert "departed" in o["default_reading"]          # what it WOULD have read
+    assert "remains with the person" in o["his_reading"]
+    assert o["status"] == senses.STATUS_USER
+
+    # the raw sentence is never altered
+    assert d["raw"] == sent
+
+    # his structure, found because he taught it
+    assert micro.F_RETURN_RESIDUAL in d["structural_facts"]
+    assert micro.F_DUTY_CONTINUES in d["structural_facts"]
+    assert micro.F_MEMORY_WEIGHTED in d["structural_facts"]
+    assert "emotional accumulation" in d["pattern_contribution"]
+    assert "responsibility persistence" in d["pattern_contribution"]
+    # and the false readings his correction removes
+    assert micro.F_THIRD_PARTY not in d["structural_facts"]
+    assert micro.F_REPEAT_MARKED not in d["structural_facts"]
+
+
+def test_nothing_is_never_read_as_zero_overall():
+    """His rule: "'nothing' itself must not be interpreted literally without
+    its dimension." An unstated dimension says unstated, never zero."""
+    import tempfile
+    from sourceborn import micro, senses
+    root = tempfile.mkdtemp()
+    S = senses.active(root)
+    d = micro.decompose("He worked for them and got nothing, only memories "
+                        "and moments.", "Q", 0, {"self_established": True}, S)
+    rr = d["return_reading"]["dimensions"]
+    assert "near zero" in rr["material"]
+    assert "does NOT mean zero overall" in rr["material"]
+    assert rr["emotional"] == "present"
+    assert rr["memory"] == "present"
+    assert rr["experiential"] == "present"
+    # dimensions he did not speak to are UNSTATED, not zero
+    assert rr["practical"] == "not stated"
+    assert set(rr) == set(senses.RETURN_DIMENSIONS)
+
+
+def test_memory_valence_is_never_used_as_value():
+    """His rule: "Good or bad, memories are always emotional count for human."
+    pleasantness != importance; pain != worthlessness."""
+    import tempfile
+    from sourceborn import micro, senses
+    root = tempfile.mkdtemp()
+    S = senses.active(root)
+    for text, want in (
+            ("I keep the good memories of her.", "positive"),
+            ("Only painful memories are left of that time.", "negative"),
+            ("The memories are still with me.", "unknown")):
+        d = micro.decompose(text, "Q", 0, {"self_established": True}, S)
+        mr = d["memory_reading"]
+        assert mr, text
+        assert mr["valence"] == want, (text, mr["valence"])
+        # significance NEVER varies with valence — that is the whole rule
+        assert mr["significance"] == \
+            "emotionally weighted regardless of valence"
+        assert "pain ≠ worthlessness" in mr["never"]
+
+
+def test_he_refuses_the_overgeneralisation_himself_and_it_is_recorded():
+    """He named the danger: "A person who gets nothing in return is
+    automatically good. That would be a dangerous overgeneralization." The
+    refusal lives ON the rule that could have produced it."""
+    import tempfile
+    from sourceborn import senses
+    root = tempfile.mkdtemp()
+    good = next(e for e in senses.active(root) if e["word"] == "good person")
+    assert good["status"] == senses.STATUS_REVIEW      # not fact yet
+    assert "NOT automatically good" in good["refuses"]
+    assert "dangerous overgeneralization" in good["refuses"]
+    assert "behavioural structure" in good["his_reading"]
+    mem = next(e for e in senses.active(root) if e["word"] == "memory")
+    assert "SEPARATELY from" in mem["his_reading"]
+    assert senses.stats(root)["with_refusal"] >= 2
+
+
+def test_teaching_a_sense_writes_back_and_never_reopens():
+    import tempfile
+    from sourceborn import senses
+    root = tempfile.mkdtemp()
+    r = senses.teach(root, "carry", "to hold responsibility over time, not to "
+                     "physically lift", "to physically lift something",
+                     note="his words")
+    assert r["ok"] and r["sense"]["version"] == 1
+    r2 = senses.teach(root, "carry", "to hold responsibility AND the cost of it",
+                      note="refined")
+    s = r2["sense"]
+    assert s["version"] == 2
+    assert len(s["history"]) == 1
+    assert s["history"][0]["snapshot"]["his_reading"].endswith("physically lift")
+    assert r2["writeback"]["acted_on_version"] == 1
+    assert r2["writeback"]["new_version"] == 2
+    assert senses.writebacks(root)[-1]["word"] == "carry"
+
+    # rejection CLOSES, never deletes
+    rj = senses.reject(root, s["id"], note="wrong after all")
+    assert rj["sense"]["status"] == "REJECTED BY HIM"
+    assert rj["sense"]["reject_note"] == "wrong after all"
+    assert any(e["id"] == s["id"] for e in senses.load(root))     # still there
+    assert not any(e["id"] == s["id"] for e in senses.active(root))
+
+    assert senses.teach(root, "", "x")["error"]
+    assert senses.teach(root, "x", "")["error"]
+    assert senses.teach(root, "x", "y", kind="nope")["error"]
+    assert senses.reject(root, "SENSE-999")["error"]
+
+
+def test_senses_routes_serve_and_teach_over_http():
+    import base64
+    import json
+    import threading
+    import urllib.error
+    import urllib.request
+    from sourceborn import server
+
+    eng = _engine()
+    old = (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+           server.SB_ACCESS_PASS)
+    server.ENGINE, server.SB_ROOT = eng, eng.memory.root
+    server.SB_ACCESS_USER, server.SB_ACCESS_PASS = "him", "letmein"
+    httpd = server.ThreadingHTTPServer(("127.0.0.1", 0), server.Handler)
+    threading.Thread(target=httpd.serve_forever, daemon=True).start()
+    base = "http://127.0.0.1:%d" % httpd.server_address[1]
+
+    def req(p, body=None, auth=True):
+        r = urllib.request.Request(
+            base + p, data=json.dumps(body).encode() if body is not None else None,
+            headers={"content-type": "application/json"} if body is not None else {})
+        if auth:
+            r.add_header("Authorization", "Basic " +
+                         base64.b64encode(b"him:letmein").decode())
+        try:
+            with urllib.request.urlopen(r, timeout=30) as resp:
+                return resp.status, resp.read()
+        except urllib.error.HTTPError as e:
+            return e.code, e.read()
+
+    try:
+        assert req("/senses", auth=False)[0] == 401
+        assert "/senses" not in server.OPEN_PATHS
+        code, body = req("/senses")
+        assert code == 200
+        d = json.loads(body)
+        assert len(d["senses"]) >= 4
+        assert d["stats"]["with_refusal"] >= 2
+        assert len(d["return_dimensions"]) == 8
+
+        code, body = req("/senses/teach",
+                         {"word": "left", "his_reading": "what remains, and "
+                          "the weight that stays with it",
+                          "note": "sharpened"})
+        assert code == 200
+        assert json.loads(body)["sense"]["version"] == 2   # write-back, not new
+        assert req("/senses/teach", {"word": "", "his_reading": "x"})[0] == 400
+
+        # and the reading now shows his corrections
+        code, body = req("/reading/ask", {"question": "A good person left with "
+                                          "memories of their beloved."})
+        assert code == 200
+        r = json.loads(body)
+        assert r["senses_fired"], "his corrections must appear in the reading"
+        assert any(o["id"] == "SENSE-001" for o in r["senses_fired"])
+        assert r["senses"]["senses"] >= 4
+
+        code, page = req("/reading")
+        assert b"DEFAULT LANGUAGE INTERPRETATION" in page
+        assert b"YOUR CORRECTION" in page
+    finally:
+        httpd.shutdown()
+        httpd.server_close()
+        (server.ENGINE, server.SB_ROOT, server.SB_ACCESS_USER,
+         server.SB_ACCESS_PASS) = old
+
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

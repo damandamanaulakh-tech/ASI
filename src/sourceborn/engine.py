@@ -577,7 +577,7 @@ class SourcebornEngine:
 
         The pattern layer never decides intent and never picks his feeling.
         Everything it produces is a candidate for him."""
-        from . import ladder, micro, patterns, router
+        from . import ladder, micro, patterns, router, senses
         root = self.memory.root
         aid = ask_id or ("Q-" + str(abs(hash(raw_text)) % 10 ** 8))
 
@@ -585,7 +585,8 @@ class SourcebornEngine:
         #     sentence in a long conversation does not lose who it is about
         prior = patterns.load_micro(root, limit=thread)
         ctx = micro.context_from(prior)
-        seqs = micro.decompose_all(raw_text, aid, ctx)
+        sense_entries = senses.active(root)
+        seqs = micro.decompose_all(raw_text, aid, ctx, sense_entries)
 
         # 2 · COMPARE WITH PRIOR SEQUENCES — before storing, so "prior" means
         #     prior and this ask cannot corroborate itself
@@ -629,6 +630,9 @@ class SourcebornEngine:
         walk = self.run_walk(run_text, model=model)
 
         return {"ask": aid, "raw": raw_text,
+                "senses_fired": [o for m in seqs
+                                 for o in m.get("semantic_overrides", [])],
+                "senses": senses.stats(root),
                 "micro_sequences": seqs, "stored": stored,
                 "relations_to_prior": rel,
                 "pattern_hits": hits, "contradictions": against,
