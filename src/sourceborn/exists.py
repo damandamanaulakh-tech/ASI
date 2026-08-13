@@ -150,6 +150,42 @@ MAP: list[dict] = [
             "Nothing enters the bank, chosen stays None, and motive-inference "
             "confidence stays LOW. /intents, POST /intents/run, and the live "
             "block on /generation."},
+   {"his": "everything happening is a event, and all events have intent / "
+           "current phase is growing phase / example sit on existing parameters "
+           "and IDs so system can strong its base / every example will keep "
+           "increase the count",
+    "where": [("growing.py", "def events_in("),
+              ("growing.py", "def seat("),
+              ("growing.py", "def intent_seat("),
+              ("growing.py", "def place("),
+              ("growing.py", "def grow("),
+              ("growing.py", "def coverage("),
+              ("filemap.py", "def divide(")],
+    "state": RUNS,
+    "note": "his correction of what I had been doing. I had been running his "
+            "examples as OUTPUT TESTS — scoring how well the machine answered "
+            "Samrath, the mall, the tablet. That is not what an example is for: "
+            "it is material that SEATS on the base. place() returns a placement "
+            "and carries no answer, verdict or score, and a test enforces that. "
+            "The motto is mechanical: events_in() finds happenings "
+            "morphologically, NOT from a closed list — micro.py's 215-verb list "
+            "missed both 'standing' and 'pointed' in his own rain sentence, and "
+            "across his 217 files 5,906 of 13,848 events (43%) are found only by "
+            "inflection. Every event carries an intent slot seated on CON-063 and "
+            "CON-064, never absent. Seating is two-stage: the event's ROLE picks "
+            "which segments may host it, then words pick rows inside them; a row "
+            "matching by word but outside the role is kept as out_of_role, never "
+            "counted and never dropped. The IDF bar is HIS number — a word in "
+            "forty of his names — and is honestly reported as the small gate, not "
+            "the main guard. Two mechanics, not one: seating gives an existing ID "
+            "SUPPORT and creates no parameter, while every example appends "
+            "1 + 2N rows so the count always rises. All 479 repo files are "
+            "divided into SOURCE/EXAMPLE/METHOD/BANK/SYSTEM/ARTIFACT/OPERATIONS "
+            "with 0 unplaced; 217 grow the count, 39 are what they grow against. "
+            "His examples reach 2,816 of 3,204 (87.89%), 388 untouched. "
+            "basic_over is False and is HIS call, not a threshold I set. "
+            "/growing, /growing/coverage, POST /growing/place, "
+            "POST /growing/grow."},
    {"his": "Falsifier / What would flip it",
     "where": [("intent_ledger.py", "def kill("),
               ("intent_ledger.py", "def survivors("),

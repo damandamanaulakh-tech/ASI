@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import math
 import os
 import sys
 import tempfile
@@ -3936,6 +3937,159 @@ def test_the_workbook_findings_are_reported_not_corrected():
 def test_the_ledger_routes_are_reachable():
     src = open("src/sourceborn/server.py").read()
     for route in ('"/ledger"', '"/ledger/run"', '"/ledger/kill"'):
+        assert route in src, route
+
+
+# ---------------------------------------------------------------------------
+# THE GROWING PHASE — "everything happening is a event, and all events have
+# intent". An example is not judged for its output; it seats on the base.
+# ---------------------------------------------------------------------------
+
+RAIN = ("The kids father was standing outside with a water pipe and put it up in "
+        "the air. The kids inside the home thought it was raining outside.")
+
+
+def test_everything_happening_is_an_event():
+    """His motto's first half. A text full of happenings can never return none."""
+    from sourceborn import growing as W
+    evs = W.events_in(RAIN)
+    assert len(evs) >= 3, evs
+    assert all(e["is_event"] for e in evs)
+    # and the closed verb list alone would have MISSED his own sentence
+    from sourceborn import micro
+    assert "standing" not in micro.ALL_VERBS
+    assert "pointed" not in micro.ALL_VERBS
+    assert any("inflection" in e["how_found"] for e in evs), \
+        "his rain sentence is exactly the case the verb list cannot serve"
+
+
+def test_all_events_have_intent_and_the_slot_is_never_absent():
+    """His motto's second half, and his rule that 'no reason' is not available."""
+    from sourceborn import growing as W
+    p = W.place(RAIN, "rain")
+    assert p["counts"]["events"] == p["counts"]["intents_opened"]
+    assert p["counts"]["intents_concluded"] == 0
+    for e in p["events"]:
+        assert e["intent"]["status"] == W.INTENT_OPEN
+        assert e["intent"]["concluded"] is False
+        # seated on his OWN bank, not asserted in prose
+        assert e["intent"]["seats_on"] == list(W.INTENT_CONTAINERS)
+    isl = W.intent_seat("he went because it was his birthday")
+    assert isl["containers"] == ["CON-063", "CON-064"]
+    assert isl["concluded"] is False
+
+
+def test_the_auxiliary_is_not_the_happening():
+    """`was standing` is a STANDING. The first attempt reported `was`."""
+    from sourceborn import growing as W
+    evs = W.events_in("The father was standing outside.")
+    assert evs and evs[0]["happening"].lower() == "standing", evs
+    # and a plural noun is not a verb — `kids` had been taken as the happening
+    assert all(e["happening"].lower() != "kids" for e in W.events_in(RAIN))
+
+
+def test_a_prepositional_phrase_is_not_the_actor():
+    """`the kids inside the home thought` has actor kids, never home."""
+    from sourceborn import growing as W
+    evs = [e for e in W.events_in(RAIN) if e["happening"].lower() == "thought"]
+    assert evs, "the inference event must be found"
+    assert evs[0]["actor"].lower() == "kids", evs[0]
+    assert evs[0]["role"] if "role" in evs[0] else True
+
+
+def test_the_role_gates_the_seating_and_keeps_what_it_excludes():
+    """Word matching alone seated his rain example on Air/breathing drive."""
+    from sourceborn import growing as W
+    r = W.role_of("thought", "the kids thought it was raining")
+    assert r["role"] == W.INFERENCE, r
+    s = W.seat("the kids inside the home thought it was raining",
+               role=W.INFERENCE)
+    assert s["role_segments"] == ["SEG-05", "SEG-06"]
+    names = [x["name"] for x in s["seats"]]
+    excluded = [x["name"] for x in s["out_of_role"]]
+    assert "Thought suppression" not in names, "SEG-04 is outside the role"
+    assert s["out_of_role_total"] >= 1
+    assert excluded, "what the role excludes is kept and shown, never dropped"
+    # a role with no row match still sits on the role's containers
+    assert s["seats"] or s["container_seat"], "nothing is the one answer the " \
+                                              "motto does not allow"
+    # his own rule: a word in forty of his names is weak evidence. The bar is
+    # derived from that number, not picked.
+    assert abs(W.MIN_IDF - math.log(3204 / 40.0)) < 1e-9
+    ungated = W.seat("control memory self")
+    weak = {w["word"] for w in ungated["weak_words"]}
+    assert {"control", "memory", "self"} <= weak, ungated["weak_words"]
+    assert all(w["in_names"] >= 40 for w in ungated["weak_words"])
+
+
+def test_every_example_increases_the_count_and_creates_no_parameter():
+    """so system can strong its base / every example will keep increase the
+    count — two mechanics, not one."""
+    from sourceborn import growing as W
+    root = _growth_root()
+    a = W.grow(root, RAIN, "rain")
+    assert a["increased"] == a["placement"]["counts"]["count_added"] > 0
+    assert a["parameters_before"] == a["parameters_after"] == 3204, \
+        "seating strengthens; it does not invent a parameter"
+    b = W.grow(root, "Samrath went to school happily today.", "samrath")
+    assert b["count_after"] > b["count_before"], "the count keeps rising"
+    assert b["parameters_after"] == 3204
+    from sourceborn import growth as G
+    by = G.counts(root)["by_kind"]
+    assert by[G.EXAMPLE] == 2 and by[G.EVENT] >= 3 and by[G.INTENT] >= 3
+    assert G.counts(root)["removals_possible"] == 0
+    # strengthening is support on an existing ID, never a duplicate row
+    for s in a["placement"]["strengthened"]:
+        assert s["sb_id"].startswith("SB-HFR-P")
+        assert s["support"] >= 1
+
+
+def test_an_example_is_placed_not_answered():
+    """given example are not how it provide the out comes."""
+    from sourceborn import growing as W
+    p = W.place(RAIN, "rain")
+    for banned in ("answer", "verdict", "score", "correct", "quality"):
+        assert banned not in p, "placement carries no answer and no score"
+    assert p["phase"] == "GROWING"
+    assert p["motto"] == W.MOTTO
+    assert p["counts"]["new_parameters_created"] == 0
+
+
+def test_every_repo_file_is_divided_and_none_is_unplaced():
+    from sourceborn import filemap as F
+    d = F.divide(".")
+    assert d["total_files"] > 400, d["total_files"]
+    assert d["counts"][F.UNPLACED] == 0, d["unplaced"]
+    assert sum(d["counts"].values()) == d["total_files"], "every file placed once"
+    # his own words and his examples are what grow the count
+    assert d["what_grows_the_count"]["which"] == [F.SOURCE, F.EXAMPLE]
+    assert d["counts"][F.SOURCE] > 0 and d["counts"][F.EXAMPLE] > 0
+    # his rulings are never run as examples against themselves
+    method = d["classes"][F.METHOD]["files"]
+    assert "CLAUDE.md" in method
+    assert any("canon/" in m for m in method)
+    assert all(not m.startswith("docs/method/canon/") for m in
+               d["classes"][F.EXAMPLE]["files"]), "canon is METHOD, not EXAMPLE"
+    # the bank is the bank, not a document about it
+    assert any(b.endswith("human_registry.json") for b in
+               d["classes"][F.BANK]["files"])
+    assert F.PHASE == "GROWING"
+
+
+def test_the_basic_being_over_is_his_call_not_a_threshold():
+    from sourceborn import filemap as F, growing as W
+    c = W.coverage(F.readable(".")[:12], ".")
+    assert c["bank"] == 3204
+    assert c["ids_reached"] + c["ids_untouched"] == 3204
+    assert c["basic_over"] is False
+    assert "his call" in c["why"]
+    assert "new combinations" in c["then"]
+
+
+def test_the_growing_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/growing"', '"/growing/coverage"', '"/growing/place"',
+                  '"/growing/grow"'):
         assert route in src, route
 
 

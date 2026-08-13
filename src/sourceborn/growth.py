@@ -67,6 +67,8 @@ OBJECTIVE = "OBJECTIVE"
 EVENT = "EVENT"
 INTENT_ROUTE = "INTENT_ROUTE"
 ADDRESS = "ADDRESS"              # container x state — a real generated thing
+EXAMPLE = "EXAMPLE"              # his material, placed on the base
+INTENT = "INTENT"                # the intent slot of one event — open, not solved
 
 SERIES = {
     PARAM: "SB-HFR-P%04d",
@@ -81,6 +83,8 @@ SERIES = {
     EVENT: "SB-EVENT-%03d",
     INTENT_ROUTE: "SB-ROUTE-%04d",
     ADDRESS: "SB-ADDR-%04d",
+    EXAMPLE: "SB-EX-%05d",
+    INTENT: "SB-INT-%05d",
 }
 
 

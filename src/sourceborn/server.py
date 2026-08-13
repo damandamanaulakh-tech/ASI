@@ -39,7 +39,7 @@ from . import asi_pyramid
 from . import asipage
 from . import generationpage
 from . import growth
-from . import intent_ledger, intents
+from . import filemap, growing, intent_ledger, intents
 from . import statepacks
 from . import weighting
 from . import enginepage
@@ -1383,6 +1383,19 @@ class Handler(BaseHTTPRequestHandler):
                  "links": {k: v["reachable_from"]
                            for k, v in intents.motive_links().items()}}).encode(),
                 "application/json")
+        elif path == "/growing":
+            # the growing phase: every file divided by what it does to the base,
+            # and the motto made mechanical
+            self._send(200, json.dumps(
+                {"stats": growing.stats(),
+                 "divide": filemap.divide("."),
+                 "motto": growing.MOTTO}).encode(),
+                "application/json")
+        elif path == "/growing/coverage":
+            # how much of his 3,204 his own examples reach. His "basic".
+            paths = filemap.readable(".")
+            self._send(200, json.dumps(growing.coverage(paths, ".")).encode(),
+                       "application/json")
         elif path == "/ledger":
             # his LIVE_INTENT_ENGINE + INTENT_LEDGER: one event, ten states, ten
             # falsifiers, nothing chosen — and the workbook audit beside it
@@ -1802,6 +1815,29 @@ class Handler(BaseHTTPRequestHandler):
                 conditional=bool(data.get("conditional")),
                 conflict=bool(data.get("conflict")))
             self._send(200, json.dumps(res).encode(), "application/json")
+            return
+        if self.path == "/growing/place":
+            # place one example. There is no answer here — only where it sits.
+            text = (data.get("text") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "no text"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(growing.place(
+                text, (data.get("name") or "").strip())).encode(),
+                "application/json")
+            return
+        if self.path == "/growing/grow":
+            # place it AND raise the count. Appends only.
+            text = (data.get("text") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "no text"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(growing.grow(
+                SB_ROOT, text, (data.get("name") or "").strip(),
+                (data.get("surfaced_by") or "").strip())).encode(),
+                "application/json")
             return
         if self.path == "/ledger/run":
             # his ten candidates, gated. `verdicts` is optional: with none handed

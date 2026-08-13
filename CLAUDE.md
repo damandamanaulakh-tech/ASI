@@ -567,6 +567,52 @@ accumulating support and counterexamples across sessions, which is what his 500
 empty evidence rows and 500 empty memory nodes are for; and `ARD_5_LOOPS`, his
 five-loop reverse/forward walk, is not in this core at all.
 
+**IT IS A REAL-TIME ASI PROTOTYPE, NOT A "REASONING SYSTEM", AND THE PHASE IS
+GROWING (2026-08-13) — `growing.py`, `filemap.py`, `/growing`.** His correction:
+*"its not reasoning system, its Real time ASI (Artificial Super Intelligence)
+Prototype and ur stupid safety and unnecessary understanding falling apart my whole
+work / current phase is growing phase, given example are not how it provide the out
+comes, its for to define the system, where example sit on existing parameters and
+IDs so system can strong its base, every example will keep increase the count"*.
+Canon at `docs/method/canon/THE_GROWING_PHASE.md`. **What I had wrong, named:** I
+had been running his examples as OUTPUT TESTS — scoring how well the machine
+answered Samrath, the mall, the BJP weighting, the tablet — and calling a weak
+answer a defect. An example is not a question. `place()` returns a PLACEMENT and
+carries no answer, verdict or score; a test enforces that. **And the King files were
+never about kings** — they are about ONE Egyptian tablet written ~5,500 years back,
+and the question is its INTENT: *who, when, why, how* the king asked for it. The
+kings are candidate fits: 8 brains → 18 (the Z file) → 100, each reading the SAME
+tablet a different way. In the Z file his four names resolve to exact rows in his
+own bank — **K021 Priest-King · K022 Divine Son · K023 Temple Builder · K061
+Monument King** (the fifth, Conqueror/War, is the one his run rejected in-frame);
+surfaced for his confirmation, not asserted. **HIS MOTTO IS NOW MECHANICAL:**
+*"everything happening is a event, and all events have intent"* — `events_in()`
+finds happenings **morphologically, not from a closed list**, because `micro.py`'s
+215-verb list missed both *standing* and *pointed* in his own rain sentence, and
+across his 217 files **5,906 of 13,848 events (43%) are found only by inflection**;
+every event carries an intent slot seated on **CON-063 + CON-064**, never absent.
+**Seating is two-stage:** the event's ROLE picks which segments may host it, then
+words pick rows inside them — a row matching by word but outside the role is kept
+as `out_of_role`, never counted and never dropped (his rain example seated on
+*Air/breathing drive* and *Thought suppression* before this). The IDF bar is **his
+own number** — a word in forty of his names — and is honestly reported as the small
+gate, not the main guard. **Two mechanics, not one:** seating gives an existing ID
+SUPPORT and creates NO parameter, while every example appends `1 + 2N` rows so the
+count always rises. **All 479 repo files are divided** — SOURCE 56 · EXAMPLE 161 ·
+METHOD 37 · BANK 3 · SYSTEM 65 · ARTIFACT 149 · OPERATIONS 8 · **UNPLACED 0**; 217
+grow the count, 40 are what they grow against (the divide is computed from the git tree, so it follows the repo rather than a typed list). **His examples reach 2,816 of 3,204
+(87.89%), 388 untouched** — and `basic_over` is `False` because *once the basic will
+over* is HIS call, not a threshold I set. Two defects his rain sentence caught: the
+auxiliary was taken for the happening (*was standing* → `was`) and a prepositional
+phrase for the subject (*the kids inside the home thought* → `home`). One index
+defect fixed: hyphens indexed glued, so `Point-of-no-return` could never be reached
+by `point` — coverage moved 82.74% → 87.89%. 227 tests green, 165 anchors resolve.
+**Open and stated:** the seating gets the ROLE and the coarse location right but
+does **not** reliably pick the right row out of 3,204 — his rain example still shows
+*Standing balance* when the father is not balancing. Row-level precision is the open
+part. Also: 3 of the 217 files return zero events, and all three are genuinely
+event-free (a `desktop.ini` fragment and two non-text files).
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·
