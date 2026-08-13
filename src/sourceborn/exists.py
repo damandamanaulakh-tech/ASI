@@ -186,6 +186,39 @@ MAP: list[dict] = [
             "basic_over is False and is HIS call, not a threshold I set. "
             "/growing, /growing/coverage, POST /growing/place, "
             "POST /growing/grow."},
+   {"his": "ur own old docs / hope adding more",
+    "where": [("subjectbrains.py", "CANDIDATES = ("),
+              ("subjectbrains.py", "HALTS = ("),
+              ("subjectbrains.py", "def version_gap("),
+              ("subjectbrains.py", "def rerun_tally("),
+              ("growing.py", "def registry_echo(")],
+    "state": RUNS,
+    "note": "his platform superimposed on Riemann and Einstein — my own earlier "
+            "builds, handed back. They carry 25 parameter candidates "
+            "(R-01..R-11, E-01..E-10, X-01..X-04), 14 halts addressed to him of "
+            "which NOT ONE was ever answered, and his own anti-pleasing tally "
+            "(17 of 45 rows disagree, so it is not flattery). Placed, not "
+            "answered. THE VERSION GAP IS SURFACED NOT CLOSED: both workbooks are "
+            "built on 2,560 and the registry now holds 3,204, with different "
+            "names (Temperature balance vs Core temperature setpoint), and the "
+            "workbook itself warns that 2561-2590 are already spent in the King "
+            "runs — so the 25 are CANDIDATE rows, never PARAM rows, and the bank "
+            "stays at 3,207. TWO DEFECTS THEY EXPOSED: (1) the Einstein file "
+            "contains a full 2,560 atom expansion, so placing it whole seated a "
+            "TAXONOMY ON A TAXONOMY — 1,086 ids reached with top hits "
+            "Load-force coupling and Agonist activation, none of which is about "
+            "Einstein; registry_echo() now catches parameter-list rows by SHAPE "
+            "and place() excludes them, 489,688 chars down to 74,037 and the "
+            "seats become Stopping-rule, Pattern abstraction, Rule extraction. "
+            "(2) his rule-7 gate semantic_loss() matched bare SUBSTRINGS, so "
+            "'productive' hit Reproductive-hormone signalling and it declared all "
+            "25 expressible on noise; it now uses whole words, split hyphens and "
+            "his forty-names bar, and R-09 Presupposition-salience correctly "
+            "lands on P2129 Presupposition handling. ANSWER TO 'hope adding "
+            "more': generation 2,200 -> 2,261, 61 new steps, 0 new arrangements "
+            "and 61 new COMBINATIONS — INFERENCE x SPEECH, OBSERVATION x SPEECH, "
+            "INFERENCE x OBSERVATION, the reasoning pairs his ACTION-heavy corpus "
+            "was thin on. /subjects, POST /subjects/grow."},
    {"his": "u got some intent from files / now make algorithm which can make "
            "itself",
     "where": [("selfmake.py", "def steps("),

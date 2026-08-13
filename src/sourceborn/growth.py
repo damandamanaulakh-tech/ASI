@@ -69,6 +69,8 @@ INTENT_ROUTE = "INTENT_ROUTE"
 ADDRESS = "ADDRESS"              # container x state — a real generated thing
 EXAMPLE = "EXAMPLE"              # his material, placed on the base
 STEP = "STEP"                    # a step the algorithm wrote for itself
+CANDIDATE = "CANDIDATE"          # a proposed parameter, not yet one
+HALT = "HALT"                    # a decision standing open, addressed to him
 INTENT = "INTENT"                # the intent slot of one event — open, not solved
 
 SERIES = {
@@ -86,6 +88,8 @@ SERIES = {
     ADDRESS: "SB-ADDR-%04d",
     EXAMPLE: "SB-EX-%05d",
     STEP: "SB-STEP-%04d",
+    CANDIDATE: "SB-CAND-%04d",
+    HALT: "SB-HALT-%04d",
     INTENT: "SB-INT-%05d",
 }
 

@@ -577,29 +577,40 @@ def semantic_loss(text: str, failures: int = 1) -> dict:
     A new parameter/rubric candidate opens when existing vocabulary REPEATEDLY
     cannot express the live intent without semantic loss. So two things are
     checked, not one: whether the registry has words for it at all, and whether
-    the attempt has failed more than once."""
-    words = [w for w in (text or "").lower().replace("/", " ").split()
-             if len(w) > 4]
-    hits = []
-    for c in hr.containers():
-        for j, s in enumerate(c["subs"], 1):
-            low = s.lower()
-            for w in words:
-                if w in low:
-                    hits.append({"p": "%s%04d" % (REGISTRY_NS,
-                                                  flat_of(c["id"], j)),
-                                 "name": s, "container": c["id"], "on": w})
-                    break
-            if len(hits) >= 8:
-                break
-        if len(hits) >= 8:
-            break
+    the attempt has failed more than once.
+
+    THE FIRST VERSION OF THIS FUNCTION WAS WORTHLESS AND THE FAILURE IS ON THE
+    RECORD. It matched any word over four letters as a bare SUBSTRING, with no
+    word boundaries, no IDF and no minimum evidence — so `productive` matched
+    **Re**productive-hormone signalling, `personal` matched Peri**personal**-space
+    touch, and `protective` matched Guarding/**protective** posture. Run over the
+    25 candidates in the Einstein and Riemann brain workbooks it declared **all 25
+    already expressible** and opened nothing, entirely on noise. A gate that
+    always says no is not a gate.
+
+    It now uses the same index the seating uses: hyphens split, whole words only,
+    and his own bar — a word in forty of his names is not evidence. A row must
+    also carry real weight (his STRONG band, a word in five names or fewer, or two
+    qualifying words meeting on the same row) before it counts as carrying the
+    meaning. Everything below that is reported as `weak_matches` so a bad match is
+    visible rather than decisive."""
+    from . import growing as _g
+    s = _g.seat(text, limit=12)
+    strong = [x for x in s["seats"]
+              if x["band"] == "STRONG" or len(x["on"]) >= 2]
+    weak = [x for x in s["seats"] if x not in strong]
+    hits = [{"p": x["sb_id"], "name": x["name"], "container": x["container"],
+             "on": x["on"], "weight": x["weight"], "band": x["band"]}
+            for x in strong[:8]]
     expressible = bool(hits)
     repeated = failures >= 2
     return {
         "text": text,
         "expressible_in_existing_vocabulary": expressible,
         "matched_rows": hits,
+        "weak_matches": [{"p": x["sb_id"], "name": x["name"], "on": x["on"],
+                          "weight": x["weight"]} for x in weak[:6]],
+        "words_too_common_to_be_evidence": s["weak_words"][:6],
         "failures": failures,
         "repeated": repeated,
         "opens_parameter_candidate": (not expressible) and repeated,
@@ -609,6 +620,9 @@ def semantic_loss(text: str, failures: int = 1) -> dict:
                       if repeated else
                       "no existing row carries it, but it has failed only once. "
                       "His rule says REPEATEDLY. Not yet.")),
+        "how_matched": "whole words only, hyphens split, and a word in forty of "
+                       "his names is not evidence. A row needs his STRONG band or "
+                       "two qualifying words to count.",
         "rule": CONTRACT[6]["action"],
     }
 

@@ -646,6 +646,43 @@ coarse and said plainly:** only **1** self-written step fires on his rain exampl
 because that example seats on just 2 IDs — the self-extension is sound, the
 row-level seating it depends on is still the open part.
 
+**THE SUBJECT BRAINS — RIEMANN AND EINSTEIN (2026-08-13) — `subjectbrains.py`,
+`/subjects`.** *"ur own old docs / hope adding more"* — my own earlier builds
+handed back: his 10/80/2,560 platform superimposed on two real lives. Canon at
+`docs/method/canon/THE_SUBJECT_BRAINS.md`. They carry **25 parameter candidates**
+(R-01..R-11 · E-01..E-10 · X-01..X-04), **14 halts addressed to him of which NOT
+ONE was ever answered**, and his own anti-pleasing tally (**17 of 45** rows
+disagree, so it is not flattery). Placed, not answered — the growing-phase rule.
+**The version gap is surfaced, not closed:** the workbooks are built on **2,560**
+and the registry now holds **3,204**, with different names (*Temperature balance*
+vs *Core temperature setpoint*), and the workbook itself warns that **2561–2590 are
+already spent in the King runs** — so all 25 are `CANDIDATE` rows, never `PARAM`
+rows, and the bank stays at **3,207**. **TWO DEFECTS THEY EXPOSED, both mine:**
+**(1)** the Einstein file contains a full 2,560 atom expansion, so placing it whole
+seated **a taxonomy on a taxonomy** — 1,086 ids "reached", top hits *Load-force
+coupling* / *Agonist activation*, none of which is about Einstein;
+`registry_echo()` now catches parameter-list rows **by shape** (the older names
+differ, so name-matching could not see it) and `place()` excludes them —
+**489,688 chars → 74,037**, and the seats become *Stopping-rule (enough evidence)*,
+*Pattern abstraction*, *Rule extraction*. **(2)** his rule-7 gate
+`semantic_loss()` matched bare **substrings**, so *productive* hit
+**Re**productive-hormone signalling and it declared **all 25 already expressible**
+on pure noise — a gate that always says no. It now uses whole words, split hyphens
+and his forty-names bar, and **R-09 Presupposition-salience correctly lands on
+P2129 Presupposition handling**, which is his own principle proving itself. It is
+still not clean (the X- rows match on *subject* from their own prefix) so it does
+not decide alone — all 25 keep their matches attached and the call is his.
+**"Hope adding more", answered with a number: generation 2,200 → 2,261 — 61 new
+steps, 0 new arrangements and 61 new COMBINATIONS**, all of them reasoning pairs
+(INFERENCE×SPEECH, OBSERVATION×SPEECH, INFERENCE×OBSERVATION) that his ACTION-heavy
+corpus was thin on, because these two files are documents about how two men
+*thought*. Events 13,848 → 14,849. 241 tests green, 176 anchors resolve.
+**Three halts are load-bearing for the platform and still open:** **E-6** the audit
+direction (his *words-then-work* against Einstein's *"don't listen to their words,
+fix your attention on their deeds"* — no standing rule when they diverge);
+**E-3** may a verdict overrule a dead man with evidence he never saw; **H-5**
+whether the witness law is scoped to minds only.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

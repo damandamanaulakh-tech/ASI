@@ -40,6 +40,7 @@ from . import asipage
 from . import generationpage
 from . import growth
 from . import filemap, growing, intent_ledger, intents, selfmake
+from . import subjectbrains
 from . import statepacks
 from . import weighting
 from . import enginepage
@@ -1383,6 +1384,15 @@ class Handler(BaseHTTPRequestHandler):
                  "links": {k: v["reachable_from"]
                            for k, v in intents.motive_links().items()}}).encode(),
                 "application/json")
+        elif path == "/subjects":
+            # his platform superimposed on Riemann and Einstein — my own earlier
+            # builds, handed back. 25 candidates, 14 halts, none answered.
+            self._send(200, json.dumps(
+                {"stats": subjectbrains.stats(),
+                 "candidates": subjectbrains.candidates_for(),
+                 "halts": subjectbrains.open_halts(),
+                 "version_gap": subjectbrains.version_gap()}).encode(),
+                "application/json")
         elif path == "/selfmake":
             # the algorithm's own body: the spine plus every step it has written
             # for itself. Not a constant.
@@ -1824,6 +1834,11 @@ class Handler(BaseHTTPRequestHandler):
                 conditional=bool(data.get("conditional")),
                 conflict=bool(data.get("conflict")))
             self._send(200, json.dumps(res).encode(), "application/json")
+            return
+        if self.path == "/subjects/grow":
+            # append the candidates and halts. No parameter is created.
+            self._send(200, json.dumps(
+                subjectbrains.grow(SB_ROOT)).encode(), "application/json")
             return
         if self.path == "/selfmake/propose":
             # what new steps his material opens — computed, not written yet

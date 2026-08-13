@@ -468,12 +468,87 @@ def intent_seat(clause: str, limit: int = 4) -> dict:
 # PLACE — one example, placed. Not answered.
 # ---------------------------------------------------------------------------
 
+# A parameter-atom row: an id token, then a short name. Both his brain workbooks
+# use this shape ("C01-001 | 1 Homeostasis and Allostasis | Temperature balance"),
+# and so does any dump of a parameter list.
+_ATOM_ROW = re.compile(
+    r"^\s*(?:[A-Z]{1,3}\d{2,4}-\d{2,4}|P-\d{3}-\d{2}|SB-HFR-P\d{4}|CON-\d{3}"
+    r"|SEG-\d{2})\b")
+
+
+def registry_echo(text: str) -> dict:
+    """Does this text carry a PARAMETER TAXONOMY rather than events?
+
+    Found on his own EINSTEIN_BRAIN workbook. Its `2560 SUB-PARAMETERS` sheet is a
+    full atom-by-atom expansion, and placing the file whole seated a taxonomy on a
+    taxonomy: 1,086 ids "reached", top hits `Load-force coupling`, `Agonist
+    activation`, `Synergy activation` — none of which is about Einstein. Excluding
+    those rows dropped it to 281 ids and the top hits became `Stopping-rule
+    (enough evidence)`, `Pattern abstraction`, `Rule extraction`, `Nearest-
+    possible-world reasoning` — which are.
+
+    Note what it is NOT: the workbook does not quote the current bank. It carries
+    his OLDER 2,560 list, whose names differ (`Temperature balance` where the
+    registry says `Core temperature setpoint`). Only 217 lines match a current
+    name exactly. So this is a **parallel taxonomy**, and it is caught by SHAPE —
+    an atom-id row — rather than by name, because the version that produced it is
+    not the version in the bank.
+
+    A parameter list must not be able to strengthen the bank by being a parameter
+    list. `place()` excludes these rows and states how many."""
+    rows, _byword, _idf = _index()
+    names = {r["name"].strip().lower() for r in rows}
+    lines = [ln.strip() for ln in (text or "").splitlines() if ln.strip()]
+    exact, atoms, atom_chars, total_chars = [], [], 0, 0
+    for ln in lines:
+        total_chars += len(ln)
+        parts = [p.strip() for p in re.split(r"\s*\|\s*", ln.lower())]
+        if any(p and p in names for p in parts):
+            exact.append(ln[:120])
+        if _ATOM_ROW.match(ln):
+            atoms.append(ln[:120])
+            atom_chars += len(ln)
+    taxonomy = len(atoms) + sum(1 for e in exact if not _ATOM_ROW.match(e))
+    share = (100.0 * taxonomy / len(lines)) if lines else 0.0
+    return {
+        "lines": len(lines),
+        "exact_name_echo_lines": len(exact),
+        "atom_id_rows": len(atoms),
+        "taxonomy_lines": taxonomy,
+        "taxonomy_share_of_lines": round(share, 1),
+        "taxonomy_share_of_chars": round(100.0 * atom_chars / total_chars, 1)
+                                   if total_chars else 0.0,
+        "examples": (atoms or exact)[:5],
+        "is_parameter_taxonomy": taxonomy >= 20 and share >= 20.0,
+        "law": "a parameter list cannot strengthen the bank by being a parameter "
+               "list.",
+        "note": "caught by row SHAPE, not by name — his workbooks carry the older "
+                "2,560 list whose names differ from the current 3,204.",
+    }
+
+
+def _strip_echo(text: str) -> tuple:
+    rows, _bw, _idf = _index()
+    names = {r["name"].strip().lower() for r in rows}
+    kept, dropped = [], 0
+    for ln in (text or "").splitlines():
+        parts = [p.strip() for p in re.split(r"\s*\|\s*", ln.lower())]
+        if _ATOM_ROW.match(ln) or any(p and p in names for p in parts):
+            dropped += 1
+            continue
+        kept.append(ln)
+    return "\n".join(kept), dropped
+
+
 def place(text: str, name: str = "", seat_limit: int = 8) -> dict:
     """Place one example on the base. There is no verdict and no answer here.
 
     Returns what the example IS to the system: its events, the intent slot on
     each, the parameter IDs it seats on (which those IDs gain support from), and
     the count it adds."""
+    echo = registry_echo(text)
+    if echo["is_parameter_taxonomy"]:
+        text, _dropped = _strip_echo(text)
     evs = events_in(text)
     per = []
     strengthened = {}
@@ -514,6 +589,9 @@ def place(text: str, name: str = "", seat_limit: int = 8) -> dict:
         },
         "found_by_inflection": sum(1 for e in evs
                                    if "inflection" in e["how_found"]),
+        "registry_echo": echo,
+        "echo_lines_excluded": echo["taxonomy_lines"] if echo["is_parameter_taxonomy"]
+                               else 0,
         "law": "an example is not judged for its output. It seats on existing "
                "parameters and IDs, strengthens them by seating, and raises the "
                "count.",

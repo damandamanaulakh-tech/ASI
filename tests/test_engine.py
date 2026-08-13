@@ -4216,6 +4216,100 @@ def test_the_selfmake_routes_are_reachable():
         assert route in src, route
 
 
+# ---------------------------------------------------------------------------
+# THE SUBJECT BRAINS — "ur own old docs / hope adding more".
+# ---------------------------------------------------------------------------
+
+def test_the_two_subject_brains_carry_25_candidates_and_14_open_halts():
+    from sourceborn import subjectbrains as S
+    st = S.stats()
+    assert st["candidates"] == 25
+    assert st["riemann_candidates"] == 11
+    assert st["einstein_candidates"] == 10
+    assert st["cross_subject_candidates"] == 4
+    assert st["halts_open"] == 14
+    assert st["halts_answered"] == 0, "not one of them was ever answered"
+    assert st["parameters_created"] == 0
+    for h in S.open_halts():
+        assert h["answered"] is False
+        assert h["yours"], "a halt names the decision that is his"
+
+
+def test_the_two_banks_in_his_workbooks_are_not_merged_either():
+    """2,560 then, 3,204 now — two versions, and he warned about the numbers."""
+    from sourceborn import subjectbrains as S
+    v = S.version_gap()
+    assert v["workbooks_built_on"] == 2560
+    assert v["registry_now"] == 3204
+    assert v["merged"] is False
+    assert v["names_differ"] is True
+    assert "2561-2590" in v["his_own_warning_in_the_file"]
+    # so nothing becomes a parameter
+    assert all(c.get("id") for c in S.CANDIDATES)
+    root = _growth_root()
+    g = S.grow(root)
+    assert g["parameters_created"] == 0
+    from sourceborn import growth as G
+    by = G.counts(root)["by_kind"]
+    assert by[G.CANDIDATE] == 25 and by[G.HALT] == 14
+    assert G.counts(root)["total_parameters"] == 3204, \
+        "a candidate is not a parameter"
+    # appending twice adds nothing
+    assert S.grow(root)["added"] == 0
+
+
+def test_the_anti_pleasing_tally_he_demanded():
+    from sourceborn import subjectbrains as S
+    r = S.rerun_tally()
+    assert r["total"] == 45
+    assert r["disagreement_mass"] == 17
+    assert r["anti_pleasing_check"] is True
+    assert "flattery" in r["his_test"]
+
+
+def test_a_parameter_list_cannot_strengthen_the_bank_by_being_one():
+    """His EINSTEIN workbook is 2,560 atom rows; placed whole it seated a
+    taxonomy on a taxonomy."""
+    from sourceborn import growing as W
+    taxonomy = "\n".join(
+        "C%02d-%03d | %d Homeostasis and Allostasis | Temperature balance | "
+        "[REGISTRY-NAMED]" % (i % 80 + 1, i, i % 80 + 1) for i in range(1, 60))
+    e = W.registry_echo(taxonomy)
+    assert e["is_parameter_taxonomy"] is True
+    assert e["atom_id_rows"] >= 50
+    assert "cannot strengthen the bank by being a parameter list" in e["law"]
+    # ordinary prose is NOT flagged
+    plain = W.registry_echo(RAIN)
+    assert plain["is_parameter_taxonomy"] is False
+    # and place() reports what it excluded rather than hiding it
+    p = W.place(taxonomy + "\nThe father was standing outside.", "mixed")
+    assert p["echo_lines_excluded"] >= 50
+    assert p["registry_echo"]["is_parameter_taxonomy"] is True
+
+
+def test_rule_seven_no_longer_matches_on_substrings():
+    """The gate declared all 25 candidates 'expressible' on noise: `productive`
+    matched Reproductive-hormone signalling."""
+    from sourceborn import intent_ledger as L
+    s = L.semantic_loss("Combinatory-play engine: pre-verbal imagistic "
+                        "recombination as the primary productive mechanism")
+    names = [m["name"] for m in s["matched_rows"]]
+    assert "Reproductive-hormone signalling" not in names, names
+    assert "Sexual physiological response" not in names, names
+    assert "how_matched" in s and "whole words only" in s["how_matched"]
+    # a real one still lands
+    r = L.semantic_loss("Presupposition-salience: attention captured by what a "
+                        "field treats as given")
+    assert any("Presupposition" in m["name"] for m in r["matched_rows"]), \
+        r["matched_rows"]
+
+
+def test_the_subject_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/subjects"', '"/subjects/grow"'):
+        assert route in src, route
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0
