@@ -4305,31 +4305,33 @@ def test_rule_seven_no_longer_matches_on_substrings():
 
 
 def test_more_subjects_kill_three_of_the_four_cross_laws():
-    """His order: add more subjects to test cross patterns. The point of a test
-    is that it can fail — and three of his four laws do."""
+    """The kill still works and is still correct — but on his word it is OFF by
+    default: "nothing needs to kill for now, add everything and generate"."""
     from sourceborn import subjectbrains as S
-    r = S.cross_test()
-    assert r["subjects"] == 6
-    assert r["new_subjects"] == 4, "two subjects cannot test a cross-subject law"
+    assert S.cross_test()["kill"] is False, "killing is off on his instruction"
+    r = S.cross_test(kill=True)
+    assert r["subjects"] == 12
+    assert r["new_subjects"] == 10, "two subjects cannot test a cross-subject law"
     assert r["laws_tested"] == 4
     assert set(r["killed_as_stated"]) == {"X-01", "X-02", "X-03"}, r
     assert r["survived"] == ["X-04"]
     assert r["nothing_deleted"] is True
-    # X-01 held ONLY on the two it was derived from — a law fitted to its evidence
+    # X-01 still holds on the two it was derived from, plus Beethoven — and on
+    # nobody else. Nine of twelve read the other way.
     x1 = [l for l in r["laws"] if l["law"] == "X-01"][0]
     held = [row["name"] for row in x1["rows"] if row["verdict"] == S.HOLDS]
-    assert held == ["Bernhard Riemann", "Albert Einstein"], held
-    assert x1["counts"]["fails"] == 4
+    assert "Bernhard Riemann" in held and "Albert Einstein" in held
+    assert x1["counts"]["fails"] == 9, x1["counts"]
     # X-03 dies on exactly one clean counterexample
     x3 = [l for l in r["laws"] if l["law"] == "X-03"][0]
-    assert x3["counts"]["holds"] == 5 and x3["counts"]["fails"] == 1
-    assert x3["killed_by"] == ["Michael Faraday"]
+    assert x3["counts"]["holds"] == 10 and x3["counts"]["fails"] == 2
+    assert "Michael Faraday" in x3["killed_by"]
     # X-02 needs a category it does not have
     x2 = [l for l in r["laws"] if l["law"] == "X-02"][0]
-    assert x2["needs_a_new_category"] == ["USED_THEN_DESTROYED"]
+    assert "USED_THEN_DESTROYED" in x2["needs_a_new_category"]
     # X-04 survives, and not because everyone worked alone
     x4 = [l for l in r["laws"] if l["law"] == "X-04"][0]
-    assert x4["counts"]["holds"] == 6 and x4["killed_as_stated"] is False
+    assert x4["counts"]["holds"] == 12 and x4["killed_as_stated"] is False
 
 
 def test_one_counterexample_falsifies_and_the_verdict_is_computed():
@@ -4342,7 +4344,7 @@ def test_one_counterexample_falsifies_and_the_verdict_is_computed():
     moved = dict(faraday, at_death=S.WORKING_AT_DEATH)
     assert S._verdict(law, moved)["verdict"] == S.HOLDS
     # a law with a fail is KILLED AS STATED, never "mostly true"
-    r = S.cross_test("X-03")["laws"][0]
+    r = S.cross_test("X-03", kill=True)["laws"][0]
     assert r["killed_as_stated"] is True
     assert "KILLED AS STATED" in r["status"]
     assert r["narrow_to"], "it must say what it would have to be narrowed to"
@@ -4354,19 +4356,65 @@ def test_his_two_pole_axis_needs_four_settings():
     from sourceborn import subjectbrains as S
     rp = S.release_poles()
     assert rp["poles_in_his_candidate"] == [S.GATE, S.ITERATE]
-    assert set(rp["poles_found"]) == {S.GATE, S.ITERATE, S.CONTINUOUS, S.UNGATED}
-    assert len(rp["poles_found"]) == 4
+    assert {S.GATE, S.ITERATE, S.CONTINUOUS, S.UNGATED} <= set(rp["poles_found"])
+    assert len(rp["poles_found"]) >= 4
     assert "not applied to it" in rp["note"], "an amendment to his candidate, " \
                                               "not an edit of it"
     # and the lone-theorist shape is broken by two of the new subjects
     lw = S.lone_worker_check()
-    assert len(lw["not_alone"]) == 2
+    assert len(lw["not_alone"]) >= 2
     assert "Marie Curie" in lw["not_alone"] and "Alan Turing" in lw["not_alone"]
+
+
+def test_the_candidates_are_applied_across_every_subject():
+    """apply on candidates — 25 x 12, and what has no reader says so."""
+    from sourceborn import subjectbrains as S
+    ap = S.apply_candidates()
+    assert ap["candidates"] == 25 and ap["subjects"] == 12
+    assert ap["cells"] == 300
+    assert ap["cells_read"] + ap["cells_not_read"] == 300
+    assert ap["without_an_axis"] == 8, "8 candidates have no reader yet"
+    # the ones with no axis are NOT READ on every subject — never invented
+    for row in ap["grid"]:
+        if row["axis"] is None:
+            assert all(c["setting"] == S.NOT_READ for c in row["cells"])
+    # a candidate read across subjects becomes an axis with named settings
+    assert "E-03" in ap["became_an_axis"]
+    assert "X-04" in ap["single_valued"], "constraint-rise reads ROSE on all 12"
+
+
+def test_generation_adds_everything_and_kills_nothing():
+    """nothing needs to kill for now, add everything and generate."""
+    from sourceborn import subjectbrains as S
+    g = S.generate_variants()
+    assert g["variants_generated"] == 72, g["variants_generated"]
+    assert g["killed"] == 0
+    assert g["parameters_created"] == 0
+    assert g["his_words"] == "nothing needs to kill for now, add everything " \
+                             "and generate"
+    for v in g["variants"]:
+        assert v["is_parameter"] is False and v["canonical"] is False
+        assert v["chosen"] is False
+        assert v["subjects"] and v["support"] == len(v["subjects"])
+    # his own R-06 gains the pole he said the registry lacked
+    r6 = [v for v in g["variants"] if v["from_candidate"] == "R-06"]
+    assert {v["setting"] for v in r6} == {"UNDER", "LEVEL", "OVER"}
+    # and an "axis" where every subject is its own setting is flagged, not sold
+    flagged = [x["candidate"] for x in g["not_yet_an_axis"]]
+    assert "E-01" in flagged, g["not_yet_an_axis"]
+    assert g["variants_from_singleton_fields"] == 12
+    # appending is append-only and creates no parameter
+    root = _growth_root()
+    a = S.grow_variants(root)
+    assert a["added"] == 72 and a["parameters_created"] == 0 and a["killed"] == 0
+    assert S.grow_variants(root)["added"] == 0
+    from sourceborn import growth as G
+    assert G.counts(root)["total_parameters"] == 3204
 
 
 def test_the_subject_routes_are_reachable():
     src = open("src/sourceborn/server.py").read()
-    for route in ('"/subjects"', '"/subjects/grow"'):
+    for route in ('"/subjects"', '"/subjects/grow"', '"/subjects/generate"'):
         assert route in src, route
 
 

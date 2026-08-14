@@ -284,115 +284,270 @@ ITERATE = "ITERATE"          # publishes wrong, self-strikes (Einstein)
 CONTINUOUS = "CONTINUOUS"    # releases as he goes, no gate and no strike
 UNGATED = "UNGATED"          # sends unfinished/unproven freely
 
+SINGLE = "SINGLE"            # one release in a lifetime
+USED_WITHOUT_CREDIT = "USED_WITHOUT_CREDIT"   # a fourth institution setting
+TAKEN_NOT_HANDED = "TAKEN_NOT_HANDED"         # loops continued without consent
+
+# What a candidate READS. Application is computed from these fields; a candidate
+# with no field for a subject is reported NOT READ, never invented.
+NOT_READ = "NOT READ"
+
+CANDIDATE_AXIS = {
+    "R-01": "release", "R-02": "external_memory", "R-05": "loops_continuable",
+    "R-06": "claim_vs_evidence", "R-07": "constraint", "R-10": "ambition_public",
+    "E-01": "trigger_kind", "E-02": "held_against_consensus", "E-03": "release",
+    "E-04": "delivery_cipher", "E-05": "fame", "E-07": "first_stage",
+    "E-08": "external_memory",
+    "X-01": "weak_became_strength", "X-02": "institution", "X-03": "at_death",
+    "X-04": "constraint",
+}
+
 SUBJECTS = (
     {"id": "S-01", "name": "Bernhard Riemann", "years": "1826-1866",
-     "field": "mathematics", "from_workbook": True,
-     "weak_channel": "lecturing / speaking in public",
-     "weak_became_strength": True,
+     "field": "mathematics", "from_workbook": True, "h": "H5",
+     "weak_channel": "lecturing in public", "weak_became_strength": True,
      "weak_note": "lecture-fear -> the posthumous lectures became textbooks",
      "institution": MISREAD,
      "institution_note": "read as slow; poverty and shyness taken for capacity",
      "at_death": WORKING_AT_DEATH,
      "death_note": "dies mid-sentence on the mechanics of the ear",
-     "loops_continuable": True,
-     "constraint": ROSE,
+     "loops_continuable": True, "constraint": ROSE,
      "constraint_note": "Gauss's imposed habilitation topic; the Berlin debt",
-     "release": GATE, "external_memory": "pages (the Nachlass)",
-     "worked_with": "alone", "h": "H5"},
+     "release": GATE, "external_memory": "pages",
+     "claim_vs_evidence": "UNDER", "ambition_public": "PRIVATE",
+     "trigger_kind": "THE PRESUPPOSED", "held_against_consensus": False,
+     "delivery_cipher": "UNDERSTATEMENT", "fame": "POSTHUMOUS",
+     "first_stage": "GEOMETRIC IMAGE",
+     "worked_with": "alone"},
     {"id": "S-02", "name": "Albert Einstein", "years": "1879-1955",
-     "field": "physics", "from_workbook": True,
-     "weak_channel": "speech (late talker) / people-machinery",
-     "weak_became_strength": True,
+     "field": "physics", "from_workbook": True, "h": "H5",
+     "weak_channel": "speech / people-machinery", "weak_became_strength": True,
      "weak_note": "late speech -> master aphorist",
      "institution": MISREAD,
      "institution_note": "failed an entrance exam; no academic post for years",
      "at_death": WORKING_AT_DEATH,
      "death_note": "asks for the unified-field notes the day before dying",
-     "loops_continuable": True,
-     "constraint": ROSE,
+     "loops_continuable": True, "constraint": ROSE,
      "constraint_note": "the Hilbert race; the Habicht promise",
-     "release": ITERATE, "external_memory": "persons (Besso, Born, assistants)",
-     "worked_with": "alone, with named sounding-boards", "h": "H5"},
+     "release": ITERATE, "external_memory": "persons",
+     "claim_vs_evidence": "LEVEL", "ambition_public": "PUBLIC",
+     "trigger_kind": "UGLINESS", "held_against_consensus": True,
+     "delivery_cipher": "HUMOUR", "fame": "ARRIVED UNSOUGHT",
+     "first_stage": "IMAGE",
+     "worked_with": "alone, with named sounding-boards"},
     {"id": "S-03", "name": "Srinivasa Ramanujan", "years": "1887-1920",
-     "field": "mathematics", "from_workbook": False,
-     "weak_channel": "formal proof and rigour — never trained in it",
-     "weak_became_strength": False,
-     "weak_note": "IT NEVER BECAME A STRENGTH. He produced results without "
-                  "proofs and Hardy had to supply the rigour; the gap stayed a "
-                  "gap for life. This is the counterexample X-01 needed.",
+     "field": "mathematics", "from_workbook": False, "h": "H4",
+     "weak_channel": "formal proof and rigour", "weak_became_strength": False,
+     "weak_note": "never became a strength — Hardy supplied the rigour and the "
+                  "gap stayed a gap for life",
      "institution": MISREAD,
-     "institution_note": "lost his scholarship and failed college twice on "
-                         "non-mathematical subjects; worked as a port clerk",
+     "institution_note": "lost his scholarship, failed college twice on "
+                         "non-mathematical subjects, worked as a port clerk",
      "at_death": WORKING_AT_DEATH,
      "death_note": "dead at 32; the 'lost notebook' surfaced in 1976 and is "
                    "still being worked through",
-     "loops_continuable": True,
-     "constraint": ROSE,
+     "loops_continuable": True, "constraint": ROSE,
      "constraint_note": "Hardy's binding at Cambridge produced his most "
                         "rigorous work",
-     "release": UNGATED, "external_memory": "pages (the notebooks)",
-     "worked_with": "alone, then one collaborator", "h": "H4"},
+     "release": UNGATED, "external_memory": "pages",
+     "claim_vs_evidence": "OVER", "ambition_public": "PRIVATE",
+     "trigger_kind": "PATTERN", "held_against_consensus": False,
+     "delivery_cipher": "NONE", "fame": "ARRIVED UNSOUGHT",
+     "first_stage": "NUMBER",
+     "worked_with": "alone, then one collaborator"},
     {"id": "S-04", "name": "Marie Curie", "years": "1867-1934",
-     "field": "physics and chemistry", "from_workbook": False,
-     "weak_channel": "institutional access (barred from Polish universities)",
-     "weak_became_strength": False,
-     "weak_note": "access was removed, not converted. She routed around it via "
-                  "the clandestine Flying University and then Paris; the "
-                  "channel itself never became a strength.",
+     "field": "physics and chemistry", "from_workbook": False, "h": "H4",
+     "weak_channel": "institutional access", "weak_became_strength": False,
+     "weak_note": "access was routed around via the clandestine Flying "
+                  "University, never converted",
      "institution": MISREAD,
-     "institution_note": "excluded from university in Poland by sex; rejected "
-                         "by the French Academy of Sciences in 1911",
+     "institution_note": "barred from university in Poland by sex; rejected by "
+                         "the French Academy of Sciences in 1911",
      "at_death": WORKING_AT_DEATH,
      "death_note": "died of aplastic anaemia from her own materials; her "
                    "institute ran on and her daughter continued the work",
-     "loops_continuable": True,
-     "constraint": ROSE,
+     "loops_continuable": True, "constraint": ROSE,
      "constraint_note": "poverty, exclusion, and a shed for a laboratory",
-     "release": CONTINUOUS, "external_memory": "apparatus and a co-worker",
-     "worked_with": "PARTNERSHIP (Pierre) — breaks the lone-theorist shape",
-     "h": "H4"},
+     "release": CONTINUOUS, "external_memory": "apparatus",
+     "claim_vs_evidence": "UNDER", "ambition_public": "PRIVATE",
+     "trigger_kind": "AN ANOMALOUS MEASUREMENT",
+     "held_against_consensus": True,
+     "delivery_cipher": "NONE", "fame": "ARRIVED UNSOUGHT",
+     "first_stage": "MEASUREMENT",
+     "worked_with": "PARTNERSHIP (Pierre)"},
     {"id": "S-05", "name": "Michael Faraday", "years": "1791-1867",
-     "field": "physics and chemistry", "from_workbook": False,
-     "weak_channel": "mathematics — he never had it",
-     "weak_became_strength": False,
-     "weak_note": "ROUTED AROUND, NOT CONVERTED. He reached the field concept "
-                  "by visual reasoning and Maxwell supplied the mathematics "
-                  "afterwards. The weak channel stayed weak to the end.",
+     "field": "physics and chemistry", "from_workbook": False, "h": "H4",
+     "weak_channel": "mathematics", "weak_became_strength": False,
+     "weak_note": "routed around, not converted — he reached the field concept "
+                  "visually and Maxwell supplied the mathematics after",
      "institution": READ_CORRECTLY,
-     "institution_note": "an apprentice bookbinder with no formal education, "
-                         "but Davy took him into the Royal Institution at 21 "
-                         "and it held him for life. NOT a misreading.",
+     "institution_note": "an apprentice bookbinder with no formal education, but "
+                         "Davy took him into the Royal Institution at 21 and it "
+                         "held him for life",
      "at_death": STOPPED_BEFORE_DEATH,
-     "death_note": "his memory and powers declined from the mid-1850s and he "
-                   "gave up experimental work years before dying in 1867. THE "
-                   "CLEAN COUNTEREXAMPLE TO X-03.",
-     "loops_continuable": True,
-     "constraint": ROSE,
+     "death_note": "memory and powers declined from the mid-1850s; he gave up "
+                   "experimental work years before dying in 1867",
+     "loops_continuable": True, "constraint": ROSE,
      "constraint_note": "Davy's binding; the Royal Institution's lecture duties",
-     "release": CONTINUOUS,
-     "external_memory": "a numbered lifelong laboratory diary",
-     "worked_with": "alone, with an assistant", "h": "H4"},
+     "release": CONTINUOUS, "external_memory": "pages",
+     "claim_vs_evidence": "UNDER", "ambition_public": "PRIVATE",
+     "trigger_kind": "AN UNEXPLAINED EFFECT", "held_against_consensus": True,
+     "delivery_cipher": "NONE", "fame": "ARRIVED UNSOUGHT",
+     "first_stage": "IMAGE",
+     "worked_with": "alone, with an assistant"},
     {"id": "S-06", "name": "Alan Turing", "years": "1912-1954",
-     "field": "mathematics and computing", "from_workbook": False,
+     "field": "mathematics and computing", "from_workbook": False, "h": "H4",
      "weak_channel": "institutional and social navigation",
      "weak_became_strength": False,
-     "weak_note": "never converted; it is what destroyed him.",
+     "weak_note": "never converted; it is what destroyed him",
      "institution": USED_THEN_DESTROYED,
      "institution_note": "Cambridge and Bletchley used him accurately and at "
-                         "full stretch; the state then prosecuted him in 1952 "
-                         "and he was dead by 1954. NEITHER misread NOR read "
-                         "correctly — a third category X-02 does not have.",
+                         "full stretch; the state prosecuted him in 1952 and he "
+                         "was dead by 1954",
      "at_death": WORKING_AT_DEATH,
-     "death_note": "dead at 41 with morphogenesis work in progress; the 1936 "
-                   "and 1950 papers were already public and others carried them",
-     "loops_continuable": True,
-     "constraint": ROSE,
+     "death_note": "dead at 41 with morphogenesis work in progress; the 1936 and "
+                   "1950 papers were already public and others carried them",
+     "loops_continuable": True, "constraint": ROSE,
      "constraint_note": "the wartime binding at Bletchley produced his most "
                         "consequential work",
      "release": CONTINUOUS, "external_memory": "pages and machines",
-     "worked_with": "teams (Bletchley) — the second break from lone work",
-     "h": "H4"},
+     "claim_vs_evidence": "LEVEL", "ambition_public": "PRIVATE",
+     "trigger_kind": "A FORMAL QUESTION", "held_against_consensus": True,
+     "delivery_cipher": "NONE", "fame": "POSTHUMOUS",
+     "first_stage": "MECHANISM",
+     "worked_with": "teams (Bletchley)"},
+    {"id": "S-07", "name": "Nikola Tesla", "years": "1856-1943",
+     "field": "electrical engineering", "from_workbook": False, "h": "H3",
+     "weak_channel": "money and business", "weak_became_strength": False,
+     "weak_note": "never converted — he died in a hotel room in debt",
+     "institution": MISREAD,
+     "institution_note": "left Edison, lost backing repeatedly, ended without an "
+                         "institution at all",
+     "at_death": WORKING_AT_DEATH,
+     "death_note": "still announcing work at the end; his papers were seized "
+                   "after his death",
+     "loops_continuable": True, "constraint": ROSE,
+     "constraint_note": "under Westinghouse's binding he delivered the AC system",
+     "release": CONTINUOUS, "external_memory": "apparatus",
+     "claim_vs_evidence": "OVER",
+     "claim_note": "announced work he never demonstrated — the OVER pole his "
+                   "understatement candidate has no room for",
+     "ambition_public": "PUBLIC", "trigger_kind": "A MACHINE SEEN WHOLE",
+     "held_against_consensus": True, "delivery_cipher": "SPECTACLE",
+     "fame": "SOUGHT", "first_stage": "IMAGE",
+     "worked_with": "alone, with backers"},
+    {"id": "S-08", "name": "Ada Lovelace", "years": "1815-1852",
+     "field": "mathematics and computing", "from_workbook": False, "h": "H3",
+     "weak_channel": "position — no post was possible for her",
+     "weak_became_strength": False,
+     "weak_note": "routed around through a translator's notes, not converted",
+     "institution": MISREAD,
+     "institution_note": "no institutional position was available to her at all; "
+                         "she published under initials",
+     "at_death": STOPPED_BEFORE_DEATH,
+     "death_note": "ill through her final year, dead at 36",
+     "loops_continuable": True, "constraint": ROSE,
+     "constraint_note": "the commissioned translation was the binding that "
+                        "produced the Notes",
+     "release": SINGLE,
+     "release_note": "ONE release in a lifetime — a setting neither his gate nor "
+                     "his iterate can hold",
+     "external_memory": "pages", "claim_vs_evidence": "UNDER",
+     "ambition_public": "PRIVATE", "trigger_kind": "A MACHINE'S LIMIT",
+     "held_against_consensus": False, "delivery_cipher": "UNDERSTATEMENT",
+     "fame": "POSTHUMOUS", "first_stage": "SYMBOL",
+     "worked_with": "one collaborator"},
+    {"id": "S-09", "name": "Ludwig van Beethoven", "years": "1770-1827",
+     "field": "music — NOT a science", "from_workbook": False, "h": "H4",
+     "weak_channel": "hearing", "weak_became_strength": True,
+     "weak_note": "deafness, and the late works composed inside it are the ones "
+                  "held highest. The strongest case FOR X-01 and it comes from "
+                  "outside science entirely.",
+     "institution": READ_CORRECTLY,
+     "institution_note": "patrons supported him early; recognised in his lifetime",
+     "at_death": WORKING_AT_DEATH,
+     "death_note": "the late quartets were his last work; he died in 1827 with "
+                   "the form still moving",
+     "loops_continuable": True, "constraint": ROSE,
+     "constraint_note": "commissions bound him and he rose under them",
+     "release": CONTINUOUS, "external_memory": "pages (the sketchbooks)",
+     "claim_vs_evidence": "LEVEL", "ambition_public": "PUBLIC",
+     "trigger_kind": "A FORM THAT WILL NOT CLOSE",
+     "held_against_consensus": True,
+     "cipher_note": "the late quartets were called incomprehensible and he did "
+                    "not bend",
+     "delivery_cipher": "NONE", "fame": "ARRIVED SOUGHT",
+     "first_stage": "SOUND",
+     "worked_with": "alone, with copyists"},
+    {"id": "S-10", "name": "Vincent van Gogh", "years": "1853-1890",
+     "field": "painting — NOT a science", "from_workbook": False, "h": "H4",
+     "weak_channel": "selling, and social standing",
+     "weak_became_strength": False,
+     "weak_note": "never converted — he sold almost nothing in his life",
+     "institution": MISREAD,
+     "institution_note": "no dealer, no academy, almost no sales in a decade of "
+                         "work",
+     "at_death": WORKING_AT_DEATH,
+     "death_note": "painting until weeks before his death at 37",
+     "loops_continuable": True, "constraint": ROSE,
+     "constraint_note": "Theo's stipend was the binding that made the decade "
+                        "possible",
+     "release": CONTINUOUS, "external_memory": "persons (Theo, the letters)",
+     "claim_vs_evidence": "UNDER", "ambition_public": "PRIVATE",
+     "trigger_kind": "A COLOUR RELATION", "held_against_consensus": True,
+     "delivery_cipher": "NONE", "fame": "POSTHUMOUS", "first_stage": "IMAGE",
+     "worked_with": "alone, one witness by letter"},
+    {"id": "S-11", "name": "Rosalind Franklin", "years": "1920-1958",
+     "field": "chemistry and crystallography", "from_workbook": False, "h": "H4",
+     "weak_channel": "control over her own data",
+     "weak_became_strength": False,
+     "weak_note": "never converted — the data moved without her consent",
+     "institution": USED_WITHOUT_CREDIT,
+     "institution_note": "her measurements were used without her agreement and "
+                         "the credit went elsewhere. A FOURTH institution "
+                         "setting: not misread, not read correctly, not used "
+                         "then destroyed — used and uncredited.",
+     "at_death": WORKING_AT_DEATH,
+     "death_note": "working on virus structure until weeks before dying at 37",
+     "loops_continuable": True,
+     "successor": TAKEN_NOT_HANDED,
+     "successor_note": "the loop WAS continued — but taken, not handed. His R-05 "
+                       "successor-loop candidate assumes the handing.",
+     "constraint": ROSE,
+     "constraint_note": "rose under the demands of the technique itself",
+     "release": GATE,
+     "release_note": "she withheld until the evidence was sufficient — the same "
+                     "pole as Riemann, and it cost her the claim",
+     "external_memory": "pages and photographic plates",
+     "claim_vs_evidence": "UNDER", "ambition_public": "PRIVATE",
+     "trigger_kind": "AN IMAGE THAT DOES NOT RESOLVE",
+     "held_against_consensus": True, "delivery_cipher": "NONE",
+     "fame": "POSTHUMOUS", "first_stage": "IMAGE",
+     "worked_with": "a laboratory, badly"},
+    {"id": "S-12", "name": "Emmy Noether", "years": "1882-1935",
+     "field": "mathematics", "from_workbook": False, "h": "H4",
+     "weak_channel": "the right to hold a post",
+     "weak_became_strength": False,
+     "weak_note": "routed around — she lectured for years under another man's "
+                  "name on the timetable",
+     "institution": USED_WITHOUT_CREDIT,
+     "institution_note": "unpaid and unlisted, lecturing under Hilbert's name; "
+                         "later expelled outright",
+     "at_death": WORKING_AT_DEATH,
+     "death_note": "died suddenly after surgery at 53 with the school she "
+                   "founded still running",
+     "loops_continuable": True, "constraint": ROSE,
+     "constraint_note": "rose under exclusion and then under exile",
+     "release": CONTINUOUS,
+     "external_memory": "persons (her students carried the ideas)",
+     "claim_vs_evidence": "UNDER",
+     "claim_note": "she gave results away and let others publish them",
+     "ambition_public": "PRIVATE", "trigger_kind": "A STRUCTURE UNDER A RESULT",
+     "held_against_consensus": False, "delivery_cipher": "NONE",
+     "fame": "POSTHUMOUS", "first_stage": "STRUCTURE",
+     "worked_with": "students"},
 )
+
 
 HOLDS = "HOLDS"
 FAILS = "FAILS"
@@ -445,13 +600,19 @@ def _verdict(law: dict, subj: dict) -> dict:
     return {"verdict": UNKNOWN, "why": "no reader for this axis"}
 
 
-def cross_test(law_id: str = "") -> dict:
+def cross_test(law_id: str = "", kill: bool = False) -> dict:
     """Test the cross-subject laws against every subject.
 
-    A law is not graded on how often it holds. His discipline is the survivor
-    stage: **one clean counterexample falsifies the law as stated.** A law with a
-    FAIL comes back KILLED AS STATED, with the subject that killed it named, and
-    what it would have to be narrowed to in order to survive. Nothing is deleted."""
+    HIS INSTRUCTION, AND IT REVERSES WHAT I HAD APPLIED:
+
+        nothing needs to kill for now, add everything and generate
+
+    So `kill` is OFF by default. A subject that reads differently is no longer a
+    counterexample that ends the law — it is **another SETTING of it**, kept and
+    named. That is his standing rule doing the work instead: keep adding, not
+    removing. The killing pass is still here and still correct; it runs only when
+    he asks for it (`kill=True`), and the earlier kill reading is preserved in
+    canon rather than erased."""
     laws = [l for l in CROSS_LAWS if not law_id or l["id"] == law_id]
     out = []
     for law in laws:
@@ -466,23 +627,32 @@ def cross_test(law_id: str = "") -> dict:
         fails = [r for r in rows if r["verdict"] == FAILS]
         unknown = [r for r in rows if r["verdict"] == UNKNOWN]
         newcat = sorted({r["new_category"] for r in rows if r["new_category"]})
+        settings = {}
+        for r in rows:
+            settings.setdefault(r["verdict"], []).append(r["name"])
         out.append({
             "law": law["id"], "name": law["name"],
+            "settings_found": sorted(settings),
+            "by_setting": settings,
+            "kept_alive": not kill,
             "holds_when": law["holds_when"],
             "falsifier": law["falsifier"],
             "rows": rows,
             "counts": {"subjects": len(rows), "holds": len(holds),
                        "fails": len(fails), "unknown": len(unknown)},
-            "killed_as_stated": bool(fails),
-            "killed_by": [r["name"] for r in fails],
-            "status": ("KILLED AS STATED — %s" % ", ".join(r["name"]
-                                                           for r in fails))
-                      if fails else
-                      ("SURVIVES %d of %d, untested elsewhere"
-                       % (len(holds), len(rows))),
+            "killed_as_stated": bool(fails) and kill,
+            "killed_by": [r["name"] for r in fails] if kill else [],
+            "status": (("KILLED AS STATED — %s" % ", ".join(r["name"]
+                                                            for r in fails))
+                       if fails else
+                       ("SURVIVES %d of %d, untested elsewhere"
+                        % (len(holds), len(rows))))
+                      if kill else
+                      ("ALIVE — %d hold, %d read the other way, and the other "
+                       "way is kept as a second setting rather than a kill"
+                       % (len(holds), len(fails))),
             "needs_a_new_category": newcat,
-            "narrow_to": ("holds on %s and fails on %s — it is a law about a "
-                          "TYPE of subject, not about subjects"
+            "narrow_to": ("holds on %s and reads the other way on %s"
                           % (", ".join(r["name"] for r in holds) or "none",
                              ", ".join(r["name"] for r in fails)))
                          if fails and holds else None,
@@ -490,18 +660,22 @@ def cross_test(law_id: str = "") -> dict:
         })
     survived = [o for o in out if not o["killed_as_stated"]]
     return {
+        "kill": kill,
+        "his_instruction": "nothing needs to kill for now, add everything and "
+                           "generate",
         "subjects": len(SUBJECTS),
         "new_subjects": sum(1 for s in SUBJECTS if not s["from_workbook"]),
         "laws_tested": len(out),
         "laws": out,
         "survived": [o["law"] for o in survived],
         "killed_as_stated": [o["law"] for o in out if o["killed_as_stated"]],
-        "law": "one clean counterexample falsifies a cross-subject law as stated. "
-               "Holding on most subjects is not holding.",
-        "refuses": "the new subjects were chosen to STRESS these laws, not to "
-                   "agree with them. A law that survives a stress set has earned "
-                   "something; a law that survives a set picked to flatter it has "
-                   "not.",
+        "law": ("one clean counterexample falsifies a cross-subject law as "
+                "stated. Holding on most subjects is not holding." if kill else
+                "a subject that reads the other way is a SECOND SETTING, not a "
+                "death. Keep adding, not removing."),
+        "refuses": "the added subjects were chosen to STRESS these laws, not to "
+                   "agree with them — but on his word nothing is killed for now, "
+                   "so a stress result becomes a setting instead of an ending.",
         "nothing_deleted": True,
         "his_call": "narrowing a killed law, or striking it, is his — not mine.",
     }
@@ -638,6 +812,9 @@ def stats() -> dict:
         "cross_laws_killed_as_stated": ct["killed_as_stated"],
         "release_poles_found": len(release_poles()["poles_found"]),
         "release_poles_he_named": 2,
+        "candidate_cells": len(CANDIDATES) * len(SUBJECTS),
+        "variants_generated": generate_variants()["variants_generated"],
+        "killed": 0,
         "candidates": len(CANDIDATES),
         "riemann_candidates": len(candidates_for(RIEMANN)),
         "einstein_candidates": len(candidates_for(EINSTEIN)),
@@ -662,3 +839,147 @@ def annotations() -> list:
         ("two versions of the bank, never merged", "subjectbrains.version_gap"),
         ("the anti-pleasing tally he demanded", "subjectbrains.rerun_tally"),
     ]
+
+
+# ---------------------------------------------------------------------------
+# APPLY THE CANDIDATES — his order: "apply on candidates / nothing needs to kill
+# for now, add everything and generate".
+# ---------------------------------------------------------------------------
+
+def apply_candidates(subjects=None) -> dict:
+    """Every candidate read on every subject. 25 x 12.
+
+    A candidate with no axis for a subject is reported NOT READ. That is an
+    absence, not a zero and not a guess — the one thing this must never do is
+    fill 300 cells by inventing them."""
+    subs = list(subjects or SUBJECTS)
+    grid, per_candidate = [], []
+    for c in CANDIDATES:
+        axis = CANDIDATE_AXIS.get(c["id"])
+        cells = []
+        for s in subs:
+            if not axis:
+                cells.append({"subject": s["id"], "name": s["name"],
+                              "setting": NOT_READ,
+                              "why": "no axis is read for this candidate yet"})
+                continue
+            v = s.get(axis, NOT_READ)
+            if isinstance(v, bool):
+                v = "YES" if v else "NO"
+            cells.append({"subject": s["id"], "name": s["name"],
+                          "axis": axis, "setting": str(v),
+                          "note": s.get(axis.split("_")[0] + "_note", "")})
+        read = [x for x in cells if x["setting"] != NOT_READ]
+        settings = sorted({x["setting"] for x in read})
+        grid.append({"candidate": c["id"], "name": c["name"], "axis": axis,
+                     "cells": cells})
+        per_candidate.append({
+            "candidate": c["id"], "name": c["name"], "axis": axis,
+            "read": len(read), "not_read": len(cells) - len(read),
+            "settings": settings, "distinct_settings": len(settings),
+            "is_an_axis": len(settings) > 1,
+            "poles": {v: [x["name"] for x in read if x["setting"] == v]
+                      for v in settings},
+        })
+    return {
+        "candidates": len(CANDIDATES), "subjects": len(subs),
+        "cells": len(CANDIDATES) * len(subs),
+        "cells_read": sum(p["read"] for p in per_candidate),
+        "cells_not_read": sum(p["not_read"] for p in per_candidate),
+        "with_an_axis": sum(1 for p in per_candidate if p["axis"]),
+        "without_an_axis": sum(1 for p in per_candidate if not p["axis"]),
+        "became_an_axis": [p["candidate"] for p in per_candidate
+                           if p["is_an_axis"]],
+        "single_valued": [p["candidate"] for p in per_candidate
+                          if p["axis"] and not p["is_an_axis"]],
+        "per_candidate": per_candidate,
+        "grid": grid,
+        "law": "a candidate read across many subjects stops being a property and "
+               "becomes an AXIS with named settings.",
+        "refuses": "a candidate with no axis is NOT READ, never invented. 8 of "
+                   "the 25 have no reader yet and say so.",
+    }
+
+
+def generate_variants(subjects=None) -> dict:
+    """GENERATE. Every distinct setting of every candidate becomes a named
+    variant — added, never chosen, never killed.
+
+    This is his mechanic exactly: the candidate was one thing; read across
+    subjects it becomes N things. Nothing is removed to make room for them."""
+    ap = apply_candidates(subjects)
+    variants = []
+    for p in ap["per_candidate"]:
+        if not p["axis"] or not p["settings"]:
+            continue
+        for v in p["settings"]:
+            who = p["poles"][v]
+            variants.append({
+                "id": "%s::%s" % (p["candidate"], v.replace(" ", "_")),
+                "from_candidate": p["candidate"],
+                "candidate_name": p["name"],
+                "axis": p["axis"],
+                "setting": v,
+                "subjects": who,
+                "support": len(who),
+                "new_to_his_candidate": p["distinct_settings"] > 1,
+                "is_parameter": False,
+                "canonical": False,
+                "chosen": False,
+            })
+    by_cand = {}
+    for v in variants:
+        by_cand.setdefault(v["from_candidate"], 0)
+        by_cand[v["from_candidate"]] += 1
+    # An "axis" whose every setting has support 1 is not an axis — it is an
+    # uncategorised free-text field wearing an axis's clothes. E-01 does this:
+    # twelve subjects, twelve triggers, no two alike. Flagged, not hidden.
+    singleton = []
+    for p2 in ap["per_candidate"]:
+        if not p2["axis"] or p2["distinct_settings"] < 2:
+            continue
+        if all(len(w) == 1 for w in p2["poles"].values()):
+            singleton.append({"candidate": p2["candidate"], "name": p2["name"],
+                              "settings": p2["distinct_settings"],
+                              "why": "every subject is its own setting, so no "
+                                     "category has formed yet — this reads as a "
+                                     "free-text field, not an axis"})
+    return {
+        "candidates_in": ap["with_an_axis"],
+        "variants_generated": len(variants),
+        "variants": variants,
+        "per_candidate": by_cand,
+        "widest": sorted(by_cand.items(), key=lambda kv: -kv[1])[:6],
+        "parameters_created": 0,
+        "killed": 0,
+        "not_yet_an_axis": singleton,
+        "variants_from_singleton_fields": sum(x["settings"] for x in singleton),
+        "law": "more subjects -> more settings -> more variants. Nothing is "
+               "removed to make room.",
+        "his_words": "nothing needs to kill for now, add everything and generate",
+    }
+
+
+def grow_variants(root: str) -> dict:
+    """Append every generated variant. Appends only."""
+    from . import growth as G
+    have = {(r.get("kind"), r.get("name")) for r in G.load(root)}
+    g = generate_variants()
+    added = []
+    for v in g["variants"]:
+        nm = "%s — %s = %s" % (v["from_candidate"], v["axis"], v["setting"])
+        if (G.CANDIDATE, nm) in have:
+            continue
+        added.append(G.add(root, G.CANDIDATE, nm,
+                           surfaced_by="applied across %d subjects"
+                                       % len(SUBJECTS),
+                           module="subjectbrains",
+                           detail="%s | held by: %s" % (v["candidate_name"],
+                                                        ", ".join(v["subjects"])),
+                           extra={"variant_of": v["from_candidate"],
+                                  "axis": v["axis"], "setting": v["setting"],
+                                  "support": v["support"],
+                                  "is_parameter": False}))
+    return {"added": len(added), "rows": added, "counts": G.counts(root),
+            "parameters_created": 0, "killed": 0,
+            "law": g["law"]}

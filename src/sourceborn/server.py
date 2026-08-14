@@ -1394,6 +1394,8 @@ class Handler(BaseHTTPRequestHandler):
                  "version_gap": subjectbrains.version_gap(),
                  "subjects": list(subjectbrains.SUBJECTS),
                  "cross_test": subjectbrains.cross_test(),
+                 "applied": subjectbrains.apply_candidates(),
+                 "generated": subjectbrains.generate_variants(),
                  "release_poles": subjectbrains.release_poles(),
                  "lone_worker": subjectbrains.lone_worker_check()}).encode(),
                 "application/json")
@@ -1843,6 +1845,13 @@ class Handler(BaseHTTPRequestHandler):
             # append the candidates and halts. No parameter is created.
             self._send(200, json.dumps(
                 subjectbrains.grow(SB_ROOT)).encode(), "application/json")
+            return
+        if self.path == "/subjects/generate":
+            # apply the candidates across every subject and append every setting
+            # as a variant. Nothing is killed and no parameter is created.
+            self._send(200, json.dumps(
+                subjectbrains.grow_variants(SB_ROOT)).encode(),
+                "application/json")
             return
         if self.path == "/selfmake/propose":
             # what new steps his material opens — computed, not written yet

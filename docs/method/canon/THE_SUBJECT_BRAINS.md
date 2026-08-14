@@ -273,3 +273,91 @@ seating on existing IDs, **0 parameters created**.
 Narrowing a killed law, or striking it, is his. Nothing here was deleted: the
 killed laws keep their rows, their counterexamples and what they would have to be
 narrowed to in order to survive.
+
+---
+
+## 9. TWELVE SUBJECTS, THE CANDIDATES APPLIED, AND NOTHING KILLED
+
+> keep going, add more subjects / apply on candidates / **nothing needs to kill for
+> now, add everything and generate**
+
+**His instruction reverses the kill I had just applied**, and it is his call. So:
+
+- `cross_test(kill=False)` is now the default. A subject that reads the other way
+  is **no longer a counterexample that ends a law — it is another SETTING of it**,
+  kept and named. That is his standing rule doing the work instead: *keep adding,
+  not removing*.
+- The killing pass is still there, still correct, and runs on request
+  (`kill=True`). The earlier kill reading is preserved in section 8 rather than
+  erased.
+
+### Ten added subjects, twelve in total
+
+| | | why this one |
+|---|---|---|
+| S-03 | Srinivasa Ramanujan | no institution, no proofs |
+| S-04 | Marie Curie | a partnership, an experimentalist |
+| S-05 | Michael Faraday | no mathematics; stopped working before he died |
+| S-06 | Alan Turing | used accurately, then destroyed |
+| S-07 | Nikola Tesla | claimed far past his evidence — the **OVER** pole |
+| S-08 | Ada Lovelace | **one release in a lifetime** |
+| S-09 | Ludwig van Beethoven | **not a science** — deafness, and the late works |
+| S-10 | Vincent van Gogh | **not a science** — no recognition in life |
+| S-11 | Rosalind Franklin | data used without her consent |
+| S-12 | Emmy Noether | lectured for years under another man's name |
+
+Two are outside science entirely, which is the first real test of whether these
+candidates are about *people* or only about *scientists*.
+
+### The candidates applied: 25 × 12 = 300 cells
+
+```
+cells read      204
+cells NOT READ   96      (8 of the 25 have no reader yet and say so)
+became an AXIS   14      more than one setting across the subjects
+single-valued     3      R-05, R-07, X-04 — one setting on every subject read
+```
+
+**96 cells are NOT READ and that is deliberate.** Eight candidates have no axis
+yet. The one thing this must never do is fill 300 cells by inventing them.
+
+### GENERATED: 72 variants, 0 killed, 0 parameters
+
+Every distinct setting of every candidate becomes a named variant — added, never
+chosen. His mechanic exactly: the candidate was one thing; read across twelve
+subjects it becomes N things.
+
+**His own candidates gain the poles he said were missing:**
+
+| candidate | he named | twelve subjects show |
+|---|---|---|
+| **E-03 Release polarity** | 2 poles (gate / iterate) | **5** — CONTINUOUS 7 · GATE 2 · ITERATE 1 · SINGLE 1 · UNGATED 1 |
+| **R-06 Understatement coefficient** | the DOWNWARD offset only | **3** — UNDER 7 · LEVEL 3 · **OVER 2** (Ramanujan, Tesla) |
+| **X-02 Institutions misread** | one reading | **4** — MISREAD 7 · READ_CORRECTLY 2 · USED_THEN_DESTROYED 1 · **USED_WITHOUT_CREDIT 2** |
+| **E-05 Fame-load** | status arriving unsought | **4** — POSTHUMOUS 6 · ARRIVED UNSOUGHT 4 · SOUGHT 1 · ARRIVED SOUGHT 1 |
+
+**R-06 is the cleanest completion.** His own note said the registry's
+confidence-error classes *only cover overconfidence*, so he proposed the downward
+parameter. Tesla and Ramanujan supply the **OVER** pole from the other side, and
+the axis is now whole in both directions — from his own candidate, not from a new
+one.
+
+**X-04 constraint-rise now reads ROSE on 12 of 12** — including on a partnership, on
+teams, and on two non-scientists. It is the one law that has not needed a second
+setting.
+
+### One honest flag on the generation
+
+**E-01 produced 12 settings with support 1 each** — every subject its own trigger,
+no two alike. That is **not an axis; it is an uncategorised free-text field wearing
+an axis's clothes.** It is reported as `not_yet_an_axis`, and the count is split so
+the honest number is visible:
+
+```
+72 variants generated
+12 of them from a singleton field (E-01)
+60 from axes that actually have categories
+```
+
+Nothing was removed to make room for any of it. `PARAM` stays 3; the bank stays
+**3,207**.

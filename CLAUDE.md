@@ -683,7 +683,38 @@ fix your attention on their deeds"* — no standing rule when they diverge);
 **E-3** may a verdict overrule a dead man with evidence he never saw; **H-5**
 whether the witness law is scoped to minds only.
 
-**SIX SUBJECTS NOW, AND THREE OF HIS FOUR CROSS-LAWS ARE DEAD (2026-08-13).** His
+**TWELVE SUBJECTS, THE CANDIDATES APPLIED, AND NOTHING KILLED (2026-08-13).** His
+order: *"keep going, add more subjects / apply on candidates / nothing needs to kill
+for now, add everything and generate"* — **which reverses the kill I had just
+applied, and it is his call.** `cross_test(kill=False)` is now the default: a
+subject that reads the other way is **another SETTING of a law, not its death**,
+which is his own *keep adding not removing* doing the work instead. The killing pass
+stays available on request and its earlier reading is kept in canon rather than
+erased. **Ten subjects added, twelve in total** — Tesla (claimed past his evidence),
+Lovelace (one release in a lifetime), **Beethoven and van Gogh (outside science
+entirely** — the first test of whether these candidates are about people or only
+about scientists), Franklin (data used without consent), Noether (lectured under
+another man's name). **HIS CANDIDATES ARE APPLIED ACROSS EVERY SUBJECT: 25 × 12 =
+300 cells — 204 read, 96 NOT READ** because 8 candidates have no reader yet and say
+so; the one thing this must never do is fill 300 cells by inventing them. 14 became
+an AXIS, 3 are single-valued. **GENERATED: 72 variants, 0 killed, 0 parameters.**
+**His own candidates gain the poles he said were missing:** E-03 named two poles and
+twelve subjects show **five** (CONTINUOUS 7 · GATE 2 · ITERATE 1 · SINGLE 1 ·
+UNGATED 1); **R-06 is the cleanest completion** — his note said the registry covers
+only overconfidence so he proposed the downward parameter, and Tesla and Ramanujan
+supply the **OVER** pole, making the axis whole in both directions from his own
+candidate (UNDER 7 · LEVEL 3 · OVER 2); X-02 gains **USED_WITHOUT_CREDIT**
+(Franklin, Noether) beside USED_THEN_DESTROYED (Turing), four settings in all.
+**X-04 constraint-rise now reads ROSE on 12 of 12** — including a partnership, teams
+and two non-scientists. **One flag, stated not hidden:** E-01 produced 12 settings
+with support 1 each — every subject its own trigger — which is not an axis but an
+uncategorised free-text field, so the count is split: **60 variants from real axes,
+12 from the singleton field.** `PARAM` stays 3, the bank stays 3,207. 246 tests
+green, 176 anchors resolve.
+
+**SIX SUBJECTS, AND THREE OF HIS FOUR CROSS-LAWS FAILED UNDER THE KILL (2026-08-13,
+superseded above by his "nothing needs to kill for now" — kept because nothing is
+removed).** His
 order: *"keep doing, add more subjects to test cross patterns"* — and X-02 already
 carried the condition *THIRD SUBJECT NEEDED TO TEST*. Two subjects could never test
 a cross-subject law, because his two are the same **type**: European, male,
