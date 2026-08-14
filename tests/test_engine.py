@@ -4304,6 +4304,66 @@ def test_rule_seven_no_longer_matches_on_substrings():
         r["matched_rows"]
 
 
+def test_more_subjects_kill_three_of_the_four_cross_laws():
+    """His order: add more subjects to test cross patterns. The point of a test
+    is that it can fail — and three of his four laws do."""
+    from sourceborn import subjectbrains as S
+    r = S.cross_test()
+    assert r["subjects"] == 6
+    assert r["new_subjects"] == 4, "two subjects cannot test a cross-subject law"
+    assert r["laws_tested"] == 4
+    assert set(r["killed_as_stated"]) == {"X-01", "X-02", "X-03"}, r
+    assert r["survived"] == ["X-04"]
+    assert r["nothing_deleted"] is True
+    # X-01 held ONLY on the two it was derived from — a law fitted to its evidence
+    x1 = [l for l in r["laws"] if l["law"] == "X-01"][0]
+    held = [row["name"] for row in x1["rows"] if row["verdict"] == S.HOLDS]
+    assert held == ["Bernhard Riemann", "Albert Einstein"], held
+    assert x1["counts"]["fails"] == 4
+    # X-03 dies on exactly one clean counterexample
+    x3 = [l for l in r["laws"] if l["law"] == "X-03"][0]
+    assert x3["counts"]["holds"] == 5 and x3["counts"]["fails"] == 1
+    assert x3["killed_by"] == ["Michael Faraday"]
+    # X-02 needs a category it does not have
+    x2 = [l for l in r["laws"] if l["law"] == "X-02"][0]
+    assert x2["needs_a_new_category"] == ["USED_THEN_DESTROYED"]
+    # X-04 survives, and not because everyone worked alone
+    x4 = [l for l in r["laws"] if l["law"] == "X-04"][0]
+    assert x4["counts"]["holds"] == 6 and x4["killed_as_stated"] is False
+
+
+def test_one_counterexample_falsifies_and_the_verdict_is_computed():
+    """Holding on most subjects is not holding. And no verdict is typed."""
+    from sourceborn import subjectbrains as S
+    law = [l for l in S.CROSS_LAWS if l["id"] == "X-03"][0]
+    faraday = [s for s in S.SUBJECTS if s["name"] == "Michael Faraday"][0]
+    assert S._verdict(law, faraday)["verdict"] == S.FAILS
+    # strike the field and the verdict moves — the test reads fields, not a table
+    moved = dict(faraday, at_death=S.WORKING_AT_DEATH)
+    assert S._verdict(law, moved)["verdict"] == S.HOLDS
+    # a law with a fail is KILLED AS STATED, never "mostly true"
+    r = S.cross_test("X-03")["laws"][0]
+    assert r["killed_as_stated"] is True
+    assert "KILLED AS STATED" in r["status"]
+    assert r["narrow_to"], "it must say what it would have to be narrowed to"
+    assert r["deleted"] == 0
+
+
+def test_his_two_pole_axis_needs_four_settings():
+    """E-03 said one axis, two poles. Six subjects show four."""
+    from sourceborn import subjectbrains as S
+    rp = S.release_poles()
+    assert rp["poles_in_his_candidate"] == [S.GATE, S.ITERATE]
+    assert set(rp["poles_found"]) == {S.GATE, S.ITERATE, S.CONTINUOUS, S.UNGATED}
+    assert len(rp["poles_found"]) == 4
+    assert "not applied to it" in rp["note"], "an amendment to his candidate, " \
+                                              "not an edit of it"
+    # and the lone-theorist shape is broken by two of the new subjects
+    lw = S.lone_worker_check()
+    assert len(lw["not_alone"]) == 2
+    assert "Marie Curie" in lw["not_alone"] and "Alan Turing" in lw["not_alone"]
+
+
 def test_the_subject_routes_are_reachable():
     src = open("src/sourceborn/server.py").read()
     for route in ('"/subjects"', '"/subjects/grow"'):

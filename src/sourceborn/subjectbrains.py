@@ -243,6 +243,309 @@ HALTS = (
      "yours": "order it or close it"},
 )
 
+# ---------------------------------------------------------------------------
+# MORE SUBJECTS — his order: "add more subjects to test cross patterns".
+#
+# X-02 already carried its own condition: THIRD SUBJECT NEEDED TO TEST. And two
+# subjects cannot test a cross-subject law, because the two he has are the same
+# TYPE — European, male, theoretical, working mostly alone, dying with the work
+# open. A law drawn from those two risks being a law about that type.
+#
+# So these four are chosen to STRESS the axes, not to agree with them. Each is
+# picked because a named law plausibly FAILS on it:
+#
+#   Ramanujan  no institution and no proofs — his weak channel (rigour) never
+#              became a strength, which is what X-01 claims happens
+#   Curie      a PARTNERSHIP and an experimentalist — breaks the lone-theorist
+#              shape both existing subjects share
+#   Faraday    no mathematics ever, continuous release, and he STOPPED WORKING
+#              YEARS BEFORE HE DIED — the clean counterexample to X-03
+#   Turing     institutions read him correctly and then destroyed him — a
+#              category X-02 does not have
+#
+# Every reading is a READING, at his evidence ladder, and correctable. The axis
+# fields are what the law tests read; strike a field and the verdict moves.
+# ---------------------------------------------------------------------------
+
+# axis vocabularies — kept small so a verdict is checkable
+MISREAD = "MISREAD"                  # institution read the person wrong
+READ_CORRECTLY = "READ_CORRECTLY"
+USED_THEN_DESTROYED = "USED_THEN_DESTROYED"   # neither of the above
+
+WORKING_AT_DEATH = "WORKING_AT_DEATH"
+STOPPED_BEFORE_DEATH = "STOPPED_BEFORE_DEATH"
+
+ROSE = "ROSE"
+FELL = "FELL"
+FLAT = "FLAT"
+
+GATE = "GATE"                # finishes and withholds (Riemann)
+ITERATE = "ITERATE"          # publishes wrong, self-strikes (Einstein)
+CONTINUOUS = "CONTINUOUS"    # releases as he goes, no gate and no strike
+UNGATED = "UNGATED"          # sends unfinished/unproven freely
+
+SUBJECTS = (
+    {"id": "S-01", "name": "Bernhard Riemann", "years": "1826-1866",
+     "field": "mathematics", "from_workbook": True,
+     "weak_channel": "lecturing / speaking in public",
+     "weak_became_strength": True,
+     "weak_note": "lecture-fear -> the posthumous lectures became textbooks",
+     "institution": MISREAD,
+     "institution_note": "read as slow; poverty and shyness taken for capacity",
+     "at_death": WORKING_AT_DEATH,
+     "death_note": "dies mid-sentence on the mechanics of the ear",
+     "loops_continuable": True,
+     "constraint": ROSE,
+     "constraint_note": "Gauss's imposed habilitation topic; the Berlin debt",
+     "release": GATE, "external_memory": "pages (the Nachlass)",
+     "worked_with": "alone", "h": "H5"},
+    {"id": "S-02", "name": "Albert Einstein", "years": "1879-1955",
+     "field": "physics", "from_workbook": True,
+     "weak_channel": "speech (late talker) / people-machinery",
+     "weak_became_strength": True,
+     "weak_note": "late speech -> master aphorist",
+     "institution": MISREAD,
+     "institution_note": "failed an entrance exam; no academic post for years",
+     "at_death": WORKING_AT_DEATH,
+     "death_note": "asks for the unified-field notes the day before dying",
+     "loops_continuable": True,
+     "constraint": ROSE,
+     "constraint_note": "the Hilbert race; the Habicht promise",
+     "release": ITERATE, "external_memory": "persons (Besso, Born, assistants)",
+     "worked_with": "alone, with named sounding-boards", "h": "H5"},
+    {"id": "S-03", "name": "Srinivasa Ramanujan", "years": "1887-1920",
+     "field": "mathematics", "from_workbook": False,
+     "weak_channel": "formal proof and rigour — never trained in it",
+     "weak_became_strength": False,
+     "weak_note": "IT NEVER BECAME A STRENGTH. He produced results without "
+                  "proofs and Hardy had to supply the rigour; the gap stayed a "
+                  "gap for life. This is the counterexample X-01 needed.",
+     "institution": MISREAD,
+     "institution_note": "lost his scholarship and failed college twice on "
+                         "non-mathematical subjects; worked as a port clerk",
+     "at_death": WORKING_AT_DEATH,
+     "death_note": "dead at 32; the 'lost notebook' surfaced in 1976 and is "
+                   "still being worked through",
+     "loops_continuable": True,
+     "constraint": ROSE,
+     "constraint_note": "Hardy's binding at Cambridge produced his most "
+                        "rigorous work",
+     "release": UNGATED, "external_memory": "pages (the notebooks)",
+     "worked_with": "alone, then one collaborator", "h": "H4"},
+    {"id": "S-04", "name": "Marie Curie", "years": "1867-1934",
+     "field": "physics and chemistry", "from_workbook": False,
+     "weak_channel": "institutional access (barred from Polish universities)",
+     "weak_became_strength": False,
+     "weak_note": "access was removed, not converted. She routed around it via "
+                  "the clandestine Flying University and then Paris; the "
+                  "channel itself never became a strength.",
+     "institution": MISREAD,
+     "institution_note": "excluded from university in Poland by sex; rejected "
+                         "by the French Academy of Sciences in 1911",
+     "at_death": WORKING_AT_DEATH,
+     "death_note": "died of aplastic anaemia from her own materials; her "
+                   "institute ran on and her daughter continued the work",
+     "loops_continuable": True,
+     "constraint": ROSE,
+     "constraint_note": "poverty, exclusion, and a shed for a laboratory",
+     "release": CONTINUOUS, "external_memory": "apparatus and a co-worker",
+     "worked_with": "PARTNERSHIP (Pierre) — breaks the lone-theorist shape",
+     "h": "H4"},
+    {"id": "S-05", "name": "Michael Faraday", "years": "1791-1867",
+     "field": "physics and chemistry", "from_workbook": False,
+     "weak_channel": "mathematics — he never had it",
+     "weak_became_strength": False,
+     "weak_note": "ROUTED AROUND, NOT CONVERTED. He reached the field concept "
+                  "by visual reasoning and Maxwell supplied the mathematics "
+                  "afterwards. The weak channel stayed weak to the end.",
+     "institution": READ_CORRECTLY,
+     "institution_note": "an apprentice bookbinder with no formal education, "
+                         "but Davy took him into the Royal Institution at 21 "
+                         "and it held him for life. NOT a misreading.",
+     "at_death": STOPPED_BEFORE_DEATH,
+     "death_note": "his memory and powers declined from the mid-1850s and he "
+                   "gave up experimental work years before dying in 1867. THE "
+                   "CLEAN COUNTEREXAMPLE TO X-03.",
+     "loops_continuable": True,
+     "constraint": ROSE,
+     "constraint_note": "Davy's binding; the Royal Institution's lecture duties",
+     "release": CONTINUOUS,
+     "external_memory": "a numbered lifelong laboratory diary",
+     "worked_with": "alone, with an assistant", "h": "H4"},
+    {"id": "S-06", "name": "Alan Turing", "years": "1912-1954",
+     "field": "mathematics and computing", "from_workbook": False,
+     "weak_channel": "institutional and social navigation",
+     "weak_became_strength": False,
+     "weak_note": "never converted; it is what destroyed him.",
+     "institution": USED_THEN_DESTROYED,
+     "institution_note": "Cambridge and Bletchley used him accurately and at "
+                         "full stretch; the state then prosecuted him in 1952 "
+                         "and he was dead by 1954. NEITHER misread NOR read "
+                         "correctly — a third category X-02 does not have.",
+     "at_death": WORKING_AT_DEATH,
+     "death_note": "dead at 41 with morphogenesis work in progress; the 1936 "
+                   "and 1950 papers were already public and others carried them",
+     "loops_continuable": True,
+     "constraint": ROSE,
+     "constraint_note": "the wartime binding at Bletchley produced his most "
+                        "consequential work",
+     "release": CONTINUOUS, "external_memory": "pages and machines",
+     "worked_with": "teams (Bletchley) — the second break from lone work",
+     "h": "H4"},
+)
+
+HOLDS = "HOLDS"
+FAILS = "FAILS"
+UNKNOWN = "UNKNOWN"
+
+# Each law says WHICH field decides it, so a verdict is computed and a struck
+# field moves it. The falsifier is what a FAIL means, in his terms.
+CROSS_LAWS = (
+    {"id": "X-01", "name": "Weak container loops to strength",
+     "reads": "weak_became_strength",
+     "holds_when": "the weakest channel ends among the strongest",
+     "falsifier": "a subject whose weakest channel stays weak or is routed "
+                  "around instead of converted"},
+    {"id": "X-02", "name": "Institutions misread development",
+     "reads": "institution",
+     "holds_when": "the institution read the person wrong",
+     "falsifier": "a subject an institution read correctly — or one it read "
+                  "correctly and then destroyed, which the law has no word for"},
+    {"id": "X-03", "name": "Death as halt, not stop",
+     "reads": "at_death",
+     "holds_when": "the work is still moving when the person stops",
+     "falsifier": "a subject who stopped working well before dying"},
+    {"id": "X-04", "name": "Constraint-rise",
+     "reads": "constraint",
+     "holds_when": "external binding lifts performance",
+     "falsifier": "a subject whose performance fell under imposed constraint"},
+)
+
+
+def _verdict(law: dict, subj: dict) -> dict:
+    """Read one law on one subject FROM THE FIELDS. Never typed per-pair."""
+    f = law["reads"]
+    v = subj.get(f)
+    if v is None:
+        return {"verdict": UNKNOWN, "why": "the axis is not read for this subject"}
+    if f == "weak_became_strength":
+        return {"verdict": HOLDS if v else FAILS,
+                "why": subj.get("weak_note", "")}
+    if f == "institution":
+        if v == MISREAD:
+            return {"verdict": HOLDS, "why": subj.get("institution_note", "")}
+        return {"verdict": FAILS, "why": subj.get("institution_note", ""),
+                "new_category": v if v == USED_THEN_DESTROYED else None}
+    if f == "at_death":
+        return {"verdict": HOLDS if v == WORKING_AT_DEATH else FAILS,
+                "why": subj.get("death_note", "")}
+    if f == "constraint":
+        return {"verdict": HOLDS if v == ROSE else FAILS,
+                "why": subj.get("constraint_note", "")}
+    return {"verdict": UNKNOWN, "why": "no reader for this axis"}
+
+
+def cross_test(law_id: str = "") -> dict:
+    """Test the cross-subject laws against every subject.
+
+    A law is not graded on how often it holds. His discipline is the survivor
+    stage: **one clean counterexample falsifies the law as stated.** A law with a
+    FAIL comes back KILLED AS STATED, with the subject that killed it named, and
+    what it would have to be narrowed to in order to survive. Nothing is deleted."""
+    laws = [l for l in CROSS_LAWS if not law_id or l["id"] == law_id]
+    out = []
+    for law in laws:
+        rows = []
+        for s in SUBJECTS:
+            v = _verdict(law, s)
+            rows.append({"subject": s["id"], "name": s["name"],
+                         "verdict": v["verdict"], "why": v["why"],
+                         "new_category": v.get("new_category"),
+                         "h": s["h"], "from_workbook": s["from_workbook"]})
+        holds = [r for r in rows if r["verdict"] == HOLDS]
+        fails = [r for r in rows if r["verdict"] == FAILS]
+        unknown = [r for r in rows if r["verdict"] == UNKNOWN]
+        newcat = sorted({r["new_category"] for r in rows if r["new_category"]})
+        out.append({
+            "law": law["id"], "name": law["name"],
+            "holds_when": law["holds_when"],
+            "falsifier": law["falsifier"],
+            "rows": rows,
+            "counts": {"subjects": len(rows), "holds": len(holds),
+                       "fails": len(fails), "unknown": len(unknown)},
+            "killed_as_stated": bool(fails),
+            "killed_by": [r["name"] for r in fails],
+            "status": ("KILLED AS STATED — %s" % ", ".join(r["name"]
+                                                           for r in fails))
+                      if fails else
+                      ("SURVIVES %d of %d, untested elsewhere"
+                       % (len(holds), len(rows))),
+            "needs_a_new_category": newcat,
+            "narrow_to": ("holds on %s and fails on %s — it is a law about a "
+                          "TYPE of subject, not about subjects"
+                          % (", ".join(r["name"] for r in holds) or "none",
+                             ", ".join(r["name"] for r in fails)))
+                         if fails and holds else None,
+            "deleted": 0,
+        })
+    survived = [o for o in out if not o["killed_as_stated"]]
+    return {
+        "subjects": len(SUBJECTS),
+        "new_subjects": sum(1 for s in SUBJECTS if not s["from_workbook"]),
+        "laws_tested": len(out),
+        "laws": out,
+        "survived": [o["law"] for o in survived],
+        "killed_as_stated": [o["law"] for o in out if o["killed_as_stated"]],
+        "law": "one clean counterexample falsifies a cross-subject law as stated. "
+               "Holding on most subjects is not holding.",
+        "refuses": "the new subjects were chosen to STRESS these laws, not to "
+                   "agree with them. A law that survives a stress set has earned "
+                   "something; a law that survives a set picked to flatter it has "
+                   "not.",
+        "nothing_deleted": True,
+        "his_call": "narrowing a killed law, or striking it, is his — not mine.",
+    }
+
+
+def release_poles() -> dict:
+    """E-03 said ONE AXIS, TWO POLES. Six subjects show four."""
+    by = {}
+    for s in SUBJECTS:
+        by.setdefault(s["release"], []).append(s["name"])
+    return {
+        "poles_in_his_candidate": [GATE, ITERATE],
+        "poles_found": sorted(by),
+        "by_pole": by,
+        "his_candidate_was": "E-03 Release polarity — one axis, two poles "
+                             "(Riemann's gate against Einstein's self-strike)",
+        "finding": "the axis needs at least four settings, not two: %s"
+                   % ", ".join(sorted(by)),
+        "note": "CONTINUOUS (Faraday, Curie, Turing) is neither a gate nor a "
+                "self-strike, and UNGATED (Ramanujan) sends unproven work "
+                "freely. Reported as an amendment to his own candidate, not "
+                "applied to it.",
+    }
+
+
+def lone_worker_check() -> dict:
+    """Both workbook subjects worked essentially alone. Does the shape hold?"""
+    modes = {}
+    for s in SUBJECTS:
+        modes.setdefault(s["worked_with"], []).append(s["name"])
+    solo = [s["name"] for s in SUBJECTS if s["worked_with"].startswith("alone")]
+    return {
+        "by_mode": modes,
+        "alone": solo,
+        "not_alone": [s["name"] for s in SUBJECTS
+                      if not s["worked_with"].startswith("alone")],
+        "finding": "the two workbook subjects are both lone theorists, so every "
+                   "law drawn from them alone was at risk of being a law about "
+                   "lone theorists. Curie worked in a partnership and Turing in "
+                   "teams; both still show constraint-rise, which is evidence "
+                   "X-04 is not an artefact of solitude.",
+    }
+
+
 # The Riemann 45-item re-run tally, as the workbook computed it.
 RERUN_TALLY = {"AGREES": 15, "CONDITIONAL": 13, "DIFFERS": 10, "REJECTS": 3,
                "NO-VERDICT": 4}
@@ -325,8 +628,16 @@ def grow(root: str) -> dict:
 
 
 def stats() -> dict:
+    ct = cross_test()
     return {
-        "subjects": 2,
+        "subjects": len(SUBJECTS),
+        "subjects_from_workbooks": sum(1 for s in SUBJECTS if s["from_workbook"]),
+        "subjects_added_to_test": ct["new_subjects"],
+        "cross_laws": len(CROSS_LAWS),
+        "cross_laws_survived": ct["survived"],
+        "cross_laws_killed_as_stated": ct["killed_as_stated"],
+        "release_poles_found": len(release_poles()["poles_found"]),
+        "release_poles_he_named": 2,
         "candidates": len(CANDIDATES),
         "riemann_candidates": len(candidates_for(RIEMANN)),
         "einstein_candidates": len(candidates_for(EINSTEIN)),

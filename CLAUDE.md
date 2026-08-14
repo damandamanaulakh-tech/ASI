@@ -683,6 +683,32 @@ fix your attention on their deeds"* — no standing rule when they diverge);
 **E-3** may a verdict overrule a dead man with evidence he never saw; **H-5**
 whether the witness law is scoped to minds only.
 
+**SIX SUBJECTS NOW, AND THREE OF HIS FOUR CROSS-LAWS ARE DEAD (2026-08-13).** His
+order: *"keep doing, add more subjects to test cross patterns"* — and X-02 already
+carried the condition *THIRD SUBJECT NEEDED TO TEST*. Two subjects could never test
+a cross-subject law, because his two are the same **type**: European, male,
+theoretical, working alone, dying with the work open. So four were added **to stress
+the laws, not to agree with them** — Ramanujan (no institution, no proofs), Curie (a
+partnership and an experimentalist), Faraday (no mathematics ever, and he **stopped
+working years before he died**), Turing (used accurately, then destroyed). Verdicts
+are **computed from structured axis fields**, so striking a field moves a law; a
+test pins that. **Result: X-01 · X-02 · X-03 KILLED AS STATED; only X-04 survives.**
+**X-01 is the useful failure — it holds on Riemann and Einstein and on NOBODY
+ELSE**, i.e. only on the two subjects it was derived from, which is the signature of
+a law fitted to its own evidence: Ramanujan's rigour, Faraday's mathematics and
+Curie's barred access were each **routed around, not converted**. **X-02 needs a
+category it lacks** — Faraday was read *correctly* (Davy took him in at 21) and
+Turing was `USED_THEN_DESTROYED`, neither misread nor read correctly. **X-03 dies on
+one clean counterexample** (Faraday), 5 of 6 notwithstanding — his own rule is that
+holding on most subjects is not holding. **X-04 constraint-rise survives 6 of 6 and
+survives the RIGHT way:** it holds on Curie (partnership) and Turing (teams), so it
+is not an artefact of solitude, which was the live risk. **His E-03 two-pole axis
+needs four settings** — GATE · ITERATE · UNGATED · CONTINUOUS — and CONTINUOUS is
+the commonest; reported as an amendment, never applied to his candidate. Nothing is
+deleted: a killed law keeps its rows, its counterexamples and what it would have to
+be narrowed to. Narrowing or striking is his call. The four readings add **82** to
+the count and **0** parameters. 244 tests green, 176 anchors resolve.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

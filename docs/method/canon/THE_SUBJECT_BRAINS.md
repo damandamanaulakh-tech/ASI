@@ -184,3 +184,92 @@ for the platform, not for the subjects:
 
 These are recorded as `HALT` rows with `answered: False`, and a test asserts none
 is marked answered.
+
+---
+
+## 8. MORE SUBJECTS, TO TEST THE CROSS PATTERNS
+
+> keep doing, add more subjects to test cross patterns
+
+X-02 already carried this condition in its own text: **THIRD SUBJECT NEEDED TO
+TEST.** And two subjects cannot test a cross-subject law, because the two he had
+are the same **type** — European, male, theoretical, working essentially alone,
+dying with the work open. A law drawn from those two was at risk of being a law
+about *that type*.
+
+So the four added were chosen to **stress** the laws, not to agree with them. Each
+one is there because a named law plausibly fails on it:
+
+| subject | why this one | what it stresses |
+|---|---|---|
+| **Srinivasa Ramanujan** (1887–1920) | no institution, no proofs — his weak channel (rigour) never became a strength | X-01 |
+| **Marie Curie** (1867–1934) | a partnership, and an experimentalist — breaks the lone-theorist shape both existing subjects share | X-04's independence from solitude |
+| **Michael Faraday** (1791–1867) | no mathematics ever, continuous release, and **he stopped working years before he died** | X-03 |
+| **Alan Turing** (1912–1954) | institutions read him correctly, used him fully, then destroyed him | X-02 |
+
+Every reading sits at his evidence ladder and is correctable. **The verdicts are
+computed from structured axis fields, never typed per pair** — strike a field and
+the verdict moves, which a test pins.
+
+### The result: three of his four laws are killed as stated
+
+```
+X-01  Weak container loops to strength   KILLED   holds 2 · fails 4
+X-02  Institutions misread development   KILLED   holds 4 · fails 2
+X-03  Death as halt, not stop            KILLED   holds 5 · fails 1
+X-04  Constraint-rise                    SURVIVES holds 6 · fails 0
+```
+
+His discipline decides how to read that, and it is the survivor stage, not a
+score: **one clean counterexample falsifies a law as stated. Holding on most
+subjects is not holding.**
+
+**X-01 is the worst case and the most useful.** It holds on Riemann and Einstein —
+**and on nobody else.** It held only on the two subjects it was derived from. That
+is the signature of a law fitted to its own evidence. Ramanujan's rigour never
+became a strength (Hardy supplied it), Faraday's mathematics never became a
+strength (Maxwell supplied it), Curie's barred access was **routed around, not
+converted**, and Turing's weak channel is what destroyed him. The honest reading:
+`weak channel → routed around` is the common case, and `weak channel → becomes
+strongest` is the rare one.
+
+**X-02 needs a category it does not have.** Faraday was *not* misread — Davy took
+him into the Royal Institution at 21 and it held him for life. And Turing was
+neither misread nor read correctly: he was **used accurately and then destroyed**.
+`USED_THEN_DESTROYED` is reported as a missing third value, not silently folded
+into "misread".
+
+**X-03 dies on exactly one counterexample.** Faraday's powers declined from the
+mid-1850s and he gave up experimental work years before dying in 1867. Five of six
+still show death-as-halt, which is why the law is *narrowed*, not deleted — but as
+stated it is false.
+
+**X-04 survives 6 of 6, and survives the right way.** It holds on Curie, who worked
+in a partnership, and on Turing, who worked in teams — so it is **not an artefact
+of solitude**, which was the live risk when the evidence was two lone theorists.
+
+### A second amendment his own candidate needs
+
+**E-03 said one axis, two poles.** Six subjects show **four**:
+
+```
+GATE        Riemann      finishes and withholds
+ITERATE     Einstein     publishes wrong, self-strikes in public
+UNGATED     Ramanujan    sends unproven results freely
+CONTINUOUS  Curie · Faraday · Turing   releases as the work goes, no gate, no strike
+```
+
+`CONTINUOUS` is the most common setting in this set and his two-pole axis has no
+place for it. Reported as an amendment to his candidate — **not applied to it.**
+
+### What they added to the count
+
+The four new subject readings are short structured rows, not documents, so they add
+little and it is stated rather than inflated: **82** to the count, 39 events, all
+seating on existing IDs, **0 parameters created**.
+
+### Still his call
+
+Narrowing a killed law, or striking it, is his. Nothing here was deleted: the
+killed laws keep their rows, their counterexamples and what they would have to be
+narrowed to in order to survive.

@@ -1391,7 +1391,11 @@ class Handler(BaseHTTPRequestHandler):
                 {"stats": subjectbrains.stats(),
                  "candidates": subjectbrains.candidates_for(),
                  "halts": subjectbrains.open_halts(),
-                 "version_gap": subjectbrains.version_gap()}).encode(),
+                 "version_gap": subjectbrains.version_gap(),
+                 "subjects": list(subjectbrains.SUBJECTS),
+                 "cross_test": subjectbrains.cross_test(),
+                 "release_poles": subjectbrains.release_poles(),
+                 "lone_worker": subjectbrains.lone_worker_check()}).encode(),
                 "application/json")
         elif path == "/selfmake":
             # the algorithm's own body: the spine plus every step it has written
