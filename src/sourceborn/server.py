@@ -45,6 +45,8 @@ from . import discovery
 from . import expected
 from . import maturity
 from . import nodebrain
+from . import prior
+from . import runtime as rt
 from . import sysmap
 from . import subjectbrains
 from . import statepacks
@@ -1398,6 +1400,14 @@ class Handler(BaseHTTPRequestHandler):
                  "headers": nodebrain.headers(),
                  "collisions": nodebrain.collisions()}).encode(),
                 "application/json")
+        elif path == "/runtime":
+            # Phase B — his eighteen steps as one run; 2 and 3 reverse before
+            # decomposition
+            self._send(200, json.dumps(
+                {"stats": rt.stats(), "steps": rt.steps(),
+                 "prior": prior.stats(),
+                 "reverse_passes": prior.reverse_passes()}).encode(),
+                "application/json")
         elif path == "/maturity":
             # stage 18, and the WEAKEN stage 19 was missing
             self._send(200, json.dumps(
@@ -1987,6 +1997,18 @@ class Handler(BaseHTTPRequestHandler):
                 return
             self._send(200, json.dumps(selfmake.run(
                 SB_ROOT, text, (data.get("name") or "").strip())).encode(),
+                "application/json")
+            return
+        if self.path == "/runtime/run":
+            # Phase B — walk his eighteen on one ask. A record, never an answer.
+            text = (data.get("text") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "no text"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(rt.run(
+                text, his_end=(data.get("his_end") or "").strip(),
+                name=(data.get("name") or "").strip())).encode(),
                 "application/json")
             return
         if self.path == "/growing/place":

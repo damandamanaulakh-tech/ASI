@@ -25,6 +25,8 @@ def _n():
     from . import human_registry as hr
     from . import intent_ledger as L
     from . import intents as I
+    from . import nodebrain as N
+    from . import runtime as R
     from . import statepacks as P
     from . import subjectbrains as SB
     d = F.divide(".")
@@ -44,6 +46,9 @@ def _n():
         "gen": A.generate_meanings()["counts"]["generated"],
         "ceiling": A.combination_space()["ceiling"],
         "series": len(G.SERIES),
+        "ntypes": len(N.NODE_TYPES), "nfields": len(N.FIELDS),
+        "nlinks": len(N.LINK_TYPES), "nfp": N.fingerprint(),
+        "nrev": [s["n"] for s in R.STEPS if s["dir"] == R.REVERSE],
     }
 
 
@@ -189,6 +194,22 @@ def arrow_chart() -> str:
         "   generation 0        →     5 steps",
         "   after one extend    → 2,204 steps",
         "   same material again →     0 written",
+    ])
+    L += _down()
+
+    L += _box("HIS SELF-SUSTAIN PHASES", "his sheet · staged, not a switch", [
+        "A  node schema LOCKED    nodebrain.py  /nodes/schema",
+        "     %d types · %d fields · %d typed links"
+        % (n["ntypes"], n["nfields"], n["nlinks"]),
+        "     fingerprint %s — a test pins it" % n["nfp"],
+        "B  runtime pipeline      runtime.py + prior.py  /runtime",
+        "     his 18 as ONE run · steps %s run REVERSE"
+        % "-".join(str(x) for x in n["nrev"]),
+        "     2 and 3 were ABSENT — declare the end, descend to the",
+        "     prior reality, BEFORE decomposition. answer: None, always",
+        "C  combination + intent engine        NOT BUILT",
+        "D  memory graph + auto-linking        NOT BUILT",
+        "E  self-sustain scheduler             NOT BUILT",
     ])
     L += _down()
 

@@ -222,6 +222,58 @@ MAP: list[dict] = [
             "the module's own code, with docstrings and comments stripped, to "
             "prove there is no growth.add call, no file write, no tick and no "
             "Thread in it. /nodes/schema."},
+   {"his": "build phase A [continued on his word] — Phase B, the runtime "
+           "pipeline: the eighteen steps of his AUTO RUNTIME ENGINE box as one "
+           "run",
+    "where": [("prior.py", "def declare_end("),
+              ("prior.py", "def end_candidates("),
+              ("prior.py", "def prior_reality("),
+              ("prior.py", "def removal_test("),
+              ("prior.py", "def entailments("),
+              ("prior.py", "def assume("),
+              ("prior.py", "def ground_check("),
+              ("runtime.py", "STEPS = ("),
+              ("runtime.py", "def run("),
+              ("runtime.py", "def detect_states("),
+              ("runtime.py", "def combinations_in(")],
+    "state": RUNS,
+    "note": "PHASE B of his sheet. Sixteen of his eighteen steps already "
+            "existed as separate modules reached by hand; the two that did NOT "
+            "exist — step 2 DECLARE END / WHY THIS MATTERS and step 3 REVERSE "
+            "TO PRIOR REALITY — are both reverse-direction and both sit BEFORE "
+            "decomposition, which is the correction: R-F-R at step 13 is the "
+            "SECOND place reverse happens, and this core had been running "
+            "forward from the text and reversing only at the check. prior.py "
+            "builds them from his own method doc (THE_REVERSE_WALKS.md): "
+            "declare_end grades a PULL (target ahead) apart from a PUSH (reason "
+            "behind) and NEVER promotes a reason to a target; two ends at the "
+            "same grade HALT, unblended, with what would separate them stated "
+            "as predictions; an unnamed end is UNNAMED with what would name it "
+            "— 'there is no reason' is not an available answer. prior_reality "
+            "descends by HIS removal test (take the step away — if the thing "
+            "above still stands it was a neighbour), grades every prior STATED "
+            "or ENTAILED, and CANNOT assume: ASSUMED exists only through an "
+            "explicit assume() call that stamps [SYNTHETIC] with proof debt and "
+            "expiry, and a test asserts the descent returns zero ASSUMED rows. "
+            "A drop the lexical test cannot be trusted on (same sentence, no "
+            "shared word — his rain sentence's 'pointed it in the air') is "
+            "FLAGGED for his review, never quietly reversed. Dropped priors are "
+            "kept as neighbours with the reason. Ground is claimed only when "
+            "reached ('something nobody made'), which on most single asks it is "
+            "not, and it says so. runtime.run then walks ALL EIGHTEEN in his "
+            "order — each record carrying the step's own job, what it took and "
+            "what it produced (his SB-01 correction applied to the runtime) — "
+            "and returns answer: None on every run, structurally: the runtime "
+            "prepares, he decides. A step that cannot bite on one ask says so "
+            "rather than faking: R-F-R on a single unrepeated ask reads thin, "
+            "maturity reads UNTESTED, the verdict reads UNKNOWN. Step 17 "
+            "PREPARES the writeback and evaluates his five write conditions "
+            "without writing — enforcement at the write site is Phase D, and on "
+            "a bare run two of five conditions are honestly unmet (no link map, "
+            "no origin distance). Detection is not choice: his sixteen packs "
+            "are checked for evidence words and chosen stays None. The "
+            "combination step runs the same cross-role gate that cut 2,627 to "
+            "2,119, scoped to the ask. /runtime, POST /runtime/run."},
    {"his": "build 18 and 23 / it should must have full explanation not just "
            "definition n placeholders",
     "where": [("maturity.py", "def read("),

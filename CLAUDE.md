@@ -781,6 +781,76 @@ deleted: a killed law keeps its rows, its counterexamples and what it would have
 be narrowed to. Narrowing or striking is his call. The four readings add **82** to
 the count and **0** parameters. 244 tests green, 176 anchors resolve.
 
+**HIS 23-STAGE DISCOVERY LOOP RUNS 23 OF 23, AND HIS SELF-SUSTAIN SHEET IS BEING
+BUILT PHASE BY PHASE (2026-08-13 → 2026-08-20) — `discovery.py`, `expected.py`,
+`maturity.py`, `nodebrain.py`, `prior.py`, `runtime.py`.** He posted his
+SOURCEBORN SYNTHETIC DISCOVERY LOOP (23 stages) and asked *"do we flow this or
+anything else"* — the honest audit found 11 of 23 running, and he ordered the
+gaps built: *"build 12"*, then *"build 18 and 23 / it should must have full
+explanation not just definition n placeholders"*. **Stage 12** (`expected.py`)
+turns one generated meaning into what should EXIST if it were true — six
+evidence classes, each with where-to-look / would-confirm / would-refute, a
+0.60 **discrimination bar** (a prediction every meaning makes tests nothing),
+and `falsifier_from()` so a candidate arrives already testable. Building it
+briefly OVERWROTE his Stage-4 `evidence.py` — same class of mistake as
+`pyramid.py` earlier — caught and restored from git; the new module is named
+`expected.py` with the reason at the top. **Stage 18** (`maturity.py`) is six
+states (UNTESTED/HELD/SUPPORTED/STRONG/WEAKENED/KILLED) computed FROM inputs,
+never a bare number, `is_a_score: False`, decay = checks without confirmation
+(his rule, never age); **stage 19** gains all four verdicts including the WEAKEN
+that could not exist before there was strength to lose; **stage 23**
+(`discovery.close/loop`) closes a pass, opens S1 referencing S0 (**NO
+REOPEN**), and `loop()` terminates three ways — my first version never
+terminated because it reseeded every maturity each pass. Then he posted his
+**SELF-SUSTAINING EXECUTION FLOW** sheet — 18-step auto runtime, 12 node types,
+11 memory kinds, 10 typed links, 9 auto loops, phases A–E, *"Manual Mode Now →
+Semi-Auto → Auto-Sustain Target"* — which corrected my own auto proposal in
+three places (my one untyped edge would have been a similarity blob; his Phase
+A ordering; his 9 loops against my 5). **Phase A on his word (`7fd4389`,
+`nodebrain.py`, `/nodes/schema`):** the node schema LOCKED — 12 types, 16
+fields (`point_zero_ref` REQUIRED = "no invention before source lock" made
+structural), 10 typed links each with direction/inverse/field, 4 statuses, 11
+memory kinds, 5 write + 6 read conditions; `fingerprint()` hashes the whole
+schema and a test pins the hash, so a silent change fails naming what moved —
+the technique stage 1 SOURCE LOCK still lacks. Node ids live under `SB-N-` so
+they can never be read as bank or ledger ids. **Five node-type names collide
+with growth series** (EVENT · INTENT · PATTERN · RULE · STATE) — surfaced with
+what each side means, `merged: False`, his ruling. A test reads the module's
+own code (docstrings stripped) to prove Phase A writes nothing, links nothing,
+schedules nothing. **Phase B (2026-08-20, `prior.py` + `runtime.py`,
+`/runtime`, `POST /runtime/run`):** his 18-step AUTO RUNTIME ENGINE as ONE run.
+Sixteen steps already existed; the two that did NOT — **step 2 DECLARE END /
+WHY THIS MATTERS and step 3 REVERSE TO PRIOR REALITY** — are both
+reverse-direction and both sit BEFORE decomposition: R-F-R at 13 is the SECOND
+reverse pass, and this core had been running forward and reversing only at the
+check. Built from HIS method doc (`THE_REVERSE_WALKS.md`): a PULL (target
+ahead) is graded apart from a PUSH (reason behind) and never promoted; two ends
+at one grade HALT unblended with what would separate them; an unnamed end is
+UNNAMED with what would name it; the descent runs HIS removal test (a failed
+prior is kept as a NEIGHBOUR with the reason), grades everything
+STATED/ENTAILED, and **cannot assume** — ASSUMED exists only through an
+explicit `assume()` call stamping `[SYNTHETIC]` (a test asserts zero ASSUMED
+rows from the descent). Where the lexical test cannot be trusted (same
+sentence, no shared word — his rain sentence's *"pointed it in the air"*), the
+drop is FLAGGED for his review, never quietly reversed. `runtime.run` walks all
+18 in his order, every record carrying **job · took · produced** (the SB-01
+correction applied to the runtime), and **`answer` is None on every run,
+structurally** — the runtime prepares, he decides. A step that cannot bite says
+so: R-F-R on one unrepeated ask reads thin, maturity UNTESTED, verdict UNKNOWN.
+**Step 17 writeback is PREPARED, not written** — his five write conditions are
+evaluated, two honestly unmet on a bare run (no link map — that IS Phase D —
+and no origin distance), and the HTTP route does not expose writing at all.
+Detection over his 16 packs never chooses. The combination step runs the same
+cross-role gate that cut 2,627 to 2,119, scoped to the ask. Wiring defect the
+mall example caught: step 5 first ran only per-clause seating, activated ZERO
+containers and generated zero intents — the join the bottleneck fix built was
+not wired; it now runs the same three seatings `growing.place` runs, and the
+mall raises 20 candidates, the rain 36, monotonic. The arrow chart gains HIS
+SELF-SUSTAIN PHASES box: A locked · B runs · **C, D, E NOT BUILT**. **Still
+waiting on him, unchanged:** the promotion policy question (permanent node ID
+on gates alone, or queued for him?) and the five namespace collisions. 302
+tests green, 216 anchors resolve, 0 missing.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

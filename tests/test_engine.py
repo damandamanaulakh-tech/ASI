@@ -4983,6 +4983,230 @@ def test_the_subject_routes_are_reachable():
         assert route in src, route
 
 
+# ---------------------------------------------------------------------------
+# PHASE B — the runtime pipeline, and the two reverse steps that were absent.
+# ---------------------------------------------------------------------------
+
+B_RAIN = ("kids father was standing outside with water pipe and pointed it in "
+        "the air so that the kids inside the home thought its raining outside")
+
+B_MALL = ("few days back i went to mall with my girlfriend because i was not "
+        "well. this weekend i will go again to the mall to buy a gift for her "
+        "birthday.")
+
+
+def test_step_2_reads_the_end_from_the_source():
+    """'so that ...' names a target ahead, and the parse finds it."""
+    from sourceborn import prior as P
+    e = P.declare_end(B_RAIN)
+    assert e["named"] is True
+    assert e["grade"] == "STATED TARGET"
+    assert "thought its raining" in e["end"]
+    assert e["direction"] == "REVERSE"
+    assert e["halt"] is False
+
+
+def test_a_reason_behind_is_never_promoted_to_a_target_ahead():
+    """'because i was not well' is a PUSH. It is kept, and it is not the end."""
+    from sourceborn import prior as P
+    e = P.declare_end(B_MALL)
+    kinds = {c["id"]: c["kind"] for c in e["candidates"]}
+    pushes = [c for c in e["candidates"] if c["kind"].startswith("PUSH")]
+    assert pushes, "the stated reason is kept"
+    assert all("not well" not in (e["end"] or "") for _ in [0]), \
+        "the chosen end is never the reason behind"
+    assert e["named"] is True and "birthday" in e["end"]
+    # and a text with ONLY a push has no named end — the push does not fill in
+    e2 = P.declare_end("he stayed home because he was ill")
+    assert e2["named"] is False
+    assert e2["push_candidates"] >= 1
+
+
+def test_two_surviving_ends_halt_and_are_never_blended():
+    from sourceborn import prior as P
+    e = P.declare_end("he called the meeting in order to warn them, and he "
+                      "called it so that the record would show he tried")
+    assert e["halt"] is True
+    assert e["named"] is False
+    assert len(e["chosen"]) == 2
+    assert e["separates_them"], "the halt ships with what would separate them"
+    assert e["end"] is None, "nothing was blended into a single end"
+
+
+def test_an_unnamed_end_is_unnamed_never_absent():
+    """'there is no reason' is not an available answer."""
+    from sourceborn import prior as P
+    e = P.declare_end("the king raised the tax")
+    assert e["named"] is False
+    assert len(e["what_would_name_it"]) == 3
+    assert e["why_this_matters"]["consumed_by"], \
+        "the four consuming steps are stated even when the end is open"
+
+
+def test_his_word_outranks_the_parse():
+    from sourceborn import prior as P
+    e = P.declare_end(B_RAIN, his_end="a joke on the kids")
+    assert e["named"] is True
+    assert e["end"] == "a joke on the kids"
+    assert e["grade"] == "HIS ASSIGNMENT"
+    assert e["candidates"], "the parsed candidates are kept beside his word"
+
+
+def test_step_3_descends_by_the_removal_test_and_cannot_assume():
+    from sourceborn import prior as P
+    pr = P.prior_reality(B_RAIN, P.declare_end(B_RAIN))
+    assert pr["direction"] == "REVERSE"
+    assert pr["counts"]["assumed"] == 0, "the descent cannot assume"
+    assert pr["counts"]["survived"] > 0
+    grades = {r["grade"] for r in pr["survivors"]}
+    assert grades <= {"STATED", "ENTAILED"}
+    # a dropped prior is kept as a neighbour with the reason
+    assert pr["counts"]["dropped_as_neighbours"] >= 1
+    n = pr["neighbours"][0]
+    assert "NEIGHBOUR" in n["removal_test"]["verdict"]
+    assert n["removal_test"]["why"]
+
+
+def test_the_lexical_drop_is_flagged_where_it_cannot_be_trusted():
+    """'pointed it in the air' causes 'thought its raining' and shares no word
+    with it. The drop stands — the descent may not use world knowledge — and it
+    is flagged for his review, never quietly reversed."""
+    from sourceborn import prior as P
+    pr = P.prior_reality(B_RAIN, P.declare_end(B_RAIN))
+    flagged = pr["flagged_for_review"]
+    assert flagged, "the same-sentence drop is flagged"
+    assert any("pointed" in f["condition"] for f in flagged)
+    assert all("His call" in f["review"] for f in flagged)
+
+
+def test_assumed_exists_only_through_the_explicit_call():
+    from sourceborn import prior as P
+    a = P.assume("the father owned the pipe", "needed to complete the chain",
+                 proof_debt=3)
+    assert a["grade"] == "ASSUMED"
+    assert a["synthetic"] is True and a["tag"] == "[SYNTHETIC]"
+    assert a["proof_debt"] == 3 and a["expires"]
+    try:
+        P.assume("x", "y", proof_debt=9)
+        assert False, "proof debt outside 0..5 must refuse"
+    except ValueError:
+        pass
+
+
+def test_ground_is_claimed_only_when_reached():
+    from sourceborn import prior as P
+    g = P.ground_check("his body was exhausted and in pain")
+    assert g["ground"] is True, "the physical human is something nobody made"
+    g2 = P.ground_check("the company rewrote its business model")
+    assert g2["ground"] is False
+    g3 = P.ground_check("qwerty zzz")
+    assert g3["ground"] is False, "unknown is not ground"
+
+
+def test_the_runtime_walks_all_eighteen_in_his_order():
+    from sourceborn import runtime as R
+    r = R.run(B_RAIN)
+    assert r["steps_run"] == 18 and r["of"] == 18
+    assert r["order"] == list(range(1, 19)), "his order, not mine"
+    assert r["reverse_steps"] == [2, 3, 11, 13], \
+        "two reverse passes: 2-3 at intake, 11 and 13 later"
+    names = [rec["name"] for rec in r["records"]]
+    assert names[1] == "Declare End / Why This Matters"
+    assert names[2] == "Reverse to Prior Reality"
+    assert names[3] == "Sequence Decomposition", \
+        "2 and 3 run BEFORE decomposition — the correction this phase is for"
+
+
+def test_a_run_is_a_record_never_an_answer():
+    from sourceborn import runtime as R
+    for text in (B_RAIN, B_MALL, ""):
+        r = R.run(text)
+        assert r["answer"] is None, "answer is None on every run, structurally"
+        assert r["chosen"] is None
+    # and every record carries job / took / produced — his SB-01 correction
+    r = R.run(B_RAIN)
+    for rec in r["records"]:
+        assert rec["job"] and rec["took"] is not None
+        assert rec["produced"] is not None, rec["name"]
+
+
+def test_the_runtime_does_not_write_by_default():
+    """Step 17 prepares. His five write conditions are evaluated, two are
+    honestly unmet on a bare run, and nothing is appended."""
+    from sourceborn import runtime as R
+    r = R.run(B_MALL, name="mall")
+    wb = next(rec for rec in r["records"] if rec["n"] == 17)["produced"]
+    assert wb["written"] is False
+    assert wb["conditions_total"] == 5
+    assert wb["conditions_met"] == 3
+    assert wb["write_conditions"]["link map created"] is False, \
+        "the link map IS Phase D — it cannot be met before D exists"
+    assert wb["why_not_written"]
+    # and the HTTP route does not expose writing at all
+    src = open("src/sourceborn/server.py").read()
+    at = src.index('"/runtime/run"')
+    assert "write" not in src[at:at + 600].replace("would_append", "")
+
+
+def test_untested_reads_untested_all_the_way_down():
+    """R-F-R on one unrepeated ask is thin, maturity is UNTESTED, the verdict
+    is UNKNOWN. An eighteen-step run on one sentence SHOULD end open."""
+    from sourceborn import runtime as R
+    r = R.run(B_RAIN)
+    rec = {x["n"]: x["produced"] for x in r["records"]}
+    assert rec[13]["stands"] is False
+    assert rec[15]["state"] == "UNTESTED"
+    assert rec[16]["verdict"] == "UNKNOWN"
+    assert rec[14]["survives"] is True
+    assert "untested" in next(x for x in r["records"] if x["n"] == 14)["notes"]
+
+
+def test_the_join_his_bottleneck_fix_built_is_wired():
+    """More active containers -> more intents, inside the runtime itself."""
+    from sourceborn import runtime as R
+    r1 = R.run(B_MALL)
+    r2 = R.run(B_RAIN)
+    c1 = {x["n"]: x["produced"] for x in r1["records"]}
+    c2 = {x["n"]: x["produced"] for x in r2["records"]}
+    assert len(c1[5]["containers_activated"]) > 0, \
+        "the mall must activate containers (it first activated ZERO — the " \
+        "join was not wired)"
+    assert c1[10]["candidates"] > 0
+    assert c2[10]["candidates"] > c1[10]["candidates"], \
+        "more containers active -> more intents, his curve inside the run"
+    assert c1[10]["chosen"] is None and c2[10]["chosen"] is None
+
+
+def test_detection_is_not_choice():
+    from sourceborn import runtime as R
+    d = R.detect_states("the king was exhausted, his energy down and stress up")
+    assert d["detected"], "evidence words in the ask are found"
+    assert d["chosen"] is None
+    d2 = R.detect_states("the ledger was appended")
+    assert d2["detected"] == [] and d2["chosen"] is None
+
+
+def test_the_two_ends_halt_reaches_the_run():
+    from sourceborn import runtime as R
+    r = R.run("he called the meeting in order to warn them, and he called it "
+              "so that the record would show he tried")
+    assert r["halts"] and r["halts"][0]["step"] == 2
+
+
+def test_the_reverse_passes_are_stated():
+    from sourceborn import prior as P
+    rp = P.reverse_passes()
+    assert rp["passes"][0]["at"] == [2, 3]
+    assert rp["passes"][0]["was"] == "ABSENT until Phase B"
+    assert rp["passes"][1]["at"] == [13]
+
+
+def test_the_runtime_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/runtime"', '"/runtime/run"'):
+        assert route in src, route
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0
