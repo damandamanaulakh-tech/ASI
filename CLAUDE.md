@@ -683,6 +683,47 @@ fix your attention on their deeds"* — no standing rule when they diverge);
 **E-3** may a verdict overrule a dead man with evidence he never saw; **H-5**
 whether the witness law is scoped to minds only.
 
+**THE ARTIFACT LAYER — READING AN OBJECT WITHOUT READING ITS LANGUAGE
+(2026-08-13) — `artifact.py`, `/artifact`.** From `GPT_Black.txt`, the other
+assistant's transcript on this same project, on his word *"build it"*. Canon at
+`docs/method/canon/THE_ARTIFACT_LAYER.md`. **Roughly half of that transcript this
+core already held and had built independently from his workbooks** — the ten king
+brain-states are SP-19..SP-28, the live intent engine is `intent_ledger.py`,
+`NEW WORDING != NEW INTENT` is the novelty signature. **Eight mechanisms were NOT
+here:** `SG-A..SG-J` visual placeholders (a sign reasoned about by neighbour ·
+position · repetition · enclosure · damage **without claiming to know Egyptian**,
+and `SG-J damaged` is explicitly not a missing letter); `SYN-MEAN-001..008`
+whole-object meanings (008: the object as *event compression + identity anchor +
+relation map + future memory object*, not text); **ORIGIN DISTANCE 0..5** where
+*farther is not WRONG, farther owes more evidence*; **NINE actor roles per artifact
+event** — subject ≠ requester ≠ controller ≠ author ≠ scribe ≠ carver ≠
+institution ≠ beneficiary ≠ audience, each with its own possible intent, against
+this core's ONE actor per event; **future-state reconstruction**, which runs
+BACKWARDS where everything else here runs forwards; **damage branching** (four
+branches predicting *different* evidence, never a fill); 12 `PC-TAB-SYN` pattern
+candidates of which the transcript names 8 and **the other 4 are recorded as
+unnamed rather than given names**; and **MATCH SCORE != EPISTEMIC CONFIDENCE**.
+**THE GATES ARE THE POINT:** ungated the generator returned **6,480 of a possible
+6,480** — a meaning for every combination, the same defect the self-made
+COMBINATION steps had before cross-role. `ROLE_FUTURES` (*a carver does not secure
+a dynasty*) and `FUTURE_NEEDS` (*an identity claim needs the enclosure*) cut it to
+**1,824 kept, 3,480 + 1,176 rejected**, and both numbers are reported. Everything
+is `NEW_SYNTHETIC`, `historical_fact False`, `translation_verified False` — **0
+translations, 0 parameters**. His eight seat on **29 existing ids**: SYN-MEAN-006
+on **P2519 Intention-to-persist**, SYN-MEAN-008 on **P0844 Sequence compression**.
+The transcript's own refusals (owl = wisdom, falcon = royal guard, waves =
+endurance, the bare 7.8/10) are stored as REFUSED so they can never creep back as
+fact. **His last question in that chat — *show me how many new meaning* — expired
+unanswered and is answered here: 1,824 generated, 1,706 genuinely new shapes.**
+**Unverifiable and not repeated as fact:** everything about the C-SB repo (PR #2,
+"7/7 passing", the 14-stage brain tree) — another assistant's report of its own
+work in a repository this session cannot reach. **One defect this build caught in
+the seating itself:** two runs of the same seat returned DIFFERENT rows, because
+set iteration is randomised per process and tied weights came back in a different
+order — the same input gave different answers. Word order is now sorted and ties
+break on the row id, verified across three runs. 256 tests green, 183 anchors
+resolve.
+
 **TWELVE SUBJECTS, THE CANDIDATES APPLIED, AND NOTHING KILLED (2026-08-13).** His
 order: *"keep going, add more subjects / apply on candidates / nothing needs to kill
 for now, add everything and generate"* — **which reverses the kill I had just

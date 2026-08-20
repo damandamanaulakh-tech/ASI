@@ -40,6 +40,7 @@ from . import asipage
 from . import generationpage
 from . import growth
 from . import filemap, growing, intent_ledger, intents, selfmake
+from . import artifact
 from . import subjectbrains
 from . import statepacks
 from . import weighting
@@ -1384,6 +1385,20 @@ class Handler(BaseHTTPRequestHandler):
                  "links": {k: v["reachable_from"]
                            for k, v in intents.motive_links().items()}}).encode(),
                 "application/json")
+        elif path == "/artifact":
+            # reading an object without pretending to read its language
+            self._send(200, json.dumps(
+                {"stats": artifact.stats(),
+                 "sign_groups": list(artifact.SIGN_GROUPS),
+                 "meanings": list(artifact.SYNTHETIC_MEANINGS),
+                 "actor_roles": list(artifact.ACTOR_ROLES),
+                 "origin_distance": list(artifact.ORIGIN_DISTANCE),
+                 "future_states": list(artifact.FUTURE_STATES),
+                 "patterns": list(artifact.PATTERN_CANDIDATES),
+                 "refused": artifact.refused(),
+                 "seated": artifact.seat_on_bank(),
+                 "space": artifact.combination_space()}).encode(),
+                "application/json")
         elif path == "/subjects":
             # his platform superimposed on Riemann and Einstein — my own earlier
             # builds, handed back. 25 candidates, 14 halts, none answered.
@@ -1840,6 +1855,18 @@ class Handler(BaseHTTPRequestHandler):
                 conditional=bool(data.get("conditional")),
                 conflict=bool(data.get("conflict")))
             self._send(200, json.dumps(res).encode(), "application/json")
+            return
+        if self.path == "/artifact/generate":
+            # the count he asked for and never got. Gated by default.
+            self._send(200, json.dumps(artifact.generate_meanings(
+                max_group_size=int(data.get("size") or 3),
+                limit=int(data.get("limit") or 0),
+                gated=data.get("gated", True) is not False)).encode(),
+                "application/json")
+            return
+        if self.path == "/artifact/grow":
+            self._send(200, json.dumps(artifact.grow(SB_ROOT)).encode(),
+                       "application/json")
             return
         if self.path == "/subjects/grow":
             # append the candidates and halts. No parameter is created.

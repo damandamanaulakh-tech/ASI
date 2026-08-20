@@ -186,6 +186,44 @@ MAP: list[dict] = [
             "basic_over is False and is HIS call, not a threshold I set. "
             "/growing, /growing/coverage, POST /growing/place, "
             "POST /growing/grow."},
+   {"his": "review this file and which parameters hit in this / build it",
+    "where": [("artifact.py", "SIGN_GROUPS = ("),
+              ("artifact.py", "SYNTHETIC_MEANINGS = ("),
+              ("artifact.py", "ACTOR_ROLES = ("),
+              ("artifact.py", "ORIGIN_DISTANCE = ("),
+              ("artifact.py", "def generate_meanings("),
+              ("artifact.py", "def damage_branches("),
+              ("artifact.py", "def refused(")],
+    "state": RUNS,
+    "note": "GPT_Black.txt, the other assistant's transcript on the same "
+            "project. Roughly half of it this core already held and built "
+            "independently from his workbooks — the ten king brain-states are "
+            "SP-19..SP-28, the live intent engine is intent_ledger.py, NEW "
+            "WORDING != NEW INTENT is the novelty signature. EIGHT MECHANISMS "
+            "WERE NOT HERE and are now: SG-A..SG-J visual placeholders (reason "
+            "about a sign by neighbour/position/repetition/enclosure/damage "
+            "without claiming to know Egyptian); SYN-MEAN-001..008 whole-object "
+            "meanings; ORIGIN DISTANCE 0..5 where farther is not WRONG but owes "
+            "more evidence; NINE actor roles per artifact event, each with its "
+            "own possible intent, against this core's one actor per event; "
+            "future-state reconstruction, which runs BACKWARDS where everything "
+            "else runs forwards; damage branching (four branches that predict "
+            "different evidence, never a fill); 12 PC-TAB-SYN pattern "
+            "candidates of which the transcript names 8 and the other 4 are "
+            "recorded as unnamed; and MATCH SCORE != EPISTEMIC CONFIDENCE. THE "
+            "GATES MATTER: ungated the generator returned 6,480 of a possible "
+            "6,480 — a meaning for every combination, which is not a finding. "
+            "ROLE_FUTURES (a carver does not secure a dynasty) and FUTURE_NEEDS "
+            "(an identity claim needs the enclosure) cut it to 1,824, rejecting "
+            "3,480 and 1,176 and reporting both. Everything is NEW_SYNTHETIC "
+            "with historical_fact False and translation_verified False; 0 "
+            "translations, 0 parameters. His eight seat on 29 existing ids — "
+            "SYN-MEAN-006 on P2519 Intention-to-persist and SYN-MEAN-008 on "
+            "P0844 Sequence compression. The transcript's own refusals (owl = "
+            "wisdom, falcon = royal guard, 7.8/10) are stored as REFUSED so they "
+            "cannot creep back as fact. His last question — how many new "
+            "meanings — expired unanswered in that chat and is answered here. "
+            "/artifact, POST /artifact/generate, POST /artifact/grow."},
    {"his": "ur own old docs / hope adding more",
     "where": [("subjectbrains.py", "CANDIDATES = ("),
               ("subjectbrains.py", "HALTS = ("),

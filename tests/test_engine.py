@@ -4412,6 +4412,134 @@ def test_generation_adds_everything_and_kills_nothing():
     assert G.counts(root)["total_parameters"] == 3204
 
 
+# ---------------------------------------------------------------------------
+# THE ARTIFACT LAYER — from GPT_Black.txt. Reading an object without pretending
+# to read its language.
+# ---------------------------------------------------------------------------
+
+def test_a_sign_can_be_reasoned_about_without_knowing_what_it_says():
+    from sourceborn import artifact as A
+    assert len(A.SIGN_GROUPS) == 10
+    ids = [g["id"] for g in A.SIGN_GROUPS]
+    assert ids == ["SG-%s" % c for c in "ABCDEFGHIJ"]
+    # the damaged class is not a missing letter
+    dam = [g for g in A.SIGN_GROUPS if g["id"] == "SG-J"][0]
+    assert "NOT a missing letter" in dam["reads"]
+    assert set(A.SIGN_AXES) == {"NEIGHBOUR", "POSITION", "REPETITION",
+                                "ENCLOSURE", "DAMAGE"}
+
+
+def test_every_meaning_is_synthetic_and_nothing_is_translated():
+    from sourceborn import artifact as A
+    assert len(A.SYNTHETIC_MEANINGS) == 8
+    g = A.generate_meanings(limit=200)
+    for m in g["meanings"]:
+        assert m["status"] == A.NEW_SYNTHETIC
+        assert m["historical_fact"] is False
+        assert m["translation_verified"] is False
+        assert m["chosen"] is False
+        assert m["evidence_owed"]
+    assert g["counts"]["historical_facts_established"] == 0
+    assert g["counts"]["translations_made"] == 0
+    assert g["counts"]["new_parameters_created"] == 0
+
+
+def test_the_gates_bite_and_the_ungated_number_is_reported():
+    """Ungated it returns the whole cross product, which is not a finding."""
+    from sourceborn import artifact as A
+    raw = A.generate_meanings(gated=False)
+    gated = A.generate_meanings()
+    assert raw["counts"]["generated"] == A.combination_space()["ceiling"]
+    assert gated["counts"]["generated"] < raw["counts"]["generated"] / 3
+    assert gated["counts"]["rejected_role_cannot_reach_that_future"] > 0
+    assert gated["counts"]["rejected_marks_cannot_carry_that_claim"] > 0
+    assert gated["counts"]["ceiling_ungated"] == raw["counts"]["generated"]
+    # a carver can only be working toward the one future a carver can affect
+    carver = [m for m in gated["meanings"] if m["actor_role"] == "CARVER"]
+    assert carver and {m["future_state"] for m in carver} == \
+        {[f["state"] for f in A.FUTURE_STATES if f["id"] == "FS-6"][0]}
+
+
+def test_farther_is_not_wrong_it_owes_more_evidence():
+    from sourceborn import artifact as A
+    assert len(A.ORIGIN_DISTANCE) == 6
+    assert [d["d"] for d in A.ORIGIN_DISTANCE] == [0, 1, 2, 3, 4, 5]
+    assert A.ORIGIN_DISTANCE[0]["debt"] == "none — it is there"
+    assert "not WRONG" in A.DISTANCE_LAW
+    assert all(d["debt"] for d in A.ORIGIN_DISTANCE)
+
+
+def test_one_object_has_nine_actor_roles_not_one():
+    from sourceborn import artifact as A
+    roles = [r["role"] for r in A.ACTOR_ROLES]
+    assert len(roles) == 9
+    for r in ("SUBJECT", "REQUESTER", "CONTROLLER", "AUTHOR", "SCRIBE",
+              "CARVER", "INSTITUTION", "BENEFICIARY", "AUDIENCE"):
+        assert r in roles
+    assert all(r in A.ROLE_FUTURES for r in roles), "each role needs its reach"
+
+
+def test_damage_opens_branches_and_is_never_filled_in():
+    from sourceborn import artifact as A
+    d = A.damage_branches(["SG-A enclosure"])
+    assert d["count"] == 4
+    assert d["filled_in"] is False and d["chosen"] is None
+    # every branch must predict DIFFERENT evidence or it is not a branch
+    preds = [b["predicts"] for b in d["branches"]]
+    assert len(set(preds)) == len(preds)
+    assert "never completed by the machine" in d["law"]
+
+
+def test_what_the_transcript_itself_refused_stays_refused():
+    from sourceborn import artifact as A
+    r = A.refused()
+    assert len(r) == 6
+    for x in r:
+        assert x["adopted"] is False and x["historical_fact"] is False
+    txt = " ".join(x["claim"] + x["why"] for x in r)
+    assert "owl" in txt and "falcon" in txt
+    assert "MATCH SCORE != EPISTEMIC CONFIDENCE" in txt
+    assert "7.8/10" in txt
+
+
+def test_his_meanings_seat_on_the_bank_and_create_nothing():
+    from sourceborn import artifact as A
+    s = A.seat_on_bank()
+    assert s["new_parameters_created"] == 0
+    assert s["distinct_ids"] > 10
+    seated = {r["id"]: [x["row"] for x in r["seats"]] for r in s["rows"]}
+    # the two clearest landings, and they are the point of the growing phase
+    assert any("Intention-to-persist" in n for n in seated["SYN-MEAN-006"]), \
+        seated["SYN-MEAN-006"]
+    assert any("Sequence compression" in n for n in seated["SYN-MEAN-008"]), \
+        seated["SYN-MEAN-008"]
+    # appending is append-only and adds no parameter
+    root = _growth_root()
+    a = A.grow(root)
+    assert a["added"] > 30 and a["parameters_created"] == 0
+    assert A.grow(root)["added"] == 0
+    from sourceborn import growth as G
+    assert G.counts(root)["total_parameters"] == 3204
+
+
+def test_twelve_pattern_candidates_and_four_are_reported_unnamed():
+    from sourceborn import artifact as A
+    assert len(A.PATTERN_CANDIDATES) == 12
+    named = [p for p in A.PATTERN_CANDIDATES if p["named_in_source"]]
+    unnamed = [p for p in A.PATTERN_CANDIDATES if not p["named_in_source"]]
+    assert len(named) == 8 and len(unnamed) == 4
+    for p in unnamed:
+        assert p["name"] is None, "an unnamed candidate is not invented a name"
+    for p in named:
+        assert p["beyond_egypt"], "each named one says where else it applies"
+
+
+def test_the_artifact_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/artifact"', '"/artifact/generate"', '"/artifact/grow"'):
+        assert route in src, route
+
+
 def test_the_subject_routes_are_reachable():
     src = open("src/sourceborn/server.py").read()
     for route in ('"/subjects"', '"/subjects/grow"', '"/subjects/generate"'):

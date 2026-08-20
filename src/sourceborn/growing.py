@@ -359,8 +359,11 @@ def seat(text: str, limit: int = 12, role: str = None) -> dict:
     dropped and never counted as strengthening the base."""
     rows, byword, idf = _index()
     allowed = set(ROLE_SEGMENTS.get(role, ())) if role else None
-    words = [w for w in set(_WORD.findall((text or "").lower()))
-             if w not in _SEAT_STOP]
+    # sorted, not set-order: set iteration is randomised per process, so tied
+    # weights used to come back in a different order every run — the same input
+    # gave different seats. Same input must give the same answer.
+    words = sorted({w for w in _WORD.findall((text or "").lower())
+                    if w not in _SEAT_STOP})
     scored, out_of_role = {}, {}
     weak_words = []
     for w in words:
@@ -390,8 +393,10 @@ def seat(text: str, limit: int = 12, role: str = None) -> dict:
                 "on": sorted(e["on"]),
                 "band": "STRONG" if e["weight"] >= STRONG else "SEATED"}
 
-    ordered = sorted(scored.values(), key=lambda e: -e["weight"])
-    outs = sorted(out_of_role.values(), key=lambda e: -e["weight"])
+    ordered = sorted(scored.values(),
+                     key=lambda e: (-e["weight"], e["row"]["sb_id"]))
+    outs = sorted(out_of_role.values(),
+                  key=lambda e: (-e["weight"], e["row"]["sb_id"]))
 
     # An event whose role IS known but which matches no row by word still sits
     # somewhere: on the containers that host that role. Reported at container
@@ -439,7 +444,7 @@ def intent_seat(clause: str, limit: int = 4) -> dict:
     whether or not this clause reveals it."""
     rows, byword, idf = _index()
     hits = {}
-    for w in set(_WORD.findall((clause or "").lower())):
+    for w in sorted({x for x in _WORD.findall((clause or "").lower())}):
         if w in _SEAT_STOP or w not in idf or idf[w] < MIN_IDF:
             continue
         for row in byword[w]:
@@ -448,7 +453,8 @@ def intent_seat(clause: str, limit: int = 4) -> dict:
                                     {"row": row, "weight": 0.0, "on": []})
                 e["weight"] += idf[w]
                 e["on"].append(w)
-    ordered = sorted(hits.values(), key=lambda e: -e["weight"])[:limit]
+    ordered = sorted(hits.values(),
+                     key=lambda e: (-e["weight"], e["row"]["sb_id"]))[:limit]
     return {
         "containers": list(INTENT_CONTAINERS),
         "container_names": [hr.container(c)["name"] for c in INTENT_CONTAINERS],
