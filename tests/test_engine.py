@@ -4534,6 +4534,73 @@ def test_twelve_pattern_candidates_and_four_are_reported_unnamed():
         assert p["beyond_egypt"], "each named one says where else it applies"
 
 
+def test_stage_12_turns_a_meaning_into_what_should_exist():
+    """if this were true, THIS should exist — and what would refute it."""
+    from sourceborn import artifact as A
+    from sourceborn import expected as E
+    m = [x for x in A.generate_meanings()["meanings"]
+         if x["actor_role"] == "CARVER"][0]
+    e = E.expect(m)
+    assert e["testable"] is True
+    assert e["predictions"]
+    for p in e["predictions"]:
+        assert p["where_to_look"], "a prediction names where to look"
+        assert p["would_confirm"] and p["would_refute"], \
+            "two-sided or it cannot be tested"
+        assert p["proof_debt"], "it inherits the origin distance"
+        assert p["checked"] is False and p["verified"] is False
+    # a carver's trace is MATERIAL, and it is required by both sides
+    mat = [p for p in e["predictions"] if p["class"] == E.MATERIAL][0]
+    assert mat["strength"] == "REQUIRED BY BOTH"
+    assert e["checked_anything"] is False
+
+
+def test_a_prediction_every_meaning_makes_tests_nothing():
+    from sourceborn import artifact as A
+    from sourceborn import expected as E
+    r = E.run(A.generate_meanings()["meanings"], limit=400)
+    # ABSENCE is owed by every reading, so it can never discriminate
+    assert E.ABSENCE in r["non_discriminating_classes"]
+    # and it is counted ONCE per meaning, never twice
+    assert all(v <= 1.0 for v in r["class_share"].values()), r["class_share"]
+    assert r["counts"]["discriminating"] + r["counts"]["non_discriminating"] \
+        == r["counts"]["predictions_generated"]
+    # nothing is checked, nothing is verified, nothing is created
+    assert r["counts"]["checked_against_the_world"] == 0
+    assert r["counts"]["verified"] == 0
+    assert r["counts"]["new_parameters_created"] == 0
+    assert "hand in" in r["sample_warning"], "the bar depends on the sample"
+
+
+def test_stage_12_hands_stage_17_a_falsifier_it_did_not_have():
+    from sourceborn import artifact as A
+    from sourceborn import expected as E
+    for m in A.generate_meanings(limit=40)["meanings"]:
+        f = E.falsifier_from(m)
+        assert f["falsifiable"] is True
+        assert f["falsifier"] and "look at" in f["falsifier"]
+        assert f["feeds"] == "intent_ledger.kill"
+    # and the kill can actually use it — a composed falsifier is a real one
+    from sourceborn import intent_ledger as L
+    m = A.generate_meanings(limit=1)["meanings"][0]
+    cand = L.candidate({"id": m["id"], "falsifier": E.falsifier_from(m)["falsifier"],
+                        "state_change": "x", "target": "y", "constraint": "z"})
+    assert cand["falsifiable"] is True
+    assert L.kill(cand, falsifier_met=True)["status"] == L.KILLED
+
+
+def test_building_12_moved_the_chain_from_11_to_17():
+    from sourceborn import discovery as D
+    a = D.audit()
+    assert 12 not in a["absent"], "stage 12 is built"
+    assert a["absent"] == [18, 23], a["absent"]
+    r = D.chain(RAIN, "rain")
+    assert r["stages_run"] == 17, r["stages_run"]
+    assert r["halted_at"]["n"] == 18
+    assert r["completed"] is False, "18 and 23 are still absent"
+    assert D.gaps()["the_blocking_one"] == 18
+
+
 def test_his_23_stage_loop_is_audited_against_the_running_code():
     """do we flow this or anything else — answered by import, not by memory."""
     from sourceborn import discovery as D
@@ -4544,7 +4611,7 @@ def test_his_23_stage_loop_is_audited_against_the_running_code():
     assert a["map_claims_that_do_not_resolve"] == [], \
         a["map_claims_that_do_not_resolve"]
     assert a["counts"][D.RUNS] + a["counts"][D.PARTIAL] + \
-        a["counts"][D.ABSENT] == 23
+        a["counts"].get(D.ABSENT, 0) == 23
     # and the honest headline: the stages mostly exist, the flow does not
     assert a["chained_end_to_end"] is False
     assert D.what_flows()["steps"] == 5, "a five-step spine, not twenty-three"
@@ -4555,11 +4622,11 @@ def test_a_stage_with_no_implementation_halts_the_chain():
     from sourceborn import discovery as D
     r = D.chain(RAIN, "rain")
     assert r["completed"] is False
-    assert r["halted_at"]["n"] == 12, r["halted_at"]
-    assert r["halted_at"]["stage"] == "EXPECTED EVIDENCE GENERATION"
-    assert r["stages_run"] == 11
+    assert r["halted_at"]["n"] == 18, r["halted_at"]
+    assert r["halted_at"]["stage"] == "MATURITY UPDATE"
+    assert r["stages_run"] == 17
     # everything after the halt is NOT REACHED, not silently skipped
-    after = [t for t in r["trace"] if t["n"] > 12]
+    after = [t for t in r["trace"] if t["n"] > 18]
     assert after and all(t["state"] == "NOT REACHED" for t in after)
     assert "never skipped" in r["law"]
 
@@ -4568,9 +4635,9 @@ def test_the_three_absent_stages_and_the_one_that_blocks():
     from sourceborn import discovery as D
     g = D.gaps()
     absent = {a["n"] for a in g["absent_stages"]}
-    assert absent == {12, 18, 23}, absent
-    assert g["the_blocking_one"] == 12
-    assert "nothing to test a meaning against" in g["why_12_blocks"]
+    assert absent == {18, 23}, absent          # 12 is built
+    assert g["the_blocking_one"] == 18
+    assert "12 was the blocker and is now built" in g["why_12_blocks"]
     # 19 is partial because WEAKEN has no implementation
     partial = {p["n"] for p in g["partial_stages"]}
     assert 19 in partial
@@ -4581,7 +4648,7 @@ def test_the_three_absent_stages_and_the_one_that_blocks():
 
 def test_the_loop_routes_are_reachable():
     src = open("src/sourceborn/server.py").read()
-    for route in ('"/loop"', '"/loop/chain"'):
+    for route in ('"/loop"', '"/loop/chain"', '"/expected"', '"/expected/run"'):
         assert route in src, route
 
 

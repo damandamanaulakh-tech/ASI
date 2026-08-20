@@ -68,12 +68,15 @@ STAGES = (
     {"n": 11, "name": "SYNTHETIC MEANING GENERATION",
      "does": ["artifact.generate_meanings"], "state": RUNS,
      "note": "1,824 of a 6,480 ceiling, everything NEW_SYNTHETIC"},
-    {"n": 12, "name": "EXPECTED EVIDENCE GENERATION", "does": [],
-     "state": ABSENT,
-     "note": "THE BIG ONE. Nothing turns a generated meaning into 'if this were "
-             "true, THIS should exist'. Only damage_branches predicts anything, "
-             "and only for damage. Without it stages 17-19 have nothing to test "
-             "against and the loop cannot close on evidence."},
+    {"n": 12, "name": "EXPECTED EVIDENCE GENERATION",
+     "does": ["expected.expect", "expected.falsifier_from"], "state": RUNS,
+     "note": "BUILT on his word. Every generated meaning now yields what should "
+             "exist if it were true, two-sided (confirm AND refute), with the "
+             "discrimination test: a prediction more than 60% of meanings make "
+             "is reported NON-DISCRIMINATING and not counted. falsifier_from() "
+             "composes a falsifier out of the prediction, so a candidate reaches "
+             "stage 17 already testable instead of waiting for one by hand. "
+             "Nothing is CHECKED here — checking needs the world."},
     {"n": 13, "name": "ORIGIN-DISTANCE / PROOF-DEBT",
      "does": ["artifact.ORIGIN_DISTANCE"], "state": RUNS,
      "note": "0..5; farther is not wrong, farther owes more"},
@@ -174,6 +177,7 @@ def chain(text: str, name: str = "") -> dict:
     skipped, and the run is not reported as complete — his own rule: a failure
     opens the mapped loop, it is not stepped over."""
     from . import artifact as A
+    from . import expected as EX
     from . import growing as W
     from . import intent_ledger as L
     from . import intents as I
@@ -220,7 +224,8 @@ def chain(text: str, name: str = "") -> dict:
          lambda: {"futures": len(A.FUTURE_STATES)})
     step(11, "SYNTHETIC MEANING GENERATION",
          lambda: A.generate_meanings()["counts"])
-    step(12, "EXPECTED EVIDENCE GENERATION", lambda: None)
+    step(12, "EXPECTED EVIDENCE GENERATION",
+         lambda: EX.run(A.generate_meanings()["meanings"], limit=120)["counts"])
     step(13, "ORIGIN-DISTANCE / PROOF-DEBT",
          lambda: {"levels": len(A.ORIGIN_DISTANCE)})
     step(14, "REVERSE", lambda: PT.rfr_check({"id": "X", "form": []}))
@@ -255,11 +260,12 @@ def gaps() -> dict:
         "partial_stages": [{"n": r["n"], "name": r["name"], "why": r["note"]}
                            for r in a["rows"] if r["state"] == PARTIAL],
         "counts": a["counts"],
-        "the_blocking_one": 12,
-        "why_12_blocks": "without EXPECTED EVIDENCE, stages 17-19 have nothing "
-                         "to test a meaning against. The falsifier can only be "
-                         "handed a verdict by hand. That is why the loop cannot "
-                         "close on evidence and why 23 does not reach 01.",
+        "the_blocking_one": 18,
+        "why_12_blocks": "12 was the blocker and is now built. The chain reaches "
+                         "17 and halts at 18 MATURITY UPDATE — nothing ages, "
+                         "ripens or decays across runs, so a candidate that "
+                         "survived cannot get stronger and one that was doubted "
+                         "cannot get weaker. 23 still has no return edge.",
         "his_call": "whether to build 12, 18, WEAKEN and the return edge, or to "
                     "leave the loop open for now.",
     }

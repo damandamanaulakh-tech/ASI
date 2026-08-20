@@ -42,6 +42,7 @@ from . import growth
 from . import filemap, growing, intent_ledger, intents, selfmake
 from . import artifact
 from . import discovery
+from . import expected
 from . import sysmap
 from . import subjectbrains
 from . import statepacks
@@ -1387,6 +1388,16 @@ class Handler(BaseHTTPRequestHandler):
                  "links": {k: v["reachable_from"]
                            for k, v in intents.motive_links().items()}}).encode(),
                 "application/json")
+        elif path == "/expected":
+            # stage 12 — what should exist if a generated meaning were true
+            self._send(200, json.dumps(
+                {"stats": expected.stats(),
+                 "classes": list(expected.CLASSES),
+                 "role_evidence": {k: list(v) for k, v in
+                                   expected.ROLE_EVIDENCE.items()},
+                 "future_evidence": {k: list(v) for k, v in
+                                     expected.FUTURE_EVIDENCE.items()}}).encode(),
+                "application/json")
         elif path == "/loop":
             # his 23-stage synthetic discovery loop, audited against the code
             self._send(200, json.dumps(
@@ -1871,6 +1882,13 @@ class Handler(BaseHTTPRequestHandler):
                 conditional=bool(data.get("conditional")),
                 conflict=bool(data.get("conflict")))
             self._send(200, json.dumps(res).encode(), "application/json")
+            return
+        if self.path == "/expected/run":
+            from . import artifact as _A
+            self._send(200, json.dumps(expected.run(
+                _A.generate_meanings()["meanings"],
+                limit=int(data.get("limit") or 0))).encode(),
+                "application/json")
             return
         if self.path == "/loop/chain":
             text = (data.get("text") or "").strip()

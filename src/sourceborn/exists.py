@@ -186,6 +186,38 @@ MAP: list[dict] = [
             "basic_over is False and is HIS call, not a threshold I set. "
             "/growing, /growing/coverage, POST /growing/place, "
             "POST /growing/grow."},
+   {"his": "build 12",
+    "where": [("expected.py", "def expect("),
+              ("expected.py", "def run("),
+              ("expected.py", "def falsifier_from("),
+              ("expected.py", "DISCRIMINATION_BAR")],
+    "state": RUNS,
+    "note": "STAGE 12 EXPECTED EVIDENCE GENERATION — the stage that was blocking "
+            "the rest of his loop. Every generated meaning now yields what "
+            "should EXIST if it were true, and three conditions make a "
+            "prediction worth anything: it is SPECIFIC (names where to look), "
+            "TWO-SIDED (says what would confirm AND what would refute — a claim "
+            "with no refuting observation cannot be tested at all), and "
+            "DISCRIMINATING. The third does the work: a prediction more than "
+            "60% of meanings make separates none of them, so it is computed, "
+            "marked NON-DISCRIMINATING and NOT counted — the same shape as the "
+            "role gate and the IDF bar. On 400 meanings that flags ABSENCE and "
+            "COMPANION. Evidence classes are MATERIAL/COMPANION/PLACEMENT/"
+            "RECORD/REPETITION/ABSENCE, chosen by intersecting what the ROLE "
+            "would leave with what the FUTURE STATE would require, and each "
+            "prediction inherits its meaning's origin distance plus its own "
+            "reach (RECORD travels furthest and owes most). falsifier_from() "
+            "composes a falsifier out of the prediction so a candidate reaches "
+            "stage 17 ALREADY TESTABLE instead of waiting for one written by "
+            "hand — a test proves intent_ledger.kill accepts it. NOTHING IS "
+            "CHECKED here: checking needs the world, and stage 17 already takes "
+            "verdicts from outside. MEASURED: building it moved the chain from "
+            "11 of 23 to 17 of 23; it now halts at 18 MATURITY UPDATE, with 23 "
+            "still lacking a return edge. Two defects while building: I "
+            "overwrote the existing evidence.py (his Stage-4 evidence ladder) "
+            "and restored it from git — this module is expected.py; and ABSENCE "
+            "was appended twice wherever a role already required it, pushing its "
+            "share above 1.0 per meaning. /expected, POST /expected/run."},
    {"his": "SOURCEBORN SYNTHETIC DISCOVERY LOOP (his 23 stages) / do we flow "
            "this or anything else",
     "where": [("discovery.py", "STAGES = ("),
