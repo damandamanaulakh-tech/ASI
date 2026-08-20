@@ -43,6 +43,7 @@ from . import filemap, growing, intent_ledger, intents, selfmake
 from . import artifact
 from . import discovery
 from . import expected
+from . import maturity
 from . import sysmap
 from . import subjectbrains
 from . import statepacks
@@ -1388,6 +1389,13 @@ class Handler(BaseHTTPRequestHandler):
                  "links": {k: v["reachable_from"]
                            for k, v in intents.motive_links().items()}}).encode(),
                 "application/json")
+        elif path == "/maturity":
+            # stage 18, and the WEAKEN stage 19 was missing
+            self._send(200, json.dumps(
+                {"stats": maturity.stats(), "states": list(maturity.STATES),
+                 "means": maturity.MEANS,
+                 "verdict_of": maturity.VERDICT_OF}).encode(),
+                "application/json")
         elif path == "/expected":
             # stage 12 — what should exist if a generated meaning were true
             self._send(200, json.dumps(
@@ -1888,6 +1896,30 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, json.dumps(expected.run(
                 _A.generate_meanings()["meanings"],
                 limit=int(data.get("limit") or 0))).encode(),
+                "application/json")
+            return
+        if self.path == "/maturity/read":
+            self._send(200, json.dumps(maturity.read(
+                confirmed=data.get("confirmed") or [],
+                refuted=data.get("refuted") or [],
+                counterexamples=int(data.get("counterexamples") or 0),
+                support=int(data.get("support") or 1),
+                sequences_seen=int(data.get("sequences_seen") or 1),
+                checks=int(data.get("checks") or 0),
+                killed=bool(data.get("killed")))).encode(),
+                "application/json")
+            return
+        if self.path == "/loop/run":
+            # the CLOSED loop — 01..23, close, a NEW sequence, until it stops
+            text = (data.get("text") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "no text"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(discovery.loop(
+                text, (data.get("name") or "").strip(),
+                max_passes=int(data.get("max_passes") or 5),
+                verdicts=data.get("verdicts"))).encode(),
                 "application/json")
             return
         if self.path == "/loop/chain":

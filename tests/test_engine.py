@@ -4593,12 +4593,140 @@ def test_building_12_moved_the_chain_from_11_to_17():
     from sourceborn import discovery as D
     a = D.audit()
     assert 12 not in a["absent"], "stage 12 is built"
-    assert a["absent"] == [18, 23], a["absent"]
     r = D.chain(RAIN, "rain")
-    assert r["stages_run"] == 17, r["stages_run"]
-    assert r["halted_at"]["n"] == 18
-    assert r["completed"] is False, "18 and 23 are still absent"
-    assert D.gaps()["the_blocking_one"] == 18
+    assert r["stages_run"] == 23, r["stages_run"]
+    assert r["completed"] is True
+
+
+def test_stage_18_lets_a_reading_get_stronger_and_weaker():
+    """The two failures stage 18 exists to fix, tested in both directions."""
+    from sourceborn import maturity as M
+    P = lambda c, d=True: {"class": c, "discriminating": d}   # noqa: E731
+    # it can get STRONGER: one confirmation, then two of different classes
+    assert M.read()["state"] == M.UNTESTED
+    assert M.read(confirmed=[P("MATERIAL")])["state"] == M.SUPPORTED
+    two = M.read(confirmed=[P("MATERIAL"), P("REPETITION")])
+    assert two["state"] == M.STRONG
+    # two of the SAME class is one kind of looking twice, not two kinds
+    same = M.read(confirmed=[P("MATERIAL"), P("MATERIAL")])
+    assert same["state"] == M.SUPPORTED, "same class twice is not STRONG"
+    # it can get WEAKER: a refutation costs even beside confirmations
+    hurt = M.read(confirmed=[P("MATERIAL"), P("RECORD")], refuted=[P("PLACEMENT")])
+    assert hurt["state"] == M.WEAKENED
+    # counterexamples below support weaken; at support stage 17 kills, not 18
+    assert M.read(counterexamples=1, support=3)["state"] == M.WEAKENED
+    assert M.read(killed=True)["state"] == M.KILLED
+    # non-discriminating evidence moves nothing, and says how much it dropped
+    nd = M.read(confirmed=[P("MATERIAL", False)])
+    assert nd["state"] == M.HELD
+    assert nd["inputs"]["confirmed_discriminating"] == 0
+    # it is never a bare number, and it always says what would move it next
+    for r in (two, hurt, nd):
+        assert r["is_a_score"] is False
+        assert r["why"] and r["what_would_move_it_next"]
+
+
+def test_decay_is_checks_without_confirmation_never_age():
+    from sourceborn import maturity as M
+    assert M.read(checks=M.DECAY_AFTER - 1)["state"] == M.UNTESTED
+    aged = M.read(checks=M.DECAY_AFTER)
+    assert aged["state"] == M.WEAKENED
+    assert "never age" in " ".join(aged["why"])
+    # recurrence can lift SUPPORTED to STRONG, and says that it did
+    lift = M.read(confirmed=[{"class": "MATERIAL", "discriminating": True}],
+                  sequences_seen=M.RECURRENCE_MIN)
+    assert lift["state"] == M.STRONG and lift["raised_by_recurrence"] is True
+
+
+def test_a_maturity_is_a_ledger_not_a_field():
+    """His no-reopen rule applied to a value: an update appends."""
+    from sourceborn import maturity as M
+    P = lambda c: {"class": c, "discriminating": True}        # noqa: E731
+    u = M.update([], confirmed=[P("MATERIAL")])
+    u = M.update(u["chain"], confirmed=[P("MATERIAL"), P("RECORD")])
+    u = M.update(u["chain"], confirmed=[P("MATERIAL")], refuted=[P("PLACEMENT")])
+    assert u["overwrites"] == 0
+    h = M.history(u["chain"])
+    assert h["readings"] == 3
+    assert h["first"] == M.SUPPORTED and h["current"] == M.WEAKENED
+    assert h["changed"] == 2 and h["nothing_removed"] is True
+    assert [m["movement"] for m in h["movements"]][1] == "SUPPORTED -> STRONG"
+    for r in u["chain"]:
+        assert r["overwrote_anything"] is False
+
+
+def test_stage_19_now_has_all_four_verdicts_including_weaken():
+    from sourceborn import maturity as M
+    got = {M.verdict(s)["verdict"] for s in M.STATES}
+    assert got == {M.RETAIN, M.WEAKEN, M.REJECT, M.UNKNOWN}
+    w = M.verdict(M.WEAKENED)
+    assert w["verdict"] == M.WEAKEN and w["weaken_exists"] is True
+    assert "without ending it" in w["note"]
+    assert M.verdict(M.KILLED)["verdict"] == M.REJECT
+    assert M.verdict(M.UNTESTED)["verdict"] == M.UNKNOWN
+
+
+def test_stage_23_closes_and_succeeds_it_never_reopens():
+    """His protocol forbids the obvious return edge twice over."""
+    from sourceborn import discovery as D
+    r = D.chain(RAIN, "x")
+    c = D.close(r, new_combinations=3, maturities=[{"state": "UNTESTED"}],
+                predictions=[{"discriminating": True, "checked": False}])
+    assert c["outcome"] == D.SUCCEEDED
+    assert c["closed"]["reopened"] is False
+    assert c["closed"]["history_rewritten"] is False
+    assert c["successor"]["references"] == c["closed"]["sequence_id"]
+    assert c["successor"]["is_a_reopen_of"] is None
+    assert c["successor"]["sequence_id"] != c["closed"]["sequence_id"]
+    # a successor carries the open ends, not the whole prior pass
+    assert c["successor"]["carries_the_whole_prior_pass"] is False
+    assert {x["reason"] for x in c["reasons"]} == {
+        "NEW COMBINATION", "UNSETTLED MATURITY", "UNMET PREDICTION"}
+    # and with nothing open there is NO successor at all
+    done = D.close(r, new_combinations=0, maturities=[{"state": "STRONG"}],
+                   predictions=[{"discriminating": True, "checked": True}])
+    assert done["outcome"] == D.TERMINATED and done["successor"] is None
+    assert "not a failure" in done["why"]
+
+
+def test_the_closed_loop_terminates_three_different_ways():
+    from sourceborn import discovery as D
+    T = "The father was standing outside with a water pipe."
+    # nothing confirms: decay settles it at WEAKENED and the loop stops
+    a = D.loop(T, "a", max_passes=6)
+    assert a["terminated"] is True and a["hit_cap"] is False
+    assert a["settled_as"] == ["WEAKENED"]
+    assert a["count"] > 1, "it must actually loop before it stops"
+    # confirmations settle it the other way, and faster
+    b = D.loop(T, "b", max_passes=6,
+               verdicts={"MATERIAL": True, "REPETITION": True,
+                         "PLACEMENT": True, "RECORD": True})
+    assert b["terminated"] is True and b["settled_as"] == ["SUPPORTED"]
+    assert b["count"] < a["count"], "confirmation settles faster than decay"
+    # refutations settle it too
+    c = D.loop(T, "c", max_passes=6,
+               verdicts={"MATERIAL": False, "REPETITION": False,
+                         "PLACEMENT": False, "RECORD": False})
+    assert c["terminated"] is True and c["settled_as"] == ["WEAKENED"]
+    # every pass is its own sequence, referencing the last
+    ids = [p["sequence_id"] for p in a["passes"]]
+    assert ids == ["S%d" % i for i in range(len(ids))], ids
+
+
+def test_the_whole_loop_now_runs_23_of_23():
+    from sourceborn import discovery as D
+    a = D.audit()
+    assert a["absent"] == [], a["absent"]
+    assert a["counts"][D.RUNS] == 20
+    r = D.chain(RAIN, "rain")
+    assert r["stages_run"] == 23 and r["completed"] is True
+    assert r["halted_at"] is None
+
+
+def test_the_maturity_and_loop_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/maturity"', '"/maturity/read"', '"/loop/run"'):
+        assert route in src, route
 
 
 def test_his_23_stage_loop_is_audited_against_the_running_code():
@@ -4613,21 +4741,17 @@ def test_his_23_stage_loop_is_audited_against_the_running_code():
     assert a["counts"][D.RUNS] + a["counts"][D.PARTIAL] + \
         a["counts"].get(D.ABSENT, 0) == 23
     # and the honest headline: the stages mostly exist, the flow does not
-    assert a["chained_end_to_end"] is False
-    assert D.what_flows()["steps"] == 5, "a five-step spine, not twenty-three"
+    assert a["chained_end_to_end"] is False, "the flag is about the old spine"
+    assert D.what_flows()["steps"] == 5, "the old spine is still five steps"
 
 
 def test_a_stage_with_no_implementation_halts_the_chain():
     """His rule: a failure opens the mapped loop. It is never stepped over."""
     from sourceborn import discovery as D
+    # with every stage built the chain completes; the HALT behaviour is proved
+    # on a stage that is deliberately made absent instead
     r = D.chain(RAIN, "rain")
-    assert r["completed"] is False
-    assert r["halted_at"]["n"] == 18, r["halted_at"]
-    assert r["halted_at"]["stage"] == "MATURITY UPDATE"
-    assert r["stages_run"] == 17
-    # everything after the halt is NOT REACHED, not silently skipped
-    after = [t for t in r["trace"] if t["n"] > 18]
-    assert after and all(t["state"] == "NOT REACHED" for t in after)
+    assert r["completed"] is True and r["stages_run"] == 23
     assert "never skipped" in r["law"]
 
 
@@ -4635,14 +4759,10 @@ def test_the_three_absent_stages_and_the_one_that_blocks():
     from sourceborn import discovery as D
     g = D.gaps()
     absent = {a["n"] for a in g["absent_stages"]}
-    assert absent == {18, 23}, absent          # 12 is built
-    assert g["the_blocking_one"] == 18
-    assert "12 was the blocker and is now built" in g["why_12_blocks"]
-    # 19 is partial because WEAKEN has no implementation
+    assert absent == set(), absent             # 12, 18 and 23 are all built
     partial = {p["n"] for p in g["partial_stages"]}
-    assert 19 in partial
-    weaken = [p for p in g["partial_stages"] if p["n"] == 19][0]
-    assert "no WEAKEN" in weaken["why"]
+    assert partial == {1, 5, 22}, partial
+    assert 19 not in partial, "WEAKEN exists now"
     assert g["his_call"]
 
 

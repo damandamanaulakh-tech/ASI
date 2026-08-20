@@ -88,14 +88,25 @@ STAGES = (
      "note": "pass 3 — again, with the thin steps set aside"},
     {"n": 17, "name": "FALSIFIER", "does": ["intent_ledger.kill"], "state": RUNS,
      "note": "his own column. OFF by default on his word."},
-    {"n": 18, "name": "MATURITY UPDATE", "does": [], "state": ABSENT,
-     "note": "nothing carries a maturity that moves. Support counts exist per "
-             "candidate but nothing ages, ripens or decays across runs."},
+    {"n": 18, "name": "MATURITY UPDATE",
+     "does": ["maturity.read", "maturity.update"], "state": RUNS,
+     "note": "BUILT on his word. Six named states — UNTESTED, HELD, SUPPORTED, "
+             "STRONG, WEAKENED, KILLED — each a state PLUS the evidence that put "
+             "it there, never a bare number (MATCH SCORE != EPISTEMIC "
+             "CONFIDENCE). Only DISCRIMINATING confirmations count, and two of "
+             "different classes are needed for STRONG because two of one class "
+             "is one kind of looking done twice. Decay is checks WITHOUT "
+             "confirmation, never age — a reading does not become less true by "
+             "being old. An update APPENDS a reading referencing the one before "
+             "it, so a maturity is a ledger and not a field: his no-reopen rule "
+             "applied to a value."},
     {"n": 19, "name": "RETAIN / WEAKEN / REJECT / UNKNOWN",
-     "does": ["intent_ledger.survivors"], "state": PARTIAL,
-     "note": "three of his four. survivors() returns SURVIVES, KILLED and "
-             "UNTESTED. There is no WEAKEN — a candidate either stands or dies, "
-             "so evidence that should have reduced confidence does nothing."},
+     "does": ["maturity.verdict", "intent_ledger.survivors"], "state": RUNS,
+     "note": "ALL FOUR now. WEAKEN was the missing one and it could not exist "
+             "before stage 18, because you cannot weaken something with no "
+             "strength to lose. WEAKEN is a verdict of its own, not a softer "
+             "REJECT: evidence damaged the reading without ending it, so it "
+             "stands, and it stands lower."},
     {"n": 20, "name": "PATTERN CONTRIBUTION",
      "does": ["patterns.rfr_check", "micro.decompose"], "state": RUNS,
      "note": "every micro-sequence carries a pattern contribution"},
@@ -106,9 +117,18 @@ STAGES = (
      "note": "extend() DOES open new combinations from new material — but only "
              "when called by hand. A memory write does not trigger it, so the "
              "loop does not turn on its own."},
-    {"n": 23, "name": "FUTURE EVENT", "does": [], "state": ABSENT,
-     "note": "there is no return edge. Stage 23 does not feed stage 01 — this "
-             "is a line in the code, not a loop."},
+    {"n": 23, "name": "FUTURE EVENT", "does": ["discovery.close",
+                                               "discovery.loop"],
+     "state": RUNS,
+     "note": "BUILT on his word, and NOT as a jump back to 01 — his own protocol "
+             "forbids that twice over (NO IN-PLACE LOOP, NO REOPEN). A pass "
+             "CLOSES and may CREATE a successor that references it; the closed "
+             "sequence is never touched again and history is never rewritten. A "
+             "successor exists only if the pass left something open: a new "
+             "combination, an unsettled maturity, or an unchecked discriminating "
+             "prediction. If none holds the loop TERMINATES, which is a real "
+             "outcome — a loop that cannot stop is a leak. The successor carries "
+             "the OPEN ENDS, not the whole prior pass."},
 )
 
 
@@ -181,6 +201,7 @@ def chain(text: str, name: str = "") -> dict:
     from . import growing as W
     from . import intent_ledger as L
     from . import intents as I
+    from . import maturity as MA
     from . import patterns as PT
 
     ran, halted_at = [], None
@@ -232,13 +253,16 @@ def chain(text: str, name: str = "") -> dict:
     step(15, "FORWARD", lambda: {"pass": 2})
     step(16, "REVERSE", lambda: {"pass": 3})
     step(17, "FALSIFIER", lambda: {"rule": L.CONTRACT[3]["action"]})
-    step(18, "MATURITY UPDATE", lambda: None)
+    step(18, "MATURITY UPDATE",
+         lambda: MA.read(confirmed=[], refuted=[])["state"])
     step(19, "RETAIN / WEAKEN / REJECT / UNKNOWN",
-         lambda: L.survivors([])["counts"])
+         lambda: {"verdict": MA.verdict(MA.read())["verdict"],
+                  "all_four": MA.verdict(MA.read())["all_four"]})
     step(20, "PATTERN CONTRIBUTION", lambda: {"per_micro_sequence": True})
     step(21, "MEMORY WRITE", lambda: {"append_only": True})
     step(22, "NEW COMBINATION AVAILABILITY", lambda: {"by_hand_only": True})
-    step(23, "FUTURE EVENT", lambda: None)
+    step(23, "FUTURE EVENT",
+         lambda: {"closes_and_may_succeed": True, "reopens": False})
     return {
         "name": name or "(unnamed)",
         "stages_run": sum(1 for r in ran if r["state"] == "ran"),
@@ -289,3 +313,212 @@ def annotations() -> list:
         ("a stage with no implementation halts the chain", "discovery.chain"),
         ("what his loop needs that does not exist", "discovery.gaps"),
     ]
+
+
+# ---------------------------------------------------------------------------
+# STAGE 23 — FUTURE EVENT. The return edge, built under his no-reopen law.
+#
+# WHY THIS IS NOT SIMPLY "GO BACK TO 01"
+#
+# The obvious return edge is a jump: stage 23 finishes, so run stage 01 again on
+# the same sequence. His own protocol forbids exactly that, in two rules that
+# were written before this stage existed:
+#
+#     NO IN-PLACE LOOP.  Unresolved -> suspend at barrier -> open a NEW sequence
+#                        -> it closes -> returns -> re-evaluate.
+#     NO REOPEN.         S0 CLOSED + new evidence -> CREATE S1, S1.references =
+#                        S0. The word reopen is removed from the grammar.
+#                        History is never rewritten.
+#
+# So a pass does not restart. It CLOSES, and closing may CREATE a successor that
+# references it. The successor is a different sequence with its own id, its own
+# inputs and its own history; the closed one is never touched again. That is why
+# `close()` returns a sequence record and `next_event()` returns a NEW id rather
+# than a flag saying "loop again".
+#
+# WHAT MAKES A SUCCESSOR EXIST AT ALL
+#
+# A pass only earns a successor if it produced something the next pass would not
+# already have. Three things can do that, and each is checked separately so the
+# reason is on the record:
+#
+#   1. NEW COMBINATION      stage 22 opened arrangements or combinations that
+#                           did not exist before this pass.
+#   2. UNSETTLED MATURITY   stage 18 left readings at UNTESTED or HELD. Those are
+#                           open questions, and an open question is a reason to
+#                           come back.
+#   3. UNMET PREDICTION     stage 12 produced discriminating predictions that
+#                           were never checked. Something specific is waiting to
+#                           be looked at.
+#
+# If none of the three holds, the loop TERMINATES, and that is a real outcome
+# rather than a failure. The system already proved this shape once: extending
+# selfmake on the same material writes 0 steps. A loop that cannot stop is not a
+# loop, it is a leak.
+#
+# WHAT THE SUCCESSOR CARRIES
+#
+# Not the whole prior pass — its OPEN ENDS. Carrying everything forward would
+# make each pass larger than the last with nothing gained, and would quietly
+# re-run settled work. So the seed is the unsettled readings, the unchecked
+# predictions and the new combinations, and nothing else. The closed pass stays
+# whole in the record and is referenced, not copied.
+# ---------------------------------------------------------------------------
+
+TERMINATED = "TERMINATED"
+SUCCEEDED = "SUCCEEDED BY A NEW SEQUENCE"
+
+
+def close(run: dict, new_combinations: int = 0, maturities=(),
+          predictions=()) -> dict:
+    """STAGE 23 — close this pass, and decide whether a successor exists.
+
+    Never mutates `run`. Closing is a statement about a pass, not an edit to it."""
+    from . import maturity as M
+    unsettled = [m for m in maturities
+                 if (m.get("state") if isinstance(m, dict) else m)
+                 in (M.UNTESTED, M.HELD)]
+    unmet = [p for p in predictions
+             if isinstance(p, dict) and p.get("discriminating")
+             and not p.get("checked")]
+    reasons = []
+    if new_combinations:
+        reasons.append({"reason": "NEW COMBINATION", "count": new_combinations,
+                        "why": "stage 22 opened %d arrangement(s) or "
+                               "combination(s) that did not exist before this "
+                               "pass" % new_combinations})
+    if unsettled:
+        reasons.append({"reason": "UNSETTLED MATURITY", "count": len(unsettled),
+                        "why": "stage 18 left %d reading(s) at UNTESTED or HELD "
+                               "— an open question is a reason to come back"
+                               % len(unsettled)})
+    if unmet:
+        reasons.append({"reason": "UNMET PREDICTION", "count": len(unmet),
+                        "why": "stage 12 produced %d discriminating "
+                               "prediction(s) that were never checked — "
+                               "something specific is waiting to be looked at"
+                               % len(unmet)})
+    prior = run.get("sequence_id") or "S0"
+    closed = {
+        "sequence_id": prior,
+        "closed": True,
+        "stages_run": run.get("stages_run"),
+        "halted_at": run.get("halted_at"),
+        "reopened": False,
+        "history_rewritten": False,
+    }
+    if not reasons:
+        return {
+            "closed": closed, "outcome": TERMINATED, "successor": None,
+            "reasons": [],
+            "why": "the pass opened no new combination, left no reading "
+                   "unsettled, and left no discriminating prediction unchecked. "
+                   "There is nothing a further pass would reach that this one "
+                   "did not. Terminating is a real outcome, not a failure — a "
+                   "loop that cannot stop is a leak.",
+            "law": "no reopen. The closed sequence is never touched again.",
+        }
+    n = int(prior[1:]) + 1 if prior.startswith("S") and prior[1:].isdigit() else 1
+    successor = {
+        "sequence_id": "S%d" % n,
+        "references": prior,
+        "is_a_reopen_of": None,
+        "seed": {
+            "unsettled_readings": len(unsettled),
+            "unchecked_discriminating_predictions": len(unmet),
+            "new_combinations": new_combinations,
+        },
+        "carries_the_whole_prior_pass": False,
+        "why_not": "a successor carries the OPEN ENDS, not everything. Carrying "
+                   "the whole prior pass would grow each pass with nothing "
+                   "gained and would quietly re-run settled work.",
+    }
+    return {
+        "closed": closed, "outcome": SUCCEEDED, "successor": successor,
+        "reasons": reasons,
+        "why": "%d reason(s) to continue, each named above" % len(reasons),
+        "law": "S0 CLOSED + new evidence -> CREATE S1 referencing S0. The word "
+               "reopen is removed from the grammar; history is never rewritten.",
+    }
+
+
+def loop(text: str, name: str = "", max_passes: int = 5, verdicts=None) -> dict:
+    """Run his loop until it TERMINATES or the pass cap is hit.
+
+    This is the closed loop: 01 -> 23 -> close -> a NEW sequence -> 01 again.
+    Each pass is its own sequence referencing the one before it; the prior pass
+    is never re-entered.
+
+    HOW IT ACTUALLY TERMINATES, which is the whole difficulty.
+
+    The first attempt did not. It reseeded every maturity to HELD at the start of
+    each pass, so there was always an unsettled reading and always a reason to
+    continue — it ran to the cap every time. A loop whose open ends never close
+    is not a loop, it is a counter.
+
+    What closes them is his own decay rule from stage 18: **checks WITHOUT
+    confirmation**. Each pass looks at the outstanding predictions. If nothing
+    out there confirms them — and with no `verdicts` supplied, nothing does,
+    because this repository is not the world — then after DECAY_AFTER passes the
+    reading moves to WEAKENED. WEAKENED is settled. Settled readings are not a
+    reason to come back, so the loop stops.
+
+    That is deliberately not "it gave up". It is the system reporting that it
+    looked repeatedly, found nothing that discriminated, and the reading is worse
+    for it. Pass `verdicts` — a dict of prediction class -> True/False from
+    outside — and confirmations settle it the other way, faster.
+    """
+    from . import expected as EX
+    from . import maturity as M
+    passes, seq = [], "S0"
+    preds, chains, combos = None, None, 1
+    for i in range(max_passes):
+        r = chain(text, "%s pass %d" % (name or "run", i + 1))
+        r["sequence_id"] = seq
+        if preds is None:                       # pass 1 generates the openings
+            from . import artifact as _A
+            rows = EX.run(_A.generate_meanings()["meanings"], limit=40)["rows"]
+            preds = [p for row in rows for p in row["predictions"]
+                     if p["discriminating"]][:6]
+            chains = [[] for _ in preds]
+        # LOOK at each outstanding prediction. A verdict comes from outside; with
+        # none supplied nothing is confirmed, and that is recorded as a check.
+        confirmed, refuted = [], []
+        for p in preds:
+            v = (verdicts or {}).get(p["class"])
+            p["checked"] = True
+            if v is True:
+                confirmed.append(p)
+            elif v is False:
+                refuted.append(p)
+        mats = []
+        for j, p in enumerate(preds):
+            u = M.update(chains[j],
+                         confirmed=[x for x in confirmed if x is p],
+                         refuted=[x for x in refuted if x is p],
+                         checks=i + 1)
+            chains[j] = u["chain"]
+            mats.append(u["current"])
+        c = close(r, new_combinations=combos, maturities=mats, predictions=preds)
+        passes.append({"pass": i + 1, "sequence_id": seq,
+                       "stages_run": r["stages_run"],
+                       "outcome": c["outcome"],
+                       "reasons": [x["reason"] for x in c["reasons"]],
+                       "maturities": sorted({m["state"] for m in mats}),
+                       "checks_so_far": i + 1})
+        if c["outcome"] == TERMINATED:
+            return {"passes": passes, "count": len(passes), "terminated": True,
+                    "hit_cap": False, "final": c,
+                    "settled_as": sorted({m["state"] for m in mats}),
+                    "law": "the loop stops when a pass opens nothing new. "
+                           "Repeated looking without confirmation settles a "
+                           "reading at WEAKENED — that is a result, not a "
+                           "surrender."}
+        seq = c["successor"]["sequence_id"]
+        combos = 0                  # only the first pass introduces new material
+    return {"passes": passes, "count": len(passes), "terminated": False,
+            "hit_cap": True,
+            "why": "stopped at the %d-pass cap, not because it ran out of open "
+                   "ends. The cap is a guard, not a finding." % max_passes,
+            "law": "a loop that cannot stop is a leak; the cap makes that "
+                   "visible rather than silent."}

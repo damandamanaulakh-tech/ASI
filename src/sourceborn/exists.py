@@ -186,6 +186,46 @@ MAP: list[dict] = [
             "basic_over is False and is HIS call, not a threshold I set. "
             "/growing, /growing/coverage, POST /growing/place, "
             "POST /growing/grow."},
+   {"his": "build 18 and 23 / it should must have full explanation not just "
+           "definition n placeholders",
+    "where": [("maturity.py", "def read("),
+              ("maturity.py", "def update("),
+              ("maturity.py", "def verdict("),
+              ("discovery.py", "def close("),
+              ("discovery.py", "def loop(")],
+    "state": RUNS,
+    "note": "STAGE 18 MATURITY UPDATE and STAGE 23 FUTURE EVENT, and with them "
+            "the chain now runs 23 OF 23 — it completes. STAGE 18 fixes two "
+            "failures: a candidate that SURVIVED a real test could not get "
+            "stronger (ten confirmations left it where one did) and a candidate "
+            "that was DOUBTED could not get weaker. Six named states — UNTESTED "
+            "(unmeasured, not weak), HELD (a valid rest), SUPPORTED, STRONG, "
+            "WEAKENED, KILLED — each a state PLUS the evidence that put it "
+            "there, NEVER a bare number, because his ASI0001 workbook already "
+            "showed what a bare score does when RANK was computed off a column "
+            "of zeros. Only DISCRIMINATING confirmations count and STRONG needs "
+            "two of DIFFERENT classes, since two of one class is one kind of "
+            "looking done twice. DECAY IS CHECKS WITHOUT CONFIRMATION, NEVER "
+            "AGE — nothing here measures time and a reading does not become "
+            "less true by being old. An update APPENDS a reading referencing "
+            "the one before it, so a maturity is a LEDGER not a field: his "
+            "no-reopen rule applied to a value. STAGE 19 therefore has all four "
+            "verdicts at last — WEAKEN could not exist before 18 because you "
+            "cannot weaken something with no strength to lose, and it is a "
+            "verdict of its own, not a softer REJECT. STAGE 23 is NOT a jump "
+            "back to 01: his protocol forbids that twice (NO IN-PLACE LOOP, NO "
+            "REOPEN), so a pass CLOSES and may CREATE a successor referencing "
+            "it, carrying the OPEN ENDS and not the whole prior pass. A "
+            "successor exists only for a new combination, an unsettled "
+            "maturity, or an unchecked discriminating prediction; with none the "
+            "loop TERMINATES, which is a real outcome — a loop that cannot stop "
+            "is a leak. MEASURED: loop() terminates three different ways — with "
+            "no verdicts it decays to WEAKENED in 3 passes, with confirmations "
+            "it settles at SUPPORTED in 2, with refutations at WEAKENED in 2. "
+            "The first loop() I wrote did NOT terminate: it reseeded every "
+            "maturity to HELD each pass so there was always a reason to "
+            "continue, and it ran to the cap every time. /maturity, POST "
+            "/maturity/read, POST /loop/run."},
    {"his": "build 12",
     "where": [("expected.py", "def expect("),
               ("expected.py", "def run("),
