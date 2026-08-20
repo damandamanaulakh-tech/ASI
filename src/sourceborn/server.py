@@ -44,6 +44,7 @@ from . import artifact
 from . import discovery
 from . import expected
 from . import maturity
+from . import nodebrain
 from . import sysmap
 from . import subjectbrains
 from . import statepacks
@@ -1388,6 +1389,14 @@ class Handler(BaseHTTPRequestHandler):
                  "form_rows": [f["name"] for f in intents.form_rows()],
                  "links": {k: v["reachable_from"]
                            for k, v in intents.motive_links().items()}}).encode(),
+                "application/json")
+        elif path == "/nodes/schema":
+            # Phase A — the locked node schema, ids, headers, links
+            self._send(200, json.dumps(
+                {"stats": nodebrain.stats(), "lock": nodebrain.lock(),
+                 "schema": nodebrain.schema(),
+                 "headers": nodebrain.headers(),
+                 "collisions": nodebrain.collisions()}).encode(),
                 "application/json")
         elif path == "/maturity":
             # stage 18, and the WEAKEN stage 19 was missing

@@ -186,6 +186,42 @@ MAP: list[dict] = [
             "basic_over is False and is HIS call, not a threshold I set. "
             "/growing, /growing/coverage, POST /growing/place, "
             "POST /growing/grow."},
+   {"his": "build phase A / do it slowly and with efficincy",
+    "where": [("nodebrain.py", "NODE_TYPES = ("),
+              ("nodebrain.py", "LINK_TYPES = ("),
+              ("nodebrain.py", "def fingerprint("),
+              ("nodebrain.py", "def new_node("),
+              ("nodebrain.py", "def validate("),
+              ("nodebrain.py", "def collisions(")],
+    "state": RUNS,
+    "note": "PHASE A of his SELF-SUSTAINING EXECUTION FLOW sheet — lock node "
+            "schema, IDs, headers, ledgers. It is first because every later "
+            "phase WRITES INTO this shape: a field renamed after the graph "
+            "exists would invalidate every edge already stored. His box 3 "
+            "verbatim: 12 node types, 16 fields, 4 statuses each carrying its "
+            "meaning; his box 6: 10 TYPED links, each with a direction and an "
+            "inverse and the field it lands in — which corrects my own auto "
+            "proposal, where I had ONE untyped edge (shared seated IDs) and "
+            "would have built a similarity blob; his box 4: 11 memory kinds, 5 "
+            "write conditions and 6 read conditions, defined here as the "
+            "contract and ENFORCED at the write site only in his Phase D. THE "
+            "LOCK IS A CHECK, NOT A COMMENT: fingerprint() hashes the whole "
+            "schema and a test pins the hash, so changing a type, field, link, "
+            "status or condition without bumping SCHEMA_VERSION fails and names "
+            "what moved — the same technique stage 1 SOURCE LOCK still lacks. "
+            "point_zero_ref is REQUIRED, which is his 'no invention before "
+            "source lock' made structural. A malformed node is REFUSED with the "
+            "reason named, never stored malformed. IDs live under their own "
+            "SB-N- prefix and carry their type stem (SB-N-EVT-00001), so a bank "
+            "id or a ledger id can never be read as a node id and the stem must "
+            "agree with the declared type. FIVE NODE-TYPE NAMES COLLIDE with the "
+            "growth series — EVENT, INTENT, PATTERN, RULE, STATE — and NONE is "
+            "merged: each is reported with what it means on both sides (a growth "
+            "EVENT is a SHELL, an EVENT node is one occurrence) and the ruling "
+            "is his. Phase A writes nothing and links nothing, and a test reads "
+            "the module's own code, with docstrings and comments stripped, to "
+            "prove there is no growth.add call, no file write, no tick and no "
+            "Thread in it. /nodes/schema."},
    {"his": "build 18 and 23 / it should must have full explanation not just "
            "definition n placeholders",
     "where": [("maturity.py", "def read("),

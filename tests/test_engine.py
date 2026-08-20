@@ -4534,6 +4534,166 @@ def test_twelve_pattern_candidates_and_four_are_reported_unnamed():
         assert p["beyond_egypt"], "each named one says where else it applies"
 
 
+# ---------------------------------------------------------------------------
+# PHASE A — the node schema, locked. From his SELF-SUSTAINING EXECUTION FLOW.
+# ---------------------------------------------------------------------------
+
+# If this hash changes, the schema changed. Bump SCHEMA_VERSION deliberately and
+# update this line in the same commit — never the other way round.
+SCHEMA_FINGERPRINT = "488e704ff0a54931"
+
+
+def test_the_node_schema_is_locked_not_merely_written_down():
+    """A lock is a check, not a comment."""
+    from sourceborn import nodebrain as N
+    assert N.fingerprint() == SCHEMA_FINGERPRINT, (
+        "the node schema moved. Something in NODE_TYPES / FIELDS / LINK_TYPES / "
+        "STATUSES / MEMORY_KINDS / the condition lists changed. Bump "
+        "SCHEMA_VERSION and this constant together, in one commit. Got: %s"
+        % N.fingerprint())
+    assert N.SCHEMA_VERSION == "A.1"
+    # the hash depends on content, not on ordering or whitespace
+    import json
+    a = json.dumps(N.schema(), sort_keys=True, separators=(",", ":"))
+    b = json.dumps(N.schema(), sort_keys=True, separators=(",", ":"))
+    assert a == b
+
+
+def test_his_twelve_types_ten_links_eleven_memories_four_statuses():
+    from sourceborn import nodebrain as N
+    assert len(N.NODE_TYPES) == 12 and len(N.TYPES) == 12
+    for t in ("STATE", "EVENT", "ACTOR", "INTENT", "RELATION", "PATTERN",
+              "RULE", "SEQUENCE", "ARTIFACT", "MEMORY", "CONTRADICTION",
+              "FUTURE_STATE"):
+        assert t in N.TYPES, t
+    assert len(N.LINK_TYPES) == 10
+    for l in ("produced_by", "depends_on", "supports", "contradicts",
+              "similar_to", "before", "after", "contains", "actor_of",
+              "future_of"):
+        assert l in N.LINKS, l
+    assert len(N.MEMORY_KINDS) == 11
+    assert len(N.STATUSES) == 4
+    assert len(N.WRITE_CONDITIONS) == 5 and len(N.READ_CONDITIONS) == 6
+    assert len(N.FIELDS) == 16
+    # every status carries a meaning, so a bare label never travels alone
+    assert set(N.STATUS_MEANS) == set(N.STATUSES)
+
+
+def test_no_invention_before_source_lock():
+    """point_zero_ref is REQUIRED, and that is his rule made structural."""
+    from sourceborn import nodebrain as N
+    assert "point_zero_ref" in N.REQUIRED
+    ok = N.new_node("EVENT", 1, point_zero_ref="RAIN-001")
+    assert ok["node_id"] == "SB-N-EVT-00001"
+    try:
+        N.new_node("EVENT", 2, point_zero_ref="")
+        raise AssertionError("a node with no source was accepted")
+    except ValueError as e:
+        assert "point_zero_ref" in str(e)
+
+
+def test_a_malformed_node_is_refused_and_the_reason_is_named():
+    from sourceborn import nodebrain as N
+    cases = [
+        (lambda: N.new_node("SPACESHIP", 1, point_zero_ref="x"), "unknown node type"),
+        (lambda: N.new_node("EVENT", 1, point_zero_ref="x", status="MAYBE"),
+         "not one of the four"),
+        (lambda: N.new_node("EVENT", 1, point_zero_ref="x", proof_debt=9),
+         "proof_debt must be 0..5"),
+        (lambda: N.new_node("EVENT", 1, point_zero_ref="x", vibe="good"),
+         "not a schema field"),
+    ]
+    for fn, expect in cases:
+        try:
+            fn()
+            raise AssertionError("not refused: expected %r" % expect)
+        except (ValueError, KeyError) as e:
+            assert expect in str(e), (expect, str(e))
+    # validate() never returns a bare False
+    bad = dict.fromkeys(N.FIELD_NAMES)
+    v = N.validate(bad)
+    assert v["valid"] is False and len(v["problems"]) >= len(N.REQUIRED)
+
+
+def test_ids_carry_their_type_and_cannot_be_read_as_bank_or_ledger_ids():
+    from sourceborn import nodebrain as N
+    nid = N.make_id("CONTRADICTION", 42)
+    assert nid == "SB-N-CON-00042"
+    p = N.parse_id(nid)
+    assert p["valid"] and p["node_type"] == "CONTRADICTION" and p["n"] == 42
+    # a bank id and a ledger id are not node ids
+    assert N.parse_id("SB-HFR-P0717")["valid"] is False
+    assert N.parse_id("SB-STEP-0001")["valid"] is False
+    assert N.parse_id("P0717")["valid"] is False
+    # and the stem must agree with the declared type
+    node = N.new_node("EVENT", 1, point_zero_ref="x")
+    node["node_type"] = "ACTOR"
+    assert "stem says EVENT but node_type says ACTOR" in         " ".join(N.validate(node)["problems"])
+
+
+def test_links_are_typed_with_a_direction_and_an_inverse():
+    """One edge kind would have made a similarity blob. His ten do not."""
+    from sourceborn import nodebrain as N
+    n = N.new_node("EVENT", 1, point_zero_ref="x")
+    n = N.link(n, "produced_by", "SB-N-ACT-00002")
+    n = N.link(n, "contradicts", "SB-N-EVT-00003")
+    assert n["parent_links"][0]["link"] == "produced_by"
+    assert n["parent_links"][0]["direction"] == "one-way"
+    assert n["contradiction_links"][0]["direction"] == "mutual"
+    # each link lands in the field its type says it lands in
+    for spec in N.LINK_TYPES:
+        assert spec["goes_in"] in N.LINK_FIELDS, spec
+    assert N.inverse_of("before") == "after"
+    assert N.inverse_of("contains") == "part_of"
+    assert N.inverse_of("contradicts") == "contradicts", "mutual is its own"
+    for bad, expect in ((("rhymes_with", "SB-N-EVT-00002"), "unknown link type"),
+                        (("supports", "P0717"), "not a node id")):
+        try:
+            N.link(n, bad[0], bad[1])
+            raise AssertionError("not refused: %s" % expect)
+        except (KeyError, ValueError) as e:
+            assert expect in str(e)
+
+
+def test_five_names_collide_with_the_growth_series_and_none_is_merged():
+    from sourceborn import nodebrain as N
+    c = N.collisions()
+    assert c["shared_names"] == ["EVENT", "INTENT", "PATTERN", "RULE", "STATE"]
+    assert c["merged"] is False
+    assert c["rule"] == "do not silently merge namespaces"
+    for name in c["shared_names"]:
+        assert c["notes"][name], "every collision says what each side means"
+    assert set(c["node_only"]) == {"ACTOR", "ARTIFACT", "CONTRADICTION",
+                                   "FUTURE_STATE", "MEMORY", "RELATION",
+                                   "SEQUENCE"}
+    assert c["id_prefixes_kept_apart"]["nodes"] == N.ID_PREFIX
+    assert c["his_call"]
+
+
+def test_phase_a_writes_nothing_and_links_nothing():
+    """It defines the shape. Linking is D, auto is E, and neither is here."""
+    from sourceborn import nodebrain as N
+    st = N.stats()
+    assert st["nodes_written"] == 0
+    assert st["links_discovered"] == 0
+    assert st["namespaces_merged"] is False
+    assert "linking (D)" in st["not_in_this_phase"]
+    # check the CODE, not the prose — the docstring names growth.add precisely
+    # to say it does not touch it, and a naive grep counted that as a violation
+    import re as _re
+    src = open("src/sourceborn/nodebrain.py").read()
+    code = _re.sub(r'"""..*?"""', "", src, flags=_re.S)      # drop docstrings
+    code = _re.sub(r"#.*", "", code)                          # drop comments
+    for forbidden in ("growth.add(", "open(", "def tick", "Thread"):
+        assert forbidden not in code, \
+            "Phase A must not write, trigger or schedule: found %r" % forbidden
+
+
+def test_the_node_schema_route_is_reachable():
+    src = open("src/sourceborn/server.py").read()
+    assert '"/nodes/schema"' in src
+
+
 def test_stage_12_turns_a_meaning_into_what_should_exist():
     """if this were true, THIS should exist — and what would refute it."""
     from sourceborn import artifact as A
