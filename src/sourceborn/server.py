@@ -41,6 +41,7 @@ from . import generationpage
 from . import growth
 from . import filemap, growing, intent_ledger, intents, selfmake
 from . import artifact
+from . import discovery
 from . import sysmap
 from . import subjectbrains
 from . import statepacks
@@ -1386,6 +1387,12 @@ class Handler(BaseHTTPRequestHandler):
                  "links": {k: v["reachable_from"]
                            for k, v in intents.motive_links().items()}}).encode(),
                 "application/json")
+        elif path == "/loop":
+            # his 23-stage synthetic discovery loop, audited against the code
+            self._send(200, json.dumps(
+                {"audit": discovery.audit(), "gaps": discovery.gaps(),
+                 "flows": discovery.what_flows()}).encode(),
+                "application/json")
         elif path == "/map":
             # the arrow graph — every number read from the live modules
             self._send(200, sysmap.arrow_chart().encode(),
@@ -1864,6 +1871,16 @@ class Handler(BaseHTTPRequestHandler):
                 conditional=bool(data.get("conditional")),
                 conflict=bool(data.get("conflict")))
             self._send(200, json.dumps(res).encode(), "application/json")
+            return
+        if self.path == "/loop/chain":
+            text = (data.get("text") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "no text"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(discovery.chain(
+                text, (data.get("name") or "").strip())).encode(),
+                "application/json")
             return
         if self.path == "/artifact/generate":
             # the count he asked for and never got. Gated by default.

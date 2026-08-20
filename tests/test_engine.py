@@ -4534,6 +4534,57 @@ def test_twelve_pattern_candidates_and_four_are_reported_unnamed():
         assert p["beyond_egypt"], "each named one says where else it applies"
 
 
+def test_his_23_stage_loop_is_audited_against_the_running_code():
+    """do we flow this or anything else — answered by import, not by memory."""
+    from sourceborn import discovery as D
+    a = D.audit()
+    assert a["stages"] == 23
+    assert [s["n"] for s in D.STAGES] == list(range(1, 24)), "his order"
+    # every anchor the map claims must actually resolve, or the map is lying
+    assert a["map_claims_that_do_not_resolve"] == [], \
+        a["map_claims_that_do_not_resolve"]
+    assert a["counts"][D.RUNS] + a["counts"][D.PARTIAL] + \
+        a["counts"][D.ABSENT] == 23
+    # and the honest headline: the stages mostly exist, the flow does not
+    assert a["chained_end_to_end"] is False
+    assert D.what_flows()["steps"] == 5, "a five-step spine, not twenty-three"
+
+
+def test_a_stage_with_no_implementation_halts_the_chain():
+    """His rule: a failure opens the mapped loop. It is never stepped over."""
+    from sourceborn import discovery as D
+    r = D.chain(RAIN, "rain")
+    assert r["completed"] is False
+    assert r["halted_at"]["n"] == 12, r["halted_at"]
+    assert r["halted_at"]["stage"] == "EXPECTED EVIDENCE GENERATION"
+    assert r["stages_run"] == 11
+    # everything after the halt is NOT REACHED, not silently skipped
+    after = [t for t in r["trace"] if t["n"] > 12]
+    assert after and all(t["state"] == "NOT REACHED" for t in after)
+    assert "never skipped" in r["law"]
+
+
+def test_the_three_absent_stages_and_the_one_that_blocks():
+    from sourceborn import discovery as D
+    g = D.gaps()
+    absent = {a["n"] for a in g["absent_stages"]}
+    assert absent == {12, 18, 23}, absent
+    assert g["the_blocking_one"] == 12
+    assert "nothing to test a meaning against" in g["why_12_blocks"]
+    # 19 is partial because WEAKEN has no implementation
+    partial = {p["n"] for p in g["partial_stages"]}
+    assert 19 in partial
+    weaken = [p for p in g["partial_stages"] if p["n"] == 19][0]
+    assert "no WEAKEN" in weaken["why"]
+    assert g["his_call"]
+
+
+def test_the_loop_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/loop"', '"/loop/chain"'):
+        assert route in src, route
+
+
 def test_the_arrow_graph_is_drawn_from_the_live_modules():
     """A diagram that can go stale is a diagram that will. Every number in the
     chart is read from the running code at draw time."""

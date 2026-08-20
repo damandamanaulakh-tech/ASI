@@ -186,6 +186,32 @@ MAP: list[dict] = [
             "basic_over is False and is HIS call, not a threshold I set. "
             "/growing, /growing/coverage, POST /growing/place, "
             "POST /growing/grow."},
+   {"his": "SOURCEBORN SYNTHETIC DISCOVERY LOOP (his 23 stages) / do we flow "
+           "this or anything else",
+    "where": [("discovery.py", "STAGES = ("),
+              ("discovery.py", "def audit("),
+              ("discovery.py", "def chain("),
+              ("discovery.py", "def gaps(")],
+    "state": PARTIAL,
+    "note": "THE ANSWER IS NO, AND IT IS TWO ANSWERS. The STAGES mostly exist: "
+            "16 RUN, 4 are PARTIAL, 3 are ABSENT, and every anchor the map "
+            "claims was IMPORTED AND CHECKED rather than trusted — 0 of them "
+            "fail to resolve. But the FLOW does not exist: nothing chains them "
+            "in his order. What actually flows end to end is selfmake.SPINE, "
+            "FIVE steps, not twenty-three; everything else is a module behind "
+            "its own route called on its own. chain() runs his 23 in his order "
+            "and HALTS at stage 12 EXPECTED EVIDENCE GENERATION — 11 of 23 — "
+            "because nothing turns a generated meaning into 'if this were true, "
+            "THIS should exist'. Stages 13-23 come back NOT REACHED rather than "
+            "being skipped quietly, which is his own rule that a failure opens "
+            "the mapped loop. THE THREE ABSENT: 12 expected evidence, 18 "
+            "maturity update (nothing ages, ripens or decays across runs), 23 "
+            "future event (there is no return edge — this is a line, not a "
+            "loop). 19 is PARTIAL because survivors() gives RETAIN, REJECT and "
+            "UNKNOWN but there is NO WEAKEN, so evidence that should reduce "
+            "confidence does nothing. 5 is PARTIAL because relations are LISTED "
+            "and not traversable. 22 is PARTIAL because extend() opens new "
+            "combinations only when called by hand. /loop, POST /loop/chain."},
    {"his": "show me in arrow graph what is where",
     "where": [("sysmap.py", "def arrow_chart("),
               ("sysmap.py", "def _n("),
