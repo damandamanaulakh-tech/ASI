@@ -186,6 +186,21 @@ MAP: list[dict] = [
             "basic_over is False and is HIS call, not a threshold I set. "
             "/growing, /growing/coverage, POST /growing/place, "
             "POST /growing/grow."},
+   {"his": "show me in arrow graph what is where",
+    "where": [("sysmap.py", "def arrow_chart("),
+              ("sysmap.py", "def _n("),
+              ("sysmap.py", "def where(")],
+    "state": RUNS,
+    "note": "the whole system as one arrow graph, in his own idiom, and every "
+            "number in it is READ FROM THE LIVE MODULES at draw time rather than "
+            "typed into it — a diagram that can go stale is a diagram that will. "
+            "A test asserts the live counts appear, that every drawn box line is "
+            "the same width so the borders align, and that his laws are on the "
+            "chart and not only in the code. The layers are the path a thing "
+            "actually takes: his words -> file map -> the growing phase -> the "
+            "bank -> the generators -> the gates -> the kill -> the ledger -> "
+            "the algorithm that makes itself -> HIM. where() answers the same "
+            "question per item. /map (plain text), /map/where?q=."},
    {"his": "review this file and which parameters hit in this / build it",
     "where": [("artifact.py", "SIGN_GROUPS = ("),
               ("artifact.py", "SYNTHETIC_MEANINGS = ("),

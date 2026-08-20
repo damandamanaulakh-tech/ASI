@@ -4534,6 +4534,45 @@ def test_twelve_pattern_candidates_and_four_are_reported_unnamed():
         assert p["beyond_egypt"], "each named one says where else it applies"
 
 
+def test_the_arrow_graph_is_drawn_from_the_live_modules():
+    """A diagram that can go stale is a diagram that will. Every number in the
+    chart is read from the running code at draw time."""
+    from sourceborn import human_registry as hr
+    from sourceborn import sysmap
+    c = sysmap.arrow_chart()
+    # the live counts appear because they were read, not typed
+    assert "%s named sub-parameters" % format(len(hr.parameters()), ",") in c
+    from sourceborn import filemap as F
+    d = F.divide(".")
+    assert "UNPLACED %d" % d["counts"][F.UNPLACED] in c
+    assert "%d GROW THE COUNT" % d["what_grows_the_count"]["files"] in c
+    # the boxes line up: every drawn line is the same width
+    box = [ln for ln in c.splitlines() if ln.startswith("   │")
+           or ln.startswith("   ║")]
+    assert box and len({len(ln) for ln in box}) == 1, \
+        sorted({len(ln) for ln in box})
+    # his laws are on the chart, not just in the code
+    for law in ("IT CREATES NOTHING", "AN ADDRESS IS NOT A PARAMETER",
+                "THE KILL IS OFF BY DEFAULT",
+                "nothing is canonical · nothing is chosen"):
+        assert law in c, law
+    assert sysmap.stats()["typed_numbers_in_the_chart"] == 0
+
+
+def test_where_one_thing_lives():
+    from sourceborn import sysmap
+    assert sysmap.where("the bank")["module"] == "human_registry.py"
+    assert sysmap.where("the kill")["route"] == "/ledger/kill"
+    assert sysmap.where("nowhere at all")["found"] is False
+    assert len(sysmap.where()["layers"]) == sysmap.where()["count"]
+
+
+def test_the_map_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/map"', '"/map/where"'):
+        assert route in src, route
+
+
 def test_the_artifact_routes_are_reachable():
     src = open("src/sourceborn/server.py").read()
     for route in ('"/artifact"', '"/artifact/generate"', '"/artifact/grow"'):

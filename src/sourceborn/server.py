@@ -41,6 +41,7 @@ from . import generationpage
 from . import growth
 from . import filemap, growing, intent_ledger, intents, selfmake
 from . import artifact
+from . import sysmap
 from . import subjectbrains
 from . import statepacks
 from . import weighting
@@ -1384,6 +1385,14 @@ class Handler(BaseHTTPRequestHandler):
                  "form_rows": [f["name"] for f in intents.form_rows()],
                  "links": {k: v["reachable_from"]
                            for k, v in intents.motive_links().items()}}).encode(),
+                "application/json")
+        elif path == "/map":
+            # the arrow graph — every number read from the live modules
+            self._send(200, sysmap.arrow_chart().encode(),
+                       "text/plain; charset=utf-8")
+        elif path == "/map/where":
+            self._send(200, json.dumps(
+                sysmap.where((qs.get("q") or [""])[0])).encode(),
                 "application/json")
         elif path == "/artifact":
             # reading an object without pretending to read its language
