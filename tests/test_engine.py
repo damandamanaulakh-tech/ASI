@@ -5201,6 +5201,28 @@ def test_the_reverse_passes_are_stated():
     assert rp["passes"][1]["at"] == [13]
 
 
+def test_same_person_is_relation_not_dependency():
+    """The review of this phase's diff caught two defects; this pins the fix.
+
+    A bare substring test let actor 'i' match inside nearly every condition
+    ('girlfriend', 'raining'), which made everything survive on first-person
+    asks. And a whole-word actor match alone is still not a dependency: 'i was
+    not well' explains the FIRST mall visit, and the gift trip stands without
+    it — so it reads NEIGHBOUR with its own reason, never silently survives."""
+    from sourceborn import prior as P
+    pr = P.prior_reality(B_MALL, P.declare_end(B_MALL))
+    neigh = [n for n in pr["neighbours"] if "not well" in n["condition"]]
+    assert neigh, "'i was not well' is a neighbour of the gift trip"
+    t = neigh[0]["removal_test"]
+    assert t["actor_shared"] is True and t["breaks"] is False
+    assert "relation, not dependency" in t["why"]
+    # and separators exist only between competing PULL ends — two reasons
+    # behind can both be true, so no contest is manufactured between them
+    e = P.declare_end("he stayed home because he was ill and because the "
+                      "office was closed")
+    assert e["separates_them"] == [] and e["halt"] is False
+
+
 def test_the_runtime_routes_are_reachable():
     src = open("src/sourceborn/server.py").read()
     for route in ('"/runtime"', '"/runtime/run"'):

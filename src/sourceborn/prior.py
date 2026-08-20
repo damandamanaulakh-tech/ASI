@@ -205,8 +205,11 @@ def declare_end(text: str, his_end: str = "") -> dict:
         # is the closest thing the source gives, and it is reported as that.
         chosen = pushes
 
+    # separators exist only between competing PULL ends. Two PUSH reasons do
+    # not compete — "because X and because Y" can both be true — so producing
+    # separators between them would manufacture a contest the source never had.
     separates = []
-    if halt or (not named and len(chosen) > 1):
+    if halt:
         for a in range(len(chosen)):
             for b in range(a + 1, len(chosen)):
                 separates.append({
@@ -446,20 +449,34 @@ def removal_test(row: dict, top: dict) -> dict:
     actor = (top.get("actor") or "").lower()
     row_words = _content(row.get("condition", ""))
     shared = sorted(top_words & row_words)
-    if actor and not actor.startswith("(") and actor in (row.get("condition") or "").lower():
-        if actor not in shared:
-            shared.append(actor)
+    # the actor must match as a WHOLE WORD — a bare substring test let actor
+    # "i" match inside nearly every condition ("girlfriend", "raining") and
+    # made the removal test toothless on first-person asks. And matching, it
+    # is not by itself a dependency: two clauses about the same person are
+    # RELATED, and his test asks whether the top FALLS, not whether they are
+    # about one man. Actor-only sharing reads NEIGHBOUR, with its own reason.
+    actor_shared = False
+    if actor and not actor.startswith("("):
+        row_all = set(re.findall(r"[a-z'’]+",
+                                 (row.get("condition") or "").lower()))
+        actor_shared = actor in row_all
     breaks = bool(shared)
+    if breaks:
+        why = ("it shares %s with the top event, so removing it removes what "
+               "the top refers to" % ", ".join(repr(s) for s in shared[:4]))
+    elif actor_shared:
+        why = ("it shares only the actor %r with the top. Same person is "
+               "relation, not dependency — take it away and the top still "
+               "stands. Kept beside the walk, never in it." % actor)
+    else:
+        why = ("it shares nothing with the top event. Take it away and the top "
+               "still stands, so it was never a dependency — it was standing "
+               "next to one. His test, and it bit here.")
     return {
-        "breaks": breaks, "shared": shared,
+        "breaks": breaks, "shared": shared, "actor_shared": actor_shared,
         "verdict": ("SURVIVES — the top leans on it"
                     if breaks else "DROPPED — NEIGHBOUR"),
-        "why": ("it shares %s with the top event, so removing it removes what "
-                "the top refers to" % ", ".join(repr(s) for s in shared[:4])
-                if breaks else
-                "it shares nothing with the top event. Take it away and the top "
-                "still stands, so it was never a dependency — it was standing "
-                "next to one. His test, and it bit here."),
+        "why": why,
     }
 
 

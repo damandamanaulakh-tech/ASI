@@ -153,6 +153,28 @@ predict and mature; it may not promote, answer, or add a parameter.
   (per-event role-gated rows, the intent slot on CON-063+CON-064, the whole
   ask), and the mall raises 20 candidates, the rain sentence 36.
 
+## 7b. WHAT THE REVIEW OF THE DIFF CAUGHT, AFTER THE FIRST COMMIT
+
+The standing rule is an independent review of each phase's diff before asking
+him to merge. It caught two, both in `removal_test` / `declare_end`:
+
+* **The actor check was a bare substring.** Actor `"i"` matched inside nearly
+  every condition — *"girlfriend"*, *"raining"* — so on first-person asks
+  everything survived and the removal test was toothless. That is why the
+  first mall run reported ZERO neighbours. Fixed to a whole-word match — and
+  matching, it is still not a dependency: two clauses about the same person
+  are RELATED, and his test asks whether the top FALLS, not whether they are
+  about one man. Actor-only sharing now reads NEIGHBOUR with its own reason —
+  on the mall, *"i was not well"* correctly reads as a neighbour of the gift
+  trip (it explains the FIRST visit; the gift trip stands without it), while
+  staying in the run as the stated PUSH reason at step 2.
+* **Separators were manufactured between two PUSH reasons.** "Because X and
+  because Y" can both be true — reasons behind do not compete; only two PULL
+  targets do. `separates_them` now exists only on a HALT between competing
+  ends.
+
+A test pins both (`test_same_person_is_relation_not_dependency`).
+
 ## 8. WHAT REMAINS OPEN, STATED
 
 * **Phases C, D, E are not built** — combination + intent engine as its own
