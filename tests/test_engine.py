@@ -4877,7 +4877,7 @@ def test_the_whole_loop_now_runs_23_of_23():
     from sourceborn import discovery as D
     a = D.audit()
     assert a["absent"] == [], a["absent"]
-    assert a["counts"][D.RUNS] == 21           # 22 joined in Phase C
+    assert a["counts"][D.RUNS] == 22           # 22 in C, 5 in D
     r = D.chain(RAIN, "rain")
     assert r["stages_run"] == 23 and r["completed"] is True
     assert r["halted_at"] is None
@@ -4921,7 +4921,7 @@ def test_the_three_absent_stages_and_the_one_that_blocks():
     absent = {a["n"] for a in g["absent_stages"]}
     assert absent == set(), absent             # 12, 18 and 23 are all built
     partial = {p["n"] for p in g["partial_stages"]}
-    assert partial == {1, 5}, partial          # 22 moved to RUNS in Phase C
+    assert partial == {1}, partial             # 5 moved to RUNS in Phase D
     assert 19 not in partial, "WEAKEN exists now"
     assert g["his_call"]
 
@@ -5331,8 +5331,8 @@ def test_stage_22_is_computed_not_by_hand():
     a = D.audit()
     r22 = next(r for r in a["rows"] if r["n"] == 22)
     assert r22["state"] == "RUNS"
-    assert a["counts"]["PARTIAL"] == 2, \
-        "stages 1 and 5 remain PARTIAL — both Phase D's business"
+    assert a["counts"]["PARTIAL"] == 1, \
+        "stage 1 source lock is the last PARTIAL — stage 5 joined in Phase D"
 
 
 def test_evidence_is_handed_in_and_kill_is_on_request_only():
@@ -5354,9 +5354,11 @@ def test_the_engine_owns_two_loops_and_says_so():
     l = C.loops()
     assert len(l["his_nine"]) == 9
     assert l["c_owns"] == ["Combination", "Intent"]
-    waiting = [x for x in l["his_nine"] if "WAITS" in x["state"]
-               or "DEFINED" in x["state"]]
-    assert len(waiting) == 4, "four of his nine are honestly not C's"
+    running = [x for x in l["his_nine"] if x["state"].startswith("RUNS")]
+    assert len(running) == 8, "eight of his nine run since Phase D"
+    ng = next(x for x in l["his_nine"] if x["loop"] == "Node-Growth")
+    assert "awaits his word" in ng["state"], \
+        "the ninth stops at the queue — his promotion question is open"
 
 
 def test_phase_c_writes_nothing():
@@ -5406,6 +5408,259 @@ def test_runtime_step_9_hands_its_seatings_to_the_one_engine():
 def test_the_combine_routes_are_reachable():
     src = open("src/sourceborn/server.py").read()
     for route in ('"/combine"', '"/combine/run"'):
+        assert route in src, route
+
+
+# ---------------------------------------------------------------------------
+# PHASE D — the memory graph + auto-linking.
+# ---------------------------------------------------------------------------
+
+def _ng_root():
+    return tempfile.mkdtemp(prefix="sb_ng_")
+
+
+_RFR = {"stands": True, "r_f_r": ["ran"]}
+
+
+def test_the_write_gate_refuses_and_names_the_unmet():
+    """His five write conditions, enforced at the one write site."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    r = NG.write_node(root, "EVENT", "src", {}, rfr=None, proof_debt=1)
+    assert r["refused"] and r["unmet_conditions"] == ["R-F-R executed"]
+    r = NG.write_node(root, "EVENT", "src", {}, rfr=_RFR)
+    assert r["refused"] and r["unmet_conditions"] == \
+        ["origin distance recorded"]
+    r = NG.write_node(root, "EVENT", "", {}, rfr=_RFR, proof_debt=1)
+    assert r["refused"] and "source retained" in r["unmet_conditions"]
+    assert NG.stats(root)["nodes"] == 0, "nothing malformed was stored"
+
+
+def test_a_link_map_with_zero_links_is_still_a_map():
+    """The fourth condition is met BY the write path — the linker runs even
+    when nothing matches, and says so."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    r = NG.write_node(root, "EVENT", "his rain sentence",
+                      {"event_sig": "POINT_PIPE"}, rfr=_RFR, proof_debt=1)
+    assert r["written"] and r["conditions_met"] == 5
+    assert r["conditions"]["link map created"] is True
+    assert r["link_map"]["count"] == 0
+    assert "still a MAP" in r["link_map"]["note"]
+
+
+def test_an_existing_match_is_reinforced_never_recreated():
+    """His mall-example rule applied to nodes: support 1 -> 2,
+    duplicate_created False."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    r1 = NG.write_node(root, "EVENT", "src",
+                       {"event_sig": "POINT_PIPE", "actor": "father"},
+                       rfr=_RFR, proof_debt=1)
+    r2 = NG.write_node(root, "EVENT", "src",
+                       {"event_sig": "POINT_PIPE", "actor": "father"},
+                       rfr=_RFR, proof_debt=1, surfaced_by="a second source")
+    assert r2["duplicate_created"] is False
+    assert r2["strengthened_existing"] == r1["node_id"]
+    assert r2["support"] == 2
+    assert NG.stats(root)["by_type"].get("EVENT") == 1
+
+
+def test_similar_event_needs_shared_rows_never_containers():
+    """The Phase C anchor lesson carried into linking: structure is not
+    content."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    a = NG.write_node(root, "EVENT", "src",
+                      {"event_sig": "A", "rows": ["P1", "P2"],
+                       "containers": ["CON-001", "CON-002"]},
+                      rfr=_RFR, proof_debt=1)["node_id"]
+    b = NG.write_node(root, "EVENT", "src",
+                      {"event_sig": "B", "rows": ["P1", "P2", "P9"],
+                       "containers": ["CON-001", "CON-002"]},
+                      rfr=_RFR, proof_debt=1)
+    links = [l for l in b["link_map"]["links"] if l["link"] == "similar_to"]
+    assert links and links[0]["to"] == a, "2 shared rows link"
+    c = NG.write_node(root, "EVENT", "src",
+                      {"event_sig": "C", "rows": ["P7"],
+                       "containers": ["CON-001", "CON-002"]},
+                      rfr=_RFR, proof_debt=1)
+    assert not c["link_map"]["links"], \
+        "shared containers alone must never link"
+
+
+def test_hub_nodes_materialize_once():
+    """Two events by one actor: an ACTOR node exists ONCE, each event linked
+    actor_of — the graph shape his twelve types exist for."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    NG.write_node(root, "EVENT", "src", {"event_sig": "A", "actor": "king"},
+                  rfr=_RFR, proof_debt=1)
+    r2 = NG.write_node(root, "EVENT", "src",
+                       {"event_sig": "B", "actor": "king"},
+                       rfr=_RFR, proof_debt=1)
+    hubs = r2["link_map"]["hubs"]
+    assert hubs and hubs[0]["type"] == "ACTOR" and not hubs[0]["created"], \
+        "the second write must REUSE the hub"
+    assert NG.stats(root)["by_type"].get("ACTOR") == 1
+    links = [l for l in r2["link_map"]["links"] if l["link"] == "actor_of"]
+    assert links and links[0]["from"].startswith("SB-N-ACT-")
+
+
+def test_opposition_contradicts_and_both_stand():
+    """Same subject, opposing verdicts -> a contradicts link, neither
+    deleted. The dedupe defect this test first caught — an opposing reading
+    folded into the node it opposed — is why the match requires the same
+    CLAIM, verdict included."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    d = NG.write_node(root, "RULE", "his ruling",
+                      {"subject_sig": "never goes", "verdict": "RETAIN"},
+                      rfr=_RFR, proof_debt=1)["node_id"]
+    e = NG.write_node(root, "RULE", "the counter-reading",
+                      {"subject_sig": "never goes", "verdict": "REJECT"},
+                      rfr=_RFR, proof_debt=1)
+    assert e["written"], "an opposing reading is a NEW node, not a duplicate"
+    con = [l for l in e["link_map"]["links"] if l["link"] == "contradicts"]
+    assert con and con[0]["to"] == d
+    assert NG.node_state(root, d)["found"], "the contradicted node stands"
+
+
+def test_the_memory_chain_references_the_reading_before():
+    """The 90-empty-brains answer at node level: a memory is a chain, not a
+    field."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    a = NG.write_node(root, "EVENT", "src", {"event_sig": "A"},
+                      rfr=_RFR, proof_debt=1)["node_id"]
+    NG.remember(root, a, "EVENT", "first seen")
+    NG.remember(root, a, "EVIDENCE", "a prediction was confirmed")
+    mem = NG.memory_of(root, a)
+    assert [m["n"] for m in mem] == [1, 2]
+    assert mem[0]["references"] is None and mem[1]["references"] == 1
+    try:
+        NG.remember(root, a, "NOT_A_KIND", "x")
+        assert False, "an unknown memory kind must refuse"
+    except KeyError as err:
+        assert "his eleven memory kinds" in str(err)
+
+
+def test_stage_5_is_traversable_and_every_hop_is_typed():
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    a = NG.write_node(root, "EVENT", "src",
+                      {"event_sig": "A", "actor": "king",
+                       "rows": ["P1", "P2"]}, rfr=_RFR,
+                      proof_debt=1)["node_id"]
+    NG.write_node(root, "EVENT", "src",
+                  {"event_sig": "B", "actor": "king",
+                   "rows": ["P3", "P4"]}, rfr=_RFR, proof_debt=1)
+    c = NG.write_node(root, "EVENT", "src",
+                      {"event_sig": "C", "rows": ["P3", "P4"]},
+                      rfr=_RFR, proof_debt=1)["node_id"]
+    p = NG.path(root, a, c)
+    assert p["found"], "a reaches c through the actor hub and shared rows"
+    assert all(h["link"] for h in p["hops"]), "every hop names its link type"
+    sg = NG.subgraph(root, a, depth=1)
+    assert a in sg["nodes"] and sg["counts"]["links"] >= 1
+    # and the discovery audit reads stage 5 as running now
+    from sourceborn import discovery as D
+    r5 = next(r for r in D.audit()["rows"] if r["n"] == 5)
+    assert r5["state"] == "RUNS"
+
+
+def test_recall_is_the_retrieval_loop():
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    NG.write_node(root, "EVENT", "src",
+                  {"event_sig": "A", "actor": "king", "future": "the wall"},
+                  rfr=_RFR, proof_debt=1)
+    got = NG.recall(root, {"actor": "king", "future": "the wall",
+                           "rows": []})
+    assert got["conditions"]["same_actor"]
+    assert got["conditions"]["same_future_goal"]
+    assert got["reached"], "the probe reaches stored nodes with evidence"
+    empty = NG.recall(root, {"actor": "nobody"})
+    assert empty["reached"] == []
+
+
+def test_the_queue_holds_until_his_word():
+    """His box 6 runs up to the queue and stops where only his word may
+    act. The queue is a placeholder for his unanswered question, not the
+    answer."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    f = NG.write_node(root, "PATTERN", "src", {"pattern_sig": "care loop"},
+                      rfr=_RFR, proof_debt=1,
+                      maturity_level="SUPPORTED")["node_id"]
+    q0 = NG.queue_for_him(root)
+    assert q0["count"] == 0, "maturity alone does not queue — the evidence " \
+                            "gate is real"
+    NG.remember(root, f, "EVIDENCE",
+                "confirmed: the discriminating prediction held")
+    q1 = NG.queue_for_him(root)
+    assert [x["node_id"] for x in q1["queued"]] == [f]
+    assert q1["promoted"] == 0
+    assert "he has not answered" not in q1  # dict key sanity
+    assert "his word" in q1["promoted_stays_zero_until"]
+    ap = NG.approve(root, f)
+    assert ap["status"] == "ACCEPTED" and ap["by"] == "him"
+    q2 = NG.queue_for_him(root)
+    assert q2["count"] == 0 and q2["promoted"] == 1
+    # NO REOPEN — the original NODE row in the file still says OPEN
+    raw = open(NG._path(root)).read()
+    assert '"status": "OPEN"' in raw
+    st = NG.node_state(root, f)
+    assert st["status"] == "ACCEPTED" and st["status_is_from"] == \
+        "his approval"
+
+
+def test_the_graph_store_is_append_only_structurally():
+    """The growth.py technique: read the module's own source and fail if a
+    removal path is ever added."""
+    import re as _re
+    src = open("src/sourceborn/nodegraph.py").read()
+    code = _re.sub(r'""".*?"""', "", src, flags=_re.S)
+    code = _re.sub(r"#.*", "", code)
+    for forbidden in (".pop(", "os.remove", "os.unlink", "rmtree",
+                      "truncate", '"w"', "'w'"):
+        assert forbidden not in code, \
+            "the graph must be append-only: found %r" % forbidden
+    assert '"a"' in code, "the store opens in append mode"
+
+
+def test_a_corrupt_line_is_kept_as_unreadable():
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    NG.write_node(root, "EVENT", "src", {"event_sig": "A"}, rfr=_RFR,
+                  proof_debt=1)
+    with open(NG._path(root), "a", encoding="utf-8") as f:
+        f.write("{this is not json\n")
+    rows = NG.load(root)
+    bad = [r for r in rows if r.get("row") == "UNREADABLE"]
+    assert bad and bad[0]["raw"].startswith("{this is not json")
+    assert NG.stats(root)["unreadable_kept"] == 1
+
+
+def test_node_ids_carry_their_type_and_count_per_type():
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    a = NG.write_node(root, "EVENT", "src", {"event_sig": "A"}, rfr=_RFR,
+                      proof_debt=1)["node_id"]
+    b = NG.write_node(root, "EVENT", "src", {"event_sig": "B"}, rfr=_RFR,
+                      proof_debt=1)["node_id"]
+    r = NG.write_node(root, "RULE", "src", {"subject_sig": "S"}, rfr=_RFR,
+                      proof_debt=1)["node_id"]
+    assert a == "SB-N-EVT-00001" and b == "SB-N-EVT-00002"
+    assert r == "SB-N-RUL-00001", "each type counts its own"
+
+
+def test_the_node_graph_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/nodes"', '"/nodes/node"', '"/nodes/path"',
+                  '"/nodes/subgraph"', '"/nodes/write"',
+                  '"/nodes/remember"', '"/nodes/recall"',
+                  '"/nodes/approve"'):
         assert route in src, route
 
 

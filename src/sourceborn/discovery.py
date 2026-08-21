@@ -47,10 +47,15 @@ STAGES = (
     {"n": 4, "name": "EXISTING PARAMETER ACTIVATION",
      "does": ["growing.seat", "human_registry.activate"], "state": RUNS,
      "note": "role picks the segment, words pick the row, out-of-role kept"},
-    {"n": 5, "name": "RELATION GRAPH", "does": ["asi_pyramid.relations"],
-     "state": PARTIAL,
-     "note": "relations are LISTED (R01, R02, ...) but there is no graph to "
-             "traverse — no edges object, no path query, no neighbourhood"},
+    {"n": 5, "name": "RELATION GRAPH",
+     "does": ["asi_pyramid.relations", "nodegraph.path",
+              "nodegraph.neighbours", "nodegraph.subgraph"], "state": RUNS,
+     "note": "Phase D made it traversable: nodes are stored, links are TYPED "
+             "(his ten, each with direction and inverse), and path() walks "
+             "them — a path through `contradicts` means something different "
+             "from one through `supports`, which is what a similarity blob "
+             "could never say. asi_pyramid.relations remains the per-ask "
+             "relation LIST; the graph is where relations LIVE."},
     {"n": 6, "name": "ACTIVE STATE / ACTOR VIEW",
      "does": ["statepacks.pack", "artifact.ACTOR_ROLES"], "state": RUNS,
      "note": "16 brain-states, and 9 actor roles on an artifact event"},
@@ -235,7 +240,10 @@ def chain(text: str, name: str = "") -> dict:
     step(3, "EVENT DECOMPOSITION", lambda: {"events": len(W.events_in(text))})
     step(4, "EXISTING PARAMETER ACTIVATION",
          lambda: {"ids": W.place(text, name)["counts"]["distinct_ids_seated"]})
-    step(5, "RELATION GRAPH", lambda: {"listed_not_traversable": True})
+    step(5, "RELATION GRAPH",
+         lambda: {"traversable": True,
+                  "typed_hops": "nodegraph.path — every hop names its link",
+                  "per_ask_list": "asi_pyramid.relations"})
     step(6, "ACTIVE STATE / ACTOR VIEW",
          lambda: {"actor_roles": len(A.ACTOR_ROLES)})
     step(7, "COMBINATION GENERATOR",

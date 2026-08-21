@@ -896,6 +896,54 @@ duplicate signatures from two parents burned cap slots; one pool entry per
 signature now. Arrow chart: **A locked · B runs · C runs · D, E NOT BUILT.**
 318 tests green, 223 anchors resolve, 0 missing. Verified live over HTTP.
 
+**PHASE D — THE MEMORY GRAPH + AUTO-LINKING (2026-08-21) — `nodegraph.py`,
+`/nodes` + seven more routes.** His order: *"build phase D"*. Canon at
+`docs/method/canon/THE_MEMORY_GRAPH_AND_AUTO_LINKING.md`. The node schema
+Phase A locked becomes a living store. **The write gate is ENFORCED:** Phase A
+said enforcement is Phase D, and `write_node` is that site — a write failing
+one of his five conditions is REFUSED with the unmet named, never stored
+malformed; the fourth condition (*link map created*) is met BY the write path
+because the auto-linker runs inside it, which is exactly why it could not be
+enforced before D existed, and **a link map with zero links is still a map**.
+**His six read conditions are ONE mechanism used twice:** `recall()` is the
+Retrieval loop (which stored nodes does material reach, by which condition,
+evidence named), and the auto-linker is the SAME call at write time — what
+recall finds, the linker links, so retrieval and linking can never disagree.
+**The graph has the shape his twelve types exist for:** hub nodes materialize
+ONCE — two events by one actor meet at an ACTOR node (`actor_of`), events
+`support` their PATTERN node, `depend_on` their ARTIFACT (prior.py's own
+entailment), are `future_of` their FUTURE_STATE; `similar_to` is reserved for
+events sharing the shell or **≥2 actual seated rows, and containers alone
+NEVER link** — the Phase C anchor lesson carried into linking. **The
+contradiction loop in its honest scope:** `contradicts` fires structurally on
+one case only — same subject, opposing verdicts; deeper detection from prose
+is model-grade inference this module does not claim. **A defect the first
+contradiction test caught, on the record:** the box-6 dedupe matched subject
+and actor but NOT verdict, so an opposing reading was folded into the node it
+opposed — a contradiction silently swallowed as a duplicate; the match now
+requires the same CLAIM (signature + actor + verdict), and the opposing
+reading is written, linked, both standing. **An existing match is REINFORCED,
+never re-created** — support 1→2, `duplicate_created False`, his mall-example
+rule applied to nodes. **The per-node memory chain** (`remember`) is the
+90-of-95-empty-brains answer at node level: append-only readings each
+referencing the one before, kinds constrained to his eleven. **Stage 5 now
+RUNS — 22 of 23; stage 1 source lock is the LAST PARTIAL:** `path()` walks
+typed hops (a path through `contradicts` means something different from one
+through `supports`), and the rain events meet at their actor hub. **His box 6
+runs up to its queue and stops where only his word may act:** evidence gate +
+maturity threshold EVALUATED (maturity alone does not queue — tested), a node
+passing both is QUEUED with its evidence, `promoted` stays 0 until his word,
+`approve()` is HIS action as an APPROVAL row referencing the node — the NODE
+row is never rewritten (the file still says OPEN; the fold reads ACCEPTED),
+and the queue states it is **a placeholder for his unanswered promotion
+question, not the answer**. Append-only structurally (no removal path, mode
+"a" only, UNREADABLE kept, a test reads the module's own source). **Eight of
+his nine loops now run; the ninth stops at the queue.** 332 tests green, 235
+anchors resolve, 0 missing. Verified live over HTTP — write · refuse ·
+remember · node · path · queue. **Left for E, stated:** nothing calls the
+write site, the linker or the queue on a write or a timer; the runtime does
+not yet compose a node's refs from its own steps.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

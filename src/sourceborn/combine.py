@@ -535,21 +535,30 @@ def loops() -> dict:
              "state": "RUNS"},
             {"loop": "Next-Sequence", "where": "discovery.close, runtime "
                                                "step 18", "state": "RUNS"},
-            {"loop": "Retrieval", "where": "his six read conditions, "
-                                           "nodebrain.READ_CONDITIONS",
-             "state": "DEFINED — reading by similarity is Phase D"},
-            {"loop": "Contradiction", "where": "nodebrain contradiction_links",
-             "state": "DEFINED — finding them is Phase D"},
-            {"loop": "Memory Reinforcement", "where": "growth ledger + "
-                                                      "node local_memory",
-             "state": "WAITS FOR D — the per-node chain of readings"},
-            {"loop": "Node-Growth", "where": "his box 6 decision tree",
-             "state": "WAITS FOR D AND HIS ANSWER — the promotion policy "
-                      "question is still open"},
+            {"loop": "Retrieval", "where": "nodegraph.recall — his six read "
+                                           "conditions as a query",
+             "state": "RUNS (Phase D; started by hand — the trigger is E)"},
+            {"loop": "Contradiction", "where": "nodegraph.autolink — "
+                                               "`contradicts` on opposing "
+                                               "verdicts over one subject",
+             "state": "RUNS in its honest scope (Phase D); richer detection "
+                      "must arrive from a caller that saw it"},
+            {"loop": "Memory Reinforcement", "where": "nodegraph.remember — "
+                                                      "the per-node chain of "
+                                                      "readings",
+             "state": "RUNS (Phase D; append-only, each reading references "
+                      "the one before)"},
+            {"loop": "Node-Growth", "where": "his box 6 decision tree — "
+                                             "nodegraph.write_node + "
+                                             "gates_of + queue_for_him",
+             "state": "GATES RUN, THE QUEUE HOLDS — a permanent ID still "
+                      "awaits his word; his promotion question is unanswered "
+                      "and the queue is a placeholder for his answer, not "
+                      "the answer"},
         ],
         "c_owns": ["Combination", "Intent"],
-        "note": "an engine that claimed all nine would be lying about four of "
-                "them.",
+        "note": "eight of his nine run (five since Phase D); the ninth runs "
+                "up to its queue and stops where only his word may act.",
     }
 
 

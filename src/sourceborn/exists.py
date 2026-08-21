@@ -333,6 +333,79 @@ MAP: list[dict] = [
             "runs it on his corpus through selfmake's OWN harvest so the two "
             "can never disagree about what a file exhibits. /combine, POST "
             "/combine/run."},
+   {"his": "build phase D — the Memory Graph + Auto-Linking of his sheet; "
+           "the node schema Phase A locked becomes a living, traversable "
+           "store",
+    "where": [("nodegraph.py", "def write_node("),
+              ("nodegraph.py", "def recall("),
+              ("nodegraph.py", "def autolink("),
+              ("nodegraph.py", "def remember("),
+              ("nodegraph.py", "def memory_of("),
+              ("nodegraph.py", "def path("),
+              ("nodegraph.py", "def neighbours("),
+              ("nodegraph.py", "def subgraph("),
+              ("nodegraph.py", "def gates_of("),
+              ("nodegraph.py", "def queue_for_him("),
+              ("nodegraph.py", "def approve("),
+              ("nodegraph.py", "def _write_hub(")],
+    "state": RUNS,
+    "note": "PHASE D. THE WRITE GATE IS ENFORCED: Phase A defined his five "
+            "write conditions and said enforcement is Phase D — "
+            "nodegraph.write_node is that site, and a write failing a "
+            "condition is REFUSED with the unmet conditions named, never "
+            "stored malformed. The fourth condition (link map created) is "
+            "met BY the write path itself, because the auto-linker runs "
+            "inside it — which is exactly why it could not be enforced "
+            "before D existed. HIS SIX READ CONDITIONS ARE ONE MECHANISM "
+            "USED TWICE: recall() answers which stored nodes material "
+            "reaches and by which condition with the evidence named (the "
+            "Retrieval loop), and the auto-linker is the SAME call at write "
+            "time — what recall finds, the linker links, so retrieval and "
+            "linking can never disagree. LINKS ARE TYPED AND THE GRAPH HAS "
+            "THE SHAPE HIS TWELVE TYPES EXIST FOR: two events by the same "
+            "actor do not get a vague tie — an ACTOR node materializes ONCE "
+            "and each event links to it actor_of; events SUPPORT their "
+            "pattern node, DEPEND_ON their artifact (prior.py's own "
+            "entailment), are FUTURE_OF the state they worked toward; "
+            "similar_to is reserved for events sharing 2+ actual seated "
+            "rows, and CONTAINERS ALONE NEVER LINK — the Phase C anchor "
+            "lesson, structure is not content. THE CONTRADICTION LOOP IN "
+            "ITS HONEST SCOPE: contradicts fires structurally on one case "
+            "only — same subject, opposing verdicts (RETAIN vs REJECT); "
+            "deeper detection from prose is model-grade inference this "
+            "module does not have and does not claim; richer contradictions "
+            "arrive from a caller that saw them. A defect the first "
+            "contradiction test caught: the box-6 dedupe matched on subject "
+            "and actor but NOT verdict, so an OPPOSING reading was folded "
+            "into the node it opposed — a contradiction silently swallowed "
+            "as a duplicate; the match now requires the same CLAIM (same "
+            "signature, same actor, same verdict), and the opposing reading "
+            "is written and contradiction-linked with both standing. AN "
+            "EXISTING MATCH IS REINFORCED, NEVER RE-CREATED: support 1 -> "
+            "2, duplicate_created False — his mall-example reinforcement "
+            "rule applied to nodes. THE PER-NODE MEMORY CHAIN is remember() "
+            "— append-only readings each referencing the one before "
+            "(maturity.update's shape applied to a node), kinds constrained "
+            "to his eleven — the store the 90-of-95-empty-brains finding "
+            "has needed since the August audit. STAGE 5 NOW RUNS (22 of 23; "
+            "stage 1 source lock is the last PARTIAL): neighbours/path/"
+            "subgraph make the relation graph traversable with every hop "
+            "TYPED — a path through contradicts means something different "
+            "from one through supports. HIS BOX 6 RUNS UP TO ITS QUEUE AND "
+            "STOPS WHERE ONLY HIS WORD MAY ACT: the evidence gate and "
+            "maturity threshold are EVALUATED, a node passing both is "
+            "QUEUED FOR HIM with its evidence, promoted stays 0 until his "
+            "word, approve() exists as HIS action (an APPROVAL row "
+            "referencing the node — the NODE row is never rewritten, NO "
+            "REOPEN), and the queue is stated as a placeholder for his "
+            "unanswered promotion question, not the answer. APPEND-ONLY "
+            "STRUCTURALLY: no removal path exists in the module, the store "
+            "opens mode-a only, a corrupt line comes back UNREADABLE with "
+            "its raw text, and a test reads the module's own source (the "
+            "growth.py technique). Eight of his nine auto loops now run; "
+            "the ninth (Node-Growth) runs up to the queue. /nodes, "
+            "/nodes/node, /nodes/path, /nodes/subgraph, POST /nodes/write, "
+            "POST /nodes/remember, POST /nodes/recall, POST /nodes/approve."},
    {"his": "build 18 and 23 / it should must have full explanation not just "
            "definition n placeholders",
     "where": [("maturity.py", "def read("),

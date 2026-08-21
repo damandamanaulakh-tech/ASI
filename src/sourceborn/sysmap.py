@@ -212,8 +212,14 @@ def arrow_chart() -> str:
         "     a row · one occurrence cannot breed · order ceiling 6",
         "     every candidate leaves carrying prediction + falsifier",
         "     + maturity · stage 22 is delta(), computed not by hand",
-        "     owns 2 of his 9 loops (Combination · Intent)",
-        "D  memory graph + auto-linking        NOT BUILT",
+        "D  memory graph + auto-linking   nodegraph.py  /nodes",
+        "     his 5 write conditions ENFORCED at write_node · his 6",
+        "     read conditions = ONE mechanism, recall and linking ·",
+        "     hub nodes materialize once (ACTOR PATTERN ARTIFACT FUT)",
+        "     per-node reading chains · typed paths (stage 5 RUNS) ·",
+        "     match reinforces, opposition contradicts, both stand ·",
+        "     box-6 gates run, THE QUEUE HOLDS until his word",
+        "     8 of his 9 loops run; the 9th stops at the queue",
         "E  self-sustain scheduler             NOT BUILT",
     ])
     L += _down()

@@ -46,6 +46,7 @@ from . import expected
 from . import combine
 from . import maturity
 from . import nodebrain
+from . import nodegraph
 from . import prior
 from . import runtime as rt
 from . import sysmap
@@ -1416,6 +1417,26 @@ class Handler(BaseHTTPRequestHandler):
                 {"stats": combine.stats(),
                  "loops": combine.loops()}).encode(),
                 "application/json")
+        elif path == "/nodes":
+            # Phase D — the memory graph: store counts, the queue for him,
+            # and his open promotion question stated on it
+            self._send(200, json.dumps(
+                {"stats": nodegraph.stats(SB_ROOT),
+                 "queue": nodegraph.queue_for_him(SB_ROOT)}).encode(),
+                "application/json")
+        elif path == "/nodes/node":
+            st = nodegraph.node_state(SB_ROOT, (qs.get("id") or [""])[0])
+            self._send(200 if st["found"] else 404,
+                       json.dumps(st).encode(), "application/json")
+        elif path == "/nodes/path":
+            self._send(200, json.dumps(nodegraph.path(
+                SB_ROOT, (qs.get("from") or [""])[0],
+                (qs.get("to") or [""])[0])).encode(), "application/json")
+        elif path == "/nodes/subgraph":
+            self._send(200, json.dumps(nodegraph.subgraph(
+                SB_ROOT, (qs.get("id") or [""])[0],
+                depth=int((qs.get("depth") or ["2"])[0]))).encode(),
+                "application/json")
         elif path == "/maturity":
             # stage 18, and the WEAKEN stage 19 was missing
             self._send(200, json.dumps(
@@ -2033,6 +2054,57 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, json.dumps(combine.run(
                 texts=texts, name=(data.get("name") or "").strip())).encode(),
                 "application/json")
+            return
+        if self.path == "/nodes/write":
+            # Phase D — the one way into the graph. His five conditions are
+            # the gate; a failed write is refused with the unmet named.
+            try:
+                self._send(200, json.dumps(nodegraph.write_node(
+                    SB_ROOT,
+                    node_type=(data.get("node_type") or "").strip(),
+                    point_zero_ref=(data.get("point_zero_ref") or "").strip(),
+                    refs=data.get("refs") or {},
+                    rfr=data.get("rfr"),
+                    status=(data.get("status") or "OPEN").strip(),
+                    maturity_level=(data.get("maturity_level")
+                                    or "UNTESTED").strip(),
+                    proof_debt=data.get("proof_debt"),
+                    surfaced_by=(data.get("surfaced_by") or "").strip(),
+                )).encode(), "application/json")
+            except (KeyError, ValueError) as e:
+                self._send(400, json.dumps({"refused": True,
+                                            "why": str(e)}).encode(),
+                           "application/json")
+            return
+        if self.path == "/nodes/remember":
+            # Phase D — append one reading to a node's chain. NO REOPEN.
+            try:
+                self._send(200, json.dumps(nodegraph.remember(
+                    SB_ROOT, (data.get("node_id") or "").strip(),
+                    (data.get("kind") or "").strip(),
+                    (data.get("reading") or "").strip(),
+                    support_delta=int(data.get("support_delta") or 0),
+                )).encode(), "application/json")
+            except KeyError as e:
+                self._send(400, json.dumps({"refused": True,
+                                            "why": str(e)}).encode(),
+                           "application/json")
+            return
+        if self.path == "/nodes/recall":
+            # Phase D — his six read conditions as a query
+            self._send(200, json.dumps(nodegraph.recall(
+                SB_ROOT, data.get("refs") or {})).encode(),
+                "application/json")
+            return
+        if self.path == "/nodes/approve":
+            # HIS action — promotion happens on his word, never on gates alone
+            try:
+                self._send(200, json.dumps(nodegraph.approve(
+                    SB_ROOT, (data.get("node_id") or "").strip())).encode(),
+                    "application/json")
+            except KeyError as e:
+                self._send(404, json.dumps({"error": str(e)}).encode(),
+                           "application/json")
             return
         if self.path == "/growing/place":
             # place one example. There is no answer here — only where it sits.

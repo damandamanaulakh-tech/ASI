@@ -448,12 +448,16 @@ def run(text: str, his_end: str = "", root: str = "", write: bool = False,
                 "conditions_met": sum(1 for v in conditions.values() if v),
                 "conditions_total": len(conditions),
                 "written": False,
-                "why_not_written": "his five write conditions are the gate, and "
-                                   "enforcing them at the write site is Phase D. "
-                                   "Two of five are not met on this run (no "
-                                   "link map — that is Phase D itself — and no "
-                                   "origin distance), and writing past an unmet "
-                                   "gate is what the gate exists to stop."}
+                "why_not_written": "two of five conditions are unmet on this "
+                                   "prepared ledger row (no link map, no "
+                                   "origin distance), and writing past an "
+                                   "unmet gate is what the gate exists to "
+                                   "stop. Since Phase D the gated write site "
+                                   "EXISTS — nodegraph.write_node enforces "
+                                   "all five and runs the auto-linker, which "
+                                   "is what makes the link-map condition "
+                                   "meetable there. Nothing calls it on a "
+                                   "timer; that is Phase E."}
     if write and root and all(conditions.values()):
         w = G.grow(root, text, name=name, surfaced_by="runtime.run")
         prepared["written"] = True
