@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import math
 import os
 import sys
 import tempfile
@@ -3435,7 +3436,9 @@ def test_the_body_pack_reaches_below_reasoning():
 
 def test_ten_event_forks_and_none_is_chosen():
     from sourceborn import statepacks as S
-    assert len(S.EVENT_FORKS) == 10
+    # ten from his King sequences + ADVISOR_PRIVATE_MEETING from the
+    # ASI0001_tablet_run workbook. Nothing was removed to make room for it.
+    assert len(S.EVENT_FORKS) == 11
     tot = 0
     for name in S.EVENT_FORKS:
         f = S.fork_event(name)
@@ -3444,7 +3447,10 @@ def test_ten_event_forks_and_none_is_chosen():
         assert f["refuses"]
         assert f["law"] == "VISIBLE ACTION != HIDDEN INTENT"
         tot += f["count"]
-    assert tot == 40, tot
+    assert tot == 50, tot
+    adv = S.fork_event("ADVISOR_PRIVATE_MEETING")
+    assert adv["count"] == 10, "one route per brain-state of the same king"
+    assert "SAME EVENT != SAME INTENT" in adv["refuses"]
     tax = S.fork_event("RAISE_TAX")
     assert "GREED automatically" in tax["refuses"]
     assert "where does the money actually go?" in tax["still_open"]
@@ -3516,6 +3522,2443 @@ def test_the_generation_and_weighting_routes_are_reachable():
     eng = open("src/sourceborn/engine.py").read()
     assert "asi_pyramid" in eng, "the Pyramid must be in the answer path"
     assert "statepacks" in eng
+
+
+
+# --- LIVE INTENT GENERATION: the bottleneck he named -----------------------
+
+def test_intent_is_generated_from_his_own_rows_not_a_table():
+    from sourceborn import intents as I
+    assert len(I.motive_rows()) == 40, "CON-064 is the WHY"
+    assert len(I.form_rows()) == 40, "CON-063 is the SHAPE"
+    m = {x["name"]: x for x in I.motive_rows()}
+    assert m["Stated motive"]["p"] == "P2525"
+    assert m["Motive-inference confidence"]["p"] == "P2564"
+    f = {x["name"]: x for x in I.form_rows()}
+    assert f["Immediate-intention formation"]["p"] == "P2485"
+
+
+def test_more_parameters_active_means_more_intent():
+    """His concept, and it must be computed, not asserted:
+    'as much parameters we plug, we will generate more pattern and intent'."""
+    from sourceborn import intents as I
+    sc = I.scaling()
+    assert sc["monotonic"] is True
+    first, last = sc["curve"][0], sc["curve"][-1]
+    assert first["active_containers"] == 1 and last["active_containers"] == 80
+    assert last["intents_generated"] > first["intents_generated"] * 5, \
+        (first, last)
+    assert last["motives_raised"] > first["motives_raised"]
+    assert sc["ceiling"]["max_pairs"] == 40 * 40
+
+
+def test_the_motive_links_are_computed_and_the_fabrications_are_gated():
+    """Naive head-word matching gave 200 edges and about a third were lexical
+    coincidences — 'Face-saving motive' -> 'Face detection'. Perception, motor,
+    attention-mechanics and language cannot originate a motive."""
+    from sourceborn import intents as I
+    assert set(I.BLOCKED_HOSTS) == {"SEG-02", "SEG-03", "SEG-04", "SEG-07"}
+    ml = I.motive_links()
+    for name, v in ml.items():
+        for e in v["edges"]:
+            assert e["segment"] not in I.BLOCKED_HOSTS, (name, e)
+            assert e["matched"] and e["matched_p"], e
+    st = I.stats()
+    assert st["link_edges"] == 133, st["link_edges"]
+    assert st["motives_linked"] == 35
+    # the specific fabrications must be gone
+    faces = [e["matched"] for e in ml["Face-saving motive"]["edges"]]
+    assert "Face detection" not in faces
+    rec = [e["matched"] for e in ml["Recognition/status need"]["edges"]]
+    assert "Shape recognition" not in rec
+
+
+def test_motives_with_no_echo_in_the_bank_are_reported_as_absences():
+    from sourceborn import intents as I
+    u = {x["motive"]: x for x in I.unlinked()}
+    assert len(u) == 5
+    assert u["Stated motive"]["absence"] is False, "machinery, not a motive"
+    assert u["Operating (actual) motive"]["absence"] is False
+    for real in ("Security need", "Mating/attraction motive",
+                 "Revenge/retaliation motive"):
+        assert u[real]["absence"] is True, real
+    assert I.stats()["real_absences"] == 3
+
+
+def test_a_different_brain_state_generates_different_intent():
+    """The join his bottleneck needed: the state pack decides which containers
+    are active, and the intent is generated from those."""
+    from sourceborn import intents as I
+    a = I.from_state_pack("The King", "SP-27", "ABDICATE")
+    b = I.from_state_pack("The King", "SP-24")
+    assert a["counts"]["motives_raised"] > b["counts"]["motives_raised"], \
+        "divided loyalty raises social motives; exhaustion raises body ones"
+    assert a["counts"]["intents_generated"] != b["counts"]["intents_generated"]
+    segs_b = {c["raised_by"]["segment"] for c in b["candidates"]}
+    assert segs_b == {"SEG-01"}, "the exhausted pack raises only body motives"
+    assert a["identity"]["locked"] is True
+    assert b["identity"]["locked"] is True
+
+
+def test_generated_intent_never_concludes_and_never_enters_the_bank():
+    from sourceborn import intents as I, human_registry as hr
+    before = len(hr.parameters())
+    g = I.generate("ABDICATE", ["CON-071", "CON-072", "CON-063"])
+    assert g["chosen"] is None
+    assert g["confidence"]["level"] == "LOW"
+    assert g["counts"]["native_parameters_added"] == 0
+    for c in g["candidates"]:
+        assert c["status"] == "INTENT CANDIDATE"
+        assert c["in_bank"] is False and c["is_native_parameter"] is False
+        assert c["concluded"] is False
+        assert c["why_p"].startswith("P") and c["shape_p"].startswith("P")
+        assert c["raised_by"]["matched_row"], "every intent cites its evidence"
+    assert len(hr.parameters()) == before == 3204
+
+
+def test_the_scope_chooses_the_intent_form_not_a_guess():
+    from sourceborn import intents as I
+    cur = I.generate("GO", ["CON-071"], scope=I.CURRENT)
+    fut = I.generate("GO", ["CON-071"], scope=I.FUTURE)
+    cs = {c["shape"] for c in cur["candidates"]}
+    fs = {c["shape"] for c in fut["candidates"]}
+    assert "Immediate-intention formation" in cs
+    assert "Future-intention formation" in fs
+    assert "Future-intention formation" not in cs
+    cond = I.generate("GO", ["CON-071"], scope=I.CURRENT, conditional=True)
+    assert any("Contingent intention" in c["shape"] for c in cond["candidates"])
+
+
+def test_live_intent_reaches_the_generation_run_and_its_routes():
+    from sourceborn import statepacks as S
+    r = S.run("The King", "SP-27", "ABDICATE")
+    assert "live_intent" in r
+    li = r["live_intent"]
+    assert li["counts"]["intents_generated"] > 0
+    assert "MORE PARAMETERS ACTIVE" in li["law"]
+    src = open("src/sourceborn/server.py").read()
+    assert '"/intents"' in src and '"/intents/run"' in src
+    assert "intents" in src
+
+
+
+# --- THE GROWTH LEDGER: the 3,204 is a floor -------------------------------
+
+def _growth_root(tmp="growth_test"):
+    import tempfile, os
+    d = os.path.join(tempfile.mkdtemp(prefix="sb_growth_"), tmp)
+    os.makedirs(d, exist_ok=True)
+    return d
+
+
+def test_the_module_has_no_removal_path_at_all():
+    """His instruction: 'keep adding not removing at all'. Enforced by the
+    shape of the code, not by discipline — so it is checked by reading the
+    source, and a future edit that adds a delete fails this test."""
+    import re
+    src = open("src/sourceborn/growth.py").read()
+    body = src[src.index("def _dir("):]      # skip the docstring
+    for banned in ("def delete", "def remove", "def drop", "def clear",
+                   "def prune", "def truncate", "os.remove", "os.unlink",
+                   ".pop(", "shutil.rmtree"):
+        assert banned not in body, banned
+    # and the store must only ever be opened for append or read
+    modes = re.findall(r'open\([^)]*?,\s*"([arw+bx]+)"', body)
+    assert set(modes) <= {"a", "r"}, modes
+
+
+def test_growth_appends_and_the_base_is_never_renumbered():
+    from sourceborn import growth as G, human_registry as hr
+    root = _growth_root()
+    assert G.BASE == 3204
+    assert G.FIRST_GROWN_P == 3205
+    r1 = G.add(root, G.PARAM, "Test motive one", "a unit test", module="tests")
+    r2 = G.add(root, G.PARAM, "Test motive two", "a unit test", module="tests")
+    assert r1["id"] == "SB-HFR-P3205", r1["id"]
+    assert r2["id"] == "SB-HFR-P3206", r2["id"]
+    assert r1["in_base"] is False
+    c = G.counts(root)
+    assert c["base"] == 3204
+    assert c["grown_parameters"] == 2
+    assert c["total_parameters"] == 3206
+    assert c["removals_possible"] == 0
+    # his source document is untouched — that is a different statement from
+    # "the bank never grows", which is what I had wrongly written
+    assert len(hr.parameters()) == 3204
+
+
+def test_only_parameters_consume_his_flat_index():
+    """DOMAIN CONTAINER != RUBRIC. Rubrics, states, addresses and the rest grow
+    their own series and do not inflate the parameter count."""
+    from sourceborn import growth as G
+    root = _growth_root()
+    G.add(root, G.RUBRIC, "Presence", "his 25", module="tests")
+    G.add(root, G.STATE, "Conflicted", "his profiles", module="tests")
+    G.add(root, G.ADDRESS, "CON-006@DOMINANT", "a brain-state", module="tests")
+    c = G.counts(root)
+    assert c["grown_rows"] == 3
+    assert c["grown_parameters"] == 0
+    assert c["total_parameters"] == 3204, "addresses are not parameters"
+    ids = [r["id"] for r in G.load(root)]
+    assert ids == ["SB-RUBRIC-001", "SB-STATE-001", "SB-ADDR-0001"], ids
+
+
+def test_superseding_keeps_the_old_row_whole():
+    from sourceborn import growth as G
+    root = _growth_root()
+    old = G.add(root, G.RULE, "RULE-X", "first reading", module="tests",
+                detail="the first way he put it")
+    new = G.add(root, G.RULE, "RULE-X revised", "his correction",
+                module="tests", supersedes=old["id"],
+                detail="the later way he put it")
+    rows = G.load(root)
+    assert len(rows) == 2, "superseding appends; it does not replace"
+    assert rows[0]["detail"] == "the first way he put it"
+    assert new["supersedes"] == old["id"]
+    assert G.counts(root)["grown_rows"] == 2
+
+
+def test_the_seed_is_computed_from_the_modules_and_is_idempotent():
+    from sourceborn import growth as G
+    root = _growth_root()
+    s1 = G.seed(root)
+    assert s1["added"] > 150, s1["added"]
+    by = s1["counts"]["by_kind"]
+    assert by[G.ADDRESS] == 58, "every container x state pair generated"
+    assert by[G.RUBRIC] == 25, "his 25 universal dimensions"
+    assert by[G.INTENT_ROUTE] == 50, "40 King routes + his 10 advisor-meeting ones"
+    assert by[G.EVENT] == 11
+    assert by[G.RULE] == 18, "10 + his 7 live-intent rules + the namespace ruling"
+    assert by[G.STATE] == 6
+    assert by[G.PARAM] == 3, "the three motives with no echo in the bank"
+    # the three that got a home
+    params = [r["name"] for r in G.load(root) if r["kind"] == G.PARAM]
+    assert set(params) == {"Security need", "Mating/attraction motive",
+                           "Revenge/retaliation motive"}, params
+    # seeding again adds nothing and removes nothing
+    before = G.load(root)
+    s2 = G.seed(root)
+    assert s2["added"] == 0
+    assert G.load(root) == before
+
+
+def test_every_grown_row_carries_where_it_came_from():
+    """Recording provenance is not a gate — he needs it to correct a row."""
+    from sourceborn import growth as G
+    root = _growth_root()
+    G.seed(root)
+    for r in G.load(root):
+        assert r["surfaced_by"], r
+        assert r["module"], r
+        assert r["kind"] in G.SERIES, r
+        assert r["base"] == 3204
+
+
+def test_the_growth_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/growth"', '"/growth/add"', '"/growth/seed"'):
+        assert route in src, route
+    assert "growth" in src
+
+
+# ---------------------------------------------------------------------------
+# THE LIVE INTENT LEDGER AND THE KILL — his ASI0001_tablet_run_LIVE_INTENT_v2
+# workbook. The falsifier column he filled is the survivor stage.
+# ---------------------------------------------------------------------------
+
+def test_his_ten_candidates_are_one_event_ten_states_none_chosen():
+    from sourceborn import intent_ledger as L
+    r = L.his_run()
+    assert len(L.HIS_CANDIDATES) == 10
+    assert r["one_event"] is True
+    assert r["event"] == "Advisor requests a private meeting"
+    assert r["chosen"] is None
+    assert len({c["state"] for c in r["candidates"]}) == 10, "ten distinct states"
+    assert len({c["event"] for c in r["candidates"]}) == 1, "one event"
+    # HOLD is a valid resting state — his own gate says so
+    assert all(c["user_decision"] == "HOLD" for c in r["candidates"])
+    assert all(c["canonical"] is False for c in r["candidates"])
+    assert all(c["in_bank"] is False for c in r["candidates"])
+
+
+def test_every_candidate_names_what_would_flip_it():
+    """The killing step needs a target. His sheet supplies one per row."""
+    from sourceborn import intent_ledger as L
+    r = L.his_run()
+    assert r["all_falsifiable"] is True
+    for c in r["candidates"]:
+        assert c["falsifier"], c["id"]
+        assert c["falsifiable"] is True
+
+
+def test_a_candidate_with_no_falsifier_cannot_be_killed_and_says_so():
+    from sourceborn import intent_ledger as L
+    bare = dict(L.HIS_CANDIDATES[0])
+    bare["falsifier"] = ""
+    c = L.candidate(bare)
+    assert c["falsifiable"] is False
+    out = L.kill(c, falsifier_met=True, counterexamples=99)
+    assert out["cannot_be_killed"] is True
+    assert out["survives"] is True, "nothing can reach it"
+    assert "defect in the candidate, not a strength" in out["why"]
+
+
+def test_the_kill_eliminates_on_evidence_and_deletes_nothing():
+    """generate -> evidence -> contradiction -> falsification -> survivor set."""
+    from sourceborn import intent_ledger as L
+    r = L.his_run(verdicts={
+        "LI-002": {"falsifier_met": True,
+                   "evidence": "the advisor arrives with a written challenge"},
+        "LI-004": {"falsifier_met": False, "counterexamples": 0},
+        "LI-006": {"counterexamples": 2, "evidence": "two reports of normal work"},
+    })
+    assert r["counts"]["generated"] == 10
+    assert r["counts"]["killed"] == 2, r["counts"]
+    assert r["counts"]["survived"] == 1, r["counts"]
+    assert r["counts"]["untested"] == 7, "not tested is not survived"
+    assert r["counts"]["deleted"] == 0
+    assert r["survivor_set"] == ["LI-004"]
+    assert set(r["killed_set"]) == {"LI-002", "LI-006"}
+    dead = [c for c in r["candidates"] if c["status"] == L.KILLED]
+    for d in dead:
+        assert d["deleted"] is False and d["row_kept"] is True
+        assert d["falsifier"], "a killed row keeps what would have flipped it"
+        assert d["killed_by"]
+    # killed two different ways, both his
+    by = {d["id"]: d["why"] for d in dead}
+    assert "falsifier met" in by["LI-002"]
+    assert "counterexamples (2) reached support (1)" in by["LI-006"]
+
+
+def test_new_wording_is_not_novelty():
+    """His rule 4, and the reason the signature excludes the intent sentence."""
+    from sourceborn import intent_ledger as L
+    base = dict(L.HIS_CANDIDATES[3])
+    reworded = dict(base, id="X-REWORDED",
+                    intent="Treat the private meeting as a chance to check "
+                           "whether the advisor can be relied on before handing "
+                           "him more power.")
+    n = L.novelty(reworded, [base])
+    assert n["novel"] is False
+    assert n["collides_with"] == base["id"]
+    assert n["wording_differs"] is True
+    assert "wording is not novelty" in n["why"]
+    # change what it PREDICTS and it is new
+    changed = dict(base, id="X-CHANGED",
+                   state_change="remove the advisor from the channel entirely",
+                   target="the court, not the advisor")
+    assert L.novelty(changed, [base])["novel"] is True
+    assert "intent" not in L.BEHAVIOUR_FIELDS, "novelty is never judged on wording"
+
+
+def test_promotion_requires_recurrence_evidence_falsifier_and_his_word():
+    from sourceborn import intent_ledger as L
+    c = L.candidate(dict(L.HIS_CANDIDATES[0]))
+    p = L.promote(c)
+    assert p["promoted"] is False and p["canonical"] is False
+    assert p["new_parameter_created"] is False
+    joined = " | ".join(p["unmet"])
+    assert "recurrence" in joined and "user approval" in joined
+    assert "R-F-R" in joined and "evidence" in joined
+    # one sequence is not recurrence
+    assert L.promote(c, sequences_seen=1, evidence=True, rfr_passed=True,
+                     user_approved=True)["promoted"] is False
+    ok = L.promote(c, sequences_seen=2, evidence=True, rfr_passed=True,
+                   user_approved=True)
+    assert ok["promoted"] is True and ok["unmet"] == []
+    assert ok["new_parameter_created"] is False, "new intent != new parameter"
+
+
+def test_a_parameter_opens_only_on_repeated_semantic_loss():
+    from sourceborn import intent_ledger as L
+    # expressible in his existing rows -> no new parameter, however often it fails
+    have = L.semantic_loss("reduce hidden-threat uncertainty before granting "
+                           "influence", failures=5)
+    assert have["expressible_in_existing_vocabulary"] is True
+    assert have["opens_parameter_candidate"] is False
+    assert have["matched_rows"]
+    # nowhere in the bank, but only one failure -> his rule says REPEATEDLY
+    once = L.semantic_loss("flarnak the zibbering wompus", failures=1)
+    assert once["expressible_in_existing_vocabulary"] is False
+    assert once["opens_parameter_candidate"] is False
+    assert "REPEATEDLY" in once["why"] or "Not yet" in once["why"]
+    twice = L.semantic_loss("flarnak the zibbering wompus", failures=2)
+    assert twice["opens_parameter_candidate"] is True
+
+
+def test_the_two_banks_are_never_merged():
+    """His ruling: do not silently merge namespaces."""
+    from sourceborn import intent_ledger as L
+    ns = L.namespaces()
+    assert ns["merged"] is False
+    assert ns["workbook"]["count"] == 2000 and ns["workbook"]["unit"] == "ADDRESS"
+    assert ns["registry"]["count"] == 3204 and ns["registry"]["unit"] == "PARAMETER"
+    assert ns["workbook"]["count"] + ns["registry"]["count"] != 3204 + 0
+    assert "must never be summed" in ns["collision"]
+    # and the segment ids collide too — ordinal position is NOT a mapping
+    m = L.map_in("S04")
+    assert m["workbook_name"] == "Religion, Ritual & Cosmology"
+    assert m["registry_same_ordinal_name"] == "Attention and Executive Control"
+    assert m["same_subject"] is False and m["mapped"] is False
+    assert m["merged"] is False
+    assert "Ordinal position is not a mapping" in m["held_for_him"]
+
+
+def test_his_ten_states_already_exist_in_the_core():
+    """mostly wording meaning are are exist in the core — so match, don't retype."""
+    from sourceborn import intent_ledger as L
+    r = L.from_core()
+    assert r["counts"]["his_candidates"] == 10
+    assert r["counts"]["states_matched_to_packs"] == 10
+    assert r["counts"]["states_missing_from_core"] == 0
+    assert r["counts"]["native_parameters_added"] == 0
+    packs = [row["pack"] for row in r["rows"]]
+    assert packs == ["SP-%d" % n for n in range(19, 29)]
+    # the generated count is a function of what is plugged in, per state
+    counts = {row["pack"]: row["intents_generated"] for row in r["rows"]}
+    assert counts["SP-24"] < counts["SP-27"], "exhausted raises fewer than divided"
+    assert all(v > 0 for v in counts.values())
+
+
+def test_the_workbook_findings_are_reported_not_corrected():
+    from sourceborn import intent_ledger as L
+    a = L.workbook_audit()
+    assert a["sheets"] == 19
+    assert a["counts"]["corrections_made_to_his_file"] == 0
+    assert a["counts"]["findings"] == a["counts"]["verified"] == 13
+    txt = " ".join(f["finding"] + f["consequence"] for f in L.WORKBOOK_FINDINGS)
+    assert "K001 Lawgiver" in txt, "the dashboard's leading hypothesis at score 0"
+    assert "P1999 and P2000" in txt, "the SUMIF range is off by two"
+    assert "ABS(" in txt, "a contradicted score reads as strong"
+    assert "16 / 18 / 19" in txt, "three counts of the same file"
+    assert "F04" in txt and "F03" in txt, "his family ids against his own sheet"
+
+
+def test_the_ledger_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/ledger"', '"/ledger/run"', '"/ledger/kill"'):
+        assert route in src, route
+
+
+# ---------------------------------------------------------------------------
+# THE GROWING PHASE — "everything happening is a event, and all events have
+# intent". An example is not judged for its output; it seats on the base.
+# ---------------------------------------------------------------------------
+
+RAIN = ("The kids father was standing outside with a water pipe and put it up in "
+        "the air. The kids inside the home thought it was raining outside.")
+
+
+def test_everything_happening_is_an_event():
+    """His motto's first half. A text full of happenings can never return none."""
+    from sourceborn import growing as W
+    evs = W.events_in(RAIN)
+    assert len(evs) >= 3, evs
+    assert all(e["is_event"] for e in evs)
+    # and the closed verb list alone would have MISSED his own sentence
+    from sourceborn import micro
+    assert "standing" not in micro.ALL_VERBS
+    assert "pointed" not in micro.ALL_VERBS
+    assert any("inflection" in e["how_found"] for e in evs), \
+        "his rain sentence is exactly the case the verb list cannot serve"
+
+
+def test_all_events_have_intent_and_the_slot_is_never_absent():
+    """His motto's second half, and his rule that 'no reason' is not available."""
+    from sourceborn import growing as W
+    p = W.place(RAIN, "rain")
+    assert p["counts"]["events"] == p["counts"]["intents_opened"]
+    assert p["counts"]["intents_concluded"] == 0
+    for e in p["events"]:
+        assert e["intent"]["status"] == W.INTENT_OPEN
+        assert e["intent"]["concluded"] is False
+        # seated on his OWN bank, not asserted in prose
+        assert e["intent"]["seats_on"] == list(W.INTENT_CONTAINERS)
+    isl = W.intent_seat("he went because it was his birthday")
+    assert isl["containers"] == ["CON-063", "CON-064"]
+    assert isl["concluded"] is False
+
+
+def test_the_auxiliary_is_not_the_happening():
+    """`was standing` is a STANDING. The first attempt reported `was`."""
+    from sourceborn import growing as W
+    evs = W.events_in("The father was standing outside.")
+    assert evs and evs[0]["happening"].lower() == "standing", evs
+    # and a plural noun is not a verb — `kids` had been taken as the happening
+    assert all(e["happening"].lower() != "kids" for e in W.events_in(RAIN))
+
+
+def test_a_prepositional_phrase_is_not_the_actor():
+    """`the kids inside the home thought` has actor kids, never home."""
+    from sourceborn import growing as W
+    evs = [e for e in W.events_in(RAIN) if e["happening"].lower() == "thought"]
+    assert evs, "the inference event must be found"
+    assert evs[0]["actor"].lower() == "kids", evs[0]
+    assert evs[0]["role"] if "role" in evs[0] else True
+
+
+def test_the_role_gates_the_seating_and_keeps_what_it_excludes():
+    """Word matching alone seated his rain example on Air/breathing drive."""
+    from sourceborn import growing as W
+    r = W.role_of("thought", "the kids thought it was raining")
+    assert r["role"] == W.INFERENCE, r
+    s = W.seat("the kids inside the home thought it was raining",
+               role=W.INFERENCE)
+    assert s["role_segments"] == ["SEG-05", "SEG-06"]
+    names = [x["name"] for x in s["seats"]]
+    excluded = [x["name"] for x in s["out_of_role"]]
+    assert "Thought suppression" not in names, "SEG-04 is outside the role"
+    assert s["out_of_role_total"] >= 1
+    assert excluded, "what the role excludes is kept and shown, never dropped"
+    # a role with no row match still sits on the role's containers
+    assert s["seats"] or s["container_seat"], "nothing is the one answer the " \
+                                              "motto does not allow"
+    # his own rule: a word in forty of his names is weak evidence. The bar is
+    # derived from that number, not picked.
+    assert abs(W.MIN_IDF - math.log(3204 / 40.0)) < 1e-9
+    ungated = W.seat("control memory self")
+    weak = {w["word"] for w in ungated["weak_words"]}
+    assert {"control", "memory", "self"} <= weak, ungated["weak_words"]
+    assert all(w["in_names"] >= 40 for w in ungated["weak_words"])
+
+
+def test_every_example_increases_the_count_and_creates_no_parameter():
+    """so system can strong its base / every example will keep increase the
+    count — two mechanics, not one."""
+    from sourceborn import growing as W
+    root = _growth_root()
+    a = W.grow(root, RAIN, "rain")
+    assert a["increased"] == a["placement"]["counts"]["count_added"] > 0
+    assert a["parameters_before"] == a["parameters_after"] == 3204, \
+        "seating strengthens; it does not invent a parameter"
+    b = W.grow(root, "Samrath went to school happily today.", "samrath")
+    assert b["count_after"] > b["count_before"], "the count keeps rising"
+    assert b["parameters_after"] == 3204
+    from sourceborn import growth as G
+    by = G.counts(root)["by_kind"]
+    assert by[G.EXAMPLE] == 2 and by[G.EVENT] >= 3 and by[G.INTENT] >= 3
+    assert G.counts(root)["removals_possible"] == 0
+    # strengthening is support on an existing ID, never a duplicate row
+    for s in a["placement"]["strengthened"]:
+        assert s["sb_id"].startswith("SB-HFR-P")
+        assert s["support"] >= 1
+
+
+def test_an_example_is_placed_not_answered():
+    """given example are not how it provide the out comes."""
+    from sourceborn import growing as W
+    p = W.place(RAIN, "rain")
+    for banned in ("answer", "verdict", "score", "correct", "quality"):
+        assert banned not in p, "placement carries no answer and no score"
+    assert p["phase"] == "GROWING"
+    assert p["motto"] == W.MOTTO
+    assert p["counts"]["new_parameters_created"] == 0
+
+
+def test_every_repo_file_is_divided_and_none_is_unplaced():
+    from sourceborn import filemap as F
+    d = F.divide(".")
+    assert d["total_files"] > 400, d["total_files"]
+    assert d["counts"][F.UNPLACED] == 0, d["unplaced"]
+    assert sum(d["counts"].values()) == d["total_files"], "every file placed once"
+    # his own words and his examples are what grow the count
+    assert d["what_grows_the_count"]["which"] == [F.SOURCE, F.EXAMPLE]
+    assert d["counts"][F.SOURCE] > 0 and d["counts"][F.EXAMPLE] > 0
+    # his rulings are never run as examples against themselves
+    method = d["classes"][F.METHOD]["files"]
+    assert "CLAUDE.md" in method
+    assert any("canon/" in m for m in method)
+    assert all(not m.startswith("docs/method/canon/") for m in
+               d["classes"][F.EXAMPLE]["files"]), "canon is METHOD, not EXAMPLE"
+    # the bank is the bank, not a document about it
+    assert any(b.endswith("human_registry.json") for b in
+               d["classes"][F.BANK]["files"])
+    assert F.PHASE == "GROWING"
+
+
+def test_the_basic_being_over_is_his_call_not_a_threshold():
+    from sourceborn import filemap as F, growing as W
+    c = W.coverage(F.readable(".")[:12], ".")
+    assert c["bank"] == 3204
+    assert c["ids_reached"] + c["ids_untouched"] == 3204
+    assert c["basic_over"] is False
+    assert "his call" in c["why"]
+    assert "new combinations" in c["then"]
+
+
+def test_the_growing_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/growing"', '"/growing/coverage"', '"/growing/place"',
+                  '"/growing/grow"'):
+        assert route in src, route
+
+
+# ---------------------------------------------------------------------------
+# THE ALGORITHM THAT MAKES ITSELF — "now make algorithm which can make itself".
+# The claim is that its own step list grows. These tests are the claim.
+# ---------------------------------------------------------------------------
+
+_SM_FILES = None
+
+
+def _sm_files():
+    """A small, fixed slice of his material — enough to produce arrangements
+    without reading all 217 files in every test."""
+    global _SM_FILES
+    if _SM_FILES is None:
+        from sourceborn import filemap as F
+        _SM_FILES = tuple(F.readable(".")[:25])
+    return _SM_FILES
+
+
+def test_the_step_list_is_not_a_constant():
+    from sourceborn import selfmake as S
+    root = _growth_root()
+    before = S.steps(root)
+    assert before["counts"]["written"] == 0
+    assert before["counts"]["total"] == len(S.SPINE)
+    assert S.generation(root) == 0
+    S.extend(root, _sm_files(), repo=".")
+    after = S.steps(root)
+    assert after["counts"]["written"] > 0, "it wrote nothing for itself"
+    assert after["counts"]["total"] > before["counts"]["total"]
+    assert S.generation(root) == after["counts"]["written"]
+    # the spine is untouched — growth is additive
+    assert after["spine"] == before["spine"] == list(S.SPINE)
+
+
+def test_it_grows_once_and_re_running_is_a_no_op():
+    """It must not inflate itself by being called again on the same material."""
+    from sourceborn import selfmake as S
+    root = _growth_root()
+    a = S.extend(root, _sm_files(), repo=".")
+    assert a["wrote"] > 0
+    b = S.extend(root, _sm_files(), repo=".")
+    assert b["wrote"] == 0, "same material must open no new step"
+    assert b["generation_before"] == b["generation_after"] == a["generation_after"]
+    assert b["removed"] == 0
+
+
+def test_every_self_written_step_names_its_evidence_and_its_falsifier():
+    from sourceborn import selfmake as S
+    root = _growth_root()
+    S.extend(root, _sm_files(), repo=".")
+    written = S.written_steps(root)
+    assert written
+    for r in written:
+        assert r["surfaced_by"], r
+        assert r.get("falsifier"), "a step with no falsifier can never be killed"
+        assert r.get("step_kind") in ("ARRANGEMENT", "COMBINATION"), r
+        assert r.get("canonical") is False
+        if r["step_kind"] == "ARRANGEMENT":
+            assert r["support"] >= S.SUPPORT_BAR
+        else:
+            assert r["shared_support"] >= S.COMBINE_BAR
+
+
+def test_a_combination_must_cross_role_and_no_example_produced_it():
+    """his 'new combinations on new thoughts' — different KINDS of happening
+    meeting, which is his own rain example's shape."""
+    from sourceborn import selfmake as S
+    root = _growth_root()
+    p = S.propose(root, _sm_files(), repo=".")
+    assert p["cross_role_required"] is True
+    combos = p["new_combination_steps"]
+    if combos:
+        for c in combos:
+            assert c["left"]["role"] != c["right"]["role"], c
+            assert c["crosses_role"] is True
+            assert c["produced_by_any_single_example"] is False
+    # same-role pairs are rejected, and the number rejected is reported
+    assert "combinations_rejected_same_role" in p["counts"]
+
+
+def test_the_algorithm_applies_more_steps_after_it_extends_itself():
+    from sourceborn import selfmake as S
+    root = _growth_root()
+    a = S.run(root, RAIN, "rain")
+    assert a["generation"] == 0
+    assert a["counts"]["fired"] == 0
+    S.extend(root, _sm_files(), repo=".")
+    b = S.run(root, RAIN, "rain")
+    assert b["generation"] > a["generation"]
+    assert b["steps_applied"]["total"] > a["steps_applied"]["total"], \
+        "the same input must now pass through more algorithm"
+    assert b["counts"]["parameters_created"] == 0
+    assert b["chosen"] is None
+
+
+def test_the_material_it_learnt_from_is_reported_with_its_bias():
+    """The role reader defaults to ACTION. Said out loud, because every
+    self-written step inherits it."""
+    from sourceborn import selfmake as S
+    br = S.bias_report(_sm_files(), repo=".")
+    assert br["seats_by_role"]
+    assert br["action_share"] > 0
+    assert "fallback, not a finding" in br["why"]
+    assert "superseding, never by deletion" in br["consequence"]
+    assert br["his_call"]
+
+
+def test_the_harvest_reports_unreadable_files_instead_of_skipping():
+    """A silent skip once made the whole harvest return zero files."""
+    from sourceborn import selfmake as S
+    root = _growth_root()
+    p = S.propose(root, ("no/such/file/anywhere.txt",), repo=".")
+    assert p["material"]["unreadable"] == 1, p["material"]
+    assert p["material"]["unreadable_paths"] == ["no/such/file/anywhere.txt"]
+
+
+def test_the_selfmake_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/selfmake"', '"/selfmake/propose"', '"/selfmake/extend"',
+                  '"/selfmake/run"'):
+        assert route in src, route
+
+
+# ---------------------------------------------------------------------------
+# THE SUBJECT BRAINS — "ur own old docs / hope adding more".
+# ---------------------------------------------------------------------------
+
+def test_the_two_subject_brains_carry_25_candidates_and_14_open_halts():
+    from sourceborn import subjectbrains as S
+    st = S.stats()
+    assert st["candidates"] == 25
+    assert st["riemann_candidates"] == 11
+    assert st["einstein_candidates"] == 10
+    assert st["cross_subject_candidates"] == 4
+    assert st["halts_open"] == 14
+    assert st["halts_answered"] == 0, "not one of them was ever answered"
+    assert st["parameters_created"] == 0
+    for h in S.open_halts():
+        assert h["answered"] is False
+        assert h["yours"], "a halt names the decision that is his"
+
+
+def test_the_two_banks_in_his_workbooks_are_not_merged_either():
+    """2,560 then, 3,204 now — two versions, and he warned about the numbers."""
+    from sourceborn import subjectbrains as S
+    v = S.version_gap()
+    assert v["workbooks_built_on"] == 2560
+    assert v["registry_now"] == 3204
+    assert v["merged"] is False
+    assert v["names_differ"] is True
+    assert "2561-2590" in v["his_own_warning_in_the_file"]
+    # so nothing becomes a parameter
+    assert all(c.get("id") for c in S.CANDIDATES)
+    root = _growth_root()
+    g = S.grow(root)
+    assert g["parameters_created"] == 0
+    from sourceborn import growth as G
+    by = G.counts(root)["by_kind"]
+    assert by[G.CANDIDATE] == 25 and by[G.HALT] == 14
+    assert G.counts(root)["total_parameters"] == 3204, \
+        "a candidate is not a parameter"
+    # appending twice adds nothing
+    assert S.grow(root)["added"] == 0
+
+
+def test_the_anti_pleasing_tally_he_demanded():
+    from sourceborn import subjectbrains as S
+    r = S.rerun_tally()
+    assert r["total"] == 45
+    assert r["disagreement_mass"] == 17
+    assert r["anti_pleasing_check"] is True
+    assert "flattery" in r["his_test"]
+
+
+def test_a_parameter_list_cannot_strengthen_the_bank_by_being_one():
+    """His EINSTEIN workbook is 2,560 atom rows; placed whole it seated a
+    taxonomy on a taxonomy."""
+    from sourceborn import growing as W
+    taxonomy = "\n".join(
+        "C%02d-%03d | %d Homeostasis and Allostasis | Temperature balance | "
+        "[REGISTRY-NAMED]" % (i % 80 + 1, i, i % 80 + 1) for i in range(1, 60))
+    e = W.registry_echo(taxonomy)
+    assert e["is_parameter_taxonomy"] is True
+    assert e["atom_id_rows"] >= 50
+    assert "cannot strengthen the bank by being a parameter list" in e["law"]
+    # ordinary prose is NOT flagged
+    plain = W.registry_echo(RAIN)
+    assert plain["is_parameter_taxonomy"] is False
+    # and place() reports what it excluded rather than hiding it
+    p = W.place(taxonomy + "\nThe father was standing outside.", "mixed")
+    assert p["echo_lines_excluded"] >= 50
+    assert p["registry_echo"]["is_parameter_taxonomy"] is True
+
+
+def test_rule_seven_no_longer_matches_on_substrings():
+    """The gate declared all 25 candidates 'expressible' on noise: `productive`
+    matched Reproductive-hormone signalling."""
+    from sourceborn import intent_ledger as L
+    s = L.semantic_loss("Combinatory-play engine: pre-verbal imagistic "
+                        "recombination as the primary productive mechanism")
+    names = [m["name"] for m in s["matched_rows"]]
+    assert "Reproductive-hormone signalling" not in names, names
+    assert "Sexual physiological response" not in names, names
+    assert "how_matched" in s and "whole words only" in s["how_matched"]
+    # a real one still lands
+    r = L.semantic_loss("Presupposition-salience: attention captured by what a "
+                        "field treats as given")
+    assert any("Presupposition" in m["name"] for m in r["matched_rows"]), \
+        r["matched_rows"]
+
+
+def test_more_subjects_kill_three_of_the_four_cross_laws():
+    """The kill still works and is still correct — but on his word it is OFF by
+    default: "nothing needs to kill for now, add everything and generate"."""
+    from sourceborn import subjectbrains as S
+    assert S.cross_test()["kill"] is False, "killing is off on his instruction"
+    r = S.cross_test(kill=True)
+    assert r["subjects"] == 12
+    assert r["new_subjects"] == 10, "two subjects cannot test a cross-subject law"
+    assert r["laws_tested"] == 4
+    assert set(r["killed_as_stated"]) == {"X-01", "X-02", "X-03"}, r
+    assert r["survived"] == ["X-04"]
+    assert r["nothing_deleted"] is True
+    # X-01 still holds on the two it was derived from, plus Beethoven — and on
+    # nobody else. Nine of twelve read the other way.
+    x1 = [l for l in r["laws"] if l["law"] == "X-01"][0]
+    held = [row["name"] for row in x1["rows"] if row["verdict"] == S.HOLDS]
+    assert "Bernhard Riemann" in held and "Albert Einstein" in held
+    assert x1["counts"]["fails"] == 9, x1["counts"]
+    # X-03 dies on exactly one clean counterexample
+    x3 = [l for l in r["laws"] if l["law"] == "X-03"][0]
+    assert x3["counts"]["holds"] == 10 and x3["counts"]["fails"] == 2
+    assert "Michael Faraday" in x3["killed_by"]
+    # X-02 needs a category it does not have
+    x2 = [l for l in r["laws"] if l["law"] == "X-02"][0]
+    assert "USED_THEN_DESTROYED" in x2["needs_a_new_category"]
+    # X-04 survives, and not because everyone worked alone
+    x4 = [l for l in r["laws"] if l["law"] == "X-04"][0]
+    assert x4["counts"]["holds"] == 12 and x4["killed_as_stated"] is False
+
+
+def test_one_counterexample_falsifies_and_the_verdict_is_computed():
+    """Holding on most subjects is not holding. And no verdict is typed."""
+    from sourceborn import subjectbrains as S
+    law = [l for l in S.CROSS_LAWS if l["id"] == "X-03"][0]
+    faraday = [s for s in S.SUBJECTS if s["name"] == "Michael Faraday"][0]
+    assert S._verdict(law, faraday)["verdict"] == S.FAILS
+    # strike the field and the verdict moves — the test reads fields, not a table
+    moved = dict(faraday, at_death=S.WORKING_AT_DEATH)
+    assert S._verdict(law, moved)["verdict"] == S.HOLDS
+    # a law with a fail is KILLED AS STATED, never "mostly true"
+    r = S.cross_test("X-03", kill=True)["laws"][0]
+    assert r["killed_as_stated"] is True
+    assert "KILLED AS STATED" in r["status"]
+    assert r["narrow_to"], "it must say what it would have to be narrowed to"
+    assert r["deleted"] == 0
+
+
+def test_his_two_pole_axis_needs_four_settings():
+    """E-03 said one axis, two poles. Six subjects show four."""
+    from sourceborn import subjectbrains as S
+    rp = S.release_poles()
+    assert rp["poles_in_his_candidate"] == [S.GATE, S.ITERATE]
+    assert {S.GATE, S.ITERATE, S.CONTINUOUS, S.UNGATED} <= set(rp["poles_found"])
+    assert len(rp["poles_found"]) >= 4
+    assert "not applied to it" in rp["note"], "an amendment to his candidate, " \
+                                              "not an edit of it"
+    # and the lone-theorist shape is broken by two of the new subjects
+    lw = S.lone_worker_check()
+    assert len(lw["not_alone"]) >= 2
+    assert "Marie Curie" in lw["not_alone"] and "Alan Turing" in lw["not_alone"]
+
+
+def test_the_candidates_are_applied_across_every_subject():
+    """apply on candidates — 25 x 12, and what has no reader says so."""
+    from sourceborn import subjectbrains as S
+    ap = S.apply_candidates()
+    assert ap["candidates"] == 25 and ap["subjects"] == 12
+    assert ap["cells"] == 300
+    assert ap["cells_read"] + ap["cells_not_read"] == 300
+    assert ap["without_an_axis"] == 8, "8 candidates have no reader yet"
+    # the ones with no axis are NOT READ on every subject — never invented
+    for row in ap["grid"]:
+        if row["axis"] is None:
+            assert all(c["setting"] == S.NOT_READ for c in row["cells"])
+    # a candidate read across subjects becomes an axis with named settings
+    assert "E-03" in ap["became_an_axis"]
+    assert "X-04" in ap["single_valued"], "constraint-rise reads ROSE on all 12"
+
+
+def test_generation_adds_everything_and_kills_nothing():
+    """nothing needs to kill for now, add everything and generate."""
+    from sourceborn import subjectbrains as S
+    g = S.generate_variants()
+    assert g["variants_generated"] == 72, g["variants_generated"]
+    assert g["killed"] == 0
+    assert g["parameters_created"] == 0
+    assert g["his_words"] == "nothing needs to kill for now, add everything " \
+                             "and generate"
+    for v in g["variants"]:
+        assert v["is_parameter"] is False and v["canonical"] is False
+        assert v["chosen"] is False
+        assert v["subjects"] and v["support"] == len(v["subjects"])
+    # his own R-06 gains the pole he said the registry lacked
+    r6 = [v for v in g["variants"] if v["from_candidate"] == "R-06"]
+    assert {v["setting"] for v in r6} == {"UNDER", "LEVEL", "OVER"}
+    # and an "axis" where every subject is its own setting is flagged, not sold
+    flagged = [x["candidate"] for x in g["not_yet_an_axis"]]
+    assert "E-01" in flagged, g["not_yet_an_axis"]
+    assert g["variants_from_singleton_fields"] == 12
+    # appending is append-only and creates no parameter
+    root = _growth_root()
+    a = S.grow_variants(root)
+    assert a["added"] == 72 and a["parameters_created"] == 0 and a["killed"] == 0
+    assert S.grow_variants(root)["added"] == 0
+    from sourceborn import growth as G
+    assert G.counts(root)["total_parameters"] == 3204
+
+
+# ---------------------------------------------------------------------------
+# THE ARTIFACT LAYER — from GPT_Black.txt. Reading an object without pretending
+# to read its language.
+# ---------------------------------------------------------------------------
+
+def test_a_sign_can_be_reasoned_about_without_knowing_what_it_says():
+    from sourceborn import artifact as A
+    assert len(A.SIGN_GROUPS) == 10
+    ids = [g["id"] for g in A.SIGN_GROUPS]
+    assert ids == ["SG-%s" % c for c in "ABCDEFGHIJ"]
+    # the damaged class is not a missing letter
+    dam = [g for g in A.SIGN_GROUPS if g["id"] == "SG-J"][0]
+    assert "NOT a missing letter" in dam["reads"]
+    assert set(A.SIGN_AXES) == {"NEIGHBOUR", "POSITION", "REPETITION",
+                                "ENCLOSURE", "DAMAGE"}
+
+
+def test_every_meaning_is_synthetic_and_nothing_is_translated():
+    from sourceborn import artifact as A
+    assert len(A.SYNTHETIC_MEANINGS) == 8
+    g = A.generate_meanings(limit=200)
+    for m in g["meanings"]:
+        assert m["status"] == A.NEW_SYNTHETIC
+        assert m["historical_fact"] is False
+        assert m["translation_verified"] is False
+        assert m["chosen"] is False
+        assert m["evidence_owed"]
+    assert g["counts"]["historical_facts_established"] == 0
+    assert g["counts"]["translations_made"] == 0
+    assert g["counts"]["new_parameters_created"] == 0
+
+
+def test_the_gates_bite_and_the_ungated_number_is_reported():
+    """Ungated it returns the whole cross product, which is not a finding."""
+    from sourceborn import artifact as A
+    raw = A.generate_meanings(gated=False)
+    gated = A.generate_meanings()
+    assert raw["counts"]["generated"] == A.combination_space()["ceiling"]
+    assert gated["counts"]["generated"] < raw["counts"]["generated"] / 3
+    assert gated["counts"]["rejected_role_cannot_reach_that_future"] > 0
+    assert gated["counts"]["rejected_marks_cannot_carry_that_claim"] > 0
+    assert gated["counts"]["ceiling_ungated"] == raw["counts"]["generated"]
+    # a carver can only be working toward the one future a carver can affect
+    carver = [m for m in gated["meanings"] if m["actor_role"] == "CARVER"]
+    assert carver and {m["future_state"] for m in carver} == \
+        {[f["state"] for f in A.FUTURE_STATES if f["id"] == "FS-6"][0]}
+
+
+def test_farther_is_not_wrong_it_owes_more_evidence():
+    from sourceborn import artifact as A
+    assert len(A.ORIGIN_DISTANCE) == 6
+    assert [d["d"] for d in A.ORIGIN_DISTANCE] == [0, 1, 2, 3, 4, 5]
+    assert A.ORIGIN_DISTANCE[0]["debt"] == "none — it is there"
+    assert "not WRONG" in A.DISTANCE_LAW
+    assert all(d["debt"] for d in A.ORIGIN_DISTANCE)
+
+
+def test_one_object_has_nine_actor_roles_not_one():
+    from sourceborn import artifact as A
+    roles = [r["role"] for r in A.ACTOR_ROLES]
+    assert len(roles) == 9
+    for r in ("SUBJECT", "REQUESTER", "CONTROLLER", "AUTHOR", "SCRIBE",
+              "CARVER", "INSTITUTION", "BENEFICIARY", "AUDIENCE"):
+        assert r in roles
+    assert all(r in A.ROLE_FUTURES for r in roles), "each role needs its reach"
+
+
+def test_damage_opens_branches_and_is_never_filled_in():
+    from sourceborn import artifact as A
+    d = A.damage_branches(["SG-A enclosure"])
+    assert d["count"] == 4
+    assert d["filled_in"] is False and d["chosen"] is None
+    # every branch must predict DIFFERENT evidence or it is not a branch
+    preds = [b["predicts"] for b in d["branches"]]
+    assert len(set(preds)) == len(preds)
+    assert "never completed by the machine" in d["law"]
+
+
+def test_what_the_transcript_itself_refused_stays_refused():
+    from sourceborn import artifact as A
+    r = A.refused()
+    assert len(r) == 6
+    for x in r:
+        assert x["adopted"] is False and x["historical_fact"] is False
+    txt = " ".join(x["claim"] + x["why"] for x in r)
+    assert "owl" in txt and "falcon" in txt
+    assert "MATCH SCORE != EPISTEMIC CONFIDENCE" in txt
+    assert "7.8/10" in txt
+
+
+def test_his_meanings_seat_on_the_bank_and_create_nothing():
+    from sourceborn import artifact as A
+    s = A.seat_on_bank()
+    assert s["new_parameters_created"] == 0
+    assert s["distinct_ids"] > 10
+    seated = {r["id"]: [x["row"] for x in r["seats"]] for r in s["rows"]}
+    # the two clearest landings, and they are the point of the growing phase
+    assert any("Intention-to-persist" in n for n in seated["SYN-MEAN-006"]), \
+        seated["SYN-MEAN-006"]
+    assert any("Sequence compression" in n for n in seated["SYN-MEAN-008"]), \
+        seated["SYN-MEAN-008"]
+    # appending is append-only and adds no parameter
+    root = _growth_root()
+    a = A.grow(root)
+    assert a["added"] > 30 and a["parameters_created"] == 0
+    assert A.grow(root)["added"] == 0
+    from sourceborn import growth as G
+    assert G.counts(root)["total_parameters"] == 3204
+
+
+def test_twelve_pattern_candidates_and_four_are_reported_unnamed():
+    from sourceborn import artifact as A
+    assert len(A.PATTERN_CANDIDATES) == 12
+    named = [p for p in A.PATTERN_CANDIDATES if p["named_in_source"]]
+    unnamed = [p for p in A.PATTERN_CANDIDATES if not p["named_in_source"]]
+    assert len(named) == 8 and len(unnamed) == 4
+    for p in unnamed:
+        assert p["name"] is None, "an unnamed candidate is not invented a name"
+    for p in named:
+        assert p["beyond_egypt"], "each named one says where else it applies"
+
+
+# ---------------------------------------------------------------------------
+# PHASE A — the node schema, locked. From his SELF-SUSTAINING EXECUTION FLOW.
+# ---------------------------------------------------------------------------
+
+# If this hash changes, the schema changed. Bump SCHEMA_VERSION deliberately and
+# update this line in the same commit — never the other way round.
+SCHEMA_FINGERPRINT = "488e704ff0a54931"
+
+
+def test_the_node_schema_is_locked_not_merely_written_down():
+    """A lock is a check, not a comment."""
+    from sourceborn import nodebrain as N
+    assert N.fingerprint() == SCHEMA_FINGERPRINT, (
+        "the node schema moved. Something in NODE_TYPES / FIELDS / LINK_TYPES / "
+        "STATUSES / MEMORY_KINDS / the condition lists changed. Bump "
+        "SCHEMA_VERSION and this constant together, in one commit. Got: %s"
+        % N.fingerprint())
+    assert N.SCHEMA_VERSION == "A.1"
+    # the hash depends on content, not on ordering or whitespace
+    import json
+    a = json.dumps(N.schema(), sort_keys=True, separators=(",", ":"))
+    b = json.dumps(N.schema(), sort_keys=True, separators=(",", ":"))
+    assert a == b
+
+
+def test_his_twelve_types_ten_links_eleven_memories_four_statuses():
+    from sourceborn import nodebrain as N
+    assert len(N.NODE_TYPES) == 12 and len(N.TYPES) == 12
+    for t in ("STATE", "EVENT", "ACTOR", "INTENT", "RELATION", "PATTERN",
+              "RULE", "SEQUENCE", "ARTIFACT", "MEMORY", "CONTRADICTION",
+              "FUTURE_STATE"):
+        assert t in N.TYPES, t
+    assert len(N.LINK_TYPES) == 10
+    for l in ("produced_by", "depends_on", "supports", "contradicts",
+              "similar_to", "before", "after", "contains", "actor_of",
+              "future_of"):
+        assert l in N.LINKS, l
+    assert len(N.MEMORY_KINDS) == 11
+    assert len(N.STATUSES) == 4
+    assert len(N.WRITE_CONDITIONS) == 5 and len(N.READ_CONDITIONS) == 6
+    assert len(N.FIELDS) == 16
+    # every status carries a meaning, so a bare label never travels alone
+    assert set(N.STATUS_MEANS) == set(N.STATUSES)
+
+
+def test_no_invention_before_source_lock():
+    """point_zero_ref is REQUIRED, and that is his rule made structural."""
+    from sourceborn import nodebrain as N
+    assert "point_zero_ref" in N.REQUIRED
+    ok = N.new_node("EVENT", 1, point_zero_ref="RAIN-001")
+    assert ok["node_id"] == "SB-N-EVT-00001"
+    try:
+        N.new_node("EVENT", 2, point_zero_ref="")
+        raise AssertionError("a node with no source was accepted")
+    except ValueError as e:
+        assert "point_zero_ref" in str(e)
+
+
+def test_a_malformed_node_is_refused_and_the_reason_is_named():
+    from sourceborn import nodebrain as N
+    cases = [
+        (lambda: N.new_node("SPACESHIP", 1, point_zero_ref="x"), "unknown node type"),
+        (lambda: N.new_node("EVENT", 1, point_zero_ref="x", status="MAYBE"),
+         "not one of the four"),
+        (lambda: N.new_node("EVENT", 1, point_zero_ref="x", proof_debt=9),
+         "proof_debt must be 0..5"),
+        (lambda: N.new_node("EVENT", 1, point_zero_ref="x", vibe="good"),
+         "not a schema field"),
+    ]
+    for fn, expect in cases:
+        try:
+            fn()
+            raise AssertionError("not refused: expected %r" % expect)
+        except (ValueError, KeyError) as e:
+            assert expect in str(e), (expect, str(e))
+    # validate() never returns a bare False
+    bad = dict.fromkeys(N.FIELD_NAMES)
+    v = N.validate(bad)
+    assert v["valid"] is False and len(v["problems"]) >= len(N.REQUIRED)
+
+
+def test_ids_carry_their_type_and_cannot_be_read_as_bank_or_ledger_ids():
+    from sourceborn import nodebrain as N
+    nid = N.make_id("CONTRADICTION", 42)
+    assert nid == "SB-N-CON-00042"
+    p = N.parse_id(nid)
+    assert p["valid"] and p["node_type"] == "CONTRADICTION" and p["n"] == 42
+    # a bank id and a ledger id are not node ids
+    assert N.parse_id("SB-HFR-P0717")["valid"] is False
+    assert N.parse_id("SB-STEP-0001")["valid"] is False
+    assert N.parse_id("P0717")["valid"] is False
+    # and the stem must agree with the declared type
+    node = N.new_node("EVENT", 1, point_zero_ref="x")
+    node["node_type"] = "ACTOR"
+    assert "stem says EVENT but node_type says ACTOR" in         " ".join(N.validate(node)["problems"])
+
+
+def test_links_are_typed_with_a_direction_and_an_inverse():
+    """One edge kind would have made a similarity blob. His ten do not."""
+    from sourceborn import nodebrain as N
+    n = N.new_node("EVENT", 1, point_zero_ref="x")
+    n = N.link(n, "produced_by", "SB-N-ACT-00002")
+    n = N.link(n, "contradicts", "SB-N-EVT-00003")
+    assert n["parent_links"][0]["link"] == "produced_by"
+    assert n["parent_links"][0]["direction"] == "one-way"
+    assert n["contradiction_links"][0]["direction"] == "mutual"
+    # each link lands in the field its type says it lands in
+    for spec in N.LINK_TYPES:
+        assert spec["goes_in"] in N.LINK_FIELDS, spec
+    assert N.inverse_of("before") == "after"
+    assert N.inverse_of("contains") == "part_of"
+    assert N.inverse_of("contradicts") == "contradicts", "mutual is its own"
+    for bad, expect in ((("rhymes_with", "SB-N-EVT-00002"), "unknown link type"),
+                        (("supports", "P0717"), "not a node id")):
+        try:
+            N.link(n, bad[0], bad[1])
+            raise AssertionError("not refused: %s" % expect)
+        except (KeyError, ValueError) as e:
+            assert expect in str(e)
+
+
+def test_five_names_collide_with_the_growth_series_and_none_is_merged():
+    from sourceborn import nodebrain as N
+    c = N.collisions()
+    assert c["shared_names"] == ["EVENT", "INTENT", "PATTERN", "RULE", "STATE"]
+    assert c["merged"] is False
+    assert c["rule"] == "do not silently merge namespaces"
+    for name in c["shared_names"]:
+        assert c["notes"][name], "every collision says what each side means"
+    assert set(c["node_only"]) == {"ACTOR", "ARTIFACT", "CONTRADICTION",
+                                   "FUTURE_STATE", "MEMORY", "RELATION",
+                                   "SEQUENCE"}
+    assert c["id_prefixes_kept_apart"]["nodes"] == N.ID_PREFIX
+    assert c["his_call"]
+
+
+def test_phase_a_writes_nothing_and_links_nothing():
+    """It defines the shape. Linking is D, auto is E, and neither is here."""
+    from sourceborn import nodebrain as N
+    st = N.stats()
+    assert st["nodes_written"] == 0
+    assert st["links_discovered"] == 0
+    assert st["namespaces_merged"] is False
+    assert "linking (D)" in st["not_in_this_phase"]
+    # check the CODE, not the prose — the docstring names growth.add precisely
+    # to say it does not touch it, and a naive grep counted that as a violation
+    import re as _re
+    src = open("src/sourceborn/nodebrain.py").read()
+    code = _re.sub(r'"""..*?"""', "", src, flags=_re.S)      # drop docstrings
+    code = _re.sub(r"#.*", "", code)                          # drop comments
+    for forbidden in ("growth.add(", "open(", "def tick", "Thread"):
+        assert forbidden not in code, \
+            "Phase A must not write, trigger or schedule: found %r" % forbidden
+
+
+def test_the_node_schema_route_is_reachable():
+    src = open("src/sourceborn/server.py").read()
+    assert '"/nodes/schema"' in src
+
+
+def test_stage_12_turns_a_meaning_into_what_should_exist():
+    """if this were true, THIS should exist — and what would refute it."""
+    from sourceborn import artifact as A
+    from sourceborn import expected as E
+    m = [x for x in A.generate_meanings()["meanings"]
+         if x["actor_role"] == "CARVER"][0]
+    e = E.expect(m)
+    assert e["testable"] is True
+    assert e["predictions"]
+    for p in e["predictions"]:
+        assert p["where_to_look"], "a prediction names where to look"
+        assert p["would_confirm"] and p["would_refute"], \
+            "two-sided or it cannot be tested"
+        assert p["proof_debt"], "it inherits the origin distance"
+        assert p["checked"] is False and p["verified"] is False
+    # a carver's trace is MATERIAL, and it is required by both sides
+    mat = [p for p in e["predictions"] if p["class"] == E.MATERIAL][0]
+    assert mat["strength"] == "REQUIRED BY BOTH"
+    assert e["checked_anything"] is False
+
+
+def test_a_prediction_every_meaning_makes_tests_nothing():
+    from sourceborn import artifact as A
+    from sourceborn import expected as E
+    r = E.run(A.generate_meanings()["meanings"], limit=400)
+    # ABSENCE is owed by every reading, so it can never discriminate
+    assert E.ABSENCE in r["non_discriminating_classes"]
+    # and it is counted ONCE per meaning, never twice
+    assert all(v <= 1.0 for v in r["class_share"].values()), r["class_share"]
+    assert r["counts"]["discriminating"] + r["counts"]["non_discriminating"] \
+        == r["counts"]["predictions_generated"]
+    # nothing is checked, nothing is verified, nothing is created
+    assert r["counts"]["checked_against_the_world"] == 0
+    assert r["counts"]["verified"] == 0
+    assert r["counts"]["new_parameters_created"] == 0
+    assert "hand in" in r["sample_warning"], "the bar depends on the sample"
+
+
+def test_stage_12_hands_stage_17_a_falsifier_it_did_not_have():
+    from sourceborn import artifact as A
+    from sourceborn import expected as E
+    for m in A.generate_meanings(limit=40)["meanings"]:
+        f = E.falsifier_from(m)
+        assert f["falsifiable"] is True
+        assert f["falsifier"] and "look at" in f["falsifier"]
+        assert f["feeds"] == "intent_ledger.kill"
+    # and the kill can actually use it — a composed falsifier is a real one
+    from sourceborn import intent_ledger as L
+    m = A.generate_meanings(limit=1)["meanings"][0]
+    cand = L.candidate({"id": m["id"], "falsifier": E.falsifier_from(m)["falsifier"],
+                        "state_change": "x", "target": "y", "constraint": "z"})
+    assert cand["falsifiable"] is True
+    assert L.kill(cand, falsifier_met=True)["status"] == L.KILLED
+
+
+def test_building_12_moved_the_chain_from_11_to_17():
+    from sourceborn import discovery as D
+    a = D.audit()
+    assert 12 not in a["absent"], "stage 12 is built"
+    r = D.chain(RAIN, "rain")
+    assert r["stages_run"] == 23, r["stages_run"]
+    assert r["completed"] is True
+
+
+def test_stage_18_lets_a_reading_get_stronger_and_weaker():
+    """The two failures stage 18 exists to fix, tested in both directions."""
+    from sourceborn import maturity as M
+    P = lambda c, d=True: {"class": c, "discriminating": d}   # noqa: E731
+    # it can get STRONGER: one confirmation, then two of different classes
+    assert M.read()["state"] == M.UNTESTED
+    assert M.read(confirmed=[P("MATERIAL")])["state"] == M.SUPPORTED
+    two = M.read(confirmed=[P("MATERIAL"), P("REPETITION")])
+    assert two["state"] == M.STRONG
+    # two of the SAME class is one kind of looking twice, not two kinds
+    same = M.read(confirmed=[P("MATERIAL"), P("MATERIAL")])
+    assert same["state"] == M.SUPPORTED, "same class twice is not STRONG"
+    # it can get WEAKER: a refutation costs even beside confirmations
+    hurt = M.read(confirmed=[P("MATERIAL"), P("RECORD")], refuted=[P("PLACEMENT")])
+    assert hurt["state"] == M.WEAKENED
+    # counterexamples below support weaken; at support stage 17 kills, not 18
+    assert M.read(counterexamples=1, support=3)["state"] == M.WEAKENED
+    assert M.read(killed=True)["state"] == M.KILLED
+    # non-discriminating evidence moves nothing, and says how much it dropped
+    nd = M.read(confirmed=[P("MATERIAL", False)])
+    assert nd["state"] == M.HELD
+    assert nd["inputs"]["confirmed_discriminating"] == 0
+    # it is never a bare number, and it always says what would move it next
+    for r in (two, hurt, nd):
+        assert r["is_a_score"] is False
+        assert r["why"] and r["what_would_move_it_next"]
+
+
+def test_decay_is_checks_without_confirmation_never_age():
+    from sourceborn import maturity as M
+    assert M.read(checks=M.DECAY_AFTER - 1)["state"] == M.UNTESTED
+    aged = M.read(checks=M.DECAY_AFTER)
+    assert aged["state"] == M.WEAKENED
+    assert "never age" in " ".join(aged["why"])
+    # recurrence can lift SUPPORTED to STRONG, and says that it did
+    lift = M.read(confirmed=[{"class": "MATERIAL", "discriminating": True}],
+                  sequences_seen=M.RECURRENCE_MIN)
+    assert lift["state"] == M.STRONG and lift["raised_by_recurrence"] is True
+
+
+def test_a_maturity_is_a_ledger_not_a_field():
+    """His no-reopen rule applied to a value: an update appends."""
+    from sourceborn import maturity as M
+    P = lambda c: {"class": c, "discriminating": True}        # noqa: E731
+    u = M.update([], confirmed=[P("MATERIAL")])
+    u = M.update(u["chain"], confirmed=[P("MATERIAL"), P("RECORD")])
+    u = M.update(u["chain"], confirmed=[P("MATERIAL")], refuted=[P("PLACEMENT")])
+    assert u["overwrites"] == 0
+    h = M.history(u["chain"])
+    assert h["readings"] == 3
+    assert h["first"] == M.SUPPORTED and h["current"] == M.WEAKENED
+    assert h["changed"] == 2 and h["nothing_removed"] is True
+    assert [m["movement"] for m in h["movements"]][1] == "SUPPORTED -> STRONG"
+    for r in u["chain"]:
+        assert r["overwrote_anything"] is False
+
+
+def test_stage_19_now_has_all_four_verdicts_including_weaken():
+    from sourceborn import maturity as M
+    got = {M.verdict(s)["verdict"] for s in M.STATES}
+    assert got == {M.RETAIN, M.WEAKEN, M.REJECT, M.UNKNOWN}
+    w = M.verdict(M.WEAKENED)
+    assert w["verdict"] == M.WEAKEN and w["weaken_exists"] is True
+    assert "without ending it" in w["note"]
+    assert M.verdict(M.KILLED)["verdict"] == M.REJECT
+    assert M.verdict(M.UNTESTED)["verdict"] == M.UNKNOWN
+
+
+def test_stage_23_closes_and_succeeds_it_never_reopens():
+    """His protocol forbids the obvious return edge twice over."""
+    from sourceborn import discovery as D
+    r = D.chain(RAIN, "x")
+    c = D.close(r, new_combinations=3, maturities=[{"state": "UNTESTED"}],
+                predictions=[{"discriminating": True, "checked": False}])
+    assert c["outcome"] == D.SUCCEEDED
+    assert c["closed"]["reopened"] is False
+    assert c["closed"]["history_rewritten"] is False
+    assert c["successor"]["references"] == c["closed"]["sequence_id"]
+    assert c["successor"]["is_a_reopen_of"] is None
+    assert c["successor"]["sequence_id"] != c["closed"]["sequence_id"]
+    # a successor carries the open ends, not the whole prior pass
+    assert c["successor"]["carries_the_whole_prior_pass"] is False
+    assert {x["reason"] for x in c["reasons"]} == {
+        "NEW COMBINATION", "UNSETTLED MATURITY", "UNMET PREDICTION"}
+    # and with nothing open there is NO successor at all
+    done = D.close(r, new_combinations=0, maturities=[{"state": "STRONG"}],
+                   predictions=[{"discriminating": True, "checked": True}])
+    assert done["outcome"] == D.TERMINATED and done["successor"] is None
+    assert "not a failure" in done["why"]
+
+
+def test_the_closed_loop_terminates_three_different_ways():
+    from sourceborn import discovery as D
+    T = "The father was standing outside with a water pipe."
+    # nothing confirms: decay settles it at WEAKENED and the loop stops
+    a = D.loop(T, "a", max_passes=6)
+    assert a["terminated"] is True and a["hit_cap"] is False
+    assert a["settled_as"] == ["WEAKENED"]
+    assert a["count"] > 1, "it must actually loop before it stops"
+    # confirmations settle it the other way, and faster
+    b = D.loop(T, "b", max_passes=6,
+               verdicts={"MATERIAL": True, "REPETITION": True,
+                         "PLACEMENT": True, "RECORD": True})
+    assert b["terminated"] is True and b["settled_as"] == ["SUPPORTED"]
+    assert b["count"] < a["count"], "confirmation settles faster than decay"
+    # refutations settle it too
+    c = D.loop(T, "c", max_passes=6,
+               verdicts={"MATERIAL": False, "REPETITION": False,
+                         "PLACEMENT": False, "RECORD": False})
+    assert c["terminated"] is True and c["settled_as"] == ["WEAKENED"]
+    # every pass is its own sequence, referencing the last
+    ids = [p["sequence_id"] for p in a["passes"]]
+    assert ids == ["S%d" % i for i in range(len(ids))], ids
+
+
+def test_the_whole_loop_now_runs_23_of_23():
+    from sourceborn import discovery as D
+    a = D.audit()
+    assert a["absent"] == [], a["absent"]
+    assert a["counts"][D.RUNS] == 22           # 22 in C, 5 in D
+    r = D.chain(RAIN, "rain")
+    assert r["stages_run"] == 23 and r["completed"] is True
+    assert r["halted_at"] is None
+
+
+def test_the_maturity_and_loop_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/maturity"', '"/maturity/read"', '"/loop/run"'):
+        assert route in src, route
+
+
+def test_his_23_stage_loop_is_audited_against_the_running_code():
+    """do we flow this or anything else — answered by import, not by memory."""
+    from sourceborn import discovery as D
+    a = D.audit()
+    assert a["stages"] == 23
+    assert [s["n"] for s in D.STAGES] == list(range(1, 24)), "his order"
+    # every anchor the map claims must actually resolve, or the map is lying
+    assert a["map_claims_that_do_not_resolve"] == [], \
+        a["map_claims_that_do_not_resolve"]
+    assert a["counts"][D.RUNS] + a["counts"][D.PARTIAL] + \
+        a["counts"].get(D.ABSENT, 0) == 23
+    # and the honest headline: the stages mostly exist, the flow does not
+    assert a["chained_end_to_end"] is False, "the flag is about the old spine"
+    assert D.what_flows()["steps"] == 5, "the old spine is still five steps"
+
+
+def test_a_stage_with_no_implementation_halts_the_chain():
+    """His rule: a failure opens the mapped loop. It is never stepped over."""
+    from sourceborn import discovery as D
+    # with every stage built the chain completes; the HALT behaviour is proved
+    # on a stage that is deliberately made absent instead
+    r = D.chain(RAIN, "rain")
+    assert r["completed"] is True and r["stages_run"] == 23
+    assert "never skipped" in r["law"]
+
+
+def test_the_three_absent_stages_and_the_one_that_blocks():
+    from sourceborn import discovery as D
+    g = D.gaps()
+    absent = {a["n"] for a in g["absent_stages"]}
+    assert absent == set(), absent             # 12, 18 and 23 are all built
+    partial = {p["n"] for p in g["partial_stages"]}
+    assert partial == {1}, partial             # 5 moved to RUNS in Phase D
+    assert 19 not in partial, "WEAKEN exists now"
+    assert g["his_call"]
+
+
+def test_the_loop_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/loop"', '"/loop/chain"', '"/expected"', '"/expected/run"'):
+        assert route in src, route
+
+
+def test_the_arrow_graph_is_drawn_from_the_live_modules():
+    """A diagram that can go stale is a diagram that will. Every number in the
+    chart is read from the running code at draw time."""
+    from sourceborn import human_registry as hr
+    from sourceborn import sysmap
+    c = sysmap.arrow_chart()
+    # the live counts appear because they were read, not typed
+    assert "%s named sub-parameters" % format(len(hr.parameters()), ",") in c
+    from sourceborn import filemap as F
+    d = F.divide(".")
+    assert "UNPLACED %d" % d["counts"][F.UNPLACED] in c
+    assert "%d GROW THE COUNT" % d["what_grows_the_count"]["files"] in c
+    # the boxes line up: every drawn line is the same width
+    box = [ln for ln in c.splitlines() if ln.startswith("   │")
+           or ln.startswith("   ║")]
+    assert box and len({len(ln) for ln in box}) == 1, \
+        sorted({len(ln) for ln in box})
+    # his laws are on the chart, not just in the code
+    for law in ("IT CREATES NOTHING", "AN ADDRESS IS NOT A PARAMETER",
+                "THE KILL IS OFF BY DEFAULT",
+                "nothing is canonical · nothing is chosen"):
+        assert law in c, law
+    assert sysmap.stats()["typed_numbers_in_the_chart"] == 0
+
+
+def test_where_one_thing_lives():
+    from sourceborn import sysmap
+    assert sysmap.where("the bank")["module"] == "human_registry.py"
+    assert sysmap.where("the kill")["route"] == "/ledger/kill"
+    assert sysmap.where("nowhere at all")["found"] is False
+    assert len(sysmap.where()["layers"]) == sysmap.where()["count"]
+
+
+def test_the_map_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/map"', '"/map/where"'):
+        assert route in src, route
+
+
+def test_the_artifact_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/artifact"', '"/artifact/generate"', '"/artifact/grow"'):
+        assert route in src, route
+
+
+def test_the_subject_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/subjects"', '"/subjects/grow"', '"/subjects/generate"'):
+        assert route in src, route
+
+
+# ---------------------------------------------------------------------------
+# PHASE B — the runtime pipeline, and the two reverse steps that were absent.
+# ---------------------------------------------------------------------------
+
+B_RAIN = ("kids father was standing outside with water pipe and pointed it in "
+        "the air so that the kids inside the home thought its raining outside")
+
+B_MALL = ("few days back i went to mall with my girlfriend because i was not "
+        "well. this weekend i will go again to the mall to buy a gift for her "
+        "birthday.")
+
+
+def test_step_2_reads_the_end_from_the_source():
+    """'so that ...' names a target ahead, and the parse finds it."""
+    from sourceborn import prior as P
+    e = P.declare_end(B_RAIN)
+    assert e["named"] is True
+    assert e["grade"] == "STATED TARGET"
+    assert "thought its raining" in e["end"]
+    assert e["direction"] == "REVERSE"
+    assert e["halt"] is False
+
+
+def test_a_reason_behind_is_never_promoted_to_a_target_ahead():
+    """'because i was not well' is a PUSH. It is kept, and it is not the end."""
+    from sourceborn import prior as P
+    e = P.declare_end(B_MALL)
+    kinds = {c["id"]: c["kind"] for c in e["candidates"]}
+    pushes = [c for c in e["candidates"] if c["kind"].startswith("PUSH")]
+    assert pushes, "the stated reason is kept"
+    assert all("not well" not in (e["end"] or "") for _ in [0]), \
+        "the chosen end is never the reason behind"
+    assert e["named"] is True and "birthday" in e["end"]
+    # and a text with ONLY a push has no named end — the push does not fill in
+    e2 = P.declare_end("he stayed home because he was ill")
+    assert e2["named"] is False
+    assert e2["push_candidates"] >= 1
+
+
+def test_two_surviving_ends_halt_and_are_never_blended():
+    from sourceborn import prior as P
+    e = P.declare_end("he called the meeting in order to warn them, and he "
+                      "called it so that the record would show he tried")
+    assert e["halt"] is True
+    assert e["named"] is False
+    assert len(e["chosen"]) == 2
+    assert e["separates_them"], "the halt ships with what would separate them"
+    assert e["end"] is None, "nothing was blended into a single end"
+
+
+def test_an_unnamed_end_is_unnamed_never_absent():
+    """'there is no reason' is not an available answer."""
+    from sourceborn import prior as P
+    e = P.declare_end("the king raised the tax")
+    assert e["named"] is False
+    assert len(e["what_would_name_it"]) == 3
+    assert e["why_this_matters"]["consumed_by"], \
+        "the four consuming steps are stated even when the end is open"
+
+
+def test_his_word_outranks_the_parse():
+    from sourceborn import prior as P
+    e = P.declare_end(B_RAIN, his_end="a joke on the kids")
+    assert e["named"] is True
+    assert e["end"] == "a joke on the kids"
+    assert e["grade"] == "HIS ASSIGNMENT"
+    assert e["candidates"], "the parsed candidates are kept beside his word"
+
+
+def test_step_3_descends_by_the_removal_test_and_cannot_assume():
+    from sourceborn import prior as P
+    pr = P.prior_reality(B_RAIN, P.declare_end(B_RAIN))
+    assert pr["direction"] == "REVERSE"
+    assert pr["counts"]["assumed"] == 0, "the descent cannot assume"
+    assert pr["counts"]["survived"] > 0
+    grades = {r["grade"] for r in pr["survivors"]}
+    assert grades <= {"STATED", "ENTAILED"}
+    # a dropped prior is kept as a neighbour with the reason
+    assert pr["counts"]["dropped_as_neighbours"] >= 1
+    n = pr["neighbours"][0]
+    assert "NEIGHBOUR" in n["removal_test"]["verdict"]
+    assert n["removal_test"]["why"]
+
+
+def test_the_lexical_drop_is_flagged_where_it_cannot_be_trusted():
+    """'pointed it in the air' causes 'thought its raining' and shares no word
+    with it. The drop stands — the descent may not use world knowledge — and it
+    is flagged for his review, never quietly reversed."""
+    from sourceborn import prior as P
+    pr = P.prior_reality(B_RAIN, P.declare_end(B_RAIN))
+    flagged = pr["flagged_for_review"]
+    assert flagged, "the same-sentence drop is flagged"
+    assert any("pointed" in f["condition"] for f in flagged)
+    assert all("His call" in f["review"] for f in flagged)
+
+
+def test_assumed_exists_only_through_the_explicit_call():
+    from sourceborn import prior as P
+    a = P.assume("the father owned the pipe", "needed to complete the chain",
+                 proof_debt=3)
+    assert a["grade"] == "ASSUMED"
+    assert a["synthetic"] is True and a["tag"] == "[SYNTHETIC]"
+    assert a["proof_debt"] == 3 and a["expires"]
+    try:
+        P.assume("x", "y", proof_debt=9)
+        assert False, "proof debt outside 0..5 must refuse"
+    except ValueError:
+        pass
+
+
+def test_ground_is_claimed_only_when_reached():
+    from sourceborn import prior as P
+    g = P.ground_check("his body was exhausted and in pain")
+    assert g["ground"] is True, "the physical human is something nobody made"
+    g2 = P.ground_check("the company rewrote its business model")
+    assert g2["ground"] is False
+    g3 = P.ground_check("qwerty zzz")
+    assert g3["ground"] is False, "unknown is not ground"
+
+
+def test_the_runtime_walks_all_eighteen_in_his_order():
+    from sourceborn import runtime as R
+    r = R.run(B_RAIN)
+    assert r["steps_run"] == 18 and r["of"] == 18
+    assert r["order"] == list(range(1, 19)), "his order, not mine"
+    assert r["reverse_steps"] == [2, 3, 11, 13], \
+        "two reverse passes: 2-3 at intake, 11 and 13 later"
+    names = [rec["name"] for rec in r["records"]]
+    assert names[1] == "Declare End / Why This Matters"
+    assert names[2] == "Reverse to Prior Reality"
+    assert names[3] == "Sequence Decomposition", \
+        "2 and 3 run BEFORE decomposition — the correction this phase is for"
+
+
+def test_a_run_is_a_record_never_an_answer():
+    from sourceborn import runtime as R
+    for text in (B_RAIN, B_MALL, ""):
+        r = R.run(text)
+        assert r["answer"] is None, "answer is None on every run, structurally"
+        assert r["chosen"] is None
+    # and every record carries job / took / produced — his SB-01 correction
+    r = R.run(B_RAIN)
+    for rec in r["records"]:
+        assert rec["job"] and rec["took"] is not None
+        assert rec["produced"] is not None, rec["name"]
+
+
+def test_the_runtime_does_not_write_by_default():
+    """Step 17 prepares. His five write conditions are evaluated, two are
+    honestly unmet on a bare run, and nothing is appended."""
+    from sourceborn import runtime as R
+    r = R.run(B_MALL, name="mall")
+    wb = next(rec for rec in r["records"] if rec["n"] == 17)["produced"]
+    assert wb["written"] is False
+    assert wb["conditions_total"] == 5
+    assert wb["conditions_met"] == 3
+    assert wb["write_conditions"]["link map created"] is False, \
+        "the link map IS Phase D — it cannot be met before D exists"
+    assert wb["why_not_written"]
+    # and the HTTP route does not expose writing at all
+    src = open("src/sourceborn/server.py").read()
+    at = src.index('"/runtime/run"')
+    assert "write" not in src[at:at + 600].replace("would_append", "")
+
+
+def test_untested_reads_untested_all_the_way_down():
+    """R-F-R on one unrepeated ask is thin, maturity is UNTESTED, the verdict
+    is UNKNOWN. An eighteen-step run on one sentence SHOULD end open."""
+    from sourceborn import runtime as R
+    r = R.run(B_RAIN)
+    rec = {x["n"]: x["produced"] for x in r["records"]}
+    assert rec[13]["stands"] is False
+    assert rec[15]["state"] == "UNTESTED"
+    assert rec[16]["verdict"] == "UNKNOWN"
+    assert rec[14]["survives"] is True
+    assert "untested" in next(x for x in r["records"] if x["n"] == 14)["notes"]
+
+
+def test_the_join_his_bottleneck_fix_built_is_wired():
+    """More active containers -> more intents, inside the runtime itself."""
+    from sourceborn import runtime as R
+    r1 = R.run(B_MALL)
+    r2 = R.run(B_RAIN)
+    c1 = {x["n"]: x["produced"] for x in r1["records"]}
+    c2 = {x["n"]: x["produced"] for x in r2["records"]}
+    assert len(c1[5]["containers_activated"]) > 0, \
+        "the mall must activate containers (it first activated ZERO — the " \
+        "join was not wired)"
+    assert c1[10]["candidates"] > 0
+    assert c2[10]["candidates"] > c1[10]["candidates"], \
+        "more containers active -> more intents, his curve inside the run"
+    assert c1[10]["chosen"] is None and c2[10]["chosen"] is None
+
+
+def test_detection_is_not_choice():
+    from sourceborn import runtime as R
+    d = R.detect_states("the king was exhausted, his energy down and stress up")
+    assert d["detected"], "evidence words in the ask are found"
+    assert d["chosen"] is None
+    d2 = R.detect_states("the ledger was appended")
+    assert d2["detected"] == [] and d2["chosen"] is None
+
+
+def test_the_two_ends_halt_reaches_the_run():
+    from sourceborn import runtime as R
+    r = R.run("he called the meeting in order to warn them, and he called it "
+              "so that the record would show he tried")
+    assert r["halts"] and r["halts"][0]["step"] == 2
+
+
+def test_the_reverse_passes_are_stated():
+    from sourceborn import prior as P
+    rp = P.reverse_passes()
+    assert rp["passes"][0]["at"] == [2, 3]
+    assert rp["passes"][0]["was"] == "ABSENT until Phase B"
+    assert rp["passes"][1]["at"] == [13]
+
+
+def test_same_person_is_relation_not_dependency():
+    """The review of this phase's diff caught two defects; this pins the fix.
+
+    A bare substring test let actor 'i' match inside nearly every condition
+    ('girlfriend', 'raining'), which made everything survive on first-person
+    asks. And a whole-word actor match alone is still not a dependency: 'i was
+    not well' explains the FIRST mall visit, and the gift trip stands without
+    it — so it reads NEIGHBOUR with its own reason, never silently survives."""
+    from sourceborn import prior as P
+    pr = P.prior_reality(B_MALL, P.declare_end(B_MALL))
+    neigh = [n for n in pr["neighbours"] if "not well" in n["condition"]]
+    assert neigh, "'i was not well' is a neighbour of the gift trip"
+    t = neigh[0]["removal_test"]
+    assert t["actor_shared"] is True and t["breaks"] is False
+    assert "relation, not dependency" in t["why"]
+    # and separators exist only between competing PULL ends — two reasons
+    # behind can both be true, so no contest is manufactured between them
+    e = P.declare_end("he stayed home because he was ill and because the "
+                      "office was closed")
+    assert e["separates_them"] == [] and e["halt"] is False
+
+
+def test_the_runtime_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/runtime"', '"/runtime/run"'):
+        assert route in src, route
+
+
+# ---------------------------------------------------------------------------
+# PHASE C — the combination + intent engine.
+# ---------------------------------------------------------------------------
+
+C_T3 = B_RAIN + " and the kids said they felt happy about the rain"
+
+
+def test_the_rain_sentence_yields_exactly_its_own_shape():
+    """One candidate: ACTION on CON-021 met an INFERENCE. Not 240."""
+    from sourceborn import combine as C
+    r = C.run([B_RAIN], name="rain")
+    assert r["counts"]["combinations"] == 1
+    c = r["candidates"][0]
+    assert c["signature"] == "ACTION->CON-021 + INFERENCE->*"
+    assert c["granularity"] == "MIXED"
+    assert "QUIET" in r["stopped_because"]
+    assert r["answer"] is None and r["chosen"] is None
+
+
+def test_nothing_floats_on_structure_alone():
+    """The mall's words reach no row at per-event level, so the engine opens
+    nothing — and reports the anchor rejection instead of hiding it."""
+    from sourceborn import combine as C
+    r = C.run([B_MALL], name="mall")
+    assert r["counts"]["combinations"] == 0
+    assert r["rounds"][0]["rejected_no_anchor"] >= 1
+    for c in r["candidates"]:
+        assert c["granularity"] in ("ROW", "MIXED")
+
+
+def test_one_example_can_never_breed_order_three():
+    """His rule 6 as a structural gate: depth needs recurrence."""
+    from sourceborn import combine as C
+    r = C.run([C_T3], name="three roles once")
+    orders = set(r["counts"]["by_order"])
+    assert orders <= {2}, "one example must stop at pairs"
+    assert all(not c["can_breed"] for c in r["candidates"])
+    blocked = next((rd["blocked_cannot_breed"] for rd in r["rounds"]
+                    if rd["round"] == 2), 0)
+    assert blocked >= 1, "the breeding gate must report what it blocked"
+
+
+def test_recurrence_unlocks_depth():
+    """'once the basic will over it will start making new combinations on
+    new thoughts' — mechanical: the same material twice earns order 3."""
+    from sourceborn import combine as C
+    r = C.run([C_T3, C_T3], name="three roles twice")
+    assert 3 in r["counts"]["by_order"], "support 2 must open order 3"
+    assert "QUIET" in r["stopped_because"], "and the loop still finds its stop"
+
+
+def test_cross_role_holds_over_sets():
+    """No candidate carries the same role twice, at any order."""
+    from sourceborn import combine as C
+    r = C.run([C_T3, C_T3])
+    for c in r["candidates"]:
+        assert len(c["roles"]) == c["order"], c["signature"]
+
+
+def test_every_candidate_leaves_carrying_its_chain():
+    """Prediction, falsifier, maturity — testable the moment it exists. And
+    maturity is fed honestly: co-occurrence is support, not confirmation."""
+    from sourceborn import combine as C
+    r = C.run([C_T3, C_T3])
+    for c in r["candidates"]:
+        preds = c["predictions"]
+        assert preds[0]["class"] == "REPETITION" and preds[0]["discriminating"]
+        assert c["signature"] in preds[0]["would_confirm"]
+        assert preds[-1]["class"] == "ABSENCE" and not preds[-1]["discriminating"]
+        assert c["falsifiable"] and c["falsifier"]
+        assert c["maturity"] == "UNTESTED", \
+            "unchecked reads UNTESTED whatever its support — nobody checked " \
+            "is not it held"
+        assert c["chosen"] is None
+
+
+def test_more_material_more_combinations_more_intents():
+    """His concept, computed: as much parameters we plug, more is generated."""
+    from sourceborn import combine as C
+    small = C.run([C_T3])
+    big = C.run([C_T3, B_RAIN, C_T3])
+    assert big["counts"]["combinations"] >= small["counts"]["combinations"]
+    assert big["counts"]["intent_pairs_unique"] >= \
+        small["counts"]["intent_pairs_unique"]
+    assert big["counts"]["new_parameters_created"] == 0
+    assert big["counts"]["rows_written"] == 0
+
+
+def test_stage_22_is_computed_not_by_hand():
+    from sourceborn import combine as C
+    prev = C.run([B_RAIN])
+    cur = C.run([B_RAIN, C_T3, C_T3])
+    d = C.delta(prev, cur)
+    assert d["stage"] == 22
+    assert d["anything_new"] is True and d["count_new"] >= 1
+    same = C.delta(cur, cur)
+    assert same["anything_new"] is False and same["count_new"] == 0
+    # and the discovery audit now reads 22 as running
+    from sourceborn import discovery as D
+    a = D.audit()
+    r22 = next(r for r in a["rows"] if r["n"] == 22)
+    assert r22["state"] == "RUNS"
+    assert a["counts"]["PARTIAL"] == 1, \
+        "stage 1 source lock is the last PARTIAL — stage 5 joined in Phase D"
+
+
+def test_evidence_is_handed_in_and_kill_is_on_request_only():
+    from sourceborn import combine as C
+    r = C.run([C_T3, C_T3])
+    c = r["candidates"][0]
+    up = C.check(c, together_again=1)
+    assert up["was"] == "UNTESTED" and up["now"] in ("SUPPORTED", "STRONG")
+    assert up["verdict"] == "RETAIN"
+    down = C.check(c, apart_events=1)
+    assert down["now"] == "WEAKENED" and down["killed"] is False
+    assert "his word" in down["kill_available"]
+    dead = C.check({**c, "support": 1}, apart_events=5, kill=True)
+    assert dead["killed"] is True, "the kill still runs when asked"
+
+
+def test_the_engine_owns_two_loops_and_says_so():
+    from sourceborn import combine as C
+    l = C.loops()
+    assert len(l["his_nine"]) == 9
+    assert l["c_owns"] == ["Combination", "Intent"]
+    running = [x for x in l["his_nine"] if x["state"].startswith("RUNS")]
+    assert len(running) == 8, "eight of his nine run since Phase D"
+    ng = next(x for x in l["his_nine"] if x["loop"] == "Node-Growth")
+    assert "awaits his word" in ng["state"], \
+        "the ninth stops at the queue — his promotion question is open"
+
+
+def test_phase_c_writes_nothing():
+    """The Phase A technique: read the module's own code, docstrings and
+    comments stripped, and prove there is no write path in it."""
+    import re as _re
+    src = open("src/sourceborn/combine.py").read()
+    code = _re.sub(r'""".*?"""', "", src, flags=_re.S)
+    code = _re.sub(r"#.*", "", code)
+    for forbidden in ("growth.add(", "open(", "def tick", "Thread"):
+        assert forbidden not in code, \
+            "Phase C must not write, trigger or schedule: found %r" % forbidden
+
+
+def test_a_cap_that_bites_reports_what_it_dropped():
+    from sourceborn import combine as C
+    r = C.run([C_T3, C_T3], round_cap=2)
+    dropped = sum(rd["dropped_by_round_cap"] for rd in r["rounds"])
+    assert dropped >= 1
+    noted = [rd for rd in r["rounds"] if rd["dropped_by_round_cap"]]
+    assert all(rd["cap_note"] for rd in noted), "no silent caps"
+
+
+def test_the_engine_is_deterministic():
+    from sourceborn import combine as C
+    a = C.run([C_T3, B_RAIN])
+    b = C.run([C_T3, B_RAIN])
+    assert [(c["id"], c["signature"]) for c in a["candidates"]] == \
+           [(c["id"], c["signature"]) for c in b["candidates"]]
+
+
+def test_runtime_step_9_hands_its_seatings_to_the_one_engine():
+    """The runtime's view and the engine's can never drift, because there is
+    one engine — the same rain ask yields the same one candidate both ways."""
+    from sourceborn import combine as C
+    from sourceborn import runtime as R
+    r = R.run(B_RAIN)
+    step9 = next(x for x in r["records"] if x["n"] == 9)["produced"]
+    direct = C.run([B_RAIN])
+    assert [c["signature"] for c in step9["combinations"]] == \
+           [c["signature"] for c in direct["candidates"]]
+    assert step9["stopped_because"] == direct["stopped_because"]
+    assert "combine.run" in next(x for x in r["records"]
+                                 if x["n"] == 9)["owner"]
+
+
+def test_the_combine_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/combine"', '"/combine/run"'):
+        assert route in src, route
+
+
+# ---------------------------------------------------------------------------
+# PHASE D — the memory graph + auto-linking.
+# ---------------------------------------------------------------------------
+
+def _ng_root():
+    return tempfile.mkdtemp(prefix="sb_ng_")
+
+
+_RFR = {"stands": True, "r_f_r": ["ran"]}
+
+
+def test_the_write_gate_refuses_and_names_the_unmet():
+    """His five write conditions, enforced at the one write site."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    r = NG.write_node(root, "EVENT", "src", {}, rfr=None, proof_debt=1)
+    assert r["refused"] and r["unmet_conditions"] == ["R-F-R executed"]
+    r = NG.write_node(root, "EVENT", "src", {}, rfr=_RFR)
+    assert r["refused"] and r["unmet_conditions"] == \
+        ["origin distance recorded"]
+    r = NG.write_node(root, "EVENT", "", {}, rfr=_RFR, proof_debt=1)
+    assert r["refused"] and "source retained" in r["unmet_conditions"]
+    assert NG.stats(root)["nodes"] == 0, "nothing malformed was stored"
+
+
+def test_a_link_map_with_zero_links_is_still_a_map():
+    """The fourth condition is met BY the write path — the linker runs even
+    when nothing matches, and says so."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    r = NG.write_node(root, "EVENT", "his rain sentence",
+                      {"event_sig": "POINT_PIPE"}, rfr=_RFR, proof_debt=1)
+    assert r["written"] and r["conditions_met"] == 5
+    assert r["conditions"]["link map created"] is True
+    assert r["link_map"]["count"] == 0
+    assert "still a MAP" in r["link_map"]["note"]
+
+
+def test_an_existing_match_is_reinforced_never_recreated():
+    """His mall-example rule applied to nodes: support 1 -> 2,
+    duplicate_created False."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    r1 = NG.write_node(root, "EVENT", "src",
+                       {"event_sig": "POINT_PIPE", "actor": "father"},
+                       rfr=_RFR, proof_debt=1)
+    r2 = NG.write_node(root, "EVENT", "src",
+                       {"event_sig": "POINT_PIPE", "actor": "father"},
+                       rfr=_RFR, proof_debt=1, surfaced_by="a second source")
+    assert r2["duplicate_created"] is False
+    assert r2["strengthened_existing"] == r1["node_id"]
+    assert r2["support"] == 2
+    assert NG.stats(root)["by_type"].get("EVENT") == 1
+
+
+def test_similar_event_needs_shared_rows_never_containers():
+    """The Phase C anchor lesson carried into linking: structure is not
+    content."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    a = NG.write_node(root, "EVENT", "src",
+                      {"event_sig": "A", "rows": ["P1", "P2"],
+                       "containers": ["CON-001", "CON-002"]},
+                      rfr=_RFR, proof_debt=1)["node_id"]
+    b = NG.write_node(root, "EVENT", "src",
+                      {"event_sig": "B", "rows": ["P1", "P2", "P9"],
+                       "containers": ["CON-001", "CON-002"]},
+                      rfr=_RFR, proof_debt=1)
+    links = [l for l in b["link_map"]["links"] if l["link"] == "similar_to"]
+    assert links and links[0]["to"] == a, "2 shared rows link"
+    c = NG.write_node(root, "EVENT", "src",
+                      {"event_sig": "C", "rows": ["P7"],
+                       "containers": ["CON-001", "CON-002"]},
+                      rfr=_RFR, proof_debt=1)
+    assert not c["link_map"]["links"], \
+        "shared containers alone must never link"
+
+
+def test_hub_nodes_materialize_once():
+    """Two events by one actor: an ACTOR node exists ONCE, each event linked
+    actor_of — the graph shape his twelve types exist for."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    NG.write_node(root, "EVENT", "src", {"event_sig": "A", "actor": "king"},
+                  rfr=_RFR, proof_debt=1)
+    r2 = NG.write_node(root, "EVENT", "src",
+                       {"event_sig": "B", "actor": "king"},
+                       rfr=_RFR, proof_debt=1)
+    hubs = r2["link_map"]["hubs"]
+    assert hubs and hubs[0]["type"] == "ACTOR" and not hubs[0]["created"], \
+        "the second write must REUSE the hub"
+    assert NG.stats(root)["by_type"].get("ACTOR") == 1
+    links = [l for l in r2["link_map"]["links"] if l["link"] == "actor_of"]
+    assert links and links[0]["from"].startswith("SB-N-ACT-")
+
+
+def test_opposition_contradicts_and_both_stand():
+    """Same subject, opposing verdicts -> a contradicts link, neither
+    deleted. The dedupe defect this test first caught — an opposing reading
+    folded into the node it opposed — is why the match requires the same
+    CLAIM, verdict included."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    d = NG.write_node(root, "RULE", "his ruling",
+                      {"subject_sig": "never goes", "verdict": "RETAIN"},
+                      rfr=_RFR, proof_debt=1)["node_id"]
+    e = NG.write_node(root, "RULE", "the counter-reading",
+                      {"subject_sig": "never goes", "verdict": "REJECT"},
+                      rfr=_RFR, proof_debt=1)
+    assert e["written"], "an opposing reading is a NEW node, not a duplicate"
+    con = [l for l in e["link_map"]["links"] if l["link"] == "contradicts"]
+    assert con and con[0]["to"] == d
+    assert NG.node_state(root, d)["found"], "the contradicted node stands"
+
+
+def test_the_memory_chain_references_the_reading_before():
+    """The 90-empty-brains answer at node level: a memory is a chain, not a
+    field."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    a = NG.write_node(root, "EVENT", "src", {"event_sig": "A"},
+                      rfr=_RFR, proof_debt=1)["node_id"]
+    NG.remember(root, a, "EVENT", "first seen")
+    NG.remember(root, a, "EVIDENCE", "a prediction was confirmed")
+    mem = NG.memory_of(root, a)
+    assert [m["n"] for m in mem] == [1, 2]
+    assert mem[0]["references"] is None and mem[1]["references"] == 1
+    try:
+        NG.remember(root, a, "NOT_A_KIND", "x")
+        assert False, "an unknown memory kind must refuse"
+    except KeyError as err:
+        assert "his eleven memory kinds" in str(err)
+
+
+def test_stage_5_is_traversable_and_every_hop_is_typed():
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    a = NG.write_node(root, "EVENT", "src",
+                      {"event_sig": "A", "actor": "king",
+                       "rows": ["P1", "P2"]}, rfr=_RFR,
+                      proof_debt=1)["node_id"]
+    NG.write_node(root, "EVENT", "src",
+                  {"event_sig": "B", "actor": "king",
+                   "rows": ["P3", "P4"]}, rfr=_RFR, proof_debt=1)
+    c = NG.write_node(root, "EVENT", "src",
+                      {"event_sig": "C", "rows": ["P3", "P4"]},
+                      rfr=_RFR, proof_debt=1)["node_id"]
+    p = NG.path(root, a, c)
+    assert p["found"], "a reaches c through the actor hub and shared rows"
+    assert all(h["link"] for h in p["hops"]), "every hop names its link type"
+    sg = NG.subgraph(root, a, depth=1)
+    assert a in sg["nodes"] and sg["counts"]["links"] >= 1
+    # and the discovery audit reads stage 5 as running now
+    from sourceborn import discovery as D
+    r5 = next(r for r in D.audit()["rows"] if r["n"] == 5)
+    assert r5["state"] == "RUNS"
+
+
+def test_recall_is_the_retrieval_loop():
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    NG.write_node(root, "EVENT", "src",
+                  {"event_sig": "A", "actor": "king", "future": "the wall"},
+                  rfr=_RFR, proof_debt=1)
+    got = NG.recall(root, {"actor": "king", "future": "the wall",
+                           "rows": []})
+    assert got["conditions"]["same_actor"]
+    assert got["conditions"]["same_future_goal"]
+    assert got["reached"], "the probe reaches stored nodes with evidence"
+    empty = NG.recall(root, {"actor": "nobody"})
+    assert empty["reached"] == []
+
+
+def test_the_queue_holds_until_his_word():
+    """His box 6 runs up to the queue and stops where only his word may
+    act. The queue is a placeholder for his unanswered question, not the
+    answer."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    f = NG.write_node(root, "PATTERN", "src", {"pattern_sig": "care loop"},
+                      rfr=_RFR, proof_debt=1,
+                      maturity_level="SUPPORTED")["node_id"]
+    q0 = NG.queue_for_him(root)
+    assert q0["count"] == 0, "maturity alone does not queue — the evidence " \
+                            "gate is real"
+    NG.remember(root, f, "EVIDENCE",
+                "confirmed: the discriminating prediction held")
+    q1 = NG.queue_for_him(root)
+    assert [x["node_id"] for x in q1["queued"]] == [f]
+    assert q1["promoted"] == 0
+    assert "he has not answered" not in q1  # dict key sanity
+    assert "his word" in q1["promoted_stays_zero_until"]
+    ap = NG.approve(root, f)
+    assert ap["status"] == "ACCEPTED" and ap["by"] == "him"
+    q2 = NG.queue_for_him(root)
+    assert q2["count"] == 0 and q2["promoted"] == 1
+    # NO REOPEN — the original NODE row in the file still says OPEN
+    raw = open(NG._path(root)).read()
+    assert '"status": "OPEN"' in raw
+    st = NG.node_state(root, f)
+    assert st["status"] == "ACCEPTED" and st["status_is_from"] == \
+        "his approval"
+
+
+def test_the_graph_store_is_append_only_structurally():
+    """The growth.py technique: read the module's own source and fail if a
+    removal path is ever added."""
+    import re as _re
+    src = open("src/sourceborn/nodegraph.py").read()
+    code = _re.sub(r'""".*?"""', "", src, flags=_re.S)
+    code = _re.sub(r"#.*", "", code)
+    for forbidden in (".pop(", "os.remove", "os.unlink", "rmtree",
+                      "truncate", '"w"', "'w'"):
+        assert forbidden not in code, \
+            "the graph must be append-only: found %r" % forbidden
+    assert '"a"' in code, "the store opens in append mode"
+
+
+def test_a_corrupt_line_is_kept_as_unreadable():
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    NG.write_node(root, "EVENT", "src", {"event_sig": "A"}, rfr=_RFR,
+                  proof_debt=1)
+    with open(NG._path(root), "a", encoding="utf-8") as f:
+        f.write("{this is not json\n")
+    rows = NG.load(root)
+    bad = [r for r in rows if r.get("row") == "UNREADABLE"]
+    assert bad and bad[0]["raw"].startswith("{this is not json")
+    assert NG.stats(root)["unreadable_kept"] == 1
+
+
+def test_node_ids_carry_their_type_and_count_per_type():
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    a = NG.write_node(root, "EVENT", "src", {"event_sig": "A"}, rfr=_RFR,
+                      proof_debt=1)["node_id"]
+    b = NG.write_node(root, "EVENT", "src", {"event_sig": "B"}, rfr=_RFR,
+                      proof_debt=1)["node_id"]
+    r = NG.write_node(root, "RULE", "src", {"subject_sig": "S"}, rfr=_RFR,
+                      proof_debt=1)["node_id"]
+    assert a == "SB-N-EVT-00001" and b == "SB-N-EVT-00002"
+    assert r == "SB-N-RUL-00001", "each type counts its own"
+
+
+def test_the_node_graph_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/nodes"', '"/nodes/node"', '"/nodes/path"',
+                  '"/nodes/subgraph"', '"/nodes/write"',
+                  '"/nodes/remember"', '"/nodes/recall"',
+                  '"/nodes/approve"'):
+        assert route in src, route
+
+
+def test_nothing_is_born_promoted():
+    """The review of this phase's diff caught it: a writer that could mint
+    status ACCEPTED directly would be self-promotion past his word. ACCEPTED
+    arrives only through approve()."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    r = NG.write_node(root, "EVENT", "src", {"event_sig": "A"}, rfr=_RFR,
+                      proof_debt=1, status="ACCEPTED")
+    assert r["refused"] and r["unmet_conditions"] == ["born ACCEPTED"]
+    assert "his approval" in r["why"]
+    assert NG.stats(root)["nodes"] == 0
+    assert NG.queue_for_him(root)["promoted"] == 0
+
+
+def test_concurrent_writes_never_mint_the_same_id():
+    """The weekly-pull lesson applied here: node numbering is load-count-
+    append, this server answers on threads, and without the lock two
+    concurrent writes mint one id."""
+    import threading as _th
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    ids, errs = [], []
+
+    def w(i):
+        try:
+            r = NG.write_node(root, "EVENT", "src",
+                              {"event_sig": "E%d" % i}, rfr=_RFR,
+                              proof_debt=1)
+            ids.append(r["node_id"])
+        except Exception as e:
+            errs.append(str(e))
+
+    threads = [_th.Thread(target=w, args=(i,)) for i in range(8)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert not errs, errs
+    assert len(ids) == 8 and len(set(ids)) == 8, \
+        "every concurrent write must get its own id: %s" % sorted(ids)
+
+
+# ---------------------------------------------------------------------------
+# PHASE E — the self-sustain scheduler.
+# ---------------------------------------------------------------------------
+
+def _auto_root():
+    return tempfile.mkdtemp(prefix="sb_auto_")
+
+
+def test_manual_mode_now_is_the_shipped_default():
+    """His staging law, honored exactly: deploying Phase E changes nothing.
+    The daemon call is a no-op in MANUAL and appends no report."""
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    assert A.mode(root) == "MANUAL"
+    r = A.tick_if_due(root)
+    assert r["ran"] is False and "manual" in r["why"].lower()
+    assert A.ticks(root) == [], "a MANUAL daemon check leaves no row"
+
+
+def test_the_mode_is_his_switch_and_invalid_is_refused():
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    bad = A.set_mode(root, "TURBO")
+    assert bad["refused"] and "his three modes" in bad["why"]
+    ok = A.set_mode(root, "SEMI_AUTO")
+    assert ok["changed"] and ok["by"] == "him" and ok["prior"] == "MANUAL"
+    assert A.mode(root) == "SEMI_AUTO"
+    back = A.set_mode(root, "MANUAL")
+    assert back["prior"] == "SEMI_AUTO", "the log keeps what it was before"
+
+
+def test_a_tick_writes_through_the_gated_site():
+    """The runtime's own steps compose the refs; the node arrives through
+    Phase D's five conditions with its link map made."""
+    from sourceborn import autoloop as A
+    from sourceborn import nodegraph as NG
+    root = _auto_root()
+    t = A.tick(root, texts=[B_RAIN])
+    assert len(t["written_nodes"]) == 1
+    w = t["written_nodes"][0]
+    assert w["node_id"].startswith("SB-N-EVT-")
+    assert "event_sig" in w["refs"] and "rows" in w["refs"]
+    st = NG.node_state(root, w["node_id"])
+    assert st["found"] and st["node"]["point_zero_ref"]
+    assert t["combine"]["combinations"] >= 1
+    assert t["queued_for_him"] == 0 and t["promoted"] == 0
+
+
+def test_the_same_material_reinforces_instead_of_duplicating():
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    A.tick(root, texts=[B_RAIN])
+    t2 = A.tick(root, texts=[B_RAIN])
+    assert t2["written_nodes"] == []
+    assert t2["reinforced"] and t2["reinforced"][0]["support"] == 2
+    assert t2["combine"]["delta_new"] == 0, \
+        "the second tick opens nothing the first did not"
+
+
+def test_the_inbox_cursor_skips_unchanged_and_reprocesses_changed():
+    """Nothing is un-processed by deletion — the hash cursor."""
+    import os as _os
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    p = _os.path.join(A._inbox(root), "note.txt")
+    with open(p, "w") as f:
+        f.write("the king raised the tax so that the wall could be built")
+    t1 = A.tick(root)
+    assert t1["processed"] == ["note.txt"]
+    t2 = A.tick(root)
+    assert t2["arrived"]["inbox_skipped_unchanged"] == ["note.txt"]
+    assert t2["quiet"] is True
+    assert _os.path.exists(p), "the file was never removed"
+    with open(p, "w") as f:
+        f.write("the king lowered the tax so that the people would stay")
+    t3 = A.tick(root)
+    assert t3["processed"] == ["note.txt"], \
+        "a changed file is a superseding reading, processed again"
+
+
+def test_a_deferred_handed_text_is_named_not_lied_about():
+    """The dishonest line the first run caught: 'never dropped' is only true
+    for inbox items. A deferred handed text must be handed again, and the
+    report says so."""
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    texts = ["actor %d did thing %d so that result %d stood" % (i, i, i)
+             for i in range(7)]
+    t = A.tick(root, texts=texts)
+    assert len(t["processed"]) == A.MAX_ITEMS_PER_TICK
+    d = t["deferred_by_budget"]
+    assert len(d["handed"]) == 2 and d["inbox"] == []
+    assert "handed again" in d["handed_note"]
+    assert t["caps"]["cap_note"], "a cap that bites is never silent"
+
+
+def test_a_quiet_daemon_tick_appends_nothing_a_hand_tick_always_does():
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    A.set_mode(root, "SEMI_AUTO")
+    before = len(A.ticks(root))
+    r = A.tick_if_due(root)
+    assert r["quiet"] is True
+    assert len(A.ticks(root)) == before, \
+        "an hourly heartbeat would flood an append-only ledger"
+    h = A.tick(root, by="hand")
+    assert h["quiet"] is True
+    assert len(A.ticks(root)) == before + 1, \
+        "he asked, and 'quiet' is an answer"
+
+
+def test_auto_sustain_feeds_the_last_ticks_own_output_back():
+    """The L4 loop — the only loop whose input is the system's own output.
+    Bounded to one example, and reported."""
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    A.set_mode(root, "AUTO_SUSTAIN")
+    t1 = A.tick(root, texts=[B_RAIN])
+    assert t1["written_nodes"], "the first tick writes"
+    assert t1["arrived"]["feedback_example"] is False, \
+        "nothing to feed back on the first pass"
+    t2 = A.tick(root, texts=[C_T3])
+    assert t2["arrived"]["feedback_example"] is True
+    # and in SEMI_AUTO the same second tick would NOT feed back
+    root2 = _auto_root()
+    A.set_mode(root2, "SEMI_AUTO")
+    A.tick(root2, texts=[B_RAIN])
+    s2 = A.tick(root2, texts=[C_T3])
+    assert s2["arrived"]["feedback_example"] is False
+
+
+def test_a_tick_is_not_a_check():
+    """Maturities decay on checks-without-confirmation — his rule — and a
+    tick checks nothing against the world."""
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    t = A.tick(root, texts=[B_RAIN])
+    assert t["maturities_touched"] == 0
+    assert "not a check" in t["why_no_maturity_moves"]
+
+
+def test_the_tick_cannot_promote_kill_or_grow_the_count():
+    """The gate chart, enforced by absence — the Phase A technique."""
+    import re as _re
+    from sourceborn import autoloop as A
+    src = open("src/sourceborn/autoloop.py").read()
+    code = _re.sub(r'""".*?"""', "", src, flags=_re.S)
+    code = _re.sub(r"#.*", "", code)
+    for forbidden in ("approve(", ".kill(", "growth.add(", "grow(",
+                      "add_many("):
+        assert forbidden not in code, \
+            "a tick may not promote, kill or write his count ledger: " \
+            "found %r" % forbidden
+    g = A.gate()
+    assert "promote" in g["auto_may_not"] and "answer" in g["auto_may_not"]
+    # and a tick report has no answer field at all
+    root = _auto_root()
+    t = A.tick(root, texts=[B_RAIN])
+    assert "answer" not in t, "a tick does not answer"
+    assert t["promoted_can_move_from_here"] is False
+
+
+def test_the_auto_store_is_append_only_structurally():
+    import re as _re
+    src = open("src/sourceborn/autoloop.py").read()
+    code = _re.sub(r'""".*?"""', "", src, flags=_re.S)
+    code = _re.sub(r"#.*", "", code)
+    for forbidden in (".pop(", "os.remove", "os.unlink", "rmtree",
+                      "truncate"):
+        assert forbidden not in code, \
+            "the tick ledger must be append-only: found %r" % forbidden
+
+
+def test_the_daemon_thread_carries_the_tick_in_its_own_try():
+    src = open("src/sourceborn/scheduler.py").read()
+    assert "autoloop.tick_if_due" in src
+    at = src.index("autoloop.tick_if_due")
+    window = src[at - 200:at]
+    assert "try:" in window, \
+        "the tick must run in its own try so neither job can kill the other"
+
+
+def test_the_auto_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/auto"', '"/auto/tick"', '"/auto/mode"'):
+        assert route in src, route
+
+
+def test_an_inbox_file_named_handed_is_still_inbox():
+    """The review caught the first cut sniffing the 'handed ' name prefix:
+    an inbox file literally named 'handed 1' would have stayed out of the
+    cursor and been reprocessed forever. Items carry their KIND now."""
+    import os as _os
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    with open(_os.path.join(A._inbox(root), "handed 1"), "w") as f:
+        f.write("the trap file did a thing so that the cursor would miss it")
+    t1 = A.tick(root)
+    assert t1["processed"] == ["handed 1"]
+    assert t1["processed_inbox"] == [{"name": "handed 1",
+                                      "hash": t1["processed_inbox"][0]["hash"]}]
+    t2 = A.tick(root)
+    assert t2["arrived"]["inbox_skipped_unchanged"] == ["handed 1"], \
+        "the cursor must see it — kind, not name, decides"
+
+
+def test_his_word_seeds_semi_auto_across_a_deploy():
+    """He gave the switch order — 'switch it to semi auto', 2026-08-21 —
+    before the Phase E code reached the deployed app. The boot seed carries
+    it: an empty mode log comes up SEMI_AUTO citing his words verbatim."""
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    r = A.seed_his_word(root)
+    assert r["seeded"] is True and A.mode(root) == "SEMI_AUTO"
+    assert r["his_word"] == "switch it to semi auto"
+    rows = [x for x in A._load(A._mode_path(root)) if x.get("row") == "MODE"]
+    assert "'switch it to semi auto'" in rows[-1]["why"]
+    assert rows[-1]["by"] == "him"
+    # seeding twice adds nothing
+    assert A.seed_his_word(root)["seeded"] is False
+    assert len([x for x in A._load(A._mode_path(root))
+                if x.get("row") == "MODE"]) == 1
+
+
+def test_any_row_he_writes_outranks_the_seed_forever():
+    """Including a later return to MANUAL — the seed never argues with a
+    log that speaks."""
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    A.set_mode(root, "MANUAL")
+    r = A.seed_his_word(root)
+    assert r["seeded"] is False and A.mode(root) == "MANUAL"
+    # and the server boots through the seed
+    src = open("src/sourceborn/server.py").read()
+    assert "seed_his_word" in src
+
+
+def test_feedback_never_anchors_its_own_combinations():
+    """The review caught feedback parts arriving row-marked: the system's
+    own output could then anchor combinations by itself — the system
+    certifying its own material. Feedback is CONTAINER-grade memory; only
+    fresh rows anchor."""
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    A.set_mode(root, "AUTO_SUSTAIN")
+    A.tick(root, texts=[B_RAIN])
+    # a second tick whose only material is the feedback example: the mall
+    # text seats no rows, so if feedback could self-anchor, combinations
+    # would appear here — none may
+    t2 = A.tick(root, texts=[B_MALL])
+    assert t2["arrived"]["feedback_example"] is True
+    assert t2["combine"]["combinations"] == 0, \
+        "feedback + rowless material must open nothing — no self-anchoring"
 
 
 def _run_all():

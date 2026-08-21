@@ -38,6 +38,20 @@ from urllib.parse import urlparse, parse_qs
 from . import asi_pyramid
 from . import asipage
 from . import generationpage
+from . import growth
+from . import filemap, growing, intent_ledger, intents, selfmake
+from . import artifact
+from . import discovery
+from . import expected
+from . import autoloop
+from . import combine
+from . import maturity
+from . import nodebrain
+from . import nodegraph
+from . import prior
+from . import runtime as rt
+from . import sysmap
+from . import subjectbrains
 from . import statepacks
 from . import weighting
 from . import enginepage
@@ -1365,6 +1379,163 @@ class Handler(BaseHTTPRequestHandler):
                  "rubrics": list(statepacks.RUBRICS_25),
                  "events": sorted(statepacks.EVENT_FORKS)}).encode(),
                 "application/json")
+        elif path == "/growth":
+            # the 3,204 is a floor. Everything surfaced is appended; nothing
+            # is ever removed.
+            self._send(200, json.dumps(growth.report(SB_ROOT)).encode(),
+                       "application/json")
+        elif path == "/intents":
+            # the live intent generator, and the proof of his concept
+            self._send(200, json.dumps(
+                {"stats": intents.stats(),
+                 "scaling": intents.scaling(),
+                 "unlinked": intents.unlinked(),
+                 "motive_rows": [m["name"] for m in intents.motive_rows()],
+                 "form_rows": [f["name"] for f in intents.form_rows()],
+                 "links": {k: v["reachable_from"]
+                           for k, v in intents.motive_links().items()}}).encode(),
+                "application/json")
+        elif path == "/nodes/schema":
+            # Phase A — the locked node schema, ids, headers, links
+            self._send(200, json.dumps(
+                {"stats": nodebrain.stats(), "lock": nodebrain.lock(),
+                 "schema": nodebrain.schema(),
+                 "headers": nodebrain.headers(),
+                 "collisions": nodebrain.collisions()}).encode(),
+                "application/json")
+        elif path == "/runtime":
+            # Phase B — his eighteen steps as one run; 2 and 3 reverse before
+            # decomposition
+            self._send(200, json.dumps(
+                {"stats": rt.stats(), "steps": rt.steps(),
+                 "prior": prior.stats(),
+                 "reverse_passes": prior.reverse_passes()}).encode(),
+                "application/json")
+        elif path == "/combine":
+            # Phase C — the combination + intent engine: gates, loops owned
+            # and not owned, and the chain every candidate carries
+            self._send(200, json.dumps(
+                {"stats": combine.stats(),
+                 "loops": combine.loops()}).encode(),
+                "application/json")
+        elif path == "/nodes":
+            # Phase D — the memory graph: store counts, the queue for him,
+            # and his open promotion question stated on it
+            self._send(200, json.dumps(
+                {"stats": nodegraph.stats(SB_ROOT),
+                 "queue": nodegraph.queue_for_him(SB_ROOT)}).encode(),
+                "application/json")
+        elif path == "/auto":
+            # Phase E — the self-sustain scheduler: mode (MANUAL until his
+            # word), budgets, the gate chart, and the last tick report
+            self._send(200, json.dumps(
+                {"stats": autoloop.stats(SB_ROOT),
+                 "recent_ticks": autoloop.ticks(SB_ROOT)[-5:]}).encode(),
+                "application/json")
+        elif path == "/nodes/node":
+            st = nodegraph.node_state(SB_ROOT, (qs.get("id") or [""])[0])
+            self._send(200 if st["found"] else 404,
+                       json.dumps(st).encode(), "application/json")
+        elif path == "/nodes/path":
+            self._send(200, json.dumps(nodegraph.path(
+                SB_ROOT, (qs.get("from") or [""])[0],
+                (qs.get("to") or [""])[0])).encode(), "application/json")
+        elif path == "/nodes/subgraph":
+            self._send(200, json.dumps(nodegraph.subgraph(
+                SB_ROOT, (qs.get("id") or [""])[0],
+                depth=int((qs.get("depth") or ["2"])[0]))).encode(),
+                "application/json")
+        elif path == "/maturity":
+            # stage 18, and the WEAKEN stage 19 was missing
+            self._send(200, json.dumps(
+                {"stats": maturity.stats(), "states": list(maturity.STATES),
+                 "means": maturity.MEANS,
+                 "verdict_of": maturity.VERDICT_OF}).encode(),
+                "application/json")
+        elif path == "/expected":
+            # stage 12 — what should exist if a generated meaning were true
+            self._send(200, json.dumps(
+                {"stats": expected.stats(),
+                 "classes": list(expected.CLASSES),
+                 "role_evidence": {k: list(v) for k, v in
+                                   expected.ROLE_EVIDENCE.items()},
+                 "future_evidence": {k: list(v) for k, v in
+                                     expected.FUTURE_EVIDENCE.items()}}).encode(),
+                "application/json")
+        elif path == "/loop":
+            # his 23-stage synthetic discovery loop, audited against the code
+            self._send(200, json.dumps(
+                {"audit": discovery.audit(), "gaps": discovery.gaps(),
+                 "flows": discovery.what_flows()}).encode(),
+                "application/json")
+        elif path == "/map":
+            # the arrow graph — every number read from the live modules
+            self._send(200, sysmap.arrow_chart().encode(),
+                       "text/plain; charset=utf-8")
+        elif path == "/map/where":
+            self._send(200, json.dumps(
+                sysmap.where((qs.get("q") or [""])[0])).encode(),
+                "application/json")
+        elif path == "/artifact":
+            # reading an object without pretending to read its language
+            self._send(200, json.dumps(
+                {"stats": artifact.stats(),
+                 "sign_groups": list(artifact.SIGN_GROUPS),
+                 "meanings": list(artifact.SYNTHETIC_MEANINGS),
+                 "actor_roles": list(artifact.ACTOR_ROLES),
+                 "origin_distance": list(artifact.ORIGIN_DISTANCE),
+                 "future_states": list(artifact.FUTURE_STATES),
+                 "patterns": list(artifact.PATTERN_CANDIDATES),
+                 "refused": artifact.refused(),
+                 "seated": artifact.seat_on_bank(),
+                 "space": artifact.combination_space()}).encode(),
+                "application/json")
+        elif path == "/subjects":
+            # his platform superimposed on Riemann and Einstein — my own earlier
+            # builds, handed back. 25 candidates, 14 halts, none answered.
+            self._send(200, json.dumps(
+                {"stats": subjectbrains.stats(),
+                 "candidates": subjectbrains.candidates_for(),
+                 "halts": subjectbrains.open_halts(),
+                 "version_gap": subjectbrains.version_gap(),
+                 "subjects": list(subjectbrains.SUBJECTS),
+                 "cross_test": subjectbrains.cross_test(),
+                 "applied": subjectbrains.apply_candidates(),
+                 "generated": subjectbrains.generate_variants(),
+                 "release_poles": subjectbrains.release_poles(),
+                 "lone_worker": subjectbrains.lone_worker_check()}).encode(),
+                "application/json")
+        elif path == "/selfmake":
+            # the algorithm's own body: the spine plus every step it has written
+            # for itself. Not a constant.
+            self._send(200, json.dumps(
+                {"stats": selfmake.stats(SB_ROOT),
+                 "steps": selfmake.steps(SB_ROOT),
+                 "generation": selfmake.generation(SB_ROOT),
+                 "bias": selfmake.bias_report(repo=".")}).encode(),
+                "application/json")
+        elif path == "/growing":
+            # the growing phase: every file divided by what it does to the base,
+            # and the motto made mechanical
+            self._send(200, json.dumps(
+                {"stats": growing.stats(),
+                 "divide": filemap.divide("."),
+                 "motto": growing.MOTTO}).encode(),
+                "application/json")
+        elif path == "/growing/coverage":
+            # how much of his 3,204 his own examples reach. His "basic".
+            paths = filemap.readable(".")
+            self._send(200, json.dumps(growing.coverage(paths, ".")).encode(),
+                       "application/json")
+        elif path == "/ledger":
+            # his LIVE_INTENT_ENGINE + INTENT_LEDGER: one event, ten states, ten
+            # falsifiers, nothing chosen — and the workbook audit beside it
+            self._send(200, json.dumps(
+                {"stats": intent_ledger.stats(),
+                 "run": intent_ledger.his_run(),
+                 "from_core": intent_ledger.from_core(),
+                 "audit": intent_ledger.workbook_audit()}).encode(),
+                "application/json")
         elif path == "/weighting":
             # this module was reachable from nothing; it is reachable now
             self._send(200, json.dumps(weighting.stats()).encode(),
@@ -1746,6 +1917,260 @@ class Handler(BaseHTTPRequestHandler):
                 rubrics=tuple(data.get("rubrics") or ()))
             self._send(200, json.dumps(res).encode(), "application/json")
             return
+        if self.path == "/growth/add":
+            name = (data.get("name") or "").strip()
+            kind = (data.get("kind") or growth.PARAM).strip()
+            if not name:
+                self._send(400, json.dumps({"error": "no name"}).encode(),
+                           "application/json")
+                return
+            row = growth.add(SB_ROOT, kind, name,
+                             surfaced_by=(data.get("surfaced_by") or
+                                          "added by hand"),
+                             detail=(data.get("detail") or ""),
+                             module=(data.get("module") or "by hand"),
+                             supersedes=(data.get("supersedes") or ""))
+            self._send(200, json.dumps(
+                {"added": row, "counts": growth.counts(SB_ROOT)}).encode(),
+                "application/json")
+            return
+        if self.path == "/growth/seed":
+            self._send(200, json.dumps(growth.seed(SB_ROOT)).encode(),
+                       "application/json")
+            return
+        if self.path == "/intents/run":
+            res = intents.generate(
+                event=(data.get("event") or "").strip(),
+                active_containers=data.get("containers") or [],
+                scope=(data.get("scope") or intents.CURRENT),
+                conditional=bool(data.get("conditional")),
+                conflict=bool(data.get("conflict")))
+            self._send(200, json.dumps(res).encode(), "application/json")
+            return
+        if self.path == "/expected/run":
+            from . import artifact as _A
+            self._send(200, json.dumps(expected.run(
+                _A.generate_meanings()["meanings"],
+                limit=int(data.get("limit") or 0))).encode(),
+                "application/json")
+            return
+        if self.path == "/maturity/read":
+            self._send(200, json.dumps(maturity.read(
+                confirmed=data.get("confirmed") or [],
+                refuted=data.get("refuted") or [],
+                counterexamples=int(data.get("counterexamples") or 0),
+                support=int(data.get("support") or 1),
+                sequences_seen=int(data.get("sequences_seen") or 1),
+                checks=int(data.get("checks") or 0),
+                killed=bool(data.get("killed")))).encode(),
+                "application/json")
+            return
+        if self.path == "/loop/run":
+            # the CLOSED loop — 01..23, close, a NEW sequence, until it stops
+            text = (data.get("text") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "no text"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(discovery.loop(
+                text, (data.get("name") or "").strip(),
+                max_passes=int(data.get("max_passes") or 5),
+                verdicts=data.get("verdicts"))).encode(),
+                "application/json")
+            return
+        if self.path == "/loop/chain":
+            text = (data.get("text") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "no text"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(discovery.chain(
+                text, (data.get("name") or "").strip())).encode(),
+                "application/json")
+            return
+        if self.path == "/artifact/generate":
+            # the count he asked for and never got. Gated by default.
+            self._send(200, json.dumps(artifact.generate_meanings(
+                max_group_size=int(data.get("size") or 3),
+                limit=int(data.get("limit") or 0),
+                gated=data.get("gated", True) is not False)).encode(),
+                "application/json")
+            return
+        if self.path == "/artifact/grow":
+            self._send(200, json.dumps(artifact.grow(SB_ROOT)).encode(),
+                       "application/json")
+            return
+        if self.path == "/subjects/grow":
+            # append the candidates and halts. No parameter is created.
+            self._send(200, json.dumps(
+                subjectbrains.grow(SB_ROOT)).encode(), "application/json")
+            return
+        if self.path == "/subjects/generate":
+            # apply the candidates across every subject and append every setting
+            # as a variant. Nothing is killed and no parameter is created.
+            self._send(200, json.dumps(
+                subjectbrains.grow_variants(SB_ROOT)).encode(),
+                "application/json")
+            return
+        if self.path == "/selfmake/propose":
+            # what new steps his material opens — computed, not written yet
+            self._send(200, json.dumps(selfmake.propose(
+                SB_ROOT, bar=int(data.get("bar") or selfmake.SUPPORT_BAR),
+                repo=".")).encode(), "application/json")
+            return
+        if self.path == "/selfmake/extend":
+            # WRITE them. The algorithm is longer afterwards. Appends only.
+            self._send(200, json.dumps(selfmake.extend(
+                SB_ROOT, bar=int(data.get("bar") or selfmake.SUPPORT_BAR),
+                limit=int(data.get("limit") or 0), repo=".")).encode(),
+                "application/json")
+            return
+        if self.path == "/selfmake/run":
+            # run the algorithm as it currently stands
+            text = (data.get("text") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "no text"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(selfmake.run(
+                SB_ROOT, text, (data.get("name") or "").strip())).encode(),
+                "application/json")
+            return
+        if self.path == "/runtime/run":
+            # Phase B — walk his eighteen on one ask. A record, never an answer.
+            text = (data.get("text") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "no text"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(rt.run(
+                text, his_end=(data.get("his_end") or "").strip(),
+                name=(data.get("name") or "").strip())).encode(),
+                "application/json")
+            return
+        if self.path == "/combine/run":
+            # Phase C — rounds until quiet over the texts handed in. A report,
+            # never an answer; nothing written; nothing killed.
+            texts = data.get("texts")
+            if isinstance(texts, str):
+                texts = [texts]
+            texts = [t for t in (texts or []) if (t or "").strip()]
+            if not texts:
+                self._send(400, json.dumps({"error": "no texts"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(combine.run(
+                texts=texts, name=(data.get("name") or "").strip())).encode(),
+                "application/json")
+            return
+        if self.path == "/nodes/write":
+            # Phase D — the one way into the graph. His five conditions are
+            # the gate; a failed write is refused with the unmet named.
+            try:
+                self._send(200, json.dumps(nodegraph.write_node(
+                    SB_ROOT,
+                    node_type=(data.get("node_type") or "").strip(),
+                    point_zero_ref=(data.get("point_zero_ref") or "").strip(),
+                    refs=data.get("refs") or {},
+                    rfr=data.get("rfr"),
+                    status=(data.get("status") or "OPEN").strip(),
+                    maturity_level=(data.get("maturity_level")
+                                    or "UNTESTED").strip(),
+                    proof_debt=data.get("proof_debt"),
+                    surfaced_by=(data.get("surfaced_by") or "").strip(),
+                )).encode(), "application/json")
+            except (KeyError, ValueError) as e:
+                self._send(400, json.dumps({"refused": True,
+                                            "why": str(e)}).encode(),
+                           "application/json")
+            return
+        if self.path == "/nodes/remember":
+            # Phase D — append one reading to a node's chain. NO REOPEN.
+            try:
+                self._send(200, json.dumps(nodegraph.remember(
+                    SB_ROOT, (data.get("node_id") or "").strip(),
+                    (data.get("kind") or "").strip(),
+                    (data.get("reading") or "").strip(),
+                    support_delta=int(data.get("support_delta") or 0),
+                )).encode(), "application/json")
+            except KeyError as e:
+                self._send(400, json.dumps({"refused": True,
+                                            "why": str(e)}).encode(),
+                           "application/json")
+            return
+        if self.path == "/nodes/recall":
+            # Phase D — his six read conditions as a query
+            self._send(200, json.dumps(nodegraph.recall(
+                SB_ROOT, data.get("refs") or {})).encode(),
+                "application/json")
+            return
+        if self.path == "/nodes/approve":
+            # HIS action — promotion happens on his word, never on gates alone
+            try:
+                self._send(200, json.dumps(nodegraph.approve(
+                    SB_ROOT, (data.get("node_id") or "").strip())).encode(),
+                    "application/json")
+            except KeyError as e:
+                self._send(404, json.dumps({"error": str(e)}).encode(),
+                           "application/json")
+            return
+        if self.path == "/auto/tick":
+            # Phase E — one bounded pass, by hand. Works in any mode; a hand
+            # tick always appends its report, quiet or not.
+            texts = data.get("texts")
+            if isinstance(texts, str):
+                texts = [texts]
+            self._send(200, json.dumps(autoloop.tick(
+                SB_ROOT, texts=texts, by="hand")).encode(),
+                "application/json")
+            return
+        if self.path == "/auto/mode":
+            # HIS switch — Manual Mode Now -> Semi-Auto -> Auto-Sustain
+            # Target. An invalid mode is refused with his three named.
+            r = autoloop.set_mode(SB_ROOT, (data.get("mode") or ""))
+            self._send(200 if r.get("changed") else 400,
+                       json.dumps(r).encode(), "application/json")
+            return
+        if self.path == "/growing/place":
+            # place one example. There is no answer here — only where it sits.
+            text = (data.get("text") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "no text"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(growing.place(
+                text, (data.get("name") or "").strip())).encode(),
+                "application/json")
+            return
+        if self.path == "/growing/grow":
+            # place it AND raise the count. Appends only.
+            text = (data.get("text") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "no text"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(growing.grow(
+                SB_ROOT, text, (data.get("name") or "").strip(),
+                (data.get("surfaced_by") or "").strip())).encode(),
+                "application/json")
+            return
+        if self.path == "/ledger/run":
+            # his ten candidates, gated. `verdicts` is optional: with none handed
+            # in, every candidate comes back UNTESTED rather than as a survivor.
+            self._send(200, json.dumps(
+                intent_ledger.his_run(data.get("verdicts") or None)).encode(),
+                "application/json")
+            return
+        if self.path == "/ledger/kill":
+            # the survivor stage: evidence -> contradiction -> falsification.
+            # Nothing is deleted; a killed row keeps its falsifier and its reason.
+            cands = [intent_ledger.candidate(c)
+                     for c in (data.get("candidates") or
+                               list(intent_ledger.HIS_CANDIDATES))]
+            self._send(200, json.dumps(intent_ledger.survivors(
+                cands, data.get("verdicts") or None)).encode(),
+                "application/json")
+            return
         if self.path == "/weighting/run":
             ask = (data.get("ask") or "").strip()
             if not ask:
@@ -2116,6 +2541,13 @@ def _maybe_ingest_on_boot() -> None:
 
 def main() -> None:
     _maybe_ingest_on_boot()
+    # his word 2026-08-21 ("switch it to semi auto"): an empty mode log is
+    # seeded SEMI_AUTO with his words as provenance; any row he has written
+    # outranks the seed forever
+    seeded = autoloop.seed_his_word(SB_ROOT)
+    print("self-sustain mode: %s%s"
+          % (autoloop.mode(SB_ROOT),
+             " (seeded on his word)" if seeded.get("seeded") else ""))
     scheduler.start_weekly_scheduler(ENGINE, SB_ROOT)  # auto Monday brain update
     port = int(os.environ.get("PORT", "8000"))
     srv = ThreadingHTTPServer(("0.0.0.0", port), Handler)

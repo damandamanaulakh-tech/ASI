@@ -105,6 +105,657 @@ MAP: list[dict] = [
     "state": RUNS,
     "note": "his seven candidates stay unresolved, and a test proves P2250 "
             "Sadness never enters the activated set because he cried."},
+   {"his": "these 3204, are the basic and vague setup / which will be making "
+           "more with such examples / so keep adding not removing at all",
+    "where": [("growth.py", "BASE = 3204"),
+              ("growth.py", "def add("),
+              ("growth.py", "def seed_items("),
+              ("growth.py", "SERIES = {")],
+    "state": RUNS,
+    "note": "his reversal of what I had built. I had shipped a test whose "
+            "stated job was to prove the bank does not grow, and wrote on the "
+            "page that the bank never grows — treating his base as a ceiling. "
+            "It is a floor. growth.py is APPEND-ONLY: no delete, remove, drop, "
+            "clear, prune, truncate, os.remove, os.unlink, .pop or rmtree "
+            "anywhere in it, the store opens in mode \"a\" only, and a test "
+            "reads the module's own source to prove a removal path can never be "
+            "added. Superseding appends a row referencing the old one and the "
+            "old row stays whole. The gate is off — an addition is in the moment "
+            "it is added; provenance is recorded because he needs it to correct "
+            "a row, which is not a gate. Typed series, and only PARAM consumes "
+            "his flat index at P3205 onward, because RUBRIC APPLICATION != "
+            "ONTOLOGY EXPANSION. First seed: 199 rows computed from the live "
+            "modules, of which 3 are new parameters — Security need, "
+            "Mating/attraction, Revenge/retaliation, the three with no echo "
+            "anywhere in his 3,204. Base 3,204 + 3 = 3,207. /growth, POST "
+            "/growth/add, POST /growth/seed."},
+   {"his": "as much parameters we plug, we will generate more pattern and "
+           "intent / main bottleneck is system is not generating the new "
+           "intent live",
+    "where": [("intents.py", "def generate("),
+              ("intents.py", "def scaling("),
+              ("intents.py", "def motive_links("),
+              ("intents.py", "BLOCKED_HOSTS = ("),
+              ("intents.py", "def from_state_pack(")],
+    "state": RUNS,
+    "note": "the bottleneck he named, closed. Intent is now generated at "
+            "runtime from CON-064 (the WHY, 40 rows) x CON-063 (the SHAPE, 40 "
+            "rows), gated by which containers are active — so the count rises "
+            "with the parameters plugged: 1 container -> 8 intents, 80 -> 140, "
+            "monotonic and tested. The motive->container links are COMPUTED "
+            "over his bank, and perception/motor/attention/language are blocked "
+            "from hosting a motive, which removed 67 lexical fabrications "
+            "(200 edges -> 133). Three real motives (Security, Mating, Revenge) "
+            "have no echo anywhere in the 3,204 and are reported as absences. "
+            "Nothing enters the bank, chosen stays None, and motive-inference "
+            "confidence stays LOW. /intents, POST /intents/run, and the live "
+            "block on /generation."},
+   {"his": "everything happening is a event, and all events have intent / "
+           "current phase is growing phase / example sit on existing parameters "
+           "and IDs so system can strong its base / every example will keep "
+           "increase the count",
+    "where": [("growing.py", "def events_in("),
+              ("growing.py", "def seat("),
+              ("growing.py", "def intent_seat("),
+              ("growing.py", "def place("),
+              ("growing.py", "def grow("),
+              ("growing.py", "def coverage("),
+              ("filemap.py", "def divide(")],
+    "state": RUNS,
+    "note": "his correction of what I had been doing. I had been running his "
+            "examples as OUTPUT TESTS — scoring how well the machine answered "
+            "Samrath, the mall, the tablet. That is not what an example is for: "
+            "it is material that SEATS on the base. place() returns a placement "
+            "and carries no answer, verdict or score, and a test enforces that. "
+            "The motto is mechanical: events_in() finds happenings "
+            "morphologically, NOT from a closed list — micro.py's 215-verb list "
+            "missed both 'standing' and 'pointed' in his own rain sentence, and "
+            "across his 217 files 5,906 of 13,848 events (43%) are found only by "
+            "inflection. Every event carries an intent slot seated on CON-063 and "
+            "CON-064, never absent. Seating is two-stage: the event's ROLE picks "
+            "which segments may host it, then words pick rows inside them; a row "
+            "matching by word but outside the role is kept as out_of_role, never "
+            "counted and never dropped. The IDF bar is HIS number — a word in "
+            "forty of his names — and is honestly reported as the small gate, not "
+            "the main guard. Two mechanics, not one: seating gives an existing ID "
+            "SUPPORT and creates no parameter, while every example appends "
+            "1 + 2N rows so the count always rises. All 479 repo files are "
+            "divided into SOURCE/EXAMPLE/METHOD/BANK/SYSTEM/ARTIFACT/OPERATIONS "
+            "with 0 unplaced; 217 grow the count, 39 are what they grow against. "
+            "His examples reach 2,816 of 3,204 (87.89%), 388 untouched. "
+            "basic_over is False and is HIS call, not a threshold I set. "
+            "/growing, /growing/coverage, POST /growing/place, "
+            "POST /growing/grow."},
+   {"his": "build phase A / do it slowly and with efficincy",
+    "where": [("nodebrain.py", "NODE_TYPES = ("),
+              ("nodebrain.py", "LINK_TYPES = ("),
+              ("nodebrain.py", "def fingerprint("),
+              ("nodebrain.py", "def new_node("),
+              ("nodebrain.py", "def validate("),
+              ("nodebrain.py", "def collisions(")],
+    "state": RUNS,
+    "note": "PHASE A of his SELF-SUSTAINING EXECUTION FLOW sheet — lock node "
+            "schema, IDs, headers, ledgers. It is first because every later "
+            "phase WRITES INTO this shape: a field renamed after the graph "
+            "exists would invalidate every edge already stored. His box 3 "
+            "verbatim: 12 node types, 16 fields, 4 statuses each carrying its "
+            "meaning; his box 6: 10 TYPED links, each with a direction and an "
+            "inverse and the field it lands in — which corrects my own auto "
+            "proposal, where I had ONE untyped edge (shared seated IDs) and "
+            "would have built a similarity blob; his box 4: 11 memory kinds, 5 "
+            "write conditions and 6 read conditions, defined here as the "
+            "contract and ENFORCED at the write site only in his Phase D. THE "
+            "LOCK IS A CHECK, NOT A COMMENT: fingerprint() hashes the whole "
+            "schema and a test pins the hash, so changing a type, field, link, "
+            "status or condition without bumping SCHEMA_VERSION fails and names "
+            "what moved — the same technique stage 1 SOURCE LOCK still lacks. "
+            "point_zero_ref is REQUIRED, which is his 'no invention before "
+            "source lock' made structural. A malformed node is REFUSED with the "
+            "reason named, never stored malformed. IDs live under their own "
+            "SB-N- prefix and carry their type stem (SB-N-EVT-00001), so a bank "
+            "id or a ledger id can never be read as a node id and the stem must "
+            "agree with the declared type. FIVE NODE-TYPE NAMES COLLIDE with the "
+            "growth series — EVENT, INTENT, PATTERN, RULE, STATE — and NONE is "
+            "merged: each is reported with what it means on both sides (a growth "
+            "EVENT is a SHELL, an EVENT node is one occurrence) and the ruling "
+            "is his. Phase A writes nothing and links nothing, and a test reads "
+            "the module's own code, with docstrings and comments stripped, to "
+            "prove there is no growth.add call, no file write, no tick and no "
+            "Thread in it. /nodes/schema."},
+   {"his": "build phase A [continued on his word] — Phase B, the runtime "
+           "pipeline: the eighteen steps of his AUTO RUNTIME ENGINE box as one "
+           "run",
+    "where": [("prior.py", "def declare_end("),
+              ("prior.py", "def end_candidates("),
+              ("prior.py", "def prior_reality("),
+              ("prior.py", "def removal_test("),
+              ("prior.py", "def entailments("),
+              ("prior.py", "def assume("),
+              ("prior.py", "def ground_check("),
+              ("runtime.py", "STEPS = ("),
+              ("runtime.py", "def run("),
+              ("runtime.py", "def detect_states(")],
+    "state": RUNS,
+    "note": "PHASE B of his sheet. Sixteen of his eighteen steps already "
+            "existed as separate modules reached by hand; the two that did NOT "
+            "exist — step 2 DECLARE END / WHY THIS MATTERS and step 3 REVERSE "
+            "TO PRIOR REALITY — are both reverse-direction and both sit BEFORE "
+            "decomposition, which is the correction: R-F-R at step 13 is the "
+            "SECOND place reverse happens, and this core had been running "
+            "forward from the text and reversing only at the check. prior.py "
+            "builds them from his own method doc (THE_REVERSE_WALKS.md): "
+            "declare_end grades a PULL (target ahead) apart from a PUSH (reason "
+            "behind) and NEVER promotes a reason to a target; two ends at the "
+            "same grade HALT, unblended, with what would separate them stated "
+            "as predictions; an unnamed end is UNNAMED with what would name it "
+            "— 'there is no reason' is not an available answer. prior_reality "
+            "descends by HIS removal test (take the step away — if the thing "
+            "above still stands it was a neighbour), grades every prior STATED "
+            "or ENTAILED, and CANNOT assume: ASSUMED exists only through an "
+            "explicit assume() call that stamps [SYNTHETIC] with proof debt and "
+            "expiry, and a test asserts the descent returns zero ASSUMED rows. "
+            "A drop the lexical test cannot be trusted on (same sentence, no "
+            "shared word — his rain sentence's 'pointed it in the air') is "
+            "FLAGGED for his review, never quietly reversed. Dropped priors are "
+            "kept as neighbours with the reason. Ground is claimed only when "
+            "reached ('something nobody made'), which on most single asks it is "
+            "not, and it says so. runtime.run then walks ALL EIGHTEEN in his "
+            "order — each record carrying the step's own job, what it took and "
+            "what it produced (his SB-01 correction applied to the runtime) — "
+            "and returns answer: None on every run, structurally: the runtime "
+            "prepares, he decides. A step that cannot bite on one ask says so "
+            "rather than faking: R-F-R on a single unrepeated ask reads thin, "
+            "maturity reads UNTESTED, the verdict reads UNKNOWN. Step 17 "
+            "PREPARES the writeback and evaluates his five write conditions "
+            "without writing — enforcement at the write site is Phase D, and on "
+            "a bare run two of five conditions are honestly unmet (no link map, "
+            "no origin distance). Detection is not choice: his sixteen packs "
+            "are checked for evidence words and chosen stays None. The "
+            "combination step runs the same cross-role gate that cut 2,627 to "
+            "2,119, scoped to the ask (since Phase C it hands its seatings to "
+            "the ONE engine in combine.py, so the runtime's view and the "
+            "engine's can never drift). /runtime, POST /runtime/run."},
+   {"his": "build phase C — the Combination + Intent Engine of his sheet; his "
+           "own concept: 'as much parameters we plug, we will generate more "
+           "pattern and intent' / 'once the basic will over it will start "
+           "making new combinations on new thoughts'",
+    "where": [("combine.py", "def run("),
+              ("combine.py", "def _prepare("),
+              ("combine.py", "def delta("),
+              ("combine.py", "def check("),
+              ("combine.py", "def loops("),
+              ("combine.py", "RECURRENCE_TO_BREED = "),
+              ("combine.py", "def _prediction("),
+              ("combine.py", "def _falsifier(")],
+    "state": RUNS,
+    "note": "PHASE C. What existed was generation as STEPS — selfmake over "
+            "the repo (pairs only), runtime step 9 over one ask, "
+            "intents.generate gated by containers. What did not exist: "
+            "ROUNDS (a combination could never combine again, so 'new "
+            "combinations on new thoughts' had no mechanism), a STOP (nothing "
+            "said when generating was finished), the CHAIN (a combination "
+            "arrived bare), and stage 22 as a function. combine.run generates "
+            "in rounds until QUIET and states which way it stopped. FOUR "
+            "GATES, in order: cross-role over SETS (a new part must bring a "
+            "role the set does not hold — six roles, so order 6 is the "
+            "structural ceiling); CO-OCCURRENCE (all parts together in at "
+            "least one example — imaginable is not available); the ANCHOR "
+            "(every combination must hold at least one ROW-granularity part; "
+            "a role-event no word reached enters as ONE unanchored part, "
+            "because folding the role's 16-container scaffold in once turned "
+            "one two-sentence text into 240 candidates — the cross-product "
+            "failure through a side door, caught and the fix is why his rain "
+            "sentence now yields exactly 1: ACTION on CON-021 met an "
+            "INFERENCE); and RECURRENCE TO BREED (an order-2 candidate "
+            "enters a deeper round only at support >= 2 — maturity's own "
+            "RECURRENCE_MIN, his rule 6 — so one example can NEVER produce "
+            "order 3, and a test pins it). Genuinely new against selfmake: "
+            "selfmake's COMBINATION steps stop at PAIRS; the engine breeds "
+            "order 3+ where support earned it. EVERY candidate leaves "
+            "carrying its chain: prediction (stage 12, the REPETITION row "
+            "names its own parts so it discriminates by construction), "
+            "falsifier (parts recurring apart while together stays stuck — "
+            "feeds intent_ledger.kill), and maturity (stage 18) — and "
+            "maturity is fed honestly: co-occurrence is SUPPORT, an input, "
+            "never a confirmation, so an unchecked candidate reads UNTESTED "
+            "whatever its support. check() moves a maturity only on verdicts "
+            "HANDED IN (together_again confirms the REPETITION prediction; "
+            "apart_events is what the falsifier watches) and kill=False is "
+            "the default — his word. delta() is stage 22 computed: new "
+            "signatures, deepened support, the intents only the new "
+            "combinations reach; the discovery audit now reads 22 RUNS (21 "
+            "of 23, stages 1 and 5 the remaining PARTIALs, both Phase D's "
+            "business). loops() states which of his NINE auto loops C owns "
+            "(Combination, Intent) and which it does not — an engine that "
+            "claimed all nine would be lying about four. The engine never "
+            "writes, never chooses, never kills unbidden, never caps "
+            "silently — a cap that bites reports what it dropped. paths= "
+            "runs it on his corpus through selfmake's OWN harvest so the two "
+            "can never disagree about what a file exhibits. /combine, POST "
+            "/combine/run."},
+   {"his": "build phase D — the Memory Graph + Auto-Linking of his sheet; "
+           "the node schema Phase A locked becomes a living, traversable "
+           "store",
+    "where": [("nodegraph.py", "def write_node("),
+              ("nodegraph.py", "def recall("),
+              ("nodegraph.py", "def autolink("),
+              ("nodegraph.py", "def remember("),
+              ("nodegraph.py", "def memory_of("),
+              ("nodegraph.py", "def path("),
+              ("nodegraph.py", "def neighbours("),
+              ("nodegraph.py", "def subgraph("),
+              ("nodegraph.py", "def gates_of("),
+              ("nodegraph.py", "def queue_for_him("),
+              ("nodegraph.py", "def approve("),
+              ("nodegraph.py", "def _write_hub(")],
+    "state": RUNS,
+    "note": "PHASE D. THE WRITE GATE IS ENFORCED: Phase A defined his five "
+            "write conditions and said enforcement is Phase D — "
+            "nodegraph.write_node is that site, and a write failing a "
+            "condition is REFUSED with the unmet conditions named, never "
+            "stored malformed. The fourth condition (link map created) is "
+            "met BY the write path itself, because the auto-linker runs "
+            "inside it — which is exactly why it could not be enforced "
+            "before D existed. HIS SIX READ CONDITIONS ARE ONE MECHANISM "
+            "USED TWICE: recall() answers which stored nodes material "
+            "reaches and by which condition with the evidence named (the "
+            "Retrieval loop), and the auto-linker is the SAME call at write "
+            "time — what recall finds, the linker links, so retrieval and "
+            "linking can never disagree. LINKS ARE TYPED AND THE GRAPH HAS "
+            "THE SHAPE HIS TWELVE TYPES EXIST FOR: two events by the same "
+            "actor do not get a vague tie — an ACTOR node materializes ONCE "
+            "and each event links to it actor_of; events SUPPORT their "
+            "pattern node, DEPEND_ON their artifact (prior.py's own "
+            "entailment), are FUTURE_OF the state they worked toward; "
+            "similar_to is reserved for events sharing 2+ actual seated "
+            "rows, and CONTAINERS ALONE NEVER LINK — the Phase C anchor "
+            "lesson, structure is not content. THE CONTRADICTION LOOP IN "
+            "ITS HONEST SCOPE: contradicts fires structurally on one case "
+            "only — same subject, opposing verdicts (RETAIN vs REJECT); "
+            "deeper detection from prose is model-grade inference this "
+            "module does not have and does not claim; richer contradictions "
+            "arrive from a caller that saw them. A defect the first "
+            "contradiction test caught: the box-6 dedupe matched on subject "
+            "and actor but NOT verdict, so an OPPOSING reading was folded "
+            "into the node it opposed — a contradiction silently swallowed "
+            "as a duplicate; the match now requires the same CLAIM (same "
+            "signature, same actor, same verdict), and the opposing reading "
+            "is written and contradiction-linked with both standing. AN "
+            "EXISTING MATCH IS REINFORCED, NEVER RE-CREATED: support 1 -> "
+            "2, duplicate_created False — his mall-example reinforcement "
+            "rule applied to nodes. THE PER-NODE MEMORY CHAIN is remember() "
+            "— append-only readings each referencing the one before "
+            "(maturity.update's shape applied to a node), kinds constrained "
+            "to his eleven — the store the 90-of-95-empty-brains finding "
+            "has needed since the August audit. STAGE 5 NOW RUNS (22 of 23; "
+            "stage 1 source lock is the last PARTIAL): neighbours/path/"
+            "subgraph make the relation graph traversable with every hop "
+            "TYPED — a path through contradicts means something different "
+            "from one through supports. HIS BOX 6 RUNS UP TO ITS QUEUE AND "
+            "STOPS WHERE ONLY HIS WORD MAY ACT: the evidence gate and "
+            "maturity threshold are EVALUATED, a node passing both is "
+            "QUEUED FOR HIM with its evidence, promoted stays 0 until his "
+            "word, approve() exists as HIS action (an APPROVAL row "
+            "referencing the node — the NODE row is never rewritten, NO "
+            "REOPEN), and the queue is stated as a placeholder for his "
+            "unanswered promotion question, not the answer. APPEND-ONLY "
+            "STRUCTURALLY: no removal path exists in the module, the store "
+            "opens mode-a only, a corrupt line comes back UNREADABLE with "
+            "its raw text, and a test reads the module's own source (the "
+            "growth.py technique). Eight of his nine auto loops now run; "
+            "the ninth (Node-Growth) runs up to the queue. /nodes, "
+            "/nodes/node, /nodes/path, /nodes/subgraph, POST /nodes/write, "
+            "POST /nodes/remember, POST /nodes/recall, POST /nodes/approve."},
+   {"his": "build phase E — the Self-Sustain Scheduler of his sheet, under "
+           "his own staging law: Manual Mode Now -> Semi-Auto -> Auto-Sustain "
+           "Target",
+    "where": [("autoloop.py", "def tick("),
+              ("autoloop.py", "def tick_if_due("),
+              ("autoloop.py", "def set_mode("),
+              ("autoloop.py", "def mode("),
+              ("autoloop.py", "def refs_from_run("),
+              ("autoloop.py", "def _inbox_material("),
+              ("autoloop.py", "def gate("),
+              ("scheduler.py", "autoloop.tick_if_due")],
+    "state": RUNS,
+    "note": "PHASE E — the last phase, and the machinery ships WHOLE with "
+            "the mode at MANUAL: deploying it changes NOTHING until he lifts "
+            "the mode, and lifting it is HIS action (POST /auto/mode), "
+            "recorded as its own append-only row with what it was before. "
+            "His correction is honored exactly — it is STAGED, not a switch. "
+            "THE TICK is one bounded pass of the loop his sheet draws: "
+            "material arrives (handed texts, files dropped in the inbox, or "
+            "— in AUTO_SUSTAIN — the previous tick's own written nodes), "
+            "each item runs the Phase B runtime, autoloop.refs_from_run "
+            "composes the node refs FROM THE RUN'S OWN STEPS (the wiring "
+            "Phase D left stated as open), the node is written through "
+            "Phase D's GATED write site — his five conditions, a refused "
+            "write stays refused — the Phase C engine runs over the tick's "
+            "material and delta() reports what opened against the tick "
+            "before. THE DAEMON THAT ALREADY RUNS drives it: the hourly "
+            "thread that has driven the weekly pull since Phase 1 now also "
+            "calls tick_if_due, each in its OWN try so neither can kill the "
+            "other; in MANUAL tick_if_due returns without doing anything. "
+            "THE FOUR LAWS OF THE TICK, each tested: (1) THE GATE DOES NOT "
+            "MOVE — a tick may seat, link, combine, predict; it may NOT "
+            "promote, answer, kill, add a parameter, or write his count "
+            "ledger, enforced STRUCTURALLY: no approve, no kill, no "
+            "growth.add exists in the module's code and a test reads the "
+            "source; the queue for him fills and promoted cannot move from "
+            "here. (2) BOUNDED, EVERY CAP REPORTED — 5 items and 40 nodes "
+            "per tick; a deferred INBOX file is genuinely picked up next "
+            "tick (the cursor never saw it) while a deferred HANDED text is "
+            "NOT stored and the report says it must be handed again, "
+            "because claiming 'never dropped' for both would be false for "
+            "the second — a dishonest line the first test run caught. (3) "
+            "QUIET IS QUIET — a daemon tick that finds nothing new appends "
+            "nothing (an hourly heartbeat would flood an append-only "
+            "ledger); a HAND tick always appends, because he asked and "
+            "'quiet' is an answer. (4) NOTHING IS UN-PROCESSED BY DELETION "
+            "— inbox files are never removed; the cursor is a fold over "
+            "past reports (name -> content hash); an unchanged file is "
+            "skipped and said so, a CHANGED file is a superseding reading. "
+            "FEEDBACK IS EXACT: in AUTO_SUSTAIN the previous tick's written "
+            "nodes re-enter as ONE prepared example for the engine — the L4 "
+            "loop, the only loop whose input is the system's own output — "
+            "bounded to the last tick, its delta reported, and a feedback "
+            "pass that opens nothing is the loop finding its own quiet. A "
+            "TICK IS NOT A CHECK: maturities decay on checks-without-"
+            "confirmation (his rule) and a tick checks nothing against the "
+            "world, so maturities do not move here — evidence still arrives "
+            "from outside on his word or a caller's verdict. All nine of "
+            "his auto loops now have their trigger; the ninth still stops "
+            "at the queue. /auto, POST /auto/tick, POST /auto/mode."},
+   {"his": "build 18 and 23 / it should must have full explanation not just "
+           "definition n placeholders",
+    "where": [("maturity.py", "def read("),
+              ("maturity.py", "def update("),
+              ("maturity.py", "def verdict("),
+              ("discovery.py", "def close("),
+              ("discovery.py", "def loop(")],
+    "state": RUNS,
+    "note": "STAGE 18 MATURITY UPDATE and STAGE 23 FUTURE EVENT, and with them "
+            "the chain now runs 23 OF 23 — it completes. STAGE 18 fixes two "
+            "failures: a candidate that SURVIVED a real test could not get "
+            "stronger (ten confirmations left it where one did) and a candidate "
+            "that was DOUBTED could not get weaker. Six named states — UNTESTED "
+            "(unmeasured, not weak), HELD (a valid rest), SUPPORTED, STRONG, "
+            "WEAKENED, KILLED — each a state PLUS the evidence that put it "
+            "there, NEVER a bare number, because his ASI0001 workbook already "
+            "showed what a bare score does when RANK was computed off a column "
+            "of zeros. Only DISCRIMINATING confirmations count and STRONG needs "
+            "two of DIFFERENT classes, since two of one class is one kind of "
+            "looking done twice. DECAY IS CHECKS WITHOUT CONFIRMATION, NEVER "
+            "AGE — nothing here measures time and a reading does not become "
+            "less true by being old. An update APPENDS a reading referencing "
+            "the one before it, so a maturity is a LEDGER not a field: his "
+            "no-reopen rule applied to a value. STAGE 19 therefore has all four "
+            "verdicts at last — WEAKEN could not exist before 18 because you "
+            "cannot weaken something with no strength to lose, and it is a "
+            "verdict of its own, not a softer REJECT. STAGE 23 is NOT a jump "
+            "back to 01: his protocol forbids that twice (NO IN-PLACE LOOP, NO "
+            "REOPEN), so a pass CLOSES and may CREATE a successor referencing "
+            "it, carrying the OPEN ENDS and not the whole prior pass. A "
+            "successor exists only for a new combination, an unsettled "
+            "maturity, or an unchecked discriminating prediction; with none the "
+            "loop TERMINATES, which is a real outcome — a loop that cannot stop "
+            "is a leak. MEASURED: loop() terminates three different ways — with "
+            "no verdicts it decays to WEAKENED in 3 passes, with confirmations "
+            "it settles at SUPPORTED in 2, with refutations at WEAKENED in 2. "
+            "The first loop() I wrote did NOT terminate: it reseeded every "
+            "maturity to HELD each pass so there was always a reason to "
+            "continue, and it ran to the cap every time. /maturity, POST "
+            "/maturity/read, POST /loop/run."},
+   {"his": "build 12",
+    "where": [("expected.py", "def expect("),
+              ("expected.py", "def run("),
+              ("expected.py", "def falsifier_from("),
+              ("expected.py", "DISCRIMINATION_BAR")],
+    "state": RUNS,
+    "note": "STAGE 12 EXPECTED EVIDENCE GENERATION — the stage that was blocking "
+            "the rest of his loop. Every generated meaning now yields what "
+            "should EXIST if it were true, and three conditions make a "
+            "prediction worth anything: it is SPECIFIC (names where to look), "
+            "TWO-SIDED (says what would confirm AND what would refute — a claim "
+            "with no refuting observation cannot be tested at all), and "
+            "DISCRIMINATING. The third does the work: a prediction more than "
+            "60% of meanings make separates none of them, so it is computed, "
+            "marked NON-DISCRIMINATING and NOT counted — the same shape as the "
+            "role gate and the IDF bar. On 400 meanings that flags ABSENCE and "
+            "COMPANION. Evidence classes are MATERIAL/COMPANION/PLACEMENT/"
+            "RECORD/REPETITION/ABSENCE, chosen by intersecting what the ROLE "
+            "would leave with what the FUTURE STATE would require, and each "
+            "prediction inherits its meaning's origin distance plus its own "
+            "reach (RECORD travels furthest and owes most). falsifier_from() "
+            "composes a falsifier out of the prediction so a candidate reaches "
+            "stage 17 ALREADY TESTABLE instead of waiting for one written by "
+            "hand — a test proves intent_ledger.kill accepts it. NOTHING IS "
+            "CHECKED here: checking needs the world, and stage 17 already takes "
+            "verdicts from outside. MEASURED: building it moved the chain from "
+            "11 of 23 to 17 of 23; it now halts at 18 MATURITY UPDATE, with 23 "
+            "still lacking a return edge. Two defects while building: I "
+            "overwrote the existing evidence.py (his Stage-4 evidence ladder) "
+            "and restored it from git — this module is expected.py; and ABSENCE "
+            "was appended twice wherever a role already required it, pushing its "
+            "share above 1.0 per meaning. /expected, POST /expected/run."},
+   {"his": "SOURCEBORN SYNTHETIC DISCOVERY LOOP (his 23 stages) / do we flow "
+           "this or anything else",
+    "where": [("discovery.py", "STAGES = ("),
+              ("discovery.py", "def audit("),
+              ("discovery.py", "def chain("),
+              ("discovery.py", "def gaps(")],
+    "state": PARTIAL,
+    "note": "THE ANSWER IS NO, AND IT IS TWO ANSWERS. The STAGES mostly exist: "
+            "16 RUN, 4 are PARTIAL, 3 are ABSENT, and every anchor the map "
+            "claims was IMPORTED AND CHECKED rather than trusted — 0 of them "
+            "fail to resolve. But the FLOW does not exist: nothing chains them "
+            "in his order. What actually flows end to end is selfmake.SPINE, "
+            "FIVE steps, not twenty-three; everything else is a module behind "
+            "its own route called on its own. chain() runs his 23 in his order "
+            "and HALTS at stage 12 EXPECTED EVIDENCE GENERATION — 11 of 23 — "
+            "because nothing turns a generated meaning into 'if this were true, "
+            "THIS should exist'. Stages 13-23 come back NOT REACHED rather than "
+            "being skipped quietly, which is his own rule that a failure opens "
+            "the mapped loop. THE THREE ABSENT: 12 expected evidence, 18 "
+            "maturity update (nothing ages, ripens or decays across runs), 23 "
+            "future event (there is no return edge — this is a line, not a "
+            "loop). 19 is PARTIAL because survivors() gives RETAIN, REJECT and "
+            "UNKNOWN but there is NO WEAKEN, so evidence that should reduce "
+            "confidence does nothing. 5 is PARTIAL because relations are LISTED "
+            "and not traversable. 22 is PARTIAL because extend() opens new "
+            "combinations only when called by hand. /loop, POST /loop/chain."},
+   {"his": "show me in arrow graph what is where",
+    "where": [("sysmap.py", "def arrow_chart("),
+              ("sysmap.py", "def _n("),
+              ("sysmap.py", "def where(")],
+    "state": RUNS,
+    "note": "the whole system as one arrow graph, in his own idiom, and every "
+            "number in it is READ FROM THE LIVE MODULES at draw time rather than "
+            "typed into it — a diagram that can go stale is a diagram that will. "
+            "A test asserts the live counts appear, that every drawn box line is "
+            "the same width so the borders align, and that his laws are on the "
+            "chart and not only in the code. The layers are the path a thing "
+            "actually takes: his words -> file map -> the growing phase -> the "
+            "bank -> the generators -> the gates -> the kill -> the ledger -> "
+            "the algorithm that makes itself -> HIM. where() answers the same "
+            "question per item. /map (plain text), /map/where?q=."},
+   {"his": "review this file and which parameters hit in this / build it",
+    "where": [("artifact.py", "SIGN_GROUPS = ("),
+              ("artifact.py", "SYNTHETIC_MEANINGS = ("),
+              ("artifact.py", "ACTOR_ROLES = ("),
+              ("artifact.py", "ORIGIN_DISTANCE = ("),
+              ("artifact.py", "def generate_meanings("),
+              ("artifact.py", "def damage_branches("),
+              ("artifact.py", "def refused(")],
+    "state": RUNS,
+    "note": "GPT_Black.txt, the other assistant's transcript on the same "
+            "project. Roughly half of it this core already held and built "
+            "independently from his workbooks — the ten king brain-states are "
+            "SP-19..SP-28, the live intent engine is intent_ledger.py, NEW "
+            "WORDING != NEW INTENT is the novelty signature. EIGHT MECHANISMS "
+            "WERE NOT HERE and are now: SG-A..SG-J visual placeholders (reason "
+            "about a sign by neighbour/position/repetition/enclosure/damage "
+            "without claiming to know Egyptian); SYN-MEAN-001..008 whole-object "
+            "meanings; ORIGIN DISTANCE 0..5 where farther is not WRONG but owes "
+            "more evidence; NINE actor roles per artifact event, each with its "
+            "own possible intent, against this core's one actor per event; "
+            "future-state reconstruction, which runs BACKWARDS where everything "
+            "else runs forwards; damage branching (four branches that predict "
+            "different evidence, never a fill); 12 PC-TAB-SYN pattern "
+            "candidates of which the transcript names 8 and the other 4 are "
+            "recorded as unnamed; and MATCH SCORE != EPISTEMIC CONFIDENCE. THE "
+            "GATES MATTER: ungated the generator returned 6,480 of a possible "
+            "6,480 — a meaning for every combination, which is not a finding. "
+            "ROLE_FUTURES (a carver does not secure a dynasty) and FUTURE_NEEDS "
+            "(an identity claim needs the enclosure) cut it to 1,824, rejecting "
+            "3,480 and 1,176 and reporting both. Everything is NEW_SYNTHETIC "
+            "with historical_fact False and translation_verified False; 0 "
+            "translations, 0 parameters. His eight seat on 29 existing ids — "
+            "SYN-MEAN-006 on P2519 Intention-to-persist and SYN-MEAN-008 on "
+            "P0844 Sequence compression. The transcript's own refusals (owl = "
+            "wisdom, falcon = royal guard, 7.8/10) are stored as REFUSED so they "
+            "cannot creep back as fact. His last question — how many new "
+            "meanings — expired unanswered in that chat and is answered here. "
+            "/artifact, POST /artifact/generate, POST /artifact/grow."},
+   {"his": "ur own old docs / hope adding more",
+    "where": [("subjectbrains.py", "CANDIDATES = ("),
+              ("subjectbrains.py", "HALTS = ("),
+              ("subjectbrains.py", "def version_gap("),
+              ("subjectbrains.py", "def rerun_tally("),
+              ("growing.py", "def registry_echo(")],
+    "state": RUNS,
+    "note": "TWELVE SUBJECTS NOW, ten of them added on his orders, and on his "
+            "word 'nothing needs to kill for now, add everything and generate' "
+            "THE KILL IS OFF BY DEFAULT — a subject that reads the other way is a "
+            "second SETTING of a law, not its death, which is his standing 'keep "
+            "adding not removing' doing the work instead. The killing pass stays "
+            "available (kill=True) and its earlier reading is preserved in canon "
+            "rather than erased. HIS CANDIDATES ARE APPLIED ACROSS EVERY SUBJECT: "
+            "25 x 12 = 300 cells, 204 read and 96 NOT READ because 8 candidates "
+            "have no reader yet — never invented. 14 candidates became an AXIS "
+            "with named settings and 3 are single-valued. GENERATED: 72 variants, "
+            "0 killed, 0 parameters. His own candidates gain the poles he said "
+            "were missing: E-03 said two poles and twelve subjects show FIVE "
+            "(CONTINUOUS 7, GATE 2, ITERATE 1, SINGLE 1, UNGATED 1); R-06 said "
+            "the DOWNWARD offset only and now reads UNDER 7 / LEVEL 3 / OVER 2, "
+            "with Tesla and Ramanujan supplying the OVER pole so the axis is "
+            "whole in both directions from his own candidate; X-02 gains "
+            "USED_WITHOUT_CREDIT (Franklin, Noether) beside USED_THEN_DESTROYED "
+            "(Turing). X-04 constraint-rise reads ROSE on 12 of 12, including a "
+            "partnership, teams and two non-scientists. ONE FLAG: E-01 produced "
+            "12 settings with support 1 each — every subject its own trigger — "
+            "which is not an axis but an uncategorised free-text field, so the "
+            "count is split honestly: 60 variants from real axes, 12 from the "
+            "singleton field. Beethoven and van Gogh are outside science "
+            "entirely, the first test of whether these candidates are about "
+            "people or only about scientists. EARLIER: four subjects were added on his order 'add "
+            "more subjects to test cross patterns' — chosen to STRESS his four "
+            "cross-subject laws, not to agree with them. Result: THREE OF THE "
+            "FOUR ARE KILLED AS STATED. X-01 (weak channel becomes strongest) "
+            "holds on Riemann and Einstein and on NOBODY ELSE — it held only on "
+            "the two subjects it was derived from, which is the signature of a "
+            "law fitted to its own evidence; Ramanujan's rigour, Faraday's "
+            "mathematics and Curie's barred access were all ROUTED AROUND rather "
+            "than converted. X-02 needs a category it does not have: Faraday was "
+            "read correctly (Davy took him in at 21) and Turing was "
+            "USED_THEN_DESTROYED, neither misread nor read correctly. X-03 dies "
+            "on exactly one clean counterexample — Faraday stopped experimental "
+            "work years before dying. X-04 constraint-rise survives 6 of 6 AND "
+            "survives the right way: it holds on Curie (a partnership) and Turing "
+            "(teams), so it is not an artefact of solitude, which was the live "
+            "risk when the evidence was two lone theorists. His E-03 two-pole "
+            "axis needs FOUR settings (GATE, ITERATE, UNGATED, CONTINUOUS) and "
+            "CONTINUOUS is the commonest — reported as an amendment, never "
+            "applied to his candidate. Every verdict is COMPUTED from structured "
+            "axis fields, so striking a field moves it; a test pins that. One "
+            "counterexample falsifies as stated — holding on most subjects is not "
+            "holding — and nothing is deleted: a killed law keeps its rows, its "
+            "counterexamples and what it would have to be narrowed to. "
+            "ORIGINALLY: his platform superimposed on Riemann and Einstein — my own earlier "
+            "builds, handed back. They carry 25 parameter candidates "
+            "(R-01..R-11, E-01..E-10, X-01..X-04), 14 halts addressed to him of "
+            "which NOT ONE was ever answered, and his own anti-pleasing tally "
+            "(17 of 45 rows disagree, so it is not flattery). Placed, not "
+            "answered. THE VERSION GAP IS SURFACED NOT CLOSED: both workbooks are "
+            "built on 2,560 and the registry now holds 3,204, with different "
+            "names (Temperature balance vs Core temperature setpoint), and the "
+            "workbook itself warns that 2561-2590 are already spent in the King "
+            "runs — so the 25 are CANDIDATE rows, never PARAM rows, and the bank "
+            "stays at 3,207. TWO DEFECTS THEY EXPOSED: (1) the Einstein file "
+            "contains a full 2,560 atom expansion, so placing it whole seated a "
+            "TAXONOMY ON A TAXONOMY — 1,086 ids reached with top hits "
+            "Load-force coupling and Agonist activation, none of which is about "
+            "Einstein; registry_echo() now catches parameter-list rows by SHAPE "
+            "and place() excludes them, 489,688 chars down to 74,037 and the "
+            "seats become Stopping-rule, Pattern abstraction, Rule extraction. "
+            "(2) his rule-7 gate semantic_loss() matched bare SUBSTRINGS, so "
+            "'productive' hit Reproductive-hormone signalling and it declared all "
+            "25 expressible on noise; it now uses whole words, split hyphens and "
+            "his forty-names bar, and R-09 Presupposition-salience correctly "
+            "lands on P2129 Presupposition handling. ANSWER TO 'hope adding "
+            "more': generation 2,200 -> 2,261, 61 new steps, 0 new arrangements "
+            "and 61 new COMBINATIONS — INFERENCE x SPEECH, OBSERVATION x SPEECH, "
+            "INFERENCE x OBSERVATION, the reasoning pairs his ACTION-heavy corpus "
+            "was thin on. /subjects, POST /subjects/grow."},
+   {"his": "u got some intent from files / now make algorithm which can make "
+           "itself",
+    "where": [("selfmake.py", "def steps("),
+              ("selfmake.py", "def propose("),
+              ("selfmake.py", "def extend("),
+              ("selfmake.py", "def generation("),
+              ("selfmake.py", "CROSS_ROLE_REQUIRED"),
+              ("selfmake.py", "def bias_report(")],
+    "state": RUNS,
+    "note": "every pipeline here before this one had a FIXED step list written by "
+            "me. This one does not: steps() returns the spine plus every step the "
+            "algorithm has written for itself, loaded from the ledger at call "
+            "time, so its body is data and it grows. Its own steps come from HIS "
+            "material: 13,848 events over 217 files reduce to 96 computed "
+            "(role -> container) arrangements, and an arrangement at or over "
+            "support 5 (his own PATTERN-CANDIDATE number) earns a step carrying "
+            "its support as evidence. A COMBINATION step is two arrangements that "
+            "co-occur in one example and CROSS ROLE — which is his rain example's "
+            "own shape, an ACTION meeting an INFERENCE. Without a cross test 80 "
+            "arrangements gave 2,627 combinations of a possible 3,160, a step for "
+            "nearly every pair; cross-segment removed only 238 because ACTION "
+            "spans SEG-03 and SEG-06; cross-role is the test that bites and "
+            "rejects 512, reporting the count. Measured: generation 0 = 5 steps, "
+            "after one extend = 2,204, and extending again on the same material "
+            "writes 0 — it grows once, it does not inflate. Every self-written "
+            "step carries a falsifier so it can be killed on evidence; none is "
+            "canonical, none creates a parameter, none reaches an answer without "
+            "his word. The bias is reported on every call: role_of defaults to "
+            "ACTION, which carries 79.6% of all seats, so the steps are "
+            "ACTION-weighted for a partly mechanical reason — fixable only by "
+            "superseding, never by deletion, and his call. /selfmake, POST "
+            "/selfmake/propose, POST /selfmake/extend, POST /selfmake/run."},
+   {"his": "Falsifier / What would flip it",
+    "where": [("intent_ledger.py", "def kill("),
+              ("intent_ledger.py", "def survivors("),
+              ("intent_ledger.py", "def signature("),
+              ("intent_ledger.py", "def promote("),
+              ("intent_ledger.py", "def semantic_loss("),
+              ("intent_ledger.py", "def namespaces(")],
+    "state": RUNS,
+    "note": "the killing step, and it is his. His LIVE_INTENT_ENGINE sheet fills "
+            "a falsifier on all ten candidates beside Support and Counterexample "
+            "counts, which is the survivor stage I had reported missing. A "
+            "candidate dies two ways, both his: its falsifier is met, or "
+            "counterexamples reach support. NOTHING IS DELETED — a killed row "
+            "keeps its falsifier and the reason it died. An UNTESTED candidate is "
+            "reported untested, never as a survivor. His rule 4 is enforced by "
+            "building the novelty signature from state_change/target/constraint "
+            "and NEVER from the intent sentence, so a full re-wording returns "
+            "novel=False. Promotion needs evidence + falsifier + recurrence (>=2 "
+            "sequences) + his word, and even then creates no parameter. A "
+            "parameter candidate opens only on REPEATED semantic loss. His "
+            "namespace ruling is enforced: the workbook's 2,000 WB-P ADDRESSES "
+            "and the registry's 3,204 SB-HFR-P PARAMETERS are never merged or "
+            "summed, and map_in refuses to pair S04 (Religion) with SEG-04 "
+            "(Attention) just because the numbers match. His ten states already "
+            "existed here as SP-19..SP-28 and were matched, not re-typed. 13 "
+            "workbook findings reported, 0 corrections to his file. /ledger, "
+            "POST /ledger/run, POST /ledger/kill."},
    {"his": "keep the identity fixed, change the active parameter set, "
            "situation and circumstance",
     "where": [("statepacks.py", "def identity_lock("),

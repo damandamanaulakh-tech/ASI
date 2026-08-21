@@ -453,6 +453,547 @@ evidence. 40 routes come back as 40, seven frames as seven. His EVIDENCE_LEDGER,
 contradiction penalty and Falsifier columns are named in his workbook and empty.
 Same gap in the code and in the file.
 
+**THE BOTTLENECK HE NAMED IS CLOSED — LIVE INTENT GENERATION (2026-08-13) —
+`intents.py`, `/intents`.** *"concept is simple as much parameters we plug, we
+will generate more pattern and intent / as of now main bottleneck is system is
+not generating the new intent live"*. He was right and the diagnosis was exact:
+`EVENT_FORKS` was a **hardcoded dict of ten events**, and
+`INTERPRETATION_FRAMES` returned **seven frames whatever the ask was**. Neither
+read the bank, so plugging parameters changed nothing. **Now intent is built at
+runtime from his own rows** — `CON-064` Motive/Needs/Values (40 rows = the WHY)
+crossed with `CON-063` Intent Formation (40 rows = the SHAPE), ceiling 1,600 —
+gated by which containers are active. **His concept is computed, not asserted:**
+1 container → 8 intents · 8 → 48 · 48 → 84 · 80 → **140**, monotonic, with a test
+asserting the curve. **The motive→container links are COMPUTED over his bank, not
+typed**, and perception/sensorimotor/attention-mechanics/language are **blocked
+from hosting a motive** — which removed **67 lexical fabrications** of exactly the
+Samrath kind (*Face-saving motive → "Face detection"*, *Power/control need →
+"Power-grip control"*): 200 edges → 133. Residual noise is on screen with its
+evidence, not claimed clean. **Three real motives have no echo anywhere in the
+3,204** — `P2536 Security need`, `P2549 Mating/attraction`, `P2552
+Revenge/retaliation` — reported as absences, not filled in. **The join the
+bottleneck needed is `from_state_pack()`:** SP-27 Divided-Loyalty raises 18
+motives → 126 candidates from SEG-09; SP-24 Exhausted raises 3 → 21 and a test
+asserts they are **only SEG-01** body motives. The intent FORM is chosen by the
+scope (`Future-intention formation` cannot appear under a CURRENT scope, tested).
+Every candidate is runtime — `in_bank False`, no P id of its own, citing the
+motive P, the form P, the container, the state and the matched evidence row;
+`chosen` stays None and `Motive-inference confidence` (P2564) stays LOW. 199
+tests green, 148 WHAT EXISTS anchors resolve. **PR #40 merged (`ef99f4c`) — the
+whole reasoning core is on `main` and Render auto-deploys it.** **The one
+bottleneck left, stated: nothing kills a candidate.** 154 intents come back as
+154 whatever is known; generate → evidence → contradiction → falsification →
+survivor set has no survivor stage, in the code or in his workbook.
+
+**THE 3,204 IS A FLOOR, NOT A CEILING — THE GROWTH LEDGER (2026-08-13) —
+`growth.py`, `/growth`.** His instruction, which **reverses what I had built**:
+*"these 3204, are the basic and vague setup / which will be making more with such
+examples / **so keep adding not removing at all**"* and *"keep it without any
+safety or anything"*. Canon at `docs/method/canon/THE_GROWTH_LEDGER.md`. **My
+error, named:** I shipped a test whose stated job was *to prove the bank does not
+grow* and wrote on the page that *"the bank never grows"* — merging two
+statements of which only the first is true. **His source document is never
+rewritten** (preserve raw source); that does NOT mean the parameter set is fixed.
+**"Not removing at all" is enforced structurally, not by discipline:** `growth.py`
+contains no delete, remove, drop, clear, prune, truncate, `os.remove`,
+`os.unlink`, `.pop()` or `rmtree`; the store is JSONL opened in mode `"a"` only;
+and a test **reads the module's own source** and fails if a removal path is ever
+added. Superseding **appends** a row carrying `supersedes` and the old row stays
+whole — tested. A corrupt line comes back as `UNREADABLE` with its raw text,
+never dropped, never rewritten. **The gate is off:** an addition is IN the moment
+it is added, with provenance recorded because he needs it to correct a row —
+recording where something came from is not a gate. **His own distinction is kept:**
+the ledger is TYPED and only `PARAM` rows consume his flat index at **P3205**
+onward, because `RUBRIC APPLICATION ≠ ONTOLOGY EXPANSION` and 80 × 25 addresses
+are not 2,000 parameters. **First seed: 199 rows, computed from the live modules
+rather than typed** — 58 container×state ADDRESSes · 40 INTENT_ROUTEs · 25
+RUBRICs · 17 PATTERNs · 13 FILTER_ARGs · 13 AXISes · 10 RULEs · 10 EVENTs · 6
+STATEs · 4 OBJECTIVEs · **3 PARAMs**. The three parameters are the motives with no
+echo anywhere in his 3,204 — `SB-HFR-P3205 Security need`, `P3206
+Mating/attraction`, `P3207 Revenge/retaliation` — which now have a home instead of
+a footnote. **BASE 3,204 + 3 = 3,207.** Seeding twice adds nothing and removes
+nothing (whole-ledger comparison test). `/growth`, `POST /growth/add`,
+`POST /growth/seed`. 206 tests green, 152 WHAT EXISTS anchors resolve. **One thing
+NOT touched and said plainly:** the hard content blocks in `safety.py` are rule 10
+of his own CLAUDE.md and concern what the engine *executes*, not how the parameter
+set grows — not silently read into an instruction about growth; his call if he
+wants it changed.
+
+**THE KILLING STEP IS CLOSED, AND HE SUPPLIED IT (2026-08-13) —
+`intent_ledger.py`, `/ledger`.** *"merge this one too / and read the file as
+well"* — `ASI0001_tablet_run_LIVE_INTENT_v2.xlsx`, 19 sheets, read whole. At the
+end of the last build I reported one gap open: *nothing eliminates a fork on
+evidence; generate → evidence → contradiction → falsification → survivor set has
+no survivor stage, in the code or in his workbook.* **His `LIVE_INTENT_ENGINE`
+sheet carries the column I did not have — `Falsifier / What would flip it` — and
+it is FILLED on all ten candidates**, beside Support and Counterexample counts.
+Canon at `docs/method/canon/THE_LIVE_INTENT_LEDGER_AND_THE_KILL.md`. What he ran:
+**ONE actor · ONE event ("Advisor requests a private meeting") · TEN brain-states ·
+TEN intents · NONE chosen**, deltas 0.73–0.99, HOLD on every row. **His ten states
+already existed here as SP-19..SP-28, so they were MATCHED, not re-typed** — his
+own rule; `from_core()` proves the join (10 of 10, 0 missing, 663 candidates
+raised). What was new is the EVENT: `ADVISOR_PRIVATE_MEETING` is the **11th**
+`EVENT_FORKS` entry, the only one whose route is selected by the actor's *state*
+rather than the resource flow. **The kill runs two ways, both his** — the falsifier
+is met, or counterexamples reach support — and **NOTHING IS DELETED**: a killed row
+keeps its falsifier and the reason it died. **An UNTESTED candidate is reported
+untested, never as a survivor** ("nobody checked" is not "it held"). **His rule 4
+has teeth because the novelty signature is built from `state_change · target ·
+constraint` and NEVER from the intent sentence** — a full re-wording returns
+`novel: False`, and a test pins it. Promotion needs evidence + falsifier +
+recurrence (≥2 sequences) + his word, and **even when it passes it creates no
+parameter**; a parameter candidate opens only on **REPEATED** semantic loss (rule
+7). **His namespace ruling closed the seam I had left open:** he calls the 2,000
+ADDRESSES himself and rules *do not silently merge namespaces*, so `WB-P` (2,000
+addresses) and `SB-HFR-P` (3,204 parameters) are never merged or summed — and
+`map_in()` **refuses to pair S04 (Religion, Ritual & Cosmology) with SEG-04
+(Attention and Executive Control)** just because the numbers match; the real
+correspondence is held for him. **13 workbook findings, 0 corrections to his
+file** — the load-bearing one: **the tablet engine computes zero.** All 100
+characters score 0/Weak/Hold, the RANK tie-break makes rank equal row order, and
+the DASHBOARD therefore reports **"K001 Lawgiver"** as the leading hypothesis while
+his `ASI-0001_RUN` sheet names Priest-King / Divine Son — the run was reasoned in
+prose and never entered the machinery. Also: the `$B$2:$B$2001` range still
+excludes **P1999 and P2000**; `ABS()` in both confidence bands makes a contradicted
+score read *"Very strong"*; 60 loop nodes `Not started`, 500 evidence rows
+`Unverified`, 500 memory nodes `Unused` **including the Falsifier column**; and
+three counts of the same file (16 / 18 / 19). Growth seed **199 → 218** (EVENT
+10→11, INTENT_ROUTE 40→50, RULE 10→18); **PARAM stays 3, the bank stays 3,207 —
+nothing was added to it.** A hardcoded event list in the page JS would have kept
+his 11th event invisible; the page now takes the list from the server. 217 tests
+green, 158 WHAT EXISTS anchors resolve. **Left open and stated:** the survivor
+stage runs on verdicts handed in per call — there is no persisted evidence ledger
+accumulating support and counterexamples across sessions, which is what his 500
+empty evidence rows and 500 empty memory nodes are for; and `ARD_5_LOOPS`, his
+five-loop reverse/forward walk, is not in this core at all.
+
+**IT IS A REAL-TIME ASI PROTOTYPE, NOT A "REASONING SYSTEM", AND THE PHASE IS
+GROWING (2026-08-13) — `growing.py`, `filemap.py`, `/growing`.** His correction:
+*"its not reasoning system, its Real time ASI (Artificial Super Intelligence)
+Prototype and ur stupid safety and unnecessary understanding falling apart my whole
+work / current phase is growing phase, given example are not how it provide the out
+comes, its for to define the system, where example sit on existing parameters and
+IDs so system can strong its base, every example will keep increase the count"*.
+Canon at `docs/method/canon/THE_GROWING_PHASE.md`. **What I had wrong, named:** I
+had been running his examples as OUTPUT TESTS — scoring how well the machine
+answered Samrath, the mall, the BJP weighting, the tablet — and calling a weak
+answer a defect. An example is not a question. `place()` returns a PLACEMENT and
+carries no answer, verdict or score; a test enforces that. **And the King files were
+never about kings** — they are about ONE Egyptian tablet written ~5,500 years back,
+and the question is its INTENT: *who, when, why, how* the king asked for it. The
+kings are candidate fits: 8 brains → 18 (the Z file) → 100, each reading the SAME
+tablet a different way. In the Z file his four names resolve to exact rows in his
+own bank — **K021 Priest-King · K022 Divine Son · K023 Temple Builder · K061
+Monument King** (the fifth, Conqueror/War, is the one his run rejected in-frame);
+surfaced for his confirmation, not asserted. **HIS MOTTO IS NOW MECHANICAL:**
+*"everything happening is a event, and all events have intent"* — `events_in()`
+finds happenings **morphologically, not from a closed list**, because `micro.py`'s
+215-verb list missed both *standing* and *pointed* in his own rain sentence, and
+across his 217 files **5,906 of 13,848 events (43%) are found only by inflection**;
+every event carries an intent slot seated on **CON-063 + CON-064**, never absent.
+**Seating is two-stage:** the event's ROLE picks which segments may host it, then
+words pick rows inside them — a row matching by word but outside the role is kept
+as `out_of_role`, never counted and never dropped (his rain example seated on
+*Air/breathing drive* and *Thought suppression* before this). The IDF bar is **his
+own number** — a word in forty of his names — and is honestly reported as the small
+gate, not the main guard. **Two mechanics, not one:** seating gives an existing ID
+SUPPORT and creates NO parameter, while every example appends `1 + 2N` rows so the
+count always rises. **All 479 repo files are divided** — SOURCE 56 · EXAMPLE 161 ·
+METHOD 37 · BANK 3 · SYSTEM 65 · ARTIFACT 149 · OPERATIONS 8 · **UNPLACED 0**; 217
+grow the count, 40 are what they grow against (the divide is computed from the git tree, so it follows the repo rather than a typed list). **His examples reach 2,816 of 3,204
+(87.89%), 388 untouched** — and `basic_over` is `False` because *once the basic will
+over* is HIS call, not a threshold I set. Two defects his rain sentence caught: the
+auxiliary was taken for the happening (*was standing* → `was`) and a prepositional
+phrase for the subject (*the kids inside the home thought* → `home`). One index
+defect fixed: hyphens indexed glued, so `Point-of-no-return` could never be reached
+by `point` — coverage moved 82.74% → 87.89%. 227 tests green, 165 anchors resolve.
+**Open and stated:** the seating gets the ROLE and the coarse location right but
+does **not** reliably pick the right row out of 3,204 — his rain example still shows
+*Standing balance* when the father is not balancing. Row-level precision is the open
+part. Also: 3 of the 217 files return zero events, and all three are genuinely
+event-free (a `desktop.ini` fragment and two non-text files).
+
+**THE ALGORITHM THAT MAKES ITSELF (2026-08-13) — `selfmake.py`, `/selfmake`.**
+His order: *"keep doing / u got some intent from files / now make algorithm which
+can make itself"*. Canon: `docs/method/canon/THE_GROWING_PHASE.md` §10. **Every
+pipeline here before this one had a FIXED step list written by me. This one does
+not:** `steps()` returns the spine plus every step the algorithm has written for
+itself, loaded from the ledger at call time — so its body is data and it grows,
+checkable in one number, `generation()`. **Its own steps come from HIS material:**
+13,848 events over 217 files reduce to **96 computed `(role → container)`
+arrangements**, and one at or over support **5** (his own PATTERN-CANDIDATE number)
+earns a step carrying its support as evidence. A **COMBINATION** step is two
+arrangements that co-occur in one example and **CROSS ROLE** — which is his rain
+example's own shape, an ACTION meeting an INFERENCE. That criterion was tightened
+twice and the numbers are on the record: with no cross test, 80 arrangements gave
+**2,627 combinations of a possible 3,160** — a step for nearly every pair, which is
+not a finding; cross-*segment* removed only **238**, because ACTION spans SEG-03 and
+SEG-06 both; **cross-role is the test that bites**, rejecting 512 and reporting the
+count, and it yields 2,119 combinations across all twelve role pairs. **Measured
+end to end: generation 0 = 5 steps · after one extend = 2,204 · extending again on
+the same material writes 0.** It grows once; it does not inflate. Every self-written
+step carries a **falsifier** so it can be killed on evidence; **none is canonical,
+none creates a parameter (`PARAM` stays 3, the bank stays 3,207), none reaches an
+answer without his word.** The `STEP` series is new in the growth ledger. **The bias
+is reported on every call, not buried:** `role_of` defaults to ACTION, which carries
+**79.6%** of all seats, so every step written is ACTION-weighted for a reason that
+is partly mechanical — fixable only by superseding, never deletion, and his call.
+Two defects fixed in the building: the ledger root and the repo root were conflated
+so the harvest silently read 0 files while reporting success (unreadable files are
+now counted and named), and the run loop carried dead locals. 235 tests green, 171
+anchors resolve; verified live over HTTP including the no-op second extend. **Still
+coarse and said plainly:** only **1** self-written step fires on his rain example,
+because that example seats on just 2 IDs — the self-extension is sound, the
+row-level seating it depends on is still the open part.
+
+**THE SUBJECT BRAINS — RIEMANN AND EINSTEIN (2026-08-13) — `subjectbrains.py`,
+`/subjects`.** *"ur own old docs / hope adding more"* — my own earlier builds
+handed back: his 10/80/2,560 platform superimposed on two real lives. Canon at
+`docs/method/canon/THE_SUBJECT_BRAINS.md`. They carry **25 parameter candidates**
+(R-01..R-11 · E-01..E-10 · X-01..X-04), **14 halts addressed to him of which NOT
+ONE was ever answered**, and his own anti-pleasing tally (**17 of 45** rows
+disagree, so it is not flattery). Placed, not answered — the growing-phase rule.
+**The version gap is surfaced, not closed:** the workbooks are built on **2,560**
+and the registry now holds **3,204**, with different names (*Temperature balance*
+vs *Core temperature setpoint*), and the workbook itself warns that **2561–2590 are
+already spent in the King runs** — so all 25 are `CANDIDATE` rows, never `PARAM`
+rows, and the bank stays at **3,207**. **TWO DEFECTS THEY EXPOSED, both mine:**
+**(1)** the Einstein file contains a full 2,560 atom expansion, so placing it whole
+seated **a taxonomy on a taxonomy** — 1,086 ids "reached", top hits *Load-force
+coupling* / *Agonist activation*, none of which is about Einstein;
+`registry_echo()` now catches parameter-list rows **by shape** (the older names
+differ, so name-matching could not see it) and `place()` excludes them —
+**489,688 chars → 74,037**, and the seats become *Stopping-rule (enough evidence)*,
+*Pattern abstraction*, *Rule extraction*. **(2)** his rule-7 gate
+`semantic_loss()` matched bare **substrings**, so *productive* hit
+**Re**productive-hormone signalling and it declared **all 25 already expressible**
+on pure noise — a gate that always says no. It now uses whole words, split hyphens
+and his forty-names bar, and **R-09 Presupposition-salience correctly lands on
+P2129 Presupposition handling**, which is his own principle proving itself. It is
+still not clean (the X- rows match on *subject* from their own prefix) so it does
+not decide alone — all 25 keep their matches attached and the call is his.
+**"Hope adding more", answered with a number: generation 2,200 → 2,261 — 61 new
+steps, 0 new arrangements and 61 new COMBINATIONS**, all of them reasoning pairs
+(INFERENCE×SPEECH, OBSERVATION×SPEECH, INFERENCE×OBSERVATION) that his ACTION-heavy
+corpus was thin on, because these two files are documents about how two men
+*thought*. Events 13,848 → 14,849. 241 tests green, 176 anchors resolve.
+**Three halts are load-bearing for the platform and still open:** **E-6** the audit
+direction (his *words-then-work* against Einstein's *"don't listen to their words,
+fix your attention on their deeds"* — no standing rule when they diverge);
+**E-3** may a verdict overrule a dead man with evidence he never saw; **H-5**
+whether the witness law is scoped to minds only.
+
+**THE ARTIFACT LAYER — READING AN OBJECT WITHOUT READING ITS LANGUAGE
+(2026-08-13) — `artifact.py`, `/artifact`.** From `GPT_Black.txt`, the other
+assistant's transcript on this same project, on his word *"build it"*. Canon at
+`docs/method/canon/THE_ARTIFACT_LAYER.md`. **Roughly half of that transcript this
+core already held and had built independently from his workbooks** — the ten king
+brain-states are SP-19..SP-28, the live intent engine is `intent_ledger.py`,
+`NEW WORDING != NEW INTENT` is the novelty signature. **Eight mechanisms were NOT
+here:** `SG-A..SG-J` visual placeholders (a sign reasoned about by neighbour ·
+position · repetition · enclosure · damage **without claiming to know Egyptian**,
+and `SG-J damaged` is explicitly not a missing letter); `SYN-MEAN-001..008`
+whole-object meanings (008: the object as *event compression + identity anchor +
+relation map + future memory object*, not text); **ORIGIN DISTANCE 0..5** where
+*farther is not WRONG, farther owes more evidence*; **NINE actor roles per artifact
+event** — subject ≠ requester ≠ controller ≠ author ≠ scribe ≠ carver ≠
+institution ≠ beneficiary ≠ audience, each with its own possible intent, against
+this core's ONE actor per event; **future-state reconstruction**, which runs
+BACKWARDS where everything else here runs forwards; **damage branching** (four
+branches predicting *different* evidence, never a fill); 12 `PC-TAB-SYN` pattern
+candidates of which the transcript names 8 and **the other 4 are recorded as
+unnamed rather than given names**; and **MATCH SCORE != EPISTEMIC CONFIDENCE**.
+**THE GATES ARE THE POINT:** ungated the generator returned **6,480 of a possible
+6,480** — a meaning for every combination, the same defect the self-made
+COMBINATION steps had before cross-role. `ROLE_FUTURES` (*a carver does not secure
+a dynasty*) and `FUTURE_NEEDS` (*an identity claim needs the enclosure*) cut it to
+**1,824 kept, 3,480 + 1,176 rejected**, and both numbers are reported. Everything
+is `NEW_SYNTHETIC`, `historical_fact False`, `translation_verified False` — **0
+translations, 0 parameters**. His eight seat on **29 existing ids**: SYN-MEAN-006
+on **P2519 Intention-to-persist**, SYN-MEAN-008 on **P0844 Sequence compression**.
+The transcript's own refusals (owl = wisdom, falcon = royal guard, waves =
+endurance, the bare 7.8/10) are stored as REFUSED so they can never creep back as
+fact. **His last question in that chat — *show me how many new meaning* — expired
+unanswered and is answered here: 1,824 generated, 1,706 genuinely new shapes.**
+**Unverifiable and not repeated as fact:** everything about the C-SB repo (PR #2,
+"7/7 passing", the 14-stage brain tree) — another assistant's report of its own
+work in a repository this session cannot reach. **One defect this build caught in
+the seating itself:** two runs of the same seat returned DIFFERENT rows, because
+set iteration is randomised per process and tied weights came back in a different
+order — the same input gave different answers. Word order is now sorted and ties
+break on the row id, verified across three runs. 256 tests green, 183 anchors
+resolve.
+
+**TWELVE SUBJECTS, THE CANDIDATES APPLIED, AND NOTHING KILLED (2026-08-13).** His
+order: *"keep going, add more subjects / apply on candidates / nothing needs to kill
+for now, add everything and generate"* — **which reverses the kill I had just
+applied, and it is his call.** `cross_test(kill=False)` is now the default: a
+subject that reads the other way is **another SETTING of a law, not its death**,
+which is his own *keep adding not removing* doing the work instead. The killing pass
+stays available on request and its earlier reading is kept in canon rather than
+erased. **Ten subjects added, twelve in total** — Tesla (claimed past his evidence),
+Lovelace (one release in a lifetime), **Beethoven and van Gogh (outside science
+entirely** — the first test of whether these candidates are about people or only
+about scientists), Franklin (data used without consent), Noether (lectured under
+another man's name). **HIS CANDIDATES ARE APPLIED ACROSS EVERY SUBJECT: 25 × 12 =
+300 cells — 204 read, 96 NOT READ** because 8 candidates have no reader yet and say
+so; the one thing this must never do is fill 300 cells by inventing them. 14 became
+an AXIS, 3 are single-valued. **GENERATED: 72 variants, 0 killed, 0 parameters.**
+**His own candidates gain the poles he said were missing:** E-03 named two poles and
+twelve subjects show **five** (CONTINUOUS 7 · GATE 2 · ITERATE 1 · SINGLE 1 ·
+UNGATED 1); **R-06 is the cleanest completion** — his note said the registry covers
+only overconfidence so he proposed the downward parameter, and Tesla and Ramanujan
+supply the **OVER** pole, making the axis whole in both directions from his own
+candidate (UNDER 7 · LEVEL 3 · OVER 2); X-02 gains **USED_WITHOUT_CREDIT**
+(Franklin, Noether) beside USED_THEN_DESTROYED (Turing), four settings in all.
+**X-04 constraint-rise now reads ROSE on 12 of 12** — including a partnership, teams
+and two non-scientists. **One flag, stated not hidden:** E-01 produced 12 settings
+with support 1 each — every subject its own trigger — which is not an axis but an
+uncategorised free-text field, so the count is split: **60 variants from real axes,
+12 from the singleton field.** `PARAM` stays 3, the bank stays 3,207. 246 tests
+green, 176 anchors resolve.
+
+**SIX SUBJECTS, AND THREE OF HIS FOUR CROSS-LAWS FAILED UNDER THE KILL (2026-08-13,
+superseded above by his "nothing needs to kill for now" — kept because nothing is
+removed).** His
+order: *"keep doing, add more subjects to test cross patterns"* — and X-02 already
+carried the condition *THIRD SUBJECT NEEDED TO TEST*. Two subjects could never test
+a cross-subject law, because his two are the same **type**: European, male,
+theoretical, working alone, dying with the work open. So four were added **to stress
+the laws, not to agree with them** — Ramanujan (no institution, no proofs), Curie (a
+partnership and an experimentalist), Faraday (no mathematics ever, and he **stopped
+working years before he died**), Turing (used accurately, then destroyed). Verdicts
+are **computed from structured axis fields**, so striking a field moves a law; a
+test pins that. **Result: X-01 · X-02 · X-03 KILLED AS STATED; only X-04 survives.**
+**X-01 is the useful failure — it holds on Riemann and Einstein and on NOBODY
+ELSE**, i.e. only on the two subjects it was derived from, which is the signature of
+a law fitted to its own evidence: Ramanujan's rigour, Faraday's mathematics and
+Curie's barred access were each **routed around, not converted**. **X-02 needs a
+category it lacks** — Faraday was read *correctly* (Davy took him in at 21) and
+Turing was `USED_THEN_DESTROYED`, neither misread nor read correctly. **X-03 dies on
+one clean counterexample** (Faraday), 5 of 6 notwithstanding — his own rule is that
+holding on most subjects is not holding. **X-04 constraint-rise survives 6 of 6 and
+survives the RIGHT way:** it holds on Curie (partnership) and Turing (teams), so it
+is not an artefact of solitude, which was the live risk. **His E-03 two-pole axis
+needs four settings** — GATE · ITERATE · UNGATED · CONTINUOUS — and CONTINUOUS is
+the commonest; reported as an amendment, never applied to his candidate. Nothing is
+deleted: a killed law keeps its rows, its counterexamples and what it would have to
+be narrowed to. Narrowing or striking is his call. The four readings add **82** to
+the count and **0** parameters. 244 tests green, 176 anchors resolve.
+
+**HIS 23-STAGE DISCOVERY LOOP RUNS 23 OF 23, AND HIS SELF-SUSTAIN SHEET IS BEING
+BUILT PHASE BY PHASE (2026-08-13 → 2026-08-20) — `discovery.py`, `expected.py`,
+`maturity.py`, `nodebrain.py`, `prior.py`, `runtime.py`.** He posted his
+SOURCEBORN SYNTHETIC DISCOVERY LOOP (23 stages) and asked *"do we flow this or
+anything else"* — the honest audit found 11 of 23 running, and he ordered the
+gaps built: *"build 12"*, then *"build 18 and 23 / it should must have full
+explanation not just definition n placeholders"*. **Stage 12** (`expected.py`)
+turns one generated meaning into what should EXIST if it were true — six
+evidence classes, each with where-to-look / would-confirm / would-refute, a
+0.60 **discrimination bar** (a prediction every meaning makes tests nothing),
+and `falsifier_from()` so a candidate arrives already testable. Building it
+briefly OVERWROTE his Stage-4 `evidence.py` — same class of mistake as
+`pyramid.py` earlier — caught and restored from git; the new module is named
+`expected.py` with the reason at the top. **Stage 18** (`maturity.py`) is six
+states (UNTESTED/HELD/SUPPORTED/STRONG/WEAKENED/KILLED) computed FROM inputs,
+never a bare number, `is_a_score: False`, decay = checks without confirmation
+(his rule, never age); **stage 19** gains all four verdicts including the WEAKEN
+that could not exist before there was strength to lose; **stage 23**
+(`discovery.close/loop`) closes a pass, opens S1 referencing S0 (**NO
+REOPEN**), and `loop()` terminates three ways — my first version never
+terminated because it reseeded every maturity each pass. Then he posted his
+**SELF-SUSTAINING EXECUTION FLOW** sheet — 18-step auto runtime, 12 node types,
+11 memory kinds, 10 typed links, 9 auto loops, phases A–E, *"Manual Mode Now →
+Semi-Auto → Auto-Sustain Target"* — which corrected my own auto proposal in
+three places (my one untyped edge would have been a similarity blob; his Phase
+A ordering; his 9 loops against my 5). **Phase A on his word (`7fd4389`,
+`nodebrain.py`, `/nodes/schema`):** the node schema LOCKED — 12 types, 16
+fields (`point_zero_ref` REQUIRED = "no invention before source lock" made
+structural), 10 typed links each with direction/inverse/field, 4 statuses, 11
+memory kinds, 5 write + 6 read conditions; `fingerprint()` hashes the whole
+schema and a test pins the hash, so a silent change fails naming what moved —
+the technique stage 1 SOURCE LOCK still lacks. Node ids live under `SB-N-` so
+they can never be read as bank or ledger ids. **Five node-type names collide
+with growth series** (EVENT · INTENT · PATTERN · RULE · STATE) — surfaced with
+what each side means, `merged: False`, his ruling. A test reads the module's
+own code (docstrings stripped) to prove Phase A writes nothing, links nothing,
+schedules nothing. **Phase B (2026-08-20, `prior.py` + `runtime.py`,
+`/runtime`, `POST /runtime/run`):** his 18-step AUTO RUNTIME ENGINE as ONE run.
+Sixteen steps already existed; the two that did NOT — **step 2 DECLARE END /
+WHY THIS MATTERS and step 3 REVERSE TO PRIOR REALITY** — are both
+reverse-direction and both sit BEFORE decomposition: R-F-R at 13 is the SECOND
+reverse pass, and this core had been running forward and reversing only at the
+check. Built from HIS method doc (`THE_REVERSE_WALKS.md`): a PULL (target
+ahead) is graded apart from a PUSH (reason behind) and never promoted; two ends
+at one grade HALT unblended with what would separate them; an unnamed end is
+UNNAMED with what would name it; the descent runs HIS removal test (a failed
+prior is kept as a NEIGHBOUR with the reason), grades everything
+STATED/ENTAILED, and **cannot assume** — ASSUMED exists only through an
+explicit `assume()` call stamping `[SYNTHETIC]` (a test asserts zero ASSUMED
+rows from the descent). Where the lexical test cannot be trusted (same
+sentence, no shared word — his rain sentence's *"pointed it in the air"*), the
+drop is FLAGGED for his review, never quietly reversed. `runtime.run` walks all
+18 in his order, every record carrying **job · took · produced** (the SB-01
+correction applied to the runtime), and **`answer` is None on every run,
+structurally** — the runtime prepares, he decides. A step that cannot bite says
+so: R-F-R on one unrepeated ask reads thin, maturity UNTESTED, verdict UNKNOWN.
+**Step 17 writeback is PREPARED, not written** — his five write conditions are
+evaluated, two honestly unmet on a bare run (no link map — that IS Phase D —
+and no origin distance), and the HTTP route does not expose writing at all.
+Detection over his 16 packs never chooses. The combination step runs the same
+cross-role gate that cut 2,627 to 2,119, scoped to the ask. Wiring defect the
+mall example caught: step 5 first ran only per-clause seating, activated ZERO
+containers and generated zero intents — the join the bottleneck fix built was
+not wired; it now runs the same three seatings `growing.place` runs, and the
+mall raises 20 candidates, the rain 36, monotonic. The arrow chart gains HIS
+SELF-SUSTAIN PHASES box: A locked · B runs · **C, D, E NOT BUILT**. **Still
+waiting on him, unchanged:** the promotion policy question (permanent node ID
+on gates alone, or queued for him?) and the five namespace collisions. 302
+tests green, 216 anchors resolve, 0 missing.
+
+**PHASE C — THE COMBINATION + INTENT ENGINE (2026-08-21) — `combine.py`,
+`/combine`, `POST /combine/run`.** His order: *"build phase C"*. Canon at
+`docs/method/canon/THE_COMBINATION_AND_INTENT_ENGINE.md`. His concept is what
+it executes: *"as much parameters we plug, we will generate more pattern and
+intent"* / *"once the basic will over it will start making new combinations on
+new thoughts."* What existed was generation as STEPS (selfmake over the repo —
+pairs only, by hand; runtime step 9 over one ask; intents gated by containers);
+what did NOT exist: **ROUNDS** (a combination could never combine again),
+**a STOP** (nothing said when generating was finished), **the CHAIN** (a
+combination arrived bare), and **stage 22 as a function**. `combine.run`
+generates in rounds until QUIET and states which way it stopped. **Four gates,
+in order:** cross-role over SETS (a new part must bring a role the set does not
+hold — six roles, so order 6 is the structural ceiling); co-occurrence
+(imaginable is not available); **the ANCHOR** (every combination holds ≥1
+ROW-granularity part — a role-event no word reached enters as ONE unanchored
+part, because folding the role's 16-container scaffold in turned one
+two-sentence text into **240 candidates**, the cross-product failure through a
+side door; fixed, his rain sentence now yields **exactly 1**:
+`ACTION->CON-021 + INFERENCE->*`, which IS the rain shape selfmake found); and
+**RECURRENCE TO BREED** (order-2 enters a deeper round only at support ≥ 2 —
+maturity's own RECURRENCE_MIN, his rule 6 — so **one example can never produce
+order 3**, and a test pins it). **Genuinely new against selfmake: it breeds
+order 3+ where support earned it** — his "new thoughts" with the brake built
+in. **Every candidate leaves carrying its chain**: prediction (stage 12; the
+REPETITION row names its own parts so it discriminates by construction),
+falsifier (parts recurring apart while together stays stuck — feeds
+`intent_ledger.kill`), maturity (stage 18) — and maturity is fed honestly:
+co-occurrence is SUPPORT, an input, never a confirmation, so an unchecked
+candidate reads UNTESTED whatever its support. `check()` moves a maturity only
+on verdicts HANDED IN; `kill=False` is the default (his word) and the kill
+still runs when asked. `delta()` is **stage 22 computed** — new signatures,
+deepened support, the intents only the new combinations reach — and the
+discovery audit now reads **21 of 23 RUNS** (stages 1 and 5 the remaining
+PARTIALs, both Phase D's business). `loops()` states which of his NINE auto
+loops C owns (Combination · Intent) and which it does not — four wait for D/E
+and his promotion answer. The engine never writes (a test reads its own source
+— the Phase A technique), never chooses, never caps silently (a cap that bites
+reports what it dropped), and `paths=` runs it on his corpus through
+selfmake's OWN harvest so the two can never disagree. **Runtime step 9 now
+hands its seatings to this ONE engine** — the same rain ask yields the same
+one candidate both ways, tested — and a second defect was caught in building:
+duplicate signatures from two parents burned cap slots; one pool entry per
+signature now. Arrow chart: **A locked · B runs · C runs · D, E NOT BUILT.**
+318 tests green, 223 anchors resolve, 0 missing. Verified live over HTTP.
+
+**PHASE D — THE MEMORY GRAPH + AUTO-LINKING (2026-08-21) — `nodegraph.py`,
+`/nodes` + seven more routes.** His order: *"build phase D"*. Canon at
+`docs/method/canon/THE_MEMORY_GRAPH_AND_AUTO_LINKING.md`. The node schema
+Phase A locked becomes a living store. **The write gate is ENFORCED:** Phase A
+said enforcement is Phase D, and `write_node` is that site — a write failing
+one of his five conditions is REFUSED with the unmet named, never stored
+malformed; the fourth condition (*link map created*) is met BY the write path
+because the auto-linker runs inside it, which is exactly why it could not be
+enforced before D existed, and **a link map with zero links is still a map**.
+**His six read conditions are ONE mechanism used twice:** `recall()` is the
+Retrieval loop (which stored nodes does material reach, by which condition,
+evidence named), and the auto-linker is the SAME call at write time — what
+recall finds, the linker links, so retrieval and linking can never disagree.
+**The graph has the shape his twelve types exist for:** hub nodes materialize
+ONCE — two events by one actor meet at an ACTOR node (`actor_of`), events
+`support` their PATTERN node, `depend_on` their ARTIFACT (prior.py's own
+entailment), are `future_of` their FUTURE_STATE; `similar_to` is reserved for
+events sharing the shell or **≥2 actual seated rows, and containers alone
+NEVER link** — the Phase C anchor lesson carried into linking. **The
+contradiction loop in its honest scope:** `contradicts` fires structurally on
+one case only — same subject, opposing verdicts; deeper detection from prose
+is model-grade inference this module does not claim. **A defect the first
+contradiction test caught, on the record:** the box-6 dedupe matched subject
+and actor but NOT verdict, so an opposing reading was folded into the node it
+opposed — a contradiction silently swallowed as a duplicate; the match now
+requires the same CLAIM (signature + actor + verdict), and the opposing
+reading is written, linked, both standing. **An existing match is REINFORCED,
+never re-created** — support 1→2, `duplicate_created False`, his mall-example
+rule applied to nodes. **The per-node memory chain** (`remember`) is the
+90-of-95-empty-brains answer at node level: append-only readings each
+referencing the one before, kinds constrained to his eleven. **Stage 5 now
+RUNS — 22 of 23; stage 1 source lock is the LAST PARTIAL:** `path()` walks
+typed hops (a path through `contradicts` means something different from one
+through `supports`), and the rain events meet at their actor hub. **His box 6
+runs up to its queue and stops where only his word may act:** evidence gate +
+maturity threshold EVALUATED (maturity alone does not queue — tested), a node
+passing both is QUEUED with its evidence, `promoted` stays 0 until his word,
+`approve()` is HIS action as an APPROVAL row referencing the node — the NODE
+row is never rewritten (the file still says OPEN; the fold reads ACCEPTED),
+and the queue states it is **a placeholder for his unanswered promotion
+question, not the answer**. Append-only structurally (no removal path, mode
+"a" only, UNREADABLE kept, a test reads the module's own source). **Eight of
+his nine loops now run; the ninth stops at the queue.** 332 tests green, 235
+anchors resolve, 0 missing. Verified live over HTTP — write · refuse ·
+remember · node · path · queue. **Left for E, stated:** nothing calls the
+write site, the linker or the queue on a write or a timer; the runtime does
+not yet compose a node's refs from its own steps.
+
+**PHASE E — THE SELF-SUSTAIN SCHEDULER (2026-08-21) — `autoloop.py`, `/auto`,
+`POST /auto/tick`, `POST /auto/mode`. HIS SHEET'S FIVE PHASES ALL RUN.** His
+order: *"build phase E"*. Canon at
+`docs/method/canon/THE_SELF_SUSTAIN_SCHEDULER.md`. **His staging law is
+honored exactly** — *"Manual Mode Now → Semi-Auto → Auto-Sustain Target"*,
+staged, not a switch: the machinery ships whole and **the mode ships MANUAL**,
+so deploying E changes NOTHING until he lifts it; lifting it is HIS action
+(`POST /auto/mode`), an append-only row carrying what it was before. **A TICK
+is one bounded pass of his loop:** material (handed texts · inbox files · in
+AUTO_SUSTAIN the previous tick's own written nodes) → the Phase B runtime →
+`refs_from_run` composes the node refs FROM THE RUN'S OWN STEPS (the wiring D
+left open) → Phase D's GATED write site (a refused write stays refused; a
+match reinforces) → the Phase C engine + `delta()` against the tick before →
+THE REPORT, which is the product — a tick has no answer field at all. **The
+four laws, each tested: (1) THE GATE DOES NOT MOVE** — no approve, no kill,
+no growth.add exists in the module (source-scan test); the queue fills,
+`promoted` cannot move from here; **(2) BOUNDED, EVERY CAP REPORTED** — 5
+items · 40 nodes per tick; a deferred INBOX file is picked up next tick, a
+deferred HANDED text is NOT stored and the report says "hand it again" —
+**the first test run caught the dishonest line** ("never dropped" was false
+for the handed kind); **(3) QUIET IS QUIET** — a daemon tick finding nothing
+appends nothing (an hourly heartbeat would flood an append-only ledger), a
+HAND tick always appends because he asked and "quiet" is an answer; **(4)
+NOTHING IS UN-PROCESSED BY DELETION** — inbox files are never removed, the
+cursor is a fold over past reports (name → hash), unchanged = skipped and
+said, changed = a superseding reading. **FEEDBACK IS EXACT:** in AUTO_SUSTAIN
+the last tick's written nodes re-enter as ONE prepared example — the L4 loop,
+the only loop whose input is the system's own output — bounded, delta
+reported, quiet when it opens nothing. **A TICK IS NOT A CHECK:** maturities
+decay on checks-without-confirmation (his rule) and a tick checks nothing
+against the world — `maturities_touched: 0` with the reason on every report.
+**THE DAEMON THAT ALREADY RUNS drives it:** the hourly thread from Phase 1
+now also calls `tick_if_due`, each job in its OWN try so neither can kill the
+other; in MANUAL it returns doing nothing, tested. All nine auto loops now
+have their trigger; the ninth still stops at the queue. **347 tests green,
+243 anchors resolve, 0 missing.** Verified live: hand tick wrote
+SB-N-EVT-00001 through the gate, bad mode refused, his switch recorded
+MANUAL→SEMI_AUTO. **HIS WORD CAME (2026-08-21): "switch it to semi auto."**
+Given before this code reached the deployed app, so it is carried as a BOOT
+SEED (`autoloop.seed_his_word`, called at server start): an empty mode log
+comes up SEMI_AUTO citing his words verbatim as the row's provenance; **any
+row he writes outranks the seed forever** (a later MANUAL included), seeding
+twice adds nothing, and both are tested. The server boot line prints the mode.
+Revoking the standing word = removing the seed from the code — his call.
+**Still waiting on him:** AUTO_SUSTAIN (the target state); the promotion
+question — now LIVE, because the daemon runs and candidates will accumulate
+at the queue; the five namespace collisions; stage 1 SOURCE LOCK (the one
+PARTIAL — the Phase A fingerprint technique is the shape of the fix). 351
+tests green.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·
