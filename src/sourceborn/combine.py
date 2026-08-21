@@ -525,10 +525,12 @@ def loops() -> dict:
     return {
         "his_nine": [
             {"loop": "Combination", "where": "combine.run — THIS ENGINE",
-             "state": "RUNS (started by hand; the trigger is E)"},
+             "state": "RUNS (trigger built in E — the daemon tick fires "
+                      "it once HE lifts the mode from MANUAL)"},
             {"loop": "Intent", "where": "combine.run -> intents.generate — "
                                         "THIS ENGINE feeds it per candidate",
-             "state": "RUNS (started by hand; the trigger is E)"},
+             "state": "RUNS (trigger built in E — mode-gated, MANUAL "
+                      "until his word)"},
             {"loop": "Evidence", "where": "expected.py / combine._prediction",
              "state": "RUNS as prediction; checking is handed in"},
             {"loop": "R-F-R", "where": "patterns.rfr_check, runtime step 13",
@@ -537,7 +539,8 @@ def loops() -> dict:
                                                "step 18", "state": "RUNS"},
             {"loop": "Retrieval", "where": "nodegraph.recall — his six read "
                                            "conditions as a query",
-             "state": "RUNS (Phase D; started by hand — the trigger is E)"},
+             "state": "RUNS (Phase D; the E tick fires it at write time — "
+                      "mode-gated, MANUAL until his word)"},
             {"loop": "Contradiction", "where": "nodegraph.autolink — "
                                                "`contradicts` on opposing "
                                                "verdicts over one subject",

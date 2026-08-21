@@ -5706,6 +5706,194 @@ def test_concurrent_writes_never_mint_the_same_id():
         "every concurrent write must get its own id: %s" % sorted(ids)
 
 
+# ---------------------------------------------------------------------------
+# PHASE E — the self-sustain scheduler.
+# ---------------------------------------------------------------------------
+
+def _auto_root():
+    return tempfile.mkdtemp(prefix="sb_auto_")
+
+
+def test_manual_mode_now_is_the_shipped_default():
+    """His staging law, honored exactly: deploying Phase E changes nothing.
+    The daemon call is a no-op in MANUAL and appends no report."""
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    assert A.mode(root) == "MANUAL"
+    r = A.tick_if_due(root)
+    assert r["ran"] is False and "manual" in r["why"].lower()
+    assert A.ticks(root) == [], "a MANUAL daemon check leaves no row"
+
+
+def test_the_mode_is_his_switch_and_invalid_is_refused():
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    bad = A.set_mode(root, "TURBO")
+    assert bad["refused"] and "his three modes" in bad["why"]
+    ok = A.set_mode(root, "SEMI_AUTO")
+    assert ok["changed"] and ok["by"] == "him" and ok["prior"] == "MANUAL"
+    assert A.mode(root) == "SEMI_AUTO"
+    back = A.set_mode(root, "MANUAL")
+    assert back["prior"] == "SEMI_AUTO", "the log keeps what it was before"
+
+
+def test_a_tick_writes_through_the_gated_site():
+    """The runtime's own steps compose the refs; the node arrives through
+    Phase D's five conditions with its link map made."""
+    from sourceborn import autoloop as A
+    from sourceborn import nodegraph as NG
+    root = _auto_root()
+    t = A.tick(root, texts=[B_RAIN])
+    assert len(t["written_nodes"]) == 1
+    w = t["written_nodes"][0]
+    assert w["node_id"].startswith("SB-N-EVT-")
+    assert "event_sig" in w["refs"] and "rows" in w["refs"]
+    st = NG.node_state(root, w["node_id"])
+    assert st["found"] and st["node"]["point_zero_ref"]
+    assert t["combine"]["combinations"] >= 1
+    assert t["queued_for_him"] == 0 and t["promoted"] == 0
+
+
+def test_the_same_material_reinforces_instead_of_duplicating():
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    A.tick(root, texts=[B_RAIN])
+    t2 = A.tick(root, texts=[B_RAIN])
+    assert t2["written_nodes"] == []
+    assert t2["reinforced"] and t2["reinforced"][0]["support"] == 2
+    assert t2["combine"]["delta_new"] == 0, \
+        "the second tick opens nothing the first did not"
+
+
+def test_the_inbox_cursor_skips_unchanged_and_reprocesses_changed():
+    """Nothing is un-processed by deletion — the hash cursor."""
+    import os as _os
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    p = _os.path.join(A._inbox(root), "note.txt")
+    with open(p, "w") as f:
+        f.write("the king raised the tax so that the wall could be built")
+    t1 = A.tick(root)
+    assert t1["processed"] == ["note.txt"]
+    t2 = A.tick(root)
+    assert t2["arrived"]["inbox_skipped_unchanged"] == ["note.txt"]
+    assert t2["quiet"] is True
+    assert _os.path.exists(p), "the file was never removed"
+    with open(p, "w") as f:
+        f.write("the king lowered the tax so that the people would stay")
+    t3 = A.tick(root)
+    assert t3["processed"] == ["note.txt"], \
+        "a changed file is a superseding reading, processed again"
+
+
+def test_a_deferred_handed_text_is_named_not_lied_about():
+    """The dishonest line the first run caught: 'never dropped' is only true
+    for inbox items. A deferred handed text must be handed again, and the
+    report says so."""
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    texts = ["actor %d did thing %d so that result %d stood" % (i, i, i)
+             for i in range(7)]
+    t = A.tick(root, texts=texts)
+    assert len(t["processed"]) == A.MAX_ITEMS_PER_TICK
+    d = t["deferred_by_budget"]
+    assert len(d["handed"]) == 2 and d["inbox"] == []
+    assert "handed again" in d["handed_note"]
+    assert t["caps"]["cap_note"], "a cap that bites is never silent"
+
+
+def test_a_quiet_daemon_tick_appends_nothing_a_hand_tick_always_does():
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    A.set_mode(root, "SEMI_AUTO")
+    before = len(A.ticks(root))
+    r = A.tick_if_due(root)
+    assert r["quiet"] is True
+    assert len(A.ticks(root)) == before, \
+        "an hourly heartbeat would flood an append-only ledger"
+    h = A.tick(root, by="hand")
+    assert h["quiet"] is True
+    assert len(A.ticks(root)) == before + 1, \
+        "he asked, and 'quiet' is an answer"
+
+
+def test_auto_sustain_feeds_the_last_ticks_own_output_back():
+    """The L4 loop — the only loop whose input is the system's own output.
+    Bounded to one example, and reported."""
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    A.set_mode(root, "AUTO_SUSTAIN")
+    t1 = A.tick(root, texts=[B_RAIN])
+    assert t1["written_nodes"], "the first tick writes"
+    assert t1["arrived"]["feedback_example"] is False, \
+        "nothing to feed back on the first pass"
+    t2 = A.tick(root, texts=[C_T3])
+    assert t2["arrived"]["feedback_example"] is True
+    # and in SEMI_AUTO the same second tick would NOT feed back
+    root2 = _auto_root()
+    A.set_mode(root2, "SEMI_AUTO")
+    A.tick(root2, texts=[B_RAIN])
+    s2 = A.tick(root2, texts=[C_T3])
+    assert s2["arrived"]["feedback_example"] is False
+
+
+def test_a_tick_is_not_a_check():
+    """Maturities decay on checks-without-confirmation — his rule — and a
+    tick checks nothing against the world."""
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    t = A.tick(root, texts=[B_RAIN])
+    assert t["maturities_touched"] == 0
+    assert "not a check" in t["why_no_maturity_moves"]
+
+
+def test_the_tick_cannot_promote_kill_or_grow_the_count():
+    """The gate chart, enforced by absence — the Phase A technique."""
+    import re as _re
+    from sourceborn import autoloop as A
+    src = open("src/sourceborn/autoloop.py").read()
+    code = _re.sub(r'""".*?"""', "", src, flags=_re.S)
+    code = _re.sub(r"#.*", "", code)
+    for forbidden in ("approve(", ".kill(", "growth.add(", "grow(",
+                      "add_many("):
+        assert forbidden not in code, \
+            "a tick may not promote, kill or write his count ledger: " \
+            "found %r" % forbidden
+    g = A.gate()
+    assert "promote" in g["auto_may_not"] and "answer" in g["auto_may_not"]
+    # and a tick report has no answer field at all
+    root = _auto_root()
+    t = A.tick(root, texts=[B_RAIN])
+    assert "answer" not in t, "a tick does not answer"
+    assert t["promoted_can_move_from_here"] is False
+
+
+def test_the_auto_store_is_append_only_structurally():
+    import re as _re
+    src = open("src/sourceborn/autoloop.py").read()
+    code = _re.sub(r'""".*?"""', "", src, flags=_re.S)
+    code = _re.sub(r"#.*", "", code)
+    for forbidden in (".pop(", "os.remove", "os.unlink", "rmtree",
+                      "truncate"):
+        assert forbidden not in code, \
+            "the tick ledger must be append-only: found %r" % forbidden
+
+
+def test_the_daemon_thread_carries_the_tick_in_its_own_try():
+    src = open("src/sourceborn/scheduler.py").read()
+    assert "autoloop.tick_if_due" in src
+    at = src.index("autoloop.tick_if_due")
+    window = src[at - 200:at]
+    assert "try:" in window, \
+        "the tick must run in its own try so neither job can kill the other"
+
+
+def test_the_auto_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/auto"', '"/auto/tick"', '"/auto/mode"'):
+        assert route in src, route
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

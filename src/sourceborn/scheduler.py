@@ -235,11 +235,21 @@ def status(root: str, every_days: int = 7) -> dict:
 
 
 def start_weekly_scheduler(engine, root: str, check_every_s: int = 3600) -> threading.Thread:
-    """Start the daemon loop. Runs once on boot if overdue, then hourly checks."""
+    """Start the daemon loop. Runs once on boot if overdue, then hourly checks.
+
+    Since Phase E the same hourly check also calls the self-sustain tick —
+    in its OWN try, so a tick failure can never kill the weekly pull and a
+    pull failure can never kill the tick. The tick is mode-gated and ships
+    MANUAL: until he lifts the mode it returns without doing anything."""
     def loop() -> None:
         while True:
             try:
                 run_if_due(engine, root)
+            except Exception:
+                pass
+            try:
+                from . import autoloop
+                autoloop.tick_if_due(root)
             except Exception:
                 pass
             time.sleep(check_every_s)

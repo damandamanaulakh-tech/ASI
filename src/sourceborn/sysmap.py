@@ -19,7 +19,9 @@ from __future__ import annotations
 
 def _n():
     """Every count in one place, all of it live."""
+    import os
     from . import artifact as A
+    from . import autoloop as AL
     from . import filemap as F
     from . import growth as G
     from . import human_registry as hr
@@ -49,6 +51,8 @@ def _n():
         "ntypes": len(N.NODE_TYPES), "nfields": len(N.FIELDS),
         "nlinks": len(N.LINK_TYPES), "nfp": N.fingerprint(),
         "nrev": [s["n"] for s in R.STEPS if s["dir"] == R.REVERSE],
+        "amode": AL.mode(os.environ.get("SB_ROOT", ".sourceborn")),
+        "astage": " -> ".join(AL.MODES),
     }
 
 
@@ -220,7 +224,14 @@ def arrow_chart() -> str:
         "     match reinforces, opposition contradicts, both stand ·",
         "     box-6 gates run, THE QUEUE HOLDS until his word",
         "     8 of his 9 loops run; the 9th stops at the queue",
-        "E  self-sustain scheduler             NOT BUILT",
+        "E  self-sustain scheduler        autoloop.py  /auto",
+        "     MODE: %s   (his staging: %s)" % (n["amode"], n["astage"]),
+        "     the hourly daemon calls tick_if_due · MANUAL = it does",
+        "     nothing · a tick: inbox/handed -> runtime -> gated node",
+        "     write -> engine + delta · bounded, every cap reported ·",
+        "     quiet daemon ticks append nothing · in AUTO_SUSTAIN the",
+        "     last tick's own nodes re-enter — the L4 loop, bounded ·",
+        "     a tick may NOT promote, answer, kill, add a parameter",
     ])
     L += _down()
 

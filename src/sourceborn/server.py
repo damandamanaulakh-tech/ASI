@@ -43,6 +43,7 @@ from . import filemap, growing, intent_ledger, intents, selfmake
 from . import artifact
 from . import discovery
 from . import expected
+from . import autoloop
 from . import combine
 from . import maturity
 from . import nodebrain
@@ -1424,6 +1425,13 @@ class Handler(BaseHTTPRequestHandler):
                 {"stats": nodegraph.stats(SB_ROOT),
                  "queue": nodegraph.queue_for_him(SB_ROOT)}).encode(),
                 "application/json")
+        elif path == "/auto":
+            # Phase E — the self-sustain scheduler: mode (MANUAL until his
+            # word), budgets, the gate chart, and the last tick report
+            self._send(200, json.dumps(
+                {"stats": autoloop.stats(SB_ROOT),
+                 "recent_ticks": autoloop.ticks(SB_ROOT)[-5:]}).encode(),
+                "application/json")
         elif path == "/nodes/node":
             st = nodegraph.node_state(SB_ROOT, (qs.get("id") or [""])[0])
             self._send(200 if st["found"] else 404,
@@ -2105,6 +2113,23 @@ class Handler(BaseHTTPRequestHandler):
             except KeyError as e:
                 self._send(404, json.dumps({"error": str(e)}).encode(),
                            "application/json")
+            return
+        if self.path == "/auto/tick":
+            # Phase E — one bounded pass, by hand. Works in any mode; a hand
+            # tick always appends its report, quiet or not.
+            texts = data.get("texts")
+            if isinstance(texts, str):
+                texts = [texts]
+            self._send(200, json.dumps(autoloop.tick(
+                SB_ROOT, texts=texts, by="hand")).encode(),
+                "application/json")
+            return
+        if self.path == "/auto/mode":
+            # HIS switch — Manual Mode Now -> Semi-Auto -> Auto-Sustain
+            # Target. An invalid mode is refused with his three named.
+            r = autoloop.set_mode(SB_ROOT, (data.get("mode") or ""))
+            self._send(200 if r.get("changed") else 400,
+                       json.dumps(r).encode(), "application/json")
             return
         if self.path == "/growing/place":
             # place one example. There is no answer here — only where it sits.

@@ -406,6 +406,66 @@ MAP: list[dict] = [
             "the ninth (Node-Growth) runs up to the queue. /nodes, "
             "/nodes/node, /nodes/path, /nodes/subgraph, POST /nodes/write, "
             "POST /nodes/remember, POST /nodes/recall, POST /nodes/approve."},
+   {"his": "build phase E — the Self-Sustain Scheduler of his sheet, under "
+           "his own staging law: Manual Mode Now -> Semi-Auto -> Auto-Sustain "
+           "Target",
+    "where": [("autoloop.py", "def tick("),
+              ("autoloop.py", "def tick_if_due("),
+              ("autoloop.py", "def set_mode("),
+              ("autoloop.py", "def mode("),
+              ("autoloop.py", "def refs_from_run("),
+              ("autoloop.py", "def _inbox_material("),
+              ("autoloop.py", "def gate("),
+              ("scheduler.py", "autoloop.tick_if_due")],
+    "state": RUNS,
+    "note": "PHASE E — the last phase, and the machinery ships WHOLE with "
+            "the mode at MANUAL: deploying it changes NOTHING until he lifts "
+            "the mode, and lifting it is HIS action (POST /auto/mode), "
+            "recorded as its own append-only row with what it was before. "
+            "His correction is honored exactly — it is STAGED, not a switch. "
+            "THE TICK is one bounded pass of the loop his sheet draws: "
+            "material arrives (handed texts, files dropped in the inbox, or "
+            "— in AUTO_SUSTAIN — the previous tick's own written nodes), "
+            "each item runs the Phase B runtime, autoloop.refs_from_run "
+            "composes the node refs FROM THE RUN'S OWN STEPS (the wiring "
+            "Phase D left stated as open), the node is written through "
+            "Phase D's GATED write site — his five conditions, a refused "
+            "write stays refused — the Phase C engine runs over the tick's "
+            "material and delta() reports what opened against the tick "
+            "before. THE DAEMON THAT ALREADY RUNS drives it: the hourly "
+            "thread that has driven the weekly pull since Phase 1 now also "
+            "calls tick_if_due, each in its OWN try so neither can kill the "
+            "other; in MANUAL tick_if_due returns without doing anything. "
+            "THE FOUR LAWS OF THE TICK, each tested: (1) THE GATE DOES NOT "
+            "MOVE — a tick may seat, link, combine, predict; it may NOT "
+            "promote, answer, kill, add a parameter, or write his count "
+            "ledger, enforced STRUCTURALLY: no approve, no kill, no "
+            "growth.add exists in the module's code and a test reads the "
+            "source; the queue for him fills and promoted cannot move from "
+            "here. (2) BOUNDED, EVERY CAP REPORTED — 5 items and 40 nodes "
+            "per tick; a deferred INBOX file is genuinely picked up next "
+            "tick (the cursor never saw it) while a deferred HANDED text is "
+            "NOT stored and the report says it must be handed again, "
+            "because claiming 'never dropped' for both would be false for "
+            "the second — a dishonest line the first test run caught. (3) "
+            "QUIET IS QUIET — a daemon tick that finds nothing new appends "
+            "nothing (an hourly heartbeat would flood an append-only "
+            "ledger); a HAND tick always appends, because he asked and "
+            "'quiet' is an answer. (4) NOTHING IS UN-PROCESSED BY DELETION "
+            "— inbox files are never removed; the cursor is a fold over "
+            "past reports (name -> content hash); an unchanged file is "
+            "skipped and said so, a CHANGED file is a superseding reading. "
+            "FEEDBACK IS EXACT: in AUTO_SUSTAIN the previous tick's written "
+            "nodes re-enter as ONE prepared example for the engine — the L4 "
+            "loop, the only loop whose input is the system's own output — "
+            "bounded to the last tick, its delta reported, and a feedback "
+            "pass that opens nothing is the loop finding its own quiet. A "
+            "TICK IS NOT A CHECK: maturities decay on checks-without-"
+            "confirmation (his rule) and a tick checks nothing against the "
+            "world, so maturities do not move here — evidence still arrives "
+            "from outside on his word or a caller's verdict. All nine of "
+            "his auto loops now have their trigger; the ninth still stops "
+            "at the queue. /auto, POST /auto/tick, POST /auto/mode."},
    {"his": "build 18 and 23 / it should must have full explanation not just "
            "definition n placeholders",
     "where": [("maturity.py", "def read("),

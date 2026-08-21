@@ -944,6 +944,49 @@ remember · node · path · queue. **Left for E, stated:** nothing calls the
 write site, the linker or the queue on a write or a timer; the runtime does
 not yet compose a node's refs from its own steps.
 
+**PHASE E — THE SELF-SUSTAIN SCHEDULER (2026-08-21) — `autoloop.py`, `/auto`,
+`POST /auto/tick`, `POST /auto/mode`. HIS SHEET'S FIVE PHASES ALL RUN.** His
+order: *"build phase E"*. Canon at
+`docs/method/canon/THE_SELF_SUSTAIN_SCHEDULER.md`. **His staging law is
+honored exactly** — *"Manual Mode Now → Semi-Auto → Auto-Sustain Target"*,
+staged, not a switch: the machinery ships whole and **the mode ships MANUAL**,
+so deploying E changes NOTHING until he lifts it; lifting it is HIS action
+(`POST /auto/mode`), an append-only row carrying what it was before. **A TICK
+is one bounded pass of his loop:** material (handed texts · inbox files · in
+AUTO_SUSTAIN the previous tick's own written nodes) → the Phase B runtime →
+`refs_from_run` composes the node refs FROM THE RUN'S OWN STEPS (the wiring D
+left open) → Phase D's GATED write site (a refused write stays refused; a
+match reinforces) → the Phase C engine + `delta()` against the tick before →
+THE REPORT, which is the product — a tick has no answer field at all. **The
+four laws, each tested: (1) THE GATE DOES NOT MOVE** — no approve, no kill,
+no growth.add exists in the module (source-scan test); the queue fills,
+`promoted` cannot move from here; **(2) BOUNDED, EVERY CAP REPORTED** — 5
+items · 40 nodes per tick; a deferred INBOX file is picked up next tick, a
+deferred HANDED text is NOT stored and the report says "hand it again" —
+**the first test run caught the dishonest line** ("never dropped" was false
+for the handed kind); **(3) QUIET IS QUIET** — a daemon tick finding nothing
+appends nothing (an hourly heartbeat would flood an append-only ledger), a
+HAND tick always appends because he asked and "quiet" is an answer; **(4)
+NOTHING IS UN-PROCESSED BY DELETION** — inbox files are never removed, the
+cursor is a fold over past reports (name → hash), unchanged = skipped and
+said, changed = a superseding reading. **FEEDBACK IS EXACT:** in AUTO_SUSTAIN
+the last tick's written nodes re-enter as ONE prepared example — the L4 loop,
+the only loop whose input is the system's own output — bounded, delta
+reported, quiet when it opens nothing. **A TICK IS NOT A CHECK:** maturities
+decay on checks-without-confirmation (his rule) and a tick checks nothing
+against the world — `maturities_touched: 0` with the reason on every report.
+**THE DAEMON THAT ALREADY RUNS drives it:** the hourly thread from Phase 1
+now also calls `tick_if_due`, each job in its OWN try so neither can kill the
+other; in MANUAL it returns doing nothing, tested. All nine auto loops now
+have their trigger; the ninth still stops at the queue. **347 tests green,
+243 anchors resolve, 0 missing.** Verified live: hand tick wrote
+SB-N-EVT-00001 through the gate, bad mode refused, his switch recorded
+MANUAL→SEMI_AUTO. **Waiting on him, now load-bearing:** the MODE (manual
+until his word); the promotion question (in SEMI_AUTO candidates will
+accumulate at the queue); the five namespace collisions; stage 1 SOURCE LOCK
+(the one PARTIAL — the Phase A fingerprint technique is the shape of the
+fix).
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

@@ -122,9 +122,11 @@ STAGES = (
      "note": "Phase C made availability a FUNCTION: combine.run generates in "
              "rounds until quiet, and combine.delta computes what a newer run "
              "opened that an older could not reach — no longer a by-hand diff "
-             "of generation counts. What remains manual is the TRIGGER: "
-             "nothing calls delta on a write or a timer. That is Phase E, and "
-             "it is the scheduler's gap, not this stage's."},
+             "of generation counts. Phase E built the TRIGGER: the hourly "
+             "daemon calls autoloop.tick_if_due, and every tick runs the "
+             "engine and reports its delta against the tick before. The mode "
+             "ships MANUAL — the daemon drives nothing until he lifts it, "
+             "which is his staging law (Manual Mode Now), not a gap."},
     {"n": 23, "name": "FUTURE EVENT", "does": ["discovery.close",
                                                "discovery.loop"],
      "state": RUNS,
