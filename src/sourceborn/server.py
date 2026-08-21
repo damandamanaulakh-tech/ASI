@@ -43,6 +43,7 @@ from . import filemap, growing, intent_ledger, intents, selfmake
 from . import artifact
 from . import discovery
 from . import expected
+from . import combine
 from . import maturity
 from . import nodebrain
 from . import prior
@@ -1408,6 +1409,13 @@ class Handler(BaseHTTPRequestHandler):
                  "prior": prior.stats(),
                  "reverse_passes": prior.reverse_passes()}).encode(),
                 "application/json")
+        elif path == "/combine":
+            # Phase C — the combination + intent engine: gates, loops owned
+            # and not owned, and the chain every candidate carries
+            self._send(200, json.dumps(
+                {"stats": combine.stats(),
+                 "loops": combine.loops()}).encode(),
+                "application/json")
         elif path == "/maturity":
             # stage 18, and the WEAKEN stage 19 was missing
             self._send(200, json.dumps(
@@ -2009,6 +2017,21 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, json.dumps(rt.run(
                 text, his_end=(data.get("his_end") or "").strip(),
                 name=(data.get("name") or "").strip())).encode(),
+                "application/json")
+            return
+        if self.path == "/combine/run":
+            # Phase C — rounds until quiet over the texts handed in. A report,
+            # never an answer; nothing written; nothing killed.
+            texts = data.get("texts")
+            if isinstance(texts, str):
+                texts = [texts]
+            texts = [t for t in (texts or []) if (t or "").strip()]
+            if not texts:
+                self._send(400, json.dumps({"error": "no texts"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(combine.run(
+                texts=texts, name=(data.get("name") or "").strip())).encode(),
                 "application/json")
             return
         if self.path == "/growing/place":

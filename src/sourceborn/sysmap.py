@@ -207,7 +207,12 @@ def arrow_chart() -> str:
         % "-".join(str(x) for x in n["nrev"]),
         "     2 and 3 were ABSENT — declare the end, descend to the",
         "     prior reality, BEFORE decomposition. answer: None, always",
-        "C  combination + intent engine        NOT BUILT",
+        "C  combination + intent engine   combine.py  /combine",
+        "     rounds until QUIET · cross-role over sets · anchored on",
+        "     a row · one occurrence cannot breed · order ceiling 6",
+        "     every candidate leaves carrying prediction + falsifier",
+        "     + maturity · stage 22 is delta(), computed not by hand",
+        "     owns 2 of his 9 loops (Combination · Intent)",
         "D  memory graph + auto-linking        NOT BUILT",
         "E  self-sustain scheduler             NOT BUILT",
     ])

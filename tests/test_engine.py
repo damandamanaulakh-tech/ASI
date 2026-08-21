@@ -4877,7 +4877,7 @@ def test_the_whole_loop_now_runs_23_of_23():
     from sourceborn import discovery as D
     a = D.audit()
     assert a["absent"] == [], a["absent"]
-    assert a["counts"][D.RUNS] == 20
+    assert a["counts"][D.RUNS] == 21           # 22 joined in Phase C
     r = D.chain(RAIN, "rain")
     assert r["stages_run"] == 23 and r["completed"] is True
     assert r["halted_at"] is None
@@ -4921,7 +4921,7 @@ def test_the_three_absent_stages_and_the_one_that_blocks():
     absent = {a["n"] for a in g["absent_stages"]}
     assert absent == set(), absent             # 12, 18 and 23 are all built
     partial = {p["n"] for p in g["partial_stages"]}
-    assert partial == {1, 5, 22}, partial
+    assert partial == {1, 5}, partial          # 22 moved to RUNS in Phase C
     assert 19 not in partial, "WEAKEN exists now"
     assert g["his_call"]
 
@@ -5226,6 +5226,186 @@ def test_same_person_is_relation_not_dependency():
 def test_the_runtime_routes_are_reachable():
     src = open("src/sourceborn/server.py").read()
     for route in ('"/runtime"', '"/runtime/run"'):
+        assert route in src, route
+
+
+# ---------------------------------------------------------------------------
+# PHASE C — the combination + intent engine.
+# ---------------------------------------------------------------------------
+
+C_T3 = B_RAIN + " and the kids said they felt happy about the rain"
+
+
+def test_the_rain_sentence_yields_exactly_its_own_shape():
+    """One candidate: ACTION on CON-021 met an INFERENCE. Not 240."""
+    from sourceborn import combine as C
+    r = C.run([B_RAIN], name="rain")
+    assert r["counts"]["combinations"] == 1
+    c = r["candidates"][0]
+    assert c["signature"] == "ACTION->CON-021 + INFERENCE->*"
+    assert c["granularity"] == "MIXED"
+    assert "QUIET" in r["stopped_because"]
+    assert r["answer"] is None and r["chosen"] is None
+
+
+def test_nothing_floats_on_structure_alone():
+    """The mall's words reach no row at per-event level, so the engine opens
+    nothing — and reports the anchor rejection instead of hiding it."""
+    from sourceborn import combine as C
+    r = C.run([B_MALL], name="mall")
+    assert r["counts"]["combinations"] == 0
+    assert r["rounds"][0]["rejected_no_anchor"] >= 1
+    for c in r["candidates"]:
+        assert c["granularity"] in ("ROW", "MIXED")
+
+
+def test_one_example_can_never_breed_order_three():
+    """His rule 6 as a structural gate: depth needs recurrence."""
+    from sourceborn import combine as C
+    r = C.run([C_T3], name="three roles once")
+    orders = set(r["counts"]["by_order"])
+    assert orders <= {2}, "one example must stop at pairs"
+    assert all(not c["can_breed"] for c in r["candidates"])
+    blocked = next((rd["blocked_cannot_breed"] for rd in r["rounds"]
+                    if rd["round"] == 2), 0)
+    assert blocked >= 1, "the breeding gate must report what it blocked"
+
+
+def test_recurrence_unlocks_depth():
+    """'once the basic will over it will start making new combinations on
+    new thoughts' — mechanical: the same material twice earns order 3."""
+    from sourceborn import combine as C
+    r = C.run([C_T3, C_T3], name="three roles twice")
+    assert 3 in r["counts"]["by_order"], "support 2 must open order 3"
+    assert "QUIET" in r["stopped_because"], "and the loop still finds its stop"
+
+
+def test_cross_role_holds_over_sets():
+    """No candidate carries the same role twice, at any order."""
+    from sourceborn import combine as C
+    r = C.run([C_T3, C_T3])
+    for c in r["candidates"]:
+        assert len(c["roles"]) == c["order"], c["signature"]
+
+
+def test_every_candidate_leaves_carrying_its_chain():
+    """Prediction, falsifier, maturity — testable the moment it exists. And
+    maturity is fed honestly: co-occurrence is support, not confirmation."""
+    from sourceborn import combine as C
+    r = C.run([C_T3, C_T3])
+    for c in r["candidates"]:
+        preds = c["predictions"]
+        assert preds[0]["class"] == "REPETITION" and preds[0]["discriminating"]
+        assert c["signature"] in preds[0]["would_confirm"]
+        assert preds[-1]["class"] == "ABSENCE" and not preds[-1]["discriminating"]
+        assert c["falsifiable"] and c["falsifier"]
+        assert c["maturity"] == "UNTESTED", \
+            "unchecked reads UNTESTED whatever its support — nobody checked " \
+            "is not it held"
+        assert c["chosen"] is None
+
+
+def test_more_material_more_combinations_more_intents():
+    """His concept, computed: as much parameters we plug, more is generated."""
+    from sourceborn import combine as C
+    small = C.run([C_T3])
+    big = C.run([C_T3, B_RAIN, C_T3])
+    assert big["counts"]["combinations"] >= small["counts"]["combinations"]
+    assert big["counts"]["intent_pairs_unique"] >= \
+        small["counts"]["intent_pairs_unique"]
+    assert big["counts"]["new_parameters_created"] == 0
+    assert big["counts"]["rows_written"] == 0
+
+
+def test_stage_22_is_computed_not_by_hand():
+    from sourceborn import combine as C
+    prev = C.run([B_RAIN])
+    cur = C.run([B_RAIN, C_T3, C_T3])
+    d = C.delta(prev, cur)
+    assert d["stage"] == 22
+    assert d["anything_new"] is True and d["count_new"] >= 1
+    same = C.delta(cur, cur)
+    assert same["anything_new"] is False and same["count_new"] == 0
+    # and the discovery audit now reads 22 as running
+    from sourceborn import discovery as D
+    a = D.audit()
+    r22 = next(r for r in a["rows"] if r["n"] == 22)
+    assert r22["state"] == "RUNS"
+    assert a["counts"]["PARTIAL"] == 2, \
+        "stages 1 and 5 remain PARTIAL — both Phase D's business"
+
+
+def test_evidence_is_handed_in_and_kill_is_on_request_only():
+    from sourceborn import combine as C
+    r = C.run([C_T3, C_T3])
+    c = r["candidates"][0]
+    up = C.check(c, together_again=1)
+    assert up["was"] == "UNTESTED" and up["now"] in ("SUPPORTED", "STRONG")
+    assert up["verdict"] == "RETAIN"
+    down = C.check(c, apart_events=1)
+    assert down["now"] == "WEAKENED" and down["killed"] is False
+    assert "his word" in down["kill_available"]
+    dead = C.check({**c, "support": 1}, apart_events=5, kill=True)
+    assert dead["killed"] is True, "the kill still runs when asked"
+
+
+def test_the_engine_owns_two_loops_and_says_so():
+    from sourceborn import combine as C
+    l = C.loops()
+    assert len(l["his_nine"]) == 9
+    assert l["c_owns"] == ["Combination", "Intent"]
+    waiting = [x for x in l["his_nine"] if "WAITS" in x["state"]
+               or "DEFINED" in x["state"]]
+    assert len(waiting) == 4, "four of his nine are honestly not C's"
+
+
+def test_phase_c_writes_nothing():
+    """The Phase A technique: read the module's own code, docstrings and
+    comments stripped, and prove there is no write path in it."""
+    import re as _re
+    src = open("src/sourceborn/combine.py").read()
+    code = _re.sub(r'""".*?"""', "", src, flags=_re.S)
+    code = _re.sub(r"#.*", "", code)
+    for forbidden in ("growth.add(", "open(", "def tick", "Thread"):
+        assert forbidden not in code, \
+            "Phase C must not write, trigger or schedule: found %r" % forbidden
+
+
+def test_a_cap_that_bites_reports_what_it_dropped():
+    from sourceborn import combine as C
+    r = C.run([C_T3, C_T3], round_cap=2)
+    dropped = sum(rd["dropped_by_round_cap"] for rd in r["rounds"])
+    assert dropped >= 1
+    noted = [rd for rd in r["rounds"] if rd["dropped_by_round_cap"]]
+    assert all(rd["cap_note"] for rd in noted), "no silent caps"
+
+
+def test_the_engine_is_deterministic():
+    from sourceborn import combine as C
+    a = C.run([C_T3, B_RAIN])
+    b = C.run([C_T3, B_RAIN])
+    assert [(c["id"], c["signature"]) for c in a["candidates"]] == \
+           [(c["id"], c["signature"]) for c in b["candidates"]]
+
+
+def test_runtime_step_9_hands_its_seatings_to_the_one_engine():
+    """The runtime's view and the engine's can never drift, because there is
+    one engine — the same rain ask yields the same one candidate both ways."""
+    from sourceborn import combine as C
+    from sourceborn import runtime as R
+    r = R.run(B_RAIN)
+    step9 = next(x for x in r["records"] if x["n"] == 9)["produced"]
+    direct = C.run([B_RAIN])
+    assert [c["signature"] for c in step9["combinations"]] == \
+           [c["signature"] for c in direct["candidates"]]
+    assert step9["stopped_because"] == direct["stopped_because"]
+    assert "combine.run" in next(x for x in r["records"]
+                                 if x["n"] == 9)["owner"]
+
+
+def test_the_combine_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/combine"', '"/combine/run"'):
         assert route in src, route
 
 

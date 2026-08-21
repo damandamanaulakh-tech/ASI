@@ -851,6 +851,51 @@ waiting on him, unchanged:** the promotion policy question (permanent node ID
 on gates alone, or queued for him?) and the five namespace collisions. 302
 tests green, 216 anchors resolve, 0 missing.
 
+**PHASE C — THE COMBINATION + INTENT ENGINE (2026-08-21) — `combine.py`,
+`/combine`, `POST /combine/run`.** His order: *"build phase C"*. Canon at
+`docs/method/canon/THE_COMBINATION_AND_INTENT_ENGINE.md`. His concept is what
+it executes: *"as much parameters we plug, we will generate more pattern and
+intent"* / *"once the basic will over it will start making new combinations on
+new thoughts."* What existed was generation as STEPS (selfmake over the repo —
+pairs only, by hand; runtime step 9 over one ask; intents gated by containers);
+what did NOT exist: **ROUNDS** (a combination could never combine again),
+**a STOP** (nothing said when generating was finished), **the CHAIN** (a
+combination arrived bare), and **stage 22 as a function**. `combine.run`
+generates in rounds until QUIET and states which way it stopped. **Four gates,
+in order:** cross-role over SETS (a new part must bring a role the set does not
+hold — six roles, so order 6 is the structural ceiling); co-occurrence
+(imaginable is not available); **the ANCHOR** (every combination holds ≥1
+ROW-granularity part — a role-event no word reached enters as ONE unanchored
+part, because folding the role's 16-container scaffold in turned one
+two-sentence text into **240 candidates**, the cross-product failure through a
+side door; fixed, his rain sentence now yields **exactly 1**:
+`ACTION->CON-021 + INFERENCE->*`, which IS the rain shape selfmake found); and
+**RECURRENCE TO BREED** (order-2 enters a deeper round only at support ≥ 2 —
+maturity's own RECURRENCE_MIN, his rule 6 — so **one example can never produce
+order 3**, and a test pins it). **Genuinely new against selfmake: it breeds
+order 3+ where support earned it** — his "new thoughts" with the brake built
+in. **Every candidate leaves carrying its chain**: prediction (stage 12; the
+REPETITION row names its own parts so it discriminates by construction),
+falsifier (parts recurring apart while together stays stuck — feeds
+`intent_ledger.kill`), maturity (stage 18) — and maturity is fed honestly:
+co-occurrence is SUPPORT, an input, never a confirmation, so an unchecked
+candidate reads UNTESTED whatever its support. `check()` moves a maturity only
+on verdicts HANDED IN; `kill=False` is the default (his word) and the kill
+still runs when asked. `delta()` is **stage 22 computed** — new signatures,
+deepened support, the intents only the new combinations reach — and the
+discovery audit now reads **21 of 23 RUNS** (stages 1 and 5 the remaining
+PARTIALs, both Phase D's business). `loops()` states which of his NINE auto
+loops C owns (Combination · Intent) and which it does not — four wait for D/E
+and his promotion answer. The engine never writes (a test reads its own source
+— the Phase A technique), never chooses, never caps silently (a cap that bites
+reports what it dropped), and `paths=` runs it on his corpus through
+selfmake's OWN harvest so the two can never disagree. **Runtime step 9 now
+hands its seatings to this ONE engine** — the same rain ask yields the same
+one candidate both ways, tested — and a second defect was caught in building:
+duplicate signatures from two parents burned cap slots; one pool entry per
+signature now. Arrow chart: **A locked · B runs · C runs · D, E NOT BUILT.**
+318 tests green, 223 anchors resolve, 0 missing. Verified live over HTTP.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

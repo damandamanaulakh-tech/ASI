@@ -113,10 +113,13 @@ STAGES = (
     {"n": 21, "name": "MEMORY WRITE", "does": ["growth.add"], "state": RUNS,
      "note": "append-only, 17 typed series, no removal path exists"},
     {"n": 22, "name": "NEW COMBINATION AVAILABILITY",
-     "does": ["selfmake.extend"], "state": PARTIAL,
-     "note": "extend() DOES open new combinations from new material — but only "
-             "when called by hand. A memory write does not trigger it, so the "
-             "loop does not turn on its own."},
+     "does": ["combine.run", "combine.delta", "selfmake.extend"], "state": RUNS,
+     "note": "Phase C made availability a FUNCTION: combine.run generates in "
+             "rounds until quiet, and combine.delta computes what a newer run "
+             "opened that an older could not reach — no longer a by-hand diff "
+             "of generation counts. What remains manual is the TRIGGER: "
+             "nothing calls delta on a write or a timer. That is Phase E, and "
+             "it is the scheduler's gap, not this stage's."},
     {"n": 23, "name": "FUTURE EVENT", "does": ["discovery.close",
                                                "discovery.loop"],
      "state": RUNS,
@@ -260,7 +263,10 @@ def chain(text: str, name: str = "") -> dict:
                   "all_four": MA.verdict(MA.read())["all_four"]})
     step(20, "PATTERN CONTRIBUTION", lambda: {"per_micro_sequence": True})
     step(21, "MEMORY WRITE", lambda: {"append_only": True})
-    step(22, "NEW COMBINATION AVAILABILITY", lambda: {"by_hand_only": True})
+    step(22, "NEW COMBINATION AVAILABILITY",
+         lambda: {"engine": "combine.run — rounds until quiet",
+                  "availability": "combine.delta — computed, not by hand",
+                  "trigger_still_manual": True})
     step(23, "FUTURE EVENT",
          lambda: {"closes_and_may_succeed": True, "reopens": False})
     return {

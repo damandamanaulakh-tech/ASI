@@ -76,9 +76,9 @@ STEPS = (
      "job": "which of his sixteen brain-states the ask itself gives evidence "
             "for. Detected is not chosen"},
     {"n": 9, "name": "Combination Generator", "dir": FORWARD,
-     "owner": "selfmake (criterion) applied to this ask",
-     "job": "arrangements present in THIS ask, and the cross-role pairs among "
-            "them — the same gate that cut 2,627 to 2,119"},
+     "owner": "combine.run — the Phase C engine, scoped to this ask",
+     "job": "the engine's rounds over this ask's arrangements — cross-role, "
+            "anchored, breeding gated on recurrence — with the stop stated"},
     {"n": 10, "name": "Live Intent Generator", "dir": FORWARD,
      "owner": "intents.generate",
      "job": "intent candidates built at runtime from CON-063 × CON-064, gated "
@@ -164,41 +164,8 @@ def detect_states(text: str) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# STEP 9 — the selfmake criterion scoped to one ask: arrangements are the
-# (role -> container) pairs THIS ask seated, a combination is two of them that
-# CROSS ROLE. Same gate, no ledger, no writes.
-# ---------------------------------------------------------------------------
-
-def combinations_in(seatings: list) -> dict:
-    arrs, by_key = [], {}
-    for s in seatings:
-        role = s.get("role")
-        for seat in s.get("seats", []):
-            key = (role, seat["container"])
-            if key not in by_key:
-                by_key[key] = {"role": role, "container": seat["container"],
-                               "support_in_ask": 0}
-                arrs.append(by_key[key])
-            by_key[key]["support_in_ask"] += 1
-    combos, rejected = [], 0
-    for i in range(len(arrs)):
-        for j in range(i + 1, len(arrs)):
-            a, b = arrs[i], arrs[j]
-            if a["role"] == b["role"]:
-                rejected += 1          # the cross-role gate — the one that bites
-                continue
-            combos.append({"a": "%s->%s" % (a["role"], a["container"]),
-                           "b": "%s->%s" % (b["role"], b["container"]),
-                           "crosses_role": True})
-    return {"arrangements": arrs, "combinations": combos,
-            "rejected_same_role": rejected,
-            "gate": "cross-role — the criterion that cut 2,627 to 2,119. "
-                    "Without it this would be a step for nearly every pair, "
-                    "which is not a finding."}
-
-
-# ---------------------------------------------------------------------------
-# THE RUN.
+# THE RUN. (Step 9's combination logic lives in combine.py since Phase C —
+# ONE engine, so the runtime's view and the engine's view can never drift.)
 # ---------------------------------------------------------------------------
 
 def run(text: str, his_end: str = "", root: str = "", write: bool = False,
@@ -325,9 +292,41 @@ def run(text: str, his_end: str = "", root: str = "", write: bool = False,
                                                 "this ask — reported, not "
                                                 "filled in"))
 
-    # 9 — COMBINATION GENERATOR (bounded to this ask)
-    combos = combinations_in(seatings)
-    recs.append(_rec(STEPS[8], "%d seating(s)" % len(seatings), combos, ""))
+    # 9 — COMBINATION GENERATOR — the Phase C engine on this ask's own
+    # arrangements. The seatings from step 5 are handed in so the ask is not
+    # seated a fourth time; a role-event no word anchored enters as ONE
+    # unanchored part, exactly as the engine's own intake does it.
+    from . import combine as CB
+    c_arrs, c_rows = {}, set()
+    for s in seatings:
+        role = s.get("role")
+        if s.get("seats"):
+            for st in s["seats"]:
+                key = (role, st["container"])
+                c_arrs[key] = c_arrs.get(key, 0) + 1
+                c_rows.add(key)
+        else:
+            key = (role, CB.UNANCHORED)
+            c_arrs[key] = c_arrs.get(key, 0) + 1
+    eng = CB.run(prepared=[{"name": name or "the ask",
+                            "arrangements": c_arrs, "row_parts": c_rows,
+                            "events": len(events)}],
+                 name=name or "the ask")
+    combos = {
+        "arrangements": eng["arrangements"],
+        "combinations": [{"id": c["id"], "signature": c["signature"],
+                          "order": c["order"], "support": c["support"],
+                          "granularity": c["granularity"],
+                          "intents_reachable": c["intents"]["count"]}
+                         for c in eng["candidates"]],
+        "rounds": eng["rounds"],
+        "stopped_because": eng["stopped_because"],
+        "counts": eng["counts"],
+        "gate": "cross-role over sets · anchored on a row · one occurrence "
+                "cannot breed",
+    }
+    recs.append(_rec(STEPS[8], "%d seating(s), handed to the engine"
+                     % len(seatings), combos, ""))
 
     # 10 — LIVE INTENT GENERATOR
     top_h = events[-1]["happening"].upper().replace(" ", "_") if events else ""
@@ -465,7 +464,7 @@ def run(text: str, his_end: str = "", root: str = "", write: bool = False,
 
     # 18 — NEXT-SEQUENCE SEED
     closed = D.close({"stages_run": 18},
-                     new_combinations=len(combos["combinations"]),
+                     new_combinations=eng["counts"]["combinations"],
                      maturities=[mat], predictions=preds)
     recs.append(_rec(STEPS[17], "the whole run",
                      {"closed": closed.get("closed", True),
@@ -524,7 +523,7 @@ def annotations() -> list:
         ("steps 2 and 3 reverse before decomposition", "runtime.STEPS"),
         ("a run is a record, never an answer", "runtime.run"),
         ("detected is not chosen", "runtime.detect_states"),
-        ("the cross-role gate scoped to one ask", "runtime.combinations_in"),
+        ("step 9 hands its seatings to the Phase C engine", "runtime.run"),
         ("writeback prepared, gated on his five conditions",
          "runtime.run"),
     ]

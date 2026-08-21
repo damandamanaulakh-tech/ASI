@@ -234,8 +234,7 @@ MAP: list[dict] = [
               ("prior.py", "def ground_check("),
               ("runtime.py", "STEPS = ("),
               ("runtime.py", "def run("),
-              ("runtime.py", "def detect_states("),
-              ("runtime.py", "def combinations_in(")],
+              ("runtime.py", "def detect_states(")],
     "state": RUNS,
     "note": "PHASE B of his sheet. Sixteen of his eighteen steps already "
             "existed as separate modules reached by hand; the two that did NOT "
@@ -273,7 +272,67 @@ MAP: list[dict] = [
             "no origin distance). Detection is not choice: his sixteen packs "
             "are checked for evidence words and chosen stays None. The "
             "combination step runs the same cross-role gate that cut 2,627 to "
-            "2,119, scoped to the ask. /runtime, POST /runtime/run."},
+            "2,119, scoped to the ask (since Phase C it hands its seatings to "
+            "the ONE engine in combine.py, so the runtime's view and the "
+            "engine's can never drift). /runtime, POST /runtime/run."},
+   {"his": "build phase C — the Combination + Intent Engine of his sheet; his "
+           "own concept: 'as much parameters we plug, we will generate more "
+           "pattern and intent' / 'once the basic will over it will start "
+           "making new combinations on new thoughts'",
+    "where": [("combine.py", "def run("),
+              ("combine.py", "def _prepare("),
+              ("combine.py", "def delta("),
+              ("combine.py", "def check("),
+              ("combine.py", "def loops("),
+              ("combine.py", "RECURRENCE_TO_BREED = "),
+              ("combine.py", "def _prediction("),
+              ("combine.py", "def _falsifier(")],
+    "state": RUNS,
+    "note": "PHASE C. What existed was generation as STEPS — selfmake over "
+            "the repo (pairs only), runtime step 9 over one ask, "
+            "intents.generate gated by containers. What did not exist: "
+            "ROUNDS (a combination could never combine again, so 'new "
+            "combinations on new thoughts' had no mechanism), a STOP (nothing "
+            "said when generating was finished), the CHAIN (a combination "
+            "arrived bare), and stage 22 as a function. combine.run generates "
+            "in rounds until QUIET and states which way it stopped. FOUR "
+            "GATES, in order: cross-role over SETS (a new part must bring a "
+            "role the set does not hold — six roles, so order 6 is the "
+            "structural ceiling); CO-OCCURRENCE (all parts together in at "
+            "least one example — imaginable is not available); the ANCHOR "
+            "(every combination must hold at least one ROW-granularity part; "
+            "a role-event no word reached enters as ONE unanchored part, "
+            "because folding the role's 16-container scaffold in once turned "
+            "one two-sentence text into 240 candidates — the cross-product "
+            "failure through a side door, caught and the fix is why his rain "
+            "sentence now yields exactly 1: ACTION on CON-021 met an "
+            "INFERENCE); and RECURRENCE TO BREED (an order-2 candidate "
+            "enters a deeper round only at support >= 2 — maturity's own "
+            "RECURRENCE_MIN, his rule 6 — so one example can NEVER produce "
+            "order 3, and a test pins it). Genuinely new against selfmake: "
+            "selfmake's COMBINATION steps stop at PAIRS; the engine breeds "
+            "order 3+ where support earned it. EVERY candidate leaves "
+            "carrying its chain: prediction (stage 12, the REPETITION row "
+            "names its own parts so it discriminates by construction), "
+            "falsifier (parts recurring apart while together stays stuck — "
+            "feeds intent_ledger.kill), and maturity (stage 18) — and "
+            "maturity is fed honestly: co-occurrence is SUPPORT, an input, "
+            "never a confirmation, so an unchecked candidate reads UNTESTED "
+            "whatever its support. check() moves a maturity only on verdicts "
+            "HANDED IN (together_again confirms the REPETITION prediction; "
+            "apart_events is what the falsifier watches) and kill=False is "
+            "the default — his word. delta() is stage 22 computed: new "
+            "signatures, deepened support, the intents only the new "
+            "combinations reach; the discovery audit now reads 22 RUNS (21 "
+            "of 23, stages 1 and 5 the remaining PARTIALs, both Phase D's "
+            "business). loops() states which of his NINE auto loops C owns "
+            "(Combination, Intent) and which it does not — an engine that "
+            "claimed all nine would be lying about four. The engine never "
+            "writes, never chooses, never kills unbidden, never caps "
+            "silently — a cap that bites reports what it dropped. paths= "
+            "runs it on his corpus through selfmake's OWN harvest so the two "
+            "can never disagree about what a file exhibits. /combine, POST "
+            "/combine/run."},
    {"his": "build 18 and 23 / it should must have full explanation not just "
            "definition n placeholders",
     "where": [("maturity.py", "def read("),
