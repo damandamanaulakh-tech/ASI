@@ -80,6 +80,14 @@ from __future__ import annotations
 
 import json
 import os
+import threading
+
+# One process-wide lock over every mutation. This server answers on threads —
+# the weekly-pull audit lost 7 of 12 concurrent writes to a check-then-write —
+# and node numbering is exactly that shape: load, count, append. Without the
+# lock two concurrent writes mint the same node id. Reentrant, because the
+# write site's reinforcement branch calls remember() while holding it.
+_LOCK = threading.RLock()
 
 # ---------------------------------------------------------------------------
 # THE STORE — one JSONL, typed rows, append-only.
@@ -347,11 +355,8 @@ def autolink(root: str, node_id: str, refs: dict, rows: list) -> dict:
         value = refs.get(key)
         if not value:
             continue
-        if not found["conditions"][cond] and not _find_hub(rows, ntype, key,
-                                                           value):
-            # nothing shares this referent yet — the hub still materializes,
-            # so the NEXT node that shares it links through it
-            pass
+        # the hub materializes even when nothing shares the referent yet,
+        # so the NEXT node that shares it has something to meet at
         hub_id, created = _write_hub(root, rows, ntype, key, value,
                                      point_zero_ref=refs.get("point_zero",
                                                              value))
@@ -388,6 +393,25 @@ def write_node(root: str, node_type: str, point_zero_ref: str, refs: dict,
     An exact existing match is NOT duplicated: the existing node gains a
     support reading instead (his reinforcement rule — support 1 -> 2,
     duplicate_created False)."""
+    from . import nodebrain as NB
+    if (status or "").strip().upper() == NB.ACCEPTED:
+        # a node cannot be BORN accepted. ACCEPTED means it passed the gates
+        # AND he promoted it — the only way in is approve(), his action. A
+        # writer that could mint ACCEPTED directly would be self-promotion
+        # past his word, which the review of this phase's diff caught.
+        return {"written": False, "refused": True,
+                "unmet_conditions": ["born ACCEPTED"],
+                "why": "ACCEPTED arrives only through his approval "
+                       "(approve()). Nothing is born promoted.",
+                "duplicate_created": False}
+    with _LOCK:
+        return _write_node_locked(root, node_type, point_zero_ref, refs, rfr,
+                                  status, maturity_level, proof_debt,
+                                  surfaced_by)
+
+
+def _write_node_locked(root, node_type, point_zero_ref, refs, rfr, status,
+                       maturity_level, proof_debt, surfaced_by) -> dict:
     from . import nodebrain as NB
     rows = load(root)
     refs = dict(refs or {})
@@ -470,17 +494,18 @@ def remember(root: str, node_id: str, kind: str, reading: str,
     if kind not in NB.MEMORY_KINDS:
         raise KeyError("not one of his eleven memory kinds: %s (they are %s)"
                        % (kind, ", ".join(NB.MEMORY_KINDS)))
-    rows = rows if rows is not None else load(root)
-    if not any(r.get("row") == R_NODE and r["node"]["node_id"] == node_id
-               for r in rows):
-        raise KeyError("no such node: %s" % node_id)
-    prior = [r for r in rows if r.get("row") == R_READING
-             and r["node"] == node_id]
-    row = {"row": R_READING, "node": node_id, "n": len(prior) + 1,
-           "kind": kind, "reading": reading,
-           "references": (prior[-1]["n"] if prior else None),
-           "support_delta": support_delta}
-    _append(root, row)
+    with _LOCK:
+        rows = rows if rows is not None else load(root)
+        if not any(r.get("row") == R_NODE and r["node"]["node_id"] == node_id
+                   for r in rows):
+            raise KeyError("no such node: %s" % node_id)
+        prior = [r for r in rows if r.get("row") == R_READING
+                 and r["node"] == node_id]
+        row = {"row": R_READING, "node": node_id, "n": len(prior) + 1,
+               "kind": kind, "reading": reading,
+               "references": (prior[-1]["n"] if prior else None),
+               "support_delta": support_delta}
+        _append(root, row)
     return {"node": node_id, "n": row["n"], "kind": kind,
             "references": row["references"],
             "chain_length": row["n"],
@@ -624,17 +649,18 @@ def queue_for_him(root: str) -> dict:
 def approve(root: str, node_id: str) -> dict:
     """HIS action. The original node row is never rewritten — the approval is
     a new row referencing it, and the fold reads status from the approval."""
-    rows = load(root)
-    st = node_state(root, node_id, rows=rows)
-    if not st["found"]:
-        raise KeyError("no such node: %s" % node_id)
-    row = {"row": R_APPROVAL, "node": node_id, "action": "approve",
-           "by": "him", "status_before": st["status"],
-           "status_after": "ACCEPTED",
-           "references_node_row": node_id}
-    _append(root, row)
-    remember(root, node_id, "GLOBAL_INDEX",
-             "promoted on his word — status %s -> ACCEPTED" % st["status"])
+    with _LOCK:
+        rows = load(root)
+        st = node_state(root, node_id, rows=rows)
+        if not st["found"]:
+            raise KeyError("no such node: %s" % node_id)
+        row = {"row": R_APPROVAL, "node": node_id, "action": "approve",
+               "by": "him", "status_before": st["status"],
+               "status_after": "ACCEPTED",
+               "references_node_row": node_id}
+        _append(root, row)
+        remember(root, node_id, "GLOBAL_INDEX",
+                 "promoted on his word — status %s -> ACCEPTED" % st["status"])
     return {"node": node_id, "status": "ACCEPTED", "by": "him",
             "no_reopen": "the NODE row is untouched; the approval is its own "
                          "row referencing it"}

@@ -105,6 +105,25 @@ growth.py technique) and fails if a removal path is ever added. Nothing is
 rewritten — an approval, a correction, a new reading is a new row referencing
 what it acts on.
 
+## 6b. WHAT THE REVIEW OF THE DIFF CAUGHT, AFTER THE FIRST COMMIT
+
+The standing rule — an independent review of each phase's diff — caught
+three:
+
+* **A writer could mint a node born `ACCEPTED`.** `write_node` took any
+  schema-valid status, and `POST /nodes/write` passes status from the
+  client — self-promotion past his word, one request wide. A node cannot be
+  born promoted: `status=ACCEPTED` is now refused at the write site with the
+  reason, and ACCEPTED arrives only through `approve()`. A test pins it.
+* **A read-modify-write race on node numbering.** This server answers on
+  threads, and the weekly-pull audit already lost 7 of 12 concurrent writes
+  to exactly this shape (load, count, append). Two concurrent writes could
+  mint the same node id. One process-wide reentrant lock now covers every
+  mutation — reentrant because the write site's reinforcement branch calls
+  `remember()` while holding it. A test runs 8 concurrent writes and
+  asserts 8 distinct ids.
+* A dead `if … pass` in the auto-linker, removed.
+
 ## 7. WHAT REMAINS OPEN, STATED
 
 * **Phase E is not built** — nothing calls the write site, the linker or the

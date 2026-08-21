@@ -5664,6 +5664,48 @@ def test_the_node_graph_routes_are_reachable():
         assert route in src, route
 
 
+def test_nothing_is_born_promoted():
+    """The review of this phase's diff caught it: a writer that could mint
+    status ACCEPTED directly would be self-promotion past his word. ACCEPTED
+    arrives only through approve()."""
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    r = NG.write_node(root, "EVENT", "src", {"event_sig": "A"}, rfr=_RFR,
+                      proof_debt=1, status="ACCEPTED")
+    assert r["refused"] and r["unmet_conditions"] == ["born ACCEPTED"]
+    assert "his approval" in r["why"]
+    assert NG.stats(root)["nodes"] == 0
+    assert NG.queue_for_him(root)["promoted"] == 0
+
+
+def test_concurrent_writes_never_mint_the_same_id():
+    """The weekly-pull lesson applied here: node numbering is load-count-
+    append, this server answers on threads, and without the lock two
+    concurrent writes mint one id."""
+    import threading as _th
+    from sourceborn import nodegraph as NG
+    root = _ng_root()
+    ids, errs = [], []
+
+    def w(i):
+        try:
+            r = NG.write_node(root, "EVENT", "src",
+                              {"event_sig": "E%d" % i}, rfr=_RFR,
+                              proof_debt=1)
+            ids.append(r["node_id"])
+        except Exception as e:
+            errs.append(str(e))
+
+    threads = [_th.Thread(target=w, args=(i,)) for i in range(8)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert not errs, errs
+    assert len(ids) == 8 and len(set(ids)) == 8, \
+        "every concurrent write must get its own id: %s" % sorted(ids)
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0
