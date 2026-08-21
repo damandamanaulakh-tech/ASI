@@ -87,6 +87,28 @@ maturities do not move here; the report carries `maturities_touched: 0` with
 the reason. Evidence still arrives from outside, through `check()` and
 `remember()`, on his word or a caller's verdict.
 
+## 5b. WHAT THE REVIEW OF THE DIFF CAUGHT, AFTER THE FIRST COMMIT
+
+The standing rule — an independent review of each phase's diff — caught
+three, all in `autoloop.py`:
+
+* **Name-prefix sniffing.** Handed texts were told apart from inbox files by
+  the `"handed "` name prefix — so an inbox file literally named `handed 1`
+  would have stayed out of the cursor and been reprocessed every tick,
+  forever. Items now carry their KIND, and a test drops exactly that trap
+  file and proves the cursor sees it.
+* **Feedback could anchor its own combinations.** The L4 example's parts
+  arrived row-marked, so the system's own output could satisfy the Phase C
+  anchor gate by itself — the system certifying its own material. Feedback
+  parts are now NEVER row-marked: feedback is CONTAINER-grade memory that
+  can extend a combination but never anchor one; fresh rows from fresh
+  material provide the anchor. A test hands a rowless text beside a feedback
+  example and proves nothing opens.
+* **The granularity merge could downgrade.** `gran.update(gran2)` let a
+  feedback CONTAINER mark overwrite a current-material ROW mark on the same
+  (role, container). ROW wins the merge now — the nodegraph precedence
+  lesson applied here too.
+
 ## 6. WHERE THIS LEAVES HIS SHEET
 
 **All five phases run:** A locked · B runs · C runs · D runs · E runs (mode

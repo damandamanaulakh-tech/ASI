@@ -5894,6 +5894,42 @@ def test_the_auto_routes_are_reachable():
         assert route in src, route
 
 
+def test_an_inbox_file_named_handed_is_still_inbox():
+    """The review caught the first cut sniffing the 'handed ' name prefix:
+    an inbox file literally named 'handed 1' would have stayed out of the
+    cursor and been reprocessed forever. Items carry their KIND now."""
+    import os as _os
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    with open(_os.path.join(A._inbox(root), "handed 1"), "w") as f:
+        f.write("the trap file did a thing so that the cursor would miss it")
+    t1 = A.tick(root)
+    assert t1["processed"] == ["handed 1"]
+    assert t1["processed_inbox"] == [{"name": "handed 1",
+                                      "hash": t1["processed_inbox"][0]["hash"]}]
+    t2 = A.tick(root)
+    assert t2["arrived"]["inbox_skipped_unchanged"] == ["handed 1"], \
+        "the cursor must see it — kind, not name, decides"
+
+
+def test_feedback_never_anchors_its_own_combinations():
+    """The review caught feedback parts arriving row-marked: the system's
+    own output could then anchor combinations by itself — the system
+    certifying its own material. Feedback is CONTAINER-grade memory; only
+    fresh rows anchor."""
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    A.set_mode(root, "AUTO_SUSTAIN")
+    A.tick(root, texts=[B_RAIN])
+    # a second tick whose only material is the feedback example: the mall
+    # text seats no rows, so if feedback could self-anchor, combinations
+    # would appear here — none may
+    t2 = A.tick(root, texts=[B_MALL])
+    assert t2["arrived"]["feedback_example"] is True
+    assert t2["combine"]["combinations"] == 0, \
+        "feedback + rowless material must open nothing — no self-anchoring"
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

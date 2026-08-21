@@ -255,9 +255,15 @@ def tick(root: str, texts=None, by: str = "hand") -> dict:
         n = len(prior_ticks) + 1
         last = prior_ticks[-1] if prior_ticks else None
 
-        handed = [{"name": "handed %d" % (i + 1), "text": t, "hash": _hash(t)}
+        # every item carries its KIND. The first cut sniffed the "handed "
+        # name prefix instead, and an inbox file literally named "handed 1"
+        # would have been kept out of the cursor and reprocessed forever.
+        handed = [{"name": "handed %d" % (i + 1), "text": t,
+                   "hash": _hash(t), "kind": "handed"}
                   for i, t in enumerate(texts or []) if (t or "").strip()]
         inbox_new, inbox_skipped, inbox_unreadable = _inbox_material(root)
+        for it in inbox_new:
+            it["kind"] = "inbox"
 
         # inbox first: a deferred INBOX item is genuinely picked up next tick
         # (the cursor never saw it), while a deferred HANDED text is not
@@ -266,9 +272,9 @@ def tick(root: str, texts=None, by: str = "hand") -> dict:
         material = inbox_new + handed
         overflow = material[MAX_ITEMS_PER_TICK:]
         deferred_inbox = [it["name"] for it in overflow
-                          if not it["name"].startswith("handed ")]
+                          if it["kind"] == "inbox"]
         deferred_handed = [it["name"] for it in overflow
-                           if it["name"].startswith("handed ")]
+                           if it["kind"] == "handed"]
         material = material[:MAX_ITEMS_PER_TICK]
 
         written, reinforced, refused = [], [], []
@@ -305,27 +311,34 @@ def tick(root: str, texts=None, by: str = "hand") -> dict:
                                 "why": "; ".join(w.get("unmet_conditions",
                                                        []))})
 
-        # THE ENGINE, with feedback in AUTO_SUSTAIN — the L4 loop
+        # THE ENGINE, with feedback in AUTO_SUSTAIN — the L4 loop. Feedback
+        # parts are deliberately NEVER row-marked: the graph's own output is
+        # structural memory, and letting it anchor combinations by itself
+        # would be the system certifying its own material — fresh rows from
+        # fresh material provide the anchor, feedback only extends.
         prepared = None
         fed_back = False
         if m == AUTO_SUSTAIN and last and last.get("written_nodes"):
-            arrs, rowp = {}, set()
+            arrs = {}
             for wn in last["written_nodes"]:
                 rf = wn.get("refs", {})
                 role = rf.get("role") or "ACTION"
                 for c in rf.get("containers", []):
                     arrs[(role, c)] = arrs.get((role, c), 0) + 1
-                    if rf.get("rows"):
-                        rowp.add((role, c))
             if arrs:
                 prepared = [{"name": "feedback from tick %d" % last["n"],
-                             "arrangements": arrs, "row_parts": rowp,
+                             "arrangements": arrs, "row_parts": set(),
                              "events": len(last["written_nodes"])}]
                 fed_back = True
         if combine_texts and prepared:
             ex, gran = C._prepare(texts=combine_texts)
             ex2, gran2 = C._prepare(prepared=prepared)
-            gran.update(gran2)
+            # ROW wins the merge — the nodegraph precedence lesson: a
+            # feedback CONTAINER mark must never downgrade a current-material
+            # ROW mark on the same (role, container)
+            for k, v in gran2.items():
+                if gran.get(k) != C.ROW:
+                    gran[k] = v
             eng = C.run(prepared=[{"name": e["name"],
                                    "arrangements": e["arrangements"],
                                    "row_parts": [k for k in e["arrangements"]
@@ -359,8 +372,8 @@ def tick(root: str, texts=None, by: str = "hand") -> dict:
                         "feedback_example": fed_back},
             "processed": [it["name"] for it in material],
             "processed_inbox": [{"name": it["name"], "hash": it["hash"]}
-                                for it in material if "text" in it
-                                and not it["name"].startswith("handed ")],
+                                for it in material
+                                if it["kind"] == "inbox"],
             "deferred_by_budget": {
                 "inbox": deferred_inbox,
                 "handed": deferred_handed,
