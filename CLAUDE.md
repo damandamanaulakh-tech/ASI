@@ -981,11 +981,18 @@ other; in MANUAL it returns doing nothing, tested. All nine auto loops now
 have their trigger; the ninth still stops at the queue. **347 tests green,
 243 anchors resolve, 0 missing.** Verified live: hand tick wrote
 SB-N-EVT-00001 through the gate, bad mode refused, his switch recorded
-MANUAL→SEMI_AUTO. **Waiting on him, now load-bearing:** the MODE (manual
-until his word); the promotion question (in SEMI_AUTO candidates will
-accumulate at the queue); the five namespace collisions; stage 1 SOURCE LOCK
-(the one PARTIAL — the Phase A fingerprint technique is the shape of the
-fix).
+MANUAL→SEMI_AUTO. **HIS WORD CAME (2026-08-21): "switch it to semi auto."**
+Given before this code reached the deployed app, so it is carried as a BOOT
+SEED (`autoloop.seed_his_word`, called at server start): an empty mode log
+comes up SEMI_AUTO citing his words verbatim as the row's provenance; **any
+row he writes outranks the seed forever** (a later MANUAL included), seeding
+twice adds nothing, and both are tested. The server boot line prints the mode.
+Revoking the standing word = removing the seed from the code — his call.
+**Still waiting on him:** AUTO_SUSTAIN (the target state); the promotion
+question — now LIVE, because the daemon runs and candidates will accumulate
+at the queue; the five namespace collisions; stage 1 SOURCE LOCK (the one
+PARTIAL — the Phase A fingerprint technique is the shape of the fix). 351
+tests green.
 
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding

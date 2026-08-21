@@ -5912,6 +5912,37 @@ def test_an_inbox_file_named_handed_is_still_inbox():
         "the cursor must see it — kind, not name, decides"
 
 
+def test_his_word_seeds_semi_auto_across_a_deploy():
+    """He gave the switch order — 'switch it to semi auto', 2026-08-21 —
+    before the Phase E code reached the deployed app. The boot seed carries
+    it: an empty mode log comes up SEMI_AUTO citing his words verbatim."""
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    r = A.seed_his_word(root)
+    assert r["seeded"] is True and A.mode(root) == "SEMI_AUTO"
+    assert r["his_word"] == "switch it to semi auto"
+    rows = [x for x in A._load(A._mode_path(root)) if x.get("row") == "MODE"]
+    assert "'switch it to semi auto'" in rows[-1]["why"]
+    assert rows[-1]["by"] == "him"
+    # seeding twice adds nothing
+    assert A.seed_his_word(root)["seeded"] is False
+    assert len([x for x in A._load(A._mode_path(root))
+                if x.get("row") == "MODE"]) == 1
+
+
+def test_any_row_he_writes_outranks_the_seed_forever():
+    """Including a later return to MANUAL — the seed never argues with a
+    log that speaks."""
+    from sourceborn import autoloop as A
+    root = _auto_root()
+    A.set_mode(root, "MANUAL")
+    r = A.seed_his_word(root)
+    assert r["seeded"] is False and A.mode(root) == "MANUAL"
+    # and the server boots through the seed
+    src = open("src/sourceborn/server.py").read()
+    assert "seed_his_word" in src
+
+
 def test_feedback_never_anchors_its_own_combinations():
     """The review caught feedback parts arriving row-marked: the system's
     own output could then anchor combinations by itself — the system

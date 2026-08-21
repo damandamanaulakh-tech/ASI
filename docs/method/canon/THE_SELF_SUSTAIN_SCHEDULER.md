@@ -116,13 +116,19 @@ MANUAL). All nine auto loops have their trigger; the ninth (Node-Growth)
 still stops at the queue. The discovery audit reads 22 of 23; stage 1 source
 lock remains the one PARTIAL.
 
-## 7. WHAT WAITS ON HIM, UNCHANGED AND NOW LOAD-BEARING
+## 7. WHAT WAITS ON HIM
 
-* **The mode.** MANUAL until his word — `POST /auto/mode`. Semi-auto first
-  is the staging his own sheet names.
-* **The promotion question.** The queue holds; `promoted` stays 0. In
-  SEMI_AUTO and beyond, candidates will accumulate at the queue — his answer
-  decides whether they ever move without him.
+* **The mode — ANSWERED.** His word, 2026-08-21, verbatim: *"switch it to
+  semi auto."* Given before the Phase E code reached the deployed app, so it
+  is carried as a BOOT SEED: an empty mode log comes up SEMI_AUTO with his
+  words as the row's provenance; **any row he writes outranks the seed
+  forever**, including a later return to MANUAL, and seeding twice adds
+  nothing. Revoking the standing word itself means removing the seed from
+  the code — his call. AUTO_SUSTAIN, the target state, still waits on his
+  word.
+* **The promotion question — OPEN, and now live.** The daemon runs in
+  SEMI_AUTO, so candidates passing the gates WILL accumulate at the queue.
+  His answer decides whether they ever move without him.
 * **The five namespace collisions.**
 * **Stage 1 SOURCE LOCK** — still discipline, not a checksum; the Phase A
   fingerprint technique is the shape of the fix, and applying it to raw

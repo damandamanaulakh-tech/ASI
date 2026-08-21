@@ -2541,6 +2541,13 @@ def _maybe_ingest_on_boot() -> None:
 
 def main() -> None:
     _maybe_ingest_on_boot()
+    # his word 2026-08-21 ("switch it to semi auto"): an empty mode log is
+    # seeded SEMI_AUTO with his words as provenance; any row he has written
+    # outranks the seed forever
+    seeded = autoloop.seed_his_word(SB_ROOT)
+    print("self-sustain mode: %s%s"
+          % (autoloop.mode(SB_ROOT),
+             " (seeded on his word)" if seeded.get("seeded") else ""))
     scheduler.start_weekly_scheduler(ENGINE, SB_ROOT)  # auto Monday brain update
     port = int(os.environ.get("PORT", "8000"))
     srv = ThreadingHTTPServer(("0.0.0.0", port), Handler)

@@ -151,7 +151,7 @@ def mode(root: str) -> str:
     return rows[-1]["mode"] if rows else MANUAL
 
 
-def set_mode(root: str, new_mode: str) -> dict:
+def set_mode(root: str, new_mode: str, why: str = "") -> dict:
     """HIS action. Recorded with what it was before — never overwritten."""
     m = (new_mode or "").strip().upper()
     if m not in MODES:
@@ -160,10 +160,43 @@ def set_mode(root: str, new_mode: str) -> dict:
                        % (new_mode, " -> ".join(MODES))}
     with _LOCK:
         prior = mode(root)
-        _append(_mode_path(root), {"row": "MODE", "mode": m, "prior": prior,
-                                   "by": "him"})
+        row = {"row": "MODE", "mode": m, "prior": prior, "by": "him"}
+        if why:
+            row["why"] = why
+        _append(_mode_path(root), row)
     return {"changed": True, "mode": m, "prior": prior, "by": "him",
             "staging": " -> ".join(MODES)}
+
+
+# His word, given 2026-08-21, verbatim. It is quoted rather than paraphrased
+# because rule 3 is preserve raw source, and because this string is the
+# provenance every seeded mode row carries.
+HIS_WORD = "switch it to semi auto"
+HIS_WORD_DATE = "2026-08-21"
+
+
+def seed_his_word(root: str) -> dict:
+    """Carry his standing word across a deploy.
+
+    He gave the switch order before the Phase E code reached the deployed
+    app, so the mode log there will be born empty. This runs at server boot:
+    an EMPTY mode log is seeded SEMI_AUTO carrying his words verbatim as the
+    row's provenance. A NON-EMPTY log is never touched — any row he has
+    written wins over the seed forever, including a later return to MANUAL.
+    Revoking the standing word itself means removing this seed from the
+    code, which is his call to give."""
+    with _LOCK:
+        existing = [r for r in _load(_mode_path(root))
+                    if r.get("row") == "MODE"]
+        if existing:
+            return {"seeded": False, "mode": existing[-1]["mode"],
+                    "why": "the mode log already speaks — his rows outrank "
+                           "the seed"}
+        set_mode(root, SEMI_AUTO,
+                 why="his word, %s: %r — seeded at boot because the mode "
+                     "log was empty" % (HIS_WORD_DATE, HIS_WORD))
+    return {"seeded": True, "mode": SEMI_AUTO,
+            "his_word": HIS_WORD, "date": HIS_WORD_DATE}
 
 
 # ---------------------------------------------------------------------------
