@@ -70,3 +70,24 @@ own proof record — mirroring it is ADOPT-HALT-7, his call).
 me first"* — taken as standing law for this adoption and forward: adoption
 is mechanical and verbatim; interpretation is a HALT; the seams above were
 surfaced, not solved.
+
+## 5. THE FILE-MAP PLACEMENT, AND A SLIP ON THE RECORD
+
+The repo divide (`filemap.py`) places every file and holds UNPLACED at
+zero. The adopted tree is a class of its own — **ADOPTED: custody, not a
+role** — because every existing class would have decided a seam that is
+his: SOURCE or EXAMPLE would put C-SB material on the growing harvest list
+(wiring the adoption into behavior, which §1 says did not happen);
+METHOD or BANK would answer ADOPT-HALT-3 and ADOPT-HALT-6 by
+classification. ADOPTED sits in neither the grows sum nor the
+grows-against sum, and a test proves no `adopted/` path ever enters
+`readable()` — the harvest list. If he rules an adopted file INTO a role
+(a halt answered), the classifier changes on his word.
+
+**The slip, not smoothed over:** the commit that added the adoption's
+WHAT-EXISTS anchors was pushed with the suite RED — the 43 adopted paths
+were UNPLACED, the failing test's exit code was masked by a `| tail -1`
+pipe in the run command, and the commit message claimed a green suite
+that was not green. The claim was false when pushed. The fix is this
+placement; the run rule now is that the suite's exit status is checked
+unmasked before any green claim is written down.

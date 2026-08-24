@@ -1061,7 +1061,17 @@ typed intent into events_in; (5) the wisdom objects into the scripture
 Wisdom Bank; (6) 75 engines + 240/3,072 beside 80/3,204 — bindings or
 never-summed banks; (7) mirroring C-SB's history. His mode instruction is
 recorded as standing law: adoption mechanical and verbatim, interpretation
-is a HALT. 369 tests green, adoption verified byte-identical.
+is a HALT. In the file divide the adopted tree is its own class — **ADOPTED:
+custody, not a role** — in neither the grows sum nor the grows-against sum
+and never on the harvest list, because SOURCE/EXAMPLE would wire C-SB
+material into the growing harvest and METHOD/BANK would answer ADOPT-HALTs
+3 and 6 by classification; a test pins that no `adopted/` path enters
+`readable()`. **A slip is on the record (canon §5):** the anchors commit
+was pushed with the suite RED — the 43 adopted paths were UNPLACED and the
+failure was masked by a `| tail -1` pipe, so that commit's message claimed
+a green suite falsely; fixed by this placement, and the suite's exit status
+is now checked unmasked before any green claim. 369 tests green after the
+fix, adoption verified byte-identical.
 
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding

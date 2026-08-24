@@ -566,7 +566,8 @@ MAP: list[dict] = [
               ("adopted.py", "def custody("),
               ("adopted.py", "def wisdom("),
               ("adopted.py", "def his_examples("),
-              ("adopted.py", "def intent_types(")],
+              ("adopted.py", "def intent_types("),
+              ("filemap.py", "ADOPTED = ")],
     "state": RUNS,
     "note": "THE ADOPTION FROM C-SB, canon at "
             "docs/method/canon/THE_ADOPTION_FROM_C_SB.md. 42 files "
@@ -595,7 +596,11 @@ MAP: list[dict] = [
             "objects into the scripture Wisdom Bank; 75 engines + 240/3,072 "
             "beside 80/3,204; mirroring C-SB's phase-2 history. His mode "
             "instruction is standing law: adoption mechanical and verbatim, "
-            "interpretation is a HALT. /adopted."},
+            "interpretation is a HALT. In the file divide the adopted tree is "
+            "its own class — ADOPTED: custody, not a role — in neither the "
+            "grows sum nor the grows-against sum, never on the harvest list; "
+            "any existing class would have decided a seam that is his. "
+            "/adopted."},
    {"his": "build 18 and 23 / it should must have full explanation not just "
            "definition n placeholders",
     "where": [("maturity.py", "def read("),

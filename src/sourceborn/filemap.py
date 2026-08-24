@@ -32,10 +32,15 @@ So a file is not divided by topic. It is divided by **what it does to the base**
     SYSTEM      the code that does the seating.
     ARTIFACT    a run, a subject the system was pointed at, or an output.
     OPERATIONS  hosting, config, tests, licence — carries no intent to read.
+    ADOPTED     carried byte-identical from the sibling build (C-SB) on his
+                word — held under custody, wired into nothing.
 
 `SOURCE` and `EXAMPLE` are what grow the count. `METHOD` and `BANK` are what they
-grow against. Nothing is dropped and nothing is ranked — a file with no job here
-is reported `UNPLACED`, not deleted and not guessed at.
+grow against. `ADOPTED` is in neither sum — adoption is custody, not a role;
+giving each adopted file a role here is exactly what the ADOPT-HALTs hold for
+his word, so the classifier does not decide it. Nothing is dropped and nothing
+is ranked — a file with no job here is reported `UNPLACED`, not deleted and not
+guessed at.
 
 This module reads the git tree. It does not contain a typed list of 479 names.
 """
@@ -55,9 +60,11 @@ BANK = "BANK"
 SYSTEM = "SYSTEM"
 ARTIFACT = "ARTIFACT"
 OPERATIONS = "OPERATIONS"
+ADOPTED = "ADOPTED"
 UNPLACED = "UNPLACED"
 
-CLASSES = (SOURCE, EXAMPLE, METHOD, BANK, SYSTEM, ARTIFACT, OPERATIONS, UNPLACED)
+CLASSES = (SOURCE, EXAMPLE, METHOD, BANK, SYSTEM, ARTIFACT, OPERATIONS,
+           ADOPTED, UNPLACED)
 
 JOB = {
     SOURCE: "his own words, captured before interpretation. The origin of every "
@@ -72,6 +79,10 @@ JOB = {
     ARTIFACT: "a run, or a subject the system was pointed at. An output, not an "
               "input.",
     OPERATIONS: "hosting, packaging, tests, licence. Carries no intent to read.",
+    ADOPTED: "carried byte-identical from the sibling build (C-SB) on his word. "
+             "Custody-verified, wired into nothing — never harvested, never a "
+             "bank here; which role each file takes is held at the ADOPT-HALTs "
+             "for his word.",
     UNPLACED: "no job established here. Reported, never dropped, never guessed.",
 }
 
@@ -108,7 +119,14 @@ def classify(path: str) -> dict:
     def r(cls, why):
         return {"path": p, "class": cls, "why": why, "job": JOB[cls]}
 
-    # the bank first — it is what everything else seats onto
+    # adopted material first: custody, not a role. Classing it SOURCE/EXAMPLE
+    # would feed it to the harvest; METHOD/BANK would answer his ADOPT-HALTs
+    # by classification. Neither is this side's call.
+    if low.startswith("adopted/"):
+        return r(ADOPTED, "adopted from C-SB byte-identical on his word — held "
+                          "under custody; its role here waits at the ADOPT-HALTs")
+
+    # the bank — it is what everything else seats onto
     if p.endswith(_BANK_FILES) or base in _BANK_MODULES:
         return r(BANK, "the parameter/ID bank itself — his 3,204 named rows")
 
@@ -227,4 +245,6 @@ def annotations() -> list:
         ("divide all files by what they do to the base", "filemap.divide"),
         ("his raw words are SOURCE, never flattened", "filemap.classify"),
         ("a file with no job is reported, never dropped", "filemap.UNPLACED"),
+        ("adopted material is held apart — custody, not a role",
+         "filemap.ADOPTED"),
     ]

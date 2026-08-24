@@ -103,6 +103,8 @@ def arrow_chart() -> str:
         "",
         "SYSTEM %d · ARTIFACT %d · OPERATIONS %d · UNPLACED %d"
         % (b["SYSTEM"], b["ARTIFACT"], b["OPERATIONS"], b["UNPLACED"]),
+        "ADOPTED %d  from C-SB — custody, not a role; never harvested"
+        % b["ADOPTED"],
     ])
     L += _down()
 
@@ -259,7 +261,8 @@ def where(thing: str = "") -> dict:
                        "sign groups, actor roles, origin distance"),
         "the algorithm": ("selfmake.py", "/selfmake",
                           "its own step list, which grows"),
-        "the file divide": ("filemap.py", "/growing", "479 files, 0 unplaced"),
+        "the file divide": ("filemap.py", "/growing",
+                            "every file placed, 0 unplaced; adopted/ held apart"),
         "what exists": ("exists.py", "/exists",
                         "the honest map of what runs and what does not"),
     }

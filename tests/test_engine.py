@@ -4074,6 +4074,15 @@ def test_every_repo_file_is_divided_and_none_is_unplaced():
     assert any(b.endswith("human_registry.json") for b in
                d["classes"][F.BANK]["files"])
     assert F.PHASE == "GROWING"
+    # adopted material is custody, not a role: its own class, in neither sum,
+    # and NEVER on the harvest list — the adoption stays un-wired
+    adopted = d["classes"][F.ADOPTED]["files"]
+    assert len(adopted) == 43, adopted  # 42 files + the custody manifest
+    assert all(a.startswith("adopted/") for a in adopted)
+    assert F.ADOPTED not in d["what_grows_the_count"]["which"]
+    assert F.ADOPTED not in d["what_it_grows_against"]["which"]
+    assert not any(p.startswith("adopted/") for p in F.readable(".")), \
+        "an adopted file entered the growing harvest"
 
 
 def test_the_basic_being_over_is_his_call_not_a_threshold():
