@@ -74,3 +74,57 @@ his 1-10-8-40, his filters, his sequences, his words. The face of the
 machine has to be grown the same way the core was — from his frame — not
 copied from how software usually looks. That standard is now written down
 where I re-read it every session.
+
+---
+
+## 5. THE RUN — his demand: "show me ur routine answer ... and with my way"
+
+Run 2026-08-24, on his teaching verbatim.
+
+**ROUTINE (growing.place):** 4 events (all defaulted to ACTION — the 79.6%
+bias), **3 rows seated**: P1795 Success-criteria setting · P0717 Plan
+updating on new info · **P0921 Efference-copy generation — a word
+coincidence** ("copy" reached a motor-control row on a social teaching).
+
+**HIS WAY (the Samrath/mall row matcher):** **55 exact rows — 28
+SOURCE-GROUNDED · 17 INFERRED · 10 HELD OPEN — across 15 containers, 6
+segments.** The load-bearing ones: P1684 Correlation-vs-causation (the guard
+against "their steps caused their success"), P1695 Counterfactual
+construction + P1699 But-for reasoning (the copy that fails), P1776
+Reframing (his flip IS a reframe), P2059 Mental-model updating, P2524
+Intention-vs-motive separation, P2525 Stated motive, P2564 Motive-inference
+confidence.
+
+**WHAT NEITHER PATH REACHED — and the bank already holds:** the six rows the
+teaching is literally about. **P0885 Direct imitation · P0886 Delayed
+imitation · P0887 Emulation (goal copying)** (CON-023, Imitation) — his
+"they try to copy". **P2451 Self-efficacy** (CON-062) — "if they can i will
+too" IS self-efficacy by another name. **P2625 Ideal self** (CON-066) — the
+role-model axis. **P0597 Body-comparison (social)**. Both matchers key on
+surface words; the teaching says "copy" and the bank says "imitation", and
+no lexical bridge exists. **Row-level seating precision remains the open
+part, and this run is its sharpest evidence yet.**
+
+**THE COMPARISON HE NAMED ("what random is happening vs what supposed to
+be"):** his ACTUAL branch (people copy → fail; habitual present = a source
+generalization) against his SUPPOSED branch ("We should take..." = his
+stated norm). `micro.decompose` did NOT detect this expectation difference —
+its markers are the older relation vocabulary — reported as a gap, not
+smoothed over. `claims.success_story_stance` DOES fire: his sentence
+resolves POSSIBILITY, because "instead" is the choice.
+
+**NEW CORNERS RAISED (candidates, his call):**
+* PC — THE COPY LOOP: see promoted story → read as template → copy → fail →
+  (next story). Described in his words, support 1 as description; observed
+  support 0. A pattern DESCRIBED is a claim about the world's recurrence,
+  not yet a pattern of his asks.
+* PC — RANDOM-VS-SUPPOSED: the actual/normative divergence as its own
+  comparison axis — what happens vs what he says should happen, never
+  averaged.
+* CANDIDATE — a lexical bridge row-family linking copy/imitate/emulate
+  vocabulary to CON-023, so the imitation rows become reachable by the words
+  people actually use.
+
+**FED TO THE LIVE MACHINE:** EXAMPLE `SB-EX-00001` + 4 EVENT + 4 INTENT rows
+(the live count rose by 9), node `SB-N-EVT-00001` written through the
+five-condition gate with 2 links. The ASI did something, on the record.
