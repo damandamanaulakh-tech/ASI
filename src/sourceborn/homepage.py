@@ -367,7 +367,7 @@ function paintCells(){
 function firePulse(){pulseAt=t;if(still)draw();
   document.querySelectorAll("[data-sel]").forEach(el=>{
     el.classList.remove("pulse");void el.offsetWidth;el.classList.add("pulse");});}
-async function selectCon(id){
+async function selectCon(id,focusName){
   SELCON=id;paintCells();
   $("contag").hidden=false;$("contag").textContent=id+" · selected";
   try{
@@ -386,8 +386,11 @@ async function selectCon(id){
       d.innerHTML='<span>'+esc(nm)+' <button class=re title="correct this — your words, as a write-back">✎</button></span>'+
         '<span class=rp>P'+String(start+i).padStart(4,"0")+'</span>';
       d.querySelector(".re").onclick=()=>editRow(d,id,"P"+String(start+i).padStart(4,"0"),nm);
-      rows.appendChild(d);});
-    $("wbline").textContent="";
+      rows.appendChild(d);
+      if(focusName&&String(nm).toLowerCase()===focusName.toLowerCase()){
+        editRow(d,id,"P"+String(start+i).padStart(4,"0"),nm);
+        d.scrollIntoView({block:"nearest"});}
+    });
   }catch(e){$("wbline").textContent="could not open "+id+": "+e.message;}
   firePulse();
 }
@@ -402,8 +405,11 @@ function editRow(div,con,pid,was){
     if(!now||now===was){selectCon(con);return;}
     try{
       const r=await post("/growth/correct",{target:pid,was:was,now:now});
+      /* re-render FIRST, then show the receipt — the first cut set the line
+         and immediately wiped it by re-rendering, so his recording receipt
+         was never visible. Caught in the review of this diff. */
+      await selectCon(con);
       $("wbline").textContent="→ recorded as "+r.id+" · references "+pid+" · the source row stays whole · NO REOPEN";
-      selectCon(con);
     }catch(err){$("wbline").textContent="refused: "+err.message;}
   };
 }
@@ -411,7 +417,14 @@ document.addEventListener("click",e=>{
   const cell=e.target.closest("#bank [data-con]");
   if(cell){selectCon(cell.dataset.con);return;}
   const chip=e.target.closest(".chip[data-con]");
-  if(chip&&!e.target.closest(".edit")){selectCon(chip.dataset.con);return;}
+  if(chip){
+    if(e.target.closest(".edit")&&chip.dataset.row){
+      /* his ruling made whole: the chip's pencil opens the container with
+         that row already in edit */
+      selectCon(chip.dataset.con,chip.dataset.row);
+      $("opencon").scrollIntoView({behavior:"smooth",block:"nearest"});
+      return;}
+    selectCon(chip.dataset.con);return;}
   if(e.target.closest("[data-sel]"))firePulse();
 });
 
@@ -458,7 +471,7 @@ async function ask(){
       const pnum=parseInt(String(s.sb_id).replace(/\D/g,""),10);
       LITROWS.push({p:pnum,sb_id:s.sb_id,name:s.name,container:s.container});
       LITCONS.add(s.container);
-      chips.push('<span class="chip lit" data-con="'+esc(s.container)+'"><span class=pid>'+esc(s.sb_id.replace("SB-HFR-",""))+'</span> '+esc(s.name)+"</span>");});
+      chips.push('<span class="chip lit" data-con="'+esc(s.container)+'" data-row="'+esc(s.name)+'"><span class=pid>'+esc(s.sb_id.replace("SB-HFR-",""))+'</span> '+esc(s.name)+' <button class=edit title="correct this row — your words, as a write-back">✎</button></span>');});
     (pl.events||[]).slice(0,1).forEach(ev=>{
       (ev.intent&&ev.intent.seats_on||[]).forEach(cid=>{LITCONS.add(cid);
         chips.push('<span class=chip data-con="'+esc(cid)+'"><span class=pid>'+esc(cid)+'</span> the intent slot — open, never absent</span>');});});
