@@ -5972,6 +5972,119 @@ def test_a_correction_is_a_write_back_never_a_rewrite():
     assert '"/growth/correct"' in src
 
 
+def test_his_success_story_stance_is_mechanical():
+    """His teaching of 2026-08-24, filed under 'failure -': take the success
+    stories 'if they can i will too' instead 'i will also do the same'."""
+    from sourceborn import claims as C
+    his = ('there is new trading, promoting the success stories, they try to '
+           'copy and failed, they built something there own. We should take '
+           'the success stories "if they can i will too" instead "i will '
+           'also do the same"')
+    r = C.success_story_stance(his)
+    assert r["stance"].startswith("POSSIBILITY"), \
+        "his own sentence carries both phrasings, and 'instead' IS the choice"
+    copy = C.success_story_stance(
+        "He made millions in trading and I will also do the same")
+    assert copy["stance"].startswith("TEMPLATE COPY")
+    assert copy["conclusion_allowed"] is False
+    assert "built something their own" in copy["why_the_copy_fails"]
+    assert len(copy["what_was_theirs"]) == 5, \
+        "the judgment gate's hidden layers are what the copier never sees"
+    poss = C.success_story_stance(
+        "Her success story tells me: if they can, i will too — my own way")
+    assert poss["stance"].startswith("POSSIBILITY")
+    assert poss["conclusion_allowed"] is True
+    unstated = C.success_story_stance(
+        "his success story is everywhere these days")
+    assert unstated["stance"].startswith("STANCE UNSTATED")
+    assert unstated["conclusion_allowed"] is False, \
+        "an unstated stance is held open, never chosen for him"
+    none = C.success_story_stance("the weather was nice today")
+    assert none["success_story_present"] is False
+
+
+def test_the_stance_refuses_the_conclusion_never_the_person():
+    from sourceborn import claims as C
+    r = C.success_story_stance("I saw his success story and will do the same")
+    assert "never the human" in C.success_story_stance.__doc__
+    assert "do the same and you will succeed" in r["refuses"]
+    assert r["extends"].startswith("DO_NOT_JUDGE_THE_VISIBLE_THING")
+
+
+def test_the_bridge_carries_meaning_across_the_word_gap():
+    """Built on his word. The run on his failure teaching showed the bank
+    already held the exact rows it is about — and both matchers missed all
+    of them, because the teaching says 'copy' and the bank says
+    'imitation'. The bridge is the carrier."""
+    from sourceborn import bridge as BR
+    HIS = ('they try to copy and failed, We have to understand they built '
+           'something there own, how someone can re do the same. We should '
+           'take the success stories "if they can i will too" instead '
+           '"i will also do the same"')
+    rows = BR.rows_via(HIS)
+    ids = {r["sb_id"] for r in rows}
+    assert {"SB-HFR-P0885", "SB-HFR-P0886", "SB-HFR-P0887",
+            "SB-HFR-P2451"} <= ids
+    for r in rows:
+        assert r["via_bridge"] and r["phrase"] and r["taught_by"], \
+            "every bridged row names the bridge, the phrase and the teaching"
+        assert r["band"] == "TAUGHT"
+    assert rows[0]["name"] == "Direct imitation", "the real row name"
+
+
+def test_both_readings_are_always_kept():
+    """A bridged seat never merges silently into the direct seats — the
+    senses.py law applied to vocabulary."""
+    from sourceborn import growing as G
+    HIS = 'they try to copy and failed'
+    s = G.seat(HIS, limit=12)
+    assert "bridged" in s and s["bridged"], "the taught reading exists"
+    direct = {x["sb_id"] for x in s["seats"]}
+    taught = {x["sb_id"] for x in s["bridged"]}
+    assert not (direct & taught), "never merged"
+    p = G.place(HIS, name="bridge test")
+    via = [x for x in p["strengthened"] if x.get("via_bridge")]
+    assert via, "place folds bridged rows in, MARKED"
+    assert all(x["via_bridge"].startswith("BR-") for x in via)
+    s2 = G.seat("the king raised the tax", limit=6)
+    assert s2["bridged"] == [], "no bridge words, no bridged rows"
+
+
+def test_the_bridge_is_whole_word_and_longest_first():
+    """The semantic_loss lesson: 'productive' must never fire
+    'Reproductive'. And his full phrase wins before any fragment."""
+    from sourceborn import bridge as BR
+    assert BR.match("photocopying machines are loud") == [], \
+        "'photocopying' must not fire the copy bridge"
+    m = BR.match("if they can i will too")
+    assert [x["bridge"] for x in m] == ["BR-002"]
+    assert m[0]["phrase"] == "if they can i will too", "longest phrase wins"
+
+
+def test_the_absence_is_refused_a_wrong_bridge():
+    """His teaching carries social comparison; the bank holds no general
+    row for it, and P0597 is BODY-comparison — a different thing. Bridging
+    to the wrong row would be the word-coincidence failure through another
+    door, so it is refused and reported."""
+    from sourceborn import bridge as BR
+    a = BR.KNOWN_ABSENCE
+    assert "social comparison" in a["concept"]
+    assert "NOT bridged" in a["nearest_row"]
+    assert a["his_call"]
+    for b in BR.SEEDED:
+        assert "SB-HFR-P0597" not in b["targets"]
+
+
+def test_every_seeded_bridge_carries_his_approval():
+    from sourceborn import bridge as BR
+    from sourceborn import growth as G
+    for b in BR.SEEDED:
+        assert b["taught_by"].startswith("his failure teaching")
+        assert "his word" in b["approved"]
+    assert "BRIDGE" in G.SERIES and G.SERIES["BRIDGE"] == "SB-BR-%03d", \
+        "future bridges arrive through the ledger, append-only"
+
+
 def test_the_hud_and_bank_routes_are_reachable():
     src = open("src/sourceborn/server.py").read()
     for route in ('"/api/hud"', '"/api/bank"'):

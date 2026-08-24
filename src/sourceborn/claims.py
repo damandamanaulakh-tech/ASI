@@ -308,3 +308,111 @@ def stats() -> dict:
             "his_patterns": len(HIS_PATTERNS),
             "checked_by_him": sum(1 for p in HIS_PATTERNS
                                   if p["his_mark"] == "checked")}
+
+
+# ---------------------------------------------------------------------------
+# THE SUCCESS-STORY STANCE — his teaching of 2026-08-24, filed under
+# "failure -", canon at docs/method/canon/IF_THEY_CAN_I_WILL_TOO.md:
+#
+#     "they try to copy and failed / We have to understand they built
+#      something there own, how someone can re do the same. / We should take
+#      the success stories 'if they can i will too' instead 'i will also do
+#      the same'"
+#
+# This is the second half of the rice/MBA law. That one forbids JUDGING the
+# visible thing as proof of the system behind it; this one forbids USING the
+# visible thing as a template for action. What survives a success story is
+# exactly one thing: the possibility proof.
+# ---------------------------------------------------------------------------
+
+POSSIBILITY = "POSSIBILITY — his stance: 'if they can i will too'"
+TEMPLATE_COPY = "TEMPLATE COPY — refused as a conclusion: 'i will also do " \
+                "the same'"
+STANCE_OPEN = "STANCE UNSTATED — both readings held, neither chosen"
+
+# what the copier never sees — the judgment gate's own hidden layers
+THEIRS_NON_COPYABLE = (
+    "their system (built as their own)",
+    "their capabilities",
+    "their inputs and context",
+    "their execution and sequence",
+    "their timing and luck — the alternative explanations",
+)
+
+_STORY_RE = re.compile(
+    r"\b(success stor(?:y|ies)|made it|made millions?|became rich|"
+    r"millionaire|built an? empire|cracked it|their success|his success|"
+    r"her success|got rich|winning stor)", re.I)
+
+_COPY_RE = re.compile(
+    r"\b(do the same|copy(?:ing)? (?:them|him|her|it|that)|same steps|"
+    r"follow(?:ing)? (?:their|his|her) (?:steps|path|method|exact)|"
+    r"repeat what|re[- ]?do the same|also do the same|exactly (?:what|like)"
+    r" (?:they|he|she))\b", re.I)
+
+_POSS_RE = re.compile(
+    r"\b(if they can|if he can|if she can|i will too|so can i|"
+    r"my own (?:way|thing|path)|possible for me|it is possible)\b", re.I)
+
+
+def success_story_stance(text: str) -> dict:
+    """Read material carrying a success story for its STANCE.
+
+    Nothing here judges the person — the machine refuses the CONCLUSION
+    'do the same and succeed', never the human holding it. An unstated
+    stance is held open with both readings shown, because two readings are
+    never collapsed."""
+    low = text or ""
+    story = _STORY_RE.search(low)
+    copy_m = _COPY_RE.search(low)
+    poss_m = _POSS_RE.search(low)
+    if not story:
+        return {"success_story_present": False,
+                "why": "no success story is named in this material"}
+    if copy_m and not poss_m:
+        stance = TEMPLATE_COPY
+    elif poss_m and not copy_m:
+        stance = POSSIBILITY
+    elif poss_m and copy_m and re.search(r"\binstead\b", low, re.I):
+        # both phrasings with an "instead" between them is not an unstated
+        # stance — it is the FLIP itself, his teaching's own sentence: the
+        # possibility reading chosen, the copy reading named to be refused
+        stance = POSSIBILITY
+    else:
+        stance = STANCE_OPEN
+    out = {
+        "success_story_present": True,
+        "story_marker": story.group(0),
+        "stance": stance,
+        "markers": {"copy": copy_m.group(0) if copy_m else None,
+                    "possibility": poss_m.group(0) if poss_m else None},
+        "what_was_theirs": list(THEIRS_NON_COPYABLE),
+        "what_transfers": "the possibility proof — it is possible for a "
+                          "human. Nothing else in the story is a method.",
+        "his_flip": "take the success stories 'if they can i will too' "
+                    "instead 'i will also do the same'",
+        "why_the_copy_fails": "they built something their own. The visible "
+                              "success compresses the system, inputs and "
+                              "sequence away — re-doing 'the same' re-does "
+                              "only the surface, and the surface was never "
+                              "the cause.",
+        "failure_reread": "under the copy stance a failure is mis-read as "
+                          "the person's verdict. Their success and this "
+                          "path are two different sequences — the "
+                          "comparison was never valid.",
+        "extends": "DO_NOT_JUDGE_THE_VISIBLE_THING — same law, both "
+                   "directions: the visible thing is neither proof nor "
+                   "template.",
+    }
+    if stance == TEMPLATE_COPY:
+        out["conclusion_allowed"] = False
+        out["refuses"] = "'do the same and you will succeed' can never "\
+                         "stand as this machine's conclusion."
+    elif stance == POSSIBILITY:
+        out["conclusion_allowed"] = True
+        out["kept_as"] = "his stance, applied."
+    else:
+        out["conclusion_allowed"] = False
+        out["held_open"] = "the stance is not stated; both readings are "\
+                           "shown and neither is chosen for him."
+    return out

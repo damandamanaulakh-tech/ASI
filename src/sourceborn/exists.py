@@ -507,6 +507,56 @@ MAP: list[dict] = [
             "— the registry document is NEVER rewritten, and a test proves "
             "the source row stays whole. /, /desk, /api/hud, /api/bank, "
             "POST /growth/correct."},
+   {"his": "failure - ... they try to copy and failed / they built something "
+           "there own, how someone can re do the same / We should take the "
+           "success stories 'if they can i will too' instead 'i will also do "
+           "the same'",
+    "where": [("claims.py", "def success_story_stance("),
+              ("claims.py", "THEIRS_NON_COPYABLE = "),
+              ("bridge.py", "SEEDED = ("),
+              ("bridge.py", "def match("),
+              ("bridge.py", "def rows_via("),
+              ("bridge.py", "KNOWN_ABSENCE = "),
+              ("growing.py", "bridged = BR.rows_via(text)"),
+              ("growth.py", "BRIDGE = ")],
+    "state": RUNS,
+    "note": "His teaching of 2026-08-24, canon at "
+            "docs/method/canon/IF_THEY_CAN_I_WILL_TOO.md — the second half of "
+            "the rice/MBA law: that one forbids JUDGING the visible thing as "
+            "proof of the system behind it, this one forbids USING it as a "
+            "template for action. success_story_stance() reads material "
+            "carrying a success story for its stance: TEMPLATE COPY ('i will "
+            "also do the same') can never stand as this machine's conclusion "
+            "and comes back carrying what was THEIRS (the judgment gate's own "
+            "hidden layers — system, capabilities, inputs, execution, timing "
+            "— exactly what the copier never sees), what TRANSFERS (the "
+            "possibility proof, nothing else), and his flip verbatim; "
+            "POSSIBILITY ('if they can i will too') is his stance, kept; an "
+            "UNSTATED stance is held open with both readings shown and "
+            "neither chosen. His own teaching sentence carries both phrasings "
+            "and resolves to POSSIBILITY because 'instead' IS the choice — "
+            "tested. The machine refuses the CONCLUSION, never the person. "
+            "His 'failure' re-read: their success and this path are two "
+            "different sequences, so the comparison was never valid and its "
+            "failure is not a verdict on the person. ON HIS WORD ('build the "
+            "bridge and approve all three') THE BRIDGE IS BUILT: bridge.py — "
+            "taught vocabulary, never an imported dictionary; three seeds "
+            "each carrying his approval (BR-001 copy/imitate -> CON-023 "
+            "Imitation P0885-87; BR-002 'if they can i will too' -> P2451 "
+            "Self-efficacy; BR-003 role-model -> P2625 Ideal self); wired "
+            "into growing.seat with BOTH READINGS ALWAYS KEPT (bridged rows "
+            "in their own list, never merged into direct seats; place() "
+            "marks them via_bridge with the firing phrase); whole-word and "
+            "longest-phrase-first matching; a bridge may cross the role gate "
+            "with the reason stated. The routine reading of his teaching "
+            "moved 3 rows -> 7. The absence (social comparison, general) is "
+            "REFUSED a wrong bridge — P0597 is BODY-comparison — and stands "
+            "as his call. Approvals on the live ledger: SB-PAT-001 THE COPY "
+            "LOOP, SB-AXIS-001 RANDOM-VS-SUPPOSED; the BRIDGE series "
+            "(SB-BR-%03d) is new for future taught bridges. Open wiring, "
+            "stated: the runtime's step-5 seating and the combine engine "
+            "consume direct seats only — bridged rows do not yet enter "
+            "arrangements."},
    {"his": "build 18 and 23 / it should must have full explanation not just "
            "definition n placeholders",
     "where": [("maturity.py", "def read("),
