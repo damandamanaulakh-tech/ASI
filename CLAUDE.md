@@ -994,6 +994,34 @@ at the queue; the five namespace collisions; stage 1 SOURCE LOCK (the one
 PARTIAL — the Phase A fingerprint technique is the shape of the fix). 351
 tests green.
 
+**THE GLASS REACTOR — HIS HOME PAGE (2026-08-24) — `homepage.py`, `/` (old
+dashboard kept whole at `/desk`).** After PR #41 merged and his word put the
+live app in SEMI_AUTO, he ordered the web page changed and rejected the first
+three mockups: *"i dont want black back ground / the web should have all
+3000+ para, algo which it use / and transparent so i can see which is linked
+where or under the each answer it should show and must be editable so i can
+change / we are building ASI ... did u saw how iron man do with his AI suit"*.
+Two samples (THE REACTOR / THE OPEN LEDGER) were shown, he chose the blend
+("something which have both A & B"), caught the missing ask box ("where is
+the ask tab"), and said *"build it as the new home page."* Built: a luminous
+LIGHT page (no black anywhere) with **the whole bank drawn live** — one point
+per parameter from `/api/bank`, real counts including the two 42-row
+containers, each container carrying its flat P start so a seated row lights
+its EXACT point (Standing balance = 801+34 = P0835, his rain seat, tested).
+**THE ASK heads the panel** and calls the same `POST /ask` the engine page
+uses plus `/growing/place` and `/runtime/run` — three views of ONE ask, never
+a second engine, `Promise.allSettled` so one dead view cannot kill the rest.
+**Under each answer:** its own tags, the parameter chips in his row names,
+the seven filters folded across all 70 nodes (HALTs amber), the eighteen
+steps with reverse marked ⟲. **One selection, three views:** touching a
+container anywhere lights the reactor arc, the chip and the strip cell
+together, rows opening from `/registry/container`. **Editable by his law:**
+the pencil takes his words to `POST /growth/correct` → a CORRECTION row (new
+growth series `SB-CORR-%04d`) carrying target/was/now — the registry document
+is never rewritten and a test proves the source row stays whole. HUD figures
+all live from `/api/hud`, none typed into markup. 357 tests green, all routes
+verified live over HTTP.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

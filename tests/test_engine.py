@@ -5894,6 +5894,94 @@ def test_the_auto_routes_are_reachable():
         assert route in src, route
 
 
+# ---------------------------------------------------------------------------
+# THE GLASS REACTOR — the home page, on his word.
+# ---------------------------------------------------------------------------
+
+def test_the_reactor_is_the_home_page_and_the_desk_survives():
+    """His word made it the home page; nothing is removed — the old
+    dashboard lives whole at /desk."""
+    from sourceborn import homepage
+    src = open("src/sourceborn/server.py").read()
+    assert "homepage.PAGE" in src
+    at = src.index('path in ("/", "/index.html")')
+    assert "homepage.PAGE" in src[at:at + 400], "/ serves the reactor"
+    assert '"/desk"' in src, "the old dashboard is kept, never deleted"
+    assert 'href="/desk"' in homepage.PAGE, "the reactor links back to it"
+
+
+def test_no_black_background_his_ruling():
+    """'i dont want black back ground' — the reactor lives on light."""
+    from sourceborn import homepage
+    p = homepage.PAGE
+    assert "#070809" not in p and "#000" not in p.replace("#0000", "")
+    assert "--ground:#f2f6fb" in p, "the luminous ground is the ground"
+
+
+def test_the_ask_tab_is_on_the_home_page_and_wired_to_one_engine():
+    """His catch on the sample — 'where is the ask tab'. It is the panel's
+    head, and it calls the SAME engine the /engine page calls, plus the
+    seating and the runtime — three views of one ask, never a second
+    engine."""
+    from sourceborn import homepage
+    p = homepage.PAGE
+    assert "<textarea id=q" in p, "the ask box exists"
+    for wire in ('post("/ask"', 'post("/growing/place"',
+                 'post("/runtime/run"'):
+        assert wire in p, wire
+    assert "Promise.allSettled" in p, \
+        "one unreachable view must not kill the others"
+
+
+def test_the_bank_structure_lights_exact_points():
+    """/api/bank carries each container's flat P start, so a seated row
+    lights its EXACT point — Standing balance in CON-021 (start 801, index
+    34) is P0835, which is precisely where his rain example seats."""
+    from sourceborn import human_registry as hr
+    start, starts = 1, {}
+    for c in hr.containers():
+        starts[c["id"]] = (start, c["count"])
+        start += c["count"]
+    assert start - 1 == 3204, "the starts must tile the whole bank exactly"
+    assert starts["CON-021"][0] == 801
+    assert starts["CON-042"] == (1641, 42) and starts["CON-057"][1] == 42
+    c21 = hr.container("CON-021")
+    assert c21["subs"][34] == "Standing balance"
+    assert 801 + 34 == 835, "the rain seat lights its true point"
+
+
+def test_a_correction_is_a_write_back_never_a_rewrite():
+    """'must be editable so i can change' — built on his own law: the edit
+    lands as a CORRECTION row referencing the target; the registry document
+    is never touched."""
+    from sourceborn import growth as G
+    from sourceborn import human_registry as hr
+    root = tempfile.mkdtemp(prefix="sb_corr_")
+    before = hr.container("CON-021")["subs"][34]
+    row = G.add(root, G.CORRECTION, "P0835: Standing balance — his words",
+                detail="Standing balance", module="homepage",
+                extra={"target": "P0835", "was": "Standing balance",
+                       "now": "Standing balance — his words"})
+    assert row["id"] == "SB-CORR-0001" and row["kind"] == "CORRECTION"
+    assert row["target"] == "P0835"
+    assert hr.container("CON-021")["subs"][34] == before, \
+        "the source row stays whole — NO REOPEN"
+    rows = G.load(root)
+    assert any(r.get("kind") == "CORRECTION" for r in rows)
+    src = open("src/sourceborn/server.py").read()
+    assert '"/growth/correct"' in src
+
+
+def test_the_hud_and_bank_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/api/hud"', '"/api/bank"'):
+        assert route in src, route
+    # and no figure on the page is typed into the markup — the HUD cells
+    # boot as em-dashes and fill from the fetch
+    from sourceborn import homepage
+    assert 'id=h_bank>—<' in homepage.PAGE.replace('"', "")  # dash, not a number
+
+
 def test_an_inbox_file_named_handed_is_still_inbox():
     """The review caught the first cut sniffing the 'handed ' name prefix:
     an inbox file literally named 'handed 1' would have stayed out of the

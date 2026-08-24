@@ -466,6 +466,47 @@ MAP: list[dict] = [
             "from outside on his word or a caller's verdict. All nine of "
             "his auto loops now have their trigger; the ninth still stops "
             "at the queue. /auto, POST /auto/tick, POST /auto/mode."},
+   {"his": "i dont want black back ground / the web should have all 3000+ "
+           "para, algo which it use / and transparent so i can see which is "
+           "linked where or under the each answer it should show and must be "
+           "editable so i can change / where is the ask tab / build it as the "
+           "new home page",
+    "where": [("homepage.py", "PAGE = r"),
+              ("server.py", '"/desk"'),
+              ("server.py", '"/api/hud"'),
+              ("server.py", '"/api/bank"'),
+              ("server.py", '"/growth/correct"'),
+              ("growth.py", "CORRECTION = ")],
+    "state": RUNS,
+    "note": "THE GLASS REACTOR — the home page, his rulings from the mockup "
+            "rounds all binding. NO BLACK: a luminous light ground; the dark "
+            "dashboard is NOT deleted — it lives whole at /desk, linked from "
+            "the new page. ALL 3,204 ON SCREEN: the reactor draws one point "
+            "per parameter from /api/bank, which carries the REAL container "
+            "counts (the two 42s included) and each container's flat P start "
+            "— so a seated row lights its EXACT point (Standing balance = "
+            "CON-021 start 801 + index 34 = P0835, precisely his rain seat), "
+            "and no figure on the page is typed into the markup: every "
+            "number is fetched live or shown absent. THE ASK TAB — his catch "
+            "on the sample — heads the panel and calls the SAME engine the "
+            "/engine page calls (POST /ask, the full SB walk) plus "
+            "/growing/place for what it seats and /runtime/run for his "
+            "eighteen steps: three views of ONE ask, never a second engine, "
+            "and Promise.allSettled so one unreachable view cannot kill the "
+            "others. UNDER EACH ANSWER, WHAT IT USED: the answer's own tags "
+            "(classification, evidence, confidence, falsifier, open "
+            "question), the parameter chips with his row names, the seven "
+            "filters folded across all 70 nodes of the walk with HALTs in "
+            "amber, and the eighteen steps with reverse marked. TRANSPARENT "
+            "= ONE SELECTION, THREE VIEWS: touch a container anywhere — the "
+            "reactor arc, the chip, the strip cell — and all three light "
+            "together, its rows open below from /registry/container. "
+            "EDITABLE = HIS LAW: the pencil on any row or chip takes his "
+            "words and POSTs /growth/correct, which appends a CORRECTION row "
+            "(new growth series, SB-CORR-%04d) carrying target, was and now "
+            "— the registry document is NEVER rewritten, and a test proves "
+            "the source row stays whole. /, /desk, /api/hud, /api/bank, "
+            "POST /growth/correct."},
    {"his": "build 18 and 23 / it should must have full explanation not just "
            "definition n placeholders",
     "where": [("maturity.py", "def read("),
