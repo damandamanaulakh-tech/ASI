@@ -75,6 +75,9 @@ INTENT = "INTENT"                # the intent slot of one event — open, not so
 CORRECTION = "CORRECTION"        # his words against a named thing — a write-back
                                  # referencing what it corrects; the target is
                                  # never rewritten (preserve raw source)
+BRIDGE = "BRIDGE"                # taught vocabulary: ordinary words -> his
+                                 # rows, each carrying the teaching it came
+                                 # from. Never an imported dictionary.
 
 SERIES = {
     PARAM: "SB-HFR-P%04d",
@@ -95,6 +98,7 @@ SERIES = {
     HALT: "SB-HALT-%04d",
     INTENT: "SB-INT-%05d",
     CORRECTION: "SB-CORR-%04d",
+    BRIDGE: "SB-BR-%03d",
 }
 
 

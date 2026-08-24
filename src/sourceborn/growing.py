@@ -411,11 +411,18 @@ def seat(text: str, limit: int = 12, role: str = None) -> dict:
                         "container": c["id"], "container_name": c["name"],
                         "segment": seg, "granularity": "CONTAINER",
                         "why": "the role seats here; no single row matched by word"})
+    # THE BRIDGE — rows this text reaches through TEACHING (his word,
+    # 2026-08-24). Never merged into `seats`: both readings are always kept,
+    # so the screen can show what matched directly beside what was taught.
+    from . import bridge as BR
+    bridged = BR.rows_via(text)
+
     return {
         "role": role,
         "role_segments": sorted(allowed) if allowed else None,
         "seats": [fmt(e) for e in ordered[:limit]],
         "seated": min(len(ordered), limit),
+        "bridged": bridged,
         "container_seat": container_seat[:16],
         "seated_at_container_level_only": bool(container_seat),
         "candidates_found": len(ordered),
@@ -571,6 +578,14 @@ def place(text: str, name: str = "", seat_limit: int = 8) -> dict:
                 "sb_id": st["sb_id"], "name": st["name"],
                 "container": st["container"], "segment": st["segment"],
                 "support": 0, "from_events": []})
+            cur["support"] += 1
+            cur["from_events"].append(e["n"])
+        for st in s.get("bridged", []):
+            cur = strengthened.setdefault(st["sb_id"], {
+                "sb_id": st["sb_id"], "name": st["name"],
+                "container": st["container"], "segment": st["segment"],
+                "support": 0, "from_events": [],
+                "via_bridge": st["via_bridge"], "phrase": st["phrase"]})
             cur["support"] += 1
             cur["from_events"].append(e["n"])
         per.append({"event": e, "role": r, "seating": s, "intent_seating": isl})

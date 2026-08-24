@@ -128,3 +128,37 @@ resolves POSSIBILITY, because "instead" is the choice.
 **FED TO THE LIVE MACHINE:** EXAMPLE `SB-EX-00001` + 4 EVENT + 4 INTENT rows
 (the live count rose by 9), node `SB-N-EVT-00001` written through the
 five-condition gate with 2 links. The ASI did something, on the record.
+
+---
+
+## 6. HIS WORD, AND WHAT IT BUILT (2026-08-24)
+
+> "build the bridge and approve all three"
+
+**THE BRIDGE IS BUILT** — `bridge.py`, taught vocabulary, never an imported
+dictionary. Three seeds, each carrying his approval and the teaching that
+created it: **BR-001** copy/mimic/imitate/do-the-same → CON-023 Imitation
+(P0885 · P0886 · P0887); **BR-002** "if they can i will too" → P2451
+Self-efficacy; **BR-003** role-model/look-up-to → P2625 Ideal self. Wired
+into `growing.seat`: a bridged row arrives in its own `bridged` list —
+**both readings always kept**, the taught seat never merged silently into
+the direct seats — and it may cross the role gate with the reason stated
+(the gate stops word coincidences; a taught bridge is meaning placed by
+him). Matching is whole-word, longest phrase first ("photocopying" can
+never fire the copy bridge; his full sentence wins before any fragment).
+**Re-run after the build: the routine reading of his teaching moved from 3
+rows to 7 — the four taught rows arriving marked `via BR-…` with the phrase
+that carried them.** Future bridges arrive through the ledger (new series
+`SB-BR-%03d`), append-only.
+
+**THE ABSENCE IS REFUSED A WRONG BRIDGE:** social comparison (general) has
+no row in the bank; P0597 is BODY-comparison, a different thing, and it is
+deliberately NOT bridged — a bridge to the wrong row would be the
+word-coincidence failure through another door. Whether social comparison
+becomes a grown parameter (the P3205 path) is his call, standing open.
+
+**ALL THREE APPROVED, on the live machine's ledger:** `SB-PAT-001` THE COPY
+LOOP (described support 1, observed 0) · `SB-AXIS-001` RANDOM-VS-SUPPOSED ·
+the bridge family (approval carried in code on each seed; the live BRIDGE
+ledger rows land when this code deploys — the live build predates the
+series and refused them, which is the gate working, not a failure).
