@@ -1022,6 +1022,47 @@ is never rewritten and a test proves the source row stays whole. HUD figures
 all live from `/api/hud`, none typed into markup. 357 tests green, all routes
 verified live over HTTP.
 
+**THE ADOPTION FROM C-SB (2026-08-24) — `adopted.py`, `/adopted`,
+`adopted/C-SB/**`.** His word: *"just adopt what is not here, do not touch and
+change anything in the C-SB repo / n lay off ur brain / just work under ASI
+instructions vague, big picture, anything if u tweak, ask me first."* Canon at
+`docs/method/canon/THE_ADOPTION_FROM_C_SB.md`. C-SB (private, 569 commits,
+the sibling build where Codex/GPT and Grok worked this same project) was
+reviewed read-only first; the old transcript claims all verified against the
+primary source — PR #2 real, exactly 37 files, the 14-stage brain/ tree real
+but an LLM-pipeline model on an UNMERGED branch that C-SB's own constitution
+later ruled against (`SOURCEBORN != LLM`), 7 tests real; the Grok-ASS branch
+is where the 2,560 native bank was written by hand. **The adoption: 42 files
+byte-identical** at commit `9e3f179`, each SHA-256 in
+`ADOPTION_CUSTODY.json`, `verify()` re-hashes all (42/42 intact), **C-SB
+untouched** (working tree checked clean). Adopted verbatim, statuses
+preserved: the Real-Time ASI Constitution + Growing-Phase Constitution + 30
+SEQ-LOCKs + system invariants + the EVENT-INTENT GROWTH CONTRACT (8 typed
+intents, UNKNOWN preferred over fabrication); the banks this core lacked —
+AI-only 64 + AI rubric, 75 engines + bindings, operational containers
+161–240 (80) + sub-parameters 2593–3072 (480), expansion band SB-ASI-
+P2561–P2592 (32), native 2,560 registry + 4 custody parts, container-index-80
+materialization; the 22-node ASI service registry + node-brain contracts;
+rubric registry R01–R52; the WHOLE wisdom pipeline (BG 2.47–2.50 source →
+claims → interpretations → counter-cases → candidates → objects, contracts
+and Mahabharata batch — 12 files, carrying C-SB's own scope: contextual,
+never doctrinal canon or action authority); his RAW originals (the true rain
+wording — "when i want to take my kids out…" — the father-door run, the
+source-sovereignty filter); and the five v2 lock CANDIDATES, kept candidates.
+**Nothing wired into behavior** — seating/runtime/combine/graph/scheduler
+unchanged, pinned by the suite; the module has no write path (source-scan
+test). NOT adopted: the 3,204 registry (this core's bank IS it), C-SB's
+rebuild tools and its own phase-2 proof history (ADOPT-HALT-7). **SEVEN
+ADOPT-HALTs stand for him, decided by nobody**: (1) the P2561 collision —
+SB-ASI-P2561 "Cardiac Salience Spike" vs SB-HFR-P2561, same numerals,
+different rows, kept apart; (2) three node vocabularies (22 service nodes ·
+12 node types · 95 brains); (3) R01–R52 vs his 25 dimensions; (4) wiring
+typed intent into events_in; (5) the wisdom objects into the scripture
+Wisdom Bank; (6) 75 engines + 240/3,072 beside 80/3,204 — bindings or
+never-summed banks; (7) mirroring C-SB's history. His mode instruction is
+recorded as standing law: adoption mechanical and verbatim, interpretation
+is a HALT. 369 tests green, adoption verified byte-identical.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

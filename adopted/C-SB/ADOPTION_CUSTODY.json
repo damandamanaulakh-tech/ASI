@@ -1,0 +1,222 @@
+{
+ "origin_repository": "damandamanaulakh-tech/C-SB",
+ "origin_commit": "9e3f179190824248ce657097c70e3c7bf7c6ade6",
+ "adopted_on": "2026-08-24",
+ "his_word": "just adopt what is not here, do not touch and change anything in the C-SB repo / n lay off ur brain / just work under ASI instructions vague, big picture, anything if u tweak, ask me first",
+ "rule": "byte-identical copies. Nothing interpreted, nothing renamed, nothing wired into behavior. Every seam that would need a decision is a HALT for him, not a choice made here.",
+ "csb_untouched": true,
+ "files": [
+  {
+   "path": "docs/SOURCEBORN_REALTIME_ASI_CONSTITUTION_V1.md",
+   "sha256": "dda69fef84226d65cc4155e4771d5e8089e3dd97b3ec1196491294ec9d383dd5",
+   "bytes": 22529
+  },
+  {
+   "path": "docs/SOURCEBORN_REALTIME_ASI_GROWING_PHASE_V1.md",
+   "sha256": "9dd8596b799e19be003ed904a4e2a28fe9376e38b6c2363171ee13dc5085db08",
+   "bytes": 5924
+  },
+  {
+   "path": "docs/LOCKED_DECISIONS.md",
+   "sha256": "2f237177acef2a7926b09be34c86e532f670b2ffb664b9f21f4545b3137f464a",
+   "bytes": 4929
+  },
+  {
+   "path": "machine/runtime/EVENT_INTENT_GROWTH_CONTRACT_V1.json",
+   "sha256": "cc16c794f5d1a789d30ebf0a21f820aea0c1b5194ef09d801644fae6ab6fee25",
+   "bytes": 4094
+  },
+  {
+   "path": "machine/contracts/SOURCEBORN_SYSTEM_INVARIANTS.json",
+   "sha256": "6ad79b17771da87547e17452647dccfa61e020651edcf12c6537b40347a89a7d",
+   "bytes": 21375
+  },
+  {
+   "path": "registries/ai/AI_ONLY_RECORDS_64_APPROVED_V1.json",
+   "sha256": "36a6aa359cdd15bd07ef01d22759f501c698afe427a0d2d025706a128fe8520b",
+   "bytes": 6955
+  },
+  {
+   "path": "registries/ai/AI_RUBRIC_V0.json",
+   "sha256": "2da4542794dc4357de0cdbe4980b8bc20d1ca70e872adec6e4c849ded920ab2d",
+   "bytes": 5924
+  },
+  {
+   "path": "registries/asi/ENGINE_LIBRARY_75_APPROVED_V1.json",
+   "sha256": "d30fcc9b95833f9a59a1588a40f6be479a533e72cdcf789de82b4edb12bdf3cb",
+   "bytes": 5998
+  },
+  {
+   "path": "registries/asi/ENGINE_SEGMENT_BINDINGS_75_APPROVED_V1.json",
+   "sha256": "c94a0731e5ab4e64338a1364f49ef015ea79957d5fef551bd7de3fd142833cc4",
+   "bytes": 3261
+  },
+  {
+   "path": "registries/asi/OPERATIONAL_CONTAINERS_161_240_APPROVED_V1.json",
+   "sha256": "6ee595aec87b578c7f306f64db788b54089218ea65895267c71ff4921c31375e",
+   "bytes": 8108
+  },
+  {
+   "path": "generated/registry_views/operational_subparameters_2593_3072_v1.json",
+   "sha256": "0e76ec81e4ea9b28be8a3d309c6289fd6fc0a86da3d4ee737a15588d4e92fdf6",
+   "bytes": 747814
+  },
+  {
+   "path": "registries/expansion/EXPANSION_PARAMETERS_2561_2592_APPROVED_V1.json",
+   "sha256": "50c57dfe75a6f3d7d8f68e1f87e22a515f11fe4e069239710685769db0bbec47",
+   "bytes": 6035
+  },
+  {
+   "path": "generated/registry_views/human_native_2560_registry_v1.json",
+   "sha256": "cbdbde6c80783582493dc470d9d1430f35b235af5abc187b80440bd51adb2448",
+   "bytes": 2425010
+  },
+  {
+   "path": "registries/human/native/compressed/HUMAN_NATIVE_2560_v1.part-01.b64",
+   "sha256": "7705dd84ca11e61e2b8e545e8c089492ec2e59019f7b202962599f770d1264e3",
+   "bytes": 10000
+  },
+  {
+   "path": "registries/human/native/compressed/HUMAN_NATIVE_2560_v1.part-02.b64",
+   "sha256": "de1e94cdb862a208e1ff5b6751c7ae63b37686762da0acacf0204f31492e3924",
+   "bytes": 12000
+  },
+  {
+   "path": "registries/human/native/compressed/HUMAN_NATIVE_2560_v1.part-03.b64",
+   "sha256": "73c56cb72c817d15f25fa2197e4472fb8951dd867c8b853af49cde66af4e5a06",
+   "bytes": 19051
+  },
+  {
+   "path": "registries/human/native/compressed/HUMAN_NATIVE_2560_v1.part-04.b64",
+   "sha256": "d524e86eaa4bb57d2ba61cc3b9e876497855d9350b44e1bb91fc16e2565262be",
+   "bytes": 184638
+  },
+  {
+   "path": "registries/human/HUMAN_CONTAINER_INDEX_80_APPROVED_V1.json",
+   "sha256": "38195d05259d51b2b13f11c68e144eb65aa8e7c1aeb5aa70d2ec9c9529c055f3",
+   "bytes": 5649
+  },
+  {
+   "path": "registries/asi/asi_node_registry.json",
+   "sha256": "e692d235fe61323a59871854b31369b15f4227724b57f293ec829fdd29961313",
+   "bytes": 4589
+  },
+  {
+   "path": "registries/asi/node_brains/NODE_BRAINS_18_21.json",
+   "sha256": "b12a29c8dfd31e25da39565b50c465e6113323cc58bb6928c292caeff9c3e078",
+   "bytes": 7637
+  },
+  {
+   "path": "registries/asi/node_brain_template.json",
+   "sha256": "0d99a7e3b1e84b218525bd56ce20c3d5e603681e243c33575cc95bce8dc12992",
+   "bytes": 1038
+  },
+  {
+   "path": "machine/rubrics/RUBRIC_REGISTRY_R01_R52.json",
+   "sha256": "cbaaa05a5eda0e2fad67fd0b301c18a686624b0d35ffedf4e247c9587404c776",
+   "bytes": 20397
+  },
+  {
+   "path": "registries/wisdom/WISDOM_REGISTRY_V0.json",
+   "sha256": "a34286722e477e1f5a4411e16dc801af7c968f7c17bb8752fb1017ec417a8f7c",
+   "bytes": 3926
+  },
+  {
+   "path": "registries/wisdom/HOLY_BOOK_SOURCE_TO_WISDOM_CONTRACT.json",
+   "sha256": "9a3cb16ff648233ecff6d203d79f0a0ffbacceda222975490246e5542ed7561f",
+   "bytes": 1886
+  },
+  {
+   "path": "registries/wisdom/WISDOM_OBJECTS_BG_2_47_2_50_V1.json",
+   "sha256": "39c47cf64426aca24a496fec2ca84659aaf03c4550866405ce858b92096c637c",
+   "bytes": 3934
+  },
+  {
+   "path": "raw/wisdom/BHAGAVAD_GITA_2_47_2_50_SOURCE_V1.json",
+   "sha256": "e558d79abead48318f996cf98a872d1f2c69218479bdaa54feb027d63e4d3959",
+   "bytes": 3251
+  },
+  {
+   "path": "raw/wisdom/MAHABHARATA_MODELLING_NARRATIVE_BATCH_01.json",
+   "sha256": "2e455a8f1df17aa11bdb40ff4ca825afdf5be5f620f239ae82418dd693a22858",
+   "bytes": 2463
+  },
+  {
+   "path": "phase2/wisdom/BG_2_47_2_50_APPLICABILITY_COUNTERCASES_V1.json",
+   "sha256": "de2fc9138791556b11ca44adcb02dec961a481a26626a42cc5ed90e68c188c47",
+   "bytes": 4428
+  },
+  {
+   "path": "phase2/wisdom/BG_2_47_2_50_INTERPRETATIONS_V1.json",
+   "sha256": "addf8d3a377098b905d02d9d2f099196bca00a71e4e597f333f5711b66616ccf",
+   "bytes": 4331
+  },
+  {
+   "path": "phase2/wisdom/BG_2_47_2_50_SOURCE_CLAIMS_V1.json",
+   "sha256": "e42e596195acd9101f5e24ba9582ba66a62dd04b5d224a108b14966543f77c77",
+   "bytes": 4513
+  },
+  {
+   "path": "phase2/wisdom/BG_2_47_2_50_WISDOM_CANDIDATES_V1.json",
+   "sha256": "32533c2e9a1be8323c9ba6bd67cf4af3b8ee738044a4af68dc25bdd57edde1c1",
+   "bytes": 5145
+  },
+  {
+   "path": "phase2/wisdom/WISDOM_BATCH_001_DERIVATION.json",
+   "sha256": "4d4a8c47b57a94012ad327fdecac3f2736a6439a5ddc6dce01a0228b4bf7275f",
+   "bytes": 10272
+  },
+  {
+   "path": "registries/holy_books/NARRATIVE_SOURCE_ADAPTER_SCHEMA.json",
+   "sha256": "62b853b7837fc2f870617cb01af0e129dc039551e57887839b7f7607fa6845aa",
+   "bytes": 2792
+  },
+  {
+   "path": "phase2/holy_books/MAHABHARATA_SEQUENCE_TEST_CONTRACT_v0.md",
+   "sha256": "a181725d9686765e5b99d353e22fc2c78cda7e4f364402967c89ba07d4f6e803",
+   "bytes": 6359
+  },
+  {
+   "path": "phase2/examples/RAIN_TARGET_LAYER_ACTION_EXAMPLE_V1.md",
+   "sha256": "8f8cbc5e918c09df6666fd419a73429926f377104d5f940149c859cb7e5a45a0",
+   "bytes": 6930
+  },
+  {
+   "path": "phase2/examples/FATHER_DOOR_3204_REASONING_EXAMPLE_V1.md",
+   "sha256": "230aa075a11dcb9f33606cb0fdc9bfaca72b14cf504cd2e258a49130884b6f78",
+   "bytes": 9505
+  },
+  {
+   "path": "phase2/examples/SOURCE_SOVEREIGNTY_PURITY_FILTER_EXAMPLE_V1.md",
+   "sha256": "87f61a763b0621f61698d4795b970f72228b2561671e3404973295e3236a33f5",
+   "bytes": 5124
+  },
+  {
+   "path": "machine/v2/CANONICAL_GRAPH_V2_LOCK_CANDIDATE.json",
+   "sha256": "6d17f92f4ed5b9337d89c9594a317f4b68d9e685c9aa41476b8023c81e78d665",
+   "bytes": 7934
+  },
+  {
+   "path": "machine/v2/CORE_INVARIANTS_V2.json",
+   "sha256": "13f18e68636ce7c1ce71827b00a1b68e256aa4ad0ed81b8b06cf12b20d1aca67",
+   "bytes": 3929
+  },
+  {
+   "path": "machine/v2/CROSS_CUTTING_SERVICES_SVC01_SVC18.json",
+   "sha256": "e5031d00a3fd642b442f0c6653a08bcb3ff29355e3fea281db483eed49a92cbf",
+   "bytes": 3307
+  },
+  {
+   "path": "machine/v2/FIRST_CLASS_RECORD_SCHEMAS.json",
+   "sha256": "d282ce171cccce33c988c7f5e011f96dfb9d81b590686ec37311880446ee4695",
+   "bytes": 6386
+  },
+  {
+   "path": "machine/v2/TYPED_NULL_SEMANTICS.json",
+   "sha256": "fecb18023c4a9c3158ff5a0150ea107980b629fe8be860bf987441b9e8ba1f39",
+   "bytes": 1398
+  }
+ ],
+ "file_count": 42,
+ "total_bytes": 3630768
+}

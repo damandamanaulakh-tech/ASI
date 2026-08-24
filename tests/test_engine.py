@@ -6085,6 +6085,77 @@ def test_every_seeded_bridge_carries_his_approval():
         "future bridges arrive through the ledger, append-only"
 
 
+def test_the_adoption_is_byte_identical_and_inert():
+    """His word: adopt what is not here, touch nothing in C-SB, lay off my
+    brain. 42 files byte-identical with SHA custody; nothing wired into
+    engine behavior; every seam a HALT for him."""
+    from sourceborn import adopted as A
+    v = A.verify()
+    assert v["files"] == 42 and v["byte_identical"] is True, \
+        (v["drifted"], v["missing"])
+    assert v["origin_commit"].startswith("9e3f179")
+    st = A.stats()
+    assert st["csb_untouched"] is True
+    assert st["wired_into_engine_behavior"] is False
+    assert "lay off ur brain" in st["his_word"]
+    # the adopted module contains no write path and no engine import —
+    # the Phase A technique
+    import re as _re
+    src = open("src/sourceborn/adopted.py").read()
+    code = _re.sub(r'""".*?"""', "", src, flags=_re.S)
+    code = _re.sub(r"#.*", "", code)
+    for forbidden in ("growth.add(", '"a"', "'a'", "def tick",
+                      "import growing", "import runtime", "import combine"):
+        assert forbidden not in code, \
+            "the adoption reads and halts — it must not write or wire: " \
+            "found %r" % forbidden
+
+
+def test_the_adopted_counts_are_the_true_counts():
+    from sourceborn import adopted as A
+    assert A.locks()["count"] == 30            # SEQ-LOCK-001..030
+    assert len(A.intent_types()["types"]) == 8
+    assert A.ai64()["records"] == 64
+    assert A.engines75()["engine_count"] == 75
+    op = A.operational()
+    assert op["containers"] == 80
+    assert op["subparameters"] == 480          # 2593..3072 is 480 wide
+    assert A.expansion32()["records"] == 32
+    assert A.native2560()["records"] == 2560
+    assert A.nodes22()["node_count"] == 22
+    assert A.rubrics52()["count"] == 52
+    assert "EVERYTHING HAPPENING IS AN EVENT" in A.intent_types()["motto"]
+
+
+def test_the_seams_halt_instead_of_deciding():
+    """Same numerals, different namespaces; same words, different things —
+    every one of them is his call, and the list says so."""
+    from sourceborn import adopted as A
+    hs = A.halts()
+    assert len(hs) == 7
+    assert all(h["his_call"] for h in hs)
+    h1 = next(h for h in hs if h["id"] == "ADOPT-HALT-1")
+    assert "P2561" in h1["seam"] and "namespaces" in h1["seam"]
+    assert A.expansion32()["namespace_note"].startswith("the ASI-Brain")
+    # and the wisdom pipeline is adopted with C-SB's own scope, unwired
+    w = A.wisdom()
+    assert w["wired_into_this_core"] is False
+    assert "not" in w["adoption_scope_as_csb_states_it"].lower()
+
+
+def test_his_original_rain_wording_is_preserved():
+    from sourceborn import adopted as A
+    ex = A.his_examples()
+    assert "when i want to take my kids out" in ex["rain_original_source"]
+    assert any("RAIN_TARGET_LAYER" in f for f in ex["files"])
+    assert any("FATHER_DOOR" in f for f in ex["files"])
+
+
+def test_the_adopted_route_is_reachable():
+    src = open("src/sourceborn/server.py").read()
+    assert '"/adopted"' in src
+
+
 def test_the_hud_and_bank_routes_are_reachable():
     src = open("src/sourceborn/server.py").read()
     for route in ('"/api/hud"', '"/api/bank"'):

@@ -43,6 +43,7 @@ from . import filemap, growing, intent_ledger, intents, selfmake
 from . import artifact
 from . import discovery
 from . import expected
+from . import adopted
 from . import autoloop
 from . import combine
 from . import maturity
@@ -1470,6 +1471,25 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, json.dumps(
                 {"stats": nodegraph.stats(SB_ROOT),
                  "queue": nodegraph.queue_for_him(SB_ROOT)}).encode(),
+                "application/json")
+        elif path == "/adopted":
+            # the adoption from C-SB — byte-identical, verified, inert; every
+            # seam a HALT for him
+            self._send(200, json.dumps(
+                {"stats": adopted.stats(),
+                 "verify": adopted.verify(),
+                 "locks": adopted.locks()["count"],
+                 "intent_types": adopted.intent_types()["types"],
+                 "ai64": adopted.ai64()["records"],
+                 "engines": adopted.engines75()["engine_count"],
+                 "operational": adopted.operational(),
+                 "expansion": adopted.expansion32()["records"],
+                 "native2560": adopted.native2560()["records"],
+                 "nodes22": adopted.nodes22()["node_count"],
+                 "rubrics52": adopted.rubrics52()["count"],
+                 "wisdom": adopted.wisdom(),
+                 "his_examples": adopted.his_examples(),
+                 "halts": adopted.halts()}).encode(),
                 "application/json")
         elif path == "/auto":
             # Phase E — the self-sustain scheduler: mode (MANUAL until his
