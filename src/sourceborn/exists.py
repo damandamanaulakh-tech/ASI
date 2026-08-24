@@ -557,6 +557,45 @@ MAP: list[dict] = [
             "stated: the runtime's step-5 seating and the combine engine "
             "consume direct seats only — bridged rows do not yet enter "
             "arrangements."},
+   {"his": "just adopt what is not here, do not touch and change anything in "
+           "the C-SB repo / n lay off ur brain / just work under ASI "
+           "instructions vague, big picture, anything if u tweak, ask me "
+           "first",
+    "where": [("adopted.py", "def verify("),
+              ("adopted.py", "def halts("),
+              ("adopted.py", "def custody("),
+              ("adopted.py", "def wisdom("),
+              ("adopted.py", "def his_examples("),
+              ("adopted.py", "def intent_types(")],
+    "state": RUNS,
+    "note": "THE ADOPTION FROM C-SB, canon at "
+            "docs/method/canon/THE_ADOPTION_FROM_C_SB.md. 42 files "
+            "byte-identical from damandamanaulakh-tech/C-SB @ 9e3f179, each "
+            "SHA-256 in adopted/C-SB/ADOPTION_CUSTODY.json carrying his word "
+            "verbatim; verify() re-hashes all and a drifted byte is NAMED. "
+            "C-SB untouched (working tree checked clean after the copy). "
+            "Adopted with statuses preserved as C-SB states them: the "
+            "Real-Time ASI Constitution V1 + Growing-Phase Constitution V1 + "
+            "30 SEQ-LOCKs + system invariants + the EVENT-INTENT GROWTH "
+            "CONTRACT (8 typed intents, UNKNOWN preferred over fabrication); "
+            "the banks this core lacked (AI-only 64, 75 engines, operational "
+            "161-240 + 2593-3072, expansion SB-ASI-P2561..P2592, native "
+            "2,560 + custody parts); the 22-node ASI service registry; "
+            "rubrics R01-R52; the whole BG 2.47-2.50 wisdom pipeline with "
+            "C-SB's own scope (contextual, never doctrinal canon or action "
+            "authority); his RAW originals including the true rain wording; "
+            "five v2 lock CANDIDATES kept candidates. NOTHING WIRED INTO "
+            "BEHAVIOR — the engine runs exactly as before, adopted.py has no "
+            "write path and imports no engine module (source-scan test). "
+            "SEVEN ADOPT-HALTs stand for him, decided by nobody: the P2561 "
+            "namespace collision (SB-ASI-P2561 Cardiac Salience Spike vs "
+            "SB-HFR-P2561 — same numerals, different rows, kept apart under "
+            "his do-not-silently-merge rule); three node vocabularies; "
+            "R01-R52 vs his 25 dimensions; typed-intent wiring; the wisdom "
+            "objects into the scripture Wisdom Bank; 75 engines + 240/3,072 "
+            "beside 80/3,204; mirroring C-SB's phase-2 history. His mode "
+            "instruction is standing law: adoption mechanical and verbatim, "
+            "interpretation is a HALT. /adopted."},
    {"his": "build 18 and 23 / it should must have full explanation not just "
            "definition n placeholders",
     "where": [("maturity.py", "def read("),
