@@ -5972,6 +5972,45 @@ def test_a_correction_is_a_write_back_never_a_rewrite():
     assert '"/growth/correct"' in src
 
 
+def test_his_success_story_stance_is_mechanical():
+    """His teaching of 2026-08-24, filed under 'failure -': take the success
+    stories 'if they can i will too' instead 'i will also do the same'."""
+    from sourceborn import claims as C
+    his = ('there is new trading, promoting the success stories, they try to '
+           'copy and failed, they built something there own. We should take '
+           'the success stories "if they can i will too" instead "i will '
+           'also do the same"')
+    r = C.success_story_stance(his)
+    assert r["stance"].startswith("POSSIBILITY"), \
+        "his own sentence carries both phrasings, and 'instead' IS the choice"
+    copy = C.success_story_stance(
+        "He made millions in trading and I will also do the same")
+    assert copy["stance"].startswith("TEMPLATE COPY")
+    assert copy["conclusion_allowed"] is False
+    assert "built something their own" in copy["why_the_copy_fails"]
+    assert len(copy["what_was_theirs"]) == 5, \
+        "the judgment gate's hidden layers are what the copier never sees"
+    poss = C.success_story_stance(
+        "Her success story tells me: if they can, i will too — my own way")
+    assert poss["stance"].startswith("POSSIBILITY")
+    assert poss["conclusion_allowed"] is True
+    unstated = C.success_story_stance(
+        "his success story is everywhere these days")
+    assert unstated["stance"].startswith("STANCE UNSTATED")
+    assert unstated["conclusion_allowed"] is False, \
+        "an unstated stance is held open, never chosen for him"
+    none = C.success_story_stance("the weather was nice today")
+    assert none["success_story_present"] is False
+
+
+def test_the_stance_refuses_the_conclusion_never_the_person():
+    from sourceborn import claims as C
+    r = C.success_story_stance("I saw his success story and will do the same")
+    assert "never the human" in C.success_story_stance.__doc__
+    assert "do the same and you will succeed" in r["refuses"]
+    assert r["extends"].startswith("DO_NOT_JUDGE_THE_VISIBLE_THING")
+
+
 def test_the_hud_and_bank_routes_are_reachable():
     src = open("src/sourceborn/server.py").read()
     for route in ('"/api/hud"', '"/api/bank"'):

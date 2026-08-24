@@ -507,6 +507,32 @@ MAP: list[dict] = [
             "— the registry document is NEVER rewritten, and a test proves "
             "the source row stays whole. /, /desk, /api/hud, /api/bank, "
             "POST /growth/correct."},
+   {"his": "failure - ... they try to copy and failed / they built something "
+           "there own, how someone can re do the same / We should take the "
+           "success stories 'if they can i will too' instead 'i will also do "
+           "the same'",
+    "where": [("claims.py", "def success_story_stance("),
+              ("claims.py", "THEIRS_NON_COPYABLE = ")],
+    "state": RUNS,
+    "note": "His teaching of 2026-08-24, canon at "
+            "docs/method/canon/IF_THEY_CAN_I_WILL_TOO.md — the second half of "
+            "the rice/MBA law: that one forbids JUDGING the visible thing as "
+            "proof of the system behind it, this one forbids USING it as a "
+            "template for action. success_story_stance() reads material "
+            "carrying a success story for its stance: TEMPLATE COPY ('i will "
+            "also do the same') can never stand as this machine's conclusion "
+            "and comes back carrying what was THEIRS (the judgment gate's own "
+            "hidden layers — system, capabilities, inputs, execution, timing "
+            "— exactly what the copier never sees), what TRANSFERS (the "
+            "possibility proof, nothing else), and his flip verbatim; "
+            "POSSIBILITY ('if they can i will too') is his stance, kept; an "
+            "UNSTATED stance is held open with both readings shown and "
+            "neither chosen. His own teaching sentence carries both phrasings "
+            "and resolves to POSSIBILITY because 'instead' IS the choice — "
+            "tested. The machine refuses the CONCLUSION, never the person. "
+            "His 'failure' re-read: their success and this path are two "
+            "different sequences, so the comparison was never valid and its "
+            "failure is not a verdict on the person."},
    {"his": "build 18 and 23 / it should must have full explanation not just "
            "definition n placeholders",
     "where": [("maturity.py", "def read("),
