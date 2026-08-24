@@ -72,6 +72,9 @@ STEP = "STEP"                    # a step the algorithm wrote for itself
 CANDIDATE = "CANDIDATE"          # a proposed parameter, not yet one
 HALT = "HALT"                    # a decision standing open, addressed to him
 INTENT = "INTENT"                # the intent slot of one event — open, not solved
+CORRECTION = "CORRECTION"        # his words against a named thing — a write-back
+                                 # referencing what it corrects; the target is
+                                 # never rewritten (preserve raw source)
 
 SERIES = {
     PARAM: "SB-HFR-P%04d",
@@ -91,6 +94,7 @@ SERIES = {
     CANDIDATE: "SB-CAND-%04d",
     HALT: "SB-HALT-%04d",
     INTENT: "SB-INT-%05d",
+    CORRECTION: "SB-CORR-%04d",
 }
 
 

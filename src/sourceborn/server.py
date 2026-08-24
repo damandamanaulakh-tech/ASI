@@ -55,6 +55,7 @@ from . import subjectbrains
 from . import statepacks
 from . import weighting
 from . import enginepage
+from . import homepage
 from . import exists
 from . import ladder
 from . import mypage
@@ -1354,7 +1355,52 @@ class Handler(BaseHTTPRequestHandler):
         route = urlparse(self.path)
         path, qs = route.path, parse_qs(route.query)
         if path in ("/", "/index.html"):
+            # THE GLASS REACTOR — his chosen home page (A + B blended, on
+            # light). The old dashboard is NOT removed: it lives at /desk.
+            self._send(200, homepage.PAGE.encode("utf-8"),
+                       "text/html; charset=utf-8")
+        elif path == "/desk":
             self._send(200, PAGE.encode("utf-8"), "text/html; charset=utf-8")
+        elif path == "/api/hud":
+            # the home page's pulse line — every figure live, none typed in
+            try:
+                from . import autoloop as _al
+                from . import nodegraph as _ng
+                from . import discovery as _dv
+                from . import growth as _gr
+                ts = _al.ticks(SB_ROOT)
+                q = _ng.queue_for_him(SB_ROOT)
+                a = _dv.audit()
+                grown = sum(1 for r in _gr.load(SB_ROOT)
+                            if r.get("kind") == _gr.PARAM)
+                base = len(human_registry.parameters())
+                self._send(200, json.dumps({
+                    "mode": _al.mode(SB_ROOT),
+                    "tick_n": (ts[-1]["n"] if ts else 0),
+                    "tick_quiet": (ts[-1]["quiet"] if ts else True),
+                    "base": base, "grown": grown, "bank": base + grown,
+                    "queued": q["count"], "promoted": q["promoted"],
+                    "stages_run": a["counts"].get("RUNS", 0),
+                    "stages": sum(a["counts"].values()),
+                    "loops_triggered": 9,
+                }).encode(), "application/json")
+            except Exception as exc:
+                self._send(500, json.dumps({"error": str(exc)}).encode(),
+                           "application/json")
+        elif path == "/api/bank":
+            # the reactor's structure: real containers, real counts (the two
+            # that hold 42 included), with each container's flat P start so
+            # a seated row lights its EXACT point
+            segs, start = {}, 1
+            for c in human_registry.containers():
+                s = segs.setdefault(c["segment"], {
+                    "seg": c["segment"], "seg_name": c["segment_name"],
+                    "containers": []})
+                s["containers"].append({"id": c["id"], "name": c["name"],
+                                        "count": c["count"], "start": start})
+                start += c["count"]
+            self._send(200, json.dumps(list(segs.values())).encode(),
+                       "application/json")
         elif path == "/page":
             self._send(200, mypage.PAGE.encode("utf-8"),
                        "text/html; charset=utf-8")
@@ -2130,6 +2176,26 @@ class Handler(BaseHTTPRequestHandler):
             r = autoloop.set_mode(SB_ROOT, (data.get("mode") or ""))
             self._send(200 if r.get("changed") else 400,
                        json.dumps(r).encode(), "application/json")
+            return
+        if self.path == "/growth/correct":
+            # HIS correction from the home page — a write-back that references
+            # the thing it corrects. The source row is never rewritten.
+            target = (data.get("target") or "").strip()
+            now = (data.get("now") or "").strip()
+            if not target or not now:
+                self._send(400, json.dumps(
+                    {"error": "a correction needs a target and his words"}
+                ).encode(), "application/json")
+                return
+            row = growth.add(
+                SB_ROOT, growth.CORRECTION,
+                name="%s: %s" % (target, now),
+                detail=(data.get("was") or "").strip(),
+                surfaced_by="his correction — the home page",
+                module="homepage",
+                extra={"target": target, "was": (data.get("was") or "").strip(),
+                       "now": now})
+            self._send(200, json.dumps(row).encode(), "application/json")
             return
         if self.path == "/growing/place":
             # place one example. There is no answer here — only where it sits.
