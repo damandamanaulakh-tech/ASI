@@ -50,6 +50,27 @@ the 3,204 functional registry (this core's live bank IS that registry);
 C-SB's generated indexes and rebuild tools (they rebuild C-SB's tree, not
 this one); C-SB's checkpoints, closures and RFR history (its own proof
 record — mirroring it wholesale is a decision for him, HALT-7).
+
+THE SECOND ADOPTION (2026-08-27) — THE SB-ASI DRIVE MASTER WORKBOOK
+
+His word: "this file too for review and adoption". The file:
+ASI-Brain_Task3_Approved_Final_v1_0 — the SB-ASI Google Drive project's
+final Task-3 master (33 sheets; Task 2 approved on his word "brain
+approved", Task 3 approved, Tasks 4-5 blocked by his gates). It lives at
+`adopted/SB-ASI-Drive/` — the .xlsx byte-identical, plus a DERIVED
+tab-separated text file per sheet so the binary is reviewable in the
+repo (mechanical extraction; on any disagreement the .xlsx wins), all
+SHA-256'd in that tree's own ADOPTION_CUSTODY.json.
+
+The load-bearing content, read not interpreted: the workbook states in
+writing how his two banks relate — ASI_Claude_Parameters.docx supplied
+3,204 names; 2,554 were carried into the 2,560 baseline, 650 held in a
+named reserve (2,554 + 650 = 3,204), and 6 rows were visibly added to
+complete Core Reasoning's target of 48 (2,554 + 6 = 2,560), each marked
+REQUIRES USER APPROVAL. `the_bridge()` COUNTS this from the file rather
+than repeating it. `wb_findings()` carries what the review caught,
+corrected nowhere; `wb_halts()` carries the new seams (ADOPT-HALT-8..12),
+decided by nobody here.
 """
 
 from __future__ import annotations
@@ -294,6 +315,169 @@ def stats(repo: str = ".") -> dict:
     }
 
 
+# ---------------------------------------------------------------------------
+# THE SECOND ADOPTION — the SB-ASI Drive master workbook (2026-08-27).
+# Same law: byte-identical custody, read-only accessors, seams HALT.
+# ---------------------------------------------------------------------------
+
+def _wb_root(repo: str = ".") -> str:
+    return os.path.join(repo, "adopted", "SB-ASI-Drive")
+
+
+def wb_custody(repo: str = ".") -> dict:
+    p = os.path.join(_wb_root(repo), "ADOPTION_CUSTODY.json")
+    with open(p, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def wb_verify(repo: str = ".") -> dict:
+    """Re-hash the workbook and every derived sheet against its manifest."""
+    c = wb_custody(repo)
+    entries = [c["source_file"]] + c["derived_files"]
+    ok, bad, missing = [], [], []
+    for f in entries:
+        p = os.path.join(repo, f["path"])
+        if not os.path.exists(p):
+            missing.append(f["path"])
+            continue
+        h = hashlib.sha256(open(p, "rb").read()).hexdigest()
+        (ok if h == f["sha256"] else bad).append(f["path"])
+    return {"adoption": c["adoption"], "his_word": c["his_word"],
+            "files": len(entries), "intact": len(ok), "drifted": bad,
+            "missing": missing, "byte_identical": not bad and not missing,
+            "source_wins": "the .xlsx is the source; derived_text is its "
+                           "mechanical, reviewable face"}
+
+
+def _wb_sheet(repo: str, prefix: str) -> str:
+    d = os.path.join(_wb_root(repo), "derived_text")
+    for name in sorted(os.listdir(d)):
+        if name.startswith(prefix):
+            with open(os.path.join(d, name), "r", encoding="utf-8") as f:
+                return f.read()
+    raise FileNotFoundError(prefix)
+
+
+def the_bridge(repo: str = ".") -> dict:
+    """What HIS OWN FILE states about the 2,560 and the 3,204 — counted
+    from the sheets, not retyped. The seam it feeds is ADOPT-HALT-8."""
+    params = [r.split("\t") for r in
+              _wb_sheet(repo, "05_").splitlines()[1:] if r]
+    exact = sum(1 for r in params if len(r) > 14
+                and r[14].startswith("EXACT SOURCE WORDING"))
+    recon = [r for r in params if len(r) > 14
+             and "RECONSTRUCTION" in r[14]]
+    reserve = [r for r in _wb_sheet(repo, "06_").splitlines()[1:] if r]
+    return {
+        "his_document": "ASI_Claude_Parameters.docx — the 3,204 this core's "
+                        "live bank IS",
+        "carried_exact": exact,
+        "held_in_reserve": len(reserve),
+        "carried_plus_reserve": exact + len(reserve),
+        "reconstruction_candidates": [
+            {"id": r[1], "wording": r[9],
+             "status": "REQUIRES USER APPROVAL — the file's own flag"}
+            for r in recon],
+        "baseline_2560": exact + len(recon),
+        "identity": "%d + %d = 3,204 (his document) · %d + %d = 2,560 "
+                    "(the workbook baseline)" % (exact, len(reserve),
+                                                 exact, len(recon)),
+        "decided_here": False,
+    }
+
+
+def wb_stats(repo: str = ".") -> dict:
+    c = wb_custody(repo)
+    return {"adoption": c["adoption"], "his_word": c["his_word"],
+            "date": c["date"], "sheets": c["extraction_totals"]["sheets"],
+            "filled_cells": c["extraction_totals"]["filled_cells"],
+            "words": c["extraction_totals"]["words"],
+            "files": 1 + len(c["derived_files"]),
+            "source_sha256": c["source_file"]["sha256"][:16],
+            "wired_into_engine_behavior": False,
+            "halts_awaiting_him": len(wb_halts())}
+
+
+def wb_findings() -> list:
+    """What the review caught IN the file. Reported, corrected nowhere."""
+    return [
+        {"id": "WBF-M1",
+         "finding": "SB-ASI-P0001's wording cell reads 'Source parameter "
+                    "row 1 — wording extraction required' — a placeholder — "
+                    "while its classification column says EXACT SOURCE "
+                    "WORDING. One row of 2,560, and it is the first row.",
+         "corrected": False},
+        {"id": "WBF-M2",
+         "finding": "the Task-3 body is elsewhere: the 2,514 parameter-level "
+                    "Human-AI edges, the 46 Human-only names and the 64 "
+                    "AI-only wordings live by reference in ASI-Brain_Task3_"
+                    "Human_AI_Parallel_v0_3.xlsx, which the file itself "
+                    "records as not Drive-readable — 'OPEN SOURCE GAP. No AI "
+                    "wording reconstructed.' The counts are approved; the "
+                    "rows are not present.",
+         "corrected": False},
+        {"id": "WBF-M3",
+         "finding": "target 2,560 + reserve 650 = 3,210, not 3,204 — "
+                    "consistent, because the target already contains the 6 "
+                    "added reconstructions; the true identity is 2,554 + 650 "
+                    "= 3,204 and 2,554 + 6 = 2,560.",
+         "corrected": False},
+        {"id": "WBF-M4",
+         "finding": "the 3,905 formulas are Google-Sheets imports frozen as "
+                    "cached DUMMYFUNCTION values — displayed values intact, "
+                    "formulas inert outside Sheets.",
+         "corrected": False},
+        {"id": "WBF-M5",
+         "finding": "the external cognitive source base reads 918 concepts, "
+                    "loaded 0 — Task 4 material, correctly held behind his "
+                    "gate ('Discuss every sentence first').",
+         "corrected": False},
+    ]
+
+
+def wb_halts() -> list:
+    """The new seams the workbook opens against this core. Numbering
+    continues from the C-SB seven. Decided by nobody here."""
+    return [
+        {"id": "ADOPT-HALT-8",
+         "seam": "the bridge: his file states 3,204 = 2,554 carried + 650 "
+                 "held reserve (650 NAMED rows), and 2,560 = 2,554 + 6 "
+                 "visible reconstructions (P1303-P1308, each flagged "
+                 "REQUIRES USER APPROVAL). The live 3,204 and the 2,560 "
+                 "banks share 2,554 rows by his file's own account.",
+         "his_call": "approve/replace/omit the six reconstructions, and "
+                     "whether the stated bridge becomes a recorded "
+                     "correspondence between the banks."},
+        {"id": "ADOPT-HALT-9",
+         "seam": "three filter vocabularies now stand: the workbook's "
+                 "FLT-01..40, the live registry's 40 universal filters, and "
+                 "the seven method filters.",
+         "his_call": "same family or separate layers — and which names win "
+                     "where they meet."},
+        {"id": "ADOPT-HALT-10",
+         "seam": "the workbook names all 12 operating states (ST-01..12); "
+                 "the live registry holds 12 operating states and the Kings "
+                 "file named only 6.",
+         "his_call": "whether these are the same 12 — the unnamed six may "
+                     "already have his names here."},
+        {"id": "ADOPT-HALT-11",
+         "seam": "the canonical Task-3 raw workbook (2,514 edges, 46 "
+                 "Human-only names, 64 AI-only wordings) is missing by the "
+                 "file's own record — and C-SB's adopted AI_ONLY_RECORDS_64 "
+                 "carries 64 records WITH wording, which looks like the "
+                 "later closing of exactly this gap.",
+         "his_call": "confirm or refuse that identification; locate or "
+                     "supply the raw workbook."},
+        {"id": "ADOPT-HALT-12",
+         "seam": "the Holy Books Source Ledger (four anchors, the four-layer "
+                 "never-merge law) sits beside C-SB's BG 2.47-2.50 wisdom "
+                 "pipeline and this core's seeded wisdom bank — three "
+                 "scripture surfaces, none reading the others.",
+         "his_call": "whether the scripture Wisdom Bank he named starts "
+                     "from this ledger's law (extends ADOPT-HALT-5)."},
+    ]
+
+
 def annotations() -> list:
     return [
         ("byte-identical adoption with SHA custody", "adopted.verify"),
@@ -301,4 +485,9 @@ def annotations() -> list:
         ("every seam a HALT for him", "adopted.halts"),
         ("C-SB untouched", "adopted.custody"),
         ("his original rain wording, preserved", "adopted.his_examples"),
+        ("the workbook adoption, custody-verified", "adopted.wb_verify"),
+        ("the bridge his file states, counted not retyped",
+         "adopted.the_bridge"),
+        ("review findings reported, corrected nowhere",
+         "adopted.wb_findings"),
     ]

@@ -1,0 +1,20 @@
+Element	Current position	Corrected understanding	Review status	Allowed actions	Activation rule
+Functional system	Sourceborn	Active functional system being constructed.	PENDING USER REVIEW	Approve / Change / Hold	User only
+Functional segments	10.0	Working set, open-ended; every segment and earlier Sourceborn element remains comparable.	PENDING USER REVIEW	Approve / Add / Split / Merge / Move	User only
+Containers per segment	8.0	Current allocation used to form 80 containers; placement remains reviewable.	PENDING USER REVIEW	Approve / Change / Move	User only
+Master containers	80.0	Working set, open-ended; each container requires word-level review.	PENDING USER REVIEW	Approve / Add / Split / Merge / Move / Omit	User only
+Operational sub-parameters	2560.0	Existing starting registry; not final and not parked as nursery material.	PENDING USER REVIEW	Approve / Add / Change / Hold / Omit	User only
+External cognitive source base	918 concepts	Future source layer to be mapped after Tasks 3 and 4.	NOT LOADED IN TASK 2	Add after sentence-level review	User only
+Universal filters	40.0	Separate cross-container layer; may move higher after review.	PENDING USER REVIEW	Approve / Move / Split / Add	User only
+Operating states	12.0	Separate state layer; parameter is not simply ON/OFF.	PENDING USER REVIEW	Approve / Change / Add	User only
+Evidence levels	6 + Unknown	H0 Unknown is retained separately from H1–H6 evidence strength.	PENDING USER REVIEW	Approve / Change / Add	User only
+Dysfunction/failure classes	20.0	Initial failure layer; may expand, divide, move or change.	PENDING USER REVIEW	Approve / Add / Split / Move	User only
+Development description	Nursery-grade starting knowledge	Developmental example only; it does not limit or park the 2,560 parameters.	CURRENT CORRECTION	Review wording	User only
+Removal policy	Nothing disappears	Inactive, corrected or rejected items remain preserved in history.	CURRENT CORRECTION	Review treatment	User only
+Task 3 gate	BLOCKED	No human–AI comparison until this Task 2 workbook is reviewed and confirmed.	LOCKED	User confirmation required	User only
+
+ASI definition	Human ↔ AI Connections	ASI is the verified, evolving connection and synchronisation between Human nodes and AI nodes; it is not a separate third branch.	CURRENT USER CORRECTION	Apply across all node maps	User only
+Fact-check rule	Evidence before conclusion	The Brain uses current time, available context, online sources, tools and sensor evidence. Unknown personal facts remain hypotheses, not facts.	CURRENT USER CORRECTION	Fact-check without inventing	User only
+Assumption rule	Label every inference	Fatigue, motive, intent, relationship, job insecurity and similar causes must be labelled observed, source-supported, inferred, assumed or unknown.	CURRENT USER CORRECTION	Do not convert inference to truth	User only
+Pyramid sharpening	Add child detail nodes	A broad parameter may gain 2–3 context children during testing so later decisions become sharper without prematurely changing the approved 2,560 count.	CURRENT USER CORRECTION	Add as context children first	User only
+No-question first pass	Use available evidence first	Run the first decision using available facts and fact-checking. Do not ask the user merely to avoid analysis; unresolved personal motives remain unverified.	CURRENT USER CORRECTION	Return confidence and missing evidence	User only

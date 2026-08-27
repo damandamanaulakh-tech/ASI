@@ -1073,6 +1073,51 @@ a green suite falsely; fixed by this placement, and the suite's exit status
 is now checked unmasked before any green claim. 369 tests green after the
 fix, adoption verified byte-identical.
 
+**THE SECOND ADOPTION — THE SB-ASI DRIVE MASTER (2026-08-27), his word
+"this file too for review and adoption."** Canon at
+`docs/method/canon/THE_ADOPTION_OF_THE_ASI_BRAIN_MASTER.md`. The file:
+`ASI-Brain_Task3_Approved_Final_v1_0` — the SB-ASI Google Drive project's
+final Task-3 master (33 sheets · 141,113 cells · 710,008 words, extracted
+whole; Task 2 approved on his word "brain approved", Task 3 approved,
+Tasks 4–5 blocked by his gates; ASI defined by his SYNC-001 correction as
+*the verified evolving Human↔AI connection itself*). Filed at
+`adopted/SB-ASI-Drive/`: the `.xlsx` byte-identical (SHA-256 in the
+tree's own custody manifest) + 33 DERIVED tab-separated sheet texts (the
+`.xlsx` wins on any disagreement); `wb_verify()` re-hashes all 34 per
+call. **The load-bearing find — THE BRIDGE, his own file stating how the
+two banks relate:** `ASI_Claude_Parameters.docx` (the 3,204 this core's
+bank IS) supplied the names; **2,554 carried + 650 held in a NAMED
+reserve = 3,204**, and **2,554 + 6 visible reconstructions = 2,560**
+(P1303–P1308: Formal proof construction/verification, Counterexample
+generation, Defeasible/Non-monotonic/Modal reasoning — each flagged
+REQUIRES USER APPROVAL; the source holds 42 in Core Reasoning, which is
+exactly why the live CON-042 holds 42). `the_bridge()` COUNTS this from
+the sheets on every call and a test pins it — the two banks share 2,554
+rows by his file's own account, and nothing was joined. Also held whole:
+Task 3's node registry (2,749) and link registry (2,839 — 90
+PARALLEL_COMPARISON edges each stamped *"scaffold only; does not prove
+equivalence"*), the 2,514 aligned AI nodes in four mapping classes, 46
+Human-only + 64 AI-only kept unforced, 700 four-model measurement events
+(Gemini, GPT-5.6 Sol, Claude Fable 5, Grok 4.5), FLT-01..40, ST-01..12
+(**all twelve states named** where the Kings file named 6), H0–H6, the
+20 failures, the 30-step chain, BT-001..004, CTX-001..048, FC-001..021
+with real citations, the Holy Books Source Ledger (four anchors, the
+four-layer never-merge law) and the OpenAI Repository Transfer Contract.
+**Five findings reported, corrected nowhere** (`wb_findings`): P0001's
+wording is literally a placeholder while classified EXACT SOURCE WORDING;
+the Task-3 raw workbook (2,514 edges, 46 names, 64 wordings) is an OPEN
+SOURCE GAP by the file's own record; 2,560+650=3,210 explained (the
+target contains the 6); the 3,905 formulas are frozen Sheets imports; the
+918 external concepts are loaded 0 behind his Task-4 gate. **Five new
+seams stand as ADOPT-HALT-8..12**, decided by nobody: the bridge (and the
+six reconstructions), three filter vocabularies (FLT-40 · the registry's
+40 · the seven), the twelve states vs the registry's 12, the missing raw
+workbook against C-SB's `AI_ONLY_RECORDS_64` (which carries 64 WITH
+wording — surfaced as the likely closing of that gap, asserted by
+nobody), and three scripture surfaces (extends HALT-5). Nothing wired —
+the tree is ADOPTED in the file divide, never harvested; `/adopted` now
+serves the workbook block beside the C-SB block. 373 tests green.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

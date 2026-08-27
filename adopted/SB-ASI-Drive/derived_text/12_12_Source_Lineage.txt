@@ -1,0 +1,8 @@
+Priority	Source	Role in this workbook	Exact treatment	Status
+1.0	Current user instruction	Sets project name, hierarchy, open-ended status and Task 3 gate.	Highest current authority; archive wording cannot replace it.	CURRENT
+2.0	GPT_first_V_for_ASI_Paras.docx	Supplies 1–10–8–80–2,560 counts and container allocations.	Counts and container metadata carried into Task 2.	READ
+3.0	ASI_GPT_Parameters.docx	Supplies corrected 2,560 architecture, 40 filters, 12 states, evidence levels and 20 failures.	Used as the baseline structure.	READ
+4.0	ASI_Claude_Parameters.docx	Supplies 3,204 enumerated atomic names across the same 80 containers.	First 2,554 source names carried forward; 650 surplus names retained in Held Reserve.	READ
+5.0	Six visible Core Reasoning candidates	Completes the historical target of 48 because the enumerated source contains 42.	Clearly marked; user may replace or omit.	REQUIRES USER DECISION
+6.0	SOURCEBORN_CLEAN archive	Canonical archive containing the source files.	Read and content-hash reconciled; source history retained.	READ
+7.0	SB-ASI Drive folder	Destination for ASI-Brain.	Task 3 and Task 4 source files are present but not merged.	ACTIVE

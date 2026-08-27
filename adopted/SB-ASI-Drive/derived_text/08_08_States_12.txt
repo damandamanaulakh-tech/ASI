@@ -1,0 +1,13 @@
+State ID	No.	Exact state	Full state meaning	Review status	User decision	User notes
+ST-01	1.0	Dormant	Not currently engaged	PENDING USER REVIEW	PENDING
+ST-02	2.0	Primed	Prepared for activation by a cue	PENDING USER REVIEW	PENDING
+ST-03	3.0	Active	Currently processing or influencing behaviour	PENDING USER REVIEW	PENDING
+ST-04	4.0	Dominant	Overriding competing processes	PENDING USER REVIEW	PENDING
+ST-05	5.0	Inhibited	Actively suppressed	PENDING USER REVIEW	PENDING
+ST-06	6.0	Automatic	Running with little conscious control	PENDING USER REVIEW	PENDING
+ST-07	7.0	Conscious	Available to awareness and report	PENDING USER REVIEW	PENDING
+ST-08	8.0	Conflicted	Competing with another active process	PENDING USER REVIEW	PENDING
+ST-09	9.0	Overloaded	Demand exceeds available capacity	PENDING USER REVIEW	PENDING
+ST-10	10.0	Impaired	Function is operating below normal capacity	PENDING USER REVIEW	PENDING
+ST-11	11.0	Compensated	Another system or strategy is covering the weakness	PENDING USER REVIEW	PENDING
+ST-12	12.0	Recovering	Returning or adapting after disruption	PENDING USER REVIEW	PENDING

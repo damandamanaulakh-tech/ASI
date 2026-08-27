@@ -1489,7 +1489,12 @@ class Handler(BaseHTTPRequestHandler):
                  "rubrics52": adopted.rubrics52()["count"],
                  "wisdom": adopted.wisdom(),
                  "his_examples": adopted.his_examples(),
-                 "halts": adopted.halts()}).encode(),
+                 "halts": adopted.halts(),
+                 "workbook": {"stats": adopted.wb_stats(),
+                              "verify": adopted.wb_verify(),
+                              "bridge": adopted.the_bridge(),
+                              "findings": adopted.wb_findings(),
+                              "halts": adopted.wb_halts()}}).encode(),
                 "application/json")
         elif path == "/auto":
             # Phase E — the self-sustain scheduler: mode (MANUAL until his

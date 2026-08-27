@@ -1,0 +1,12 @@
+Level	ID pattern	Name/meaning	Parent quantity	Children each	Total children	Current status	Interpretation
+1.0	SYS-001	Sourceborn functional system	0.0	10.0	10.0	TASK 2 REVIEW	One functional system; not a claim of scientific finality.
+2.0	SEG-01…SEG-10	Functional segments	1.0	8.0	80.0	TASK 2 REVIEW	Ten current broad functional groupings.
+3.0	Slot 1…8	Container position inside each segment	10.0	8.0	80.0	TASK 2 REVIEW	Eight is the current distribution rule per segment.
+4.0	CON-001…CON-080	Master containers	10.0	Variable parameter count	2560.0	TASK 2 REVIEW	Eighty current containers; counts vary by container.
+5.0	SB-ASI-P0001…P2560	Operational parameters	80.0	24–48	2560.0	TASK 2 REVIEW	Exact named atomic functions for review; open-ended after approval.
+Calculation	Value	Verification	Result
+System count	1.0	True	PASS
+Segment count	10.0	True	PASS
+Containers per segment	8.0	True	PASS
+Container count	80.0	True	PASS
+Parameter count	2560.0	True	PASS

@@ -4077,7 +4077,9 @@ def test_every_repo_file_is_divided_and_none_is_unplaced():
     # adopted material is custody, not a role: its own class, in neither sum,
     # and NEVER on the harvest list — the adoption stays un-wired
     adopted = d["classes"][F.ADOPTED]["files"]
-    assert len(adopted) == 43, adopted  # 42 files + the custody manifest
+    # 43 C-SB (42 files + manifest) + 35 SB-ASI-Drive (the workbook,
+    # 33 derived sheet texts, and its manifest)
+    assert len(adopted) == 78, adopted
     assert all(a.startswith("adopted/") for a in adopted)
     assert F.ADOPTED not in d["what_grows_the_count"]["which"]
     assert F.ADOPTED not in d["what_it_grows_against"]["which"]
@@ -6163,6 +6165,62 @@ def test_his_original_rain_wording_is_preserved():
 def test_the_adopted_route_is_reachable():
     src = open("src/sourceborn/server.py").read()
     assert '"/adopted"' in src
+
+
+def test_the_workbook_adoption_is_byte_identical_and_verified():
+    """His word: 'this file too for review and adoption.' The SB-ASI Drive
+    master (ASI-Brain_Task3_Approved_Final_v1_0): the .xlsx byte-identical
+    plus 33 derived sheet texts, every one SHA-256'd and re-hashed."""
+    from sourceborn import adopted as A
+    v = A.wb_verify()
+    assert v["files"] == 34 and v["byte_identical"] is True, \
+        (v["drifted"], v["missing"])
+    assert "this file too for review and adoption" in v["his_word"]
+    st = A.wb_stats()
+    assert st["sheets"] == 33
+    assert st["wired_into_engine_behavior"] is False
+
+
+def test_the_bridge_is_stated_by_his_own_file_and_counted_here():
+    """The workbook states how the two banks relate; the numbers are
+    COUNTED from its sheets, never retyped: 2,554 exact + 650 reserve =
+    his 3,204, and 2,554 + 6 visible reconstructions = the 2,560."""
+    from sourceborn import adopted as A
+    b = A.the_bridge()
+    assert b["carried_exact"] == 2554
+    assert b["held_in_reserve"] == 650
+    assert b["carried_plus_reserve"] == 3204
+    assert b["baseline_2560"] == 2560
+    ids = [r["id"] for r in b["reconstruction_candidates"]]
+    assert ids == ["SB-ASI-P%d" % n for n in range(1303, 1309)], ids
+    assert all("REQUIRES USER APPROVAL" in r["status"]
+               for r in b["reconstruction_candidates"])
+    assert b["decided_here"] is False
+
+
+def test_the_master_workbook_findings_are_reported_not_corrected():
+    from sourceborn import adopted as A
+    fs = A.wb_findings()
+    assert len(fs) == 5
+    assert all(f["corrected"] is False for f in fs)
+    assert any("wording extraction required" in f["finding"] for f in fs)
+    assert any("OPEN SOURCE GAP" in f["finding"] for f in fs)
+
+
+def test_the_workbook_seams_halt_instead_of_deciding():
+    """ADOPT-HALT-8..12 — the bridge, three filter vocabularies, the twelve
+    states, the missing raw workbook, the scripture surfaces. Nobody here
+    decides one of them."""
+    from sourceborn import adopted as A
+    hs = A.wb_halts()
+    assert [h["id"] for h in hs] == \
+        ["ADOPT-HALT-%d" % n for n in range(8, 13)]
+    assert all(h["his_call"] for h in hs)
+    h8 = hs[0]
+    assert "2,554" in h8["seam"] and "P1303" in h8["seam"]
+    # and the route serves the workbook block beside the C-SB block
+    src = open("src/sourceborn/server.py").read()
+    assert "adopted.wb_verify()" in src and "adopted.the_bridge()" in src
 
 
 def test_the_hud_and_bank_routes_are_reachable():

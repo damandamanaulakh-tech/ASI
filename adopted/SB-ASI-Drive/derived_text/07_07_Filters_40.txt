@@ -1,0 +1,41 @@
+Filter ID	No.	Exact filter family	Full filter wording	Review status	User decision	User notes
+FLT-01	1.0	Developmental	Age, maturation, developmental stage, sensitive period	PENDING USER REVIEW	PENDING
+FLT-02	2.0	Biological	Genetics, physical health, injury, neurological state	PENDING USER REVIEW	PENDING
+FLT-03	3.0	Sleep	Sleep duration, sleep quality, circadian phase, sleep debt	PENDING USER REVIEW	PENDING
+FLT-04	4.0	Energy	Hunger, hydration, fatigue, fitness, metabolic condition	PENDING USER REVIEW	PENDING
+FLT-05	5.0	Hormonal	Stress hormones, reproductive hormones, metabolic hormones	PENDING USER REVIEW	PENDING
+FLT-06	6.0	Interoceptive	Pain, heartbeat, breathing, gut state, bodily tension	PENDING USER REVIEW	PENDING
+FLT-07	7.0	Arousal	Under-arousal, optimal arousal, over-arousal, vigilance	PENDING USER REVIEW	PENDING
+FLT-08	8.0	Emotional	Mood, fear, anger, sadness, excitement, shame, pride	PENDING USER REVIEW	PENDING
+FLT-09	9.0	Stress	Acute stress, chronic stress, controllability, recovery	PENDING USER REVIEW	PENDING
+FLT-10	10.0	Threat	Physical threat, social threat, status threat, uncertainty	PENDING USER REVIEW	PENDING
+FLT-11	11.0	Reward	Reward size, probability, delay, novelty, social reward	PENDING USER REVIEW	PENDING
+FLT-12	12.0	Attention	Focus, distraction, salience, divided attention	PENDING USER REVIEW	PENDING
+FLT-13	13.0	Memory	Prior experience, accessibility, recency, interference	PENDING USER REVIEW	PENDING
+FLT-14	14.0	Knowledge	Education, factual knowledge, domain experience	PENDING USER REVIEW	PENDING
+FLT-15	15.0	Belief	World model, expectations, ideology, assumptions	PENDING USER REVIEW	PENDING
+FLT-16	16.0	Goal	Immediate goal, long-term goal, competing goal	PENDING USER REVIEW	PENDING
+FLT-17	17.0	Intent	Strength, specificity, timing, commitment	PENDING USER REVIEW	PENDING
+FLT-18	18.0	Motive	Intrinsic, extrinsic, stated, hidden, conflicting	PENDING USER REVIEW	PENDING
+FLT-19	19.0	Value	Moral value, personal value, economic value, social value	PENDING USER REVIEW	PENDING
+FLT-20	20.0	Personality	Impulsivity, openness, conscientiousness, sensitivity	PENDING USER REVIEW	PENDING
+FLT-21	21.0	Identity	Role, group identity, self-concept, protected identity	PENDING USER REVIEW	PENDING
+FLT-22	22.0	Relationship	Trust, attachment, familiarity, dependency, conflict	PENDING USER REVIEW	PENDING
+FLT-23	23.0	Social Presence	Alone, observed, evaluated, cooperating, competing	PENDING USER REVIEW	PENDING
+FLT-24	24.0	Power	Authority, control, dependence, coercion, permission	PENDING USER REVIEW	PENDING
+FLT-25	25.0	Status	Reputation, rank, prestige, shame exposure	PENDING USER REVIEW	PENDING
+FLT-26	26.0	Culture	Norms, language, customs, religion, social scripts	PENDING USER REVIEW	PENDING
+FLT-27	27.0	Environment	Noise, light, temperature, danger, crowding, familiarity	PENDING USER REVIEW	PENDING
+FLT-28	28.0	Time	Urgency, delay, duration, deadline, time horizon	PENDING USER REVIEW	PENDING
+FLT-29	29.0	Scarcity	Money, time, food, information, opportunity, attention	PENDING USER REVIEW	PENDING
+FLT-30	30.0	Uncertainty	Known risk, ambiguity, unknowns, conflicting evidence	PENDING USER REVIEW	PENDING
+FLT-31	31.0	Complexity	Number of variables, interactions, dependencies, novelty	PENDING USER REVIEW	PENDING
+FLT-32	32.0	Framing	Gain frame, loss frame, moral frame, social frame	PENDING USER REVIEW	PENDING
+FLT-33	33.0	Instruction	Clarity, authority, contradiction, persistence	PENDING USER REVIEW	PENDING
+FLT-34	34.0	Feedback	Immediate, delayed, accurate, misleading, absent	PENDING USER REVIEW	PENDING
+FLT-35	35.0	Practice	Frequency, quality, spacing, variation, reinforcement	PENDING USER REVIEW	PENDING
+FLT-36	36.0	Medication/Substance	Prescription medicine, alcohol, stimulants, intoxicants	PENDING USER REVIEW	PENDING
+FLT-37	37.0	Trauma	Past threat, trigger similarity, chronic adversity	PENDING USER REVIEW	PENDING
+FLT-38	38.0	Technology	Tool access, interface, automation, information quality	PENDING USER REVIEW	PENDING
+FLT-39	39.0	Institutional	Law, policy, organisation, procedure, enforcement	PENDING USER REVIEW	PENDING
+FLT-40	40.0	Random/Uncontrolled	Chance event, noise, biological fluctuation, unknown cause	PENDING USER REVIEW	PENDING

@@ -601,6 +601,31 @@ MAP: list[dict] = [
             "grows sum nor the grows-against sum, never on the harvest list; "
             "any existing class would have decided a seam that is his. "
             "/adopted."},
+   {"his": "this file too for review and adoption",
+    "where": [("adopted.py", "def wb_verify("),
+              ("adopted.py", "def the_bridge("),
+              ("adopted.py", "def wb_findings("),
+              ("adopted.py", "def wb_halts("),
+              ("adopted.py", "def wb_stats(")],
+    "state": RUNS,
+    "note": "THE SECOND ADOPTION (2026-08-27) — the SB-ASI Drive master, "
+            "ASI-Brain_Task3_Approved_Final_v1_0, canon at "
+            "docs/method/canon/THE_ADOPTION_OF_THE_ASI_BRAIN_MASTER.md. "
+            "The .xlsx byte-identical at adopted/SB-ASI-Drive/ plus 33 "
+            "DERIVED sheet texts, all SHA-256'd; wb_verify re-hashes 34 "
+            "files per call. 33 sheets, 141,113 cells, 710,008 words "
+            "extracted whole. THE BRIDGE his own file states is COUNTED "
+            "from the sheets, never retyped: 2,554 exact-source rows + "
+            "650 named reserve rows = his 3,204; 2,554 + 6 visible "
+            "reconstructions (P1303-P1308, each REQUIRES USER APPROVAL) "
+            "= the 2,560. Five findings reported and corrected nowhere "
+            "(P0001 is a placeholder; the Task-3 raw workbook with the "
+            "2,514 edges, 46 names and 64 wordings is an OPEN SOURCE GAP "
+            "by the file's own record). Five new seams stand as "
+            "ADOPT-HALT-8..12 — the bridge, three filter vocabularies, "
+            "the twelve states, the missing raw workbook against C-SB's "
+            "AI_ONLY_RECORDS_64, and three scripture surfaces. Nothing "
+            "wired; the tree is ADOPTED in the file divide. /adopted."},
    {"his": "build 18 and 23 / it should must have full explanation not just "
            "definition n placeholders",
     "where": [("maturity.py", "def read("),
