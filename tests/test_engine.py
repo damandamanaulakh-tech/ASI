@@ -6405,6 +6405,150 @@ def test_feedback_never_anchors_its_own_combinations():
         "feedback + rowless material must open nothing — no self-anchoring"
 
 
+# ---------------------------------------------------------------------------
+# PHASE 9 — THE ARCHETYPE LAYER
+# ---------------------------------------------------------------------------
+
+def test_every_archetype_row_is_a_real_row_of_his_bank():
+    """The one thing an archetype may never do is cite a parameter that is
+    not there. Every (id, name, container) triple is re-checked against the
+    live registry — nine of the first twelve rows written for ARCH-011 were
+    wrong from memory, and this test is why that was caught."""
+    from sourceborn import archetype as A, asi_pyramid as AP
+    rows, _ = AP._flat()
+    by_id = {r["sb_id"]: r for r in rows}
+    checked = 0
+    for a in A.archetypes():
+        assert a["reaches"], a["id"] + " reaches nothing"
+        for pid, name, cid in a["reaches"]:
+            row = by_id.get(pid)
+            assert row is not None, "%s cites %s which is not in the bank" % (a["id"], pid)
+            assert row["name"].strip().lower() == name.strip().lower(), \
+                "%s %s: claimed %r, bank says %r" % (a["id"], pid, name, row["name"])
+            assert row["container"] == cid, \
+                "%s %s: claimed %s, bank says %s" % (a["id"], pid, cid, row["container"])
+            checked += 1
+    assert checked >= 97, checked
+
+
+def test_the_archetype_reaches_across_containers_which_is_why_it_is_a_layer():
+    """A row lives in exactly one container. An archetype that reached only
+    one container would belong inside it and would not need a layer. Every
+    archetype must span containers, and the widest must span segments."""
+    from sourceborn import archetype as A
+    for a in A.archetypes():
+        cons = {c for _, _, c in a["reaches"]}
+        assert len(cons) >= 2, "%s reaches one container — it is a row, not a layer" % a["id"]
+    widest = max(A.archetypes(), key=lambda a: len({c for _, _, c in a["reaches"]}))
+    assert len({c for _, _, c in widest["reaches"]}) >= 8
+
+
+def test_the_dice_game_went_from_zero_rows_to_real_rows():
+    """The proof this phase exists for. Measured before the layer: his dice
+    sentence seated ZERO rows — not because the rows were missing but
+    because there was no route from those words to them."""
+    from sourceborn import archetype as A
+    r = A.compare("he bet everything he had to win it all back and lost what "
+                  "he could never recover")
+    assert r["words_alone"]["rows"] == 0, r["words_alone"]
+    assert r["gain"] >= 10, r
+    assert "SB-HFR-P1873" in r["with_archetype"]["added_ids"]   # Sunk-cost sensitivity
+    assert "SB-HFR-P2517" in r["with_archetype"]["added_ids"]   # Commitment escalation risk
+    assert any(x.startswith("ARCH-001") for x in r["archetypes_fired"])
+
+
+def test_all_of_his_dead_examples_now_reach_the_bank():
+    """His three examples that seated zero rows, plus the book shapes. Each
+    must reach rows through the layer, and each must name what it matched."""
+    from sourceborn import archetype as A
+    cases = {
+        "a man is stealing money from a shop": "ARCH-011",
+        "diamond cut diamond": "ARCH-004",
+        "he stole the money to save his dying child": "ARCH-011",
+        "they melted their own gold into an idol while he was still on the mountain": "ARCH-002",
+        "do the work and do not look at the fruit": "ARCH-003",
+        "he gave everything and got nothing in return": "ARCH-010",
+    }
+    for text, want in cases.items():
+        f = A.fires_on(text)
+        assert want in [x["id"] for x in f["fired"]], (text, f["fired"])
+        assert f["rows_reached_count"] > 0, text
+        for x in f["fired"]:
+            assert x["matched_on"], "%s fired on %r with no evidence" % (x["id"], text)
+
+
+def test_the_meaning_route_stays_silent_on_ordinary_sentences():
+    """The macro route must not become a route to everything. Ordinary
+    sentences carrying no archetype fire nothing."""
+    from sourceborn import archetype as A
+    for text in ("the cat sat on the mat",
+                 "i went to the shop and bought bread and milk",
+                 "the train leaves at four in the afternoon",
+                 "my kids are playing outside in the garden",
+                 "it is raining and the road is wet",
+                 "please send me the report by friday",
+                 "she opened the window because the room was warm"):
+        assert A.fires_on(text)["fired_count"] == 0, text
+
+
+def test_two_shared_words_are_not_a_shape():
+    """His own IDF bar, one storey up: a concept word belonging to several
+    archetypes is weak evidence. `everything` and `all` sit in three lists
+    apiece — two of them together may not fire an archetype."""
+    from sourceborn import archetype as A
+    assert A.SHARED["everything"] >= 2 and A.SHARED["all"] >= 2
+    hits = A._hits("all everything", A.get("ARCH-007"))
+    assert [h for h in hits if h["route"] == "MEANING"] == []
+    # but a distinctive word alongside does fire, and says which word did it
+    hits = A._hits("test everything", A.get("ARCH-007"))
+    meaning = [h for h in hits if h["route"] == "MEANING"]
+    assert meaning and "test" in meaning[0]["distinctive"]
+
+
+def test_an_archetype_concludes_nothing_and_creates_no_parameter():
+    """It REACHES rows; it never owns them, never chooses among them, and
+    never adds to the bank."""
+    from sourceborn import archetype as A, human_registry as hr
+    before = len(hr.parameters())
+    f = A.fires_on("he bet everything to win it all back")
+    assert f["concluded"] is None
+    for x in f["fired"]:
+        assert x["chosen"] is None
+        assert x["refuses"] and x["discriminator"]
+    assert len(hr.parameters()) == before == 3204
+    assert A.CEILING is None, "his ruling: no count, open to increase"
+    src = open("src/sourceborn/archetype.py").read()
+    for forbidden in ("growth.add", "def add_parameter", "PARAM"):
+        assert forbidden not in src, forbidden
+
+
+def test_the_archetype_is_in_the_ask_path_not_behind_a_page():
+    """The defect weighting.py had: a module importable from nothing. The
+    archetype must reach the spine placement, and every row must say which
+    route reached it — WORDS and ARCHETYPE are never summed into one number."""
+    from sourceborn import sbx
+    r = sbx.place_on_spine("he bet everything he had to win it all back and "
+                           "lost what he could never recover")
+    assert r["source_rows_seated"] == 0, "the words still reach nothing"
+    assert r["archetype_rows_reached"] >= 10, r
+    assert r["steps_lit_count"] >= 5, "his dice game lit no step before this"
+    assert [a["id"] for a in r["archetypes_fired"]] == ["ARCH-001"]
+    by = {h["reached_by"] for h in r["hits"]}
+    assert by == {"ARCHETYPE"}, by
+    for h in r["hits"]:
+        assert h["via"], "a row reached by archetype must name which one"
+    # and an ask the words DO reach is still reached by the words
+    r2 = sbx.place_on_spine("i study late at night but i keep thinking about tomorrow")
+    assert "WORDS" in {h["reached_by"] for h in r2["hits"]}
+
+
+def test_the_archetype_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/archetype"', '"/archetype/run"'):
+        assert route in src, route
+    assert "archetype.fires_on(" in src and "archetype.compare(" in src
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0

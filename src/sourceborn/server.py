@@ -41,6 +41,7 @@ from . import generationpage
 from . import growth
 from . import filemap, growing, intent_ledger, intents, selfmake
 from . import sbx
+from . import archetype
 from . import artifact
 from . import discovery
 from . import expected
@@ -1497,6 +1498,22 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/sbx/container":
             self._send(200, json.dumps(
                 sbx.container(qs.get("id", [""])[0])).encode(), "application/json")
+        elif path == "/archetype":
+            # THE ARCHETYPE LAYER — the books as generative engines. One id
+            # returns that archetype whole; no id returns the set.
+            aid = qs.get("id", [""])[0].strip().upper()
+            if aid:
+                self._send(200, json.dumps(archetype.get(aid)).encode(),
+                           "application/json")
+            else:
+                self._send(200, json.dumps(
+                    {"stats": archetype.stats(),
+                     "ceiling": archetype.CEILING,
+                     "meaning_min": archetype.MEANING_MIN,
+                     "archetypes": [
+                         {k: v for k, v in a.items() if k != "triggers"}
+                         for a in archetype.archetypes()]}).encode(),
+                    "application/json")
         elif path == "/adopted":
             # the adoption from C-SB — byte-identical, verified, inert; every
             # seam a HALT for him
@@ -2470,6 +2487,19 @@ class Handler(BaseHTTPRequestHandler):
                 return
             self._send(200, json.dumps(sbx.place_on_spine(text)).encode(),
                        "application/json")
+            return
+        if self.path == "/archetype/run":
+            # which archetypes land on this text, what rows they reach that the
+            # words alone could not, and the proof of the difference. Nothing
+            # is chosen — `concluded` is None on every run.
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            out = archetype.fires_on(text)
+            out["proof"] = archetype.compare(text)
+            self._send(200, json.dumps(out).encode(), "application/json")
             return
         if self.path != "/ask":
             self._send(404, b'{"error":"not found"}', "application/json")

@@ -629,6 +629,56 @@ MAP: list[dict] = [
             "difference between source_rows_seated and mapped_into_split, never "
             "dropped. ARCHETYPE, LINK and SCALE are declared with no ceiling and "
             "hold nothing yet. /sbx, /sbx/step, /sbx/container, POST /sbx/place."},
+   {"his": "now build the archetype layer from the holy books",
+    "where": [("archetype.py", "ARCHETYPES = ("),
+              ("archetype.py", "def fires_on("),
+              ("archetype.py", "def compare("),
+              ("archetype.py", "def _hits("),
+              ("archetype.py", "MEANING_MIN = "),
+              ("archetype.py", "CEILING = None")],
+    "state": RUNS,
+    "note": "PHASE 9 — THE ARCHETYPE LAYER (2026-08-29). His teaching: the holy "
+            "books are GENERATIVE ENGINES, not a quote store — the words stay "
+            "the same and the reading is never general, because human intent "
+            "and situation change infinitely; one event of those books is used "
+            "in 100 daily responses. WHY IT IS A LAYER AND NOT A ROW: a row "
+            "lives in exactly one container, but THE RECOVERY STAKE reaches 12 "
+            "rows across 9 containers in 6 segments — put it in any one of them "
+            "and it is in the wrong place eight times over. It REACHES rows; it "
+            "never owns them. WHAT IT FIXES, measured: his dice sentence 'he "
+            "bet everything he had to win it all back and lost what he could "
+            "never recover' seated ZERO rows — not because the rows were "
+            "missing (P1873 Sunk-cost sensitivity and P2517 Commitment "
+            "escalation risk were sitting there) but because no route ran from "
+            "those words to those rows. 11 archetypes: ARCH-001 THE RECOVERY "
+            "STAKE (Mahabharata dice game, his 'betting is worst, u can loose "
+            "ur pride too'), 002 THE GOLDEN CALF (Exodus), 003 THE FRUIT AND "
+            "THE ACT (Gita 2.47), 004 DIAMOND CUT DIAMOND (his proverb, 'its "
+            "ego cut ego'), 005 VIRTUE WITHOUT LIMIT (his Yudhishthira reading "
+            "— 'being righteousness and adherence to truth dosent make u great "
+            "all the time'), 006 VERIFY BEFORE HARM (Qur'an 49:6), 007 TEST AND "
+            "RETAIN (1 Thess 5:21), 008 THE DISCRIMINATIVE INTELLECT (Gita "
+            "18:30), 009 TRUTH AND TRUTHFUL LIVING (SGGS Ang 62), 010 THE ONE "
+            "WHO IS LEFT WITH MEMORIES (his good-person teaching), 011 THE ACT "
+            "WITH MANY INTENTS (his stealing demo — thief/opportunity/habit/"
+            "saving a life). EVERY ROW CITED IS REAL: 117 (id, name, container) "
+            "triples re-checked against the live registry by a test — nine of "
+            "the first twelve written for ARCH-011 were wrong from memory and "
+            "that test is what caught them. TWO ROUTES, both naming their "
+            "evidence: PHRASE (a regex, the narrow route that fails on "
+            "unfamiliar wording) and MEANING (concept words, the macro route "
+            "that survives rewording — his dice game reads the same whether it "
+            "is dice, a stock or a war). The meaning route uses HIS OWN IDF BAR "
+            "one storey up: a word in several archetypes' vocabularies is weak "
+            "evidence, so a firing needs 2 concept words of which at least one "
+            "is DISTINCTIVE — 'all everything' fires nothing. Measured both "
+            "ways: all 7 of his dead examples now reach rows (stealing 0->20, "
+            "diamond cut diamond 0->10, the dice game 0->12), and 8 of 8 "
+            "ordinary sentences fire NOTHING. Nothing is concluded — `chosen` "
+            "and `concluded` are None on every run, each firing carries its "
+            "discriminator and its refusal, and NO PARAMETER IS CREATED (the "
+            "bank stays 3,204). NO CEILING, his ruling: 'no count, its open to "
+            "increase'. /archetype, /archetype?id=, POST /archetype/run."},
    {"his": "this file too for review and adoption",
     "where": [("adopted.py", "def wb_verify("),
               ("adopted.py", "def the_bridge("),

@@ -155,16 +155,39 @@ def place_on_spine(text: str, repo: str = ".") -> dict:
     is that a seated row now has a step, a pillar and a machine column, so the
     ask can be read on his spine instead of only as a list of parameters."""
     from . import growing as W          # late import: growing must not import this
+    from . import archetype as ARCH     # the layer above the rows, reaching down
     placed = W.place(text, "sbx")
     by_old = {}
     for c in containers():
         by_old.setdefault(c["from"]["container"], []).append(c)
-    steps, hits = {}, []
+
+    # TWO WAYS A ROW IS REACHED, and they are never merged into one number.
+    # WORDS: the seating, exactly as it always ran.
+    # ARCHETYPE: the route the words could not take. His dice game seats zero
+    # rows by word and reaches twelve by shape; if the two were summed into a
+    # single count the page could not say which mechanism did the work, and
+    # `reached_by` is what makes that visible on every row.
+    reached = []
     for s in placed.get("strengthened", []):
+        reached.append({"sb_id": s.get("sb_id"), "name": s.get("name"),
+                        "container": s.get("container"), "by": "WORDS",
+                        "via": None})
+    seated_ids = {r["sb_id"] for r in reached}
+    fired = ARCH.fires_on(text)
+    for r in fired["rows_reached"]:
+        if r["id"] in seated_ids:
+            continue
+        reached.append({"sb_id": r["id"], "name": r["name"],
+                        "container": r["container"], "by": "ARCHETYPE",
+                        "via": r["via"]})
+
+    steps, hits = {}, []
+    for s in reached:
         for c in by_old.get(s.get("container"), []):
             names = {r["name"].lower() for r in c["rows"]}
             if s.get("name", "").lower() in names:
                 hits.append({"row": s.get("name"), "source_id": s.get("sb_id"),
+                             "reached_by": s["by"], "via": s["via"],
                              "container": c["id"], "container_name": c["name"],
                              "segment": c["segment"], "pillar": c["pillar"],
                              "step": c["step"], "computer": c["computer"]})
@@ -186,14 +209,21 @@ def place_on_spine(text: str, repo: str = ".") -> dict:
         "text": text,
         "events": placed.get("counts", {}).get("events", 0),
         "source_rows_seated": len(placed.get("strengthened", [])),
+        "archetype_rows_reached": sum(1 for r in reached if r["by"] == "ARCHETYPE"),
+        "archetypes_fired": [{"id": f["id"], "name": f["name"],
+                              "routes": f["routes"],
+                              "matched_on": f["matched_on"]}
+                             for f in fired["fired"]],
+        "rows_reached_total": len(reached),
         "mapped_into_split": len(hits),
         "steps_lit": lit,
         "steps_lit_count": len(lit),
         "hits": hits,
         "concluded": None,
         "law": "the seating is unchanged — this reads it through the split and "
-               "lands it on his spine. Nothing is chosen and no intent is "
-               "concluded from one event.",
+               "lands it on his spine. The archetype layer reaches rows the "
+               "words could not, and every row says which route reached it. "
+               "Nothing is chosen and no intent is concluded from one event.",
         "unmapped_note": "a seated row with no home in the split is reported by "
                          "the difference between source_rows_seated and "
                          "mapped_into_split, never dropped silently",
