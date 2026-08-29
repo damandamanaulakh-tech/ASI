@@ -44,6 +44,7 @@ from . import sbx
 from . import archetype
 from . import trigger
 from . import link
+from . import readings
 from . import artifact
 from . import discovery
 from . import expected
@@ -1490,6 +1491,19 @@ class Handler(BaseHTTPRequestHandler):
                  "node_brain": sbx.node_brain(),
                  "open_layers": sbx.open_layers()}).encode(),
                 "application/json")
+        elif path == "/readings":
+            # PHASE 12 — his nine intent types as READINGS, not labels. `id`
+            # returns one type whole.
+            tid = qs.get("id", [""])[0].strip().upper()
+            if tid:
+                self._send(200, json.dumps(readings.get(tid)).encode(),
+                           "application/json")
+            else:
+                self._send(200, json.dumps(
+                    {"stats": readings.stats(), "verify": readings.verify(),
+                     "types": readings.types(),
+                     "adopted_seam": readings.ADOPTED_HALT}).encode(),
+                    "application/json")
         elif path == "/link":
             # PHASE 10 — the link layer. `id` returns one link; `row` returns
             # every link a row stands in; neither returns the whole 993 by
@@ -2547,6 +2561,17 @@ class Handler(BaseHTTPRequestHandler):
                            "application/json")
                 return
             self._send(200, json.dumps(sbx.place_on_spine(text)).encode(),
+                       "application/json")
+            return
+        if self.path == "/readings/run":
+            # the proof: all nine readings of one event, each naming what would
+            # confirm and what would refute it. None chosen, none chooseable.
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(readings.read(text)).encode(),
                        "application/json")
             return
         if self.path == "/link/run":

@@ -629,6 +629,44 @@ MAP: list[dict] = [
             "difference between source_rows_seated and mapped_into_split, never "
             "dropped. ARCHETYPE, LINK and SCALE are declared with no ceiling and "
             "hold nothing yet. /sbx, /sbx/step, /sbx/container, POST /sbx/place."},
+   {"his": "a live run on 'a man is stealing the money' producing all nine "
+           "readings where it produces zero today",
+    "where": [("readings.py", "TYPES = ("),
+              ("readings.py", "def read("),
+              ("readings.py", "def verify("),
+              ("readings.py", "ADOPTED_HALT = {")],
+    "state": RUNS,
+    "note": "PHASE 12 — THE NINE READINGS (2026-08-29). His own demonstration "
+            "is the whole design: a man is taking money, and that single "
+            "visible act carries four reasons he named himself — THIEF · "
+            "OPPORTUNITY · HABIT · SAVING A LIFE — with the hand moving "
+            "identically in all four. His motto says every event HAS an "
+            "intent; it does NOT say the event announces it. So the honest "
+            "output of an event is not one intent but every intent it could "
+            "carry, all standing, none chosen. WHAT CHANGED: before this an "
+            "ask reached intent TYPE IDS — ['IT-01', 'IT-02', ...] — a list of "
+            "names that settles nothing. A READING is testable: it carries "
+            "what this specific act would mean under that type, WHAT WOULD "
+            "CONFIRM IT, WHAT WOULD REFUTE IT, the refusal that guards it, and "
+            "the rows of his own bank it rests on. His falsifier law from the "
+            "intent ledger applies unchanged — a candidate naming nothing that "
+            "would flip it is an opinion, not a candidate. FOUR OF THE NINE "
+            "ARE HIS OWN FROM THIS VERY EXAMPLE (IT-01 disposition, IT-02 "
+            "affordance, IT-03 automaticity, IT-04 override by a higher "
+            "claim); the other five come from his other worked examples — "
+            "recovery from the dice game, role-binding from Yudhishthira, "
+            "impatience from the golden calf, fruit-focus from Gita 2.47, "
+            "permission-waiting from his study sequence. 21 rows verified "
+            "against the live registry, 0 wrong. THE ACT IS CARRIED IN HIS "
+            "WORDS and never re-described — the reading is what varies, the "
+            "act must not. NOTHING IS CHOSEN AND NOTHING IS CHOOSEABLE: "
+            "`chosen` is None on every reading and a source-scan test proves "
+            "there is no max, no sort and no selection path in the module. Two "
+            "surviving candidates HALT rather than blend, his standing rule — "
+            "and nine surviving candidates are nine. The eight typed intents "
+            "adopted from C-SB are listed beside his nine and joined by "
+            "nobody: ADOPT-HALT-4, merged False, his call. /readings, "
+            "/readings?id=IT-04, POST /readings/run."},
    {"his": "links between sub-parameters become first-class, counted and named",
     "where": [("link.py", "def links("),
               ("link.py", "def computed("),

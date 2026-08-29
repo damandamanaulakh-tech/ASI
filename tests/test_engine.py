@@ -6564,6 +6564,77 @@ def test_the_archetype_routes_are_reachable():
 
 
 # ---------------------------------------------------------------------------
+# PHASE 12 — THE NINE READINGS
+# ---------------------------------------------------------------------------
+
+def test_his_stealing_sentence_produces_all_nine_readings():
+    """The proof he named for this phase: *a live run on "a man is stealing
+    the money" producing all nine readings where it produces zero today*."""
+    from sourceborn import readings as R
+    r = R.read("a man is stealing the money")
+    assert r["reading_count"] == 9
+    assert [x["id"] for x in r["readings"]] == ["IT-0%d" % n for n in range(1, 10)]
+    # his own four from this very example lead the set
+    by = {x["id"]: x for x in r["readings"]}
+    assert "THIEF" in by["IT-01"]["his_example"]
+    assert "OPPORTUNITY" in by["IT-02"]["his_example"]
+    assert "HABIT" in by["IT-03"]["his_example"]
+    assert "SAVING A LIFE" in by["IT-04"]["his_example"]
+    # the act is carried in HIS words, never re-described
+    assert r["act"] == "a man is stealing the money"
+    for x in r["readings"]:
+        assert r["act"] in x["reading"], x["id"]
+
+
+def test_a_reading_names_what_would_refute_it():
+    """His falsifier law, unchanged: a candidate that names nothing that would
+    flip it is not a candidate, it is an opinion. That is what makes these
+    readings and not labels."""
+    from sourceborn import readings as R
+    for x in R.read("a man is stealing the money")["readings"]:
+        assert x["confirmed_by"] and x["refuted_by"], x["id"]
+        assert x["confirmed_by"] != x["refuted_by"]
+        assert x["refuses"], x["id"]
+        assert x["rests_on"], x["id"]
+
+
+def test_nothing_is_chosen_and_nothing_is_chooseable():
+    """Two surviving candidates HALT rather than blend — his standing rule.
+    Nine surviving candidates are nine."""
+    from sourceborn import readings as R
+    r = R.read("a man is stealing the money")
+    assert r["chosen"] is None
+    assert all(x["chosen"] is None for x in r["readings"])
+    src = open("src/sourceborn/readings.py").read()
+    for forbidden in ('"chosen": t[', "chosen =", "max(", "sort(", "best"):
+        assert forbidden not in src, forbidden
+
+
+def test_every_row_a_reading_rests_on_is_real():
+    from sourceborn import readings as R
+    v = R.verify()
+    assert v["ok"] is True, v["problems"]
+    assert v["rows_checked"] == 21
+
+
+def test_the_adopted_intents_are_not_merged_with_his_nine():
+    """ADOPT-HALT-4. Two intent vocabularies of different provenance; his
+    ruling at the P2561 collision covers it."""
+    from sourceborn import readings as R
+    a = R.ADOPTED_HALT
+    assert a["merged"] is False and a["his_call"] is True
+    assert len(a["his_nine"]) == 9
+    assert "ADOPT-HALT-4" in a["seam"]
+
+
+def test_the_readings_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/readings"', '"/readings/run"'):
+        assert route in src, route
+    assert "readings.read(" in src
+
+
+# ---------------------------------------------------------------------------
 # PHASE 10 — THE LINK LAYER
 # ---------------------------------------------------------------------------
 
