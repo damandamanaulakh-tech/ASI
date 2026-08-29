@@ -43,6 +43,7 @@ from . import filemap, growing, intent_ledger, intents, selfmake
 from . import sbx
 from . import archetype
 from . import trigger
+from . import link
 from . import artifact
 from . import discovery
 from . import expected
@@ -1489,6 +1490,24 @@ class Handler(BaseHTTPRequestHandler):
                  "node_brain": sbx.node_brain(),
                  "open_layers": sbx.open_layers()}).encode(),
                 "application/json")
+        elif path == "/link":
+            # PHASE 10 — the link layer. `id` returns one link; `row` returns
+            # every link a row stands in; neither returns the whole 993 by
+            # accident, because a page that dumps them cannot be read.
+            lid = qs.get("id", [""])[0].strip().upper()
+            row = qs.get("row", [""])[0].strip()
+            if lid:
+                self._send(200, json.dumps(link.get(lid)).encode(),
+                           "application/json")
+            elif row:
+                self._send(200, json.dumps(
+                    {"row": row, "links": link.of(row)}).encode(),
+                    "application/json")
+            else:
+                self._send(200, json.dumps(
+                    {"stats": link.stats(), "verify": link.verify(),
+                     "types": link.TYPES, "his": link.his()}).encode(),
+                    "application/json")
         elif path == "/sbx/wiring":
             # HIS ASK 5: your pending wiring. His own twelve-layer table,
             # rendered against the LIVE data, plus the column his table could
@@ -2528,6 +2547,17 @@ class Handler(BaseHTTPRequestHandler):
                            "application/json")
                 return
             self._send(200, json.dumps(sbx.place_on_spine(text)).encode(),
+                       "application/json")
+            return
+        if self.path == "/link/run":
+            # the proof: a reading that belongs to the MEETING of two rows and
+            # is stored in neither end.
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(link.fires_on(text)).encode(),
                        "application/json")
             return
         if self.path == "/trigger/run":

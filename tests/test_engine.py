@@ -6309,9 +6309,13 @@ def test_archetype_link_and_scale_are_open_with_no_ceiling():
         assert d["ceiling"] is None, "his ruling: no ceiling"
         assert d["opens_at"] and d["state"]
         assert isinstance(d["count"], int)
+    from sourceborn import link
     by = {d["id"]: d for d in layers}
     assert by["ARCHETYPE"]["count"] == len(archetype.archetypes()) >= 11
-    assert by["LINK"]["count"] == 0 and by["SCALE"]["count"] == 0
+    assert by["LINK"]["count"] == len(link.links()) > 900
+    # SCALE is the one still declared and empty, and it says so
+    assert by["SCALE"]["count"] == 0
+    assert by["SCALE"]["state"].startswith("DECLARED")
 
 
 def test_the_sbx_routes_are_reachable():
@@ -6560,6 +6564,78 @@ def test_the_archetype_routes_are_reachable():
 
 
 # ---------------------------------------------------------------------------
+# PHASE 10 — THE LINK LAYER
+# ---------------------------------------------------------------------------
+
+def test_the_link_layer_is_counted_from_the_split_bank():
+    """His own note on this layer: *counted from the split bank*. Three of the
+    four types are COMPUTED over the live split and the live archetype layer,
+    so the count follows the bank instead of drifting from it."""
+    from sourceborn import link as L
+    s = L.stats()
+    assert s["links"] > 900
+    assert s["computed"] == s["links"] - s["his"]
+    assert set(s["by_type"]) == {"SPLIT_SIBLING", "SHARED_NAME",
+                                 "ARCHETYPE_REACH", "SYMMETRIC_MEETING"}
+    # split siblings come from the 275 parents the split review counts
+    assert s["by_type"]["SPLIT_SIBLING"] >= 275
+    assert s["ceiling"] is None, "his ruling: no count, open to increase"
+    # ids are their own namespace — never readable as rows or containers
+    for l in L.links()[:50]:
+        assert l["id"].startswith("SBX-LNK-")
+
+
+def test_every_row_a_link_names_is_real():
+    """His hand-given links name SOURCE rows he supplied — those are the ones
+    that can be wrong, so they are checked against the live registry."""
+    from sourceborn import link as L
+    v = L.verify()
+    assert v["ok"] is True, v["problems"]
+    assert v["problems"] == []
+    assert v["his_row_ids_checked"] >= 7
+    assert v["dangling_computed_links"] == 0
+
+
+def test_the_diamond_returns_a_reading_no_row_can_hold():
+    """The proof the layer exists for. `Dominance motive` is a row. TWO people
+    running it at each other is not a row and cannot be made one — it has no
+    home container, because it is not located in either party."""
+    from sourceborn import link as L
+    r = L.fires_on("diamond cut diamond")
+    assert r["fired_count"] == 1
+    reading = r["readings"][0]
+    assert reading["name"] == "DIAMOND CUT DIAMOND"
+    assert reading["his_words"] == "its ego cut ego"
+    # both ends are the SAME row — which is why no computation could find it
+    assert reading["rows"] == ["SB-HFR-P2550", "SB-HFR-P2550"]
+    assert "meeting" in reading["reading"] or "meeting" in r["law"]
+    assert "never read it as one person being strong" in reading["refuses"]
+    assert r["concluded"] is None
+    # and ordinary text fires nothing
+    assert L.fires_on("the cat sat on the mat")["fired_count"] == 0
+
+
+def test_the_link_layer_now_counts_in_his_table():
+    """It stood at 0 in his twelve-layer table. It is now counted live, and
+    wired — a layer is only wired if a live call puts it in the path."""
+    from sourceborn import sbx, link as L
+    by = {l["id"]: l for l in sbx.open_layers()}
+    assert by["LINK"]["count"] == len(L.links()) > 900
+    assert by["LINK"]["ceiling"] is None
+    row = next(l for l in sbx.layers() if l["layer"] == "Link")
+    assert row["live"] == len(L.links())
+    assert row["wired"]["wired"] is True
+    assert "Link" in sbx.wiring()["wired"]
+
+
+def test_the_link_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/link"', '"/link/run"'):
+        assert route in src, route
+    assert "link.fires_on(" in src and "link.of(" in src
+
+
+# ---------------------------------------------------------------------------
 # HIS TWELVE-LAYER TABLE, LIVE — his ask: "your pending wiring"
 # ---------------------------------------------------------------------------
 
@@ -6610,11 +6686,12 @@ def test_wired_means_it_reaches_an_answer_not_that_it_exists():
     from sourceborn import sbx
     w = sbx.wiring()
     assert set(w["wired"]) == {"Segments", "Containers", "Sub-parameters",
-                               "Archetype"}
+                               "Archetype", "Link"}
     assert w["partial"] == ["Universal filters"]
-    # seven layers exist at a step and reach no answer — stated, not hidden
-    assert len(w["carried_not_consulted"]) == 7
+    # six layers exist at a step and reach no answer — stated, not hidden
+    assert len(w["carried_not_consulted"]) == 6
     assert "Rubrics R01–R52" in w["carried_not_consulted"]
+    assert "Scale" in w["carried_not_consulted"]
     for l in sbx.layers():
         assert l["wired"]["how"], l["layer"]
 

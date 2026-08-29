@@ -67,6 +67,14 @@ def _archetype_count() -> int:
         return 0
 
 
+def _link_count() -> int:
+    try:
+        from . import link
+        return len(link.links())
+    except Exception:
+        return 0
+
+
 OPEN_LAYERS = (
     {"id": "ARCHETYPE", "holds": "understandings extracted from the books — each with "
      "its scale axis, the intent types it can produce, its discriminator and what "
@@ -74,8 +82,8 @@ OPEN_LAYERS = (
      "opens_at": "the archetype phase", "state": "OPEN — counted live"},
     {"id": "LINK", "holds": "relations between rows as first-class counted objects. "
      "'Diamond cut diamond' is a link between two ego-rows, not a row",
-     "count": 0, "ceiling": None, "opens_at": "the link phase",
-     "state": "DECLARED — holds nothing yet"},
+     "count": _link_count, "ceiling": None, "opens_at": "the link phase",
+     "state": "OPEN — counted live from the split bank"},
     {"id": "SCALE", "holds": "the stored axis on every archetype — micro, individual, "
      "relational, macro, and more; his ruling was that it is not only four",
      "count": 0, "ceiling": None, "opens_at": "the scale phase",
@@ -761,6 +769,10 @@ def _wired(n: int) -> dict:
     if n == 9:
         return {"wired": True, "how": "archetype.fires_on() runs inside "
                 "place_on_spine(); a row reached that way is marked ARCHETYPE"}
+    if n == 10:
+        return {"wired": True, "how": "link.fires_on() returns a reading "
+                "belonging to the meeting of two rows, which neither row nor "
+                "either container can hold — his diamond returns it live"}
     if n in (5, 6, 7, 8, 12):
         return {"wired": False, "how": "placed at the step where it acts and "
                 "returned by /sbx/step, but no ask is scored against it — it "

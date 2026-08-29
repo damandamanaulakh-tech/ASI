@@ -629,6 +629,44 @@ MAP: list[dict] = [
             "difference between source_rows_seated and mapped_into_split, never "
             "dropped. ARCHETYPE, LINK and SCALE are declared with no ceiling and "
             "hold nothing yet. /sbx, /sbx/step, /sbx/container, POST /sbx/place."},
+   {"his": "links between sub-parameters become first-class, counted and named",
+    "where": [("link.py", "def links("),
+              ("link.py", "def computed("),
+              ("link.py", "HIS_LINKS = ("),
+              ("link.py", "def fires_on("),
+              ("link.py", "def verify(")],
+    "state": RUNS,
+    "note": "PHASE 10 — THE LINK LAYER (2026-08-29). His ask, with his own "
+            "worked example: 'Diamond cut diamond becomes a stored link "
+            "between two ego-rows.' WHY A LINK IS NOT A ROW: a row is a "
+            "faculty living in one container. `Dominance motive` is a row; TWO "
+            "people running it at each other is not a row and cannot be made "
+            "one, because it has no home container — it is not located in "
+            "either party, it is located in the MEETING. That is his diamond "
+            "exactly ('its ego cut ego'), and ARCH-004 already says the "
+            "immovability is a property of the meeting, not of either party. A "
+            "layer that can only hold rows cannot say that sentence at all. "
+            "COUNTED FROM THE SPLIT BANK, his own note on this layer — 993 "
+            "links, of which 992 are COMPUTED over the live split and the live "
+            "archetype layer and nothing is hand-listed, so the count follows "
+            "the bank instead of drifting from it: SPLIT_SIBLING 284 pairs "
+            "from the 275 parents the split divided (that `Fluid` and `osmotic "
+            "balance` were once one row, P0003, is real information the split "
+            "otherwise throws away), SHARED_NAME 89 pairs across 83 names "
+            "(which is what the review's undecided SPLIT-05 duplicates "
+            "actually ARE — two rows that may be one faculty seen twice), "
+            "ARCHETYPE_REACH 619 pairs (the generative edge: a relation across "
+            "containers that no container could hold, found by the archetype "
+            "and stored here). THE ONE HAND-GIVEN LINK IS THE ONE NO SWEEP "
+            "COULD FIND — SYMMETRIC_MEETING, because both ends are the SAME "
+            "row (SB-HFR-P2550 Dominance motive on both parties). Every row id "
+            "his links name is re-checked against the live registry, 7 checked "
+            "0 wrong. `fires_on('diamond cut diamond')` returns the reading "
+            "belonging to the meeting, with his refusal attached ('never read "
+            "it as one person being strong'), and ordinary text fires nothing. "
+            "The layer stood at 0 in his twelve-layer table and is now counted "
+            "live and WIRED. No ceiling, no parameter created, nothing "
+            "concluded. /link, /link?id=, /link?row=, POST /link/run."},
    {"his": "your pending wiring",
     "where": [("sbx.py", "HIS_LAYERS = ("),
               ("sbx.py", "def layers("),
