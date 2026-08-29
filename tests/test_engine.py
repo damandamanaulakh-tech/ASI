@@ -6560,6 +6560,71 @@ def test_the_archetype_routes_are_reachable():
 
 
 # ---------------------------------------------------------------------------
+# THE SPLIT REVIEW — his ask: "split review it again"
+# ---------------------------------------------------------------------------
+
+def test_the_split_review_runs_checks_that_can_fail():
+    """A review reports what is WRONG. These eight checks each have a failing
+    branch; a review that could only pass would be worth nothing."""
+    from sourceborn import sbx
+    r = sbx.review()
+    assert r["checks_run"] == 8
+    assert r["passed_count"] + r["findings_count"] == 8
+    ids = {p["id"] for p in r["passed"]} | {f["id"] for f in r["findings"]}
+    assert ids == {"SPLIT-0%d" % n for n in range(1, 9)}
+    for f in r["findings"]:
+        assert f["his_call"] is True
+        assert f["severity"]
+        assert f["what"]
+
+
+def test_the_split_arithmetic_is_exact_and_no_source_row_was_lost():
+    """SPLIT-01 is the load-bearing check: nothing is removed. Every one of his
+    3,204 source rows must still have at least one child, and no split row may
+    cite a source that is not there."""
+    from sourceborn import sbx
+    r = sbx.review()
+    p = next(x for x in r["passed"] if x["id"] == "SPLIT-01")
+    assert p["source_rows"] == 3204
+    assert p["parents_split"] == 275
+    assert p["children_from_split_parents"] == 554
+    assert p["arithmetic"] == "3204 source + 279 gained by splitting = 3483"
+    assert "SPLIT-01" not in r["blocking"]
+
+
+def test_the_review_reports_the_row_shortfall_without_deciding_it():
+    """His rule is 40 rows per container; most have fewer, because splitting a
+    parent DIVIDED its 40 among its children instead of giving each 40. The
+    review states the number and refuses to invent the names."""
+    from sourceborn import sbx
+    f = next(x for x in sbx.review()["findings"] if x["id"] == "SPLIT-02")
+    assert f["containers_under"] + f["containers_at_or_over"] == 183
+    assert f["shortfall_to_40_each"] > 3000
+    assert "will not decide it" in f["what_would_close_it"]
+    assert f["thinnest"] and f["thinnest"][0]["rows"] == 1
+
+
+def test_the_review_catches_the_split_repeating_its_own_defect():
+    """Two children of two different parents landed on the same bare name —
+    `Ownership` from body-schema and `Ownership` from agency; `Gesture` from
+    tool-use and `Gesture` from prosody. That is the multi-meaning problem
+    reappearing one level down, and it is reported, not renamed."""
+    from sourceborn import sbx
+    f = next(x for x in sbx.review()["findings"] if x["id"] == "SPLIT-04")
+    assert set(f["duplicates"]) == {"Ownership", "Gesture"}
+    for name, group in f["duplicates"].items():
+        assert len({g["id"] for g in group}) == len(group) > 1
+        assert len({g["from"] for g in group}) == len(group), \
+            "the duplicates must come from DIFFERENT parents to be a real seam"
+    assert "never renames" in f["what_would_close_it"]
+
+
+def test_the_review_route_is_reachable():
+    src = open("src/sourceborn/server.py").read()
+    assert '"/sbx/review"' in src and "sbx.review()" in src
+
+
+# ---------------------------------------------------------------------------
 # HIS DISPLAY LAW — NEW PARAMETERS IN FRONT, OLD IN BACK
 # ---------------------------------------------------------------------------
 

@@ -1489,6 +1489,11 @@ class Handler(BaseHTTPRequestHandler):
                  "node_brain": sbx.node_brain(),
                  "open_layers": sbx.open_layers()}).encode(),
                 "application/json")
+        elif path == "/sbx/review":
+            # HIS ASK: split review it again. Checks that can FAIL, run live
+            # over the data — findings, not assurances. Nothing is corrected.
+            self._send(200, json.dumps(sbx.review()).encode(),
+                       "application/json")
         elif path == "/sbx/nodes":
             # HIS NODE BRAIN, IN the architecture rather than beside it — the
             # 12 types placed at the step each acts on. The structure is his

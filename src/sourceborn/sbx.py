@@ -455,6 +455,198 @@ def place_on_spine(text: str, repo: str = ".") -> dict:
     }
 
 
+# ---------------------------------------------------------------------------
+# THE SPLIT REVIEW
+#
+# His ask: *split review it again*. Not a re-statement of the counts — a set of
+# checks that can FAIL, run over the live data, reporting what is wrong rather
+# than what is right. Nothing here corrects anything: his standing rule is that
+# meanings are fixed with notes, never renames, and that nothing is removed.
+# Every finding is surfaced with what it would take to close it, and left.
+# ---------------------------------------------------------------------------
+
+#: His stated rule for a container's row count: *each new container gets its
+#: own fresh 40*.
+ROWS_PER_CONTAINER = 40
+
+
+def review() -> dict:
+    """Audit the split against checks that can fail. Findings, not assurances."""
+    import collections
+    cs, rs = containers(), rows()
+    findings, passes = [], []
+
+    # ---- the arithmetic: does every source row still have a child? ----------
+    from . import asi_pyramid as AP
+    flat, _ = AP._flat()
+    source_ids = {"P%04d" % r["flat"] for r in flat}
+    cited = {r["from_row"] for r in rs}
+    orphaned = sorted(source_ids - cited)
+    dangling = sorted(cited - source_ids)
+    per_parent = collections.Counter(r["from_row"] for r in rs)
+    split_parents = [p for p, n in per_parent.items() if n > 1]
+    if orphaned or dangling:
+        findings.append({
+            "id": "SPLIT-01", "severity": "BLOCKING",
+            "what": "a source row lost its child, or a split row cites a "
+                    "source that does not exist",
+            "orphaned_source_rows": len(orphaned),
+            "dangling_split_rows": len(dangling),
+            "examples": orphaned[:10] + dangling[:10],
+            "his_call": True,
+        })
+    else:
+        passes.append({
+            "id": "SPLIT-01", "checked": "every one of his 3,204 source rows "
+            "has at least one child in the split, and no split row cites a "
+            "source that is not there",
+            "source_rows": len(source_ids),
+            "parents_split": len(split_parents),
+            "children_from_split_parents":
+                sum(n for n in per_parent.values() if n > 1),
+            "arithmetic": "%d source + %d gained by splitting = %d"
+                          % (len(source_ids), len(rs) - len(source_ids), len(rs)),
+        })
+
+    # ---- his 40-per-container rule -----------------------------------------
+    counts = {c["id"]: len(c.get("rows", ())) for c in cs}
+    under = {k: v for k, v in counts.items() if v < ROWS_PER_CONTAINER}
+    if under:
+        thin = sorted(under.items(), key=lambda kv: kv[1])
+        by_id = {c["id"]: c for c in cs}
+        findings.append({
+            "id": "SPLIT-02", "severity": "OPEN — HIS NUMBER TO FINALISE",
+            "what": "his rule is that each new container gets its own fresh "
+                    "%d rows. Most do not have them." % ROWS_PER_CONTAINER,
+            "containers_under": len(under),
+            "containers_at_or_over": len(cs) - len(under),
+            "shortfall_to_%d_each" % ROWS_PER_CONTAINER:
+                sum(ROWS_PER_CONTAINER - v for v in under.values()),
+            "thinnest": [{"id": k, "name": by_id[k]["name"], "rows": v,
+                          "from": by_id[k]["from"]["name"]}
+                         for k, v in thin[:10]],
+            "why": "splitting a parent DIVIDED its 40 rows among its children "
+                   "rather than giving each child 40 of its own. A parent that "
+                   "became five containers left five thin ones.",
+            "what_would_close_it": "fresh row names for the shortfall. There "
+                                   "is no source for them — his 650-row named "
+                                   "reserve is the only real material, and it "
+                                   "does not cover this. HIS NUMBER TO "
+                                   "FINALISE; this side will not decide it.",
+            "his_call": True,
+        })
+
+    # ---- the split's own output re-introducing multi-meaning ---------------
+    def multi(s):
+        low = (s or "").lower()
+        return "/" in low or " and " in low or "," in low or " & " in low
+    mc = [c["id"] + " " + c["name"] for c in cs if multi(c["name"])]
+    mr = [r["name"] for r in rs if multi(r["name"])]
+    if mc or mr:
+        findings.append({
+            "id": "SPLIT-03", "severity": "BLOCKING",
+            "what": "a name in the split still carries more than one meaning, "
+                    "which is the thing the split exists to remove",
+            "container_names": mc[:20], "row_names": mr[:20],
+            "his_call": True,
+        })
+    else:
+        passes.append({"id": "SPLIT-03", "checked": "no container name and no "
+                       "row name still carries more than one meaning — no "
+                       "slash, no 'and', no comma, no ampersand",
+                       "containers": len(cs), "rows": len(rs)})
+
+    # ---- duplicate names ---------------------------------------------------
+    by_name = collections.defaultdict(list)
+    for c in cs:
+        by_name[c["name"]].append(c)
+    dup_c = {k: v for k, v in by_name.items() if len(v) > 1}
+    if dup_c:
+        findings.append({
+            "id": "SPLIT-04", "severity": "OPEN — HIS NAMES TO GIVE",
+            "what": "two different containers carry the same bare name. The "
+                    "split separated the PARENT names and two children landed "
+                    "on the same word — the multi-meaning problem reappearing "
+                    "in the split's own output, one level down.",
+            "duplicates": {k: [{"id": c["id"], "segment": c["segment"],
+                                "step": c["step"], "from": c["from"]["name"]}
+                               for c in v] for k, v in dup_c.items()},
+            "count": len(dup_c),
+            "what_would_close_it": "a qualifying word on each. Not done here: "
+                                   "his rule is that meanings are fixed with "
+                                   "notes, never renames, so the names are "
+                                   "his to give.",
+            "his_call": True,
+        })
+    dup_r = [k for k, n in collections.Counter(r["name"] for r in rs).items()
+             if n > 1]
+    if dup_r:
+        findings.append({
+            "id": "SPLIT-05", "severity": "OPEN",
+            "what": "the same row name appears in more than one container",
+            "count": len(dup_r), "examples": sorted(dup_r)[:20],
+            "note": "not automatically wrong — `Recovery` in a body container "
+                    "and `Recovery` in a social one may be two real rows. It "
+                    "is reported so he can say which are one row seen twice "
+                    "and which are two.",
+            "his_call": True,
+        })
+
+    # ---- both columns at every node ----------------------------------------
+    no_col = [c["id"] for c in cs if not c.get("computer") or not c.get("human")]
+    if no_col:
+        findings.append({"id": "SPLIT-06", "severity": "BLOCKING",
+                         "what": "a container is missing one of its two columns",
+                         "containers": no_col[:20], "his_call": True})
+    else:
+        passes.append({"id": "SPLIT-06", "checked": "every one of the %d "
+                       "containers carries BOTH columns — the human name he "
+                       "wrote and a computer parallel" % len(cs)})
+
+    # ---- every step reached -------------------------------------------------
+    by_step = collections.Counter(c["step"] for c in cs)
+    empty_steps = [s["step"] for s in spine() if s["step"] not in by_step]
+    if empty_steps:
+        findings.append({"id": "SPLIT-07", "severity": "BLOCKING",
+                         "what": "a step of his spine holds no container",
+                         "steps": empty_steps, "his_call": True})
+    else:
+        thin_steps = sorted(by_step.items(), key=lambda kv: kv[1])[:3]
+        passes.append({"id": "SPLIT-07",
+                       "checked": "all 12 steps of his spine hold containers",
+                       "per_step": dict(sorted(by_step.items())),
+                       "thinnest_steps": [{"step": s, "containers": n,
+                                           "name": next(x["name"] for x in spine()
+                                                        if x["step"] == s)}
+                                          for s, n in thin_steps]})
+
+    # ---- the source bank untouched -----------------------------------------
+    from . import human_registry as hr
+    src_ok = len(hr.parameters()) == 3204 and len(hr.containers()) == 80
+    if not src_ok:
+        findings.append({"id": "SPLIT-08", "severity": "BLOCKING",
+                         "what": "the source bank moved. It must not.",
+                         "rows": len(hr.parameters()),
+                         "containers": len(hr.containers()), "his_call": True})
+    else:
+        passes.append({"id": "SPLIT-08", "checked": "the source bank stands "
+                       "untouched behind the split — 3,204 rows, 80 "
+                       "containers, replaced and never deleted"})
+
+    return {
+        "reviewed": {"segments": len(segments()), "containers": len(cs),
+                     "rows": len(rs), "steps": len(spine())},
+        "checks_run": len(findings) + len(passes),
+        "passed": passes, "passed_count": len(passes),
+        "findings": findings, "findings_count": len(findings),
+        "blocking": [f["id"] for f in findings if f["severity"] == "BLOCKING"],
+        "law": "a review reports what is wrong, not what is right. Nothing "
+               "here is corrected — meanings are fixed with notes, never "
+               "renames, and nothing is removed. Every finding names what "
+               "would close it and waits for him.",
+    }
+
+
 def verify() -> dict:
     """The counts, and the proof the source bank was not touched."""
     from . import human_registry as hr

@@ -629,6 +629,44 @@ MAP: list[dict] = [
             "difference between source_rows_seated and mapped_into_split, never "
             "dropped. ARCHETYPE, LINK and SCALE are declared with no ceiling and "
             "hold nothing yet. /sbx, /sbx/step, /sbx/container, POST /sbx/place."},
+   {"his": "split review it again",
+    "where": [("sbx.py", "def review("),
+              ("sbx.py", "ROWS_PER_CONTAINER = ")],
+    "state": RUNS,
+    "note": "THE SPLIT REVIEW (2026-08-29) — not a re-statement of the counts "
+            "but eight checks that can FAIL, run live over the data. 5 pass, "
+            "3 findings, 0 BLOCKING. WHAT PASSES, measured: SPLIT-01 every one "
+            "of his 3,204 source rows still has at least one child and no "
+            "split row cites a source that is not there — 275 parents split "
+            "into 554 children, 3,204 + 279 = 3,483 exactly, which reproduces "
+            "his own table's 275 multi-meaning rows; SPLIT-03 no container and "
+            "no row name still carries more than one meaning (no slash, no "
+            "'and', no comma, no ampersand) across all 183 and all 3,483; "
+            "SPLIT-06 all 183 carry BOTH columns; SPLIT-07 all 12 spine steps "
+            "hold containers, thinnest being 9 CONSOLIDATION and 10 ALIENATION "
+            "at 4 each against 30 at 11 COLLISION; SPLIT-08 the source bank "
+            "stands untouched at 3,204/80. WHAT FAILS AND IS LEFT FOR HIM: "
+            "SPLIT-02 — his rule is 40 rows per container and 155 of 183 hold "
+            "fewer, shortfall 3,925, because splitting a parent DIVIDED its 40 "
+            "among its children instead of giving each child 40 of its own, so "
+            "a parent that became five left five thin ones (eight containers "
+            "hold exactly ONE row); there is no source for the missing names — "
+            "his 650-row named reserve does not cover it — and this side will "
+            "not decide the number. SPLIT-04 — two children of DIFFERENT "
+            "parents landed on the same bare name: `Ownership` from Body "
+            "Schema/Body Image/Ownership and from Agency/Ownership/"
+            "Responsibility, `Gesture` from Imitation/Gesture/Tool "
+            "Manipulation and from Prosody/Gesture/Non-Verbal — the "
+            "multi-meaning problem reappearing in the split's own output one "
+            "level down; not renamed, because his rule is that meanings are "
+            "fixed with notes, never renames. SPLIT-05 — 83 row names appear "
+            "in more than one container, reported rather than judged, since "
+            "`Recovery` in a body container and in a social one may be two "
+            "real rows. A false alarm caught in the building and worth "
+            "recording: comparing split `from_row` (zero-padded P0001) against "
+            "asi_pyramid's flat ids (unpadded P1) appeared to show 999 source "
+            "rows with no child; the format, not the data, was wrong — the "
+            "correct comparison is 3,204 of 3,204. /sbx/review."},
    {"his": "use new parameters in front n old in back",
     "where": [("sbx.py", "def front_back("),
               ("sbx.py", "def _new_row("),
