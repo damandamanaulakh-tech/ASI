@@ -6309,13 +6309,15 @@ def test_archetype_link_and_scale_are_open_with_no_ceiling():
         assert d["ceiling"] is None, "his ruling: no ceiling"
         assert d["opens_at"] and d["state"]
         assert isinstance(d["count"], int)
-    from sourceborn import link
+    from sourceborn import link, scale
     by = {d["id"]: d for d in layers}
     assert by["ARCHETYPE"]["count"] == len(archetype.archetypes()) >= 11
     assert by["LINK"]["count"] == len(link.links()) > 900
-    # SCALE is the one still declared and empty, and it says so
-    assert by["SCALE"]["count"] == 0
-    assert by["SCALE"]["state"].startswith("DECLARED")
+    assert by["SCALE"]["count"] == len(scale.bands()) == 9
+    # SCALE is the one still holding a gate — built and counted, but only his
+    # four bands are in force
+    assert len(scale.active()) == 4
+    assert "await his word" in by["SCALE"]["state"]
 
 
 def test_the_sbx_routes_are_reachable():
@@ -6564,6 +6566,84 @@ def test_the_archetype_routes_are_reachable():
 
 
 # ---------------------------------------------------------------------------
+# PHASE 11 — THE SCALE AXIS
+# ---------------------------------------------------------------------------
+
+def test_his_gate_on_the_scales_is_enforced_not_described():
+    """His gate: *you name the scales, or approve a proposed set*. Building
+    the axis is not the same as naming the bands. The axis is built and the
+    proposals are stored where he can read them — and ONLY HIS FOUR ARE IN
+    FORCE until he says otherwise."""
+    from sourceborn import scale as S
+    assert [b["name"] for b in S.active()] == \
+        ["micro", "individual", "relational", "macro"]
+    assert S.gate()["approved"] is False
+    assert S.stats()["approved"] is False
+    for b in S.PROPOSED_BANDS:
+        assert b["approved"] is False, b["id"]
+    for b in S.HIS_BANDS:
+        assert b["approved"] is True and b["by"] == "HIS"
+
+
+def test_every_proposed_band_cites_the_example_of_his_that_demands_it():
+    """Nothing is invented to fill a pattern. A band exists here only because
+    one of his OWN worked examples sits at a size his four cannot hold — and
+    the citation is the whole justification."""
+    from sourceborn import scale as S
+    assert len(S.PROPOSED_BANDS) == 5
+    for b in S.PROPOSED_BANDS:
+        assert b["why_needed"] and b["his_example"], b["id"]
+        assert len(b["why_needed"]) > 80, "a citation, not a label"
+    names = {b["name"] for b in S.PROPOSED_BANDS}
+    assert names == {"moment", "household", "organisation", "dynasty",
+                     "civilisation"}
+    # the axis is ordered smallest to largest and his four keep their places
+    order = [b["name"] for b in S.bands()]
+    assert order.index("moment") < order.index("micro")
+    assert order.index("micro") < order.index("individual") < \
+        order.index("relational") < order.index("macro")
+    assert order.index("macro") < order.index("civilisation")
+
+
+def test_an_unfilled_band_says_not_stated_and_is_never_invented():
+    """His rule everywhere else, holding here: an unstated dimension says NOT
+    STATED, never zero and never a guess."""
+    from sourceborn import scale as S
+    o = S.of("ARCH-001")
+    assert o["filled"] == 4, "his four readings on the dice game"
+    assert o["not_stated"] == 5, "the five proposed bands he has not filled"
+    for r in o["bands"]:
+        if r["reading"] is None:
+            assert r["state"] == "NOT STATED"
+        else:
+            assert r["state"] == "HIS READING"
+    cov = S.coverage()
+    assert set(cov["empty_bands"]) == {"moment", "household", "organisation",
+                                       "dynasty", "civilisation"}
+    assert cov["his_call"] is True
+
+
+def test_one_arrangement_read_at_every_size():
+    """His teaching made mechanical — *one event of those books is used in 100
+    daily responses*. The dice sentence fires an archetype and comes back at
+    every band, so a reading is a coordinate rather than a label."""
+    from sourceborn import scale as S
+    r = S.spread("he bet everything he had to win it all back and lost what "
+                 "he could never recover")
+    assert "ARCH-001" in r["archetypes_fired"]
+    assert r["bands_available"] == 9 and r["bands_active"] == 4
+    assert r["readings"] >= 4
+    assert r["chosen"] is None
+
+
+def test_the_scale_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/scale"', '"/scale/run"'):
+        assert route in src, route
+    assert "scale.spread(" in src and "scale.gate()" in src
+
+
+# ---------------------------------------------------------------------------
 # PHASE 12 — THE NINE READINGS
 # ---------------------------------------------------------------------------
 
@@ -6757,12 +6837,12 @@ def test_wired_means_it_reaches_an_answer_not_that_it_exists():
     from sourceborn import sbx
     w = sbx.wiring()
     assert set(w["wired"]) == {"Segments", "Containers", "Sub-parameters",
-                               "Archetype", "Link"}
+                               "Archetype", "Link", "Scale"}
     assert w["partial"] == ["Universal filters"]
-    # six layers exist at a step and reach no answer — stated, not hidden
-    assert len(w["carried_not_consulted"]) == 6
+    # five layers exist at a step and reach no answer — stated, not hidden
+    assert len(w["carried_not_consulted"]) == 5
     assert "Rubrics R01–R52" in w["carried_not_consulted"]
-    assert "Scale" in w["carried_not_consulted"]
+    assert "Operating states" in w["carried_not_consulted"]
     for l in sbx.layers():
         assert l["wired"]["how"], l["layer"]
 

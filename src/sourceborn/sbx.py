@@ -40,10 +40,18 @@ is the verified connection between the two sides and a structure with only the
 human half cannot link. The computer column is engineering, not interpretation
 of his meaning.
 
-WHAT IS STILL OPEN, AND SAYS SO
+WHAT IS OPEN, AND SAYS SO
 
-ARCHETYPE, LINK and SCALE are declared with no ceiling and hold nothing yet.
-They open at their own phases, from the books. Nothing is placed in them here.
+ARCHETYPE, LINK and SCALE carry no ceiling — his ruling, *no count, its open to
+increase*. They were declared empty here and have since been filled at their
+own phases, so their counts are READ FROM THE LIVE MODULES rather than typed:
+a typed count goes stale the moment the thing it counts changes, which is
+exactly what happened when ARCHETYPE stood at a hardcoded 0 while the archetype
+layer was being built.
+
+SCALE is the one still holding a gate: its axis is built and counted, but only
+his four bands are IN FORCE. The five further bands are PROPOSED, each citing
+the example of his that demands it, and they wait for his word.
 """
 
 from __future__ import annotations
@@ -67,6 +75,14 @@ def _archetype_count() -> int:
         return 0
 
 
+def _scale_count() -> int:
+    try:
+        from . import scale
+        return len(scale.bands())
+    except Exception:
+        return 0
+
+
 def _link_count() -> int:
     try:
         from . import link
@@ -86,9 +102,9 @@ OPEN_LAYERS = (
      "state": "OPEN — counted live from the split bank"},
     {"id": "SCALE", "holds": "the stored axis on every archetype — micro, individual, "
      "relational, macro, and more; his ruling was that it is not only four",
-     "count": 0, "ceiling": None, "opens_at": "the scale phase",
-     "state": "DECLARED — the four bands ride on each archetype; the stored "
-              "axis with its own addresses is not built"},
+     "count": _scale_count, "ceiling": None, "opens_at": "the scale phase",
+     "state": "OPEN — the axis is built and counted live; 4 of the 9 bands "
+              "are HIS and in force, 5 are PROPOSED and await his word"},
 )
 
 
@@ -773,6 +789,11 @@ def _wired(n: int) -> dict:
         return {"wired": True, "how": "link.fires_on() returns a reading "
                 "belonging to the meeting of two rows, which neither row nor "
                 "either container can hold — his diamond returns it live"}
+    if n == 11:
+        return {"wired": True, "how": "scale.spread() returns every fired "
+                "archetype at every band, so a reading is a coordinate rather "
+                "than a label. HIS GATE STANDS: only his four bands are in "
+                "force; the five proposed are stored, not applied."}
     if n in (5, 6, 7, 8, 12):
         return {"wired": False, "how": "placed at the step where it acts and "
                 "returned by /sbx/step, but no ask is scored against it — it "

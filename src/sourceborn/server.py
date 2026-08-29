@@ -45,6 +45,7 @@ from . import archetype
 from . import trigger
 from . import link
 from . import readings
+from . import scale
 from . import artifact
 from . import discovery
 from . import expected
@@ -1491,6 +1492,20 @@ class Handler(BaseHTTPRequestHandler):
                  "node_brain": sbx.node_brain(),
                  "open_layers": sbx.open_layers()}).encode(),
                 "application/json")
+        elif path == "/scale":
+            # PHASE 11 — the scale axis. HIS GATE STANDS: his four bands are in
+            # force; the five proposed are stored for his judgement, not
+            # applied. `id` returns one archetype at every band.
+            aid = qs.get("id", [""])[0].strip().upper()
+            if aid:
+                self._send(200, json.dumps(scale.of(aid)).encode(),
+                           "application/json")
+            else:
+                self._send(200, json.dumps(
+                    {"stats": scale.stats(), "gate": scale.gate(),
+                     "bands": scale.bands(), "in_force": scale.active(),
+                     "coverage": scale.coverage()}).encode(),
+                    "application/json")
         elif path == "/readings":
             # PHASE 12 — his nine intent types as READINGS, not labels. `id`
             # returns one type whole.
@@ -2561,6 +2576,17 @@ class Handler(BaseHTTPRequestHandler):
                            "application/json")
                 return
             self._send(200, json.dumps(sbx.place_on_spine(text)).encode(),
+                       "application/json")
+            return
+        if self.path == "/scale/run":
+            # one arrangement, read at every size — his "one event of those
+            # books is used in 100 daily responses", made mechanical.
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(scale.spread(text)).encode(),
                        "application/json")
             return
         if self.path == "/readings/run":

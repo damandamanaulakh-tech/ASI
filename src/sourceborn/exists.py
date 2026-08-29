@@ -629,6 +629,46 @@ MAP: list[dict] = [
             "difference between source_rows_seated and mapped_into_split, never "
             "dropped. ARCHETYPE, LINK and SCALE are declared with no ceiling and "
             "hold nothing yet. /sbx, /sbx/step, /sbx/container, POST /sbx/place."},
+   {"his": "scale becomes a stored axis — more than four; the four you named "
+           "are a start, not the set",
+    "where": [("scale.py", "HIS_BANDS = ("),
+              ("scale.py", "PROPOSED_BANDS = ("),
+              ("scale.py", "def active("),
+              ("scale.py", "def spread("),
+              ("scale.py", "def gate(")],
+    "state": RUNS,
+    "note": "PHASE 11 — THE SCALE AXIS (2026-08-29). His teaching is the "
+            "reason it exists: 'One event of those books is used in 100 daily "
+            "responses.' THE RECOVERY STAKE is not a story about a king with "
+            "dice — it is the same arrangement in a child who will not switch "
+            "off a losing game, a trader averaging down, a person arguing past "
+            "repair, and a nation escalating a war. Those are not four "
+            "archetypes; they are ONE read at four sizes, so scale is a "
+            "COORDINATE the reading moves along, not a tag it carries. NINE "
+            "BANDS, ordered smallest to largest: his four (micro · individual "
+            "· relational · macro) and five PROPOSED — moment, household, "
+            "organisation, dynasty, civilisation. Nothing is invented to fill "
+            "a pattern: EACH PROPOSED BAND CITES THE EXAMPLE OF HIS THAT "
+            "DEMANDS IT, and the citation is the whole justification. `moment` "
+            "because his stealing demonstration is about ONE ACT and micro is "
+            "still a person, so 'THIEF is a conclusion, taking money is the "
+            "observation' had no coordinate. `household` because ARCH-010 is "
+            "in his words 'family, friends and coworkers' and the father-door "
+            "example is standing obligation nobody chose, not two equals "
+            "meeting. `organisation` because his BJP example is a PARTY "
+            "choosing for a task and ARCH-003's top-heavy pyramid is a "
+            "company — neither relational nor macro, and his whole weighting "
+            "mechanism lives at that size. `dynasty` because what Yudhishthira "
+            "stakes is a HOUSE and the loss lands on people not yet born — a "
+            "population across time, which macro cannot hold. `civilisation` "
+            "because his own frame is 'since modern humans came out of caves' "
+            "and the tablet is ~5,500 years old. HIS GATE IS ENFORCED, NOT "
+            "DESCRIBED: building the axis is not naming the bands. All nine "
+            "are stored and readable; `active()` returns HIS FOUR AND ONLY HIS "
+            "FOUR, `approved` is False on every proposal, and a test pins it. "
+            "An unfilled band says NOT STATED, never zero and never a guess — "
+            "ARCH-001 reads 4 filled, 5 not stated. /scale, /scale?id=ARCH-001, "
+            "POST /scale/run."},
    {"his": "a live run on 'a man is stealing the money' producing all nine "
            "readings where it produces zero today",
     "where": [("readings.py", "TYPES = ("),
