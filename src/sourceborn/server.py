@@ -1489,6 +1489,12 @@ class Handler(BaseHTTPRequestHandler):
                  "node_brain": sbx.node_brain(),
                  "open_layers": sbx.open_layers()}).encode(),
                 "application/json")
+        elif path == "/sbx/wiring":
+            # HIS ASK 5: your pending wiring. His own twelve-layer table,
+            # rendered against the LIVE data, plus the column his table could
+            # not have — whether a layer actually reaches an answer.
+            self._send(200, json.dumps(sbx.wiring()).encode(),
+                       "application/json")
         elif path == "/sbx/review":
             # HIS ASK: split review it again. Checks that can FAIL, run live
             # over the data — findings, not assurances. Nothing is corrected.

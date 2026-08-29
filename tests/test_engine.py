@@ -6560,6 +6560,71 @@ def test_the_archetype_routes_are_reachable():
 
 
 # ---------------------------------------------------------------------------
+# HIS TWELVE-LAYER TABLE, LIVE — his ask: "your pending wiring"
+# ---------------------------------------------------------------------------
+
+def test_his_twelve_layer_table_is_rendered_against_live_data():
+    """His table, his order, his targets — and the counts read from the live
+    modules rather than from what was typed. A table of targets that never
+    checks itself is how the 4,120 went missing the first time."""
+    from sourceborn import sbx
+    ls = sbx.layers()
+    assert len(ls) == 12
+    assert [l["n"] for l in ls] == list(range(1, 13))
+    names = [l["layer"] for l in ls]
+    assert names[:3] == ["Segments", "Containers", "Sub-parameters"]
+    assert names[8:11] == ["Archetype", "Link", "Scale"]
+    for l in ls:
+        assert l["his_note"], l["layer"]
+        assert l["against_target"] in ("MET", "SHORT", "OVER",
+                                       "NO CEILING — his ruling",
+                                       "NOT COUNTED HERE")
+    by = {l["layer"]: l for l in ls}
+    assert by["Segments"]["live"] == 27 and by["Segments"]["before"] == 10
+    assert by["Containers"]["live"] == 183 and by["Containers"]["before"] == 80
+    assert by["Universal filters"]["live"] == 175
+    assert by["Rubrics R01–R52"]["live"] == 67
+
+
+def test_the_one_short_layer_is_short_by_exactly_his_own_number():
+    """His table says sub-parameters reach ≈7,603 — 3,483 from splitting plus
+    4,120 fresh for the 103 new containers. The split produced the 3,483 by
+    DIVIDING existing rows among children; it created no new names. The
+    shortfall reproduces his own figure exactly, and is refused rather than
+    filled with invented names."""
+    from sourceborn import sbx
+    w = sbx.wiring()
+    assert len(w["short"]) == 1
+    gap = w["the_one_gap"]
+    assert gap["layer"] == "Sub-parameters"
+    assert gap["live"] == 3483 and gap["his_target"] == 7603
+    assert gap["short_by"] == 4120, "his own number, reproduced"
+    assert "placeholder he forbade" in gap["refused"]
+    assert "HIS NUMBER TO FINALISE" in gap["refused"]
+
+
+def test_wired_means_it_reaches_an_answer_not_that_it_exists():
+    """His bar: *evidence of wiring is done with proof not your test*. A layer
+    placed at a step but never consulted is CARRIED, not wired, and the table
+    says which is which instead of counting them all as done."""
+    from sourceborn import sbx
+    w = sbx.wiring()
+    assert set(w["wired"]) == {"Segments", "Containers", "Sub-parameters",
+                               "Archetype"}
+    assert w["partial"] == ["Universal filters"]
+    # seven layers exist at a step and reach no answer — stated, not hidden
+    assert len(w["carried_not_consulted"]) == 7
+    assert "Rubrics R01–R52" in w["carried_not_consulted"]
+    for l in sbx.layers():
+        assert l["wired"]["how"], l["layer"]
+
+
+def test_the_wiring_route_is_reachable():
+    src = open("src/sourceborn/server.py").read()
+    assert '"/sbx/wiring"' in src and "sbx.wiring()" in src
+
+
+# ---------------------------------------------------------------------------
 # THE SPLIT REVIEW — his ask: "split review it again"
 # ---------------------------------------------------------------------------
 
@@ -6568,10 +6633,10 @@ def test_the_split_review_runs_checks_that_can_fail():
     branch; a review that could only pass would be worth nothing."""
     from sourceborn import sbx
     r = sbx.review()
-    assert r["checks_run"] == 8
-    assert r["passed_count"] + r["findings_count"] == 8
+    assert r["checks_run"] == 9
+    assert r["passed_count"] + r["findings_count"] == 9
     ids = {p["id"] for p in r["passed"]} | {f["id"] for f in r["findings"]}
-    assert ids == {"SPLIT-0%d" % n for n in range(1, 9)}
+    assert ids == {"SPLIT-0%d" % n for n in range(1, 10)}
     for f in r["findings"]:
         assert f["his_call"] is True
         assert f["severity"]
@@ -6617,6 +6682,19 @@ def test_the_review_catches_the_split_repeating_its_own_defect():
         assert len({g["from"] for g in group}) == len(group), \
             "the duplicates must come from DIFFERENT parents to be a real seam"
     assert "never renames" in f["what_would_close_it"]
+
+
+def test_the_review_catches_a_layer_member_counted_but_never_placed():
+    """SPLIT-09. Every layer member is supposed to sit at the step where it
+    acts. The rubric layer declares 67 and places 66 distinct across 70
+    placements — four rubrics act at two steps each, and one is counted
+    without appearing anywhere in the work."""
+    from sourceborn import sbx
+    f = next(x for x in sbx.review()["findings"] if x["id"] == "SPLIT-09")
+    rub = next(l for l in f["layers"] if l["layer"] == "rubrics")
+    assert rub["declared"] == 67 and rub["placed_on_spine"] == 66
+    assert rub["difference"] == 1
+    assert "reported rather than guessed at" in f["note"]
 
 
 def test_the_review_route_is_reachable():

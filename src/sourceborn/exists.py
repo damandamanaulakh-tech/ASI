@@ -629,6 +629,43 @@ MAP: list[dict] = [
             "difference between source_rows_seated and mapped_into_split, never "
             "dropped. ARCHETYPE, LINK and SCALE are declared with no ceiling and "
             "hold nothing yet. /sbx, /sbx/step, /sbx/container, POST /sbx/place."},
+   {"his": "your pending wiring",
+    "where": [("sbx.py", "HIS_LAYERS = ("),
+              ("sbx.py", "def layers("),
+              ("sbx.py", "def wiring("),
+              ("sbx.py", "def _wired(")],
+    "state": RUNS,
+    "note": "HIS TWELVE-LAYER TABLE, LIVE (2026-08-29). He gave the table "
+            "himself with three columns — count today, count after the split, "
+            "delta. This renders it against the LIVE modules rather than "
+            "against typed numbers, and adds the column his table could not "
+            "have: whether a layer is actually WIRED, meaning it reaches an "
+            "answer rather than only existing. His own bar is 'evidence of "
+            "wiring is done with proof not your test', so existing at a step "
+            "is explicitly NOT wiring. RESULT — 8 of 12 MET (segments 10->27, "
+            "containers 80->183, filters 40 families->175, states 12, evidence "
+            "7, failures 20, chain 30->34, rubrics 52->67), 3 with NO CEILING "
+            "by his ruling (archetype now 11, link 0, scale 0), and ONE SHORT: "
+            "sub-parameters stand at 3,483 against his ≈7,603, SHORT BY "
+            "EXACTLY 4,120 — his own figure reproduced, not approximated. Why "
+            "it is short is stated rather than worked around: splitting "
+            "produced 3,483 by DIVIDING existing rows among children and "
+            "created no new names, and there is no source for 4,120 that does "
+            "not already exist — his 650-row named reserve is the only real "
+            "unassigned material and does not cover it. Inventing them would "
+            "be the placeholder he forbade; HIS NUMBER TO FINALISE. WIRED: "
+            "segments, containers, sub-parameters and archetype (all four in "
+            "the path of place_on_spine). PARTIAL: the filters — 175 placed on "
+            "the spine, SEVEN actually run on every finding. CARRIED BUT NEVER "
+            "CONSULTED, stated not hidden: operating states, evidence levels, "
+            "failure classes, operating chain, rubrics, link and scale — seven "
+            "layers that exist at a step and reach no answer. Also added here: "
+            "review check SPLIT-09, which caught the rubric layer declaring 67 "
+            "while 66 distinct sit on the spine across 70 placements (Trace, "
+            "Relation, Compression and Gap each act at two steps) — one rubric "
+            "counted and appearing nowhere in the work; reported, not guessed "
+            "at, since two rubrics sharing a name would look the same. "
+            "/sbx/wiring."},
    {"his": "split review it again",
     "where": [("sbx.py", "def review("),
               ("sbx.py", "ROWS_PER_CONTAINER = ")],

@@ -620,6 +620,47 @@ def review() -> dict:
                                                         if x["step"] == s)}
                                           for s, n in thin_steps]})
 
+    # ---- every declared layer member actually placed on the spine ----------
+    declared = arch().get("counts", {})
+    unplaced = []
+    for key, label in (("filters", "universal filters"),
+                       ("states", "operating states"),
+                       ("evidence_levels", "evidence levels"),
+                       ("failure_classes", "failure classes"),
+                       ("chain_steps", "operating chain steps"),
+                       ("rubrics", "rubrics"),
+                       ("intent_types", "intent types")):
+        seen = set()
+        for s in spine():
+            for x in s.get(key, ()):
+                seen.add(x if isinstance(x, str) else x.get("id") or str(x))
+        want = declared.get(key)
+        if want is not None and len(seen) != want:
+            unplaced.append({"layer": label, "declared": want,
+                             "placed_on_spine": len(seen),
+                             "difference": want - len(seen)})
+    if unplaced:
+        findings.append({
+            "id": "SPLIT-09", "severity": "OPEN",
+            "what": "a layer's declared count and the number actually placed "
+                    "on his spine disagree. Every layer member is supposed to "
+                    "sit at the step where it acts; one that is counted but "
+                    "not placed exists in the total and nowhere in the work.",
+            "layers": unplaced,
+            "note": "the rubric layer is the one that disagrees: 67 declared, "
+                    "66 distinct on the spine, 70 placements in total because "
+                    "Trace, Relation, Compression and Gap each act at two "
+                    "steps. Two rubrics sharing a name would also produce "
+                    "this, which is why it is reported rather than guessed at.",
+            "what_would_close_it": "naming the missing rubric, or confirming "
+                                   "that two of the 67 share a name and the "
+                                   "true distinct count is 66.",
+            "his_call": True,
+        })
+    else:
+        passes.append({"id": "SPLIT-09", "checked": "every declared member of "
+                       "every layer is placed at a step of his spine"})
+
     # ---- the source bank untouched -----------------------------------------
     from . import human_registry as hr
     src_ok = len(hr.parameters()) == 3204 and len(hr.containers()) == 80
@@ -644,6 +685,163 @@ def review() -> dict:
                "here is corrected — meanings are fixed with notes, never "
                "renames, and nothing is removed. Every finding names what "
                "would close it and waits for him.",
+    }
+
+
+# ---------------------------------------------------------------------------
+# HIS TWELVE-LAYER TABLE, LIVE
+#
+# He gave the table himself, as ask 5 — "your pending wiring" — with three
+# columns: the count today, the count after the split, and the delta. This
+# renders it against the LIVE data rather than against what was typed, and adds
+# the one column his table could not have: whether the layer is actually WIRED,
+# meaning it reaches an answer rather than only existing.
+#
+# Where the live number disagrees with his target, the row says so. That is the
+# point of rendering it live — a table of targets that never checks itself is
+# how the 4,120 went missing the first time.
+# ---------------------------------------------------------------------------
+
+#: His table, verbatim: (n, layer, before, his stated target, his note).
+HIS_LAYERS = (
+    (1, "Segments", 10, 27, "+17"),
+    (2, "Containers", 80, 183, "+103"),
+    (3, "Sub-parameters", 3204, 7603,
+     "3,483 from splitting 275 multi-meaning rows · +4,120 fresh for the 103 "
+     "new containers = ≈ 7,603 (+4,399)"),
+    (4, "Universal filters", 40, 175,
+     "40 families → 175 — the named filters are already listed inside the "
+     "families; splitting frees every one of them (+135)"),
+    (5, "Operating states", 12, 12,
+     "every state name is single-meaning, nothing to split (0)"),
+    (6, "Evidence levels", 7, 7, "H0–H6, single-meaning (0)"),
+    (7, "Failure classes", 20, 20, "all single-meaning (0)"),
+    (8, "Operating chain", 30, 34,
+     "four steps carry two: Need or drive activation · Social and cultural "
+     "filtering · Risk and reward estimation · Learning or defence (+4)"),
+    (9, "Archetype", 0, None, "opens at Phase 9, no ceiling"),
+    (10, "Link", 0, None, "counted from the split bank"),
+    (11, "Scale", 0, None, "your axis, more than four"),
+    (12, "Rubrics R01–R52", 52, 67,
+     "fifteen carry two: Order/Time · Rule/Constraint · Promise/Commitment · "
+     "Requirement/Contract · Qualification/Admissibility · Evidence/Test · "
+     "Decision/Arbitration · Encounter/Access · Dynamics/Process · "
+     "Effect/Output and five more (+15)"),
+)
+
+
+def _live_counts() -> dict:
+    """Each layer's count as it actually stands, read from the live modules —
+    never from the number typed in the architecture file."""
+    c = arch().get("counts", {})
+    live = {
+        1: len(segments()),
+        2: len(containers()),
+        3: len(rows()),
+        4: c.get("filters"),
+        5: c.get("states"),
+        6: c.get("evidence_levels"),
+        7: c.get("failure_classes"),
+        8: c.get("chain_steps"),
+        12: c.get("rubrics"),
+    }
+    for l in open_layers():
+        live[{"ARCHETYPE": 9, "LINK": 10, "SCALE": 11}[l["id"]]] = l["count"]
+    return live
+
+
+def _wired(n: int) -> dict:
+    """Does the layer REACH AN ANSWER, or does it only exist?
+
+    His own bar, given as *evidence of wiring is done with proof not your
+    test*. A layer is WIRED only if a live call puts it in the path of an ask."""
+    if n in (1, 2, 3):
+        return {"wired": True, "how": "place_on_spine() lands an ask on "
+                "segments, containers and rows, and every hit names them"}
+    if n == 9:
+        return {"wired": True, "how": "archetype.fires_on() runs inside "
+                "place_on_spine(); a row reached that way is marked ARCHETYPE"}
+    if n in (5, 6, 7, 8, 12):
+        return {"wired": False, "how": "placed at the step where it acts and "
+                "returned by /sbx/step, but no ask is scored against it — it "
+                "is carried, not consulted"}
+    if n == 4:
+        return {"wired": "PARTIAL", "how": "175 filters are placed on the "
+                "spine; SEVEN filters run on every finding (filters.py). The "
+                "other 168 are carried, not run."}
+    return {"wired": False, "how": "declared with no ceiling and holds nothing"}
+
+
+def layers() -> list:
+    """His twelve-layer table, rendered against the live data."""
+    live = _live_counts()
+    out = []
+    for n, name, before, target, note in HIS_LAYERS:
+        now = live.get(n)
+        row = {
+            "n": n, "layer": name,
+            "before": before,
+            "his_target": target,
+            "his_note": note,
+            "live": now,
+            "wired": _wired(n),
+        }
+        if target is None:
+            row["against_target"] = "NO CEILING — his ruling"
+            row["short_by"] = None
+        elif now is None:
+            row["against_target"] = "NOT COUNTED HERE"
+            row["short_by"] = None
+        elif now == target:
+            row["against_target"] = "MET"
+            row["short_by"] = 0
+        elif now < target:
+            row["against_target"] = "SHORT"
+            row["short_by"] = target - now
+        else:
+            row["against_target"] = "OVER"
+            row["short_by"] = target - now
+        out.append(row)
+    return out
+
+
+def wiring() -> dict:
+    """The honest state of ask 5 — what is built, what is short, what is
+    carried but never consulted."""
+    ls = layers()
+    short = [l for l in ls if l["against_target"] == "SHORT"]
+    wired = [l for l in ls if l["wired"]["wired"] is True]
+    return {
+        "his_ask": "your pending wiring",
+        "layers": ls,
+        "layer_count": len(ls),
+        "met": [l["layer"] for l in ls if l["against_target"] == "MET"],
+        "short": [{"layer": l["layer"], "live": l["live"],
+                   "his_target": l["his_target"], "short_by": l["short_by"]}
+                  for l in short],
+        "no_ceiling": [l["layer"] for l in ls
+                       if l["against_target"] == "NO CEILING — his ruling"],
+        "wired": [l["layer"] for l in wired],
+        "carried_not_consulted": [l["layer"] for l in ls
+                                  if l["wired"]["wired"] is False],
+        "partial": [l["layer"] for l in ls if l["wired"]["wired"] == "PARTIAL"],
+        "the_one_gap": {
+            "layer": "Sub-parameters",
+            "live": len(rows()),
+            "his_target": 7603,
+            "short_by": 7603 - len(rows()),
+            "why": "his target adds 4,120 fresh rows — 40 each for the 103 new "
+                   "containers. Splitting produced 3,483 by dividing existing "
+                   "rows among children; it created no new names, and there is "
+                   "no source for 4,120 that does not already exist. His "
+                   "650-row named reserve is the only real unassigned material "
+                   "and it does not cover it.",
+            "refused": "inventing 4,120 row names would be exactly the "
+                       "placeholder he forbade. HIS NUMBER TO FINALISE.",
+        },
+        "law": "a layer is WIRED only if a live call puts it in the path of an "
+               "ask. Existing at a step is not wiring — his own bar is "
+               "evidence of wiring with proof, not a test.",
     }
 
 
