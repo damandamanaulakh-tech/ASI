@@ -42,6 +42,7 @@ from . import growth
 from . import filemap, growing, intent_ledger, intents, selfmake
 from . import sbx
 from . import archetype
+from . import trigger
 from . import artifact
 from . import discovery
 from . import expected
@@ -1498,6 +1499,29 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/sbx/container":
             self._send(200, json.dumps(
                 sbx.container(qs.get("id", [""])[0])).encode(), "application/json")
+        elif path == "/trigger":
+            # HIS THIRD COLUMN — the Operational Trigger / State Vector on all
+            # 183 containers. `id` returns one; no id returns the whole layer
+            # with his table, the repeats, the match and the numbering seams.
+            cid = qs.get("id", [""])[0].strip().upper()
+            if cid:
+                self._send(200, json.dumps(trigger.of(cid)).encode(),
+                           "application/json")
+            else:
+                self._send(200, json.dumps(
+                    {"stats": trigger.stats(),
+                     "his_table": trigger.HIS_TABLE,
+                     "repeats": trigger.repeats(),
+                     "match": trigger.match(),
+                     "seams": trigger.seams(),
+                     "triggers": trigger.triggers()}).encode(),
+                    "application/json")
+        elif path == "/trigger/placements":
+            self._send(200, json.dumps(
+                {"container": qs.get("id", [""])[0].strip().upper(),
+                 "placements": trigger.placements(qs.get("id", [""])[0]),
+                 "law": trigger.repeats()["law"]}).encode(),
+                "application/json")
         elif path == "/archetype":
             # THE ARCHETYPE LAYER — the books as generative engines. One id
             # returns that archetype whole; no id returns the set.
@@ -2486,6 +2510,18 @@ class Handler(BaseHTTPRequestHandler):
                            "application/json")
                 return
             self._send(200, json.dumps(sbx.place_on_spine(text)).encode(),
+                       "application/json")
+            return
+        if self.path == "/trigger/run":
+            # an ask read as a set of FIRING CONDITIONS rather than a list of
+            # nouns. Which condition actually held is not knowable from a
+            # sentence, so `concluded` is None.
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(trigger.fires_on(text)).encode(),
                        "application/json")
             return
         if self.path == "/archetype/run":

@@ -629,6 +629,60 @@ MAP: list[dict] = [
             "difference between source_rows_seated and mapped_into_split, never "
             "dropped. ARCHETYPE, LINK and SCALE are declared with no ceiling and "
             "hold nothing yet. /sbx, /sbx/step, /sbx/container, POST /sbx/place."},
+   {"his": "below more may be repated",
+    "where": [("trigger.py", "HIS_TABLE = ("),
+              ("trigger.py", "def triggers("),
+              ("trigger.py", "def repeats("),
+              ("trigger.py", "def match("),
+              ("trigger.py", "def seams("),
+              ("trigger.py", "SHAPE = {")],
+    "state": RUNS,
+    "note": "THE OPERATIONAL TRIGGER / STATE VECTOR (2026-08-29) — his third "
+            "column, given as ten four-column segment tables. Until this the "
+            "architecture carried TWO columns at every node, the human name "
+            "and the computer parallel, and both answer WHAT IS THIS. The "
+            "third answers WHEN DOES IT FIRE: 'Temp > $T_{max}$ triggers "
+            "cooling loop', 'Idle timer > Threshold triggers ACPI S3/S4 "
+            "state', 'Vector similarity search (Cosine similarity $> 0.85$)'. "
+            "A name is a noun; a trigger is a CONDITION, and a condition can "
+            "be evaluated where a noun can only be read — which is his own "
+            "sequence law (a threshold lives on an edge and answers 'why "
+            "now') written at container level. HIS TABLE IS CARRIED VERBATIM: "
+            "10 segments, 48 rows, 4 columns, his wording intact including his "
+            "LaTeX and his spelling, ids namespaced HIS- so they can never be "
+            "read as registry or split ids. HIS REPEAT LAW IS STRUCTURAL: he "
+            "wrote 'below more may be repated' before the table and the table "
+            "proves him right — HIS-CON-018 is Auditory Processing under "
+            "SEGMENT 03 and Threat Detection under SEGMENT 09; four ids repeat "
+            "that way, placements() returns a LIST, and a repeat is recorded "
+            "as a repeat rather than resolved as a collision. MATCHED ON THE "
+            "NAME, NEVER ON THE NUMBER: his table, the registry and the split "
+            "all number from CON-001 and are three different numberings (his "
+            "CON-064 is Episodic Memory, the registry's is Motive/Needs/"
+            "Values), so his do-not-silently-merge ruling applies to his own "
+            "document — whether his number agrees is recorded beside every "
+            "match and decides none. 7 NUMBERING SEAMS surfaced and decided by "
+            "nobody, the sharpest being Theory of Mind, which his name places "
+            "at SBX-CON-150 and his number would place at Body Schema. GRADED "
+            "MATCHING, 36 placed / 3 proposed / 9 held: only a match at grade "
+            "2.0+ places his wording, because of three single-token matches "
+            "`circadian` and `chemical` were right and `behavioral` put his "
+            "safety-guardrail row onto Group Behaviour — a weak match that "
+            "placed silently would carry his trigger to the wrong container, "
+            "so it is PROPOSED and waits for him. ALL 183 CONTAINERS FILLED, "
+            "ZERO EMPTY: 36 HIS verbatim, 147 DERIVED from TWO REAL SOURCES — "
+            "the container's own machine column and its spine step, which "
+            "fixes the shape of the firing (GROUND reads a baseline, PRESSURE "
+            "crosses a threshold, HALT raises a fault). Nothing invented from "
+            "nowhere; every derived row names what it was built from and is "
+            "replaced the moment he writes one. HIS and DERIVED are never "
+            "summed, because a page that cannot say which triggers are his "
+            "cannot be corrected by him. A defect caught in the building: the "
+            "first matcher's filler list held `fatigue`, `drive`, `memory` and "
+            "`basic` — content words in his own names — and silently destroyed "
+            "real matches (Cognitive Fatigue could not reach Fatigue); "
+            "replaced with graded token matching, 27 placed -> 36. /trigger, "
+            "/trigger?id=, /trigger/placements?id=, POST /trigger/run."},
    {"his": "now build the archetype layer from the holy books",
     "where": [("archetype.py", "ARCHETYPES = ("),
               ("archetype.py", "def fires_on("),

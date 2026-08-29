@@ -6549,6 +6549,146 @@ def test_the_archetype_routes_are_reachable():
     assert "archetype.fires_on(" in src and "archetype.compare(" in src
 
 
+# ---------------------------------------------------------------------------
+# HIS THIRD COLUMN — THE OPERATIONAL TRIGGER / STATE VECTOR
+# ---------------------------------------------------------------------------
+
+def test_his_trigger_table_is_carried_verbatim():
+    """His ten segments and forty-eight rows, his wording intact — his LaTeX
+    and his spelling included. The table is his source; it is never rewritten."""
+    from sourceborn import trigger as T
+    assert len(T.HIS_TABLE) == 10
+    rows = T.his_rows()
+    assert len(rows) == 48
+    for r in rows:
+        assert r["bio"] and r["engine"] and r["trigger"], r["his_id"]
+        assert r["his_id"].startswith("HIS-CON-")
+    # his LaTeX survives byte-for-byte
+    salience = next(r for r in rows if r["name"] == "Salience Detection")
+    assert salience["trigger"] == \
+        "Input amplitude > baseline moving average + $3\\sigma$."
+    sleep = next(r for r in rows if r["name"] == "Sleep Architecture")
+    assert sleep["trigger"] == "Idle timer > Threshold triggers ACPI S3/S4 state."
+
+
+def test_a_container_may_serve_more_than_one_segment():
+    """HIS OWN LAW, stated before the table: *below more may be repated*.
+    Four of his container numbers carry a different container under a different
+    segment, and that is recorded as a repeat, never resolved as a collision."""
+    from sourceborn import trigger as T
+    rep = T.repeats()
+    assert rep["his_words"] == "below more may be repated"
+    assert rep["repeated_count"] == 4
+    assert set(rep["repeated_ids"]) == {"HIS-CON-018", "HIS-CON-023",
+                                        "HIS-CON-024", "HIS-CON-026"}
+    # HIS-CON-018 is Auditory Processing in one segment and Threat Detection
+    # in another — both kept, neither preferred
+    names = {x["name"] for x in rep["repeated_ids"]["HIS-CON-018"]}
+    assert names == {"Auditory Processing", "Threat Detection"}
+    # and placements returns a LIST, never one value
+    assert isinstance(T.placements("SBX-CON-023"), list)
+
+
+def test_the_three_numberings_are_never_merged_on_the_numerals():
+    """His table, the live registry and the split all number from CON-001 and
+    are three different numberings. His standing ruling covers exactly this:
+    do not silently merge namespaces. Matching is by NAME; whether his number
+    agrees is recorded beside and decides nothing."""
+    from sourceborn import trigger as T, human_registry as hr
+    # the proof they differ: his CON-064 is Episodic Memory, the registry's is
+    # Motive, Needs, Values and Priority Structure
+    reg = {c["id"]: c["name"] for c in hr.containers()}
+    his = {r["his_id"]: r["name"] for r in T.his_rows()}
+    assert his["HIS-CON-064"] == "Episodic Memory"
+    assert reg["CON-064"] == "Motive, Needs, Values and Priority Structure"
+    seams = T.seams()
+    assert len(seams) >= 5
+    for s in seams:
+        assert s["resolved"] is False and s["his_call"] is True
+        assert s["name_places_it_at"]["id"] != s["number_would_place_it_at"]["id"]
+    # his Theory of Mind by name; his number would have given Body Schema
+    tom = next(s for s in seams if s["his_name"] == "Theory of Mind")
+    assert tom["name_places_it_at"]["name"] == "Theory of Mind"
+    assert tom["number_would_place_it_at"]["name"] == "Body Schema"
+
+
+def test_a_weak_match_is_proposed_and_never_placed():
+    """Measured: of three single-distinctive-token matches, `circadian` and
+    `chemical` were right and `behavioral` put his safety-guardrail row onto
+    Group Behaviour. A weak match that placed would carry his trigger to the
+    wrong container, so it waits for his word."""
+    from sourceborn import trigger as T
+    m = T.match()
+    assert m["placed_count"] + m["proposed_count"] + m["held_count"] == 48
+    assert m["proposed_count"] >= 1
+    for p in m["proposed"]:
+        assert p["his_call"] is True and "proposal" in p and "matched" not in p
+        assert p["grade"].startswith("SHARED DISTINCTIVE TOKEN")
+    # nothing proposed reaches a container's trigger
+    proposed_ids = {p["proposal"]["id"] for p in m["proposed"]}
+    for t in T.triggers():
+        if t["id"] in proposed_ids:
+            assert t["by"] == "DERIVED", \
+                "%s took a proposed match without his word" % t["id"]
+    # and an unmatchable row is HELD whole, never dropped
+    assert m["held_count"] >= 1
+    for h in m["held"]:
+        assert h["his_name"] and h["grade"] in ("UNMATCHED",) or \
+            h["grade"].startswith("AMBIGUOUS")
+
+
+def test_every_container_carries_a_trigger_and_says_whose_it_is():
+    """All 183 filled — no empty slot. HIS and DERIVED counted apart, because
+    a page that cannot say which triggers are his cannot be corrected by him."""
+    from sourceborn import trigger as T
+    ts = T.triggers()
+    assert len(ts) == 183
+    for t in ts:
+        assert t["trigger"], t["id"]
+        assert t["by"] in ("HIS", "DERIVED")
+        assert t["kind"] in {k for k, _ in T.SHAPE.values()}
+        assert t["correctable"] is True
+        if t["by"] == "DERIVED":
+            # never invented from nowhere — it names its two real sources
+            assert t["from"]["machine_column"] is not None
+            assert t["from"]["step"] == t["step"]
+    his = [t for t in ts if t["by"] == "HIS"]
+    assert len(his) == T.stats()["trigger_by_him"] == 36
+    assert T.stats()["trigger_derived"] == 183 - 36
+
+
+def test_the_trigger_shape_comes_from_his_spine():
+    """A trigger is not free text. Where a container sits on his spine fixes
+    the SHAPE of its firing: GROUND reads a baseline, PRESSURE crosses a
+    threshold, HALT raises a fault."""
+    from sourceborn import trigger as T
+    assert T.SHAPE[1][0] == "BASELINE READ"
+    assert T.SHAPE[2][0] == "THRESHOLD CROSSED"
+    assert T.SHAPE[7][0] == "FAULT RAISED"
+    assert T.SHAPE[8][0] == "COMMIT / RELOAD"
+    for t in T.triggers():
+        if t["by"] == "DERIVED":
+            assert t["kind"] == T.SHAPE[t["step"]][0], t["id"]
+
+
+def test_an_ask_is_read_as_firing_conditions_and_concludes_nothing():
+    from sourceborn import trigger as T
+    r = T.fires_on("a man is stealing money from a shop")
+    assert r["containers_lit"] > 0
+    assert r["his_triggers_lit"] + r["derived_triggers_lit"] == r["containers_lit"]
+    assert r["concluded"] is None
+    for t in r["triggers"]:
+        assert t["trigger"] and t["by"] in ("HIS", "DERIVED")
+        assert t["reached_by"] in ("WORDS", "ARCHETYPE")
+
+
+def test_the_trigger_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/trigger"', '"/trigger/placements"', '"/trigger/run"'):
+        assert route in src, route
+    assert "trigger.fires_on(" in src and "trigger.seams()" in src
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     passed = 0
