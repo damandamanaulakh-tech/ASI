@@ -629,6 +629,43 @@ MAP: list[dict] = [
             "difference between source_rows_seated and mapped_into_split, never "
             "dropped. ARCHETYPE, LINK and SCALE are declared with no ceiling and "
             "hold nothing yet. /sbx, /sbx/step, /sbx/container, POST /sbx/place."},
+   {"his": "Node brain structure added",
+    "where": [("sbx.py", "def node_brain("),
+              ("sbx.py", "def node_types("),
+              ("sbx.py", "NODE_ON_SPINE = {"),
+              ("sbx.py", "def open_layers(")],
+    "state": RUNS,
+    "note": "THE NODE BRAIN, IN THE ARCHITECTURE (2026-08-29). The structure "
+            "is HIS and was locked in Phase A — 12 node types, 16 fields (with "
+            "point_zero_ref REQUIRED, so 'no invention before source lock' is "
+            "structural), 10 typed links, 11 memory kinds, 4 statuses, 5 write "
+            "and 6 read conditions, with a fingerprint that fails loudly if any "
+            "of it changes silently. What was missing is that it stood BESIDE "
+            "the architecture instead of inside it: every other layer is "
+            "PLACED — intent types, filters, states, evidence levels, failure "
+            "classes, chain steps, rubrics each sit at the step where they act "
+            "— and the node types did not, so nothing could say where in his "
+            "loop a CONTRADICTION comes into being. All twelve are now placed, "
+            "and the placement is honest about whose it is: the type, the stem "
+            "and the meaning are HIS verbatim; the STEP and the reason are "
+            "marked DERIVED on every row and are correctable by a word, the "
+            "same standing a derived trigger has. The placements his own law "
+            "fixes: CONTRADICTION at 7 HALT (two readings that cannot both "
+            "stand IS the halt), EVENT at 2 PRESSURE (his motto begins where "
+            "contact is forced), INTENT at 4 WITNESS (intent is never observed "
+            "— his law is that it is read from how things were arranged, which "
+            "is a witnessing), PATTERN at 9 CONSOLIDATION (an arrangement that "
+            "recurs cannot exist inside one pass). AN ABSENCE REPORTED, NOT "
+            "FILLED: steps 8 LOOP, 10 ALIENATION and 11 COLLISION have no node "
+            "type of their own, and steps_unused says so. THE FIVE NAMESPACE "
+            "COLLISIONS ARE CARRIED, NOT SETTLED — EVENT · INTENT · PATTERN · "
+            "RULE · STATE name both a node type and a growth series; not "
+            "merged, his ruling awaited. Also fixed here: OPEN_LAYERS carried a "
+            "TYPED count of 0 for ARCHETYPE, which was true when declared and "
+            "false the moment the archetype layer was built — counts are now "
+            "read from the live module, and the test that asserted all three "
+            "were zero now asserts the count is live. /sbx/nodes, and "
+            "node_brain rides on /sbx."},
    {"his": "below more may be repated",
     "where": [("trigger.py", "HIS_TABLE = ("),
               ("trigger.py", "def triggers("),

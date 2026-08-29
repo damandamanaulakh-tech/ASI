@@ -6294,20 +6294,30 @@ def test_the_wiring_lands_an_ask_on_his_spine():
 
 
 def test_archetype_link_and_scale_are_open_with_no_ceiling():
-    """His ruling: no count, it is open to increase. They hold nothing yet and
-    say so rather than being filled."""
-    from sourceborn import sbx
-    ids = [d["id"] for d in sbx.OPEN_LAYERS]
+    """His ruling: no count, it is open to increase.
+
+    This test used to assert all three held zero, which was true when they
+    were declared and false the moment the archetype layer was built — a
+    typed count goes stale as soon as the thing it counts changes. It now
+    asserts the count is LIVE: ARCHETYPE reads from the module, LINK and
+    SCALE still hold nothing and say so."""
+    from sourceborn import sbx, archetype
+    layers = sbx.open_layers()
+    ids = [d["id"] for d in layers]
     assert ids == ["ARCHETYPE", "LINK", "SCALE"]
-    for d in sbx.OPEN_LAYERS:
-        assert d["count"] == 0
-        assert d["ceiling"] is None
-        assert d["opens_at"]
+    for d in layers:
+        assert d["ceiling"] is None, "his ruling: no ceiling"
+        assert d["opens_at"] and d["state"]
+        assert isinstance(d["count"], int)
+    by = {d["id"]: d for d in layers}
+    assert by["ARCHETYPE"]["count"] == len(archetype.archetypes()) >= 11
+    assert by["LINK"]["count"] == 0 and by["SCALE"]["count"] == 0
 
 
 def test_the_sbx_routes_are_reachable():
     src = open("src/sourceborn/server.py").read()
-    for route in ('"/sbx"', '"/sbx/step"', '"/sbx/container"', '"/sbx/place"'):
+    for route in ('"/sbx"', '"/sbx/step"', '"/sbx/container"', '"/sbx/place"',
+                  '"/sbx/nodes"'):
         assert route in src, route
     assert "sbx.place_on_spine(" in src
 
@@ -6547,6 +6557,63 @@ def test_the_archetype_routes_are_reachable():
     for route in ('"/archetype"', '"/archetype/run"'):
         assert route in src, route
     assert "archetype.fires_on(" in src and "archetype.compare(" in src
+
+
+# ---------------------------------------------------------------------------
+# THE NODE BRAIN, IN THE ARCHITECTURE
+# ---------------------------------------------------------------------------
+
+def test_his_node_structure_is_placed_on_his_spine():
+    """His ask: *Node brain structure added*. The structure was locked in
+    Phase A and stood BESIDE the architecture; every other layer is placed at
+    the step where it acts. All twelve types now are."""
+    from sourceborn import sbx, nodebrain as N
+    nb = sbx.node_brain()
+    assert nb["node_type_count"] == 12
+    assert nb["field_count"] == 16 and nb["link_type_count"] == 10
+    assert len(nb["memory_kinds"]) == 11 and len(nb["statuses"]) == 4
+    assert len(nb["write_conditions"]) == 5 and len(nb["read_conditions"]) == 6
+    # the fingerprint travels with it, so a silent schema change is caught
+    assert nb["fingerprint"] == N.fingerprint()
+    placed = sbx.node_types()
+    assert len(placed) == 12
+    steps = {s["step"] for s in sbx.spine()}
+    for t in placed:
+        assert t["step"] in steps, t["type"]
+        assert t["step_name"] and t["order"]
+        # his structure, this side's placement — and every row says which
+        assert t["by"].startswith("HIS")
+        assert t["placed_by"].startswith("DERIVED")
+        assert t["why"] and t["correctable"] is True
+    # the ones his own law fixes: a contradiction is the HALT
+    by = {t["type"]: t for t in placed}
+    assert by["CONTRADICTION"]["step_name"] == "HALT"
+    assert by["EVENT"]["step_name"] == "PRESSURE"
+    assert by["INTENT"]["step_name"] == "WITNESS"
+    assert by["PATTERN"]["step_name"] == "CONSOLIDATION"
+
+
+def test_the_node_namespace_collisions_are_carried_not_settled():
+    """Five node-type names collide with growth series names. The two
+    namespaces are NOT merged — his standing ruling — and the architecture
+    carries the seam rather than quietly settling it."""
+    from sourceborn import sbx
+    nb = sbx.node_brain()
+    c = nb["collisions"]
+    assert c["count"] == 5
+    assert set(c["shared_names"]) == {"EVENT", "INTENT", "PATTERN", "RULE", "STATE"}
+    assert nb["not_settled"]
+    assert "NOT merged" in nb["not_settled"]
+
+
+def test_the_steps_no_node_type_reaches_are_reported():
+    """LOOP, ALIENATION and COLLISION have no node type of their own. That is
+    an absence, and an absence is reported rather than filled."""
+    from sourceborn import sbx
+    nb = sbx.node_brain()
+    assert nb["steps_unused"] == [8, 10, 11]
+    assert set(nb["steps_used"]) | set(nb["steps_unused"]) == \
+        {s["step"] for s in sbx.spine()}
 
 
 # ---------------------------------------------------------------------------

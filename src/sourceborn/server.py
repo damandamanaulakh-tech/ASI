@@ -1486,8 +1486,15 @@ class Handler(BaseHTTPRequestHandler):
                            for st in sbx.spine()],
                  "segments": sbx.segments(),
                  "intent_types": sbx.intent_types(),
-                 "open_layers": list(sbx.OPEN_LAYERS)}).encode(),
+                 "node_brain": sbx.node_brain(),
+                 "open_layers": sbx.open_layers()}).encode(),
                 "application/json")
+        elif path == "/sbx/nodes":
+            # HIS NODE BRAIN, IN the architecture rather than beside it — the
+            # 12 types placed at the step each acts on. The structure is his
+            # and fingerprinted; the placement is this side's and says so.
+            self._send(200, json.dumps(sbx.node_brain()).encode(),
+                       "application/json")
         elif path == "/sbx/step":
             n = qs.get("n", ["1"])[0]
             try:

@@ -54,19 +54,170 @@ import os
 _DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data",
                      "sbx_architecture.json")
 
-#: the three layers that exist by declaration and hold nothing yet — his ruling
-#: was "no count, its open to increase", so they carry no ceiling
+#: The layers he declared with no ceiling — his ruling was "no count, its open
+#: to increase". Their counts are READ FROM THE LIVE MODULES, never typed here:
+#: ARCHETYPE stood at a hardcoded 0 for exactly as long as it took to build the
+#: archetype layer, at which point the number on this page was simply wrong. A
+#: count that is typed goes stale the moment the thing it counts changes.
+def _archetype_count() -> int:
+    try:
+        from . import archetype
+        return len(archetype.archetypes())
+    except Exception:
+        return 0
+
+
 OPEN_LAYERS = (
     {"id": "ARCHETYPE", "holds": "understandings extracted from the books — each with "
      "its scale axis, the intent types it can produce, its discriminator and what "
-     "it refuses", "count": 0, "ceiling": None, "opens_at": "the archetype phase"},
+     "it refuses", "count": _archetype_count, "ceiling": None,
+     "opens_at": "the archetype phase", "state": "OPEN — counted live"},
     {"id": "LINK", "holds": "relations between rows as first-class counted objects. "
      "'Diamond cut diamond' is a link between two ego-rows, not a row",
-     "count": 0, "ceiling": None, "opens_at": "the link phase"},
+     "count": 0, "ceiling": None, "opens_at": "the link phase",
+     "state": "DECLARED — holds nothing yet"},
     {"id": "SCALE", "holds": "the stored axis on every archetype — micro, individual, "
      "relational, macro, and more; his ruling was that it is not only four",
-     "count": 0, "ceiling": None, "opens_at": "the scale phase"},
+     "count": 0, "ceiling": None, "opens_at": "the scale phase",
+     "state": "DECLARED — the four bands ride on each archetype; the stored "
+              "axis with its own addresses is not built"},
 )
+
+
+def open_layers() -> list:
+    """OPEN_LAYERS with every live count resolved."""
+    out = []
+    for l in OPEN_LAYERS:
+        r = dict(l)
+        if callable(r.get("count")):
+            r["count"] = r["count"]()
+        out.append(r)
+    return out
+
+
+# ---------------------------------------------------------------------------
+# THE NODE BRAIN ON HIS SPINE
+#
+# His ask: *Node brain structure added*. The structure itself is HIS and was
+# locked in Phase A — 12 node types, 16 fields, 10 typed links, 11 memory
+# kinds, 4 statuses, 5 write and 6 read conditions, with a fingerprint that
+# fails loudly if any of it changes silently.
+#
+# What was missing is that it stood beside the architecture instead of inside
+# it. Every other layer is PLACED — the intent types, the filters, the states,
+# the evidence levels, the failure classes, the chain steps, the rubrics each
+# sit at the step where they act. The node types did not, so nothing could say
+# where in his loop a CONTRADICTION node comes into being.
+#
+# THE PLACEMENT BELOW IS MINE, NOT HIS, AND EVERY ROW SAYS SO. His 12 types are
+# verbatim; which step each acts at is a derivation with its reason written
+# out, and it is correctable by a word from him — the same standing as a
+# DERIVED trigger.
+# ---------------------------------------------------------------------------
+
+NODE_ON_SPINE = {
+    "STATE": (1, "A state is the standing condition before anything moves — "
+                 "which is what GROUND is: fuel exists before any stomach."),
+    "ACTOR": (1, "Whoever is there before the first move. An actor is not "
+                 "produced by the event; the event finds them already there."),
+    "ARTIFACT": (1, "An object the world left behind becomes the GROUND of "
+                    "whoever finds it. The tablet is the ground of the whole "
+                    "king investigation, not its output."),
+    "EVENT": (2, "PRESSURE is where contact is forced and the happening "
+                 "occurs. His motto begins here: everything happening is an "
+                 "event."),
+    "SEQUENCE": (3, "USE is the running order — millennia of eating before "
+                    "anyone can say what food is. A sequence runs before it is "
+                    "described."),
+    "INTENT": (4, "WITNESS is the step that asks WHY the body demands this, "
+                  "and intent is never observed directly — his own law is that "
+                  "it is read from how things were arranged around the event. "
+                  "That reading is a witnessing, not an observation."),
+    "RELATION": (5, "EXPRESSION is where a thing takes a structured form "
+                    "another node can read. A named tie between two nodes is "
+                    "exactly that form."),
+    "RULE": (6, "NAMING is where a label replaces the thing — and a standing "
+                "constraint is the strongest form of that. This is also where "
+                "the MASK lives, which is why a rule is watched here."),
+    "CONTRADICTION": (7, "HALT. Two readings that cannot both stand is the "
+                         "definition of the halt, and his law is that a "
+                         "failure is never failure — it opens the loop."),
+    "PATTERN": (9, "CONSOLIDATION runs across many passes, and an arrangement "
+                   "that recurs cannot exist inside one. His own bar is five "
+                   "repeats."),
+    "MEMORY": (9, "What a node has seen before is what consolidation keeps. "
+                  "It is scheduled, not provoked."),
+    "FUTURE_STATE": (12, "METAMORPHOSIS — a state something was working "
+                         "toward changes what the thing IS, not what it "
+                         "holds. It fires at any step, which is why his "
+                         "second order marks 11 and 12 ANY-STEP."),
+}
+
+
+def node_types() -> list:
+    """His 12 node types, each placed at the step where it acts.
+
+    The type, its stem and its meaning are HIS, carried from the locked Phase A
+    schema. The step and the reason are MINE and say so."""
+    from . import nodebrain as N
+    out = []
+    for t in N.NODE_TYPES:
+        step_n, why = NODE_ON_SPINE.get(t["type"], (None, ""))
+        s = next((x for x in spine() if x["step"] == step_n), None)
+        out.append({
+            "type": t["type"], "stem": t["stem"], "is": t["is"],
+            "by": "HIS — Phase A locked schema",
+            "step": step_n,
+            "step_name": s["name"] if s else None,
+            "order": s["order"] if s else None,
+            "placed_by": "DERIVED — this side's reading of his spine",
+            "why": why,
+            "correctable": True,
+        })
+    return out
+
+
+def node_types_at(n: int) -> list:
+    return [t for t in node_types() if t["step"] == int(n)]
+
+
+def node_brain() -> dict:
+    """The node brain as a layer of the architecture.
+
+    His structure whole, with the fingerprint that proves it has not moved, its
+    placement on his spine, and the five namespace collisions carried through
+    rather than quietly settled."""
+    from . import nodebrain as N
+    placed = node_types()
+    by_step = {}
+    for t in placed:
+        by_step.setdefault(t["step"], []).append(t["type"])
+    return {
+        "schema_version": N.SCHEMA_VERSION,
+        "fingerprint": N.fingerprint(),
+        "node_types": placed,
+        "node_type_count": len(placed),
+        "on_spine": {str(k): v for k, v in sorted(by_step.items())},
+        "steps_used": sorted(by_step),
+        "steps_unused": [s["step"] for s in spine() if s["step"] not in by_step],
+        "fields": list(N.FIELDS),
+        "field_count": len(N.FIELDS),
+        "link_types": list(N.LINK_TYPES),
+        "link_type_count": len(N.LINK_TYPES),
+        "memory_kinds": list(N.MEMORY_KINDS),
+        "statuses": list(N.STATUSES),
+        "write_conditions": list(N.WRITE_CONDITIONS),
+        "read_conditions": list(N.READ_CONDITIONS),
+        "collisions": N.collisions(),
+        "law": "the 12 types, 16 fields and 10 typed links are HIS and locked; "
+               "the fingerprint fails loudly if any of it changes silently. "
+               "WHERE each type sits on his spine is this side's reading, "
+               "marked DERIVED on every row and correctable by a word.",
+        "not_settled": "five node-type names collide with growth series names "
+                       "(EVENT · INTENT · PATTERN · RULE · STATE). The two "
+                       "namespaces are NOT merged; what each side means is "
+                       "carried and his ruling is awaited.",
+    }
 
 
 @functools.lru_cache(maxsize=1)
