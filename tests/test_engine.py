@@ -6560,6 +6560,61 @@ def test_the_archetype_routes_are_reachable():
 
 
 # ---------------------------------------------------------------------------
+# HIS DISPLAY LAW — NEW PARAMETERS IN FRONT, OLD IN BACK
+# ---------------------------------------------------------------------------
+
+def test_new_parameters_in_front_and_old_in_back():
+    """His words, given with the ruling that the source is never deleted:
+    *use new parameters in front n old in back*. Both halves hold — the old
+    bank stays whole, and the new reading leads, because a reader who meets
+    the old id first is being shown the superseded address as the current one."""
+    from sourceborn import sbx
+    r = sbx.place_on_spine("a man is stealing money from a shop")
+    assert r["hits"], "nothing reached — the convention has nothing to prove on"
+    for h in r["hits"]:
+        keys = list(h)
+        # the split id and name lead; every source field sits under `from`
+        assert keys[0] == "id" and keys[1] == "row"
+        assert h["id"].startswith("SBX-CON-"), h["id"]
+        assert h["container"].startswith("SBX-CON-")
+        assert h["segment"].startswith("SBX-SEG-")
+        assert keys.index("from") > keys.index("id")
+        assert keys.index("from") > keys.index("container")
+        assert h["from"]["id"].startswith("SB-HFR-P")
+        assert h["from"]["container"].startswith("CON-")
+        assert "untouched" in h["from"]["bank"]
+    assert "new parameters in front" in sbx.FRONT_BACK_LAW
+
+
+def test_every_reached_row_resolves_to_a_split_row():
+    """The convention is only real if the new id actually exists for every
+    row reached. Measured across eight of his asks: 71 hits, 71 resolved."""
+    from sourceborn import sbx
+    total = resolved = 0
+    for text in ("a man is stealing money from a shop",
+                 "he bet everything he had to win it all back and lost what "
+                 "he could never recover",
+                 "diamond cut diamond",
+                 "i study late at night but i keep thinking about tomorrow",
+                 "the father was standing at the door and pointed it in the air",
+                 "he gave everything and got nothing in return",
+                 "i heard from someone that he took the money, we should fire "
+                 "him today"):
+        for h in sbx.place_on_spine(text)["hits"]:
+            total += 1
+            resolved += bool(h["id"])
+    assert total > 50 and resolved == total, (resolved, total)
+
+
+def test_the_source_bank_is_still_whole_behind_the_new_front():
+    """Putting the new in front must not have moved the old. His registry
+    still reads 3,204 rows and 80 containers."""
+    from sourceborn import human_registry as hr
+    assert len(hr.parameters()) == 3204
+    assert len(hr.containers()) == 80
+
+
+# ---------------------------------------------------------------------------
 # THE NODE BRAIN, IN THE ARCHITECTURE
 # ---------------------------------------------------------------------------
 

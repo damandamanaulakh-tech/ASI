@@ -298,6 +298,84 @@ def intent_types() -> dict:
     return out
 
 
+# ---------------------------------------------------------------------------
+# HIS DISPLAY LAW: NEW PARAMETERS IN FRONT, OLD IN BACK
+#
+# His words, given with the ruling that the source bank is never deleted:
+#
+#     Human_registry.json is untouched and still reads 3,204 rows and 80
+#     containers. The split stands beside it, never over it, and a test proves
+#     the source is intact — use new parameters in front n old in back
+#
+# Both halves are load-bearing and they are not in tension. The OLD bank is
+# never removed, because removing it would break the promise that his source
+# document stands untouched. And the NEW reading leads, because the split is
+# what the system now reasons on — a reader who sees the old id first is being
+# shown the superseded address as though it were the current one.
+#
+# So every row that carries both is rendered NEW FIRST, OLD LAST, in one
+# function, so the convention cannot drift apart across the pages that use it.
+# ---------------------------------------------------------------------------
+
+FRONT_BACK_LAW = ("new parameters in front, old in back — the split leads "
+                  "because it is what the system reasons on; the source "
+                  "follows because it is never deleted.")
+
+
+def _new_row(c: dict, old_flat_id: str, old_name: str) -> dict:
+    """The split row a seated source row became.
+
+    Matched on the source row's own flat id (`SB-HFR-P1132` -> `P1132`), which
+    every split row carries as `from_row`. A row that was SPLIT produced more
+    than one child from one parent, so the name decides between them."""
+    want = (old_flat_id or "").replace("SB-HFR-", "")
+    kids = [r for r in c.get("rows", ()) if r.get("from_row") == want]
+    if len(kids) > 1:
+        exact = [r for r in kids
+                 if r["name"].strip().lower() == (old_name or "").strip().lower()]
+        if exact:
+            return exact[0]
+    if kids:
+        return kids[0]
+    by_name = [r for r in c.get("rows", ())
+               if r["name"].strip().lower() == (old_name or "").strip().lower()]
+    return by_name[0] if by_name else {}
+
+
+def front_back(c: dict, s: dict) -> dict:
+    """One reached row, rendered his way: the split in front, the source behind.
+
+    The key order is the display order — `id` and `name` are the SPLIT row, and
+    everything from the source bank is gathered under `from` at the end, so no
+    reader meets an old address before the new one."""
+    new = _new_row(c, s.get("sb_id"), s.get("name"))
+    return {
+        # ---- NEW, IN FRONT --------------------------------------------------
+        "id": new.get("id"),
+        "row": new.get("name") or s.get("name"),
+        "container": c["id"],
+        "container_name": c["name"],
+        "segment": c["segment"],
+        "pillar": c["pillar"],
+        "step": c["step"],
+        "computer": c["computer"],
+        "was_split": new.get("was_split"),
+        # ---- how it was reached --------------------------------------------
+        "reached_by": s["by"],
+        "via": s["via"],
+        # ---- OLD, IN BACK ---------------------------------------------------
+        "from": {
+            "id": s.get("sb_id"),
+            "name": s.get("name"),
+            "container": s.get("container"),
+            "bank": "human_registry.json — 3,204 rows, untouched",
+        },
+        # kept because callers read it by this name; it is the SOURCE id and
+        # it deliberately sits behind the split id above.
+        "source_id": s.get("sb_id"),
+    }
+
+
 def place_on_spine(text: str, repo: str = ".") -> dict:
     """THE WIRING. An ask is seated on the source bank as it always was; the
     seatings are then read through the split, and the ask lands on STEPS.
@@ -337,11 +415,7 @@ def place_on_spine(text: str, repo: str = ".") -> dict:
         for c in by_old.get(s.get("container"), []):
             names = {r["name"].lower() for r in c["rows"]}
             if s.get("name", "").lower() in names:
-                hits.append({"row": s.get("name"), "source_id": s.get("sb_id"),
-                             "reached_by": s["by"], "via": s["via"],
-                             "container": c["id"], "container_name": c["name"],
-                             "segment": c["segment"], "pillar": c["pillar"],
-                             "step": c["step"], "computer": c["computer"]})
+                hits.append(front_back(c, s))
                 d = steps.setdefault(c["step"], {"step": c["step"], "rows": [],
                                                  "containers": set()})
                 d["rows"].append(s.get("name"))

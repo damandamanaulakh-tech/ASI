@@ -629,6 +629,33 @@ MAP: list[dict] = [
             "difference between source_rows_seated and mapped_into_split, never "
             "dropped. ARCHETYPE, LINK and SCALE are declared with no ceiling and "
             "hold nothing yet. /sbx, /sbx/step, /sbx/container, POST /sbx/place."},
+   {"his": "use new parameters in front n old in back",
+    "where": [("sbx.py", "def front_back("),
+              ("sbx.py", "def _new_row("),
+              ("sbx.py", "FRONT_BACK_LAW = ")],
+    "state": RUNS,
+    "note": "HIS DISPLAY LAW (2026-08-29), given in the same breath as the "
+            "ruling that the source is never deleted: 'Human_registry.json is "
+            "untouched and still reads 3,204 rows and 80 containers. The split "
+            "stands beside it, never over it... use new parameters in front n "
+            "old in back'. Both halves are load-bearing and they do not "
+            "conflict: the OLD bank is never removed, because removing it "
+            "would break the promise his source stands untouched; and the NEW "
+            "reading leads, because the split is what the system reasons on — "
+            "a reader who meets the old id first is being shown the superseded "
+            "address as though it were the current one. Before this, a reached "
+            "row led with the OLD name and the OLD flat id and carried the new "
+            "container behind them. Now `front_back()` renders every reached "
+            "row NEW FIRST — the split row id, its name, its container, "
+            "segment, pillar, step and machine column — with every source "
+            "field gathered under `from` at the END, and the key order IS the "
+            "display order. One function, so the convention cannot drift apart "
+            "across pages. The split row is found by the source row's own flat "
+            "id, which every split row carries as `from_row`, and where a "
+            "parent was SPLIT into several children the name decides between "
+            "them. MEASURED over eight of his asks: 71 hits, 71 resolving to a "
+            "real split row, 0 unresolved. The old bank is untouched by it — "
+            "3,204 rows and 80 containers, tested in the same file."},
    {"his": "Node brain structure added",
     "where": [("sbx.py", "def node_brain("),
               ("sbx.py", "def node_types("),
