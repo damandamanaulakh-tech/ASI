@@ -6207,6 +6207,111 @@ def test_the_master_workbook_findings_are_reported_not_corrected():
     assert any("OPEN SOURCE GAP" in f["finding"] for f in fs)
 
 
+def test_the_split_is_filed_whole_and_every_step_is_populated():
+    """His order: rebuild it complete with all 183 containers and all rows.
+    27 segments, 183 containers, 3,483 rows, 12 steps, none empty."""
+    from sourceborn import sbx
+    v = sbx.verify()
+    assert v["pillars"] == 6
+    assert v["steps"] == 12
+    assert v["segments"] == 27
+    assert v["containers"] == 183, v["containers"]
+    assert v["rows"] == 3483, v["rows"]
+    assert v["every_step_populated"] is True, v["containers_per_step"]
+    assert sum(v["containers_per_step"].values()) == 183
+    # every container reachable, every row carries its home
+    assert len(sbx.containers()) == 183
+    assert len(sbx.rows()) == 3483
+    assert all(r["container"] and r["step"] for r in sbx.rows()[:200])
+
+
+def test_the_source_bank_is_replaced_never_deleted():
+    """His ruling on the reversal: do not delete, replace with the new standing.
+    The 3,204 stand exactly as they were, beside the split."""
+    from sourceborn import sbx, human_registry as hr
+    assert len(hr.parameters()) == 3204
+    assert len(hr.containers()) == 80
+    assert len(hr.segments()) == 10
+    assert sbx.verify()["source_untouched"] is True
+    # and every split container names the source container it came from
+    assert all(c["from"]["container"].startswith("CON-") for c in sbx.containers())
+
+
+def test_both_columns_stand_at_every_container():
+    """ASI is the verified connection between the two columns; a node with only
+    the human half cannot link."""
+    from sourceborn import sbx
+    for c in sbx.containers():
+        assert c["human"], c["id"]
+        assert c["computer"], c["id"]
+        assert c["human"] != c["computer"], c["id"]
+    m = sbx.computer_of("SBX-CON-055")           # Working Memory
+    assert "RAM" in m["computer"] or "cache" in m["computer"].lower()
+    assert m["human"] == "Working Memory"
+
+
+def test_his_loop_still_closes_and_the_second_order_is_marked():
+    """Steps 1-8 are his and step 8 returns to step 1. Steps 9-12 are the life
+    of the loop itself — the distinction is recorded, not lost."""
+    from sourceborn import sbx
+    sp = {x["step"]: x for x in sbx.spine()}
+    assert sp[1]["name"] == "GROUND" and sp[8]["name"] == "LOOP"
+    assert "CLOSES TO STEP 1" in sp[8]["order"]
+    for n in (1, 2, 3, 4, 5, 6, 7, 8):
+        assert sp[n]["order"].startswith("FIRST ORDER"), n
+    for n in (9, 10, 11, 12):
+        assert sp[n]["order"].startswith("SECOND ORDER"), n
+    for n in (11, 12):
+        assert "ANY-STEP" in sp[n]["order"], n
+    assert "MASK" in sp[6]["line"].upper()
+
+
+def test_the_nine_intent_types_are_placed_on_the_spine():
+    from sourceborn import sbx
+    its = sbx.intent_types()
+    assert len(its) == 9, sorted(its)
+    for n in range(1, 10):
+        assert "IT-%02d" % n in its, n
+    assert its["IT-05"]["step_name"] == "LOOP"        # recovery
+    assert its["IT-03"]["step_name"] == "USE"         # automaticity
+    assert its["IT-06"]["step_name"] == "NAMING"      # role/virtue binding
+
+
+def test_the_wiring_lands_an_ask_on_his_spine():
+    """The seating is unchanged; it is now READ through the split and lands on
+    steps. Nothing is chosen and no intent is concluded."""
+    from sourceborn import sbx
+    r = sbx.place_on_spine("my son sits down to study at seven. after ten "
+                           "minutes he gets up. he did not sleep well last night.")
+    assert r["concluded"] is None
+    assert r["source_rows_seated"] > 0
+    assert r["mapped_into_split"] == r["source_rows_seated"], "a seated row was dropped"
+    assert r["steps_lit_count"] >= 1
+    lit = {s["step"] for s in r["steps_lit"]}
+    assert 1 in lit, "the sleep rows are GROUND — his own reverse walk found the same"
+    for s in r["steps_lit"]:
+        assert s["human"] and s["computer"]
+
+
+def test_archetype_link_and_scale_are_open_with_no_ceiling():
+    """His ruling: no count, it is open to increase. They hold nothing yet and
+    say so rather than being filled."""
+    from sourceborn import sbx
+    ids = [d["id"] for d in sbx.OPEN_LAYERS]
+    assert ids == ["ARCHETYPE", "LINK", "SCALE"]
+    for d in sbx.OPEN_LAYERS:
+        assert d["count"] == 0
+        assert d["ceiling"] is None
+        assert d["opens_at"]
+
+
+def test_the_sbx_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/sbx"', '"/sbx/step"', '"/sbx/container"', '"/sbx/place"'):
+        assert route in src, route
+    assert "sbx.place_on_spine(" in src
+
+
 def test_the_workbook_seams_halt_instead_of_deciding():
     """ADOPT-HALT-8..12 — the bridge, three filter vocabularies, the twelve
     states, the missing raw workbook, the scripture surfaces. Nobody here

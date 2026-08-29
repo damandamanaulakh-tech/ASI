@@ -105,7 +105,8 @@ def _tree(root: str = ".") -> list:
 
 
 # The bank files by name — the parameters and IDs themselves, not text about them.
-_BANK_FILES = ("data/human_registry.json",)
+_BANK_FILES = ("data/human_registry.json",
+               "data/sbx_architecture.json")
 _BANK_MODULES = ("human_registry.py", "registry.py")
 
 
@@ -128,7 +129,9 @@ def classify(path: str) -> dict:
 
     # the bank — it is what everything else seats onto
     if p.endswith(_BANK_FILES) or base in _BANK_MODULES:
-        return r(BANK, "the parameter/ID bank itself — his 3,204 named rows")
+        return r(BANK, "the parameter/ID bank itself — his 3,204 named rows, and "
+                       "the split that stands beside them at 183 containers and "
+                       "3,483 rows")
 
     # his method: rulings, canon, the core spec
     if low.startswith("docs/method/"):

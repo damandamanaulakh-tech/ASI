@@ -1118,6 +1118,38 @@ nobody), and three scripture surfaces (extends HALT-5). Nothing wired —
 the tree is ADOPTED in the file divide, never harvested; `/adopted` now
 serves the workbook block beside the C-SB block. 373 tests green.
 
+**THE COMPLETE ARCHITECTURE — HIS SPLIT, FILED AND WIRED (2026-08-29) —
+`sbx.py`, `data/sbx_architecture.json`, `docs/THE_COMPLETE_ARCHITECTURE.md`,
+`/sbx`.** His orders: *"rebuild it complete with all 183 containers and all
+rows"* then *"now file it in repo and wire it"*. He ruled the split — **every ID
+holding two or three meanings becomes separate IDs, all new IDs, no
+placeholders** — and 69 of the 80 containers carried more than one meaning (the
+widest, CON-040, carried five). Filed: **6 macro pillars · the 12-step spine ·
+27 segments · 183 containers · 3,483 rows · 175 filters · 12 states · 7 evidence
+levels · 20 failure classes · 34 chain steps · 67 rubrics · the 9 approved
+intent types IT-01..09** — each placed at the step where it acts, not merely
+listed. **HIS LOOP IS PRESERVED:** steps 1–8 are first order and **step 8 closes
+to step 1**; 9–12 (CONSOLIDATION · ALIENATION · COLLISION · METAMORPHOSIS) are
+the life of the loop across many cycles and 11–12 can fire at any step —
+recorded as `order` on every step so the closure is never lost. **THE SOURCE
+BANK IS REPLACED, NEVER DELETED** — his ruling on the reversal: the 3,204 rows
+and 80 containers of `human_registry.json` are untouched and still read 3,204,
+proved by a test. **BOTH COLUMNS AT EVERY NODE** — the human name he wrote and a
+computer parallel for all 183 (Working Memory → *RAM and CPU cache, context
+window, token budget, register file*; Forgetting → *TTL expiry, cache eviction,
+garbage collection*), because ASI is the verified Human↔AI connection and one
+column alone cannot link. **`place_on_spine()` is the wiring:** the seating is
+unchanged, it is now READ through the split and lands the ask on steps — his
+study sentence lights **STEP 1 GROUND** (7 sleep rows) and **STEP 2 PRESSURE**,
+8 of 8 seated rows mapped, `concluded: None`; a row finding no home is reported
+by the difference between `source_rows_seated` and `mapped_into_split`, never
+dropped. **Stated honestly and not hidden:** his dice-game sentence still seats
+**0 rows** — no route from those words to those rows — which is exactly what the
+ARCHETYPE layer is for. **ARCHETYPE · LINK · SCALE are declared with no ceiling
+and hold nothing yet** (his ruling: *"no count, its open to increase"*). Verified
+live over HTTP: `/sbx`, `/sbx/step?n=`, `/sbx/container?id=`, `POST /sbx/place`.
+381 tests green, 274 anchors, 0 missing.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

@@ -40,6 +40,7 @@ from . import asipage
 from . import generationpage
 from . import growth
 from . import filemap, growing, intent_ledger, intents, selfmake
+from . import sbx
 from . import artifact
 from . import discovery
 from . import expected
@@ -1472,6 +1473,30 @@ class Handler(BaseHTTPRequestHandler):
                 {"stats": nodegraph.stats(SB_ROOT),
                  "queue": nodegraph.queue_for_him(SB_ROOT)}).encode(),
                 "application/json")
+        elif path == "/sbx":
+            # THE COMPLETE ARCHITECTURE — his split on his spine, both columns.
+            # The source bank is untouched; verify() proves it every call.
+            self._send(200, json.dumps(
+                {"stats": sbx.stats(),
+                 "verify": sbx.verify(),
+                 "pillars": sbx.pillars(),
+                 "spine": [{k: v for k, v in st.items() if k != "filters"}
+                           for st in sbx.spine()],
+                 "segments": sbx.segments(),
+                 "intent_types": sbx.intent_types(),
+                 "open_layers": list(sbx.OPEN_LAYERS)}).encode(),
+                "application/json")
+        elif path == "/sbx/step":
+            n = qs.get("n", ["1"])[0]
+            try:
+                self._send(200, json.dumps(sbx.step(int(n))).encode(),
+                           "application/json")
+            except ValueError:
+                self._send(400, json.dumps({"error": "n must be 1..12"}).encode(),
+                           "application/json")
+        elif path == "/sbx/container":
+            self._send(200, json.dumps(
+                sbx.container(qs.get("id", [""])[0])).encode(), "application/json")
         elif path == "/adopted":
             # the adoption from C-SB — byte-identical, verified, inert; every
             # seam a HALT for him
@@ -2434,6 +2459,17 @@ class Handler(BaseHTTPRequestHandler):
                 self._send(400, b'{"error":"empty prompt"}', "application/json")
                 return
             self._send(200, json.dumps(generate_image(prompt)).encode(), "application/json")
+            return
+        if self.path == "/sbx/place":
+            # the wiring: an ask seated as always, read through the split,
+            # landed on his spine. Nothing chosen, nothing concluded.
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(sbx.place_on_spine(text)).encode(),
+                       "application/json")
             return
         if self.path != "/ask":
             self._send(404, b'{"error":"not found"}', "application/json")

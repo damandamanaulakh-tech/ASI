@@ -601,6 +601,34 @@ MAP: list[dict] = [
             "grows sum nor the grows-against sum, never on the harvest list; "
             "any existing class would have decided a seam that is his. "
             "/adopted."},
+   {"his": "rebuild it complete with all 183 containers and all rows / now file "
+           "it in repo and wire it",
+    "where": [("sbx.py", "def place_on_spine("),
+              ("sbx.py", "def verify("),
+              ("sbx.py", "def spine("),
+              ("sbx.py", "def computer_of("),
+              ("sbx.py", "OPEN_LAYERS = ")],
+    "state": RUNS,
+    "note": "THE COMPLETE ARCHITECTURE (2026-08-29). His split, filed and wired: "
+            "6 macro pillars, the 12-step spine, 27 segments, 183 containers, "
+            "3,483 rows, 175 filters, 12 states, 7 evidence levels, 20 failure "
+            "classes, 34 chain steps, 67 rubrics and the 9 approved intent types "
+            "— each placed at the step where it acts, not merely listed. Data at "
+            "data/sbx_architecture.json (700KB), document at "
+            "docs/THE_COMPLETE_ARCHITECTURE.md. EVERY NODE CARRIES BOTH COLUMNS: "
+            "the human name he wrote and a computer parallel, because ASI is the "
+            "verified connection between the two sides and one column alone "
+            "cannot link. HIS LOOP IS PRESERVED: steps 1-8 are first order and "
+            "step 8 closes to step 1; 9-12 are the life of the loop across many "
+            "cycles and 11-12 can fire at any step — recorded as `order` on every "
+            "step so the closure is never lost. THE SOURCE BANK IS REPLACED, "
+            "NEVER DELETED: data/human_registry.json still reads 3,204 rows and "
+            "80 containers, and a test proves it. place_on_spine() is the wiring "
+            "— the seating is unchanged, it is now READ through the split and "
+            "lands the ask on steps; a row that finds no home is reported by the "
+            "difference between source_rows_seated and mapped_into_split, never "
+            "dropped. ARCHETYPE, LINK and SCALE are declared with no ceiling and "
+            "hold nothing yet. /sbx, /sbx/step, /sbx/container, POST /sbx/place."},
    {"his": "this file too for review and adoption",
     "where": [("adopted.py", "def wb_verify("),
               ("adopted.py", "def the_bridge("),
