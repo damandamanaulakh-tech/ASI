@@ -6586,6 +6586,107 @@ def test_the_archetype_routes_are_reachable():
 
 
 # ---------------------------------------------------------------------------
+# THE DOCS AUDIT — a doc's wiring is whether its claims still hold
+# ---------------------------------------------------------------------------
+
+def _repo_docs(pattern="*.md"):
+    import subprocess
+    return [p for p in subprocess.run(["git", "ls-files", pattern],
+                                      capture_output=True, text=True).stdout.split()
+            if not p.startswith("adopted/")]
+
+
+def test_no_doc_names_a_code_symbol_that_does_not_exist():
+    """A doc that says `module.function()` is making a checkable claim. 52 such
+    claims across the docs; every one must resolve, or the doc is describing
+    code that is not there."""
+    import os, re
+    srcs = {f[:-3]: open("src/sourceborn/" + f, encoding="utf-8").read()
+            for f in os.listdir("src/sourceborn") if f.endswith(".py")}
+    ext = {"py", "json", "md", "html", "txt", "xlsx", "docx", "yaml", "yml",
+           "csv", "jsonl"}
+    # symbols that are real but not module-level defs: instance attributes and
+    # dict keys the module actually produces
+    allowed = {"engine.grounding", "patterns.possible_interpretations"}
+    bad = []
+    for d in _repo_docs():
+        txt = open(d, encoding="utf-8", errors="replace").read()
+        for mod, sym in set(re.findall(r"`(\w+)\.(\w+)\(?`", txt)):
+            if mod not in srcs or sym in ext or "%s.%s" % (mod, sym) in allowed:
+                continue
+            if not re.search(
+                    r"^\s*(?:async\s+)?(?:def|class)\s+%s\b|^%s\s*[:=]|^\s{4}%s\s*[:=]"
+                    % (re.escape(sym), re.escape(sym), re.escape(sym)),
+                    srcs[mod], re.M):
+                bad.append((d, "%s.%s" % (mod, sym)))
+    assert bad == [], bad
+
+
+def test_no_doc_links_to_a_file_that_is_not_there():
+    """Markdown links across every doc must resolve. Zero broken, and this is
+    what keeps it zero when a file is renamed."""
+    import os, re, subprocess
+    repo = set(subprocess.run(["git", "ls-files"], capture_output=True,
+                              text=True).stdout.split())
+    bad = []
+    for d in _repo_docs():
+        txt = open(d, encoding="utf-8", errors="replace").read()
+        for m in re.finditer(r"\[([^\]]{1,80})\]\(([^)]+)\)", txt):
+            tgt = m.group(2).split("#")[0].strip()
+            if not tgt or tgt.startswith(("http", "mailto:")):
+                continue
+            p = os.path.normpath(os.path.join(os.path.dirname(d), tgt))
+            if p not in repo and not os.path.exists(p):
+                bad.append((d, tgt))
+    assert bad == [], bad
+
+
+def test_the_readme_test_count_is_the_real_one():
+    """README says "# N tests" as a live instruction — run this, get that. It
+    said 25 while the suite ran 443. A number a reader is told to expect must
+    be the number they get."""
+    import re
+    readme = open("README.md", encoding="utf-8").read()
+    m = re.search(r"tests/test_engine\.py\s+#\s*([\d,]+)\s+tests", readme)
+    assert m, "the README no longer states a test count where it used to"
+    claimed = int(m.group(1).replace(",", ""))
+    actual = len([v for k, v in globals().items() if k.startswith("test_")])
+    assert claimed == actual, (claimed, actual)
+
+
+def test_the_canon_index_names_every_canon_file():
+    """Seven of the 28 canon files were reachable from nothing — no document
+    linked them, so the only way to find one was to already know its filename.
+    A canon nobody can find is not canon."""
+    import os
+    d = "docs/method/canon"
+    idx_path = os.path.join(d, "00_INDEX.md")
+    assert os.path.exists(idx_path), "the canon has no index"
+    idx = open(idx_path, encoding="utf-8").read()
+    files = sorted(f for f in os.listdir(d)
+                   if f.endswith(".md") and f != "00_INDEX.md")
+    assert len(files) >= 28, len(files)
+    missing = [f for f in files if f not in idx]
+    assert missing == [], missing
+
+
+def test_a_doc_that_calls_the_kernel_binding_also_says_it_is_not_wired():
+    """`seq_kernel` is declared BINDING in the method docs and is imported by
+    nothing. Both facts are true; a doc that states only the first lets a
+    reader conclude it runs."""
+    for p in ("docs/method/00_READ_FIRST.md",
+              "docs/method/01C_SEQUENCE_PROTOCOL.md"):
+        txt = open(p, encoding="utf-8").read()
+        assert "seq_kernel.py" in txt
+        assert "NOT WIRED" in txt, p
+    # and the code still agrees with that statement
+    from sourceborn import exists
+    not_wired = {w for g in exists.MAP for r in g["rows"]
+                 if r["state"] == exists.NOT_WIRED for w, _ in r.get("where", [])}
+    assert "seq_kernel.py" in not_wired
+
+
+# ---------------------------------------------------------------------------
 # THE WIRING AUDIT — the OLD files, and the guards that keep them honest
 # ---------------------------------------------------------------------------
 

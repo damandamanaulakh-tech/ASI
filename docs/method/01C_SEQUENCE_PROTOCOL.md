@@ -369,6 +369,13 @@ the strike list · the kernel.
 
 Implemented and tested: `src/sourceborn/seq_kernel.py`.
 
+**AND NOT WIRED** *(stated 2026-08-30)*. Both halves of "implemented and tested"
+are true — the six objects are built and nine tests cover them. What the
+sentence does not say, and a reader would assume, is that something CALLS it.
+Nothing does: no module imports this file. `exists.py` carries it as
+BUILT-NOT-WIRED and `router.py` reports it in `unwired` on every route that
+would need it. The gap is declared, not hidden.
+
 **Not yet the running brain.** This is the complete enforceable grammar the brain
 design code is written from. Next: the universe → galaxy → Earth → life → human →
 3-lakh-year chain at ~30 real steps, triple-passed, each step with its own code,

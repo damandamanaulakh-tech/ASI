@@ -37,7 +37,7 @@ Status as of the current pass:
 ```bash
 python -m sourceborn.demo                 # full offline walkthrough
 python -m sourceborn "why does the small idea win? prove it"
-PYTHONPATH=src python3 tests/test_engine.py   # 25 tests
+PYTHONPATH=src python3 tests/test_engine.py   # 448 tests
 ```
 Set `ANTHROPIC_API_KEY` to swap the offline stub for real Claude reasoning.
 

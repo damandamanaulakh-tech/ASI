@@ -1212,6 +1212,52 @@ per page; `trigger.for_hits()` exists because that module calls
 The arrow chart, `sysmap.where()`, the growth seed (218→303 rows, **PARAM stays
 3**), the home-page HUD and the README all carry it. 430 tests green.
 
+**THE THREE WIRING AUDITS, ON HIS WORD (2026-08-30)** — *"is all new work
+connected with file or not"*, then *"now do the same check for old files"*, then
+*"now do the same check for docs"*. **NEW FILES: six of seven integration points
+were failing.** `trigger.py` and `readings.py` were importable only from
+`server.py` — behind their own routes, never touching an answer, the defect
+`weighting.py` had; `place_on_spine` now runs every layer on one ask (SEGMENT ·
+CONTAINER · SUB-PARAMETER · ARCHETYPE · TRIGGER · LINK · SCALE ·
+INTENT-READING), which needed `trigger.for_hits()` because that module calls
+`place_on_spine` and wiring it in with only `fires_on` would have recursed.
+The arrow chart showed NONE of it (nor `sbx` from the commit before);
+`sysmap.where()` had no entry; `growth.seed()` did not harvest them (218→303
+rows, **PARAM stays 3**); the home page knew nothing (7 live HUD cells added);
+README and CLAUDE.md stopped short. And **29 modules each defined
+`annotations()` mapping HIS WORDS to the code that carries them — nothing had
+ever called one**; `sysmap.his_words()` now collects all 169 and resolves each
+target, 169 of 169. **OLD FILES: a claim in this very file was false when
+written.** It said importing `asi_pyramid` and `statepacks` put the Pyramid "in
+the answer path" — an unused import satisfies a grep and nothing else; twelve
+names in `engine.py` were dead the same way, including `MATRIX`/`review_node`
+from the 70×25 his own decision had removed. `Engine.read()` now CALLS them
+(verified live: `POST /reading/ask` returns a `pyramid` block reading bank 3,204,
+and 16 state packs), the dead links are gone, and 25 dead imports across the package
+are now 0 — each checked for re-export first. `khalf.py` was an orphan declared
+in NO map at all; `rh_code`, `seq_kernel` and now `urr_matrix` join it as
+BUILT-NOT-WIRED, and the guard that enforces this **immediately caught that
+removing the `urr_matrix` import had created a new undeclared orphan**.
+**DOCS: 102 files.** 0 broken markdown links, 0 code symbols named that do not
+exist, 0 routes claimed that are not served (`/ask` and `/restore` were the only
+suspects — `/ask` is real, `/restore` was a wrong route NAME in a security
+finding whose real route is `POST /import`). The README told a reader to expect
+**25 tests** while the suite ran 443. Seven of 28 canon files were reachable
+from nothing — `docs/method/canon/00_INDEX.md` now names all 28 and a test
+enforces it. `THE_AUTO_PROPOSAL.md` proposed `links.py`/`nodemem.py`/`/links`
+and the work shipped as `nodegraph.py`/`/nodes` with nothing saying so — a
+landing table was added, nothing removed. And the method docs called
+`seq_kernel` **Binding** without saying it is **NOT WIRED**; both facts are now
+stated together in `00_READ_FIRST.md` and `01C_SEQUENCE_PROTOCOL.md`. Most
+"N tests green" figures across the docs are DATED BUILD RECORDS, not live
+claims, and were left alone — rewriting them would falsify history. **Ten
+guards were added so none of it can drift back**: no module imported and never
+used · the Pyramid must be called not imported · the removed matrix must stay
+unlinked · every orphan declared · README lists every served route · README's
+test count equals the real one · no doc names a missing symbol · no doc links to
+a missing file · the canon index names every canon file · a doc calling the
+kernel binding must also say it is unwired. 448 tests green.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·
