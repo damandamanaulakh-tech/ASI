@@ -6586,6 +6586,100 @@ def test_the_archetype_routes_are_reachable():
 
 
 # ---------------------------------------------------------------------------
+# PHASE 15 — THE RE-READ
+# ---------------------------------------------------------------------------
+
+def test_the_reread_compares_like_instrument_with_like():
+    """The first draft compared every recorded number against the SEATING and
+    reported the mall at 72 -> 0 and Samrath at 106 -> 0 — two catastrophic
+    regressions, neither of them real. Those numbers came from
+    asi_pyramid.rows_for, a different mechanism answering a different
+    question. Every example now records which instrument produced its `then`,
+    and the re-read runs that one."""
+    from sourceborn import reread as R
+    for ex in R.EXAMPLES:
+        assert ex["instrument"] in R.INSTRUMENTS, ex["id"]
+    rep = R.report()
+    by = {e["id"]: e for e in rep["examples"]}
+    assert by["EX-SAMRATH"]["now"]["instrument"] == "bank_matcher"
+    assert by["EX-SAMRATH"]["now"]["rows_total"] == 106
+    assert by["EX-MALL"]["now"]["rows_total"] == 72
+    assert by["EX-DICE"]["now"]["instrument"] == "seating"
+
+
+def test_his_examples_are_carried_in_his_exact_wording():
+    """His law: capture the exact words before interpreting. The first draft
+    paraphrased Samrath and got 84 rows instead of his 106 — the paraphrase,
+    not the system, was the difference."""
+    from sourceborn import reread as R
+    by = {e["id"]: e for e in R.EXAMPLES}
+    assert by["EX-SAMRATH"]["text"] == (
+        "Samrath never like to go to school, he always cry, but today is his "
+        "birthday, he went very happy.")
+    assert "water pipe" in by["EX-RAIN"]["text"], "his real rain wording"
+    assert "Girlfriend" in by["EX-MALL"]["text"], "his real mall wording"
+
+
+def test_a_count_that_did_not_move_can_still_be_a_changed_meaning():
+    """HIS NAMED CASE, and the reason this module compares row IDENTITY. The
+    rain sentence read 2 rows when it was recorded and reads 2 rows now — so a
+    count-only check calls it UNCHANGED. Both rows are different."""
+    from sourceborn import reread as R
+    e = R.read_one("EX-RAIN")
+    assert e["verdict"] == "CHANGED — SAME COUNT, DIFFERENT ROWS"
+    assert e["rows_moved"] == 0
+    assert e["same_rows"] is False
+    assert e["then_rows_named"] == ["Air/breathing drive", "Thought suppression"]
+    assert "Standing balance" in e["now_rows_named"]
+    assert set(n.lower() for n in e["then_rows_named"]).isdisjoint(
+        n.lower() for n in e["now_rows_named"]), "not one row survived"
+    # and the defect the canon recorded is still there, not quietly dropped
+    assert "Standing balance" in e["known_defect_then"]
+
+
+def test_every_movement_names_the_ruling_behind_it():
+    """A number moving is not a defect — 0 -> 20 on the stealing example is
+    the archetype layer doing its job. A movement with NO ruling behind it is
+    drift, and drift is the finding."""
+    from sourceborn import reread as R
+    rep = R.report()
+    assert rep["unexplained"] == [], rep["unexplained"]
+    for e in rep["examples"]:
+        if e["verdict"].startswith("CHANGED") and e["verdict"] != \
+                "CHANGED — SAME COUNT, DIFFERENT ROWS":
+            assert e["explained_by"], e["id"]
+            for c in e["explained_by"]:
+                assert c["his_words"] and c["where"], c["id"]
+
+
+def test_the_reread_reports_and_changes_nothing():
+    """It re-files no example, corrects no canon, and does not decide the new
+    reading is the right one. Two readings of one example is exactly the case
+    his own law covers — both stand, the gap goes to him."""
+    from sourceborn import reread as R
+    rep = R.report()
+    assert rep["his_call"] is True
+    for e in rep["examples"]:
+        assert e["changed_here"] is None
+    src = open("src/sourceborn/reread.py", encoding="utf-8").read()
+    for forbidden in ("growth.add", "open(", "write(", "def correct"):
+        assert forbidden not in src, forbidden
+
+
+def test_an_example_with_no_recorded_reading_says_so():
+    from sourceborn import reread as R
+    e = R.read_one("EX-STUDY")
+    assert e["verdict"] == "NOT RECORDED"
+    assert e["then"]["rows"] is None
+    assert "never filled" in e["note"]
+
+
+def test_the_reread_route_is_reachable():
+    src = open("src/sourceborn/server.py", encoding="utf-8").read()
+    assert '"/reread"' in src and "reread.report()" in src
+
+
+# ---------------------------------------------------------------------------
 # THE DOCS AUDIT — a doc's wiring is whether its claims still hold
 # ---------------------------------------------------------------------------
 

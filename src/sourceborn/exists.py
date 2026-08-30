@@ -674,6 +674,46 @@ MAP: list[dict] = [
             "difference between source_rows_seated and mapped_into_split, never "
             "dropped. ARCHETYPE, LINK and SCALE are declared with no ceiling and "
             "hold nothing yet. /sbx, /sbx/step, /sbx/container, POST /sbx/place."},
+   {"his": "one was change of meaning n outcomes from the old example n quotes "
+           "i provided",
+    "where": [("reread.py", "EXAMPLES = ("),
+              ("reread.py", "RULINGS = ("),
+              ("reread.py", "def report("),
+              ("reread.py", "INSTRUMENTS = {")],
+    "state": RUNS,
+    "note": "PHASE 15 — THE RE-READ (2026-08-30). His ask: 'every file, every "
+            "example and every teaching re-read under the new rulings — the "
+            "rain example was proved on the old body/brain ruling and must be "
+            "re-read on the new one.' A reading recorded in the canon is a "
+            "reading AT A DATE; left alone it becomes a claim about today that "
+            "nobody checked. 8 of his examples, each holding THEN (what was "
+            "RECORDED, with the file it was recorded in — never reconstructed) "
+            "against NOW (the live run through every layer), with which of his "
+            "7 rulings accounts for any movement. RESULT: 5 changed, 2 "
+            "unchanged, 1 NOT RECORDED, 0 UNEXPLAINED — every movement has a "
+            "named ruling behind it, and a movement without one would be "
+            "drift. HIS NAMED CASE IS THE FINDING: the rain sentence read 2 "
+            "rows when recorded and reads 2 rows now, so a count-only check "
+            "calls it UNCHANGED — and BOTH ROWS ARE DIFFERENT (Air/breathing "
+            "drive + Thought suppression became Standing balance + "
+            "Reaching-while-standing control, not one row surviving). That is "
+            "the verdict CHANGED — SAME COUNT, DIFFERENT ROWS, and it exists "
+            "because a count is not a meaning. The defect the canon recorded "
+            "beside it — 'still shows Standing balance when the father is not "
+            "balancing' — is carried on the row and is STILL LIVE. TWO "
+            "DEFECTS OF MINE THAT BUILDING IT CAUGHT: the first draft "
+            "paraphrased his sentences (Samrath gave 84 rows instead of his "
+            "106 — the paraphrase was the difference, not the system), and it "
+            "compared every recorded number against the SEATING, reporting the "
+            "mall at 72->0 and Samrath at 106->0 as catastrophic regressions "
+            "when neither number was ever produced by the seating — they came "
+            "from asi_pyramid.rows_for, a different instrument. Every example "
+            "now records WHICH instrument produced its `then` and the re-read "
+            "runs that one. IT CHANGES NOTHING: no example is re-filed, no "
+            "canon corrected, and the new reading is not declared the right "
+            "one — two readings of one example is his own law's case, both "
+            "stand and the gap goes to him. A source-scan test proves the "
+            "module has no write path. /reread, /reread?id=EX-RAIN."},
    {"his": "scale becomes a stored axis — more than four; the four you named "
            "are a start, not the set",
     "where": [("scale.py", "HIS_BANDS = ("),

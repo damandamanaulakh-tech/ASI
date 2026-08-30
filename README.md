@@ -37,7 +37,7 @@ Status as of the current pass:
 ```bash
 python -m sourceborn.demo                 # full offline walkthrough
 python -m sourceborn "why does the small idea win? prove it"
-PYTHONPATH=src python3 tests/test_engine.py   # 448 tests
+PYTHONPATH=src python3 tests/test_engine.py   # 455 tests
 ```
 Set `ANTHROPIC_API_KEY` to swap the offline stub for real Claude reasoning.
 
@@ -132,7 +132,7 @@ A hand-typed route list goes stale the first time a route is added, so this one
 is checked by a test (`test_the_readme_lists_every_route_the_server_serves`) —
 if the server serves a route this list does not name, the suite fails.
 
-**GET (78)**
+**GET (79)**
 
 `/adopted` · `/api/bank` · `/api/hud` · `/archetype` · `/artifact` · `/asi` ·
 `/asi/stats` · `/auto` · `/brain` · `/brains` · `/chat` · `/chats` ·
@@ -145,10 +145,11 @@ if the server serves a route this list does not name, the suite fails.
 · `/novelty` · `/novelty/file` · `/page` · `/page/data` · `/page/layout` ·
 `/page/meta` · `/page/version` · `/page/versions` · `/patterns` · `/persist` ·
 `/reading` · `/readings` · `/registry` · `/registry/activate` ·
-`/registry/container` · `/runtime` · `/sbx` · `/sbx/container` · `/sbx/nodes`
-· `/sbx/review` · `/sbx/step` · `/sbx/wiring` · `/scale` · `/selfmake` ·
-`/senses` · `/snapshots` · `/subjects` · `/trigger` · `/trigger/placements` ·
-`/unfiled` · `/weekly` · `/weekly/file` · `/weighting` · `/words`
+`/registry/container` · `/reread` · `/runtime` · `/sbx` · `/sbx/container` ·
+`/sbx/nodes` · `/sbx/review` · `/sbx/step` · `/sbx/wiring` · `/scale` ·
+`/selfmake` · `/senses` · `/snapshots` · `/subjects` · `/trigger` ·
+`/trigger/placements` · `/unfiled` · `/weekly` · `/weekly/file` · `/weighting`
+· `/words`
 
 **POST (55)**
 

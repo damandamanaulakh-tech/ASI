@@ -46,6 +46,7 @@ from . import trigger
 from . import link
 from . import readings
 from . import scale
+from . import reread
 from . import artifact
 from . import discovery
 from . import expected
@@ -1503,6 +1504,18 @@ class Handler(BaseHTTPRequestHandler):
                  "node_brain": sbx.node_brain(),
                  "open_layers": sbx.open_layers()}).encode(),
                 "application/json")
+        elif path == "/reread":
+            # PHASE 15 — every example of his, read again under the new
+            # rulings. A report: it re-files nothing and corrects no canon.
+            eid = qs.get("id", [""])[0].strip().upper()
+            if eid:
+                self._send(200, json.dumps(reread.read_one(eid)).encode(),
+                           "application/json")
+            else:
+                self._send(200, json.dumps(
+                    {"stats": reread.stats(), "report": reread.report(),
+                     "rulings": reread.rulings()}).encode(),
+                    "application/json")
         elif path == "/scale":
             # PHASE 11 — the scale axis. HIS GATE STANDS: his four bands are in
             # force; the five proposed are stored for his judgement, not
