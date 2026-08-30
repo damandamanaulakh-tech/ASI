@@ -674,6 +674,72 @@ MAP: list[dict] = [
             "difference between source_rows_seated and mapped_into_split, never "
             "dropped. ARCHETYPE, LINK and SCALE are declared with no ceiling and "
             "hold nothing yet. /sbx, /sbx/step, /sbx/container, POST /sbx/place."},
+   {"his": "angles applied at generation time as a property — growing with "
+           "each example, all of them running for now",
+    "where": [("angles.py", "HIS_ANGLES = ("),
+              ("angles.py", "def for_hits("),
+              ("angles.py", "def grow("),
+              ("angles.py", "ALL_RUN = ")],
+    "state": RUNS,
+    "note": "PHASE 13 — ANGLES (2026-08-30). His definition: 'an angle is not "
+            "a thing in the world and not a parameter. It is the position you "
+            "read an event from, and the same event read from a different "
+            "position yields a different intent.' HIS FOUR, written by him on "
+            "Yudhishthira staking his wife: worst (the single worst act of his "
+            "life) · best (a king who would not break his word) · emotional (a "
+            "man cornered, humiliated, unable to stop) · truth/dharma (the "
+            "most truthful man alive — which proves dharma is not truth only). "
+            "A PROPERTY AND NEVER A LAYER, BY HIS OWN ARGUMENT: 'if angles "
+            "were a layer they would have IDs and a fixed count. You said they "
+            "grow with each example. A property can grow without renumbering "
+            "anything; a layer cannot.' So there are NO ANGLE IDS — an angle "
+            "is keyed by name, `grow()` reports `renumbered: 0`, and a test "
+            "parses the module with docstrings stripped and fails if an ANG "
+            "id ever appears. THE MECHANICAL PART IS HIS SPEC EXACTLY — worst "
+            "reaches the harm and moral-responsibility rows, best reaches "
+            "loyalty/honour/commitment, emotional reaches shame/face-saving/"
+            "identity-protection, truth reaches the value rows and the "
+            "value-behaviour-alignment row (P2561, the row he named by hand). "
+            "29 rows, all verified against the live registry. HIS OWN TEST "
+            "PASSES: one sentence, FOUR DISTINCT CONTAINER SETS. All of them "
+            "run and none is chosen — his words, 'all of them running for "
+            "now', and 'none of them cancels the others'. Wired into "
+            "place_on_spine as `properties_applied: [ANGLE]`, deliberately NOT "
+            "in `layers_run`, because it is not a layer. /angles, POST "
+            "/angles/run."},
+   {"his": "the response that resolves the entire ask. States it when "
+           "verified; proposes it for confirmation when not. No floor on length",
+    "where": [("macro.py", "def respond("),
+              ("macro.py", "def _one_line("),
+              ("macro.py", "SLAB_ORDER = "),
+              ("macro.py", "FLOOR_ON_LENGTH = ")],
+    "state": RUNS,
+    "note": "PHASE 14 — THE MACRO RESPONSE (2026-08-30). Built from four of "
+            "his teachings. (1) 'ASI should supposed to choose 1 line over "
+            "everything' — with his own correction that ONE LINE does not mean "
+            "short: it means one RESOLVING response over the whole ask instead "
+            "of three small questions back, and that 'vague' was the wrong "
+            "word — MACRO · HOLISTIC · HIGH-LEVEL · BIG-PICTURE. (2) 'big "
+            "lengthy response will capture more parameters to hit and make "
+            "something new (Because in shorter answers ASI will say already "
+            "exists, so never terse responses)' — LENGTH IS A GENERATIVE "
+            "MECHANISM, and it is MEASURED here, not asserted: his dice "
+            "sentence reaches 49 parameters against 1 for a one-row answer, a "
+            "gain of 48. `FLOOR_ON_LENGTH` is None and a test proves nothing "
+            "in the module truncates. (3) 'always the bigger slab come first … "
+            "and that tiny one is the finale' — so the response is ORDERED BY "
+            "SIZE: ONE LINE · PILLAR · STEP · SEGMENT · CONTAINER · ROW, with "
+            "the exact sub-parameter said LAST. (4) 'States it when verified; "
+            "proposes it for confirmation when not' — a slab is STATED when it "
+            "rests on something checkable and PROPOSED when it is a reading, "
+            "and every proposed slab carries WHAT WOULD VERIFY IT. THE ONE "
+            "LINE COMES FROM THE WIDEST THING THAT FIRED — the archetype, "
+            "because an archetype reaches across containers and a row sits in "
+            "one. When no archetype fires the shape is reported UNNAMED and is "
+            "NOT filled by the largest row, which would be the tiny slab "
+            "pretending to be the big one. Nothing is concluded: the macro "
+            "response resolves the ASK, it does not decide the person. /macro, "
+            "POST /macro/run."},
    {"his": "one was change of meaning n outcomes from the old example n quotes "
            "i provided",
     "where": [("reread.py", "EXAMPLES = ("),

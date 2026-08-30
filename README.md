@@ -37,7 +37,7 @@ Status as of the current pass:
 ```bash
 python -m sourceborn.demo                 # full offline walkthrough
 python -m sourceborn "why does the small idea win? prove it"
-PYTHONPATH=src python3 tests/test_engine.py   # 455 tests
+PYTHONPATH=src python3 tests/test_engine.py   # 465 tests
 ```
 Set `ANTHROPIC_API_KEY` to swap the offline stub for real Claude reasoning.
 
@@ -132,14 +132,14 @@ A hand-typed route list goes stale the first time a route is added, so this one
 is checked by a test (`test_the_readme_lists_every_route_the_server_serves`) —
 if the server serves a route this list does not name, the suite fails.
 
-**GET (79)**
+**GET (81)**
 
-`/adopted` · `/api/bank` · `/api/hud` · `/archetype` · `/artifact` · `/asi` ·
-`/asi/stats` · `/auto` · `/brain` · `/brains` · `/chat` · `/chats` ·
-`/combine` · `/desk` · `/diag` · `/engine` · `/exists` · `/exists/data` ·
+`/adopted` · `/angles` · `/api/bank` · `/api/hud` · `/archetype` · `/artifact`
+· `/asi` · `/asi/stats` · `/auto` · `/brain` · `/brains` · `/chat` · `/chats`
+· `/combine` · `/desk` · `/diag` · `/engine` · `/exists` · `/exists/data` ·
 `/expected` · `/export` · `/flow` · `/generation` · `/generation/packs` ·
 `/graph` · `/growing` · `/growing/coverage` · `/growth` · `/health` ·
-`/intents` · `/ledger` · `/library` · `/link` · `/loop` · `/map` ·
+`/intents` · `/ledger` · `/library` · `/link` · `/loop` · `/macro` · `/map` ·
 `/map/where` · `/masterlog` · `/maturity` · `/memory/report` · `/micro` ·
 `/nodes` · `/nodes/node` · `/nodes/path` · `/nodes/schema` · `/nodes/subgraph`
 · `/novelty` · `/novelty/file` · `/page` · `/page/data` · `/page/layout` ·
@@ -151,20 +151,20 @@ if the server serves a route this list does not name, the suite fails.
 `/trigger/placements` · `/unfiled` · `/weekly` · `/weekly/file` · `/weighting`
 · `/words`
 
-**POST (55)**
+**POST (57)**
 
-`/archetype/run` · `/artifact/generate` · `/artifact/grow` · `/asi/run` ·
-`/auto/mode` · `/auto/tick` · `/brain/rollback` · `/brain/settings` ·
-`/brains/update` · `/combine/run` · `/engine/ask` · `/engine/registry` ·
-`/expected/run` · `/generate` · `/generation/run` · `/growing/grow` ·
-`/growing/place` · `/growth/add` · `/growth/correct` · `/growth/seed` ·
-`/import` · `/ingest` · `/intents/run` · `/ledger/kill` · `/ledger/run` ·
-`/link/run` · `/loop/chain` · `/loop/run` · `/maturity/read` ·
-`/nodes/approve` · `/nodes/recall` · `/nodes/remember` · `/nodes/write` ·
-`/novelty/approve` · `/novelty/run` · `/page/save` · `/patterns/review` ·
-`/pyramid/park` · `/reading/ask` · `/readings/run` · `/review` ·
-`/runtime/run` · `/sbx/place` · `/scale/run` · `/selfmake/extend` ·
-`/selfmake/propose` · `/selfmake/run` · `/senses/reject` · `/senses/teach` ·
+`/angles/run` · `/archetype/run` · `/artifact/generate` · `/artifact/grow` ·
+`/asi/run` · `/auto/mode` · `/auto/tick` · `/brain/rollback` ·
+`/brain/settings` · `/brains/update` · `/combine/run` · `/engine/ask` ·
+`/engine/registry` · `/expected/run` · `/generate` · `/generation/run` ·
+`/growing/grow` · `/growing/place` · `/growth/add` · `/growth/correct` ·
+`/growth/seed` · `/import` · `/ingest` · `/intents/run` · `/ledger/kill` ·
+`/ledger/run` · `/link/run` · `/loop/chain` · `/loop/run` · `/macro/run` ·
+`/maturity/read` · `/nodes/approve` · `/nodes/recall` · `/nodes/remember` ·
+`/nodes/write` · `/novelty/approve` · `/novelty/run` · `/page/save` ·
+`/patterns/review` · `/pyramid/park` · `/reading/ask` · `/readings/run` ·
+`/review` · `/runtime/run` · `/sbx/place` · `/scale/run` · `/selfmake/extend`
+· `/selfmake/propose` · `/selfmake/run` · `/senses/reject` · `/senses/teach` ·
 `/snapshot` · `/subjects/generate` · `/subjects/grow` · `/trigger/run` ·
 `/upload` · `/weighting/run`
 

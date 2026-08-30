@@ -47,6 +47,8 @@ from . import link
 from . import readings
 from . import scale
 from . import reread
+from . import angles
+from . import macro
 from . import artifact
 from . import discovery
 from . import expected
@@ -1504,6 +1506,15 @@ class Handler(BaseHTTPRequestHandler):
                  "node_brain": sbx.node_brain(),
                  "open_layers": sbx.open_layers()}).encode(),
                 "application/json")
+        elif path == "/angles":
+            # PHASE 13 — a PROPERTY applied at generation, never a layer.
+            # No ids, all of them run, none chosen.
+            self._send(200, json.dumps(
+                {"stats": angles.stats(), "verify": angles.verify(),
+                 "angles": angles.angles()}).encode(), "application/json")
+        elif path == "/macro":
+            self._send(200, json.dumps(macro.stats()).encode(),
+                       "application/json")
         elif path == "/reread":
             # PHASE 15 — every example of his, read again under the new
             # rulings. A report: it re-files nothing and corrects no canon.
@@ -2606,6 +2617,27 @@ class Handler(BaseHTTPRequestHandler):
                 return
             self._send(200, json.dumps(sbx.place_on_spine(text)).encode(),
                        "application/json")
+            return
+        if self.path == "/angles/run":
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(angles.apply(text)).encode(),
+                       "application/json")
+            return
+        if self.path == "/macro/run":
+            # PHASE 14 — the one line over everything, then the slabs, widest
+            # first, with the exact row said last. No floor on length.
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            out = macro.respond(text)
+            out["rendered"] = macro.render(text)
+            self._send(200, json.dumps(out).encode(), "application/json")
             return
         if self.path == "/scale/run":
             # one arrangement, read at every size — his "one event of those

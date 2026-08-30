@@ -6586,6 +6586,176 @@ def test_the_archetype_routes_are_reachable():
 
 
 # ---------------------------------------------------------------------------
+# PHASE 13 — ANGLES, A PROPERTY AND NEVER A LAYER
+# ---------------------------------------------------------------------------
+
+def test_angles_carry_no_ids_because_he_ruled_them_a_property():
+    """HIS ARGUMENT, not mine: *if angles were a layer they would have IDs and
+    a fixed count. You said they grow with each example. A property can grow
+    without renumbering anything; a layer cannot.* So an ANG-001 appearing here
+    would mean angles had quietly become a layer."""
+    import ast, re
+    from sourceborn import angles as A
+    # read the module's own CODE with docstrings stripped — the established
+    # technique here. The docstring names the forbidden pattern in order to
+    # forbid it, so a raw scan matches its own explanation.
+    tree = ast.parse(open("src/sourceborn/angles.py", encoding="utf-8").read())
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.Module, ast.ClassDef, ast.FunctionDef)):
+            if (node.body and isinstance(node.body[0], ast.Expr)
+                    and isinstance(node.body[0].value, ast.Constant)
+                    and isinstance(node.body[0].value.value, str)):
+                node.body.pop(0)
+    code = ast.unparse(tree)
+    assert not re.search(r"ANG-\d", code), "angles must not acquire ids"
+    for a in A.angles():
+        assert "id" not in a, a["name"]
+        assert a["name"]
+    assert A.stats()["has_ids"] is False
+
+
+def test_his_four_angles_give_four_different_container_sets():
+    """His own test of whether an angle does anything: *Same sentence, four
+    different container sets.* Worst reaches harm and moral responsibility,
+    best reaches loyalty and commitment, emotional reaches shame and
+    face-saving, truth reaches the value rows."""
+    from sourceborn import angles as A
+    r = A.apply("he staked his wife and lost")
+    assert r["angles_run"] == 4
+    assert [x["angle"] for x in r["readings"]] == \
+        ["worst", "best", "emotional", "truth/dharma"]
+    assert r["distinct_container_sets"] == 4, "four positions, four sets"
+    assert r["chosen"] is None
+    for x in r["readings"]:
+        assert x["chosen"] is None and x["refuses"] and x["his_reading"]
+    # the row he named by hand is on the truth angle
+    truth = A.get("truth/dharma")
+    assert ("SB-HFR-P2561", "Value-behaviour alignment", "CON-064") in truth["reaches"]
+
+
+def test_every_row_an_angle_reaches_is_real():
+    from sourceborn import angles as A
+    v = A.verify()
+    assert v["ok"] is True, v["problems"]
+    assert v["rows_checked"] == 29
+
+
+def test_an_angle_can_be_grown_without_renumbering_anything():
+    """His reason for making it a property. Adding one renumbers nothing
+    because there is nothing numbered."""
+    from sourceborn import angles as A
+    before = len(A.angles())
+    try:
+        out = A.grow("test-position", "a position added by a later example",
+                     "his reading would go here", "a row family",
+                     [("SB-HFR-P2561", "Value-behaviour alignment", "CON-064")])
+        assert out["renumbered"] == 0
+        assert out["angles_now"] == before + 1
+        assert A.get("test-position")["by"] == "PROPOSED"
+        assert A.verify()["ok"] is True, "a grown angle must cite real rows too"
+    finally:
+        A.GROWN_ANGLES.clear()
+    assert len(A.angles()) == before
+
+
+def test_angles_run_inside_the_answer_path_as_a_property():
+    from sourceborn import sbx
+    r = sbx.place_on_spine("he staked his wife and lost")
+    assert r["properties_applied"] == ["ANGLE"]
+    assert r["angles"]["run"] == 4
+    assert r["angles"]["distinct_container_sets"] == 4
+    assert r["angles"]["chosen"] is None
+    # ANGLE is a property, so it is NOT in the layer list
+    assert "ANGLE" not in r["layers_run"]
+
+
+# ---------------------------------------------------------------------------
+# PHASE 14 — THE MACRO RESPONSE
+# ---------------------------------------------------------------------------
+
+def test_the_one_line_comes_from_the_widest_thing_that_fired():
+    """His pyramid: *always the bigger slab come first … and that tiny one is
+    the finale.* An archetype reaches ACROSS containers; a row sits in one. So
+    the archetype is the macro reading and the row is said last."""
+    from sourceborn import macro
+    r = macro.respond("he bet everything he had to win it all back and lost "
+                      "what he could never recover")
+    one = r["one_line"]
+    assert one["state"] == macro.STATED
+    assert one["shape"].startswith("ARCH-001")
+    assert one["line"] and one["refuses"]
+    assert r["slab_order"] == ["ONE LINE", "PILLAR", "STEP", "SEGMENT",
+                               "CONTAINER", "ROW"]
+    # the finale is last and it is the ROW
+    assert r["slabs"][-1]["slab"] == "ROW"
+    assert "finale" in r["slabs"][-1]["note"]
+    assert r["slabs"][0]["slab"] == "ONE LINE"
+
+
+def test_an_unnamed_shape_is_not_filled_by_the_biggest_row():
+    """When no archetype fires the shape is UNNAMED. Substituting the largest
+    row would be the tiny slab pretending to be the big one — the opposite of
+    his pyramid."""
+    from sourceborn import macro
+    r = macro.respond("the train leaves at four in the afternoon")
+    one = r["one_line"]
+    assert one["shape"] == "UNNAMED"
+    assert one["line"] is None
+    assert one["state"] == macro.PROPOSED
+    assert one["would_verify"]
+    assert "pretending to be the big one" in one["why_not_invented"]
+
+
+def test_it_states_what_is_verified_and_proposes_what_is_not():
+    """His words: *States it when verified; proposes it for confirmation when
+    not.*"""
+    from sourceborn import macro
+    r = macro.respond("he bet everything he had to win it all back and lost "
+                      "what he could never recover")
+    assert set(r["stated"]) == {"ONE LINE", "PILLAR", "STEP", "SEGMENT",
+                                "CONTAINER", "ROW"}
+    assert r["proposed"] == []
+    # a reading is never STATED — it is a position or a candidate
+    kinds = {k["kind"]: k for k in r["read_not_verified"]}
+    assert kinds["ANGLE"]["state"] == macro.PROPOSED
+    assert kinds["INTENT READING"]["state"] == macro.PROPOSED
+    for k in r["read_not_verified"]:
+        if k["state"] == macro.PROPOSED:
+            assert k["would_verify"], k["kind"]
+    assert r["concluded"] is None
+
+
+def test_length_is_a_measured_mechanism_and_there_is_no_floor():
+    """His mechanism: *big lengthy response will capture more parameters to
+    hit and make something new (Because in shorter answers ASI will say
+    already exists, so never terse responses).* Measured, not asserted."""
+    from sourceborn import macro
+    r = macro.respond("he bet everything he had to win it all back and lost "
+                      "what he could never recover")
+    g = r["generativity"]
+    assert g["parameters_reached_by_the_full_response"] > 40
+    assert g["gain"] == (g["parameters_reached_by_the_full_response"]
+                         - g["parameters_a_one_row_answer_would_reach"])
+    assert g["gain"] > 40, "the length is what makes the reach"
+    assert r["floor_on_length"] is None
+    assert macro.FLOOR_ON_LENGTH is None
+    # and nothing truncates
+    src = open("src/sourceborn/macro.py", encoding="utf-8").read()
+    for forbidden in ("[:200]", "[:500]", "textwrap.shorten", "truncate"):
+        assert forbidden not in src, forbidden
+    # his correction is carried where the code can see it
+    assert "vague" in macro.HIS_WORDS["not_vague"]
+    assert "MACRO" in macro.HIS_WORDS["not_vague"]
+
+
+def test_the_angle_and_macro_routes_are_reachable():
+    src = open("src/sourceborn/server.py", encoding="utf-8").read()
+    for route in ('"/angles"', '"/angles/run"', '"/macro"', '"/macro/run"'):
+        assert route in src, route
+    assert "macro.respond(" in src and "angles.apply(" in src
+
+
+# ---------------------------------------------------------------------------
 # PHASE 15 — THE RE-READ
 # ---------------------------------------------------------------------------
 

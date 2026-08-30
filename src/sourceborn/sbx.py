@@ -466,9 +466,13 @@ def place_on_spine(text: str, repo: str = ".") -> dict:
     from . import trigger as TRG
     from . import readings as RD
     from . import link as LNK
+    from . import angles as ANG
     fired_triggers = TRG.for_hits(hits)
     nine = RD.read(text)
     meetings = LNK.fires_on(text)
+    # ANGLES are a PROPERTY applied at generation, not a layer — his ruling.
+    # All of them run; none is chosen. `for_hits` again, for the same reason.
+    angled = ANG.for_hits(text, hits)
 
     return {
         "text": text,
@@ -491,8 +495,13 @@ def place_on_spine(text: str, repo: str = ".") -> dict:
                      "chosen": nine["chosen"]},
         "meetings": {"count": meetings["fired_count"],
                      "readings": meetings["readings"]},
+        "angles": {"run": angled["angles_run"],
+                   "distinct_container_sets": angled["distinct_container_sets"],
+                   "readings": angled["readings"],
+                   "chosen": angled["chosen"]},
         "layers_run": ["SEGMENT", "CONTAINER", "SUB-PARAMETER", "ARCHETYPE",
                        "TRIGGER", "LINK", "SCALE", "INTENT-READING"],
+        "properties_applied": ["ANGLE"],
         "concluded": None,
         "law": "the seating is unchanged — this reads it through the split and "
                "lands it on his spine. The archetype layer reaches rows the "
