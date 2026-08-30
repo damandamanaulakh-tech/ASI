@@ -240,7 +240,7 @@ this sentence **HUMAN BODY does not fire at all** — which is what he said shou
 happen, and is the proof the body/brain split holds.
 
 **SAME ACTION / CHANGED FUNCTION, AND THE MASK BY OBSERVER POSITION
-(2026-08-13) — `repetition.py`.** From his fictional father/door test; he chose
+(2026-08-13) — `repetition.py`.** From his fictional father/door example; he chose
 both himself ("go for 1 & 3"). Canon:
 `docs/method/canon/SAME_ACTION_CHANGED_FUNCTION.md`. **(1)** His principle
 *"identical physical action ≠ identical functional role"* — CHECK #1 acquires the

@@ -49,6 +49,9 @@ from . import scale
 from . import reread
 from . import angles
 from . import macro
+from . import naming
+from . import rubrics
+from . import meaning
 from . import artifact
 from . import discovery
 from . import expected
@@ -1506,6 +1509,27 @@ class Handler(BaseHTTPRequestHandler):
                  "node_brain": sbx.node_brain(),
                  "open_layers": sbx.open_layers()}).encode(),
                 "application/json")
+        elif path == "/rubrics":
+            # PHASE 8 — his 66, at the step each acts on. ADOPT-HALT-3 stays
+            # shut: R01-R52 is NOT merged with his 25.
+            self._send(200, json.dumps(
+                {"stats": rubrics.stats(), "catalogue": rubrics.catalogue(),
+                 "adopt_halt_3": rubrics.ADOPT_HALT_3}).encode(),
+                "application/json")
+        elif path == "/meaning":
+            # PHASE 0 — one sheet per example. his_meaning ships EMPTY.
+            self._send(200, json.dumps(
+                {"stats": meaning.stats(SB_ROOT), "sheets": meaning.sheets(),
+                 "blocked": meaning.blocked(SB_ROOT),
+                 "usable": meaning.usable(SB_ROOT)}).encode(),
+                "application/json")
+        elif path == "/naming":
+            # PHASE 3 — the rename table, the scan, and his proof that the
+            # example still reaches the same rows under its new name.
+            self._send(200, json.dumps(
+                {"stats": naming.stats(), "table": naming.table(),
+                 "scan": naming.scan(), "verify": naming.verify()}).encode(),
+                "application/json")
         elif path == "/angles":
             # PHASE 13 — a PROPERTY applied at generation, never a layer.
             # No ids, all of them run, none chosen.
@@ -2617,6 +2641,22 @@ class Handler(BaseHTTPRequestHandler):
                 return
             self._send(200, json.dumps(sbx.place_on_spine(text)).encode(),
                        "application/json")
+            return
+        if self.path == "/rubrics/run":
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(rubrics.fires_on(text)).encode(),
+                       "application/json")
+            return
+        if self.path == "/meaning/sign":
+            # HIS ACTION. A signature without a meaning is refused.
+            self._send(200, json.dumps(meaning.sign(
+                SB_ROOT, str(data.get("example_id", "")).strip().upper(),
+                str(data.get("his_meaning", "")))).encode(),
+                "application/json")
             return
         if self.path == "/angles/run":
             text = (data.get("text") or data.get("question") or "").strip()

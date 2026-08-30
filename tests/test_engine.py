@@ -6586,6 +6586,190 @@ def test_the_archetype_routes_are_reachable():
 
 
 # ---------------------------------------------------------------------------
+# PHASE 0 — THE MEANING LOCK
+# ---------------------------------------------------------------------------
+
+def _meaning_root():
+    import tempfile
+    return tempfile.mkdtemp(prefix="sb_meaning_")
+
+
+def test_a_meaning_sheet_never_carries_a_meaning_this_side_wrote():
+    """His words: *what the example means, in your words, NOT MY READING.* A
+    sheet whose his_meaning was filled from here would invert the whole
+    point."""
+    from sourceborn import meaning as M
+    sheets = M.sheets()
+    assert len(sheets) == 8
+    for s in sheets:
+        assert s["his_meaning"] == "", s["example_id"]
+        assert s["signed"] is False
+        assert s["my_reading"], "he needs something concrete to disagree with"
+        assert s["his_words"] and s["text"]
+
+
+def test_a_signature_without_a_meaning_is_refused():
+    from sourceborn import meaning as M
+    root = _meaning_root()
+    r = M.sign(root, "EX-RAIN", "   ")
+    assert r["signed"] is False
+    assert "signs nothing" in r["refused"]
+    assert M.blocked(root)["signed_count"] == 0
+
+
+def test_an_unsigned_meaning_cannot_be_used_by_any_later_phase():
+    """His rule, as a function."""
+    from sourceborn import meaning as M
+    root = _meaning_root()
+    assert M.usable(root) == []
+    b = M.blocked(root)
+    assert b["unsigned_count"] == 8 and b["gate_open"] is False
+    assert "running on unsigned meanings" in b["honest_state"]
+    M.sign(root, "EX-RAIN", "the father arranged the rain; the point is the "
+                            "arrangement, not the pipe")
+    u = M.usable(root)
+    assert [x["example_id"] for x in u] == ["EX-RAIN"]
+    assert u[0]["his_meaning"].startswith("the father arranged")
+    assert M.blocked(root)["gate_open"] is False, "one of eight is not the batch"
+
+
+def test_re_signing_appends_and_keeps_what_it_supersedes():
+    """His standing rule: nothing is removed. A changed meaning keeps its
+    history."""
+    from sourceborn import meaning as M
+    root = _meaning_root()
+    M.sign(root, "EX-DICE", "first meaning")
+    r2 = M.sign(root, "EX-DICE", "corrected meaning")
+    assert r2["prior_kept"] == 1 and r2["supersedes"]
+    rows = M.load(root)
+    assert len(rows) == 2, "both rows kept"
+    assert M.signed(root)["EX-DICE"]["his_meaning"] == "corrected meaning"
+
+
+# ---------------------------------------------------------------------------
+# PHASE 3 — THE NAMING CLEANUP
+# ---------------------------------------------------------------------------
+
+def test_no_example_of_his_is_still_called_a_test():
+    """His words: *Samrath is an example, like the rest — not a test.* A test
+    is run to see whether something is broken; an example is material the
+    system seats on and grows from."""
+    from sourceborn import naming as N
+    s = N.scan(".")
+    assert s["count"] == 0, s["still_calling_an_example_a_test"]
+    import os
+    assert not os.path.exists("docs/method/canon/THE_SAMRATH_TEST_AND_THE_ZERO.md")
+    assert os.path.exists("docs/method/canon/THE_SAMRATH_EXAMPLE_AND_THE_ZERO.md")
+
+
+def test_his_own_removal_test_keeps_its_name():
+    """Not every 'test' is wrong. `prior.removal_test` is HIS method, verbatim
+    — take the step away, does the thing above still stand? Renaming it would
+    rename his word."""
+    from sourceborn import naming as N, prior
+    kept = {k["where"] for k in N.KEEP}
+    assert "prior.removal_test" in kept
+    assert callable(prior.removal_test)
+    for k in N.KEEP:
+        assert k["why"], k["where"]
+    src = open("src/sourceborn/prior.py", encoding="utf-8").read()
+    assert "HIS TEST, verbatim" in src
+
+
+def test_the_rename_did_not_move_the_reading():
+    """His proof: a live run showing the example still reaching the same rows
+    under its new name. A rename that moved a reading would be a rename that
+    changed the system."""
+    from sourceborn import naming as N
+    v = N.verify()
+    assert v["rows"] == 106 and v["containers"] == 16 and v["segments"] == 5
+    assert v["activate"]["working"] == 18
+    assert v["unchanged_by_the_rename"] is True
+
+
+def test_the_rename_table_is_the_product_and_names_his_gate():
+    from sourceborn import naming as N
+    t = N.table()
+    assert len(t) >= 5
+    for r in t:
+        assert r["before"] and r["after"] and r["what_it_is"]
+        assert r["approved_by_him"] is False, "the names are his to approve"
+    assert N.APPROVED_BY_HIM is False
+
+
+# ---------------------------------------------------------------------------
+# PHASE 8 — THE RUBRICS WIRED
+# ---------------------------------------------------------------------------
+
+def test_his_rubrics_fire_by_name_where_seven_things_fired_before():
+    """His proof: *before — 7 of ~200 rubric dimensions touch an answer.
+    After — a live run showing which rubrics fired on your own example, by
+    name.*"""
+    from sourceborn import rubrics as R
+    assert len(R.BEFORE) == 7
+    f = R.fires_on("he bet everything he had to win it all back and lost what "
+                   "he could never recover")
+    assert f["catalogue"] >= 66
+    assert f["fired_count"] > 7, "the whole point of the phase"
+    assert f["fired_count"] + f["silent_count"] == f["catalogue"]
+    for x in f["fired"]:
+        assert x["rubric"] and x["fired_at"] and x["why"]
+        assert x["concluded"] is None
+    assert f["concluded"] is None
+
+
+def test_a_rubric_fires_because_the_ask_reached_the_step_it_acts_on():
+    """His own placement does the work — the rubric was already put at the
+    step where it acts. This is the join that was missing, not a new rule."""
+    from sourceborn import rubrics as R
+    f = R.fires_on("he bet everything he had to win it all back and lost what "
+                   "he could never recover")
+    from sourceborn import sbx
+    lit = {s["step"] for s in sbx.place_on_spine(
+        "he bet everything he had to win it all back and lost what he could "
+        "never recover")["steps_lit"]}
+    for x in f["fired"]:
+        assert any(a["step"] in lit for a in x["fired_at"]), x["rubric"]
+    # and a rubric whose step was NOT reached stays silent
+    assert f["silent_count"] > 0
+
+
+def test_the_three_dimensions_he_said_none_of_them_have():
+    """scale · era-survival · situations-held-across, added ON a fired rubric
+    rather than as new rubrics — his instruction was filling the gaps, not
+    adding anything random."""
+    from sourceborn import rubrics as R
+    assert R.DIMENSIONS == ("scale", "era_survival", "situations_held_across")
+    f = R.fires_on("diamond cut diamond")
+    x = f["fired"][0]
+    assert x["era_survival"] == "UNTESTED"
+    assert "nobody checked" in x["era_survival_why"]
+    s = x["situations_held_across"]
+    assert s["of"] == 8 and 0 <= s["count"] <= 8
+    assert "never typed" in s["how"]
+
+
+def test_adopt_halt_3_stays_shut_while_his_own_rubrics_run():
+    """The gate asks whether R01-R52 and his 25 are one family and whose names
+    win. That blocks a MERGE. It does not block wiring his own 66, which are
+    already in his architecture under his own names."""
+    from sourceborn import rubrics as R
+    h = R.ADOPT_HALT_3
+    assert h["merged"] is False
+    assert "merging the two vocabularies" in h["what_it_blocks"]
+    assert "wiring HIS OWN 66" in h["what_it_does_not_block"]
+    assert R.stats()["adopt_halt_3_merged"] is False
+
+
+def test_the_phase_routes_are_reachable():
+    src = open("src/sourceborn/server.py", encoding="utf-8").read()
+    for route in ('"/naming"', '"/rubrics"', '"/rubrics/run"', '"/meaning"',
+                  '"/meaning/sign"'):
+        assert route in src, route
+    assert "rubrics.fires_on(" in src and "meaning.sign(" in src
+
+
+# ---------------------------------------------------------------------------
 # PHASE 13 — ANGLES, A PROPERTY AND NEVER A LAYER
 # ---------------------------------------------------------------------------
 

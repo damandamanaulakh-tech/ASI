@@ -48,7 +48,7 @@ RULE_DUTY = "RULE / DUTY / ASI"        # responsibility, obligation, governance
 RESULT_CONSEQUENCE = "RESULT / CONSEQUENCE"   # left with, got, outcome
 ATTENTION_GOAL = "ATTENTION / PRIORITY / GOAL"
 EXCLUSION = "EXCLUSION / BOUNDARY"     # "not the brain" — an explicit NOT
-# added on his rice/MBA test, from his own arrow chart for that sentence
+# added on his rice/MBA example, from his own arrow chart for that sentence
 JUDGMENT_BIAS = "JUDGMENT / BIAS"
 PRODUCT_SURFACE = "PRODUCT / SURFACE APPEARANCE"
 BUSINESS_SYSTEM = "BUSINESS-MODEL / SYSTEM"

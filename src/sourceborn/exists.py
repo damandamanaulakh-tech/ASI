@@ -674,6 +674,90 @@ MAP: list[dict] = [
             "difference between source_rows_seated and mapped_into_split, never "
             "dropped. ARCHETYPE, LINK and SCALE are declared with no ceiling and "
             "hold nothing yet. /sbx, /sbx/step, /sbx/container, POST /sbx/place."},
+   {"his": "Samrath is an example, like the rest — not a test",
+    "where": [("naming.py", "RENAMES = ("), ("naming.py", "KEEP = ("),
+              ("naming.py", "def scan("), ("naming.py", "def verify(")],
+    "state": RUNS,
+    "note": "PHASE 3 — THE NAMING CLEANUP (2026-08-30). Why it is not "
+            "cosmetic: a TEST is run to see whether something is broken; an "
+            "EXAMPLE is material the system seats on and grows from — his own "
+            "growing-phase ruling, 'every example will keep increase the "
+            "count'. Calling Samrath a test quietly reclassifies his FUEL as "
+            "DIAGNOSTICS, and a test that passes is finished while an example "
+            "never is. That is why the word blocks revisions. THE DISTINCTION "
+            "IS THE WORK: not every 'test' is wrong, and renaming them all "
+            "would rename HIS OWN WORDS. `prior.removal_test` is his method "
+            "verbatim ('take the step away — does the thing above still "
+            "stand?') and docs/mainwork/THE_REVERSE_WALKS.md calls it the "
+            "removal test; `subjectbrains.cross_test` runs a law against other "
+            "subjects to see if it survives; the suite may call its tests "
+            "tests; `intents.SCALING_TEST` is a proof-run id, not an example. "
+            "Four KEPT, each with the reason, so the next sweep does not "
+            "'fix' them. RENAMED: the canon file THE_SAMRATH_TEST_AND_THE_"
+            "ZERO.md and its heading, plus the father/door and rice/MBA "
+            "phrases that called those examples tests — 8 references across "
+            "7 files, "
+            "scan now 0. HIS PROOF HOLDS: the example reaches the same rows "
+            "under its new name — 18 working, 106 rows, 16 containers, 5 "
+            "segments, unchanged. A rename that moved a reading would be a "
+            "rename that changed the system. `APPROVED_BY_HIM` is False: the "
+            "names are applied, whether they are the RIGHT names is his gate. "
+            "/naming."},
+   {"his": "R01-R52 put into universal-sequence order and wired",
+    "where": [("rubrics.py", "def fires_on("), ("rubrics.py", "def catalogue("),
+              ("rubrics.py", "DIMENSIONS = "), ("rubrics.py", "ADOPT_HALT_3 = ")],
+    "state": RUNS,
+    "note": "PHASE 8 — THE RUBRICS WIRED (2026-08-30). HIS GATE BLOCKS A "
+            "MERGE, NOT THE WIRING. ADOPT-HALT-3 asks 'R01-R52 versus your 25 "
+            "— one family or two, and whose names win', which is a question "
+            "about merging two vocabularies. It is not a question about HIS "
+            "OWN 66, which are already in his architecture, already placed at "
+            "the step each acts on, already under his names — and were "
+            "'carried, not consulted'. So his 66 fire and R01-R52 stays "
+            "unmerged; `merged` is False on every run. HIS PROOF, MEASURED: "
+            "before, 7 things touched an answer (the seven filters — Ground · "
+            "Sequence · Source · Mask · Fact · Halt · Loop), his line being '7 "
+            "of ~200'. Now 43 of his 66 fire BY NAME on his dice sentence, and "
+            "23 stay silent because their step was not reached. A RUBRIC FIRES "
+            "BECAUSE THE ASK REACHED THE STEP IT ACTS ON — Contradiction acts "
+            "at HALT, so it fires when step 7 lights. His own placement does "
+            "the work; this is the join that was missing, not a new rule, and "
+            "nothing was keyword-matched. HIS THREE MISSING DIMENSIONS are "
+            "added ON a fired rubric rather than as new rubrics ('filling the "
+            "gaps, not adding anything random'): scale (from the scale layer, "
+            "UNSET when no band is in force), era_survival (UNTESTED — which "
+            "is not 'holds', it is nobody checked), and situations_held_across "
+            "(counted live over his own eight examples, never typed). A "
+            "PERFORMANCE DEFECT OF MINE, caught by the suite slowing to a "
+            "crawl: the first version counted situations INSIDE the per-rubric "
+            "loop, costing 66 x 8 = 528 full placements per call; computed "
+            "once and cached, a run is 1.1s. /rubrics, POST /rubrics/run."},
+   {"his": "every example already stored gets a written meaning-check — what "
+           "the example means, in your words, not my reading",
+    "where": [("meaning.py", "def sheets("), ("meaning.py", "def sign("),
+              ("meaning.py", "def usable("), ("meaning.py", "def blocked(")],
+    "state": RUNS,
+    "note": "PHASE 0 — THE MEANING LOCK (2026-08-30). Why it is phase ZERO: "
+            "everything downstream inherits its meaning from here, and a wrong "
+            "meaning does not announce itself — it produces a full, "
+            "consistent, entirely mistaken reading. The re-read proved that "
+            "risk is live: his rain sentence reads 2 rows now and read 2 rows "
+            "when recorded, and BOTH ROWS ARE DIFFERENT. A signed meaning is "
+            "what would have caught that on the day. THE ONE THING THIS MUST "
+            "NOT DO is write his meaning for him — his words are 'in your "
+            "words, NOT MY READING' — so every sheet ships with `his_meaning` "
+            "EMPTY, `signed` False, and `my_reading` stated plainly so he has "
+            "something concrete to disagree with. A test asserts every sheet's "
+            "his_meaning is empty, and `sign()` REFUSES a signature with no "
+            "meaning: a signature on nothing is not a meaning lock. "
+            "`usable()` is his rule as a function — an unsigned meaning cannot "
+            "be used by any later phase, so only signed sheets come back. "
+            "`blocked()` reports the honest state: 8 of 8 unsigned, gate "
+            "closed, and every later phase currently running on unsigned "
+            "meanings. The system does not halt itself on a gate only he can "
+            "close, but nothing pretends the signatures exist. APPEND-ONLY: "
+            "re-signing appends a row referencing the one before and both are "
+            "kept. /meaning, POST /meaning/sign."},
    {"his": "angles applied at generation time as a property — growing with "
            "each example, all of them running for now",
     "where": [("angles.py", "HIS_ANGLES = ("),

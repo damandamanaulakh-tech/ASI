@@ -60,7 +60,7 @@ He corrected the record and gave sources:
 
 **Status: `SOURCE-ASSERTED WITH CITATION` — he cited Indian Express and Business
 Standard. This engine did NOT verify them here, and the machine says so rather
-than promoting them to verified fact.** That is the same ladder his rice/MBA test
+than promoting them to verified fact.** That is the same ladder his rice/MBA example
 set: a figure or date that arrives in the source is kept as stated and never
 upgraded.
 
