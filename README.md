@@ -108,5 +108,23 @@ action = `approve` / `add_data` / `reloop` · `POST /ingest {name,text}` ·
 `GET /brains` · `GET /brain?id=` · `POST /brain/settings` ·
 `POST /brains/update` · `GET /graph`
 
+**The split, and the layers standing on it** — 27 segments · 183 containers ·
+3,483 rows on the 12-step spine, with the 3,204-row source bank untouched
+beside it:
+`GET /sbx` (the whole architecture) · `GET /sbx/step?n=` · `GET /sbx/container?id=` ·
+`GET /sbx/nodes` (the node brain placed on the spine) ·
+`GET /sbx/review` (nine checks that can fail) ·
+`GET /sbx/wiring` (the twelve-layer table, live) · `POST /sbx/place {text}` —
+one ask through every layer at once ·
+`GET /archetype` · `POST /archetype/run {text}` — the books as generative
+engines ·
+`GET /trigger` · `GET /trigger/placements?id=` · `POST /trigger/run {text}` —
+the Operational Trigger / State Vector on all 183 ·
+`GET /link` · `GET /link?row=` · `POST /link/run {text}` — relations as
+first-class counted objects ·
+`GET /scale` · `POST /scale/run {text}` — the scale axis ·
+`GET /readings` · `POST /readings/run {text}` — the nine intent readings, each
+naming what would refute it
+
 Lineage: Raw Definition Engine → ARD / RGL → URR-07 → Secureborn → Sourceborn / SBUR
 → the 70-SB/25-URR "Omni" core. MIT licensed. See `docs/RECOMMENDATION.md`.

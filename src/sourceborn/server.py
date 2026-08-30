@@ -1390,6 +1390,17 @@ class Handler(BaseHTTPRequestHandler):
                     "stages_run": a["counts"].get("RUNS", 0),
                     "stages": sum(a["counts"].values()),
                     "loops_triggered": 9,
+                    # the split and the layers standing on it, all live
+                    "split_containers": len(sbx.containers()),
+                    "split_rows": len(sbx.rows()),
+                    "layers_wired": len(sbx.wiring()["wired"]),
+                    "layers_total": len(sbx.layers()),
+                    "archetypes": len(archetype.archetypes()),
+                    "links": link.stats()["links"],
+                    "bands_in_force": len(scale.active()),
+                    "bands_total": len(scale.bands()),
+                    "readings": len(readings.TYPES),
+                    "triggers_his": trigger.stats()["trigger_by_him"],
                 }).encode(), "application/json")
             except Exception as exc:
                 self._send(500, json.dumps({"error": str(exc)}).encode(),
@@ -1537,6 +1548,11 @@ class Handler(BaseHTTPRequestHandler):
                     {"stats": link.stats(), "verify": link.verify(),
                      "types": link.TYPES, "his": link.his()}).encode(),
                     "application/json")
+        elif path == "/words":
+            # HIS WORDS -> THE CODE THAT CARRIES THEM. 29 modules each defined
+            # annotations() and nothing called any of them until this route.
+            self._send(200, json.dumps(sysmap.his_words()).encode(),
+                       "application/json")
         elif path == "/sbx/wiring":
             # HIS ASK 5: your pending wiring. His own twelve-layer table,
             # rendered against the LIVE data, plus the column his table could

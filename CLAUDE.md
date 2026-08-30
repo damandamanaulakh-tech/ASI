@@ -1150,6 +1150,61 @@ and hold nothing yet** (his ruling: *"no count, its open to increase"*). Verifie
 live over HTTP: `/sbx`, `/sbx/step?n=`, `/sbx/container?id=`, `POST /sbx/place`.
 381 tests green, 274 anchors, 0 missing.
 
+**THE LAYERS ON THE SPLIT — HIS SEVEN ASKS AND FOUR PHASES (2026-08-29).**
+`archetype.py` `/archetype` — the books as GENERATIVE ENGINES, his teaching
+(*one event of those books is used in 100 daily responses*). 11 archetypes
+reaching rows ACROSS containers, which is why it is a layer and not a row: THE
+RECOVERY STAKE touches 9 containers in 6 segments. **His three dead examples
+now reach the bank** — the dice game 0→12 rows, stealing 0→20, diamond cut
+diamond 0→10; on the spine the dice game lit 0 steps and now lights 7. Two
+routes, PHRASE and MEANING, the second gated by **his own IDF bar one storey
+up** (a word in several archetypes' vocabularies is weak evidence, so a firing
+needs 2 concept words of which ≥1 is DISTINCTIVE — `all everything` fires
+nothing). 7 of 7 of his examples fire; 8 of 8 ordinary sentences fire nothing.
+117 row ids re-verified against the live registry — **nine of the first twelve
+written for ARCH-011 were wrong from memory** and the test caught them.
+`trigger.py` `/trigger` — **HIS THIRD COLUMN**, the Operational Trigger / State
+Vector, given as ten four-column tables headed *"below more may be repated"*. A
+name is a noun; a trigger is a CONDITION, so it can be evaluated. His table
+verbatim (10 segments, 48 rows, his LaTeX and spelling intact, ids namespaced
+`HIS-`). **His repeat law is structural** — 4 ids carry a different container
+under a different segment, `placements()` returns a LIST. **MATCHED ON THE NAME,
+NEVER THE NUMBER**: his table, the registry and the split all number from
+CON-001 and are three numberings (his CON-064 is Episodic Memory, the
+registry's is Motive/Needs/Values), so his do-not-merge ruling applies to his
+own document; **7 seams surfaced**, sharpest being Theory of Mind, which his
+name places at SBX-CON-150 and his number at Body Schema. Graded: 36 placed, 3
+PROPOSED (a weak match may not carry his trigger — `behavioral` put his
+safety-guardrail row on Group Behaviour), 9 HELD. All 183 filled: 36 his, 147
+DERIVED from two real sources (the container's machine column + its spine step,
+which fixes the firing shape). `link.py` `/link` — **993 links, 992 COUNTED
+FROM THE SPLIT BANK** (his own note on the layer): SPLIT_SIBLING 284,
+SHARED_NAME 89, ARCHETYPE_REACH 619, and the one no sweep could find —
+SYMMETRIC_MEETING, his diamond, **both ends the SAME row** (P2550 Dominance
+motive on both parties), because the reading belongs to the MEETING and is
+stored in neither end. `scale.py` `/scale` — 9 bands; **HIS GATE IS ENFORCED**,
+only his four are in force and the five proposed (moment · household ·
+organisation · dynasty · civilisation) each cite the example OF HIS that
+demands it. `readings.py` `/readings` — his nine intent types as READINGS, not
+labels: **`a man is stealing the money` returns all nine, each naming what
+would CONFIRM and what would REFUTE it**, none chosen and none chooseable (a
+source-scan test proves no max/sort/selection path). Also his asks 2–5:
+**new parameters in front, old in back** (`front_back()`, one function so the
+convention cannot drift; 71 hits, 71 resolving); **the node brain placed on his
+spine** (CONTRADICTION at 7 HALT, EVENT at 2 PRESSURE, INTENT at 4 WITNESS —
+types his, steps DERIVED and correctable; steps 8/10/11 hold none and say so);
+**the split review**, nine checks that can fail — 5 pass, 4 findings, 0
+BLOCKING (open for him: 155 of 183 containers under 40 rows; `Ownership` and
+`Gesture` each naming two containers — the multi-meaning defect one level down,
+not renamed; 83 duplicate row names; one rubric counted but placed nowhere);
+and **his twelve-layer table live** — 8 met, 3 no-ceiling, **1 SHORT by exactly
+4,120**, his own figure, refused rather than filled with invented names.
+**ALL OF IT RUNS ON ONE ASK** — `place_on_spine` calls every layer, not one
+per page; `trigger.for_hits()` exists because that module calls
+`place_on_spine` and wiring it in with only `fires_on` would have recursed.
+The arrow chart, `sysmap.where()`, the growth seed (218→303 rows, **PARAM stays
+3**), the home-page HUD and the README all carry it. 430 tests green.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

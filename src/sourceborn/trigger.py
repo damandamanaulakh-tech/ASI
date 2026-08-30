@@ -1163,21 +1163,22 @@ def placements(cid: str) -> list:
     return out
 
 
-def fires_on(text: str) -> dict:
-    """THE WIRING. An ask lights containers; this reports the CONDITION each
-    lit container fires on, which is what the third column is for.
+def for_hits(hits) -> dict:
+    """THE WIRING, taking hits that are ALREADY COMPUTED.
 
-    A name says what a container is. A trigger says when it fires — so an ask
-    can now be read as a set of firing conditions rather than a list of nouns.
-    Nothing is concluded: which condition actually held in the world is not
-    something this can know from a sentence."""
-    from . import sbx
-    placed = sbx.place_on_spine(text)
+    This is the form the answer path uses. It must exist separately from
+    `fires_on` because `place_on_spine` calls this module and this module
+    called `place_on_spine` — wiring the trigger layer into the answer path
+    with only `fires_on` available would have recursed forever. The pure
+    function takes the hits; the convenience wrapper computes them first.
+
+    A name says what a container is. A trigger says WHEN IT FIRES — so an ask
+    can be read as a set of firing conditions rather than a list of nouns."""
     by_id = {t["id"]: t for t in triggers()}
     lit, seen = [], set()
-    for h in placed.get("hits", ()):
-        cid = h["container"]
-        if cid in seen:
+    for h in (hits or ()):
+        cid = h.get("container")
+        if not cid or cid in seen:
             continue
         seen.add(cid)
         t = by_id.get(cid)
@@ -1185,9 +1186,8 @@ def fires_on(text: str) -> dict:
             continue
         lit.append({"container": cid, "name": t["name"], "step": t["step"],
                     "kind": t["kind"], "trigger": t["trigger"], "by": t["by"],
-                    "reached_by": h["reached_by"], "row": h["row"]})
+                    "reached_by": h.get("reached_by"), "row": h.get("row")})
     return {
-        "text": text,
         "containers_lit": len(lit),
         "triggers": lit,
         "his_triggers_lit": sum(1 for t in lit if t["by"] == "HIS"),
@@ -1197,6 +1197,13 @@ def fires_on(text: str) -> dict:
                "that condition actually held is not knowable from a sentence, "
                "so nothing here is concluded.",
     }
+
+
+def fires_on(text: str) -> dict:
+    """The same reading, from a bare ask. Seats it first, then reads."""
+    from . import sbx
+    placed = sbx.place_on_spine(text)
+    return dict(for_hits(placed.get("hits", ())), text=text)
 
 
 def stats() -> dict:

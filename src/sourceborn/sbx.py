@@ -454,6 +454,22 @@ def place_on_spine(text: str, repo: str = ".") -> dict:
                     "containers": sorted(steps[n]["containers"]),
                     "intent_types": sp.get("intent_types", []),
                     "rubrics": sp.get("rubrics", [])})
+    # EVERY LAYER ON ONE ASK, not one layer per page. The trigger layer says
+    # WHEN each lit container fires; the readings layer says what the event
+    # could mean; the link layer says what belongs to the meeting rather than
+    # to either end. Each was reachable only from its own route before this,
+    # which is the defect weighting.py had — a module importable from nothing.
+    #
+    # `trigger.for_hits` exists because this function calls that module and
+    # that module calls this one: passing the already-computed hits is what
+    # breaks the recursion.
+    from . import trigger as TRG
+    from . import readings as RD
+    from . import link as LNK
+    fired_triggers = TRG.for_hits(hits)
+    nine = RD.read(text)
+    meetings = LNK.fires_on(text)
+
     return {
         "text": text,
         "events": placed.get("counts", {}).get("events", 0),
@@ -468,11 +484,24 @@ def place_on_spine(text: str, repo: str = ".") -> dict:
         "steps_lit": lit,
         "steps_lit_count": len(lit),
         "hits": hits,
+        # ---- the layers, on this one ask -----------------------------------
+        "triggers": fired_triggers,
+        "readings": {"count": nine["reading_count"],
+                     "readings": nine["readings"],
+                     "chosen": nine["chosen"]},
+        "meetings": {"count": meetings["fired_count"],
+                     "readings": meetings["readings"]},
+        "layers_run": ["SEGMENT", "CONTAINER", "SUB-PARAMETER", "ARCHETYPE",
+                       "TRIGGER", "LINK", "SCALE", "INTENT-READING"],
         "concluded": None,
         "law": "the seating is unchanged — this reads it through the split and "
                "lands it on his spine. The archetype layer reaches rows the "
                "words could not, and every row says which route reached it. "
-               "Nothing is chosen and no intent is concluded from one event.",
+               "The trigger layer says WHEN each lit container fires, the "
+               "reading layer says what the event could mean, and the link "
+               "layer says what belongs to the meeting rather than to either "
+               "end. Nothing is chosen and no intent is concluded from one "
+               "event.",
         "unmapped_note": "a seated row with no home in the split is reported by "
                          "the difference between source_rows_seated and "
                          "mapped_into_split, never dropped silently",

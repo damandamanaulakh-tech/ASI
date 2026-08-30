@@ -3726,15 +3726,35 @@ def test_the_seed_is_computed_from_the_modules_and_is_idempotent():
     by = s1["counts"]["by_kind"]
     assert by[G.ADDRESS] == 58, "every container x state pair generated"
     assert by[G.RUBRIC] == 25, "his 25 universal dimensions"
-    assert by[G.INTENT_ROUTE] == 50, "40 King routes + his 10 advisor-meeting ones"
+    assert by[G.INTENT_ROUTE] == 59, \
+        "40 King routes + his 10 advisor-meeting + his 9 intent readings"
     assert by[G.EVENT] == 11
-    assert by[G.RULE] == 18, "10 + his 7 live-intent rules + the namespace ruling"
-    assert by[G.STATE] == 6
+    assert by[G.RULE] == 19, \
+        "10 + his 7 live-intent rules + the namespace ruling + his diamond link"
+    assert by[G.STATE] == 54, "6 operating states + his 48 trigger rows"
+    assert by[G.PATTERN] == 28, "17 patterns + the 11 archetypes"
+    assert by[G.AXIS] == 17, "13 + his 4 named scale bands"
+    assert by[G.CANDIDATE] == 5, "the 5 proposed scale bands, unapproved"
+    assert by[G.HALT] == 7, "the trigger numbering seams, unresolved"
     assert by[G.PARAM] == 3, "the three motives with no echo in the bank"
     # the three that got a home
     params = [r["name"] for r in G.load(root) if r["kind"] == G.PARAM]
     assert set(params) == {"Security need", "Mating/attraction motive",
                            "Revenge/retaliation motive"}, params
+    # THE LAYERS RAISE THE COUNT AND NOT THE BANK. His law is that every
+    # example raises the count; his other law is that a rubric application is
+    # not an ontology expansion. An archetype is not a parameter and a link is
+    # not a parameter, so none of them is a PARAM row.
+    rows = G.load(root)
+    for prefix, kind in (("ARCHETYPE: ", G.PATTERN), ("LINK: ", G.RULE),
+                         ("SCALE BAND: ", G.AXIS), ("READING: ", G.INTENT_ROUTE),
+                         ("TRIGGER: ", G.STATE)):
+        got = [r for r in rows if r["name"].startswith(prefix)]
+        assert got, prefix
+        assert {r["kind"] for r in got} == {kind}, (prefix, kind)
+    assert not [r for r in rows
+                if r["kind"] == G.PARAM and ":" in r["name"]], \
+        "no layer row may consume his flat parameter index"
     # seeding again adds nothing and removes nothing
     before = G.load(root)
     s2 = G.seed(root)
@@ -6563,6 +6583,124 @@ def test_the_archetype_routes_are_reachable():
     for route in ('"/archetype"', '"/archetype/run"'):
         assert route in src, route
     assert "archetype.fires_on(" in src and "archetype.compare(" in src
+
+
+# ---------------------------------------------------------------------------
+# THE WIRING AUDIT — is the new work actually connected?
+# ---------------------------------------------------------------------------
+
+def test_every_layer_runs_on_one_ask_not_one_per_page():
+    """The defect weighting.py had: a module importable from nothing. Before
+    this audit, `trigger` and `readings` were reachable ONLY from server.py —
+    they sat behind their own routes and never touched an answer."""
+    from sourceborn import sbx
+    r = sbx.place_on_spine("a man is stealing money from a shop")
+    assert r["layers_run"] == ["SEGMENT", "CONTAINER", "SUB-PARAMETER",
+                               "ARCHETYPE", "TRIGGER", "LINK", "SCALE",
+                               "INTENT-READING"]
+    assert r["triggers"]["containers_lit"] > 0
+    assert r["readings"]["count"] == 9
+    assert r["readings"]["chosen"] is None
+    assert "meetings" in r
+    # his diamond reaches the meeting layer through the same one call
+    d = sbx.place_on_spine("diamond cut diamond")
+    assert d["meetings"]["count"] == 1
+    assert d["readings"]["count"] == 9
+
+
+def test_the_trigger_layer_does_not_recurse_through_the_answer_path():
+    """`place_on_spine` calls trigger and trigger calls `place_on_spine`.
+    `for_hits` takes the already-computed hits, which is what breaks it — a
+    plain `fires_on` call from the answer path would never return."""
+    from sourceborn import trigger, sbx
+    hits = sbx.place_on_spine("diamond cut diamond")["hits"]
+    pure = trigger.for_hits(hits)
+    assert "text" not in pure, "for_hits is pure — it never re-seats"
+    wrapper = trigger.fires_on("diamond cut diamond")
+    assert wrapper["text"] == "diamond cut diamond"
+    assert wrapper["containers_lit"] == pure["containers_lit"]
+
+
+def test_the_arrow_chart_shows_the_split_and_every_layer():
+    """The system's own map showed none of it — not the split, not one layer.
+    A map that does not show the system is not a map."""
+    from sourceborn import sysmap
+    c = sysmap.arrow_chart()
+    for term in ("THE SPLIT", "ARCHETYPE", "TRIGGER", "LINK", "SCALE",
+                 "READING", "183 containers", "HIS THIRD COLUMN",
+                 "HIS NUMBER TO FINALISE", "CARRIED, NOT CONSULTED"):
+        assert term in c, term
+    # and no line overflows its box
+    for line in c.splitlines():
+        assert len(line) < 200, line[:80]
+
+
+def test_where_names_every_new_layer():
+    from sourceborn import sysmap
+    known = {r["thing"] for r in sysmap.where()["layers"]}
+    for t in ("the split", "the archetype", "the trigger", "the link",
+              "the scale", "the readings", "the wiring", "the review"):
+        assert t in known, t
+        got = sysmap.where(t)
+        assert got.get("module") and got.get("route"), t
+
+
+def test_his_words_index_is_collected_and_resolves():
+    """29 modules each define annotations() mapping HIS WORDS to the code that
+    carries them — and nothing called any of them. Collected now, and every
+    target is resolved the way exists.py resolves its anchors, so a phrase
+    pointing at a symbol that no longer exists is reported."""
+    from sourceborn import sysmap
+    h = sysmap.his_words()
+    assert h["modules_annotating"] >= 29
+    assert h["phrases"] >= 160
+    assert h["unresolved"] == [], h["unresolved"]
+    assert h["problems"] == [], h["problems"]
+    assert h["resolved"] == h["phrases"]
+    # the new layers put their own words in the index
+    phrases = " ".join(r["his_words"] for r in h["rows"])
+    assert "below more may be repated" in phrases
+    assert "diamond cut diamond is a link between two ego-rows" in phrases
+
+
+def test_the_new_work_is_registered_everywhere_it_should_be():
+    """The audit itself, as a test: filemap places the files, the home page
+    HUD carries the counts, and the README lists the routes."""
+    from sourceborn import filemap
+    for p in ("src/sourceborn/archetype.py", "src/sourceborn/trigger.py",
+              "src/sourceborn/link.py", "src/sourceborn/readings.py",
+              "src/sourceborn/scale.py"):
+        assert filemap.classify(p)["class"] == filemap.SYSTEM, p
+    assert filemap.divide(".")["counts"][filemap.UNPLACED] == 0
+    from sourceborn import homepage
+    for cell in ("h_sp", "h_ly", "h_ar", "h_lk", "h_bd", "h_rd", "h_tg"):
+        assert cell in homepage.PAGE, cell
+    readme = open("README.md").read()
+    for route in ("/sbx/review", "/sbx/wiring", "/archetype", "/trigger",
+                  "/link", "/scale", "/readings"):
+        assert route in readme, route
+    src = open("src/sourceborn/server.py").read()
+    assert '"/words"' in src and "sysmap.his_words()" in src
+
+
+def test_the_layers_raise_the_count_but_never_the_bank():
+    """His law: every example raises the count. His other law: a rubric
+    application is not an ontology expansion. The layers are material he gave,
+    so they enter the ledger — and none of them is a PARAM."""
+    from sourceborn import growth as G, human_registry as hr
+    items = G.seed_items()
+    kinds = {}
+    for i in items:
+        kinds[i["kind"]] = kinds.get(i["kind"], 0) + 1
+    assert len(items) >= 300, len(items)
+    assert kinds[G.PARAM] == 3, "the bank does not grow from a layer"
+    assert len(hr.parameters()) == 3204
+    names = [i["name"] for i in items]
+    assert any(n.startswith("ARCHETYPE: ") for n in names)
+    assert any(n.startswith("LINK: ") for n in names)
+    assert any(n.startswith("TRIGGER: ") for n in names)
+    assert any(n.startswith("READING: ") for n in names)
+    assert any(n.startswith("SCALE BAND: ") for n in names)
 
 
 # ---------------------------------------------------------------------------

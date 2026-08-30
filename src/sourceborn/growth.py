@@ -318,6 +318,59 @@ def seed_items() -> list:
             it(PARAM, u["motive"], "the live intent generator", "intents",
                "a real motive with no echo anywhere in the 3,204 outside "
                "CON-064 itself — appended so it has a home")
+
+    # ---- the layers standing on the split ---------------------------------
+    # His law: every example raises the count. These layers ARE material he
+    # gave — the books, his third column, his diamond, his nine intent types —
+    # so they belong in the ledger and not only behind their own routes. None
+    # of them is a PARAM: an archetype is not a parameter, a link is not a
+    # parameter, and RUBRIC APPLICATION != ONTOLOGY EXPANSION is his ruling.
+    # The bank stays where it is.
+    from . import archetype as AR
+    from . import link as LK
+    from . import readings as RD
+    from . import scale as SC
+    from . import trigger as TG
+
+    for a in AR.archetypes():
+        it(PATTERN, "ARCHETYPE: " + a["name"], a["source"], "archetype",
+           "%s — reaches %d rows across %d containers; owns none of them"
+           % (a["understanding"][:110], len(a["reaches"]),
+              len({c for _, _, c in a["reaches"]})),
+           {"archetype": a["id"], "tradition": a["tradition"],
+            "intents": a["intents"], "refuses": a["refuses"]})
+
+    for l in LK.his():
+        it(RULE, "LINK: " + l["name"], l["source"], "link",
+           "%s — %s" % (l["his_words"], l["reading"][:120]),
+           {"type": l["type"], "ends": [e["id"] for e in l["ends"]]})
+
+    for b in SC.HIS_BANDS:
+        it(AXIS, "SCALE BAND: " + b["name"], "his four named scales", "scale",
+           "%s — %s" % (b["size"], b["his_example"]))
+    for b in SC.PROPOSED_BANDS:
+        it(CANDIDATE, "SCALE BAND (PROPOSED): " + b["name"],
+           "derived from " + b["his_example"][:70], "scale",
+           b["why_needed"][:190], {"approved": False, "his_call": True})
+
+    for t in RD.TYPES:
+        it(INTENT_ROUTE, "READING: %s %s" % (t["id"], t["name"]),
+           t["his_example"], "readings",
+           "%s — refuted by: %s" % (t["means"], t["refuted_by"][:110]))
+
+    for r in TG.his_rows():
+        it(STATE, "TRIGGER: " + r["name"], "his Operational Trigger table",
+           "trigger", r["trigger"],
+           {"his_id": r["his_id"], "segment": r["his_segment"]})
+
+    for s in TG.seams():
+        it(HALT, "TRIGGER NUMBERING SEAM: " + s["his_name"],
+           "his Operational Trigger table", "trigger",
+           "his name places it at %s; his number would place it at %s. Three "
+           "numberings, never merged on the numerals."
+           % (s["name_places_it_at"]["id"], s["number_would_place_it_at"]["id"]),
+           {"resolved": False, "his_call": True})
+
     return items
 
 
