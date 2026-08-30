@@ -126,5 +126,46 @@ first-class counted objects ·
 `GET /readings` · `POST /readings/run {text}` — the nine intent readings, each
 naming what would refute it
 
+### Every route, generated from the server
+
+A hand-typed route list goes stale the first time a route is added, so this one
+is checked by a test (`test_the_readme_lists_every_route_the_server_serves`) —
+if the server serves a route this list does not name, the suite fails.
+
+**GET (78)**
+
+`/adopted` · `/api/bank` · `/api/hud` · `/archetype` · `/artifact` · `/asi` ·
+`/asi/stats` · `/auto` · `/brain` · `/brains` · `/chat` · `/chats` ·
+`/combine` · `/desk` · `/diag` · `/engine` · `/exists` · `/exists/data` ·
+`/expected` · `/export` · `/flow` · `/generation` · `/generation/packs` ·
+`/graph` · `/growing` · `/growing/coverage` · `/growth` · `/health` ·
+`/intents` · `/ledger` · `/library` · `/link` · `/loop` · `/map` ·
+`/map/where` · `/masterlog` · `/maturity` · `/memory/report` · `/micro` ·
+`/nodes` · `/nodes/node` · `/nodes/path` · `/nodes/schema` · `/nodes/subgraph`
+· `/novelty` · `/novelty/file` · `/page` · `/page/data` · `/page/layout` ·
+`/page/meta` · `/page/version` · `/page/versions` · `/patterns` · `/persist` ·
+`/reading` · `/readings` · `/registry` · `/registry/activate` ·
+`/registry/container` · `/runtime` · `/sbx` · `/sbx/container` · `/sbx/nodes`
+· `/sbx/review` · `/sbx/step` · `/sbx/wiring` · `/scale` · `/selfmake` ·
+`/senses` · `/snapshots` · `/subjects` · `/trigger` · `/trigger/placements` ·
+`/unfiled` · `/weekly` · `/weekly/file` · `/weighting` · `/words`
+
+**POST (55)**
+
+`/archetype/run` · `/artifact/generate` · `/artifact/grow` · `/asi/run` ·
+`/auto/mode` · `/auto/tick` · `/brain/rollback` · `/brain/settings` ·
+`/brains/update` · `/combine/run` · `/engine/ask` · `/engine/registry` ·
+`/expected/run` · `/generate` · `/generation/run` · `/growing/grow` ·
+`/growing/place` · `/growth/add` · `/growth/correct` · `/growth/seed` ·
+`/import` · `/ingest` · `/intents/run` · `/ledger/kill` · `/ledger/run` ·
+`/link/run` · `/loop/chain` · `/loop/run` · `/maturity/read` ·
+`/nodes/approve` · `/nodes/recall` · `/nodes/remember` · `/nodes/write` ·
+`/novelty/approve` · `/novelty/run` · `/page/save` · `/patterns/review` ·
+`/pyramid/park` · `/reading/ask` · `/readings/run` · `/review` ·
+`/runtime/run` · `/sbx/place` · `/scale/run` · `/selfmake/extend` ·
+`/selfmake/propose` · `/selfmake/run` · `/senses/reject` · `/senses/teach` ·
+`/snapshot` · `/subjects/generate` · `/subjects/grow` · `/trigger/run` ·
+`/upload` · `/weighting/run`
+
 Lineage: Raw Definition Engine → ARD / RGL → URR-07 → Secureborn → Sourceborn / SBUR
 → the 70-SB/25-URR "Omni" core. MIT licensed. See `docs/RECOMMENDATION.md`.

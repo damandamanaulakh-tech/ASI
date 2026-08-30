@@ -6586,6 +6586,157 @@ def test_the_archetype_routes_are_reachable():
 
 
 # ---------------------------------------------------------------------------
+# THE WIRING AUDIT — the OLD files, and the guards that keep them honest
+# ---------------------------------------------------------------------------
+
+def _package_modules():
+    import pkgutil
+    return sorted(m.name for m in pkgutil.iter_modules(["src/sourceborn"])
+                  if not m.ispkg)
+
+
+def _sibling_imports(text):
+    """Every sibling module `text` imports, however the import is spelled."""
+    import re
+    got = set()
+    for m in re.finditer(r"^\s*from\s+\.\s+import\s+([^\n#]+)", text, re.M):
+        for p in m.group(1).split(","):
+            got.add(p.strip().split(" as ")[0].strip())
+    for pat in (r"^\s*from\s+\.(\w+)\s+import",
+                r"^\s*from\s+sourceborn\.(\w+)\s+import",
+                r"^\s*import\s+sourceborn\.(\w+)"):
+        for m in re.finditer(pat, text, re.M):
+            got.add(m.group(1))
+    for m in re.finditer(r"^\s*from\s+sourceborn\s+import\s+([^\n#]+)", text, re.M):
+        for p in m.group(1).split(","):
+            got.add(p.strip().split(" as ")[0].strip())
+    return got
+
+
+def test_no_module_is_imported_and_never_used():
+    """A dead import is a link that looks live. Twelve of them sat in
+    engine.py — including `asi_pyramid` and `statepacks`, whose mere import
+    the build notes cited as proof that 'the Pyramid is in the answer path'.
+    It was not; an unused import satisfies a grep and nothing else. Twenty-five
+    across the package, now zero, and this test is what keeps it zero."""
+    import os, re
+    dead = {}
+    for mod in _package_modules():
+        text = open(os.path.join("src/sourceborn", mod + ".py"),
+                    encoding="utf-8").read()
+        lines = text.splitlines()
+        imported, i = {}, 0
+        while i < len(lines):
+            if re.match(r"^\s*(from\s+[\w.]+\s+)?import\s", lines[i]):
+                chunk, j = lines[i], i
+                while chunk.count("(") > chunk.count(")"):
+                    j += 1
+                    chunk += " " + lines[j]
+                for p in chunk.split(" import ", 1)[-1].replace("(", "") \
+                        .replace(")", "").split(","):
+                    n = p.strip().split(" as ")[-1].strip().rstrip("\\").strip()
+                    if n and re.match(r"^\w+$", n):
+                        imported.setdefault(n, i + 1)
+                i = j
+            i += 1
+        body = "\n".join(
+            l for l in lines
+            if not re.match(r"^\s*(from\s+[\w.]+\s+)?import\s", l)
+            and not re.match(r"^\s{4,}[\w., ]+[,)]?\s*$", l))
+        unused = [n for n in sorted(imported) if n != "annotations"
+                  and not re.search(r"\b%s\b" % re.escape(n), body)]
+        if unused:
+            dead[mod] = unused
+    assert dead == {}, dead
+
+
+def test_the_pyramid_really_is_in_the_answer_path():
+    """The claim the audit falsified, made true. `Engine.read()` CALLS
+    asi_pyramid and statepacks and returns what they produce — importing them
+    was never enough."""
+    import tempfile
+    from sourceborn.engine import SourcebornEngine
+    from sourceborn import asi_pyramid, statepacks
+    e = SourcebornEngine(root=tempfile.mkdtemp(prefix="sb_wire_"))
+    r = e.read("he bet everything he had to win it all back")
+    assert "pyramid" in r and "state_packs" in r
+    assert set(r["pyramid"]["counts"]) >= {"strong", "candidate", "bank"}
+    assert r["pyramid"]["counts"]["bank"] == 3204
+    assert len(r["state_packs"]) == len(statepacks.packs_index()) == 16
+    src = open("src/sourceborn/engine.py", encoding="utf-8").read()
+    assert "asi_pyramid.activate(" in src and "statepacks.packs_index(" in src
+
+
+def test_the_removed_matrix_is_not_still_linked_from_the_answer_path():
+    """His decision: 'now we dont want 70-25 there'. `urr_matrix` stayed
+    imported into engine.py long after — a live-looking link to a mechanism
+    the answer path no longer uses. The module stays on disk under his
+    do-not-delete rule; the dead link is gone."""
+    src = open("src/sourceborn/engine.py", encoding="utf-8").read()
+    assert "from .urr_matrix import" not in src
+    assert "MATRIX" not in src.split('"""', 2)[-1] or "review_node(" not in src
+    import os
+    assert os.path.exists("src/sourceborn/urr_matrix.py"), \
+        "the module is kept — only the dead link was removed"
+
+
+def test_every_orphan_module_is_declared_in_the_honest_map():
+    """A module nothing imports is not automatically wrong — seq_kernel is
+    binding and unwired by his own ruling. What IS wrong is an orphan that no
+    map mentions, because then nothing can tell him it is unwired. khalf was
+    exactly that: 184 lines, tested, and named in no map at all."""
+    import os
+    exists_src = open("src/sourceborn/exists.py", encoding="utf-8").read()
+    mods = _package_modules()
+    texts = {m: open(os.path.join("src/sourceborn", m + ".py"),
+                     encoding="utf-8").read() for m in mods}
+    importers = {m: set() for m in mods}
+    for m in mods:
+        for dep in _sibling_imports(texts[m]):
+            if dep in importers:
+                importers[dep].add(m)
+    # entrypoints are meant to be imported by nothing
+    entry = {"server", "__main__", "demo"}
+    orphans = sorted(m for m in mods if not importers[m] and m not in entry)
+    assert orphans == ["khalf", "rh_code", "seq_kernel", "urr_matrix"], orphans
+    for o in orphans:
+        assert '("%s.py"' % o in exists_src, \
+            "%s is imported by nothing and declared in no map" % o
+    # and each is marked BUILT-NOT-WIRED, not quietly listed as running
+    from sourceborn import exists
+    not_wired = {w for g in exists.MAP for r in g["rows"]
+                 if r["state"] == exists.NOT_WIRED
+                 for w, _ in r.get("where", [])}
+    for o in orphans:
+        assert o + ".py" in not_wired, o
+
+
+def test_the_honest_map_still_resolves_every_anchor():
+    """exists.py's whole technique: a row carries a literal string that must
+    still be present in the named module, so a row can never silently become a
+    lie. Three anchors were wrong when khalf and rh_code were added — guessed
+    function names — and this is what caught them."""
+    from sourceborn import exists
+    v = exists.verify()
+    assert v["missing"] == 0, v
+    assert v["checked"] >= 320
+    assert v["counts"][exists.NOT_WIRED] == 4
+
+
+def test_the_readme_lists_every_route_the_server_serves():
+    """104 of 133 routes were undocumented. A hand-typed route list goes stale
+    the first time a route is added, so the list is checked instead of
+    trusted."""
+    import re
+    src = open("src/sourceborn/server.py", encoding="utf-8").read()
+    routes = {m.group(1) for m in
+              re.finditer(r'(?:path|self\.path)\s*==\s*"(/[^"]*)"', src)}
+    readme = open("README.md", encoding="utf-8").read()
+    missing = sorted(r for r in routes if r not in readme)
+    assert missing == [], missing
+
+
+# ---------------------------------------------------------------------------
 # THE WIRING AUDIT — is the new work actually connected?
 # ---------------------------------------------------------------------------
 

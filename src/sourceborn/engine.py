@@ -17,7 +17,7 @@ the clone one more example (it gets wiser with use).
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
-from typing import Any, Callable
+from typing import Callable
 
 from . import safety
 from .brains import BrainRegistry
@@ -40,15 +40,19 @@ from .models import (
     GapItem, MemoryEntry, Output, PointZero, ProofItem, RawSource, TraceEntry,
     URRPacket, _now,
 )
-from .node_work import (Finding, SB_WORK, SUPPORT_CHECKS, URR_CHECKS, URRReview,
-                        WalkContext)
-from .nodes import (CLOSING_URR, SB_NODES, SB_PRIMARY_URR, SUPPORT_AFTER,
-                    URR_NODES, sb_by_id)
+from .node_work import Finding, SB_WORK, URR_CHECKS, URRReview, WalkContext
+from .nodes import SB_NODES, sb_by_id
 from . import asi_pyramid
 from . import statepacks
 from .pyramid import UnfiledQueue, file_finding, file_urr, unfiled_from_input
-from .urr_matrix import MATRIX, review_node
-from .parameters import COMPARISON_AXES, PARAMETER_BANK
+# `urr_matrix` (MATRIX, review_node) and `parameters` (COMPARISON_AXES,
+# PARAMETER_BANK) were imported here and never called. The 70x25 matrix is GONE
+# by his decision — "now we dont want 70-25 there, but i want more filters and
+# fact kind of" — and the seven filters in filters.py replaced it. The modules
+# stay on disk under his do-not-delete rule; what is removed is the dead LINK
+# from the answer path to a mechanism the answer path no longer uses. Six more
+# unused names (CLOSING_URR, SB_PRIMARY_URR, SUPPORT_AFTER, SUPPORT_CHECKS)
+# went with them.
 from .persona import Persona
 from .present_fact import is_present_fact, refusal as present_fact_refusal, verify_note
 from .wisdom import WisdomBank
@@ -694,6 +698,15 @@ class SourcebornEngine:
                                     if c["status"] == "candidate"],
                 "threshold": patterns.threshold_reading(root),
                 "stats": patterns.stats(root),
+                # THE PYRAMID AND THE STATE PACKS, ACTUALLY CALLED.
+                #
+                # These two were IMPORTED at the top of this file and never
+                # used — twelve names were, this pair among them — and the
+                # build notes claimed that importing them "put the Pyramid in
+                # the answer path". An unused import satisfies a grep and
+                # nothing else. This is the call that makes the claim true.
+                "pyramid": asi_pyramid.activate(raw_text),
+                "state_packs": statepacks.packs_index(),
                 "walk": walk}
 
     def run_recursive(self, raw_text: str, loops: int = 3,

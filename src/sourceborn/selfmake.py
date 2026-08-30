@@ -62,7 +62,6 @@ import os
 from functools import lru_cache
 
 from . import growing as W
-from . import human_registry as hr
 
 # ---------------------------------------------------------------------------
 # THE SPINE — the steps that were always here. Everything after these is written

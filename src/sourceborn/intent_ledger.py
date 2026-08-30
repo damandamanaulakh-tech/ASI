@@ -53,7 +53,7 @@ Canon: docs/method/canon/THE_LIVE_INTENT_LEDGER_AND_THE_KILL.md
 from __future__ import annotations
 
 from . import human_registry as hr
-from .asi_pyramid import bank_size, flat_of, param
+from .asi_pyramid import bank_size, param
 
 # ---------------------------------------------------------------------------
 # HIS RUN — verbatim. Field names are his column headers.

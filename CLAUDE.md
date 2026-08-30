@@ -447,7 +447,14 @@ five loops, and `L1..L5 Adj.` being manual — and kept as findings, not correct
 reachability defects I had reported:** `weighting.py` was importable from nothing
 and now has `/weighting` + `POST /weighting/run`; and `engine.py` now imports
 `asi_pyramid` and `statepacks`, so the Pyramid is in the answer path instead of
-behind one page. 191 tests green, 143 WHAT EXISTS anchors resolve.
+behind one page. **[CORRECTED 2026-08-30 — the second half of that sentence was
+false when written.** The two modules were IMPORTED into `engine.py` and never
+called; an unused import satisfies a grep and puts nothing in an answer path.
+Ten more names were dead the same way, including `MATRIX`/`review_node` from the
+70×25 matrix his own decision had removed. `Engine.read()` now actually calls
+`asi_pyramid.activate()` and `statepacks.packs_index()` and returns both, so the
+claim is true; the dead links are gone. Found by the old-file wiring audit he
+asked for.] 191 tests green, 143 WHAT EXISTS anchors resolve.
 **Still missing and stated:** the killing step — nothing eliminates a fork on
 evidence. 40 routes come back as 40, seven frames as seven. His EVIDENCE_LEDGER,
 contradiction penalty and Falsifier columns are named in his workbook and empty.

@@ -55,7 +55,7 @@ import re
 from functools import lru_cache
 
 from . import human_registry as hr
-from .asi_pyramid import CURRENT, FUTURE, PRIOR, container_span, flat_of, param
+from .asi_pyramid import CURRENT, FUTURE, PRIOR, flat_of, param
 
 MOTIVE_CON = "CON-064"      # his motive vocabulary — the WHY
 FORM_CON = "CON-063"        # his intent forms — the SHAPE

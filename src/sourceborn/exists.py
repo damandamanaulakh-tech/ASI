@@ -64,6 +64,51 @@ MAP: list[dict] = [
     "note": "all six objects are built and tested. NO module imports this "
             "file — it runs only in its own demo. The reasoning grammar you "
             "ruled on is real code the request path never touches."},
+   {"his": "now we dont want 70-25 there, but i want more filters and fact "
+           "kind of",
+    "where": [("urr_matrix.py", "def review_node("),
+              ("filters.py", "def run_gates("),
+              ("engine.py", "from .filters import")],
+    "state": NOT_WIRED,
+    "note": "THE 70x25 MATRIX, KEPT AND UNLINKED. His decision removed it and "
+            "the seven filters in filters.py replaced it — Ground · Sequence · "
+            "Source · Mask · Fact · Halt · Loop, run on every finding, every "
+            "time. `urr_matrix.py` stayed IMPORTED into engine.py long after, "
+            "as `MATRIX, review_node`, and neither name was ever called: a "
+            "live-looking link to a mechanism the answer path no longer uses. "
+            "The old-file wiring audit (2026-08-30) found it and removed the "
+            "LINK, not the module — his do-not-delete rule keeps the file on "
+            "disk, and it is declared here so nothing has to rediscover that "
+            "it is unwired. It is the replaced mechanism, not a missing one."},
+   {"his": "keeping the half file back and using the half",
+    "where": [("khalf.py", "def split_doc("),
+              ("khalf.py", "def score_overlap("),
+              ("khalf.py", "RULES = ")],
+    "state": NOT_WIRED,
+    "note": "THE HALF — the kappa experiment (Way Five of the Main Work room). "
+            "Measures how much of a document's masked half can be "
+            "reconstructed from the held half, racing three splitting rules "
+            "(first_half · alternate · alt_words). Built and TESTED (two "
+            "tests), and NO module imports it — it runs only from its own "
+            "tests. Surfaced here by the old-file wiring audit (2026-08-30): "
+            "it was the one orphan declared in NO map at all — not in this "
+            "file, not in the build map, not in the arrow chart — so nothing "
+            "could tell you it was unwired. Now it can."},
+   {"his": "i dont wanted any proof of anything / i want to use RH as a code",
+    "where": [("rh_code.py", "def half_confidence("),
+              ("rh_code.py", "def explicit_answer("),
+              ("rh_code.py", "def line_check("),
+              ("rh_code.py", "HALF = 0.5")],
+    "state": NOT_WIRED,
+    "note": "RH AS CODE — Re(s) = 1/2 + ti read as a build specification, not "
+            "a theorem: primes are the raw facts, log p their periods, the "
+            "zeros are the doubts, 1/2 is how much power any single doubt may "
+            "have, t is when it fires. Nothing here proves anything. Built and "
+            "tested, and NO module imports it; `docs/mainwork/THE_BUILD_MAP."
+            "html` already says 'rh_code.py · not wired yet' and "
+            "`docs/riemann/RH_AS_CODE.md` says 'the engine has not been "
+            "changed'. Carried into this file so the honest map holds every "
+            "orphan in one place."},
    {"his": "Halt → Loop. a failure is never failure, it opens the mapped loop",
     "where": [("sequence.py", '(HALT, "Halt"'), ("sequence.py", '(LOOP, "Loop"'),
               ("filters.py", "def f7_loop(")],
