@@ -5929,14 +5929,18 @@ def test_the_auto_routes_are_reachable():
 # THE GLASS REACTOR — the home page, on his word.
 # ---------------------------------------------------------------------------
 
-def test_the_reactor_is_the_home_page_and_the_desk_survives():
-    """His word made it the home page; nothing is removed — the old
-    dashboard lives whole at /desk."""
+def test_the_reactor_survives_whole_and_the_rewrite_holds_the_door():
+    """Two of his words in order: 2026-08-24 made the reactor the home page;
+    2026-09-03 said 'accordignly the dashboard will prepared not what we
+    have' — so THE REWRITE now holds /, and the reactor is NOT removed: it
+    stands whole at /reactor, the old dashboard still at /desk. This test
+    pinned the reactor at / until his later word; it now pins both rulings."""
     from sourceborn import homepage
     src = open("src/sourceborn/server.py").read()
-    assert "homepage.PAGE" in src
     at = src.index('path in ("/", "/index.html")')
-    assert "homepage.PAGE" in src[at:at + 400], "/ serves the reactor"
+    assert "selfhome.PAGE" in src[at:at + 500], "/ serves THE REWRITE"
+    at2 = src.index('path == "/reactor"')
+    assert "homepage.PAGE" in src[at2:at2 + 400], "the reactor stands whole"
     assert '"/desk"' in src, "the old dashboard is kept, never deleted"
     assert 'href="/desk"' in homepage.PAGE, "the reactor links back to it"
 
@@ -8018,6 +8022,437 @@ def test_the_trigger_routes_are_reachable():
     for route in ('"/trigger"', '"/trigger/placements"', '"/trigger/run"'):
         assert route in src, route
     assert "trigger.fires_on(" in src and "trigger.seams()" in src
+
+
+# ---------------------------------------------------------------------------
+# THE PEN — it rewrites its own code, full auto on his word (2026-09-03)
+# ---------------------------------------------------------------------------
+
+class _PenModel:
+    """A drafter for tests: hands back scripted replies and records prompts."""
+    def __init__(self, *replies, name="testpen"):
+        self.replies, self.name, self.calls, self.prompts = list(replies), name, 0, []
+    def complete(self, system, prompt, max_tokens=4000):
+        self.calls += 1
+        self.prompts.append(prompt)
+        return self.replies.pop(0) if self.replies else ""
+
+
+class _PenTransport:
+    """A GitHub for tests: records every call, answers like the git-data API."""
+    def __init__(self, fail_on_ref=False):
+        self.calls, self.fail_on_ref = [], fail_on_ref
+    def __call__(self, method, url, payload, token):
+        self.calls.append({"method": method, "url": url, "payload": payload})
+        if method == "PATCH" and self.fail_on_ref:
+            raise RuntimeError("GitHub PATCH /git/refs -> 422 not a fast forward")
+        if method == "GET" and "/git/ref/" in url:
+            return {"object": {"sha": "headsha00"}}
+        if method == "GET" and "/git/commits/" in url:
+            return {"tree": {"sha": "treesha00"}}
+        if url.endswith("/git/blobs"):
+            return {"sha": "blob%02d" % len(self.calls)}
+        if url.endswith("/git/trees"):
+            return {"sha": "newtree00"}
+        if url.endswith("/git/commits"):
+            return {"sha": "pencommit%02d" % len(self.calls)}
+        return {"ok": True}
+
+
+def _pen_env(extra):
+    """Set/unset env keys for one pen test; returns the restore function."""
+    old = {}
+    for k, v in extra.items():
+        old[k] = os.environ.get(k)
+        if v is None:
+            os.environ.pop(k, None)
+        else:
+            os.environ[k] = v
+    def restore():
+        for k, v in old.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
+    return restore
+
+
+def _pen_reply(path, content, why="carries his teaching into the code"):
+    return ("<<<WHY>>>%s<<<END WHY>>>\n<<<FILE %s>>>\n%s\n<<<END FILE>>>"
+            % (why, path, content))
+
+
+def test_the_pen_field_is_default_deny_and_the_core_is_unreachable():
+    """His rule 2 surviving full auto is a property of allowed(), not a
+    promise: the core — his words, his banks, the suite, the orders — is
+    refused before anything runs, and the refusal carries the reason."""
+    from sourceborn import selfpatch as SP
+    for p in ("docs/method/canon/THE_SELF_REWRITE.md", "data/human_registry.json",
+              "adopted/C-SB/README.md", "tests/test_engine.py", "CLAUDE.md",
+              "render.yaml", "app.py", ".github/workflows/ci.yml",
+              "seed_corpus/raw_thoughts/x.txt", ".sourceborn/growth/ledger.jsonl"):
+        ok, why = SP.allowed(p)
+        assert not ok and why, p
+    for held in SP.HELD_FROM_THE_PEN:
+        ok, why = SP.allowed("src/sourceborn/" + held)
+        assert not ok and why == SP.HELD_FROM_THE_PEN[held], held
+    for p in ("src/sourceborn/micro.py", "README.md"):
+        ok, _ = SP.allowed(p)
+        assert ok, p
+    # outside the field even inside the tree: not-.py, nested, other dirs
+    for p in ("src/sourceborn/data/human_registry.json", "src/sourceborn/a/b.py",
+              "tools/docx2txt.py", "docs/x.py", "somefile.py"):
+        assert not SP.allowed(p)[0], p
+
+
+def test_a_path_that_climbs_out_of_the_tree_is_refused():
+    from sourceborn import selfpatch as SP
+    for p in ("../CLAUDE.md", "/etc/passwd", "~/x.py",
+              "src/sourceborn/../../CLAUDE.md",
+              "src/sourceborn/../../../outside.py", ""):
+        assert not SP.allowed(p)[0], p
+
+
+def test_the_door_law_holds_the_pen_until_his_password_exists():
+    """The pen writes into HIS GitHub with HIS token — an open door would
+    hand it to anyone with the URL. The knock is FILED, never dropped."""
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": None})
+    root = tempfile.mkdtemp()
+    try:
+        m = _PenModel(_pen_reply("src/sourceborn/micro.py", "x = 1"))
+        tr = _PenTransport()
+        row = SP.teach("teach me something", root=root, model=m, transport=tr)
+        assert row["stage"] == "REFUSED-DOOR-OPEN"
+        assert m.calls == 0, "the drafter must not run at an open door"
+        assert tr.calls == []
+        assert SP.load(root)[0]["teaching"] == "teach me something"
+    finally:
+        restore()
+
+
+def test_the_offline_echo_can_never_become_a_patch():
+    from sourceborn import selfpatch as SP
+    from sourceborn import llm
+    restore = _pen_env({"SB_ACCESS_PASS": "pw"})
+    root = tempfile.mkdtemp()
+    try:
+        tr = _PenTransport()
+        row = SP.teach("teach", root=root, model=llm.RuleBasedModel(),
+                       transport=tr)
+        assert row["stage"] == "REFUSED-NO-MODEL"
+        assert tr.calls == []
+    finally:
+        restore()
+
+
+def test_a_reply_that_is_not_a_patch_is_filed_refused():
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw"})
+    root = tempfile.mkdtemp()
+    try:
+        row = SP.teach("teach", root=root,
+                       model=_PenModel("here is my patch: change everything"),
+                       transport=_PenTransport())
+        assert row["stage"] == "REFUSED-MALFORMED"
+        assert "files" not in row, "nothing parsed means nothing staged"
+    finally:
+        restore()
+
+
+def test_a_patch_reaching_held_ground_is_refused_before_anything_runs():
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw"})
+    try:
+        for path in ("CLAUDE.md", "src/sourceborn/selfpatch.py",
+                     "tests/test_engine.py", "docs/method/01A_INTENT.md"):
+            root = tempfile.mkdtemp()
+            tr = _PenTransport()
+            row = SP.teach("teach", root=root,
+                           model=_PenModel(_pen_reply(path, "# taken over")),
+                           transport=tr)
+            assert row["stage"] == "REFUSED-HELD", path
+            assert not any(s["stage"].startswith("SHADOW")
+                           for s in row["stages"]), "held is refused unrun"
+            assert tr.calls == []
+    finally:
+        restore()
+
+
+def test_python_that_does_not_compile_never_reaches_the_suite():
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw"})
+    root = tempfile.mkdtemp()
+    try:
+        row = SP.teach("teach", root=root,
+                       model=_PenModel(_pen_reply("src/sourceborn/micro.py",
+                                                  "def broken(:")),
+                       transport=_PenTransport())
+        assert row["stage"] == "REFUSED-MALFORMED"
+        assert "does not compile" in row["stages"][-1]["why"]
+    finally:
+        restore()
+
+
+def test_the_parse_caps_bite_and_report():
+    from sourceborn import selfpatch as SP
+    four = "\n".join(_pen_reply("src/sourceborn/micro.py", "x=%d" % i)
+                     for i in range(4))
+    assert "cap is 3" in SP.parse_reply(four)["refused"]
+    big = _pen_reply("src/sourceborn/micro.py", "# " + "a" * 210_000)
+    assert "bytes" in SP.parse_reply(big)["refused"]
+
+
+def test_the_shadow_runs_the_patch_against_a_copy_never_the_tree():
+    """The gate's mechanics, on a mini suite: green reads green, red reads red
+    with the failure kept — and the working tree is untouched by both."""
+    if os.environ.get("SB_SELFPATCH_SHADOW"):
+        return  # a shadow may not open another shadow
+    from sourceborn import selfpatch as SP
+    real = open("src/sourceborn/witnesses.py", encoding="utf-8").read()
+    ok = SP._shadow({"tests/mini_ok.py": "print('1/1 tests passed')\n"},
+                    suite="tests/mini_ok.py")
+    assert ok["green"] and ok["tests"] == "1/1 tests passed"
+    red = SP._shadow({"src/sourceborn/witnesses.py":
+                      "raise RuntimeError('broken on purpose')\n",
+                      "tests/mini_red.py":
+                      "import sys; sys.path.insert(0, 'src'); "
+                      "import sourceborn.witnesses\n"},
+                     suite="tests/mini_red.py")
+    assert not red["green"]
+    assert "broken on purpose" in red["tail"]
+    assert open("src/sourceborn/witnesses.py",
+                encoding="utf-8").read() == real, "the tree must be untouched"
+    assert not os.path.exists("tests/mini_ok.py"), "the shadow is a copy"
+
+
+def test_a_green_patch_pushes_straight_to_the_deploy_branch():
+    """His choice end to end, against the REAL suite: teach -> draft ->
+    the full suite green in shadow -> commit through the git-data API with
+    no approval step. This is the one test that pays the whole shadow run."""
+    if os.environ.get("SB_SELFPATCH_SHADOW"):
+        return  # a shadow may not open another shadow
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw", "SB_GITHUB_TOKEN": "tkn",
+                        "SB_REPO": "owner/name", "SB_BRANCH": None})
+    root = tempfile.mkdtemp()
+    try:
+        real = open("src/sourceborn/witnesses.py", encoding="utf-8").read()
+        content = real + "\n# the pen wrote here\n"
+        tr = _PenTransport()
+        row = SP.teach("when two witnesses differ, keep both — a comment to "
+                       "prove the loop", root=root,
+                       model=_PenModel(_pen_reply("src/sourceborn/witnesses.py",
+                                                  content)),
+                       transport=tr)
+        assert row["stage"] == "PUSHED", row["stages"]
+        assert any(s["stage"] == "SHADOW-GREEN" and s.get("tests")
+                   and "tests passed" in s["tests"] for s in row["stages"])
+        assert row["sha"].startswith("pencommit")
+        methods = [c["method"] for c in tr.calls]
+        assert methods == ["GET", "GET", "POST", "POST", "POST", "PATCH"]
+        commit = next(c for c in tr.calls if c["url"].endswith("/git/commits")
+                      and c["method"] == "POST")
+        msg = commit["payload"]["message"]
+        assert msg.startswith("SELF-PATCH SB-PATCH-0001:")
+        assert "when two witnesses differ" in msg
+        ref = tr.calls[-1]["payload"]
+        assert ref == {"sha": row["sha"], "force": False}
+        kept = SP.load(root)[0]
+        assert kept["was"]["src/sourceborn/witnesses.py"] == real, \
+            "the before is the real file, kept whole"
+        assert kept["now"]["src/sourceborn/witnesses.py"].rstrip(
+               ).endswith("# the pen wrote here")
+    finally:
+        restore()
+
+
+def test_a_red_suite_files_the_patch_and_pushes_nothing():
+    if os.environ.get("SB_SELFPATCH_SHADOW"):
+        return
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw", "SB_GITHUB_TOKEN": "tkn",
+                        "SB_REPO": "owner/name"})
+    root = tempfile.mkdtemp()
+    try:
+        tr = _PenTransport()
+        row = SP.teach("teach", root=root,
+                       model=_PenModel(_pen_reply("src/sourceborn/micro.py",
+                                                  "x = 1")),
+                       transport=tr, suite="tests/no_such_suite.py")
+        assert row["stage"] == "SHADOW-RED"
+        assert tr.calls == [], "red never pushes"
+        assert SP.load(root)[0]["stage"] == "SHADOW-RED", "and it is filed"
+    finally:
+        restore()
+
+
+def test_an_unarmed_green_patch_is_held_with_the_whole_patch_kept():
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw", "SB_GITHUB_TOKEN": None,
+                        "SB_REPO": None})
+    root = tempfile.mkdtemp()
+    try:
+        tr = _PenTransport()
+        row = SP.teach("teach", root=root,
+                       model=_PenModel(_pen_reply("src/sourceborn/micro.py",
+                                                  "x = 1")),
+                       transport=tr, shadow=False)
+        assert row["stage"] == "HELD-UNARMED"
+        assert tr.calls == []
+        assert SP.load(root)[0]["now"] == {"src/sourceborn/micro.py": "x = 1\n"}
+    finally:
+        restore()
+
+
+def test_a_race_on_the_branch_head_is_refused_never_forced():
+    """force is never sent true: if the head moved underneath, the ref update
+    fails and the teach is FILED, not clobbered over someone's commit."""
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw", "SB_GITHUB_TOKEN": "tkn",
+                        "SB_REPO": "owner/name"})
+    root = tempfile.mkdtemp()
+    try:
+        tr = _PenTransport(fail_on_ref=True)
+        row = SP.teach("teach", root=root,
+                       model=_PenModel(_pen_reply("src/sourceborn/micro.py",
+                                                  "x = 1")),
+                       transport=tr, shadow=False)
+        assert row["stage"] == "REFUSED-PUSH"
+        assert "not a fast forward" in row["stages"][-1]["why"]
+        for c in tr.calls:
+            if isinstance(c["payload"], dict) and "force" in c["payload"]:
+                assert c["payload"]["force"] is False
+    finally:
+        restore()
+
+
+def test_revert_is_a_new_commit_and_the_ledger_keeps_everything():
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw", "SB_GITHUB_TOKEN": "tkn",
+                        "SB_REPO": "owner/name"})
+    root = tempfile.mkdtemp()
+    try:
+        # a patch that CREATES a file: its revert must delete it — as a tree
+        # entry in a NEW commit, never an erasure of history
+        row = SP.teach("teach", root=root,
+                       model=_PenModel(_pen_reply(
+                           "src/sourceborn/pen_test_mod.py", "x = 1")),
+                       transport=_PenTransport(), shadow=False)
+        assert row["stage"] == "PUSHED"
+        tr2 = _PenTransport()
+        rev = SP.revert(row["id"], root=root, transport=tr2)
+        assert rev["kind"] == "REVERT" and rev["of"] == row["id"]
+        tree = next(c for c in tr2.calls if c["url"].endswith("/git/trees"))
+        entry = tree["payload"]["tree"][0]
+        assert entry["path"] == "src/sourceborn/pen_test_mod.py"
+        assert entry["sha"] is None, "a created file reverts to absent"
+        rows = SP.load(root)
+        assert [r["kind"] for r in rows] == ["PATCH", "REVERT"]
+        assert rows[0]["stage"] == "PUSHED", "the patch row stands untouched"
+        # and only a PUSHED row can be reverted
+        assert "refused" in SP.revert("SB-PATCH-9999", root=root,
+                                      transport=tr2)
+    finally:
+        restore()
+
+
+def test_the_pen_ledger_is_append_only_and_the_scratch_is_scoped():
+    """growth.py's law, applied to the pen: no removal path anywhere near the
+    ledger. The one rmtree in the module deletes the SHADOW SCRATCH copy —
+    45MB per teach would otherwise eat the disk — and lives only in _shadow."""
+    import inspect
+    import re as _re
+    from sourceborn import selfpatch as SP
+    src = inspect.getsource(SP)
+    # call-shaped patterns only: the drafter's LAW TEXT must be allowed to
+    # SAY "no delete/pop/truncate paths" without this scan reading the law
+    # as a violation — the same self-reference trap the earlier guards hit.
+    for bad in (".pop(", ".truncate(", "os.remove(", "os.unlink("):
+        assert bad not in src, bad
+    assert not _re.search(r"\bdel\b", src)
+    assert '"a"' in inspect.getsource(SP._append)
+    for chunk in src.split("\ndef "):
+        if "rmtree" in chunk:
+            assert chunk.startswith("_shadow"), "rmtree outside the scratch"
+    assert "rmtree" in inspect.getsource(SP._shadow)
+
+
+def test_no_secret_value_ever_leaves_the_environment():
+    import json
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw-sekrit-77",
+                        "SB_GITHUB_TOKEN": "tok-sekrit-88",
+                        "SB_REPO": "owner/name"})
+    try:
+        blob = json.dumps(SP.state(tempfile.mkdtemp()))
+        assert "sekrit" not in blob
+        assert '"SB_GITHUB_TOKEN": true' in blob
+    finally:
+        restore()
+
+
+def test_nothing_pushed_carries_a_models_name():
+    from sourceborn import selfpatch as SP
+    msg = SP._commit_message(
+        "SB-PATCH-0001", "his teaching",
+        "As Claude, I used GPT-5 and Grok via Anthropic and OpenAI APIs.",
+        "478/478 tests passed")
+    low = msg.lower()
+    for word in ("claude", "gpt", "grok", "anthropic", "openai"):
+        assert word not in low, word
+    assert msg.startswith("SELF-PATCH SB-PATCH-0001: his teaching")
+
+
+def test_the_drafter_may_ask_to_read_once_and_only_once():
+    from sourceborn import selfpatch as SP
+    m = _PenModel("<<<NEED>>>micro.py<<<END NEED>>>",
+                  "<<<NEED>>>patterns.py<<<END NEED>>>")
+    d = SP._draft("teach", "", m)
+    assert m.calls == 2
+    assert "one NEED round" in d["refused"]
+    m2 = _PenModel("<<<NEED>>>micro.py<<<END NEED>>>",
+                   _pen_reply("src/sourceborn/micro.py", "x = 1"))
+    d2 = SP._draft("teach", "", m2)
+    assert "files" in d2
+    assert "CURRENT SOURCE OF micro.py" in m2.prompts[1]
+
+
+def test_a_named_target_hands_its_real_source_to_the_drafter():
+    from sourceborn import selfpatch as SP
+    m = _PenModel("junk")
+    SP._draft("teach", "micro", m)
+    assert "CURRENT SOURCE OF micro" in m.prompts[0]
+    assert "micro-sequence" in m.prompts[0].lower() or "def " in m.prompts[0]
+
+
+def test_the_home_is_the_rewrite_and_nothing_was_removed_for_it():
+    """'not what we have' meant replaced at /, not deleted: the reactor
+    stands whole at /reactor, the desk at /desk, and the new page escapes
+    everything it renders — ledger rows are untrusted input."""
+    from sourceborn import selfhome, homepage
+    src = open("src/sourceborn/server.py", encoding="utf-8").read()
+    assert "selfhome.PAGE" in src and '"/reactor"' in src
+    assert "homepage.PAGE" in src and '"/desk"' in src
+    assert len(homepage.PAGE) > 10_000, "the reactor page stands whole"
+    for term in ("THE REWRITE", "TEACH THE MACHINE", "revert", "esc("):
+        assert term in selfhome.PAGE, term
+    readme = open("README.md", encoding="utf-8").read()
+    for route in ("/selfpatch/teach", "/selfpatch/revert", "/reactor"):
+        assert route in readme, route
+
+
+def test_the_pen_appears_in_every_map():
+    from sourceborn import sysmap
+    got = sysmap.where("the pen")
+    assert got["module"] == "selfpatch.py" and got["route"]
+    chart = sysmap.arrow_chart()
+    assert "THE PEN" in chart and "FULL AUTO" in chart
+    from sourceborn import selfpatch as SP
+    st = SP.state(tempfile.mkdtemp())
+    assert st["field"]["modules"] > 70
+    assert len(st["field"]["held"]) == 5
+    assert st["door"]["law"] and st["laws"]
 
 
 def _run_all():

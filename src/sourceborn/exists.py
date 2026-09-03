@@ -2025,6 +2025,61 @@ MAP: list[dict] = [
     "note": "one of the two filters that can actually hold. The gap is the "
             "Mask and it goes to you rather than being split down the middle."},
   ]},
+
+ {"group": "THE PEN — it rewrites its own code, full auto on his word "
+           "(2026-09-03)",
+  "rows": [
+   {"his": "i want an app where i keep changing n it should rewrite its own "
+           "code and make changes",
+    "where": [("selfpatch.py", "def teach("),
+              ("selfpatch.py", "def _draft("),
+              ("selfpatch.py", "def _push("),
+              ("server.py", '"/selfpatch/teach"')],
+    "state": RUNS,
+    "note": "his choice from the four paths put to him: SELF-PATCH, FULL "
+            "AUTO — teach, the pen drafts a real patch, and a green suite "
+            "merges and deploys it with no approval step. Armed by his own "
+            "hand: SB_GITHUB_TOKEN + SB_REPO + a model key in Render; until "
+            "they exist a green patch is HELD-UNARMED with the whole patch "
+            "kept in its row."},
+   {"his": "the core is his words and his banks — the pen cannot reach them",
+    "where": [("selfpatch.py", "NEVER_TOUCHED"),
+              ("selfpatch.py", "HELD_FROM_THE_PEN"),
+              ("selfpatch.py", "def allowed(")],
+    "state": RUNS,
+    "note": "how rule 2 of his standing orders survives full auto: the "
+            "FIELD is src/sourceborn/*.py minus five held files plus "
+            "README.md, default-deny. docs/, data/, adopted/, tests/, "
+            "seed_corpus/, CLAUDE.md and the deploy rails are refused "
+            "before anything runs — mechanisms are patchable, the law is "
+            "not, and the pen may not rewrite the pen."},
+   {"his": "tests green = merged and deployed — the gate that replaces his "
+           "word is the whole suite",
+    "where": [("selfpatch.py", "def _shadow("),
+              ("selfpatch.py", "SB_SELFPATCH_SHADOW")],
+    "state": RUNS,
+    "note": "the whole tree is copied aside, the patch applied there, and "
+            "the FULL suite run against it — exit status checked, the tail "
+            "kept on a red. Every law already pinned by a test binds the "
+            "pen; and the pen may not edit tests/, so it cannot lower the "
+            "bar it must clear. A shadow may not open another shadow."},
+   {"his": "revert is one click — and it erases nothing",
+    "where": [("selfpatch.py", "def revert("),
+              ("server.py", '"/selfpatch/revert"')],
+    "state": RUNS,
+    "note": "his after-the-fact authority: a NEW commit restoring what "
+            "stood before the named patch. The patch row stays whole, the "
+            "old commit stays in history, and the ledger is append-only "
+            "with refusals filed beside pushes."},
+   {"his": "accordignly the dashboard will prepared not what we have",
+    "where": [("selfhome.py", "THE REWRITE"),
+              ("server.py", '"/reactor"')],
+    "state": RUNS,
+    "note": "the home page is now the teach box, the arming panel, the "
+            "never-touched map and the patch feed with real diffs. Nothing "
+            "was removed for it: the reactor stands whole at /reactor, the "
+            "old desk at /desk."},
+  ]},
 ]
 
 # ---------------------------------------------------------------------------

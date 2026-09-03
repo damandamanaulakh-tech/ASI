@@ -29,7 +29,7 @@ from typing import Protocol
 class BaseModel(Protocol):
     name: str
     available: bool
-    def complete(self, system: str, prompt: str) -> str: ...
+    def complete(self, system: str, prompt: str, max_tokens: int = 4000) -> str: ...
 
 
 def _post_json(url: str, headers: dict, payload: dict, timeout: int = 90) -> dict:
@@ -53,7 +53,7 @@ class RuleBasedModel:
     name = "offline"
     available = True
 
-    def complete(self, system: str, prompt: str) -> str:
+    def complete(self, system: str, prompt: str, max_tokens: int = 4000) -> str:
         head = prompt.strip().splitlines()[0] if prompt.strip() else ""
         return ("[offline draft] " + head[:240]
                 + " — add an API key in Render's Environment tab to switch on real reasoning")
@@ -77,7 +77,7 @@ class ClaudeModel:
     def available(self) -> bool:
         return bool(self.key)
 
-    def complete(self, system: str, prompt: str) -> str:
+    def complete(self, system: str, prompt: str, max_tokens: int = 4000) -> str:
         if not self.key:
             return RuleBasedModel().complete(system, prompt)
         try:
@@ -85,8 +85,9 @@ class ClaudeModel:
                 "https://api.anthropic.com/v1/messages",
                 {"x-api-key": self.key, "anthropic-version": "2023-06-01",
                  "content-type": "application/json"},
-                {"model": self.model, "max_tokens": 4000, "system": system,
+                {"model": self.model, "max_tokens": max_tokens, "system": system,
                  "messages": [{"role": "user", "content": prompt}]},
+                timeout=300 if max_tokens > 4000 else 90,
             )
             if data.get("error"):
                 err = data["error"]
@@ -139,7 +140,7 @@ class _OpenAICompatible:
     def available(self) -> bool:
         return bool(self.key)
 
-    def complete(self, system: str, prompt: str) -> str:
+    def complete(self, system: str, prompt: str, max_tokens: int = 4000) -> str:
         if not self.key:
             return RuleBasedModel().complete(system, prompt)
         try:
@@ -147,9 +148,10 @@ class _OpenAICompatible:
                 self._url,
                 {"Authorization": f"Bearer {self.key}", "content-type": "application/json",
                  **self._extra_headers},
-                {"model": self.model, "max_tokens": 4000,
+                {"model": self.model, "max_tokens": max_tokens,
                  "messages": [{"role": "system", "content": system},
                               {"role": "user", "content": prompt}]},
+                timeout=300 if max_tokens > 4000 else 90,
             )
             if isinstance(data, dict) and data.get("error"):
                 err = data["error"]
@@ -237,7 +239,7 @@ class CaptureModel:
     name = "local"
     available = True
 
-    def complete(self, system: str, prompt: str) -> str:
+    def complete(self, system: str, prompt: str, max_tokens: int = 4000) -> str:
         raise LocalCaptured(system, prompt)
 
     def complete_vision(self, system: str, prompt: str, image_b64: str,
@@ -257,7 +259,7 @@ class LocalBridgeModel:
     def __init__(self, answer: str = "") -> None:
         self.answer = (answer or "").strip() or "[on-device model returned no text]"
 
-    def complete(self, system: str, prompt: str) -> str:
+    def complete(self, system: str, prompt: str, max_tokens: int = 4000) -> str:
         return self.answer
 
     def complete_vision(self, system: str, prompt: str, image_b64: str,

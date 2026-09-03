@@ -1258,6 +1258,45 @@ test count equals the real one · no doc names a missing symbol · no doc links 
 a missing file · the canon index names every canon file · a doc calling the
 kernel binding must also say it is unwired. 448 tests green.
 
+**THE PEN — IT REWRITES ITS OWN CODE, FULL AUTO ON HIS CHOICE (2026-09-03) —
+`selfpatch.py`, `selfhome.py`, `/` is THE REWRITE.** His goal, verbatim: *"as m
+feeding example and setting some rules in the system i want an app where i keep
+changing n it should rewrite its own code and make changes"* — and his order
+that the options be discussed first, *"and accordignly the dashboard will
+prepared not what we have."* Four paths were put to him by name (rules-as-data
+only · staged assembly · self-patch full auto · agent-outside requests), each
+with its trade stated, including that full auto *"collides with your rule 2
+unless you relax it."* **HE CHOSE: Self-patch, full auto** — teach → the pen
+drafts a real patch → the WHOLE suite runs against a shadow copy of the tree →
+green is committed straight to the deploy branch through the GitHub API and
+Render redeploys it, **no approval step**. Canon:
+`docs/method/canon/THE_SELF_REWRITE.md`. **How rule 2 survives, structurally
+not by discipline:** the pen's FIELD is `src/sourceborn/*.py` minus five held
+files (server.py the lock · selfpatch.py the pen itself · selfhome.py its
+witness · safety.py rule 10 · llm.py the keys) plus README.md, default-deny —
+`docs/`, `data/`, `adopted/`, `tests/`, `seed_corpus/`, CLAUDE.md and the
+deploy rails are refused before anything runs, so THE CORE (his words, his
+banks, the suite, the orders) is unreachable and the pen cannot lower the bar
+it must clear. **The gate that replaces his word is the suite itself**, run
+whole in shadow with exit checked; every pinned law binds every patch. **Append
+only:** each teach is a ledger row with his teaching verbatim, full
+before/after, verdict, sha; refusals filed (REFUSED-DOOR-OPEN · NO-MODEL ·
+MALFORMED · HELD · SHADOW-RED · REFUSED-PUSH on a branch race — never forced);
+`revert()` is a NEW commit and the reverted row stays whole. **The door:**
+teach/revert refuse while `SB_ACCESS_PASS` is unset — the pen pushes with HIS
+token into HIS GitHub, so the Phase-0 front door must be shut against strangers;
+it gates nothing for him. **Armed only by his own hand** in Render:
+`SB_GITHUB_TOKEN` + `SB_REPO` + a model key (`SB_PATCH_MODEL` picks the
+drafter); until then a green patch is HELD-UNARMED with the whole patch kept.
+The offline echo can never become a patch (it does not parse as one, tested).
+**The dashboard he asked for:** `/` is now THE REWRITE — teach box, arming
+panel (presence only, never a value), never-touched map, and the feed with real
+diffs and one-click revert; the reactor stands whole at `/reactor`, the desk at
+`/desk`, nothing removed. **NOT built, stated:** the pen does not teach itself —
+AUTO_SUSTAIN for code waits at his gate with the promotion question; and the
+bar is exactly as high as the suite is, since tests stay outside the pen's
+reach.
+
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
 passes **seven filters**, in order, every time: **Ground · Sequence · Source ·

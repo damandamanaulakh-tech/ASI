@@ -37,6 +37,7 @@ def _n():
     from . import sbx as X
     from . import scale as SC
     from . import trigger as TG
+    from . import selfpatch as SP
     d = F.divide(".")
     w = X.wiring()
     tg = TG.stats()
@@ -76,6 +77,9 @@ def _n():
         "short": w["the_one_gap"]["short_by"],
         "rpass": rev["passed_count"], "rfind": rev["findings_count"],
         "rblock": len(rev["blocking"]),
+        # the pen — its field and what is held from it, read live
+        "penfield": len(SP.field()),
+        "penheld": len(SP.HELD_FROM_THE_PEN) + len(SP.NEVER_TOUCHED),
     }
 
 
@@ -305,6 +309,29 @@ def arrow_chart() -> str:
     ], heavy=True)
     L += _down()
 
+    L += _box("THE PEN — IT REWRITES ITS OWN CODE", "selfpatch.py  /  (home)", [
+        "his choice, 2026-09-03: SELF-PATCH, FULL AUTO —",
+        '"tests green = merged and deployed, no word from him"',
+        "",
+        "  teach ─► the pen drafts ─► parse (field · compile · caps)",
+        "        ─► THE SHADOW: whole tree copied, FULL suite run",
+        "        ─► red: FILED with the failure, applied to nothing",
+        "        ─► green: pushed straight to the deploy branch ─►",
+        "           Render redeploys ─► the app is what the pen wrote",
+        "",
+        "the four laws: the FIELD (%d modules + README; his canon,"
+        % n["penfield"],
+        "banks, suite and orders UNREACHABLE — %d things held) ·"
+        % n["penheld"],
+        "the GATE IS THE SUITE · APPEND ONLY (refusals filed, revert",
+        "is a NEW commit) · the DOOR (the pen moves only behind his",
+        "password — it writes into HIS GitHub with HIS token)",
+        "",
+        "armed by HIS hand: SB_GITHUB_TOKEN · SB_REPO · a model key",
+        "it does NOT teach itself — AUTO_SUSTAIN stands at his gate",
+    ])
+    L += _down()
+
     L.append(" " * 34 + "HIM")
     L.append(" " * 14 + "nothing is canonical · nothing is chosen")
     L.append(" " * 12 + "no parameter is created · no halt is answered")
@@ -357,6 +384,12 @@ def where(thing: str = "") -> dict:
                        "short, and what is carried but never consulted"),
         "the review": ("sbx.py", "/sbx/review",
                        "nine checks that can fail over the split"),
+        "the pen": ("selfpatch.py", "/  /selfpatch",
+                    "it rewrites its own code — his choice is full auto: "
+                    "teach, the pen drafts, the whole suite runs in shadow, "
+                    "green pushes and deploys. His canon, banks, suite and "
+                    "orders are unreachable, structurally; revert is one "
+                    "click and one new commit"),
     }
     if thing:
         k = thing.strip().lower()

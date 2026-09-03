@@ -69,6 +69,8 @@ from . import statepacks
 from . import weighting
 from . import enginepage
 from . import homepage
+from . import selfhome
+from . import selfpatch
 from . import exists
 from . import ladder
 from . import mypage
@@ -1368,10 +1370,31 @@ class Handler(BaseHTTPRequestHandler):
         route = urlparse(self.path)
         path, qs = route.path, parse_qs(route.query)
         if path in ("/", "/index.html"):
-            # THE GLASS REACTOR — his chosen home page (A + B blended, on
-            # light). The old dashboard is NOT removed: it lives at /desk.
+            # THE REWRITE — the dashboard prepared around his choice
+            # ("Self-patch, full auto"): teach -> the pen writes -> the suite
+            # in shadow -> green deploys, and every patch stands in the feed
+            # with one-click revert. Nothing is removed: the reactor lives
+            # whole at /reactor, the old dashboard at /desk.
+            self._send(200, selfhome.PAGE.encode("utf-8"),
+                       "text/html; charset=utf-8")
+        elif path == "/reactor":
+            # THE GLASS REACTOR — his previous home page (A + B blended, on
+            # light), kept whole.
             self._send(200, homepage.PAGE.encode("utf-8"),
                        "text/html; charset=utf-8")
+        elif path == "/selfpatch":
+            # the pen's state and its whole feed — arming (presence only,
+            # never a value), the door, the field, every patch row with its
+            # real diffs computed from the row's own before/after
+            try:
+                self._send(200, json.dumps({
+                    "state": selfpatch.state(SB_ROOT),
+                    "report": selfpatch.report(SB_ROOT),
+                    "modules": selfpatch.field(),
+                }).encode(), "application/json")
+            except Exception as exc:
+                self._send(500, json.dumps({"error": str(exc)}).encode(),
+                           "application/json")
         elif path == "/desk":
             self._send(200, PAGE.encode("utf-8"), "text/html; charset=utf-8")
         elif path == "/api/hud":
@@ -2070,6 +2093,39 @@ class Handler(BaseHTTPRequestHandler):
             data = json.loads(self.rfile.read(n) or b"{}")
         except Exception:
             self._send(400, b'{"error":"bad json"}', "application/json")
+            return
+        if self.path == "/selfpatch/teach":
+            # THE PEN — his choice is full auto: draft -> shadow suite ->
+            # green pushes to the deploy branch with no approval step. Every
+            # outcome (refusals included) is a ledger row the page shows
+            # whole. teach() itself refuses while the front door is open,
+            # because the pen writes into HIS GitHub with HIS token.
+            text = (data.get("text") or "").strip()
+            if not text:
+                self._send(400, b'{"error":"empty teaching"}',
+                           "application/json")
+                return
+            try:
+                row = selfpatch.teach(text, target=str(data.get("target")
+                                                       or ""), root=SB_ROOT)
+                slim = {k: row.get(k) for k in ("id", "stage", "stages",
+                                                "files", "sha",
+                                                "why_the_pen_wrote_it")}
+                self._send(200, json.dumps(slim).encode(), "application/json")
+            except Exception as exc:
+                self._send(500, json.dumps({"error": str(exc)}).encode(),
+                           "application/json")
+            return
+        if self.path == "/selfpatch/revert":
+            # his after-the-fact authority: one NEW commit restoring what
+            # stood before the named patch. Nothing is erased anywhere.
+            try:
+                out = selfpatch.revert(str(data.get("id") or ""),
+                                       root=SB_ROOT)
+                self._send(200, json.dumps(out).encode(), "application/json")
+            except Exception as exc:
+                self._send(500, json.dumps({"error": str(exc)}).encode(),
+                           "application/json")
             return
         if self.path == "/engine/registry":
             saved = ladder.save_registry(SB_ROOT, data,

@@ -37,7 +37,7 @@ Status as of the current pass:
 ```bash
 python -m sourceborn.demo                 # full offline walkthrough
 python -m sourceborn "why does the small idea win? prove it"
-PYTHONPATH=src python3 tests/test_engine.py   # 478 tests
+PYTHONPATH=src python3 tests/test_engine.py   # 499 tests
 ```
 Set `ANTHROPIC_API_KEY` to swap the offline stub for real Claude reasoning.
 
@@ -126,13 +126,28 @@ first-class counted objects ·
 `GET /readings` · `POST /readings/run {text}` — the nine intent readings, each
 naming what would refute it
 
+**The pen — it rewrites its own code (his choice: Self-patch, full auto).**
+`GET /` is now THE REWRITE: teach → the pen drafts a patch → the whole suite
+runs against a shadow copy → green is committed to the deploy branch and
+Render redeploys it, with no approval step; red and refused are filed whole.
+`GET /selfpatch` (state + the feed with real diffs) ·
+`POST /selfpatch/teach {text,target}` · `POST /selfpatch/revert {id}` — one
+new commit restoring what stood before, nothing erased. The pen's field is
+`src/sourceborn/*.py` minus five held files plus this README; docs/, data/,
+adopted/, tests/ and CLAUDE.md are unreachable to it, structurally. Armed
+only by the owner's own env vars: `SB_GITHUB_TOKEN` (fine-grained, Contents
+read/write, one repo) + `SB_REPO` + a model key — and it refuses to move at
+all until `SB_ACCESS_PASS` locks the front door, because it writes into the
+owner's GitHub with the owner's token. The reactor home page stands whole at
+`GET /reactor`, the old dashboard at `GET /desk`.
+
 ### Every route, generated from the server
 
 A hand-typed route list goes stale the first time a route is added, so this one
 is checked by a test (`test_the_readme_lists_every_route_the_server_serves`) —
 if the server serves a route this list does not name, the suite fails.
 
-**GET (84)**
+**GET (86)**
 
 `/adopted` · `/angles` · `/api/bank` · `/api/hud` · `/archetype` · `/artifact`
 · `/asi` · `/asi/stats` · `/auto` · `/brain` · `/brains` · `/chat` · `/chats`
@@ -144,14 +159,15 @@ if the server serves a route this list does not name, the suite fails.
 `/micro` · `/naming` · `/nodes` · `/nodes/node` · `/nodes/path` ·
 `/nodes/schema` · `/nodes/subgraph` · `/novelty` · `/novelty/file` · `/page` ·
 `/page/data` · `/page/layout` · `/page/meta` · `/page/version` ·
-`/page/versions` · `/patterns` · `/persist` · `/reading` · `/readings` ·
-`/registry` · `/registry/activate` · `/registry/container` · `/reread` ·
-`/rubrics` · `/runtime` · `/sbx` · `/sbx/container` · `/sbx/nodes` ·
+`/page/versions` · `/patterns` · `/persist` · `/reactor` · `/reading` ·
+`/readings` · `/registry` · `/registry/activate` · `/registry/container` ·
+`/reread` · `/rubrics` · `/runtime` · `/sbx` · `/sbx/container` · `/sbx/nodes` ·
 `/sbx/review` · `/sbx/step` · `/sbx/wiring` · `/scale` · `/selfmake` ·
-`/senses` · `/snapshots` · `/subjects` · `/trigger` · `/trigger/placements` ·
+`/selfpatch` · `/senses` · `/snapshots` · `/subjects` · `/trigger` ·
+`/trigger/placements` ·
 `/unfiled` · `/weekly` · `/weekly/file` · `/weighting` · `/words`
 
-**POST (59)**
+**POST (61)**
 
 `/angles/run` · `/archetype/run` · `/artifact/generate` · `/artifact/grow` ·
 `/asi/run` · `/auto/mode` · `/auto/tick` · `/brain/rollback` ·
@@ -165,7 +181,8 @@ if the server serves a route this list does not name, the suite fails.
 `/page/save` · `/patterns/review` · `/pyramid/park` · `/reading/ask` ·
 `/readings/run` · `/review` · `/rubrics/run` · `/runtime/run` · `/sbx/place` ·
 `/scale/run` · `/selfmake/extend` · `/selfmake/propose` · `/selfmake/run` ·
-`/senses/reject` · `/senses/teach` · `/snapshot` · `/subjects/generate` ·
+`/selfpatch/revert` · `/selfpatch/teach` · `/senses/reject` · `/senses/teach` ·
+`/snapshot` · `/subjects/generate` ·
 `/subjects/grow` · `/trigger/run` · `/upload` · `/weighting/run`
 
 Lineage: Raw Definition Engine → ARD / RGL → URR-07 → Secureborn → Sourceborn / SBUR
