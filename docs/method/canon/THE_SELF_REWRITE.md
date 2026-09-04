@@ -118,3 +118,24 @@ at `/desk`.
 - The ledger lives on the app's disk (`SB_ROOT/selfpatch/`). On Render the
   persistent disk keeps it across deploys; without one it resets — the git
   history, which cannot reset, remains the record of what actually shipped.
+
+## 9. His correction after seeing it live (2026-09-04): ONE dashboard
+
+> But still i can see 5-6 dashboards
+> its not matching with my thought, dashboard also be one
+
+He was right. The first REWRITE page wore a header of six links — a lobby
+onto six page-shaped things — which is many dashboards wearing one address.
+Corrected the same day: `/` is **one page**, and every view is a **tab
+inside it** — the pen first (teach + arming + feed), then Ask & the bank
+(the reactor), the engine, the reading, the split, what-exists, the desk —
+each loaded lazily into the one page on first open. The old routes still
+answer, because they are the panels the one page shows and his no-delete
+law keeps them whole; deep links to open a view alone sit small in the
+footer. The app has exactly one front.
+
+Also from the live check of his arming: `/health` (the one open route) now
+carries a `pen` block of **presence-only booleans** — door locked, token
+present, repo named, drafter armed — same charter as its `models` block, so
+the arming can be confirmed from outside even after the door is locked,
+without the password and without ever showing a value.

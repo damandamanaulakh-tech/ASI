@@ -8435,11 +8435,40 @@ def test_the_home_is_the_rewrite_and_nothing_was_removed_for_it():
     assert "selfhome.PAGE" in src and '"/reactor"' in src
     assert "homepage.PAGE" in src and '"/desk"' in src
     assert len(homepage.PAGE) > 10_000, "the reactor page stands whole"
-    for term in ("THE REWRITE", "TEACH THE MACHINE", "revert", "esc("):
+    for term in ("ONE DASHBOARD", "TEACH THE MACHINE", "revert", "esc("):
         assert term in selfhome.PAGE, term
     readme = open("README.md", encoding="utf-8").read()
     for route in ("/selfpatch/teach", "/selfpatch/revert", "/reactor"):
         assert route in readme, route
+
+
+def test_the_dashboard_is_one_his_correction():
+    """His correction after seeing it live (2026-09-04): 'But still i can
+    see 5-6 dashboards / its not matching with my thought, dashboard also
+    be one.' So / is ONE page and every view is a TAB inside it, loaded
+    lazily — the old routes still answer (they are the panels this page
+    shows), but the app has exactly one front and no lobby of links."""
+    from sourceborn import selfhome
+    p = selfhome.PAGE
+    # every view is a pane of the one page
+    for src in ('data-src="/reactor"', 'data-src="/engine"',
+                'data-src="/reading"', 'data-src="/sbx"',
+                'data-src="/exists"', 'data-src="/desk"'):
+        assert src in p, src
+    assert p.count("<iframe") == 6, "one lazy pane per view"
+    assert 'fr.src=tab.dataset.src' in p, "panes load lazily, on first open"
+    # the pen leads: the teach pane is the active one on arrival
+    assert '<div class="pane act" id=pane-teach>' in p
+    # deep links survive small, in the footer — a view can be opened alone
+    for link in ('href="/reading"', 'href="/exists"'):
+        assert link in p, link
+    # and /health reports the pen's switches as presence-only booleans, so
+    # arming can be checked from outside once the door is locked
+    src = open("src/sourceborn/server.py", encoding="utf-8").read()
+    at = src.index('path == "/health"')
+    block = src[at:at + 900]
+    assert '"pen"' in block and "selfpatch.arming()" in block
+    assert "door_locked" in block
 
 
 def test_the_pen_appears_in_every_map():
