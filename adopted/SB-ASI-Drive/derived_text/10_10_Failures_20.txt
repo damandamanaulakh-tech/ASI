@@ -1,0 +1,21 @@
+Failure ID	No.	Exact class	Full example wording	Review status	User decision	User notes
+FAIL-01	1.0	Perception error	Misseeing or mishearing	PENDING USER REVIEW	PENDING
+FAIL-02	2.0	Attention failure	Missing relevant information	PENDING USER REVIEW	PENDING
+FAIL-03	3.0	Memory omission	Forgetting part of an event	PENDING USER REVIEW	PENDING
+FAIL-04	4.0	Memory distortion	Reconstructing an event incorrectly	PENDING USER REVIEW	PENDING
+FAIL-05	5.0	Knowledge gap	Required information was never learned	PENDING USER REVIEW	PENDING
+FAIL-06	6.0	Reasoning error	Conclusion does not follow	PENDING USER REVIEW	PENDING
+FAIL-07	7.0	Causal error	Correlation treated as cause	PENDING USER REVIEW	PENDING
+FAIL-08	8.0	Confidence error	Certainty exceeds accuracy	PENDING USER REVIEW	PENDING
+FAIL-09	9.0	Emotional override	Strong affect dominates evaluation	PENDING USER REVIEW	PENDING
+FAIL-10	10.0	Motivated reasoning	Evidence is interpreted to protect a desired conclusion	PENDING USER REVIEW	PENDING
+FAIL-11	11.0	Intent-action gap	Person intends but does not act	PENDING USER REVIEW	PENDING
+FAIL-12	12.0	Value-action gap	Behaviour conflicts with stated values	PENDING USER REVIEW	PENDING
+FAIL-13	13.0	Habit override	Automatic response defeats deliberate choice	PENDING USER REVIEW	PENDING
+FAIL-14	14.0	Social conformity	Group pressure changes judgment	PENDING USER REVIEW	PENDING
+FAIL-15	15.0	Authority capture	Authority replaces independent evaluation	PENDING USER REVIEW	PENDING
+FAIL-16	16.0	Identity defence	Information is rejected because it threatens self-concept	PENDING USER REVIEW	PENDING
+FAIL-17	17.0	Resource overload	Time, energy or working memory is insufficient	PENDING USER REVIEW	PENDING
+FAIL-18	18.0	Environmental constraint	Conditions prevent intended behaviour	PENDING USER REVIEW	PENDING
+FAIL-19	19.0	Power failure	Person lacks authority or ability to execute	PENDING USER REVIEW	PENDING
+FAIL-20	20.0	Unknown mechanism	Outcome cannot yet be adequately explained	PENDING USER REVIEW	PENDING

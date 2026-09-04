@@ -1,0 +1,53 @@
+SB-ASI — OpenAI Repository Transfer Contract: Meaning-Preserving Export Architecture
+
+Field / rule	Layer	Required	Exact meaning	Preservation rule	OpenAI/repo export mapping	Mutation policy	Example
+ARCH-001	Architecture	YES	One concept may have many source expressions, translations, interpretations, examples and outputs.	Never flatten many layers into one final sentence.	manifest.json + linked JSONL records	Append-only; supersede with links	Holy text → translation → user POV → ASI mapping
+ARCH-002	Architecture	YES	The system is universe-scale and open-ended rather than limited to workplace or behavioural examples.	Namespaces and relation types remain extensible.	/schema and /ontology directories	Additive only	physical, biological, sacred, symbolic, unknown
+ARCH-003	Architecture	YES	Every example is both a readable sheet and a machine-readable graph.	Sheet order is not the meaning; IDs and relations are the meaning.	examples/<example_id>/records.jsonl	No ID reuse	BT-004
+record_id	Identity	YES	Permanent unique identifier for one atomic record.	Never change after creation.	JSON string; database primary key	Immutable	HB-QUR-049-006-TRANS-001
+record_type	Identity	YES	Type such as raw_artifact, canonical_text, translation, commentary, user_pov, mapping, decision, test or change.	One record has one primary type.	JSON enum with extension namespace	Version enum; do not recast silently	canonical_text
+project_id	Identity	YES	Owning project or system.	Keep Sourceborn/SB-ASI naming exactly as approved.	Top-level metadata	User approval required	SB-ASI
+example_id	Identity	Conditional	Example that activated or tested the record.	A source can link to many examples without duplication.	Foreign-key string	Append links	BT-004
+parent_id	Graph	Conditional	Direct structural parent.	Parent relation cannot be inferred from sheet position.	Foreign-key string	Change through logged relation revision	CTX-038 parent of translation record
+relation_type	Graph	YES	Exact edge meaning such as translates, interprets, cites, contradicts, supports, supersedes, tests or maps_to.	Do not use generic related_to when a precise relation exists.	Edge object in relations.jsonl	Append-only	interprets
+source_family	Source	YES	Source universe: scripture, science, law, human statement, sensor, media, memory, AI, unknown and future types.	Unknown remains a valid family.	Namespace string	Extensible	HOLY_BOOK
+source_name	Source	YES	Exact work, person, file, page, dataset or artifact name.	Preserve original spelling and title.	String	Correction creates alias record	Bhagavad Gita
+canonical_locator	Source	Conditional	Chapter, verse, ang, shabad, page, sutra, section, paragraph, timestamp or other locator.	Never infer missing locator.	Structured locator object	Append correction with evidence	chapter 18, verse 30
+original_script	Language	Conditional	Script/language of canonical or received text.	Store separately from transliteration and translation.	BCP-47 language + script fields	Immutable per record	Sanskrit/Devanagari
+original_text_exact	Language	Conditional	Exact canonical or received wording.	No paraphrase inside this field.	UTF-8 string	New version only	canonical line
+transliteration_exact	Language	Conditional	Script conversion without claimed translation.	Must identify transliteration scheme or source.	Separate JSON field	New version only	IAST or source scheme
+translation_text_exact	Translation	Conditional	Exact wording of one translation.	Never blend translators or editions.	Separate record	Immutable; supersede	English translation A
+translator	Translation	Conditional	Named translator or translation institution.	Unknown remains UNKNOWN.	Metadata string	Logged correction	Swami Gambirananda
+translation_version	Translation	Conditional	Edition, date, language and licence.	Do not treat newer edition as same wording.	Version object	Append-only	2025 edition
+commentary_text_exact	Interpretation	Conditional	Exact commentary, tafsir, bhashya, katha or analytical text.	Cannot occupy canonical_text field.	Separate record	Immutable; supersede	Commentary passage
+interpreter_identity	Interpretation	Conditional	Person, school, institution or community producing interpretation.	AI is named when AI produced the mapping.	Metadata string	Logged correction	User / commentator / GPT
+user_words_exact	User layer	Conditional	The user’s precise wording, spelling and sequence.	Never rewrite or silently correct.	/raw/user_inputs.jsonl	Immutable	User example as pasted
+user_pov	User layer	Conditional	User’s interpretation, correction or theory.	Separate from source claim and AI inference.	/user_pov/*.jsonl	Only user-approved revision	Ripudaman POV v1
+ai_mapping	ASI layer	Conditional	Machine-created connection between records.	Must name model/version, evidence and uncertainty.	/mappings/*.jsonl	Replace only by superseding record	maps verse to verification gate
+non_equivalence_status	ASI layer	YES for cross-domain mapping	States whether two concepts are identical, analogous, conflicting, nested or unknown.	Default is NOT EQUIVALENT until established.	Relation attribute	User/review approval	ANALOGOUS_CONTROL_ONLY
+evidence_state	Evidence	YES	FACT, SUPPORTED, CONDITIONAL, HYPOTHESIS, UNKNOWN, CONTRADICTED, MANIPULATED or other approved state.	Status cannot be hidden in prose.	Enum	Logged transition	UNVERIFIED
+confidence	Evidence	YES	Confidence with basis, not decorative percentage.	Keep H0 for unavailable evidence.	Structured object	Recompute with change log	High for locator; low for interpretation
+provenance_chain	Evidence	YES	Where the record came from and every transformation applied.	Copies retain source lineage.	/source_manifest.json	Append-only	URL → screenshot → upload
+source_url	Evidence	Conditional	Direct source or repository locator.	Secondary link labelled secondary.	URI field	Logged update	canonical source URL
+source_hash	Evidence	Conditional	Hash of raw bytes or normalized text.	Hash method must be stated.	SHA-256 field	Immutable	sha256:...
+context_window	Context	Conditional	Exact preceding/following material used for interpretation.	No cropped quotation can claim complete context.	Linked record IDs	Append-only	previous 2 and next 2 lines
+created_at	Time	YES	Creation or ingestion timestamp.	Use timezone and source timestamp separately.	ISO-8601	Immutable	2026-08-05T00:44:00+05:30
+retrieved_at	Time	Conditional	When external source was accessed.	Needed for changing webpages and editions.	ISO-8601	Append new retrieval	2026-08-05 00:00:00
+semantic_version	Version	YES	Version of record meaning and schema.	Formatting-only changes do not alter semantic version.	SemVer string	Controlled	1.0.0
+supersedes	Version	Conditional	Prior record replaced in current view.	Prior record remains stored.	Record ID list	Append-only	old translation mapping
+contradicts	Graph	Conditional	Record explicitly inconsistent with another.	Contradiction is not deletion.	Record ID list	Append-only	edited quote contradicts canonical text
+approval_status	Governance	YES	RAW, FOR_REVIEW, USER_APPROVED, EVIDENT, HELD, REJECTED or other approved state.	AI cannot upgrade to user-approved.	Enum	Authority-controlled	FOR_REVIEW
+preservation_lock	Governance	YES	Whether wording/bytes are immutable.	Raw sources default locked.	Boolean + reason	Unlock requires logged authority	True
+change_reason	Governance	Conditional	Why a new version exists.	No silent modification.	Change-log string	Append-only	user correction
+export_targets	Export	YES	Destinations such as JSONL, YAML, Markdown, SQL, vector store, graph DB or OpenAI Evals.	All exports derive from the same canonical record graph.	Array	Additive	[jsonl, markdown, openai_evals]
+openai_input	OpenAI eval	Conditional	Prompt/input content for an eval record.	Must link back to exact source records.	JSONL input/messages key	Generated; source links immutable	BT-004 scenario
+openai_ideal	OpenAI eval	Conditional	Reference behaviour or answer.	Must preserve uncertainty and cannot contain merged scripture meaning.	JSONL ideal/reference key	User-approved or evidence-labelled	Hold action and verify
+openai_metadata	OpenAI eval	Conditional	Record IDs, source IDs, evidence states and test dimensions.	No source lineage loss during fine-tune/eval export.	JSON metadata object	Generated from graph	{"example_id":"BT-004"}
+DIR-001	Folder layout	YES	Core system definitions.	Separate approved core from examples and research.	/core/	Controlled	containers, parameters, controls
+DIR-002	Folder layout	YES	One directory per Brain test.	Sheet and repo directory use same example ID.	/examples/BT-004/	Append-only	input, records, expected, audit
+DIR-003	Folder layout	YES	Holy Books and other source universes.	One tradition/work namespace; no cross-book merge.	/sources/holy_books/<tradition>/<work>/	Append-only	quran/49/6
+DIR-004	Folder layout	YES	Schemas and controlled vocabularies.	Schema changes versioned and migration-tested.	/schemas/	SemVer	record.schema.json
+DIR-005	Folder layout	YES	Source and export manifests.	Every file listed with hash, size, role and parent.	/manifests/	Append-only	source_manifest.json
+DIR-006	Folder layout	YES	OpenAI Evals or training exports.	Exports are derived artifacts, never primary truth.	/exports/openai/	Regenerable	samples.jsonl
+DIR-007	Folder layout	YES	Tests proving round-trip meaning integrity.	Import(export(record)) must preserve IDs, layers, text and relations.	/tests/round_trip/	Required before release	semantic_integrity_test.py
+LOCK-001	Final lock	YES	No deletion, merge, rename or doctrinal equivalence without explicit authority and traceable migration.	Preserve old state and exact words.	Repository policy + CI check	Hard control	No withdrawal / no silent Point X

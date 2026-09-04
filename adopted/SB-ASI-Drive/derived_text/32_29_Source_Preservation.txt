@@ -1,0 +1,8 @@
+Source ID	Source title	URL / identity	Role in final master	Preservation status	Known limitation
+SRC-T2	ASI-Brain_Task2_Approved_v0_1	https://docs.google.com/spreadsheets/d/11FhZUNv6Y37nvHz4STWTONbgtoln01xIA4cGBuaaWmo/edit	Approved Task 2 baseline	PRESERVED / NOT MODIFIED
+SRC-SYNC	ASI-Brain_ASI_Connection_Sync_v0_4	https://docs.google.com/spreadsheets/d/10L-KunaTfdRHou347tSCl_rd_dX1ih9sSAxRAx9NzYE/edit	Latest connection and node-sync source copied into this final master	PRESERVED / SOURCE COPY
+SRC-T3-CTRL	02_AI_PARAMETER_REGISTRY_CONTROL	https://docs.google.com/spreadsheets/d/1jx44lBl_Pmp9L0cR8j9pRlEs47T88gSXQEbF2dDuV1A/edit	Task 3 counts, ID ranges, mapping classes and preservation rules	LINKED / VERIFIED	Exact AI row bodies not contained here
+SRC-T3-RAW	ASI-Brain_Task3_Human_AI_Parallel_v0_3.xlsx	Referenced canonical filename	Exact 2,514 aligned AI rows; 46 Human-only; 64 AI-only; mapping edges	PRESERVED BY REFERENCE	Not found as Drive-readable spreadsheet in current search
+SRC-BENCH	Forensic_Benchmark_Autopsies_Compiled_Master_4_Models_LIVE	https://docs.google.com/spreadsheets/d/1lmJoimDLYMIfzaqZ-p2KOIF2i4knurSDQfSDTP4UqGg/edit	700 four-model measurement events and benchmark evidence	LINKED / NOT COPIED OR DELETED	Evidence is not a parameter
+SRC-WORLD	SB_ASI_Worldwide_Research_Discovery_Registry_v0_1_LIVE	https://docs.google.com/spreadsheets/d/1VZ8i7anU3BCuIoBHi0Ega15ZpTYQmVQFu7QgB_gT0qc/edit	Task 4 parallel research source	PRESERVED / NOT ACTIVATED	Task 4 requires sentence-by-sentence user review
+FINAL	ASI-Brain_Task3_Approved_Final_v1_0	https://docs.google.com/spreadsheets/d/1mvNgXePnj9w4GTnL3KwZLel72KcX1oO-x8CS9lkbxWA/edit	Final Task 2 + Task 3 master	CURRENT	Additive; no source deletions

@@ -37,7 +37,7 @@ Status as of the current pass:
 ```bash
 python -m sourceborn.demo                 # full offline walkthrough
 python -m sourceborn "why does the small idea win? prove it"
-PYTHONPATH=src python3 tests/test_engine.py   # 25 tests
+PYTHONPATH=src python3 tests/test_engine.py   # 499 tests
 ```
 Set `ANTHROPIC_API_KEY` to swap the offline stub for real Claude reasoning.
 
@@ -107,6 +107,83 @@ per-node SB↔URR walk; returns `walk.steps` + `walk.holds`) ·
 action = `approve` / `add_data` / `reloop` · `POST /ingest {name,text}` ·
 `GET /brains` · `GET /brain?id=` · `POST /brain/settings` ·
 `POST /brains/update` · `GET /graph`
+
+**The split, and the layers standing on it** — 27 segments · 183 containers ·
+3,483 rows on the 12-step spine, with the 3,204-row source bank untouched
+beside it:
+`GET /sbx` (the whole architecture) · `GET /sbx/step?n=` · `GET /sbx/container?id=` ·
+`GET /sbx/nodes` (the node brain placed on the spine) ·
+`GET /sbx/review` (nine checks that can fail) ·
+`GET /sbx/wiring` (the twelve-layer table, live) · `POST /sbx/place {text}` —
+one ask through every layer at once ·
+`GET /archetype` · `POST /archetype/run {text}` — the books as generative
+engines ·
+`GET /trigger` · `GET /trigger/placements?id=` · `POST /trigger/run {text}` —
+the Operational Trigger / State Vector on all 183 ·
+`GET /link` · `GET /link?row=` · `POST /link/run {text}` — relations as
+first-class counted objects ·
+`GET /scale` · `POST /scale/run {text}` — the scale axis ·
+`GET /readings` · `POST /readings/run {text}` — the nine intent readings, each
+naming what would refute it
+
+**The pen — it rewrites its own code (his choice: Self-patch, full auto).**
+`GET /` is now THE REWRITE: teach → the pen drafts a patch → the whole suite
+runs against a shadow copy → green is committed to the deploy branch and
+Render redeploys it, with no approval step; red and refused are filed whole.
+`GET /selfpatch` (state + the feed with real diffs) ·
+`POST /selfpatch/teach {text,target}` · `POST /selfpatch/revert {id}` — one
+new commit restoring what stood before, nothing erased. The pen's field is
+`src/sourceborn/*.py` minus five held files plus this README; docs/, data/,
+adopted/, tests/ and CLAUDE.md are unreachable to it, structurally. Armed
+only by the owner's own env vars: `SB_GITHUB_TOKEN` (fine-grained, Contents
+read/write, one repo) + `SB_REPO` + a model key — and it refuses to move at
+all until `SB_ACCESS_PASS` locks the front door, because it writes into the
+owner's GitHub with the owner's token. The reactor home page stands whole at
+`GET /reactor`, the old dashboard at `GET /desk`.
+
+### Every route, generated from the server
+
+A hand-typed route list goes stale the first time a route is added, so this one
+is checked by a test (`test_the_readme_lists_every_route_the_server_serves`) —
+if the server serves a route this list does not name, the suite fails.
+
+**GET (86)**
+
+`/adopted` · `/angles` · `/api/bank` · `/api/hud` · `/archetype` · `/artifact`
+· `/asi` · `/asi/stats` · `/auto` · `/brain` · `/brains` · `/chat` · `/chats`
+· `/combine` · `/desk` · `/diag` · `/engine` · `/exists` · `/exists/data` ·
+`/expected` · `/export` · `/flow` · `/generation` · `/generation/packs` ·
+`/graph` · `/growing` · `/growing/coverage` · `/growth` · `/health` ·
+`/intents` · `/ledger` · `/library` · `/link` · `/loop` · `/macro` · `/map` ·
+`/map/where` · `/masterlog` · `/maturity` · `/meaning` · `/memory/report` ·
+`/micro` · `/naming` · `/nodes` · `/nodes/node` · `/nodes/path` ·
+`/nodes/schema` · `/nodes/subgraph` · `/novelty` · `/novelty/file` · `/page` ·
+`/page/data` · `/page/layout` · `/page/meta` · `/page/version` ·
+`/page/versions` · `/patterns` · `/persist` · `/reactor` · `/reading` ·
+`/readings` · `/registry` · `/registry/activate` · `/registry/container` ·
+`/reread` · `/rubrics` · `/runtime` · `/sbx` · `/sbx/container` · `/sbx/nodes` ·
+`/sbx/review` · `/sbx/step` · `/sbx/wiring` · `/scale` · `/selfmake` ·
+`/selfpatch` · `/senses` · `/snapshots` · `/subjects` · `/trigger` ·
+`/trigger/placements` ·
+`/unfiled` · `/weekly` · `/weekly/file` · `/weighting` · `/words`
+
+**POST (61)**
+
+`/angles/run` · `/archetype/run` · `/artifact/generate` · `/artifact/grow` ·
+`/asi/run` · `/auto/mode` · `/auto/tick` · `/brain/rollback` ·
+`/brain/settings` · `/brains/update` · `/combine/run` · `/engine/ask` ·
+`/engine/registry` · `/expected/run` · `/generate` · `/generation/run` ·
+`/growing/grow` · `/growing/place` · `/growth/add` · `/growth/correct` ·
+`/growth/seed` · `/import` · `/ingest` · `/intents/run` · `/ledger/kill` ·
+`/ledger/run` · `/link/run` · `/loop/chain` · `/loop/run` · `/macro/run` ·
+`/maturity/read` · `/meaning/sign` · `/nodes/approve` · `/nodes/recall` ·
+`/nodes/remember` · `/nodes/write` · `/novelty/approve` · `/novelty/run` ·
+`/page/save` · `/patterns/review` · `/pyramid/park` · `/reading/ask` ·
+`/readings/run` · `/review` · `/rubrics/run` · `/runtime/run` · `/sbx/place` ·
+`/scale/run` · `/selfmake/extend` · `/selfmake/propose` · `/selfmake/run` ·
+`/selfpatch/revert` · `/selfpatch/teach` · `/senses/reject` · `/senses/teach` ·
+`/snapshot` · `/subjects/generate` ·
+`/subjects/grow` · `/trigger/run` · `/upload` · `/weighting/run`
 
 Lineage: Raw Definition Engine → ARD / RGL → URR-07 → Secureborn → Sourceborn / SBUR
 → the 70-SB/25-URR "Omni" core. MIT licensed. See `docs/RECOMMENDATION.md`.

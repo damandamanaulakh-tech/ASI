@@ -1,4 +1,4 @@
-# SURFACE vs SYSTEM — HIS RICE / MBA TEST
+# SURFACE vs SYSTEM — HIS RICE / MBA EXAMPLE
 
 **Provenance.** Owner, 2026-08-13, the fourth test statement. His arrow charts
 are the spec. Filed unedited in substance.

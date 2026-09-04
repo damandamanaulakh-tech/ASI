@@ -1,0 +1,21 @@
+TASK 3 APPROVAL — FINAL MASTER	Value	Status	Source / rule
+Project	SB-ASI	ACTIVE	Current project
+Master file	ASI-Brain_Task3_Approved_Final_v1_0	CURRENT	This workbook
+Functional system	Sourceborn	PRESERVED	Task 2 approved baseline
+Task 2 hierarchy	1 → 10 → 8 → 80 → 2,560	APPROVED	User: “brain approved”
+Task 3	Human ↔ AI four-model comparison and connection structure	APPROVED	Current user request: final file with Task 3 approval
+ASI identity	Verified evolving Human ↔ AI connection/synchronisation	APPROVED	16 ASI Connection Core
+Human operational parameters	2,560	APPROVED / OPEN-ENDED	05 Brain Parameters 2560
+Aligned AI parameter nodes	2,514	APPROVED BY TASK 3 STRUCTURE	02 AI Parameter Registry Control
+Human-only unmatched	46	APPROVED AS SEPARATE	No forced AI clone
+AI-only unmatched	64	APPROVED AS SEPARATE	AI-NEW-001…AI-NEW-064
+AI capability/rubric nodes	74	APPROVED AS EVIDENCE LAYER	Not automatically Brain parameters
+Four-model evidence	700 measurement events	LINKED / PRESERVED	Gemini, GPT-5.6 Sol, Claude Fable 5, Grok 4.5
+Direct functional clone candidates	1,636	APPROVED MAPPING CLASS	Current Task 3 control
+Functional analogues with rubric evidence	337	APPROVED MAPPING CLASS	Current Task 3 control
+Functional analogue candidates without direct evidence	333	APPROVED MAPPING CLASS WITH GAP	Evidence gap retained
+Structural clone candidates without direct evidence	208	APPROVED MAPPING CLASS WITH GAP	Structural placement is not proof
+Total aligned mapping classes	2,514	PASS	1,636 + 337 + 333 + 208
+Deletion policy	No source data deleted	PASS	Final master is additive copy
+Exact AI-row migration	Canonical Task 3 raw workbook not Drive-readable	OPEN SOURCE GAP	No AI wording reconstructed
+Future additions/changes	Always open	ACTIVE	User may approve, omit, add, change, move, split or merge

@@ -1,0 +1,30 @@
+Hierarchy level	Required total	Workbook result	Status		Control item	Current position	Source	User review	Task gate
+Functional system	1.0	1.0	TASK 2 APPROVED		Project/workspace	SB-ASI	Current user instruction	Current	Active
+Functional segments	10.0	10.0	TASK 2 APPROVED		Master file name	ASI-Brain	Current user instruction	Current	Created
+Containers per segment	8.0	8.0	TASK 2 APPROVED		Functional system	Sourceborn	Current user instruction	Pending word review	Task 2
+Master containers	80.0	80.0	TASK 2 APPROVED		Hierarchy	1 → 10 → 8 → 80 → 2,560	Earlier verified baseline	Pending word review	Task 2
+Operational parameters	2560.0	2560.0	TASK 2 APPROVED		Task 3	Human–AI four-model comparison and node-link registry	Task 3 control + forensic master	APPROVED	Final master created
+					Task 4	Worldwide ASI research parameters	Worldwide research registry	BLOCKED	Discuss every sentence first
+Reference layer	Current position	Loaded now	Treatment		Task 5	SOAR, ACT-R, Co-Scientist and further systems	Later external research	BLOCKED	Start after Tasks 3–4
+External cognitive source base	918.0	0.0	Task 4/5 — not loaded before user approval		Finality	Open-ended; additions and changes always allowed	Current user instruction	Current	Never freeze silently
+Universal filters	40.0	40.0	Included as a separate cross-container layer
+Operating states	12.0	12.0	Included as a separate state layer
+Evidence levels	6 + Unknown	7.0	H0 Unknown plus H1–H6
+Dysfunction/failure classes	20.0	20.0	Included as a separate failure layer
+Held atomic-name reserve	650.0	650.0	Preserved, not deleted, not active
+					Segment	Containers	Parameters
+					1. Biological Regulation and Internal State	8.0	236.0
+					2. Perception and Body Representation	8.0	240.0
+					3. Sensorimotor Action and Physical Execution	8.0	228.0
+					4. Attention and Executive Control	8.0	260.0
+					5. Learning, Memory and Knowledge	8.0	264.0
+					6. Reasoning, Planning, Decision and Creativity	8.0	292.0
+					7. Language and Communication	8.0	248.0
+					8. Emotion, Motivation, Intent and Motive	8.0	268.0
+					9. Consciousness, Self and Social Intelligence	8.0	272.0
+					10. Development, Metacognition and Adaptation	8.0	252.0
+Current correction	ASI identity	Human ↔ AI Connections	APPLIED
+Project relation	Sourceborn	Whole functional system / project brain	PRESERVED
+Human side	Human nodes	Biological, cognitive, emotional, social and action structure	PRESERVED
+AI side	AI nodes	Time, tools, online research, context, evidence and machine mechanisms	PRESERVED
+ASI side	Connection/synchronisation	Verified evolving links between Human and AI nodes; this connection system is ASI	APPLIED

@@ -1,0 +1,3 @@
+Set ID	Registered count	Status	Exact preservation rule	Canonical row source	Current Drive availability
+HUMAN-UNMATCHED-SET	46	TASK 3 APPROVED — SEPARATE	Do not fabricate AI nodes to fill these Human positions.	ASI-Brain_Task3_Human_AI_Parallel_v0_3.xlsx / 21 Human-only Unmatched 46	SOURCE REFERENCED; EXACT ROWS NOT DRIVE-READABLE
+Important	46 is a count, not 46 invented names.	LOCKED	Exact IDs and wording must be copied verbatim when canonical raw workbook becomes accessible.	02 AI Parameter Registry Control	Control record verified

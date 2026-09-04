@@ -183,6 +183,7 @@ select{font:inherit;font-size:12px;color:var(--ink);background:var(--glass2);
     <a href="/engine">THE ENGINE</a><a href="/reading">THE READING</a>
     <a href="/asi">THE ASI RUN</a><a href="/generation">THE GENERATION</a>
     <a href="/page">MY PAGE</a><a href="/exists">WHAT EXISTS</a>
+    <a href="/sbx">THE SPLIT</a><a href="/archetype">ARCHETYPES</a>
     <a href="/desk">THE DESK</a>
   </nav>
 </div>
@@ -194,6 +195,16 @@ select{font:inherit;font-size:12px;color:var(--ink);background:var(--glass2);
   <div class=cell><div class=ck>Waits on your word</div><div class=cv id=h_q>—</div></div>
   <div class=cell><div class=ck>Stages</div><div class=cv id=h_st>—</div></div>
   <div class=cell><div class=ck>Loops</div><div class=cv id=h_lp>—</div></div>
+  <div class=cell><div class=ck>The split</div><div class=cv id=h_sp>—</div></div>
+  <div class=cell><div class=ck>Layers wired</div><div class=cv id=h_ly>—</div></div>
+</div>
+
+<div class=hud role=group aria-label="the layers standing on the split" id=hud2>
+  <div class=cell><div class=ck>Archetypes</div><div class=cv id=h_ar>—</div></div>
+  <div class=cell><div class=ck>Links</div><div class=cv id=h_lk>—</div></div>
+  <div class=cell><div class=ck>Scale bands</div><div class=cv id=h_bd>—</div></div>
+  <div class=cell><div class=ck>Intent readings</div><div class=cv id=h_rd>—</div></div>
+  <div class=cell><div class=ck>Triggers yours</div><div class=cv id=h_tg>—</div></div>
 </div>
 
 <div class="panel stage">
@@ -272,6 +283,13 @@ async function hud(){
     $("h_q").textContent=h.queued;
     $("h_st").innerHTML=h.stages_run+"<small>/"+h.stages+"</small>";
     $("h_lp").innerHTML=h.loops_triggered+"<small>/9 triggered</small>";
+    $("h_sp").innerHTML=h.split_containers+" <small>containers · "+h.split_rows.toLocaleString()+" rows</small>";
+    $("h_ly").innerHTML=h.layers_wired+"<small>/"+h.layers_total+" reach an answer</small>";
+    $("h_ar").innerHTML=h.archetypes+" <small>from the books</small>";
+    $("h_lk").innerHTML=h.links.toLocaleString()+" <small>counted from the bank</small>";
+    $("h_bd").innerHTML=h.bands_in_force+"<small>/"+h.bands_total+" in force</small>";
+    $("h_rd").innerHTML=h.readings+" <small>none chosen</small>";
+    $("h_tg").innerHTML=h.triggers_his+" <small>verbatim</small>";
   }catch(e){$("h_mode").textContent="unreachable";}
 }
 

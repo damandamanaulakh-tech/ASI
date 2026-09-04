@@ -1,0 +1,10 @@
+Order	Sheet	Review focus	Available decisions	Automatic action prohibited	Task gate
+1.0	01 User Control	Confirm current meanings and authority rules.	Approve / Change / Hold	No wording becomes final by silence.	Task 2
+2.0	02 Hierarchy	Confirm 1 → 10 → 8 → 80 → 2,560.	Approve / Change	Task 3 remains blocked.	Task 2
+3.0	03 Segments 10	Review every segment name and full description.	Approve / Add / Split / Merge / Move	No segment count is frozen.	Task 2
+4.0	04 Containers 80	Review all 80 names, scopes, filters and interpretations.	Approve / Change / Add / Split / Merge / Move / Omit	No container is removed from history.	Task 2
+5.0	05 Brain Parameters 2560	Review exact parameter wording and detailed functional wording.	Approve / Change / Omit / Hold / Move / Split / Merge	No parameter is final until reviewed.	Task 2
+6.0	Six marked Core Reasoning rows	Decide whether to approve, replace or omit the visible reconstruction candidates.	Approve / Replace / Omit	They are not hidden source facts.	Task 2
+7.0	06 Held Reserve 650	Review surplus v1.0 names for future addition or replacement.	Add / Merge / Replace / Keep held	Nothing is withdrawn.	Future review
+8.0	07–11 control layers	Review filters, states, evidence, failures and operating chain separately.	Approve / Change / Add / Move	They are not mixed into the 2,560 count.	Task 2
+9.0	User confirmation	Confirm the Drive file after review.	CONFIRM TASK 2	Task 3 will not start before confirmation.	Gate

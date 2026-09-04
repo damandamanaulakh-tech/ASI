@@ -64,6 +64,51 @@ MAP: list[dict] = [
     "note": "all six objects are built and tested. NO module imports this "
             "file — it runs only in its own demo. The reasoning grammar you "
             "ruled on is real code the request path never touches."},
+   {"his": "now we dont want 70-25 there, but i want more filters and fact "
+           "kind of",
+    "where": [("urr_matrix.py", "def review_node("),
+              ("filters.py", "def run_gates("),
+              ("engine.py", "from .filters import")],
+    "state": NOT_WIRED,
+    "note": "THE 70x25 MATRIX, KEPT AND UNLINKED. His decision removed it and "
+            "the seven filters in filters.py replaced it — Ground · Sequence · "
+            "Source · Mask · Fact · Halt · Loop, run on every finding, every "
+            "time. `urr_matrix.py` stayed IMPORTED into engine.py long after, "
+            "as `MATRIX, review_node`, and neither name was ever called: a "
+            "live-looking link to a mechanism the answer path no longer uses. "
+            "The old-file wiring audit (2026-08-30) found it and removed the "
+            "LINK, not the module — his do-not-delete rule keeps the file on "
+            "disk, and it is declared here so nothing has to rediscover that "
+            "it is unwired. It is the replaced mechanism, not a missing one."},
+   {"his": "keeping the half file back and using the half",
+    "where": [("khalf.py", "def split_doc("),
+              ("khalf.py", "def score_overlap("),
+              ("khalf.py", "RULES = ")],
+    "state": NOT_WIRED,
+    "note": "THE HALF — the kappa experiment (Way Five of the Main Work room). "
+            "Measures how much of a document's masked half can be "
+            "reconstructed from the held half, racing three splitting rules "
+            "(first_half · alternate · alt_words). Built and TESTED (two "
+            "tests), and NO module imports it — it runs only from its own "
+            "tests. Surfaced here by the old-file wiring audit (2026-08-30): "
+            "it was the one orphan declared in NO map at all — not in this "
+            "file, not in the build map, not in the arrow chart — so nothing "
+            "could tell you it was unwired. Now it can."},
+   {"his": "i dont wanted any proof of anything / i want to use RH as a code",
+    "where": [("rh_code.py", "def half_confidence("),
+              ("rh_code.py", "def explicit_answer("),
+              ("rh_code.py", "def line_check("),
+              ("rh_code.py", "HALF = 0.5")],
+    "state": NOT_WIRED,
+    "note": "RH AS CODE — Re(s) = 1/2 + ti read as a build specification, not "
+            "a theorem: primes are the raw facts, log p their periods, the "
+            "zeros are the doubts, 1/2 is how much power any single doubt may "
+            "have, t is when it fires. Nothing here proves anything. Built and "
+            "tested, and NO module imports it; `docs/mainwork/THE_BUILD_MAP."
+            "html` already says 'rh_code.py · not wired yet' and "
+            "`docs/riemann/RH_AS_CODE.md` says 'the engine has not been "
+            "changed'. Carried into this file so the honest map holds every "
+            "orphan in one place."},
    {"his": "Halt → Loop. a failure is never failure, it opens the mapped loop",
     "where": [("sequence.py", '(HALT, "Halt"'), ("sequence.py", '(LOOP, "Loop"'),
               ("filters.py", "def f7_loop(")],
@@ -557,6 +602,652 @@ MAP: list[dict] = [
             "stated: the runtime's step-5 seating and the combine engine "
             "consume direct seats only — bridged rows do not yet enter "
             "arrangements."},
+   {"his": "just adopt what is not here, do not touch and change anything in "
+           "the C-SB repo / n lay off ur brain / just work under ASI "
+           "instructions vague, big picture, anything if u tweak, ask me "
+           "first",
+    "where": [("adopted.py", "def verify("),
+              ("adopted.py", "def halts("),
+              ("adopted.py", "def custody("),
+              ("adopted.py", "def wisdom("),
+              ("adopted.py", "def his_examples("),
+              ("adopted.py", "def intent_types("),
+              ("filemap.py", "ADOPTED = ")],
+    "state": RUNS,
+    "note": "THE ADOPTION FROM C-SB, canon at "
+            "docs/method/canon/THE_ADOPTION_FROM_C_SB.md. 42 files "
+            "byte-identical from damandamanaulakh-tech/C-SB @ 9e3f179, each "
+            "SHA-256 in adopted/C-SB/ADOPTION_CUSTODY.json carrying his word "
+            "verbatim; verify() re-hashes all and a drifted byte is NAMED. "
+            "C-SB untouched (working tree checked clean after the copy). "
+            "Adopted with statuses preserved as C-SB states them: the "
+            "Real-Time ASI Constitution V1 + Growing-Phase Constitution V1 + "
+            "30 SEQ-LOCKs + system invariants + the EVENT-INTENT GROWTH "
+            "CONTRACT (8 typed intents, UNKNOWN preferred over fabrication); "
+            "the banks this core lacked (AI-only 64, 75 engines, operational "
+            "161-240 + 2593-3072, expansion SB-ASI-P2561..P2592, native "
+            "2,560 + custody parts); the 22-node ASI service registry; "
+            "rubrics R01-R52; the whole BG 2.47-2.50 wisdom pipeline with "
+            "C-SB's own scope (contextual, never doctrinal canon or action "
+            "authority); his RAW originals including the true rain wording; "
+            "five v2 lock CANDIDATES kept candidates. NOTHING WIRED INTO "
+            "BEHAVIOR — the engine runs exactly as before, adopted.py has no "
+            "write path and imports no engine module (source-scan test). "
+            "SEVEN ADOPT-HALTs stand for him, decided by nobody: the P2561 "
+            "namespace collision (SB-ASI-P2561 Cardiac Salience Spike vs "
+            "SB-HFR-P2561 — same numerals, different rows, kept apart under "
+            "his do-not-silently-merge rule); three node vocabularies; "
+            "R01-R52 vs his 25 dimensions; typed-intent wiring; the wisdom "
+            "objects into the scripture Wisdom Bank; 75 engines + 240/3,072 "
+            "beside 80/3,204; mirroring C-SB's phase-2 history. His mode "
+            "instruction is standing law: adoption mechanical and verbatim, "
+            "interpretation is a HALT. In the file divide the adopted tree is "
+            "its own class — ADOPTED: custody, not a role — in neither the "
+            "grows sum nor the grows-against sum, never on the harvest list; "
+            "any existing class would have decided a seam that is his. "
+            "/adopted."},
+   {"his": "rebuild it complete with all 183 containers and all rows / now file "
+           "it in repo and wire it",
+    "where": [("sbx.py", "def place_on_spine("),
+              ("sbx.py", "def verify("),
+              ("sbx.py", "def spine("),
+              ("sbx.py", "def computer_of("),
+              ("sbx.py", "OPEN_LAYERS = ")],
+    "state": RUNS,
+    "note": "THE COMPLETE ARCHITECTURE (2026-08-29). His split, filed and wired: "
+            "6 macro pillars, the 12-step spine, 27 segments, 183 containers, "
+            "3,483 rows, 175 filters, 12 states, 7 evidence levels, 20 failure "
+            "classes, 34 chain steps, 67 rubrics and the 9 approved intent types "
+            "— each placed at the step where it acts, not merely listed. Data at "
+            "data/sbx_architecture.json (700KB), document at "
+            "docs/THE_COMPLETE_ARCHITECTURE.md. EVERY NODE CARRIES BOTH COLUMNS: "
+            "the human name he wrote and a computer parallel, because ASI is the "
+            "verified connection between the two sides and one column alone "
+            "cannot link. HIS LOOP IS PRESERVED: steps 1-8 are first order and "
+            "step 8 closes to step 1; 9-12 are the life of the loop across many "
+            "cycles and 11-12 can fire at any step — recorded as `order` on every "
+            "step so the closure is never lost. THE SOURCE BANK IS REPLACED, "
+            "NEVER DELETED: data/human_registry.json still reads 3,204 rows and "
+            "80 containers, and a test proves it. place_on_spine() is the wiring "
+            "— the seating is unchanged, it is now READ through the split and "
+            "lands the ask on steps; a row that finds no home is reported by the "
+            "difference between source_rows_seated and mapped_into_split, never "
+            "dropped. ARCHETYPE, LINK and SCALE are declared with no ceiling and "
+            "hold nothing yet. /sbx, /sbx/step, /sbx/container, POST /sbx/place."},
+   {"his": "Samrath is an example, like the rest — not a test",
+    "where": [("naming.py", "RENAMES = ("), ("naming.py", "KEEP = ("),
+              ("naming.py", "def scan("), ("naming.py", "def verify(")],
+    "state": RUNS,
+    "note": "PHASE 3 — THE NAMING CLEANUP (2026-08-30). Why it is not "
+            "cosmetic: a TEST is run to see whether something is broken; an "
+            "EXAMPLE is material the system seats on and grows from — his own "
+            "growing-phase ruling, 'every example will keep increase the "
+            "count'. Calling Samrath a test quietly reclassifies his FUEL as "
+            "DIAGNOSTICS, and a test that passes is finished while an example "
+            "never is. That is why the word blocks revisions. THE DISTINCTION "
+            "IS THE WORK: not every 'test' is wrong, and renaming them all "
+            "would rename HIS OWN WORDS. `prior.removal_test` is his method "
+            "verbatim ('take the step away — does the thing above still "
+            "stand?') and docs/mainwork/THE_REVERSE_WALKS.md calls it the "
+            "removal test; `subjectbrains.cross_test` runs a law against other "
+            "subjects to see if it survives; the suite may call its tests "
+            "tests; `intents.SCALING_TEST` is a proof-run id, not an example. "
+            "Four KEPT, each with the reason, so the next sweep does not "
+            "'fix' them. RENAMED: the canon file THE_SAMRATH_TEST_AND_THE_"
+            "ZERO.md and its heading, plus the father/door and rice/MBA "
+            "phrases that called those examples tests — 8 references across "
+            "7 files, "
+            "scan now 0. HIS PROOF HOLDS: the example reaches the same rows "
+            "under its new name — 18 working, 106 rows, 16 containers, 5 "
+            "segments, unchanged. A rename that moved a reading would be a "
+            "rename that changed the system. `APPROVED_BY_HIM` is False: the "
+            "names are applied, whether they are the RIGHT names is his gate. "
+            "/naming."},
+   {"his": "R01-R52 put into universal-sequence order and wired",
+    "where": [("rubrics.py", "def fires_on("), ("rubrics.py", "def catalogue("),
+              ("rubrics.py", "DIMENSIONS = "), ("rubrics.py", "ADOPT_HALT_3 = ")],
+    "state": RUNS,
+    "note": "PHASE 8 — THE RUBRICS WIRED (2026-08-30). HIS GATE BLOCKS A "
+            "MERGE, NOT THE WIRING. ADOPT-HALT-3 asks 'R01-R52 versus your 25 "
+            "— one family or two, and whose names win', which is a question "
+            "about merging two vocabularies. It is not a question about HIS "
+            "OWN 66, which are already in his architecture, already placed at "
+            "the step each acts on, already under his names — and were "
+            "'carried, not consulted'. So his 66 fire and R01-R52 stays "
+            "unmerged; `merged` is False on every run. HIS PROOF, MEASURED: "
+            "before, 7 things touched an answer (the seven filters — Ground · "
+            "Sequence · Source · Mask · Fact · Halt · Loop), his line being '7 "
+            "of ~200'. Now 43 of his 66 fire BY NAME on his dice sentence, and "
+            "23 stay silent because their step was not reached. A RUBRIC FIRES "
+            "BECAUSE THE ASK REACHED THE STEP IT ACTS ON — Contradiction acts "
+            "at HALT, so it fires when step 7 lights. His own placement does "
+            "the work; this is the join that was missing, not a new rule, and "
+            "nothing was keyword-matched. HIS THREE MISSING DIMENSIONS are "
+            "added ON a fired rubric rather than as new rubrics ('filling the "
+            "gaps, not adding anything random'): scale (from the scale layer, "
+            "UNSET when no band is in force), era_survival (UNTESTED — which "
+            "is not 'holds', it is nobody checked), and situations_held_across "
+            "(counted live over his own eight examples, never typed). A "
+            "PERFORMANCE DEFECT OF MINE, caught by the suite slowing to a "
+            "crawl: the first version counted situations INSIDE the per-rubric "
+            "loop, costing 66 x 8 = 528 full placements per call; computed "
+            "once and cached, a run is 1.1s. /rubrics, POST /rubrics/run."},
+   {"his": "every example already stored gets a written meaning-check — what "
+           "the example means, in your words, not my reading",
+    "where": [("meaning.py", "def sheets("), ("meaning.py", "def sign("),
+              ("meaning.py", "def usable("), ("meaning.py", "def blocked(")],
+    "state": RUNS,
+    "note": "PHASE 0 — THE MEANING LOCK (2026-08-30). Why it is phase ZERO: "
+            "everything downstream inherits its meaning from here, and a wrong "
+            "meaning does not announce itself — it produces a full, "
+            "consistent, entirely mistaken reading. The re-read proved that "
+            "risk is live: his rain sentence reads 2 rows now and read 2 rows "
+            "when recorded, and BOTH ROWS ARE DIFFERENT. A signed meaning is "
+            "what would have caught that on the day. THE ONE THING THIS MUST "
+            "NOT DO is write his meaning for him — his words are 'in your "
+            "words, NOT MY READING' — so every sheet ships with `his_meaning` "
+            "EMPTY, `signed` False, and `my_reading` stated plainly so he has "
+            "something concrete to disagree with. A test asserts every sheet's "
+            "his_meaning is empty, and `sign()` REFUSES a signature with no "
+            "meaning: a signature on nothing is not a meaning lock. "
+            "`usable()` is his rule as a function — an unsigned meaning cannot "
+            "be used by any later phase, so only signed sheets come back. "
+            "`blocked()` reports the honest state: 8 of 8 unsigned, gate "
+            "closed, and every later phase currently running on unsigned "
+            "meanings. The system does not halt itself on a gate only he can "
+            "close, but nothing pretends the signatures exist. APPEND-ONLY: "
+            "re-signing appends a row referencing the one before and both are "
+            "kept. /meaning, POST /meaning/sign."},
+   {"his": "angles applied at generation time as a property — growing with "
+           "each example, all of them running for now",
+    "where": [("angles.py", "HIS_ANGLES = ("),
+              ("angles.py", "def for_hits("),
+              ("angles.py", "def grow("),
+              ("angles.py", "ALL_RUN = ")],
+    "state": RUNS,
+    "note": "PHASE 13 — ANGLES (2026-08-30). His definition: 'an angle is not "
+            "a thing in the world and not a parameter. It is the position you "
+            "read an event from, and the same event read from a different "
+            "position yields a different intent.' HIS FOUR, written by him on "
+            "Yudhishthira staking his wife: worst (the single worst act of his "
+            "life) · best (a king who would not break his word) · emotional (a "
+            "man cornered, humiliated, unable to stop) · truth/dharma (the "
+            "most truthful man alive — which proves dharma is not truth only). "
+            "A PROPERTY AND NEVER A LAYER, BY HIS OWN ARGUMENT: 'if angles "
+            "were a layer they would have IDs and a fixed count. You said they "
+            "grow with each example. A property can grow without renumbering "
+            "anything; a layer cannot.' So there are NO ANGLE IDS — an angle "
+            "is keyed by name, `grow()` reports `renumbered: 0`, and a test "
+            "parses the module with docstrings stripped and fails if an ANG "
+            "id ever appears. THE MECHANICAL PART IS HIS SPEC EXACTLY — worst "
+            "reaches the harm and moral-responsibility rows, best reaches "
+            "loyalty/honour/commitment, emotional reaches shame/face-saving/"
+            "identity-protection, truth reaches the value rows and the "
+            "value-behaviour-alignment row (P2561, the row he named by hand). "
+            "29 rows, all verified against the live registry. HIS OWN TEST "
+            "PASSES: one sentence, FOUR DISTINCT CONTAINER SETS. All of them "
+            "run and none is chosen — his words, 'all of them running for "
+            "now', and 'none of them cancels the others'. Wired into "
+            "place_on_spine as `properties_applied: [ANGLE]`, deliberately NOT "
+            "in `layers_run`, because it is not a layer. /angles, POST "
+            "/angles/run."},
+   {"his": "the response that resolves the entire ask. States it when "
+           "verified; proposes it for confirmation when not. No floor on length",
+    "where": [("macro.py", "def respond("),
+              ("macro.py", "def _one_line("),
+              ("macro.py", "SLAB_ORDER = "),
+              ("macro.py", "FLOOR_ON_LENGTH = ")],
+    "state": RUNS,
+    "note": "PHASE 14 — THE MACRO RESPONSE (2026-08-30). Built from four of "
+            "his teachings. (1) 'ASI should supposed to choose 1 line over "
+            "everything' — with his own correction that ONE LINE does not mean "
+            "short: it means one RESOLVING response over the whole ask instead "
+            "of three small questions back, and that 'vague' was the wrong "
+            "word — MACRO · HOLISTIC · HIGH-LEVEL · BIG-PICTURE. (2) 'big "
+            "lengthy response will capture more parameters to hit and make "
+            "something new (Because in shorter answers ASI will say already "
+            "exists, so never terse responses)' — LENGTH IS A GENERATIVE "
+            "MECHANISM, and it is MEASURED here, not asserted: his dice "
+            "sentence reaches 49 parameters against 1 for a one-row answer, a "
+            "gain of 48. `FLOOR_ON_LENGTH` is None and a test proves nothing "
+            "in the module truncates. (3) 'always the bigger slab come first … "
+            "and that tiny one is the finale' — so the response is ORDERED BY "
+            "SIZE: ONE LINE · PILLAR · STEP · SEGMENT · CONTAINER · ROW, with "
+            "the exact sub-parameter said LAST. (4) 'States it when verified; "
+            "proposes it for confirmation when not' — a slab is STATED when it "
+            "rests on something checkable and PROPOSED when it is a reading, "
+            "and every proposed slab carries WHAT WOULD VERIFY IT. THE ONE "
+            "LINE COMES FROM THE WIDEST THING THAT FIRED — the archetype, "
+            "because an archetype reaches across containers and a row sits in "
+            "one. When no archetype fires the shape is reported UNNAMED and is "
+            "NOT filled by the largest row, which would be the tiny slab "
+            "pretending to be the big one. Nothing is concluded: the macro "
+            "response resolves the ASK, it does not decide the person. /macro, "
+            "POST /macro/run."},
+   {"his": "one was change of meaning n outcomes from the old example n quotes "
+           "i provided",
+    "where": [("reread.py", "EXAMPLES = ("),
+              ("reread.py", "RULINGS = ("),
+              ("reread.py", "def report("),
+              ("reread.py", "INSTRUMENTS = {")],
+    "state": RUNS,
+    "note": "PHASE 15 — THE RE-READ (2026-08-30). His ask: 'every file, every "
+            "example and every teaching re-read under the new rulings — the "
+            "rain example was proved on the old body/brain ruling and must be "
+            "re-read on the new one.' A reading recorded in the canon is a "
+            "reading AT A DATE; left alone it becomes a claim about today that "
+            "nobody checked. 8 of his examples, each holding THEN (what was "
+            "RECORDED, with the file it was recorded in — never reconstructed) "
+            "against NOW (the live run through every layer), with which of his "
+            "7 rulings accounts for any movement. RESULT: 5 changed, 2 "
+            "unchanged, 1 NOT RECORDED, 0 UNEXPLAINED — every movement has a "
+            "named ruling behind it, and a movement without one would be "
+            "drift. HIS NAMED CASE IS THE FINDING: the rain sentence read 2 "
+            "rows when recorded and reads 2 rows now, so a count-only check "
+            "calls it UNCHANGED — and BOTH ROWS ARE DIFFERENT (Air/breathing "
+            "drive + Thought suppression became Standing balance + "
+            "Reaching-while-standing control, not one row surviving). That is "
+            "the verdict CHANGED — SAME COUNT, DIFFERENT ROWS, and it exists "
+            "because a count is not a meaning. The defect the canon recorded "
+            "beside it — 'still shows Standing balance when the father is not "
+            "balancing' — is carried on the row and is STILL LIVE. TWO "
+            "DEFECTS OF MINE THAT BUILDING IT CAUGHT: the first draft "
+            "paraphrased his sentences (Samrath gave 84 rows instead of his "
+            "106 — the paraphrase was the difference, not the system), and it "
+            "compared every recorded number against the SEATING, reporting the "
+            "mall at 72->0 and Samrath at 106->0 as catastrophic regressions "
+            "when neither number was ever produced by the seating — they came "
+            "from asi_pyramid.rows_for, a different instrument. Every example "
+            "now records WHICH instrument produced its `then` and the re-read "
+            "runs that one. IT CHANGES NOTHING: no example is re-filed, no "
+            "canon corrected, and the new reading is not declared the right "
+            "one — two readings of one example is his own law's case, both "
+            "stand and the gap goes to him. A source-scan test proves the "
+            "module has no write path. /reread, /reread?id=EX-RAIN."},
+   {"his": "scale becomes a stored axis — more than four; the four you named "
+           "are a start, not the set",
+    "where": [("scale.py", "HIS_BANDS = ("),
+              ("scale.py", "PROPOSED_BANDS = ("),
+              ("scale.py", "def active("),
+              ("scale.py", "def spread("),
+              ("scale.py", "def gate(")],
+    "state": RUNS,
+    "note": "PHASE 11 — THE SCALE AXIS (2026-08-29). His teaching is the "
+            "reason it exists: 'One event of those books is used in 100 daily "
+            "responses.' THE RECOVERY STAKE is not a story about a king with "
+            "dice — it is the same arrangement in a child who will not switch "
+            "off a losing game, a trader averaging down, a person arguing past "
+            "repair, and a nation escalating a war. Those are not four "
+            "archetypes; they are ONE read at four sizes, so scale is a "
+            "COORDINATE the reading moves along, not a tag it carries. NINE "
+            "BANDS, ordered smallest to largest: his four (micro · individual "
+            "· relational · macro) and five PROPOSED — moment, household, "
+            "organisation, dynasty, civilisation. Nothing is invented to fill "
+            "a pattern: EACH PROPOSED BAND CITES THE EXAMPLE OF HIS THAT "
+            "DEMANDS IT, and the citation is the whole justification. `moment` "
+            "because his stealing demonstration is about ONE ACT and micro is "
+            "still a person, so 'THIEF is a conclusion, taking money is the "
+            "observation' had no coordinate. `household` because ARCH-010 is "
+            "in his words 'family, friends and coworkers' and the father-door "
+            "example is standing obligation nobody chose, not two equals "
+            "meeting. `organisation` because his BJP example is a PARTY "
+            "choosing for a task and ARCH-003's top-heavy pyramid is a "
+            "company — neither relational nor macro, and his whole weighting "
+            "mechanism lives at that size. `dynasty` because what Yudhishthira "
+            "stakes is a HOUSE and the loss lands on people not yet born — a "
+            "population across time, which macro cannot hold. `civilisation` "
+            "because his own frame is 'since modern humans came out of caves' "
+            "and the tablet is ~5,500 years old. HIS GATE IS ENFORCED, NOT "
+            "DESCRIBED: building the axis is not naming the bands. All nine "
+            "are stored and readable; `active()` returns HIS FOUR AND ONLY HIS "
+            "FOUR, `approved` is False on every proposal, and a test pins it. "
+            "An unfilled band says NOT STATED, never zero and never a guess — "
+            "ARCH-001 reads 4 filled, 5 not stated. /scale, /scale?id=ARCH-001, "
+            "POST /scale/run."},
+   {"his": "a live run on 'a man is stealing the money' producing all nine "
+           "readings where it produces zero today",
+    "where": [("readings.py", "TYPES = ("),
+              ("readings.py", "def read("),
+              ("readings.py", "def verify("),
+              ("readings.py", "ADOPTED_HALT = {")],
+    "state": RUNS,
+    "note": "PHASE 12 — THE NINE READINGS (2026-08-29). His own demonstration "
+            "is the whole design: a man is taking money, and that single "
+            "visible act carries four reasons he named himself — THIEF · "
+            "OPPORTUNITY · HABIT · SAVING A LIFE — with the hand moving "
+            "identically in all four. His motto says every event HAS an "
+            "intent; it does NOT say the event announces it. So the honest "
+            "output of an event is not one intent but every intent it could "
+            "carry, all standing, none chosen. WHAT CHANGED: before this an "
+            "ask reached intent TYPE IDS — ['IT-01', 'IT-02', ...] — a list of "
+            "names that settles nothing. A READING is testable: it carries "
+            "what this specific act would mean under that type, WHAT WOULD "
+            "CONFIRM IT, WHAT WOULD REFUTE IT, the refusal that guards it, and "
+            "the rows of his own bank it rests on. His falsifier law from the "
+            "intent ledger applies unchanged — a candidate naming nothing that "
+            "would flip it is an opinion, not a candidate. FOUR OF THE NINE "
+            "ARE HIS OWN FROM THIS VERY EXAMPLE (IT-01 disposition, IT-02 "
+            "affordance, IT-03 automaticity, IT-04 override by a higher "
+            "claim); the other five come from his other worked examples — "
+            "recovery from the dice game, role-binding from Yudhishthira, "
+            "impatience from the golden calf, fruit-focus from Gita 2.47, "
+            "permission-waiting from his study sequence. 21 rows verified "
+            "against the live registry, 0 wrong. THE ACT IS CARRIED IN HIS "
+            "WORDS and never re-described — the reading is what varies, the "
+            "act must not. NOTHING IS CHOSEN AND NOTHING IS CHOOSEABLE: "
+            "`chosen` is None on every reading and a source-scan test proves "
+            "there is no max, no sort and no selection path in the module. Two "
+            "surviving candidates HALT rather than blend, his standing rule — "
+            "and nine surviving candidates are nine. The eight typed intents "
+            "adopted from C-SB are listed beside his nine and joined by "
+            "nobody: ADOPT-HALT-4, merged False, his call. /readings, "
+            "/readings?id=IT-04, POST /readings/run."},
+   {"his": "links between sub-parameters become first-class, counted and named",
+    "where": [("link.py", "def links("),
+              ("link.py", "def computed("),
+              ("link.py", "HIS_LINKS = ("),
+              ("link.py", "def fires_on("),
+              ("link.py", "def verify(")],
+    "state": RUNS,
+    "note": "PHASE 10 — THE LINK LAYER (2026-08-29). His ask, with his own "
+            "worked example: 'Diamond cut diamond becomes a stored link "
+            "between two ego-rows.' WHY A LINK IS NOT A ROW: a row is a "
+            "faculty living in one container. `Dominance motive` is a row; TWO "
+            "people running it at each other is not a row and cannot be made "
+            "one, because it has no home container — it is not located in "
+            "either party, it is located in the MEETING. That is his diamond "
+            "exactly ('its ego cut ego'), and ARCH-004 already says the "
+            "immovability is a property of the meeting, not of either party. A "
+            "layer that can only hold rows cannot say that sentence at all. "
+            "COUNTED FROM THE SPLIT BANK, his own note on this layer — 993 "
+            "links, of which 992 are COMPUTED over the live split and the live "
+            "archetype layer and nothing is hand-listed, so the count follows "
+            "the bank instead of drifting from it: SPLIT_SIBLING 284 pairs "
+            "from the 275 parents the split divided (that `Fluid` and `osmotic "
+            "balance` were once one row, P0003, is real information the split "
+            "otherwise throws away), SHARED_NAME 89 pairs across 83 names "
+            "(which is what the review's undecided SPLIT-05 duplicates "
+            "actually ARE — two rows that may be one faculty seen twice), "
+            "ARCHETYPE_REACH 619 pairs (the generative edge: a relation across "
+            "containers that no container could hold, found by the archetype "
+            "and stored here). THE ONE HAND-GIVEN LINK IS THE ONE NO SWEEP "
+            "COULD FIND — SYMMETRIC_MEETING, because both ends are the SAME "
+            "row (SB-HFR-P2550 Dominance motive on both parties). Every row id "
+            "his links name is re-checked against the live registry, 7 checked "
+            "0 wrong. `fires_on('diamond cut diamond')` returns the reading "
+            "belonging to the meeting, with his refusal attached ('never read "
+            "it as one person being strong'), and ordinary text fires nothing. "
+            "The layer stood at 0 in his twelve-layer table and is now counted "
+            "live and WIRED. No ceiling, no parameter created, nothing "
+            "concluded. /link, /link?id=, /link?row=, POST /link/run."},
+   {"his": "your pending wiring",
+    "where": [("sbx.py", "HIS_LAYERS = ("),
+              ("sbx.py", "def layers("),
+              ("sbx.py", "def wiring("),
+              ("sbx.py", "def _wired(")],
+    "state": RUNS,
+    "note": "HIS TWELVE-LAYER TABLE, LIVE (2026-08-29). He gave the table "
+            "himself with three columns — count today, count after the split, "
+            "delta. This renders it against the LIVE modules rather than "
+            "against typed numbers, and adds the column his table could not "
+            "have: whether a layer is actually WIRED, meaning it reaches an "
+            "answer rather than only existing. His own bar is 'evidence of "
+            "wiring is done with proof not your test', so existing at a step "
+            "is explicitly NOT wiring. RESULT — 8 of 12 MET (segments 10->27, "
+            "containers 80->183, filters 40 families->175, states 12, evidence "
+            "7, failures 20, chain 30->34, rubrics 52->67), 3 with NO CEILING "
+            "by his ruling (archetype now 11, link 0, scale 0), and ONE SHORT: "
+            "sub-parameters stand at 3,483 against his ≈7,603, SHORT BY "
+            "EXACTLY 4,120 — his own figure reproduced, not approximated. Why "
+            "it is short is stated rather than worked around: splitting "
+            "produced 3,483 by DIVIDING existing rows among children and "
+            "created no new names, and there is no source for 4,120 that does "
+            "not already exist — his 650-row named reserve is the only real "
+            "unassigned material and does not cover it. Inventing them would "
+            "be the placeholder he forbade; HIS NUMBER TO FINALISE. WIRED: "
+            "segments, containers, sub-parameters and archetype (all four in "
+            "the path of place_on_spine). PARTIAL: the filters — 175 placed on "
+            "the spine, SEVEN actually run on every finding. CARRIED BUT NEVER "
+            "CONSULTED, stated not hidden: operating states, evidence levels, "
+            "failure classes, operating chain, rubrics, link and scale — seven "
+            "layers that exist at a step and reach no answer. Also added here: "
+            "review check SPLIT-09, which caught the rubric layer declaring 67 "
+            "while 66 distinct sit on the spine across 70 placements (Trace, "
+            "Relation, Compression and Gap each act at two steps) — one rubric "
+            "counted and appearing nowhere in the work; reported, not guessed "
+            "at, since two rubrics sharing a name would look the same. "
+            "/sbx/wiring."},
+   {"his": "split review it again",
+    "where": [("sbx.py", "def review("),
+              ("sbx.py", "ROWS_PER_CONTAINER = ")],
+    "state": RUNS,
+    "note": "THE SPLIT REVIEW (2026-08-29) — not a re-statement of the counts "
+            "but eight checks that can FAIL, run live over the data. 5 pass, "
+            "3 findings, 0 BLOCKING. WHAT PASSES, measured: SPLIT-01 every one "
+            "of his 3,204 source rows still has at least one child and no "
+            "split row cites a source that is not there — 275 parents split "
+            "into 554 children, 3,204 + 279 = 3,483 exactly, which reproduces "
+            "his own table's 275 multi-meaning rows; SPLIT-03 no container and "
+            "no row name still carries more than one meaning (no slash, no "
+            "'and', no comma, no ampersand) across all 183 and all 3,483; "
+            "SPLIT-06 all 183 carry BOTH columns; SPLIT-07 all 12 spine steps "
+            "hold containers, thinnest being 9 CONSOLIDATION and 10 ALIENATION "
+            "at 4 each against 30 at 11 COLLISION; SPLIT-08 the source bank "
+            "stands untouched at 3,204/80. WHAT FAILS AND IS LEFT FOR HIM: "
+            "SPLIT-02 — his rule is 40 rows per container and 155 of 183 hold "
+            "fewer, shortfall 3,925, because splitting a parent DIVIDED its 40 "
+            "among its children instead of giving each child 40 of its own, so "
+            "a parent that became five left five thin ones (eight containers "
+            "hold exactly ONE row); there is no source for the missing names — "
+            "his 650-row named reserve does not cover it — and this side will "
+            "not decide the number. SPLIT-04 — two children of DIFFERENT "
+            "parents landed on the same bare name: `Ownership` from Body "
+            "Schema/Body Image/Ownership and from Agency/Ownership/"
+            "Responsibility, `Gesture` from Imitation/Gesture/Tool "
+            "Manipulation and from Prosody/Gesture/Non-Verbal — the "
+            "multi-meaning problem reappearing in the split's own output one "
+            "level down; not renamed, because his rule is that meanings are "
+            "fixed with notes, never renames. SPLIT-05 — 83 row names appear "
+            "in more than one container, reported rather than judged, since "
+            "`Recovery` in a body container and in a social one may be two "
+            "real rows. A false alarm caught in the building and worth "
+            "recording: comparing split `from_row` (zero-padded P0001) against "
+            "asi_pyramid's flat ids (unpadded P1) appeared to show 999 source "
+            "rows with no child; the format, not the data, was wrong — the "
+            "correct comparison is 3,204 of 3,204. /sbx/review."},
+   {"his": "use new parameters in front n old in back",
+    "where": [("sbx.py", "def front_back("),
+              ("sbx.py", "def _new_row("),
+              ("sbx.py", "FRONT_BACK_LAW = ")],
+    "state": RUNS,
+    "note": "HIS DISPLAY LAW (2026-08-29), given in the same breath as the "
+            "ruling that the source is never deleted: 'Human_registry.json is "
+            "untouched and still reads 3,204 rows and 80 containers. The split "
+            "stands beside it, never over it... use new parameters in front n "
+            "old in back'. Both halves are load-bearing and they do not "
+            "conflict: the OLD bank is never removed, because removing it "
+            "would break the promise his source stands untouched; and the NEW "
+            "reading leads, because the split is what the system reasons on — "
+            "a reader who meets the old id first is being shown the superseded "
+            "address as though it were the current one. Before this, a reached "
+            "row led with the OLD name and the OLD flat id and carried the new "
+            "container behind them. Now `front_back()` renders every reached "
+            "row NEW FIRST — the split row id, its name, its container, "
+            "segment, pillar, step and machine column — with every source "
+            "field gathered under `from` at the END, and the key order IS the "
+            "display order. One function, so the convention cannot drift apart "
+            "across pages. The split row is found by the source row's own flat "
+            "id, which every split row carries as `from_row`, and where a "
+            "parent was SPLIT into several children the name decides between "
+            "them. MEASURED over eight of his asks: 71 hits, 71 resolving to a "
+            "real split row, 0 unresolved. The old bank is untouched by it — "
+            "3,204 rows and 80 containers, tested in the same file."},
+   {"his": "Node brain structure added",
+    "where": [("sbx.py", "def node_brain("),
+              ("sbx.py", "def node_types("),
+              ("sbx.py", "NODE_ON_SPINE = {"),
+              ("sbx.py", "def open_layers(")],
+    "state": RUNS,
+    "note": "THE NODE BRAIN, IN THE ARCHITECTURE (2026-08-29). The structure "
+            "is HIS and was locked in Phase A — 12 node types, 16 fields (with "
+            "point_zero_ref REQUIRED, so 'no invention before source lock' is "
+            "structural), 10 typed links, 11 memory kinds, 4 statuses, 5 write "
+            "and 6 read conditions, with a fingerprint that fails loudly if any "
+            "of it changes silently. What was missing is that it stood BESIDE "
+            "the architecture instead of inside it: every other layer is "
+            "PLACED — intent types, filters, states, evidence levels, failure "
+            "classes, chain steps, rubrics each sit at the step where they act "
+            "— and the node types did not, so nothing could say where in his "
+            "loop a CONTRADICTION comes into being. All twelve are now placed, "
+            "and the placement is honest about whose it is: the type, the stem "
+            "and the meaning are HIS verbatim; the STEP and the reason are "
+            "marked DERIVED on every row and are correctable by a word, the "
+            "same standing a derived trigger has. The placements his own law "
+            "fixes: CONTRADICTION at 7 HALT (two readings that cannot both "
+            "stand IS the halt), EVENT at 2 PRESSURE (his motto begins where "
+            "contact is forced), INTENT at 4 WITNESS (intent is never observed "
+            "— his law is that it is read from how things were arranged, which "
+            "is a witnessing), PATTERN at 9 CONSOLIDATION (an arrangement that "
+            "recurs cannot exist inside one pass). AN ABSENCE REPORTED, NOT "
+            "FILLED: steps 8 LOOP, 10 ALIENATION and 11 COLLISION have no node "
+            "type of their own, and steps_unused says so. THE FIVE NAMESPACE "
+            "COLLISIONS ARE CARRIED, NOT SETTLED — EVENT · INTENT · PATTERN · "
+            "RULE · STATE name both a node type and a growth series; not "
+            "merged, his ruling awaited. Also fixed here: OPEN_LAYERS carried a "
+            "TYPED count of 0 for ARCHETYPE, which was true when declared and "
+            "false the moment the archetype layer was built — counts are now "
+            "read from the live module, and the test that asserted all three "
+            "were zero now asserts the count is live. /sbx/nodes, and "
+            "node_brain rides on /sbx."},
+   {"his": "below more may be repated",
+    "where": [("trigger.py", "HIS_TABLE = ("),
+              ("trigger.py", "def triggers("),
+              ("trigger.py", "def repeats("),
+              ("trigger.py", "def match("),
+              ("trigger.py", "def seams("),
+              ("trigger.py", "SHAPE = {")],
+    "state": RUNS,
+    "note": "THE OPERATIONAL TRIGGER / STATE VECTOR (2026-08-29) — his third "
+            "column, given as ten four-column segment tables. Until this the "
+            "architecture carried TWO columns at every node, the human name "
+            "and the computer parallel, and both answer WHAT IS THIS. The "
+            "third answers WHEN DOES IT FIRE: 'Temp > $T_{max}$ triggers "
+            "cooling loop', 'Idle timer > Threshold triggers ACPI S3/S4 "
+            "state', 'Vector similarity search (Cosine similarity $> 0.85$)'. "
+            "A name is a noun; a trigger is a CONDITION, and a condition can "
+            "be evaluated where a noun can only be read — which is his own "
+            "sequence law (a threshold lives on an edge and answers 'why "
+            "now') written at container level. HIS TABLE IS CARRIED VERBATIM: "
+            "10 segments, 48 rows, 4 columns, his wording intact including his "
+            "LaTeX and his spelling, ids namespaced HIS- so they can never be "
+            "read as registry or split ids. HIS REPEAT LAW IS STRUCTURAL: he "
+            "wrote 'below more may be repated' before the table and the table "
+            "proves him right — HIS-CON-018 is Auditory Processing under "
+            "SEGMENT 03 and Threat Detection under SEGMENT 09; four ids repeat "
+            "that way, placements() returns a LIST, and a repeat is recorded "
+            "as a repeat rather than resolved as a collision. MATCHED ON THE "
+            "NAME, NEVER ON THE NUMBER: his table, the registry and the split "
+            "all number from CON-001 and are three different numberings (his "
+            "CON-064 is Episodic Memory, the registry's is Motive/Needs/"
+            "Values), so his do-not-silently-merge ruling applies to his own "
+            "document — whether his number agrees is recorded beside every "
+            "match and decides none. 7 NUMBERING SEAMS surfaced and decided by "
+            "nobody, the sharpest being Theory of Mind, which his name places "
+            "at SBX-CON-150 and his number would place at Body Schema. GRADED "
+            "MATCHING, 36 placed / 3 proposed / 9 held: only a match at grade "
+            "2.0+ places his wording, because of three single-token matches "
+            "`circadian` and `chemical` were right and `behavioral` put his "
+            "safety-guardrail row onto Group Behaviour — a weak match that "
+            "placed silently would carry his trigger to the wrong container, "
+            "so it is PROPOSED and waits for him. ALL 183 CONTAINERS FILLED, "
+            "ZERO EMPTY: 36 HIS verbatim, 147 DERIVED from TWO REAL SOURCES — "
+            "the container's own machine column and its spine step, which "
+            "fixes the shape of the firing (GROUND reads a baseline, PRESSURE "
+            "crosses a threshold, HALT raises a fault). Nothing invented from "
+            "nowhere; every derived row names what it was built from and is "
+            "replaced the moment he writes one. HIS and DERIVED are never "
+            "summed, because a page that cannot say which triggers are his "
+            "cannot be corrected by him. A defect caught in the building: the "
+            "first matcher's filler list held `fatigue`, `drive`, `memory` and "
+            "`basic` — content words in his own names — and silently destroyed "
+            "real matches (Cognitive Fatigue could not reach Fatigue); "
+            "replaced with graded token matching, 27 placed -> 36. /trigger, "
+            "/trigger?id=, /trigger/placements?id=, POST /trigger/run."},
+   {"his": "now build the archetype layer from the holy books",
+    "where": [("archetype.py", "ARCHETYPES = ("),
+              ("archetype.py", "def fires_on("),
+              ("archetype.py", "def compare("),
+              ("archetype.py", "def _hits("),
+              ("archetype.py", "MEANING_MIN = "),
+              ("archetype.py", "CEILING = None")],
+    "state": RUNS,
+    "note": "PHASE 9 — THE ARCHETYPE LAYER (2026-08-29). His teaching: the holy "
+            "books are GENERATIVE ENGINES, not a quote store — the words stay "
+            "the same and the reading is never general, because human intent "
+            "and situation change infinitely; one event of those books is used "
+            "in 100 daily responses. WHY IT IS A LAYER AND NOT A ROW: a row "
+            "lives in exactly one container, but THE RECOVERY STAKE reaches 12 "
+            "rows across 9 containers in 6 segments — put it in any one of them "
+            "and it is in the wrong place eight times over. It REACHES rows; it "
+            "never owns them. WHAT IT FIXES, measured: his dice sentence 'he "
+            "bet everything he had to win it all back and lost what he could "
+            "never recover' seated ZERO rows — not because the rows were "
+            "missing (P1873 Sunk-cost sensitivity and P2517 Commitment "
+            "escalation risk were sitting there) but because no route ran from "
+            "those words to those rows. 11 archetypes: ARCH-001 THE RECOVERY "
+            "STAKE (Mahabharata dice game, his 'betting is worst, u can loose "
+            "ur pride too'), 002 THE GOLDEN CALF (Exodus), 003 THE FRUIT AND "
+            "THE ACT (Gita 2.47), 004 DIAMOND CUT DIAMOND (his proverb, 'its "
+            "ego cut ego'), 005 VIRTUE WITHOUT LIMIT (his Yudhishthira reading "
+            "— 'being righteousness and adherence to truth dosent make u great "
+            "all the time'), 006 VERIFY BEFORE HARM (Qur'an 49:6), 007 TEST AND "
+            "RETAIN (1 Thess 5:21), 008 THE DISCRIMINATIVE INTELLECT (Gita "
+            "18:30), 009 TRUTH AND TRUTHFUL LIVING (SGGS Ang 62), 010 THE ONE "
+            "WHO IS LEFT WITH MEMORIES (his good-person teaching), 011 THE ACT "
+            "WITH MANY INTENTS (his stealing demo — thief/opportunity/habit/"
+            "saving a life). EVERY ROW CITED IS REAL: 117 (id, name, container) "
+            "triples re-checked against the live registry by a test — nine of "
+            "the first twelve written for ARCH-011 were wrong from memory and "
+            "that test is what caught them. TWO ROUTES, both naming their "
+            "evidence: PHRASE (a regex, the narrow route that fails on "
+            "unfamiliar wording) and MEANING (concept words, the macro route "
+            "that survives rewording — his dice game reads the same whether it "
+            "is dice, a stock or a war). The meaning route uses HIS OWN IDF BAR "
+            "one storey up: a word in several archetypes' vocabularies is weak "
+            "evidence, so a firing needs 2 concept words of which at least one "
+            "is DISTINCTIVE — 'all everything' fires nothing. Measured both "
+            "ways: all 7 of his dead examples now reach rows (stealing 0->20, "
+            "diamond cut diamond 0->10, the dice game 0->12), and 8 of 8 "
+            "ordinary sentences fire NOTHING. Nothing is concluded — `chosen` "
+            "and `concluded` are None on every run, each firing carries its "
+            "discriminator and its refusal, and NO PARAMETER IS CREATED (the "
+            "bank stays 3,204). NO CEILING, his ruling: 'no count, its open to "
+            "increase'. /archetype, /archetype?id=, POST /archetype/run."},
+   {"his": "this file too for review and adoption",
+    "where": [("adopted.py", "def wb_verify("),
+              ("adopted.py", "def the_bridge("),
+              ("adopted.py", "def wb_findings("),
+              ("adopted.py", "def wb_halts("),
+              ("adopted.py", "def wb_stats(")],
+    "state": RUNS,
+    "note": "THE SECOND ADOPTION (2026-08-27) — the SB-ASI Drive master, "
+            "ASI-Brain_Task3_Approved_Final_v1_0, canon at "
+            "docs/method/canon/THE_ADOPTION_OF_THE_ASI_BRAIN_MASTER.md. "
+            "The .xlsx byte-identical at adopted/SB-ASI-Drive/ plus 33 "
+            "DERIVED sheet texts, all SHA-256'd; wb_verify re-hashes 34 "
+            "files per call. 33 sheets, 141,113 cells, 710,008 words "
+            "extracted whole. THE BRIDGE his own file states is COUNTED "
+            "from the sheets, never retyped: 2,554 exact-source rows + "
+            "650 named reserve rows = his 3,204; 2,554 + 6 visible "
+            "reconstructions (P1303-P1308, each REQUIRES USER APPROVAL) "
+            "= the 2,560. Five findings reported and corrected nowhere "
+            "(P0001 is a placeholder; the Task-3 raw workbook with the "
+            "2,514 edges, 46 names and 64 wordings is an OPEN SOURCE GAP "
+            "by the file's own record). Five new seams stand as "
+            "ADOPT-HALT-8..12 — the bridge, three filter vocabularies, "
+            "the twelve states, the missing raw workbook against C-SB's "
+            "AI_ONLY_RECORDS_64, and three scripture surfaces. Nothing "
+            "wired; the tree is ADOPTED in the file divide. /adopted."},
    {"his": "build 18 and 23 / it should must have full explanation not just "
            "definition n placeholders",
     "where": [("maturity.py", "def read("),
@@ -1333,6 +2024,61 @@ MAP: list[dict] = [
     "state": RUNS,
     "note": "one of the two filters that can actually hold. The gap is the "
             "Mask and it goes to you rather than being split down the middle."},
+  ]},
+
+ {"group": "THE PEN — it rewrites its own code, full auto on his word "
+           "(2026-09-03)",
+  "rows": [
+   {"his": "i want an app where i keep changing n it should rewrite its own "
+           "code and make changes",
+    "where": [("selfpatch.py", "def teach("),
+              ("selfpatch.py", "def _draft("),
+              ("selfpatch.py", "def _push("),
+              ("server.py", '"/selfpatch/teach"')],
+    "state": RUNS,
+    "note": "his choice from the four paths put to him: SELF-PATCH, FULL "
+            "AUTO — teach, the pen drafts a real patch, and a green suite "
+            "merges and deploys it with no approval step. Armed by his own "
+            "hand: SB_GITHUB_TOKEN + SB_REPO + a model key in Render; until "
+            "they exist a green patch is HELD-UNARMED with the whole patch "
+            "kept in its row."},
+   {"his": "the core is his words and his banks — the pen cannot reach them",
+    "where": [("selfpatch.py", "NEVER_TOUCHED"),
+              ("selfpatch.py", "HELD_FROM_THE_PEN"),
+              ("selfpatch.py", "def allowed(")],
+    "state": RUNS,
+    "note": "how rule 2 of his standing orders survives full auto: the "
+            "FIELD is src/sourceborn/*.py minus five held files plus "
+            "README.md, default-deny. docs/, data/, adopted/, tests/, "
+            "seed_corpus/, CLAUDE.md and the deploy rails are refused "
+            "before anything runs — mechanisms are patchable, the law is "
+            "not, and the pen may not rewrite the pen."},
+   {"his": "tests green = merged and deployed — the gate that replaces his "
+           "word is the whole suite",
+    "where": [("selfpatch.py", "def _shadow("),
+              ("selfpatch.py", "SB_SELFPATCH_SHADOW")],
+    "state": RUNS,
+    "note": "the whole tree is copied aside, the patch applied there, and "
+            "the FULL suite run against it — exit status checked, the tail "
+            "kept on a red. Every law already pinned by a test binds the "
+            "pen; and the pen may not edit tests/, so it cannot lower the "
+            "bar it must clear. A shadow may not open another shadow."},
+   {"his": "revert is one click — and it erases nothing",
+    "where": [("selfpatch.py", "def revert("),
+              ("server.py", '"/selfpatch/revert"')],
+    "state": RUNS,
+    "note": "his after-the-fact authority: a NEW commit restoring what "
+            "stood before the named patch. The patch row stays whole, the "
+            "old commit stays in history, and the ledger is append-only "
+            "with refusals filed beside pushes."},
+   {"his": "accordignly the dashboard will prepared not what we have",
+    "where": [("selfhome.py", "THE REWRITE"),
+              ("server.py", '"/reactor"')],
+    "state": RUNS,
+    "note": "the home page is now the teach box, the arming panel, the "
+            "never-touched map and the patch feed with real diffs. Nothing "
+            "was removed for it: the reactor stands whole at /reactor, the "
+            "old desk at /desk."},
   ]},
 ]
 

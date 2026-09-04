@@ -1,0 +1,10 @@
+ASI = Human ↔ AI Connections — Current Core Understanding
+
+Layer	Node/set	Supplies	Receives	Connection rule	Evidence rule	Output	Status
+Whole system	Sourceborn	Project identity and full functional structure	Human, AI and connection results	Contains the working Brain	Preserve source history	Evolving Sourceborn Brain	PRESERVED
+Human side	Human Brain nodes	Biological signals, cognition, emotion, motive, intent, social context, action and lived experience	AI fact-checks, tools and contextual evidence	Human node does not automatically equal AI node	Human state may be observed, reported, inferred or unknown	Human-side candidate state	PRESERVED
+AI side	AI Brain nodes	Current time, online sources, task/application context, tools, sensors, calculation, memory and machine mechanisms	Human goals, values and corrections	AI supports and tests; it must not silently replace Human meaning	Every AI addition needs source/provenance	AI-side evidence and operations	PRESERVED
+ASI connection	Human ↔ AI links	Many-to-many synchronisation	Both Human and AI sides	The verified connection itself is ASI	Each edge records source, confidence, state and unresolved gaps	Context-enriched decision/discovery	CURRENT USER CORRECTION
+Decision engine	Context arbitration	Competing biological signals, task value, time, risk, intention and motive hypotheses	Connection evidence	No single parameter decides the result	Unknown remains H0/assumption	Ranked options with reasons	ACTIVE TEST LAYER
+Discovery engine	Pyramid sharpening	Broad node → 2–3 child context nodes → sharper next stage	Test outcomes and corrections	Children can be added without pretending the parent was complete	Fact-check each new child	New parameter candidates	ACTIVE TEST LAYER
+Authority	User	Approval, correction, hold, omission and change	Brain findings	AI verifies and surfaces; user controls project activation	External facts remain separately verified	Current system truth + source history	LOCKED

@@ -31,7 +31,17 @@ def _n():
     from . import runtime as R
     from . import statepacks as P
     from . import subjectbrains as SB
+    from . import archetype as AR
+    from . import link as LK
+    from . import readings as RD
+    from . import sbx as X
+    from . import scale as SC
+    from . import trigger as TG
+    from . import selfpatch as SP
     d = F.divide(".")
+    w = X.wiring()
+    tg = TG.stats()
+    rev = X.review()
     return {
         "files": d["total_files"], "by": d["counts"],
         "grows": d["what_grows_the_count"]["files"],
@@ -53,6 +63,23 @@ def _n():
         "nrev": [s["n"] for s in R.STEPS if s["dir"] == R.REVERSE],
         "amode": AL.mode(os.environ.get("SB_ROOT", ".sourceborn")),
         "astage": " -> ".join(AL.MODES),
+        # the split and the layers standing on it
+        "xseg": len(X.segments()), "xcon": len(X.containers()),
+        "xrow": len(X.rows()), "xstep": len(X.spine()),
+        "arch": len(AR.archetypes()), "areach": AR.stats()["distinct_rows"],
+        "links": LK.stats()["links"], "lkhis": LK.stats()["his"],
+        "lktype": LK.stats()["by_type"],
+        "bands": len(SC.bands()), "bandson": len(SC.active()),
+        "reads": len(RD.TYPES),
+        "trghis": tg["trigger_by_him"], "trgder": tg["trigger_derived"],
+        "trgseam": tg["numbering_seams"], "trgrep": tg["repeated_ids"],
+        "wired": w["wired"], "carried": w["carried_not_consulted"],
+        "short": w["the_one_gap"]["short_by"],
+        "rpass": rev["passed_count"], "rfind": rev["findings_count"],
+        "rblock": len(rev["blocking"]),
+        # the pen — its field and what is held from it, read live
+        "penfield": len(SP.field()),
+        "penheld": len(SP.HELD_FROM_THE_PEN) + len(SP.NEVER_TOUCHED),
     }
 
 
@@ -103,6 +130,8 @@ def arrow_chart() -> str:
         "",
         "SYSTEM %d · ARTIFACT %d · OPERATIONS %d · UNPLACED %d"
         % (b["SYSTEM"], b["ARTIFACT"], b["OPERATIONS"], b["UNPLACED"]),
+        "ADOPTED %d  from C-SB — custody, not a role; never harvested"
+        % b["ADOPTED"],
     ])
     L += _down()
 
@@ -235,6 +264,74 @@ def arrow_chart() -> str:
     ])
     L += _down()
 
+    L += _box("THE SPLIT, AND THE LAYERS STANDING ON IT",
+              "sbx.py  /sbx", [
+        "his ruling: every ID holding more than one meaning becomes",
+        "separate IDs. The SOURCE BANK IS REPLACED, NEVER DELETED —",
+        "human_registry.json still reads %s rows, %d containers."
+        % (format(n["bank"], ","), n["containers"]),
+        "   %d segments · %d containers · %s rows · %d spine steps"
+        % (n["xseg"], n["xcon"], format(n["xrow"], ","), n["xstep"]),
+        "   both columns at every node · new in front, old in back",
+        "   review: %d checks pass · %d findings · %d BLOCKING"
+        % (n["rpass"], n["rfind"], n["rblock"]),
+        "",
+        "ARCHETYPE  archetype.py  /archetype",
+        "   %d from the books · reach %d rows across containers ·"
+        % (n["arch"], n["areach"]),
+        "   two routes (PHRASE, MEANING) · his dead examples 0 -> real",
+        "TRIGGER    trigger.py    /trigger      HIS THIRD COLUMN",
+        "   %d his verbatim + %d derived = all %d containers filled ·"
+        % (n["trghis"], n["trgder"], n["xcon"]),
+        "   matched on the NAME never the number · %d seams · %d repeats"
+        % (n["trgseam"], n["trgrep"]),
+        "LINK       link.py       /link",
+        "   %d links, %d his · %s"
+        % (n["links"], n["lkhis"],
+           " ".join("%s %d" % (k[:5], v) for k, v in sorted(n["lktype"].items()))),
+        "   the reading belongs to the MEETING, not to either end",
+        "SCALE      scale.py      /scale",
+        "   %d bands · ONLY HIS %d ARE IN FORCE · 5 proposed, gated"
+        % (n["bands"], n["bandson"]),
+        "READING    readings.py   /readings",
+        "   %d intent types as READINGS — each names what would refute"
+        % n["reads"],
+        "   it. thief / opportunity / habit / saving a life. none chosen",
+        "",
+        "ALL OF IT RUNS ON ONE ASK — place_on_spine, not one per page",
+        "WIRED:   %s" % ", ".join(n["wired"][:4]),
+        "         %s" % ", ".join(n["wired"][4:]),
+        "CARRIED, NOT CONSULTED — they sit at a step and reach no",
+        "answer: %s" % ", ".join(n["carried"][:3]),
+        "         %s" % ", ".join(n["carried"][3:]),
+        "SHORT:   sub-parameters by %s — HIS NUMBER TO FINALISE"
+        % format(n["short"], ","),
+    ], heavy=True)
+    L += _down()
+
+    L += _box("THE PEN — IT REWRITES ITS OWN CODE", "selfpatch.py  /  (home)", [
+        "his choice, 2026-09-03: SELF-PATCH, FULL AUTO —",
+        '"tests green = merged and deployed, no word from him"',
+        "",
+        "  teach ─► the pen drafts ─► parse (field · compile · caps)",
+        "        ─► THE SHADOW: whole tree copied, FULL suite run",
+        "        ─► red: FILED with the failure, applied to nothing",
+        "        ─► green: pushed straight to the deploy branch ─►",
+        "           Render redeploys ─► the app is what the pen wrote",
+        "",
+        "the four laws: the FIELD (%d modules + README; his canon,"
+        % n["penfield"],
+        "banks, suite and orders UNREACHABLE — %d things held) ·"
+        % n["penheld"],
+        "the GATE IS THE SUITE · APPEND ONLY (refusals filed, revert",
+        "is a NEW commit) · the DOOR (the pen moves only behind his",
+        "password — it writes into HIS GitHub with HIS token)",
+        "",
+        "armed by HIS hand: SB_GITHUB_TOKEN · SB_REPO · a model key",
+        "it does NOT teach itself — AUTO_SUSTAIN stands at his gate",
+    ])
+    L += _down()
+
     L.append(" " * 34 + "HIM")
     L.append(" " * 14 + "nothing is canonical · nothing is chosen")
     L.append(" " * 12 + "no parameter is created · no halt is answered")
@@ -259,9 +356,40 @@ def where(thing: str = "") -> dict:
                        "sign groups, actor roles, origin distance"),
         "the algorithm": ("selfmake.py", "/selfmake",
                           "its own step list, which grows"),
-        "the file divide": ("filemap.py", "/growing", "479 files, 0 unplaced"),
+        "the file divide": ("filemap.py", "/growing",
+                            "every file placed, 0 unplaced; adopted/ held apart"),
         "what exists": ("exists.py", "/exists",
                         "the honest map of what runs and what does not"),
+        "the split": ("sbx.py", "/sbx",
+                      "27 segments · 183 containers · 3,483 rows, on his "
+                      "12-step spine. The source bank stands untouched beside "
+                      "it"),
+        "the archetype": ("archetype.py", "/archetype",
+                          "the books as generative engines — reaches rows "
+                          "across containers, owns none of them"),
+        "the trigger": ("trigger.py", "/trigger",
+                        "his third column: WHEN a container fires, not what "
+                        "it is. 36 his, 147 derived, all 183 filled"),
+        "the link": ("link.py", "/link",
+                     "993 relations counted from the split bank. Diamond cut "
+                     "diamond belongs to the meeting, not to either end"),
+        "the scale": ("scale.py", "/scale",
+                      "9 bands; only his 4 are in force, 5 proposed and "
+                      "gated on his word"),
+        "the readings": ("readings.py", "/readings",
+                         "his nine intent types as readings — each names what "
+                         "would refute it. None chosen"),
+        "the wiring": ("sbx.py", "/sbx/wiring",
+                       "his twelve-layer table, live: what is met, what is "
+                       "short, and what is carried but never consulted"),
+        "the review": ("sbx.py", "/sbx/review",
+                       "nine checks that can fail over the split"),
+        "the pen": ("selfpatch.py", "/  /selfpatch",
+                    "it rewrites its own code — his choice is full auto: "
+                    "teach, the pen drafts, the whole suite runs in shadow, "
+                    "green pushes and deploys. His canon, banks, suite and "
+                    "orders are unreachable, structurally; revert is one "
+                    "click and one new commit"),
     }
     if thing:
         k = thing.strip().lower()
@@ -284,9 +412,70 @@ def stats() -> dict:
             "source": "sysmap.arrow_chart"}
 
 
+def his_words() -> dict:
+    """HIS WORDS -> THE CODE THAT CARRIES THEM, collected across the package.
+
+    Thirty-one modules each define `annotations()` returning
+    `(his words, module.symbol)` pairs — and until this function existed
+    NOTHING CALLED ANY OF THEM. Thirty-one accessors, written one per build,
+    collected by nobody: an index of his own vocabulary that no page could
+    show and no test could check.
+
+    So this walks the package, calls every `annotations()` it finds, and
+    RESOLVES each target the way `exists.py` resolves its anchors — a phrase
+    pointing at a symbol that no longer exists is reported, not silently
+    carried. That turns a list into a check."""
+    import importlib
+    import os
+    import pkgutil
+    here = os.path.dirname(os.path.abspath(__file__))
+    rows, missing, mods = [], [], 0
+    for mi in sorted(pkgutil.iter_modules([here]), key=lambda m: m.name):
+        try:
+            mod = importlib.import_module("." + mi.name, __package__)
+        except Exception as exc:
+            missing.append({"module": mi.name, "problem": "import failed: %s" % exc})
+            continue
+        fn = getattr(mod, "annotations", None)
+        if not callable(fn):
+            continue
+        try:
+            pairs = fn()
+        except Exception as exc:
+            missing.append({"module": mi.name, "problem": "annotations() raised: %s" % exc})
+            continue
+        mods += 1
+        for phrase, target in pairs:
+            resolved, why = True, ""
+            name = str(target).split(".", 1)[-1].split("(")[0].strip()
+            name = name.rstrip(" =")
+            if name and not hasattr(mod, name):
+                # a dotted target may name another module's symbol, or a bare
+                # phrase like "filters, in order" — only flag a plain symbol
+                if name.replace("_", "").isalnum():
+                    resolved, why = False, "no symbol %r in %s" % (name, mi.name)
+            rows.append({"his_words": phrase, "lives_at": target,
+                         "module": mi.name, "resolved": resolved,
+                         "why": why})
+            if not resolved:
+                missing.append({"module": mi.name, "his_words": phrase,
+                                "target": target, "problem": why})
+    return {
+        "modules_annotating": mods,
+        "phrases": len(rows),
+        "resolved": sum(1 for r in rows if r["resolved"]),
+        "unresolved": [r for r in rows if not r["resolved"]],
+        "problems": missing,
+        "rows": rows,
+        "law": "his words are the index. A phrase pointing at a symbol that no "
+               "longer exists is reported, never silently carried.",
+    }
+
+
 def annotations() -> list:
     return [
         ("show me in arrow graph what is where", "sysmap.arrow_chart"),
         ("every number is read from the running code", "sysmap._n"),
         ("where one named thing lives", "sysmap.where"),
+        ("his words are the index", "sysmap.his_words"),
     ]

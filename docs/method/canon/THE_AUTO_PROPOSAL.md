@@ -219,6 +219,30 @@ I would build it before, not after.
 
 ---
 
+## 4A. WHAT ACTUALLY SHIPPED — read this before the table below
+
+*Added 2026-08-30 by the docs wiring audit. The proposal was written before the
+build; it was approved and built, but **not under these names**, and nothing
+here said so. A reader looking for `links.py`, `nodemem.py` or `/links` would
+find none of them and reasonably conclude the work was never done.*
+
+| proposed here | what shipped | where |
+|---|---|---|
+| **A** `links.py` — edge store, `neighbours()` `path()` `subgraph()` | **`nodegraph.py`** — Phase D, the memory graph. `recall()` is the linker and the retrieval loop in one, so the two can never disagree. `path()` walks TYPED hops. | `/nodes`, `/nodes/path`, `/nodes/subgraph` |
+| **B** `nodemem.py` — per-row reading chain | **`nodegraph.remember()`** — append-only per-node chain, kinds constrained to his eleven | `/nodes/remember` |
+| **C** write trigger in `growth.add` | **`nodegraph.write_node()`** — his five write conditions ENFORCED at the write site, with the auto-linker running inside it | `/nodes/write` |
+| **D** budget + stop `autoloop.py` | **`autoloop.py`** — shipped under the proposed name. Bounded ticks, every cap reported, quiet ticks append nothing | `/auto`, `POST /auto/tick` |
+
+**A separate link layer did later arrive under the proposed name's meaning** —
+`link.py` (Phase 10), 993 relations between ROWS counted from the split bank.
+That is a different object from A: A links stored NODES, `link.py` links
+parameter ROWS. Both exist; neither replaced the other.
+
+His staging law held: the mode shipped MANUAL and moved to SEMI_AUTO only on
+his word.
+
+---
+
 ## 4. THE PROPOSAL — four pieces, in dependency order
 
 | | piece | what it does | unblocks |

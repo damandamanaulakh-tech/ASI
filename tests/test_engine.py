@@ -3726,15 +3726,35 @@ def test_the_seed_is_computed_from_the_modules_and_is_idempotent():
     by = s1["counts"]["by_kind"]
     assert by[G.ADDRESS] == 58, "every container x state pair generated"
     assert by[G.RUBRIC] == 25, "his 25 universal dimensions"
-    assert by[G.INTENT_ROUTE] == 50, "40 King routes + his 10 advisor-meeting ones"
+    assert by[G.INTENT_ROUTE] == 59, \
+        "40 King routes + his 10 advisor-meeting + his 9 intent readings"
     assert by[G.EVENT] == 11
-    assert by[G.RULE] == 18, "10 + his 7 live-intent rules + the namespace ruling"
-    assert by[G.STATE] == 6
+    assert by[G.RULE] == 19, \
+        "10 + his 7 live-intent rules + the namespace ruling + his diamond link"
+    assert by[G.STATE] == 54, "6 operating states + his 48 trigger rows"
+    assert by[G.PATTERN] == 28, "17 patterns + the 11 archetypes"
+    assert by[G.AXIS] == 17, "13 + his 4 named scale bands"
+    assert by[G.CANDIDATE] == 5, "the 5 proposed scale bands, unapproved"
+    assert by[G.HALT] == 7, "the trigger numbering seams, unresolved"
     assert by[G.PARAM] == 3, "the three motives with no echo in the bank"
     # the three that got a home
     params = [r["name"] for r in G.load(root) if r["kind"] == G.PARAM]
     assert set(params) == {"Security need", "Mating/attraction motive",
                            "Revenge/retaliation motive"}, params
+    # THE LAYERS RAISE THE COUNT AND NOT THE BANK. His law is that every
+    # example raises the count; his other law is that a rubric application is
+    # not an ontology expansion. An archetype is not a parameter and a link is
+    # not a parameter, so none of them is a PARAM row.
+    rows = G.load(root)
+    for prefix, kind in (("ARCHETYPE: ", G.PATTERN), ("LINK: ", G.RULE),
+                         ("SCALE BAND: ", G.AXIS), ("READING: ", G.INTENT_ROUTE),
+                         ("TRIGGER: ", G.STATE)):
+        got = [r for r in rows if r["name"].startswith(prefix)]
+        assert got, prefix
+        assert {r["kind"] for r in got} == {kind}, (prefix, kind)
+    assert not [r for r in rows
+                if r["kind"] == G.PARAM and ":" in r["name"]], \
+        "no layer row may consume his flat parameter index"
     # seeding again adds nothing and removes nothing
     before = G.load(root)
     s2 = G.seed(root)
@@ -4074,6 +4094,17 @@ def test_every_repo_file_is_divided_and_none_is_unplaced():
     assert any(b.endswith("human_registry.json") for b in
                d["classes"][F.BANK]["files"])
     assert F.PHASE == "GROWING"
+    # adopted material is custody, not a role: its own class, in neither sum,
+    # and NEVER on the harvest list — the adoption stays un-wired
+    adopted = d["classes"][F.ADOPTED]["files"]
+    # 43 C-SB (42 files + manifest) + 35 SB-ASI-Drive (the workbook,
+    # 33 derived sheet texts, and its manifest)
+    assert len(adopted) == 78, adopted
+    assert all(a.startswith("adopted/") for a in adopted)
+    assert F.ADOPTED not in d["what_grows_the_count"]["which"]
+    assert F.ADOPTED not in d["what_it_grows_against"]["which"]
+    assert not any(p.startswith("adopted/") for p in F.readable(".")), \
+        "an adopted file entered the growing harvest"
 
 
 def test_the_basic_being_over_is_his_call_not_a_threshold():
@@ -5898,14 +5929,18 @@ def test_the_auto_routes_are_reachable():
 # THE GLASS REACTOR — the home page, on his word.
 # ---------------------------------------------------------------------------
 
-def test_the_reactor_is_the_home_page_and_the_desk_survives():
-    """His word made it the home page; nothing is removed — the old
-    dashboard lives whole at /desk."""
+def test_the_reactor_survives_whole_and_the_rewrite_holds_the_door():
+    """Two of his words in order: 2026-08-24 made the reactor the home page;
+    2026-09-03 said 'accordignly the dashboard will prepared not what we
+    have' — so THE REWRITE now holds /, and the reactor is NOT removed: it
+    stands whole at /reactor, the old dashboard still at /desk. This test
+    pinned the reactor at / until his later word; it now pins both rulings."""
     from sourceborn import homepage
     src = open("src/sourceborn/server.py").read()
-    assert "homepage.PAGE" in src
     at = src.index('path in ("/", "/index.html")')
-    assert "homepage.PAGE" in src[at:at + 400], "/ serves the reactor"
+    assert "selfhome.PAGE" in src[at:at + 500], "/ serves THE REWRITE"
+    at2 = src.index('path == "/reactor"')
+    assert "homepage.PAGE" in src[at2:at2 + 400], "the reactor stands whole"
     assert '"/desk"' in src, "the old dashboard is kept, never deleted"
     assert 'href="/desk"' in homepage.PAGE, "the reactor links back to it"
 
@@ -6085,6 +6120,254 @@ def test_every_seeded_bridge_carries_his_approval():
         "future bridges arrive through the ledger, append-only"
 
 
+def test_the_adoption_is_byte_identical_and_inert():
+    """His word: adopt what is not here, touch nothing in C-SB, lay off my
+    brain. 42 files byte-identical with SHA custody; nothing wired into
+    engine behavior; every seam a HALT for him."""
+    from sourceborn import adopted as A
+    v = A.verify()
+    assert v["files"] == 42 and v["byte_identical"] is True, \
+        (v["drifted"], v["missing"])
+    assert v["origin_commit"].startswith("9e3f179")
+    st = A.stats()
+    assert st["csb_untouched"] is True
+    assert st["wired_into_engine_behavior"] is False
+    assert "lay off ur brain" in st["his_word"]
+    # the adopted module contains no write path and no engine import —
+    # the Phase A technique
+    import re as _re
+    src = open("src/sourceborn/adopted.py").read()
+    code = _re.sub(r'""".*?"""', "", src, flags=_re.S)
+    code = _re.sub(r"#.*", "", code)
+    for forbidden in ("growth.add(", '"a"', "'a'", "def tick",
+                      "import growing", "import runtime", "import combine"):
+        assert forbidden not in code, \
+            "the adoption reads and halts — it must not write or wire: " \
+            "found %r" % forbidden
+
+
+def test_the_adopted_counts_are_the_true_counts():
+    from sourceborn import adopted as A
+    assert A.locks()["count"] == 30            # SEQ-LOCK-001..030
+    assert len(A.intent_types()["types"]) == 8
+    assert A.ai64()["records"] == 64
+    assert A.engines75()["engine_count"] == 75
+    op = A.operational()
+    assert op["containers"] == 80
+    assert op["subparameters"] == 480          # 2593..3072 is 480 wide
+    assert A.expansion32()["records"] == 32
+    assert A.native2560()["records"] == 2560
+    assert A.nodes22()["node_count"] == 22
+    assert A.rubrics52()["count"] == 52
+    assert "EVERYTHING HAPPENING IS AN EVENT" in A.intent_types()["motto"]
+
+
+def test_the_seams_halt_instead_of_deciding():
+    """Same numerals, different namespaces; same words, different things —
+    every one of them is his call, and the list says so."""
+    from sourceborn import adopted as A
+    hs = A.halts()
+    assert len(hs) == 7
+    assert all(h["his_call"] for h in hs)
+    h1 = next(h for h in hs if h["id"] == "ADOPT-HALT-1")
+    assert "P2561" in h1["seam"] and "namespaces" in h1["seam"]
+    assert A.expansion32()["namespace_note"].startswith("the ASI-Brain")
+    # and the wisdom pipeline is adopted with C-SB's own scope, unwired
+    w = A.wisdom()
+    assert w["wired_into_this_core"] is False
+    assert "not" in w["adoption_scope_as_csb_states_it"].lower()
+
+
+def test_his_original_rain_wording_is_preserved():
+    from sourceborn import adopted as A
+    ex = A.his_examples()
+    assert "when i want to take my kids out" in ex["rain_original_source"]
+    assert any("RAIN_TARGET_LAYER" in f for f in ex["files"])
+    assert any("FATHER_DOOR" in f for f in ex["files"])
+
+
+def test_the_adopted_route_is_reachable():
+    src = open("src/sourceborn/server.py").read()
+    assert '"/adopted"' in src
+
+
+def test_the_workbook_adoption_is_byte_identical_and_verified():
+    """His word: 'this file too for review and adoption.' The SB-ASI Drive
+    master (ASI-Brain_Task3_Approved_Final_v1_0): the .xlsx byte-identical
+    plus 33 derived sheet texts, every one SHA-256'd and re-hashed."""
+    from sourceborn import adopted as A
+    v = A.wb_verify()
+    assert v["files"] == 34 and v["byte_identical"] is True, \
+        (v["drifted"], v["missing"])
+    assert "this file too for review and adoption" in v["his_word"]
+    st = A.wb_stats()
+    assert st["sheets"] == 33
+    assert st["wired_into_engine_behavior"] is False
+
+
+def test_the_bridge_is_stated_by_his_own_file_and_counted_here():
+    """The workbook states how the two banks relate; the numbers are
+    COUNTED from its sheets, never retyped: 2,554 exact + 650 reserve =
+    his 3,204, and 2,554 + 6 visible reconstructions = the 2,560."""
+    from sourceborn import adopted as A
+    b = A.the_bridge()
+    assert b["carried_exact"] == 2554
+    assert b["held_in_reserve"] == 650
+    assert b["carried_plus_reserve"] == 3204
+    assert b["baseline_2560"] == 2560
+    ids = [r["id"] for r in b["reconstruction_candidates"]]
+    assert ids == ["SB-ASI-P%d" % n for n in range(1303, 1309)], ids
+    assert all("REQUIRES USER APPROVAL" in r["status"]
+               for r in b["reconstruction_candidates"])
+    assert b["decided_here"] is False
+
+
+def test_the_master_workbook_findings_are_reported_not_corrected():
+    from sourceborn import adopted as A
+    fs = A.wb_findings()
+    assert len(fs) == 5
+    assert all(f["corrected"] is False for f in fs)
+    assert any("wording extraction required" in f["finding"] for f in fs)
+    assert any("OPEN SOURCE GAP" in f["finding"] for f in fs)
+
+
+def test_the_split_is_filed_whole_and_every_step_is_populated():
+    """His order: rebuild it complete with all 183 containers and all rows.
+    27 segments, 183 containers, 3,483 rows, 12 steps, none empty."""
+    from sourceborn import sbx
+    v = sbx.verify()
+    assert v["pillars"] == 6
+    assert v["steps"] == 12
+    assert v["segments"] == 27
+    assert v["containers"] == 183, v["containers"]
+    assert v["rows"] == 3483, v["rows"]
+    assert v["every_step_populated"] is True, v["containers_per_step"]
+    assert sum(v["containers_per_step"].values()) == 183
+    # every container reachable, every row carries its home
+    assert len(sbx.containers()) == 183
+    assert len(sbx.rows()) == 3483
+    assert all(r["container"] and r["step"] for r in sbx.rows()[:200])
+
+
+def test_the_source_bank_is_replaced_never_deleted():
+    """His ruling on the reversal: do not delete, replace with the new standing.
+    The 3,204 stand exactly as they were, beside the split."""
+    from sourceborn import sbx, human_registry as hr
+    assert len(hr.parameters()) == 3204
+    assert len(hr.containers()) == 80
+    assert len(hr.segments()) == 10
+    assert sbx.verify()["source_untouched"] is True
+    # and every split container names the source container it came from
+    assert all(c["from"]["container"].startswith("CON-") for c in sbx.containers())
+
+
+def test_both_columns_stand_at_every_container():
+    """ASI is the verified connection between the two columns; a node with only
+    the human half cannot link."""
+    from sourceborn import sbx
+    for c in sbx.containers():
+        assert c["human"], c["id"]
+        assert c["computer"], c["id"]
+        assert c["human"] != c["computer"], c["id"]
+    m = sbx.computer_of("SBX-CON-055")           # Working Memory
+    assert "RAM" in m["computer"] or "cache" in m["computer"].lower()
+    assert m["human"] == "Working Memory"
+
+
+def test_his_loop_still_closes_and_the_second_order_is_marked():
+    """Steps 1-8 are his and step 8 returns to step 1. Steps 9-12 are the life
+    of the loop itself — the distinction is recorded, not lost."""
+    from sourceborn import sbx
+    sp = {x["step"]: x for x in sbx.spine()}
+    assert sp[1]["name"] == "GROUND" and sp[8]["name"] == "LOOP"
+    assert "CLOSES TO STEP 1" in sp[8]["order"]
+    for n in (1, 2, 3, 4, 5, 6, 7, 8):
+        assert sp[n]["order"].startswith("FIRST ORDER"), n
+    for n in (9, 10, 11, 12):
+        assert sp[n]["order"].startswith("SECOND ORDER"), n
+    for n in (11, 12):
+        assert "ANY-STEP" in sp[n]["order"], n
+    assert "MASK" in sp[6]["line"].upper()
+
+
+def test_the_nine_intent_types_are_placed_on_the_spine():
+    from sourceborn import sbx
+    its = sbx.intent_types()
+    assert len(its) == 9, sorted(its)
+    for n in range(1, 10):
+        assert "IT-%02d" % n in its, n
+    assert its["IT-05"]["step_name"] == "LOOP"        # recovery
+    assert its["IT-03"]["step_name"] == "USE"         # automaticity
+    assert its["IT-06"]["step_name"] == "NAMING"      # role/virtue binding
+
+
+def test_the_wiring_lands_an_ask_on_his_spine():
+    """The seating is unchanged; it is now READ through the split and lands on
+    steps. Nothing is chosen and no intent is concluded."""
+    from sourceborn import sbx
+    r = sbx.place_on_spine("my son sits down to study at seven. after ten "
+                           "minutes he gets up. he did not sleep well last night.")
+    assert r["concluded"] is None
+    assert r["source_rows_seated"] > 0
+    assert r["mapped_into_split"] == r["source_rows_seated"], "a seated row was dropped"
+    assert r["steps_lit_count"] >= 1
+    lit = {s["step"] for s in r["steps_lit"]}
+    assert 1 in lit, "the sleep rows are GROUND — his own reverse walk found the same"
+    for s in r["steps_lit"]:
+        assert s["human"] and s["computer"]
+
+
+def test_archetype_link_and_scale_are_open_with_no_ceiling():
+    """His ruling: no count, it is open to increase.
+
+    This test used to assert all three held zero, which was true when they
+    were declared and false the moment the archetype layer was built — a
+    typed count goes stale as soon as the thing it counts changes. It now
+    asserts the count is LIVE: ARCHETYPE reads from the module, LINK and
+    SCALE still hold nothing and say so."""
+    from sourceborn import sbx, archetype
+    layers = sbx.open_layers()
+    ids = [d["id"] for d in layers]
+    assert ids == ["ARCHETYPE", "LINK", "SCALE"]
+    for d in layers:
+        assert d["ceiling"] is None, "his ruling: no ceiling"
+        assert d["opens_at"] and d["state"]
+        assert isinstance(d["count"], int)
+    from sourceborn import link, scale
+    by = {d["id"]: d for d in layers}
+    assert by["ARCHETYPE"]["count"] == len(archetype.archetypes()) >= 11
+    assert by["LINK"]["count"] == len(link.links()) > 900
+    assert by["SCALE"]["count"] == len(scale.bands()) == 9
+    # SCALE is the one still holding a gate — built and counted, but only his
+    # four bands are in force
+    assert len(scale.active()) == 4
+    assert "await his word" in by["SCALE"]["state"]
+
+
+def test_the_sbx_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/sbx"', '"/sbx/step"', '"/sbx/container"', '"/sbx/place"',
+                  '"/sbx/nodes"'):
+        assert route in src, route
+    assert "sbx.place_on_spine(" in src
+
+
+def test_the_workbook_seams_halt_instead_of_deciding():
+    """ADOPT-HALT-8..12 — the bridge, three filter vocabularies, the twelve
+    states, the missing raw workbook, the scripture surfaces. Nobody here
+    decides one of them."""
+    from sourceborn import adopted as A
+    hs = A.wb_halts()
+    assert [h["id"] for h in hs] == \
+        ["ADOPT-HALT-%d" % n for n in range(8, 13)]
+    assert all(h["his_call"] for h in hs)
+    h8 = hs[0]
+    assert "2,554" in h8["seam"] and "P1303" in h8["seam"]
+    # and the route serves the workbook block beside the C-SB block
+    src = open("src/sourceborn/server.py").read()
+    assert "adopted.wb_verify()" in src and "adopted.the_bridge()" in src
+
+
 def test_the_hud_and_bank_routes_are_reachable():
     src = open("src/sourceborn/server.py").read()
     for route in ('"/api/hud"', '"/api/bank"'):
@@ -6160,6 +6443,2016 @@ def test_feedback_never_anchors_its_own_combinations():
     assert t2["arrived"]["feedback_example"] is True
     assert t2["combine"]["combinations"] == 0, \
         "feedback + rowless material must open nothing — no self-anchoring"
+
+
+# ---------------------------------------------------------------------------
+# PHASE 9 — THE ARCHETYPE LAYER
+# ---------------------------------------------------------------------------
+
+def test_every_archetype_row_is_a_real_row_of_his_bank():
+    """The one thing an archetype may never do is cite a parameter that is
+    not there. Every (id, name, container) triple is re-checked against the
+    live registry — nine of the first twelve rows written for ARCH-011 were
+    wrong from memory, and this test is why that was caught."""
+    from sourceborn import archetype as A, asi_pyramid as AP
+    rows, _ = AP._flat()
+    by_id = {r["sb_id"]: r for r in rows}
+    checked = 0
+    for a in A.archetypes():
+        assert a["reaches"], a["id"] + " reaches nothing"
+        for pid, name, cid in a["reaches"]:
+            row = by_id.get(pid)
+            assert row is not None, "%s cites %s which is not in the bank" % (a["id"], pid)
+            assert row["name"].strip().lower() == name.strip().lower(), \
+                "%s %s: claimed %r, bank says %r" % (a["id"], pid, name, row["name"])
+            assert row["container"] == cid, \
+                "%s %s: claimed %s, bank says %s" % (a["id"], pid, cid, row["container"])
+            checked += 1
+    assert checked >= 97, checked
+
+
+def test_the_archetype_reaches_across_containers_which_is_why_it_is_a_layer():
+    """A row lives in exactly one container. An archetype that reached only
+    one container would belong inside it and would not need a layer. Every
+    archetype must span containers, and the widest must span segments."""
+    from sourceborn import archetype as A
+    for a in A.archetypes():
+        cons = {c for _, _, c in a["reaches"]}
+        assert len(cons) >= 2, "%s reaches one container — it is a row, not a layer" % a["id"]
+    widest = max(A.archetypes(), key=lambda a: len({c for _, _, c in a["reaches"]}))
+    assert len({c for _, _, c in widest["reaches"]}) >= 8
+
+
+def test_the_dice_game_went_from_zero_rows_to_real_rows():
+    """The proof this phase exists for. Measured before the layer: his dice
+    sentence seated ZERO rows — not because the rows were missing but
+    because there was no route from those words to them."""
+    from sourceborn import archetype as A
+    r = A.compare("he bet everything he had to win it all back and lost what "
+                  "he could never recover")
+    assert r["words_alone"]["rows"] == 0, r["words_alone"]
+    assert r["gain"] >= 10, r
+    assert "SB-HFR-P1873" in r["with_archetype"]["added_ids"]   # Sunk-cost sensitivity
+    assert "SB-HFR-P2517" in r["with_archetype"]["added_ids"]   # Commitment escalation risk
+    assert any(x.startswith("ARCH-001") for x in r["archetypes_fired"])
+
+
+def test_all_of_his_dead_examples_now_reach_the_bank():
+    """His three examples that seated zero rows, plus the book shapes. Each
+    must reach rows through the layer, and each must name what it matched."""
+    from sourceborn import archetype as A
+    cases = {
+        "a man is stealing money from a shop": "ARCH-011",
+        "diamond cut diamond": "ARCH-004",
+        "he stole the money to save his dying child": "ARCH-011",
+        "they melted their own gold into an idol while he was still on the mountain": "ARCH-002",
+        "do the work and do not look at the fruit": "ARCH-003",
+        "he gave everything and got nothing in return": "ARCH-010",
+    }
+    for text, want in cases.items():
+        f = A.fires_on(text)
+        assert want in [x["id"] for x in f["fired"]], (text, f["fired"])
+        assert f["rows_reached_count"] > 0, text
+        for x in f["fired"]:
+            assert x["matched_on"], "%s fired on %r with no evidence" % (x["id"], text)
+
+
+def test_the_meaning_route_stays_silent_on_ordinary_sentences():
+    """The macro route must not become a route to everything. Ordinary
+    sentences carrying no archetype fire nothing."""
+    from sourceborn import archetype as A
+    for text in ("the cat sat on the mat",
+                 "i went to the shop and bought bread and milk",
+                 "the train leaves at four in the afternoon",
+                 "my kids are playing outside in the garden",
+                 "it is raining and the road is wet",
+                 "please send me the report by friday",
+                 "she opened the window because the room was warm"):
+        assert A.fires_on(text)["fired_count"] == 0, text
+
+
+def test_two_shared_words_are_not_a_shape():
+    """His own IDF bar, one storey up: a concept word belonging to several
+    archetypes is weak evidence. `everything` and `all` sit in three lists
+    apiece — two of them together may not fire an archetype."""
+    from sourceborn import archetype as A
+    assert A.SHARED["everything"] >= 2 and A.SHARED["all"] >= 2
+    hits = A._hits("all everything", A.get("ARCH-007"))
+    assert [h for h in hits if h["route"] == "MEANING"] == []
+    # but a distinctive word alongside does fire, and says which word did it
+    hits = A._hits("test everything", A.get("ARCH-007"))
+    meaning = [h for h in hits if h["route"] == "MEANING"]
+    assert meaning and "test" in meaning[0]["distinctive"]
+
+
+def test_an_archetype_concludes_nothing_and_creates_no_parameter():
+    """It REACHES rows; it never owns them, never chooses among them, and
+    never adds to the bank."""
+    from sourceborn import archetype as A, human_registry as hr
+    before = len(hr.parameters())
+    f = A.fires_on("he bet everything to win it all back")
+    assert f["concluded"] is None
+    for x in f["fired"]:
+        assert x["chosen"] is None
+        assert x["refuses"] and x["discriminator"]
+    assert len(hr.parameters()) == before == 3204
+    assert A.CEILING is None, "his ruling: no count, open to increase"
+    src = open("src/sourceborn/archetype.py").read()
+    for forbidden in ("growth.add", "def add_parameter", "PARAM"):
+        assert forbidden not in src, forbidden
+
+
+def test_the_archetype_is_in_the_ask_path_not_behind_a_page():
+    """The defect weighting.py had: a module importable from nothing. The
+    archetype must reach the spine placement, and every row must say which
+    route reached it — WORDS and ARCHETYPE are never summed into one number."""
+    from sourceborn import sbx
+    r = sbx.place_on_spine("he bet everything he had to win it all back and "
+                           "lost what he could never recover")
+    assert r["source_rows_seated"] == 0, "the words still reach nothing"
+    assert r["archetype_rows_reached"] >= 10, r
+    assert r["steps_lit_count"] >= 5, "his dice game lit no step before this"
+    assert [a["id"] for a in r["archetypes_fired"]] == ["ARCH-001"]
+    by = {h["reached_by"] for h in r["hits"]}
+    assert by == {"ARCHETYPE"}, by
+    for h in r["hits"]:
+        assert h["via"], "a row reached by archetype must name which one"
+    # and an ask the words DO reach is still reached by the words
+    r2 = sbx.place_on_spine("i study late at night but i keep thinking about tomorrow")
+    assert "WORDS" in {h["reached_by"] for h in r2["hits"]}
+
+
+def test_the_archetype_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/archetype"', '"/archetype/run"'):
+        assert route in src, route
+    assert "archetype.fires_on(" in src and "archetype.compare(" in src
+
+
+# ---------------------------------------------------------------------------
+# PHASE 0 — THE MEANING LOCK
+# ---------------------------------------------------------------------------
+
+def _meaning_root():
+    import tempfile
+    return tempfile.mkdtemp(prefix="sb_meaning_")
+
+
+def test_a_meaning_sheet_never_carries_a_meaning_this_side_wrote():
+    """His words: *what the example means, in your words, NOT MY READING.* A
+    sheet whose his_meaning was filled from here would invert the whole
+    point."""
+    from sourceborn import meaning as M
+    sheets = M.sheets()
+    assert len(sheets) == 8
+    for s in sheets:
+        assert s["his_meaning"] == "", s["example_id"]
+        assert s["signed"] is False
+        assert s["my_reading"], "he needs something concrete to disagree with"
+        assert s["his_words"] and s["text"]
+
+
+def test_a_signature_without_a_meaning_is_refused():
+    from sourceborn import meaning as M
+    root = _meaning_root()
+    r = M.sign(root, "EX-RAIN", "   ")
+    assert r["signed"] is False
+    assert "signs nothing" in r["refused"]
+    assert M.blocked(root)["signed_count"] == 0
+
+
+def test_an_unsigned_meaning_cannot_be_used_by_any_later_phase():
+    """His rule, as a function."""
+    from sourceborn import meaning as M
+    root = _meaning_root()
+    assert M.usable(root) == []
+    b = M.blocked(root)
+    assert b["unsigned_count"] == 8 and b["gate_open"] is False
+    assert "running on unsigned meanings" in b["honest_state"]
+    M.sign(root, "EX-RAIN", "the father arranged the rain; the point is the "
+                            "arrangement, not the pipe")
+    u = M.usable(root)
+    assert [x["example_id"] for x in u] == ["EX-RAIN"]
+    assert u[0]["his_meaning"].startswith("the father arranged")
+    assert M.blocked(root)["gate_open"] is False, "one of eight is not the batch"
+
+
+def test_re_signing_appends_and_keeps_what_it_supersedes():
+    """His standing rule: nothing is removed. A changed meaning keeps its
+    history."""
+    from sourceborn import meaning as M
+    root = _meaning_root()
+    M.sign(root, "EX-DICE", "first meaning")
+    r2 = M.sign(root, "EX-DICE", "corrected meaning")
+    assert r2["prior_kept"] == 1 and r2["supersedes"]
+    rows = M.load(root)
+    assert len(rows) == 2, "both rows kept"
+    assert M.signed(root)["EX-DICE"]["his_meaning"] == "corrected meaning"
+
+
+# ---------------------------------------------------------------------------
+# PHASE 3 — THE NAMING CLEANUP
+# ---------------------------------------------------------------------------
+
+def test_no_example_of_his_is_still_called_a_test():
+    """His words: *Samrath is an example, like the rest — not a test.* A test
+    is run to see whether something is broken; an example is material the
+    system seats on and grows from."""
+    from sourceborn import naming as N
+    s = N.scan(".")
+    assert s["count"] == 0, s["still_calling_an_example_a_test"]
+    import os
+    assert not os.path.exists("docs/method/canon/THE_SAMRATH_TEST_AND_THE_ZERO.md")
+    assert os.path.exists("docs/method/canon/THE_SAMRATH_EXAMPLE_AND_THE_ZERO.md")
+
+
+def test_his_own_removal_test_keeps_its_name():
+    """Not every 'test' is wrong. `prior.removal_test` is HIS method, verbatim
+    — take the step away, does the thing above still stand? Renaming it would
+    rename his word."""
+    from sourceborn import naming as N, prior
+    kept = {k["where"] for k in N.KEEP}
+    assert "prior.removal_test" in kept
+    assert callable(prior.removal_test)
+    for k in N.KEEP:
+        assert k["why"], k["where"]
+    src = open("src/sourceborn/prior.py", encoding="utf-8").read()
+    assert "HIS TEST, verbatim" in src
+
+
+def test_the_rename_did_not_move_the_reading():
+    """His proof: a live run showing the example still reaching the same rows
+    under its new name. A rename that moved a reading would be a rename that
+    changed the system."""
+    from sourceborn import naming as N
+    v = N.verify()
+    assert v["rows"] == 106 and v["containers"] == 16 and v["segments"] == 5
+    assert v["activate"]["working"] == 18
+    assert v["unchanged_by_the_rename"] is True
+
+
+def test_the_rename_table_is_the_product_and_names_his_gate():
+    from sourceborn import naming as N
+    t = N.table()
+    assert len(t) >= 5
+    for r in t:
+        assert r["before"] and r["after"] and r["what_it_is"]
+        assert r["approved_by_him"] is False, "the names are his to approve"
+    assert N.APPROVED_BY_HIM is False
+
+
+# ---------------------------------------------------------------------------
+# PHASE 8 — THE RUBRICS WIRED
+# ---------------------------------------------------------------------------
+
+def test_his_rubrics_fire_by_name_where_seven_things_fired_before():
+    """His proof: *before — 7 of ~200 rubric dimensions touch an answer.
+    After — a live run showing which rubrics fired on your own example, by
+    name.*"""
+    from sourceborn import rubrics as R
+    assert len(R.BEFORE) == 7
+    f = R.fires_on("he bet everything he had to win it all back and lost what "
+                   "he could never recover")
+    assert f["catalogue"] >= 66
+    assert f["fired_count"] > 7, "the whole point of the phase"
+    assert f["fired_count"] + f["silent_count"] == f["catalogue"]
+    for x in f["fired"]:
+        assert x["rubric"] and x["fired_at"] and x["why"]
+        assert x["concluded"] is None
+    assert f["concluded"] is None
+
+
+def test_a_rubric_fires_because_the_ask_reached_the_step_it_acts_on():
+    """His own placement does the work — the rubric was already put at the
+    step where it acts. This is the join that was missing, not a new rule."""
+    from sourceborn import rubrics as R
+    f = R.fires_on("he bet everything he had to win it all back and lost what "
+                   "he could never recover")
+    from sourceborn import sbx
+    lit = {s["step"] for s in sbx.place_on_spine(
+        "he bet everything he had to win it all back and lost what he could "
+        "never recover")["steps_lit"]}
+    for x in f["fired"]:
+        assert any(a["step"] in lit for a in x["fired_at"]), x["rubric"]
+    # and a rubric whose step was NOT reached stays silent
+    assert f["silent_count"] > 0
+
+
+def test_the_three_dimensions_he_said_none_of_them_have():
+    """scale · era-survival · situations-held-across, added ON a fired rubric
+    rather than as new rubrics — his instruction was filling the gaps, not
+    adding anything random."""
+    from sourceborn import rubrics as R
+    assert R.DIMENSIONS == ("scale", "era_survival", "situations_held_across")
+    f = R.fires_on("diamond cut diamond")
+    x = f["fired"][0]
+    assert x["era_survival"] == "UNTESTED"
+    assert "nobody checked" in x["era_survival_why"]
+    s = x["situations_held_across"]
+    assert s["of"] == 8 and 0 <= s["count"] <= 8
+    assert "never typed" in s["how"]
+
+
+def test_adopt_halt_3_stays_shut_while_his_own_rubrics_run():
+    """The gate asks whether R01-R52 and his 25 are one family and whose names
+    win. That blocks a MERGE. It does not block wiring his own 66, which are
+    already in his architecture under his own names."""
+    from sourceborn import rubrics as R
+    h = R.ADOPT_HALT_3
+    assert h["merged"] is False
+    assert "merging the two vocabularies" in h["what_it_blocks"]
+    assert "wiring HIS OWN 66" in h["what_it_does_not_block"]
+    assert R.stats()["adopt_halt_3_merged"] is False
+
+
+def test_the_phase_routes_are_reachable():
+    src = open("src/sourceborn/server.py", encoding="utf-8").read()
+    for route in ('"/naming"', '"/rubrics"', '"/rubrics/run"', '"/meaning"',
+                  '"/meaning/sign"'):
+        assert route in src, route
+    assert "rubrics.fires_on(" in src and "meaning.sign(" in src
+
+
+# ---------------------------------------------------------------------------
+# PHASE 13 — ANGLES, A PROPERTY AND NEVER A LAYER
+# ---------------------------------------------------------------------------
+
+def test_angles_carry_no_ids_because_he_ruled_them_a_property():
+    """HIS ARGUMENT, not mine: *if angles were a layer they would have IDs and
+    a fixed count. You said they grow with each example. A property can grow
+    without renumbering anything; a layer cannot.* So an ANG-001 appearing here
+    would mean angles had quietly become a layer."""
+    import ast, re
+    from sourceborn import angles as A
+    # read the module's own CODE with docstrings stripped — the established
+    # technique here. The docstring names the forbidden pattern in order to
+    # forbid it, so a raw scan matches its own explanation.
+    tree = ast.parse(open("src/sourceborn/angles.py", encoding="utf-8").read())
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.Module, ast.ClassDef, ast.FunctionDef)):
+            if (node.body and isinstance(node.body[0], ast.Expr)
+                    and isinstance(node.body[0].value, ast.Constant)
+                    and isinstance(node.body[0].value.value, str)):
+                node.body.pop(0)
+    code = ast.unparse(tree)
+    assert not re.search(r"ANG-\d", code), "angles must not acquire ids"
+    for a in A.angles():
+        assert "id" not in a, a["name"]
+        assert a["name"]
+    assert A.stats()["has_ids"] is False
+
+
+def test_his_four_angles_give_four_different_container_sets():
+    """His own test of whether an angle does anything: *Same sentence, four
+    different container sets.* Worst reaches harm and moral responsibility,
+    best reaches loyalty and commitment, emotional reaches shame and
+    face-saving, truth reaches the value rows."""
+    from sourceborn import angles as A
+    r = A.apply("he staked his wife and lost")
+    assert r["angles_run"] == 4
+    assert [x["angle"] for x in r["readings"]] == \
+        ["worst", "best", "emotional", "truth/dharma"]
+    assert r["distinct_container_sets"] == 4, "four positions, four sets"
+    assert r["chosen"] is None
+    for x in r["readings"]:
+        assert x["chosen"] is None and x["refuses"] and x["his_reading"]
+    # the row he named by hand is on the truth angle
+    truth = A.get("truth/dharma")
+    assert ("SB-HFR-P2561", "Value-behaviour alignment", "CON-064") in truth["reaches"]
+
+
+def test_every_row_an_angle_reaches_is_real():
+    from sourceborn import angles as A
+    v = A.verify()
+    assert v["ok"] is True, v["problems"]
+    assert v["rows_checked"] == 29
+
+
+def test_an_angle_can_be_grown_without_renumbering_anything():
+    """His reason for making it a property. Adding one renumbers nothing
+    because there is nothing numbered."""
+    from sourceborn import angles as A
+    before = len(A.angles())
+    try:
+        out = A.grow("test-position", "a position added by a later example",
+                     "his reading would go here", "a row family",
+                     [("SB-HFR-P2561", "Value-behaviour alignment", "CON-064")])
+        assert out["renumbered"] == 0
+        assert out["angles_now"] == before + 1
+        assert A.get("test-position")["by"] == "PROPOSED"
+        assert A.verify()["ok"] is True, "a grown angle must cite real rows too"
+    finally:
+        A.GROWN_ANGLES.clear()
+    assert len(A.angles()) == before
+
+
+def test_angles_run_inside_the_answer_path_as_a_property():
+    from sourceborn import sbx
+    r = sbx.place_on_spine("he staked his wife and lost")
+    assert r["properties_applied"] == ["ANGLE"]
+    assert r["angles"]["run"] == 4
+    assert r["angles"]["distinct_container_sets"] == 4
+    assert r["angles"]["chosen"] is None
+    # ANGLE is a property, so it is NOT in the layer list
+    assert "ANGLE" not in r["layers_run"]
+
+
+# ---------------------------------------------------------------------------
+# PHASE 14 — THE MACRO RESPONSE
+# ---------------------------------------------------------------------------
+
+def test_the_one_line_comes_from_the_widest_thing_that_fired():
+    """His pyramid: *always the bigger slab come first … and that tiny one is
+    the finale.* An archetype reaches ACROSS containers; a row sits in one. So
+    the archetype is the macro reading and the row is said last."""
+    from sourceborn import macro
+    r = macro.respond("he bet everything he had to win it all back and lost "
+                      "what he could never recover")
+    one = r["one_line"]
+    assert one["state"] == macro.STATED
+    assert one["shape"].startswith("ARCH-001")
+    assert one["line"] and one["refuses"]
+    assert r["slab_order"] == ["ONE LINE", "PILLAR", "STEP", "SEGMENT",
+                               "CONTAINER", "ROW"]
+    # the finale is last and it is the ROW
+    assert r["slabs"][-1]["slab"] == "ROW"
+    assert "finale" in r["slabs"][-1]["note"]
+    assert r["slabs"][0]["slab"] == "ONE LINE"
+
+
+def test_an_unnamed_shape_is_not_filled_by_the_biggest_row():
+    """When no archetype fires the shape is UNNAMED. Substituting the largest
+    row would be the tiny slab pretending to be the big one — the opposite of
+    his pyramid."""
+    from sourceborn import macro
+    r = macro.respond("the train leaves at four in the afternoon")
+    one = r["one_line"]
+    assert one["shape"] == "UNNAMED"
+    assert one["line"] is None
+    assert one["state"] == macro.PROPOSED
+    assert one["would_verify"]
+    assert "pretending to be the big one" in one["why_not_invented"]
+
+
+def test_it_states_what_is_verified_and_proposes_what_is_not():
+    """His words: *States it when verified; proposes it for confirmation when
+    not.*"""
+    from sourceborn import macro
+    r = macro.respond("he bet everything he had to win it all back and lost "
+                      "what he could never recover")
+    assert set(r["stated"]) == {"ONE LINE", "PILLAR", "STEP", "SEGMENT",
+                                "CONTAINER", "ROW"}
+    assert r["proposed"] == []
+    # a reading is never STATED — it is a position or a candidate
+    kinds = {k["kind"]: k for k in r["read_not_verified"]}
+    assert kinds["ANGLE"]["state"] == macro.PROPOSED
+    assert kinds["INTENT READING"]["state"] == macro.PROPOSED
+    for k in r["read_not_verified"]:
+        if k["state"] == macro.PROPOSED:
+            assert k["would_verify"], k["kind"]
+    assert r["concluded"] is None
+
+
+def test_length_is_a_measured_mechanism_and_there_is_no_floor():
+    """His mechanism: *big lengthy response will capture more parameters to
+    hit and make something new (Because in shorter answers ASI will say
+    already exists, so never terse responses).* Measured, not asserted."""
+    from sourceborn import macro
+    r = macro.respond("he bet everything he had to win it all back and lost "
+                      "what he could never recover")
+    g = r["generativity"]
+    assert g["parameters_reached_by_the_full_response"] > 40
+    assert g["gain"] == (g["parameters_reached_by_the_full_response"]
+                         - g["parameters_a_one_row_answer_would_reach"])
+    assert g["gain"] > 40, "the length is what makes the reach"
+    assert r["floor_on_length"] is None
+    assert macro.FLOOR_ON_LENGTH is None
+    # and nothing truncates
+    src = open("src/sourceborn/macro.py", encoding="utf-8").read()
+    for forbidden in ("[:200]", "[:500]", "textwrap.shorten", "truncate"):
+        assert forbidden not in src, forbidden
+    # his correction is carried where the code can see it
+    assert "vague" in macro.HIS_WORDS["not_vague"]
+    assert "MACRO" in macro.HIS_WORDS["not_vague"]
+
+
+def test_the_angle_and_macro_routes_are_reachable():
+    src = open("src/sourceborn/server.py", encoding="utf-8").read()
+    for route in ('"/angles"', '"/angles/run"', '"/macro"', '"/macro/run"'):
+        assert route in src, route
+    assert "macro.respond(" in src and "angles.apply(" in src
+
+
+# ---------------------------------------------------------------------------
+# PHASE 15 — THE RE-READ
+# ---------------------------------------------------------------------------
+
+def test_the_reread_compares_like_instrument_with_like():
+    """The first draft compared every recorded number against the SEATING and
+    reported the mall at 72 -> 0 and Samrath at 106 -> 0 — two catastrophic
+    regressions, neither of them real. Those numbers came from
+    asi_pyramid.rows_for, a different mechanism answering a different
+    question. Every example now records which instrument produced its `then`,
+    and the re-read runs that one."""
+    from sourceborn import reread as R
+    for ex in R.EXAMPLES:
+        assert ex["instrument"] in R.INSTRUMENTS, ex["id"]
+    rep = R.report()
+    by = {e["id"]: e for e in rep["examples"]}
+    assert by["EX-SAMRATH"]["now"]["instrument"] == "bank_matcher"
+    assert by["EX-SAMRATH"]["now"]["rows_total"] == 106
+    assert by["EX-MALL"]["now"]["rows_total"] == 72
+    assert by["EX-DICE"]["now"]["instrument"] == "seating"
+
+
+def test_his_examples_are_carried_in_his_exact_wording():
+    """His law: capture the exact words before interpreting. The first draft
+    paraphrased Samrath and got 84 rows instead of his 106 — the paraphrase,
+    not the system, was the difference."""
+    from sourceborn import reread as R
+    by = {e["id"]: e for e in R.EXAMPLES}
+    assert by["EX-SAMRATH"]["text"] == (
+        "Samrath never like to go to school, he always cry, but today is his "
+        "birthday, he went very happy.")
+    assert "water pipe" in by["EX-RAIN"]["text"], "his real rain wording"
+    assert "Girlfriend" in by["EX-MALL"]["text"], "his real mall wording"
+
+
+def test_a_count_that_did_not_move_can_still_be_a_changed_meaning():
+    """HIS NAMED CASE, and the reason this module compares row IDENTITY. The
+    rain sentence read 2 rows when it was recorded and reads 2 rows now — so a
+    count-only check calls it UNCHANGED. Both rows are different."""
+    from sourceborn import reread as R
+    e = R.read_one("EX-RAIN")
+    assert e["verdict"] == "CHANGED — SAME COUNT, DIFFERENT ROWS"
+    assert e["rows_moved"] == 0
+    assert e["same_rows"] is False
+    assert e["then_rows_named"] == ["Air/breathing drive", "Thought suppression"]
+    assert "Standing balance" in e["now_rows_named"]
+    assert set(n.lower() for n in e["then_rows_named"]).isdisjoint(
+        n.lower() for n in e["now_rows_named"]), "not one row survived"
+    # and the defect the canon recorded is still there, not quietly dropped
+    assert "Standing balance" in e["known_defect_then"]
+
+
+def test_every_movement_names_the_ruling_behind_it():
+    """A number moving is not a defect — 0 -> 20 on the stealing example is
+    the archetype layer doing its job. A movement with NO ruling behind it is
+    drift, and drift is the finding."""
+    from sourceborn import reread as R
+    rep = R.report()
+    assert rep["unexplained"] == [], rep["unexplained"]
+    for e in rep["examples"]:
+        if e["verdict"].startswith("CHANGED") and e["verdict"] != \
+                "CHANGED — SAME COUNT, DIFFERENT ROWS":
+            assert e["explained_by"], e["id"]
+            for c in e["explained_by"]:
+                assert c["his_words"] and c["where"], c["id"]
+
+
+def test_the_reread_reports_and_changes_nothing():
+    """It re-files no example, corrects no canon, and does not decide the new
+    reading is the right one. Two readings of one example is exactly the case
+    his own law covers — both stand, the gap goes to him."""
+    from sourceborn import reread as R
+    rep = R.report()
+    assert rep["his_call"] is True
+    for e in rep["examples"]:
+        assert e["changed_here"] is None
+    src = open("src/sourceborn/reread.py", encoding="utf-8").read()
+    for forbidden in ("growth.add", "open(", "write(", "def correct"):
+        assert forbidden not in src, forbidden
+
+
+def test_an_example_with_no_recorded_reading_says_so():
+    from sourceborn import reread as R
+    e = R.read_one("EX-STUDY")
+    assert e["verdict"] == "NOT RECORDED"
+    assert e["then"]["rows"] is None
+    assert "never filled" in e["note"]
+
+
+def test_the_reread_route_is_reachable():
+    src = open("src/sourceborn/server.py", encoding="utf-8").read()
+    assert '"/reread"' in src and "reread.report()" in src
+
+
+# ---------------------------------------------------------------------------
+# THE DOCS AUDIT — a doc's wiring is whether its claims still hold
+# ---------------------------------------------------------------------------
+
+def _repo_docs(pattern="*.md"):
+    import subprocess
+    return [p for p in subprocess.run(["git", "ls-files", pattern],
+                                      capture_output=True, text=True).stdout.split()
+            if not p.startswith("adopted/")]
+
+
+def test_no_doc_names_a_code_symbol_that_does_not_exist():
+    """A doc that says `module.function()` is making a checkable claim. 52 such
+    claims across the docs; every one must resolve, or the doc is describing
+    code that is not there."""
+    import os, re
+    srcs = {f[:-3]: open("src/sourceborn/" + f, encoding="utf-8").read()
+            for f in os.listdir("src/sourceborn") if f.endswith(".py")}
+    ext = {"py", "json", "md", "html", "txt", "xlsx", "docx", "yaml", "yml",
+           "csv", "jsonl"}
+    # symbols that are real but not module-level defs: instance attributes and
+    # dict keys the module actually produces
+    allowed = {"engine.grounding", "patterns.possible_interpretations"}
+    bad = []
+    for d in _repo_docs():
+        txt = open(d, encoding="utf-8", errors="replace").read()
+        for mod, sym in set(re.findall(r"`(\w+)\.(\w+)\(?`", txt)):
+            if mod not in srcs or sym in ext or "%s.%s" % (mod, sym) in allowed:
+                continue
+            if not re.search(
+                    r"^\s*(?:async\s+)?(?:def|class)\s+%s\b|^%s\s*[:=]|^\s{4}%s\s*[:=]"
+                    % (re.escape(sym), re.escape(sym), re.escape(sym)),
+                    srcs[mod], re.M):
+                bad.append((d, "%s.%s" % (mod, sym)))
+    assert bad == [], bad
+
+
+def test_no_doc_links_to_a_file_that_is_not_there():
+    """Markdown links across every doc must resolve. Zero broken, and this is
+    what keeps it zero when a file is renamed."""
+    import os, re, subprocess
+    repo = set(subprocess.run(["git", "ls-files"], capture_output=True,
+                              text=True).stdout.split())
+    bad = []
+    for d in _repo_docs():
+        txt = open(d, encoding="utf-8", errors="replace").read()
+        for m in re.finditer(r"\[([^\]]{1,80})\]\(([^)]+)\)", txt):
+            tgt = m.group(2).split("#")[0].strip()
+            if not tgt or tgt.startswith(("http", "mailto:")):
+                continue
+            p = os.path.normpath(os.path.join(os.path.dirname(d), tgt))
+            if p not in repo and not os.path.exists(p):
+                bad.append((d, tgt))
+    assert bad == [], bad
+
+
+def test_the_readme_test_count_is_the_real_one():
+    """README says "# N tests" as a live instruction — run this, get that. It
+    said 25 while the suite ran 443. A number a reader is told to expect must
+    be the number they get."""
+    import re
+    readme = open("README.md", encoding="utf-8").read()
+    m = re.search(r"tests/test_engine\.py\s+#\s*([\d,]+)\s+tests", readme)
+    assert m, "the README no longer states a test count where it used to"
+    claimed = int(m.group(1).replace(",", ""))
+    actual = len([v for k, v in globals().items() if k.startswith("test_")])
+    assert claimed == actual, (claimed, actual)
+
+
+def test_the_canon_index_names_every_canon_file():
+    """Seven of the 28 canon files were reachable from nothing — no document
+    linked them, so the only way to find one was to already know its filename.
+    A canon nobody can find is not canon."""
+    import os
+    d = "docs/method/canon"
+    idx_path = os.path.join(d, "00_INDEX.md")
+    assert os.path.exists(idx_path), "the canon has no index"
+    idx = open(idx_path, encoding="utf-8").read()
+    files = sorted(f for f in os.listdir(d)
+                   if f.endswith(".md") and f != "00_INDEX.md")
+    assert len(files) >= 28, len(files)
+    missing = [f for f in files if f not in idx]
+    assert missing == [], missing
+
+
+def test_a_doc_that_calls_the_kernel_binding_also_says_it_is_not_wired():
+    """`seq_kernel` is declared BINDING in the method docs and is imported by
+    nothing. Both facts are true; a doc that states only the first lets a
+    reader conclude it runs."""
+    for p in ("docs/method/00_READ_FIRST.md",
+              "docs/method/01C_SEQUENCE_PROTOCOL.md"):
+        txt = open(p, encoding="utf-8").read()
+        assert "seq_kernel.py" in txt
+        assert "NOT WIRED" in txt, p
+    # and the code still agrees with that statement
+    from sourceborn import exists
+    not_wired = {w for g in exists.MAP for r in g["rows"]
+                 if r["state"] == exists.NOT_WIRED for w, _ in r.get("where", [])}
+    assert "seq_kernel.py" in not_wired
+
+
+# ---------------------------------------------------------------------------
+# THE WIRING AUDIT — the OLD files, and the guards that keep them honest
+# ---------------------------------------------------------------------------
+
+def _package_modules():
+    import pkgutil
+    return sorted(m.name for m in pkgutil.iter_modules(["src/sourceborn"])
+                  if not m.ispkg)
+
+
+def _sibling_imports(text):
+    """Every sibling module `text` imports, however the import is spelled."""
+    import re
+    got = set()
+    for m in re.finditer(r"^\s*from\s+\.\s+import\s+([^\n#]+)", text, re.M):
+        for p in m.group(1).split(","):
+            got.add(p.strip().split(" as ")[0].strip())
+    for pat in (r"^\s*from\s+\.(\w+)\s+import",
+                r"^\s*from\s+sourceborn\.(\w+)\s+import",
+                r"^\s*import\s+sourceborn\.(\w+)"):
+        for m in re.finditer(pat, text, re.M):
+            got.add(m.group(1))
+    for m in re.finditer(r"^\s*from\s+sourceborn\s+import\s+([^\n#]+)", text, re.M):
+        for p in m.group(1).split(","):
+            got.add(p.strip().split(" as ")[0].strip())
+    return got
+
+
+def test_no_module_is_imported_and_never_used():
+    """A dead import is a link that looks live. Twelve of them sat in
+    engine.py — including `asi_pyramid` and `statepacks`, whose mere import
+    the build notes cited as proof that 'the Pyramid is in the answer path'.
+    It was not; an unused import satisfies a grep and nothing else. Twenty-five
+    across the package, now zero, and this test is what keeps it zero."""
+    import os, re
+    dead = {}
+    for mod in _package_modules():
+        text = open(os.path.join("src/sourceborn", mod + ".py"),
+                    encoding="utf-8").read()
+        lines = text.splitlines()
+        imported, i = {}, 0
+        while i < len(lines):
+            if re.match(r"^\s*(from\s+[\w.]+\s+)?import\s", lines[i]):
+                chunk, j = lines[i], i
+                while chunk.count("(") > chunk.count(")"):
+                    j += 1
+                    chunk += " " + lines[j]
+                for p in chunk.split(" import ", 1)[-1].replace("(", "") \
+                        .replace(")", "").split(","):
+                    n = p.strip().split(" as ")[-1].strip().rstrip("\\").strip()
+                    if n and re.match(r"^\w+$", n):
+                        imported.setdefault(n, i + 1)
+                i = j
+            i += 1
+        body = "\n".join(
+            l for l in lines
+            if not re.match(r"^\s*(from\s+[\w.]+\s+)?import\s", l)
+            and not re.match(r"^\s{4,}[\w., ]+[,)]?\s*$", l))
+        unused = [n for n in sorted(imported) if n != "annotations"
+                  and not re.search(r"\b%s\b" % re.escape(n), body)]
+        if unused:
+            dead[mod] = unused
+    assert dead == {}, dead
+
+
+def test_the_pyramid_really_is_in_the_answer_path():
+    """The claim the audit falsified, made true. `Engine.read()` CALLS
+    asi_pyramid and statepacks and returns what they produce — importing them
+    was never enough."""
+    import tempfile
+    from sourceborn.engine import SourcebornEngine
+    from sourceborn import asi_pyramid, statepacks
+    e = SourcebornEngine(root=tempfile.mkdtemp(prefix="sb_wire_"))
+    r = e.read("he bet everything he had to win it all back")
+    assert "pyramid" in r and "state_packs" in r
+    assert set(r["pyramid"]["counts"]) >= {"strong", "candidate", "bank"}
+    assert r["pyramid"]["counts"]["bank"] == 3204
+    assert len(r["state_packs"]) == len(statepacks.packs_index()) == 16
+    src = open("src/sourceborn/engine.py", encoding="utf-8").read()
+    assert "asi_pyramid.activate(" in src and "statepacks.packs_index(" in src
+
+
+def test_the_removed_matrix_is_not_still_linked_from_the_answer_path():
+    """His decision: 'now we dont want 70-25 there'. `urr_matrix` stayed
+    imported into engine.py long after — a live-looking link to a mechanism
+    the answer path no longer uses. The module stays on disk under his
+    do-not-delete rule; the dead link is gone."""
+    src = open("src/sourceborn/engine.py", encoding="utf-8").read()
+    assert "from .urr_matrix import" not in src
+    assert "MATRIX" not in src.split('"""', 2)[-1] or "review_node(" not in src
+    import os
+    assert os.path.exists("src/sourceborn/urr_matrix.py"), \
+        "the module is kept — only the dead link was removed"
+
+
+def test_every_orphan_module_is_declared_in_the_honest_map():
+    """A module nothing imports is not automatically wrong — seq_kernel is
+    binding and unwired by his own ruling. What IS wrong is an orphan that no
+    map mentions, because then nothing can tell him it is unwired. khalf was
+    exactly that: 184 lines, tested, and named in no map at all."""
+    import os
+    exists_src = open("src/sourceborn/exists.py", encoding="utf-8").read()
+    mods = _package_modules()
+    texts = {m: open(os.path.join("src/sourceborn", m + ".py"),
+                     encoding="utf-8").read() for m in mods}
+    importers = {m: set() for m in mods}
+    for m in mods:
+        for dep in _sibling_imports(texts[m]):
+            if dep in importers:
+                importers[dep].add(m)
+    # entrypoints are meant to be imported by nothing
+    entry = {"server", "__main__", "demo"}
+    orphans = sorted(m for m in mods if not importers[m] and m not in entry)
+    assert orphans == ["khalf", "rh_code", "seq_kernel", "urr_matrix"], orphans
+    for o in orphans:
+        assert '("%s.py"' % o in exists_src, \
+            "%s is imported by nothing and declared in no map" % o
+    # and each is marked BUILT-NOT-WIRED, not quietly listed as running
+    from sourceborn import exists
+    not_wired = {w for g in exists.MAP for r in g["rows"]
+                 if r["state"] == exists.NOT_WIRED
+                 for w, _ in r.get("where", [])}
+    for o in orphans:
+        assert o + ".py" in not_wired, o
+
+
+def test_the_honest_map_still_resolves_every_anchor():
+    """exists.py's whole technique: a row carries a literal string that must
+    still be present in the named module, so a row can never silently become a
+    lie. Three anchors were wrong when khalf and rh_code were added — guessed
+    function names — and this is what caught them."""
+    from sourceborn import exists
+    v = exists.verify()
+    assert v["missing"] == 0, v
+    assert v["checked"] >= 320
+    assert v["counts"][exists.NOT_WIRED] == 4
+
+
+def test_the_readme_lists_every_route_the_server_serves():
+    """104 of 133 routes were undocumented. A hand-typed route list goes stale
+    the first time a route is added, so the list is checked instead of
+    trusted."""
+    import re
+    src = open("src/sourceborn/server.py", encoding="utf-8").read()
+    routes = {m.group(1) for m in
+              re.finditer(r'(?:path|self\.path)\s*==\s*"(/[^"]*)"', src)}
+    readme = open("README.md", encoding="utf-8").read()
+    missing = sorted(r for r in routes if r not in readme)
+    assert missing == [], missing
+
+
+# ---------------------------------------------------------------------------
+# THE WIRING AUDIT — is the new work actually connected?
+# ---------------------------------------------------------------------------
+
+def test_every_layer_runs_on_one_ask_not_one_per_page():
+    """The defect weighting.py had: a module importable from nothing. Before
+    this audit, `trigger` and `readings` were reachable ONLY from server.py —
+    they sat behind their own routes and never touched an answer."""
+    from sourceborn import sbx
+    r = sbx.place_on_spine("a man is stealing money from a shop")
+    assert r["layers_run"] == ["SEGMENT", "CONTAINER", "SUB-PARAMETER",
+                               "ARCHETYPE", "TRIGGER", "LINK", "SCALE",
+                               "INTENT-READING"]
+    assert r["triggers"]["containers_lit"] > 0
+    assert r["readings"]["count"] == 9
+    assert r["readings"]["chosen"] is None
+    assert "meetings" in r
+    # his diamond reaches the meeting layer through the same one call
+    d = sbx.place_on_spine("diamond cut diamond")
+    assert d["meetings"]["count"] == 1
+    assert d["readings"]["count"] == 9
+
+
+def test_the_trigger_layer_does_not_recurse_through_the_answer_path():
+    """`place_on_spine` calls trigger and trigger calls `place_on_spine`.
+    `for_hits` takes the already-computed hits, which is what breaks it — a
+    plain `fires_on` call from the answer path would never return."""
+    from sourceborn import trigger, sbx
+    hits = sbx.place_on_spine("diamond cut diamond")["hits"]
+    pure = trigger.for_hits(hits)
+    assert "text" not in pure, "for_hits is pure — it never re-seats"
+    wrapper = trigger.fires_on("diamond cut diamond")
+    assert wrapper["text"] == "diamond cut diamond"
+    assert wrapper["containers_lit"] == pure["containers_lit"]
+
+
+def test_the_arrow_chart_shows_the_split_and_every_layer():
+    """The system's own map showed none of it — not the split, not one layer.
+    A map that does not show the system is not a map."""
+    from sourceborn import sysmap
+    c = sysmap.arrow_chart()
+    for term in ("THE SPLIT", "ARCHETYPE", "TRIGGER", "LINK", "SCALE",
+                 "READING", "183 containers", "HIS THIRD COLUMN",
+                 "HIS NUMBER TO FINALISE", "CARRIED, NOT CONSULTED"):
+        assert term in c, term
+    # and no line overflows its box
+    for line in c.splitlines():
+        assert len(line) < 200, line[:80]
+
+
+def test_where_names_every_new_layer():
+    from sourceborn import sysmap
+    known = {r["thing"] for r in sysmap.where()["layers"]}
+    for t in ("the split", "the archetype", "the trigger", "the link",
+              "the scale", "the readings", "the wiring", "the review"):
+        assert t in known, t
+        got = sysmap.where(t)
+        assert got.get("module") and got.get("route"), t
+
+
+def test_his_words_index_is_collected_and_resolves():
+    """29 modules each define annotations() mapping HIS WORDS to the code that
+    carries them — and nothing called any of them. Collected now, and every
+    target is resolved the way exists.py resolves its anchors, so a phrase
+    pointing at a symbol that no longer exists is reported."""
+    from sourceborn import sysmap
+    h = sysmap.his_words()
+    assert h["modules_annotating"] >= 29
+    assert h["phrases"] >= 160
+    assert h["unresolved"] == [], h["unresolved"]
+    assert h["problems"] == [], h["problems"]
+    assert h["resolved"] == h["phrases"]
+    # the new layers put their own words in the index
+    phrases = " ".join(r["his_words"] for r in h["rows"])
+    assert "below more may be repated" in phrases
+    assert "diamond cut diamond is a link between two ego-rows" in phrases
+
+
+def test_the_new_work_is_registered_everywhere_it_should_be():
+    """The audit itself, as a test: filemap places the files, the home page
+    HUD carries the counts, and the README lists the routes."""
+    from sourceborn import filemap
+    for p in ("src/sourceborn/archetype.py", "src/sourceborn/trigger.py",
+              "src/sourceborn/link.py", "src/sourceborn/readings.py",
+              "src/sourceborn/scale.py"):
+        assert filemap.classify(p)["class"] == filemap.SYSTEM, p
+    assert filemap.divide(".")["counts"][filemap.UNPLACED] == 0
+    from sourceborn import homepage
+    for cell in ("h_sp", "h_ly", "h_ar", "h_lk", "h_bd", "h_rd", "h_tg"):
+        assert cell in homepage.PAGE, cell
+    readme = open("README.md").read()
+    for route in ("/sbx/review", "/sbx/wiring", "/archetype", "/trigger",
+                  "/link", "/scale", "/readings"):
+        assert route in readme, route
+    src = open("src/sourceborn/server.py").read()
+    assert '"/words"' in src and "sysmap.his_words()" in src
+
+
+def test_the_layers_raise_the_count_but_never_the_bank():
+    """His law: every example raises the count. His other law: a rubric
+    application is not an ontology expansion. The layers are material he gave,
+    so they enter the ledger — and none of them is a PARAM."""
+    from sourceborn import growth as G, human_registry as hr
+    items = G.seed_items()
+    kinds = {}
+    for i in items:
+        kinds[i["kind"]] = kinds.get(i["kind"], 0) + 1
+    assert len(items) >= 300, len(items)
+    assert kinds[G.PARAM] == 3, "the bank does not grow from a layer"
+    assert len(hr.parameters()) == 3204
+    names = [i["name"] for i in items]
+    assert any(n.startswith("ARCHETYPE: ") for n in names)
+    assert any(n.startswith("LINK: ") for n in names)
+    assert any(n.startswith("TRIGGER: ") for n in names)
+    assert any(n.startswith("READING: ") for n in names)
+    assert any(n.startswith("SCALE BAND: ") for n in names)
+
+
+# ---------------------------------------------------------------------------
+# PHASE 11 — THE SCALE AXIS
+# ---------------------------------------------------------------------------
+
+def test_his_gate_on_the_scales_is_enforced_not_described():
+    """His gate: *you name the scales, or approve a proposed set*. Building
+    the axis is not the same as naming the bands. The axis is built and the
+    proposals are stored where he can read them — and ONLY HIS FOUR ARE IN
+    FORCE until he says otherwise."""
+    from sourceborn import scale as S
+    assert [b["name"] for b in S.active()] == \
+        ["micro", "individual", "relational", "macro"]
+    assert S.gate()["approved"] is False
+    assert S.stats()["approved"] is False
+    for b in S.PROPOSED_BANDS:
+        assert b["approved"] is False, b["id"]
+    for b in S.HIS_BANDS:
+        assert b["approved"] is True and b["by"] == "HIS"
+
+
+def test_every_proposed_band_cites_the_example_of_his_that_demands_it():
+    """Nothing is invented to fill a pattern. A band exists here only because
+    one of his OWN worked examples sits at a size his four cannot hold — and
+    the citation is the whole justification."""
+    from sourceborn import scale as S
+    assert len(S.PROPOSED_BANDS) == 5
+    for b in S.PROPOSED_BANDS:
+        assert b["why_needed"] and b["his_example"], b["id"]
+        assert len(b["why_needed"]) > 80, "a citation, not a label"
+    names = {b["name"] for b in S.PROPOSED_BANDS}
+    assert names == {"moment", "household", "organisation", "dynasty",
+                     "civilisation"}
+    # the axis is ordered smallest to largest and his four keep their places
+    order = [b["name"] for b in S.bands()]
+    assert order.index("moment") < order.index("micro")
+    assert order.index("micro") < order.index("individual") < \
+        order.index("relational") < order.index("macro")
+    assert order.index("macro") < order.index("civilisation")
+
+
+def test_an_unfilled_band_says_not_stated_and_is_never_invented():
+    """His rule everywhere else, holding here: an unstated dimension says NOT
+    STATED, never zero and never a guess."""
+    from sourceborn import scale as S
+    o = S.of("ARCH-001")
+    assert o["filled"] == 4, "his four readings on the dice game"
+    assert o["not_stated"] == 5, "the five proposed bands he has not filled"
+    for r in o["bands"]:
+        if r["reading"] is None:
+            assert r["state"] == "NOT STATED"
+        else:
+            assert r["state"] == "HIS READING"
+    cov = S.coverage()
+    assert set(cov["empty_bands"]) == {"moment", "household", "organisation",
+                                       "dynasty", "civilisation"}
+    assert cov["his_call"] is True
+
+
+def test_one_arrangement_read_at_every_size():
+    """His teaching made mechanical — *one event of those books is used in 100
+    daily responses*. The dice sentence fires an archetype and comes back at
+    every band, so a reading is a coordinate rather than a label."""
+    from sourceborn import scale as S
+    r = S.spread("he bet everything he had to win it all back and lost what "
+                 "he could never recover")
+    assert "ARCH-001" in r["archetypes_fired"]
+    assert r["bands_available"] == 9 and r["bands_active"] == 4
+    assert r["readings"] >= 4
+    assert r["chosen"] is None
+
+
+def test_the_scale_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/scale"', '"/scale/run"'):
+        assert route in src, route
+    assert "scale.spread(" in src and "scale.gate()" in src
+
+
+# ---------------------------------------------------------------------------
+# PHASE 12 — THE NINE READINGS
+# ---------------------------------------------------------------------------
+
+def test_his_stealing_sentence_produces_all_nine_readings():
+    """The proof he named for this phase: *a live run on "a man is stealing
+    the money" producing all nine readings where it produces zero today*."""
+    from sourceborn import readings as R
+    r = R.read("a man is stealing the money")
+    assert r["reading_count"] == 9
+    assert [x["id"] for x in r["readings"]] == ["IT-0%d" % n for n in range(1, 10)]
+    # his own four from this very example lead the set
+    by = {x["id"]: x for x in r["readings"]}
+    assert "THIEF" in by["IT-01"]["his_example"]
+    assert "OPPORTUNITY" in by["IT-02"]["his_example"]
+    assert "HABIT" in by["IT-03"]["his_example"]
+    assert "SAVING A LIFE" in by["IT-04"]["his_example"]
+    # the act is carried in HIS words, never re-described
+    assert r["act"] == "a man is stealing the money"
+    for x in r["readings"]:
+        assert r["act"] in x["reading"], x["id"]
+
+
+def test_a_reading_names_what_would_refute_it():
+    """His falsifier law, unchanged: a candidate that names nothing that would
+    flip it is not a candidate, it is an opinion. That is what makes these
+    readings and not labels."""
+    from sourceborn import readings as R
+    for x in R.read("a man is stealing the money")["readings"]:
+        assert x["confirmed_by"] and x["refuted_by"], x["id"]
+        assert x["confirmed_by"] != x["refuted_by"]
+        assert x["refuses"], x["id"]
+        assert x["rests_on"], x["id"]
+
+
+def test_nothing_is_chosen_and_nothing_is_chooseable():
+    """Two surviving candidates HALT rather than blend — his standing rule.
+    Nine surviving candidates are nine."""
+    from sourceborn import readings as R
+    r = R.read("a man is stealing the money")
+    assert r["chosen"] is None
+    assert all(x["chosen"] is None for x in r["readings"])
+    src = open("src/sourceborn/readings.py").read()
+    for forbidden in ('"chosen": t[', "chosen =", "max(", "sort(", "best"):
+        assert forbidden not in src, forbidden
+
+
+def test_every_row_a_reading_rests_on_is_real():
+    from sourceborn import readings as R
+    v = R.verify()
+    assert v["ok"] is True, v["problems"]
+    assert v["rows_checked"] == 21
+
+
+def test_the_adopted_intents_are_not_merged_with_his_nine():
+    """ADOPT-HALT-4. Two intent vocabularies of different provenance; his
+    ruling at the P2561 collision covers it."""
+    from sourceborn import readings as R
+    a = R.ADOPTED_HALT
+    assert a["merged"] is False and a["his_call"] is True
+    assert len(a["his_nine"]) == 9
+    assert "ADOPT-HALT-4" in a["seam"]
+
+
+def test_the_readings_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/readings"', '"/readings/run"'):
+        assert route in src, route
+    assert "readings.read(" in src
+
+
+# ---------------------------------------------------------------------------
+# PHASE 10 — THE LINK LAYER
+# ---------------------------------------------------------------------------
+
+def test_the_link_layer_is_counted_from_the_split_bank():
+    """His own note on this layer: *counted from the split bank*. Three of the
+    four types are COMPUTED over the live split and the live archetype layer,
+    so the count follows the bank instead of drifting from it."""
+    from sourceborn import link as L
+    s = L.stats()
+    assert s["links"] > 900
+    assert s["computed"] == s["links"] - s["his"]
+    assert set(s["by_type"]) == {"SPLIT_SIBLING", "SHARED_NAME",
+                                 "ARCHETYPE_REACH", "SYMMETRIC_MEETING"}
+    # split siblings come from the 275 parents the split review counts
+    assert s["by_type"]["SPLIT_SIBLING"] >= 275
+    assert s["ceiling"] is None, "his ruling: no count, open to increase"
+    # ids are their own namespace — never readable as rows or containers
+    for l in L.links()[:50]:
+        assert l["id"].startswith("SBX-LNK-")
+
+
+def test_every_row_a_link_names_is_real():
+    """His hand-given links name SOURCE rows he supplied — those are the ones
+    that can be wrong, so they are checked against the live registry."""
+    from sourceborn import link as L
+    v = L.verify()
+    assert v["ok"] is True, v["problems"]
+    assert v["problems"] == []
+    assert v["his_row_ids_checked"] >= 7
+    assert v["dangling_computed_links"] == 0
+
+
+def test_the_diamond_returns_a_reading_no_row_can_hold():
+    """The proof the layer exists for. `Dominance motive` is a row. TWO people
+    running it at each other is not a row and cannot be made one — it has no
+    home container, because it is not located in either party."""
+    from sourceborn import link as L
+    r = L.fires_on("diamond cut diamond")
+    assert r["fired_count"] == 1
+    reading = r["readings"][0]
+    assert reading["name"] == "DIAMOND CUT DIAMOND"
+    assert reading["his_words"] == "its ego cut ego"
+    # both ends are the SAME row — which is why no computation could find it
+    assert reading["rows"] == ["SB-HFR-P2550", "SB-HFR-P2550"]
+    assert "meeting" in reading["reading"] or "meeting" in r["law"]
+    assert "never read it as one person being strong" in reading["refuses"]
+    assert r["concluded"] is None
+    # and ordinary text fires nothing
+    assert L.fires_on("the cat sat on the mat")["fired_count"] == 0
+
+
+def test_the_link_layer_now_counts_in_his_table():
+    """It stood at 0 in his twelve-layer table. It is now counted live, and
+    wired — a layer is only wired if a live call puts it in the path."""
+    from sourceborn import sbx, link as L
+    by = {l["id"]: l for l in sbx.open_layers()}
+    assert by["LINK"]["count"] == len(L.links()) > 900
+    assert by["LINK"]["ceiling"] is None
+    row = next(l for l in sbx.layers() if l["layer"] == "Link")
+    assert row["live"] == len(L.links())
+    assert row["wired"]["wired"] is True
+    assert "Link" in sbx.wiring()["wired"]
+
+
+def test_the_link_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/link"', '"/link/run"'):
+        assert route in src, route
+    assert "link.fires_on(" in src and "link.of(" in src
+
+
+# ---------------------------------------------------------------------------
+# HIS TWELVE-LAYER TABLE, LIVE — his ask: "your pending wiring"
+# ---------------------------------------------------------------------------
+
+def test_his_twelve_layer_table_is_rendered_against_live_data():
+    """His table, his order, his targets — and the counts read from the live
+    modules rather than from what was typed. A table of targets that never
+    checks itself is how the 4,120 went missing the first time."""
+    from sourceborn import sbx
+    ls = sbx.layers()
+    assert len(ls) == 12
+    assert [l["n"] for l in ls] == list(range(1, 13))
+    names = [l["layer"] for l in ls]
+    assert names[:3] == ["Segments", "Containers", "Sub-parameters"]
+    assert names[8:11] == ["Archetype", "Link", "Scale"]
+    for l in ls:
+        assert l["his_note"], l["layer"]
+        assert l["against_target"] in ("MET", "SHORT", "OVER",
+                                       "NO CEILING — his ruling",
+                                       "NOT COUNTED HERE")
+    by = {l["layer"]: l for l in ls}
+    assert by["Segments"]["live"] == 27 and by["Segments"]["before"] == 10
+    assert by["Containers"]["live"] == 183 and by["Containers"]["before"] == 80
+    assert by["Universal filters"]["live"] == 175
+    assert by["Rubrics R01–R52"]["live"] == 67
+
+
+def test_the_one_short_layer_is_short_by_exactly_his_own_number():
+    """His table says sub-parameters reach ≈7,603 — 3,483 from splitting plus
+    4,120 fresh for the 103 new containers. The split produced the 3,483 by
+    DIVIDING existing rows among children; it created no new names. The
+    shortfall reproduces his own figure exactly, and is refused rather than
+    filled with invented names."""
+    from sourceborn import sbx
+    w = sbx.wiring()
+    assert len(w["short"]) == 1
+    gap = w["the_one_gap"]
+    assert gap["layer"] == "Sub-parameters"
+    assert gap["live"] == 3483 and gap["his_target"] == 7603
+    assert gap["short_by"] == 4120, "his own number, reproduced"
+    assert "placeholder he forbade" in gap["refused"]
+    assert "HIS NUMBER TO FINALISE" in gap["refused"]
+
+
+def test_wired_means_it_reaches_an_answer_not_that_it_exists():
+    """His bar: *evidence of wiring is done with proof not your test*. A layer
+    placed at a step but never consulted is CARRIED, not wired, and the table
+    says which is which instead of counting them all as done."""
+    from sourceborn import sbx
+    w = sbx.wiring()
+    assert set(w["wired"]) == {"Segments", "Containers", "Sub-parameters",
+                               "Archetype", "Link", "Scale"}
+    assert w["partial"] == ["Universal filters"]
+    # five layers exist at a step and reach no answer — stated, not hidden
+    assert len(w["carried_not_consulted"]) == 5
+    assert "Rubrics R01–R52" in w["carried_not_consulted"]
+    assert "Operating states" in w["carried_not_consulted"]
+    for l in sbx.layers():
+        assert l["wired"]["how"], l["layer"]
+
+
+def test_the_wiring_route_is_reachable():
+    src = open("src/sourceborn/server.py").read()
+    assert '"/sbx/wiring"' in src and "sbx.wiring()" in src
+
+
+# ---------------------------------------------------------------------------
+# THE SPLIT REVIEW — his ask: "split review it again"
+# ---------------------------------------------------------------------------
+
+def test_the_split_review_runs_checks_that_can_fail():
+    """A review reports what is WRONG. These eight checks each have a failing
+    branch; a review that could only pass would be worth nothing."""
+    from sourceborn import sbx
+    r = sbx.review()
+    assert r["checks_run"] == 9
+    assert r["passed_count"] + r["findings_count"] == 9
+    ids = {p["id"] for p in r["passed"]} | {f["id"] for f in r["findings"]}
+    assert ids == {"SPLIT-0%d" % n for n in range(1, 10)}
+    for f in r["findings"]:
+        assert f["his_call"] is True
+        assert f["severity"]
+        assert f["what"]
+
+
+def test_the_split_arithmetic_is_exact_and_no_source_row_was_lost():
+    """SPLIT-01 is the load-bearing check: nothing is removed. Every one of his
+    3,204 source rows must still have at least one child, and no split row may
+    cite a source that is not there."""
+    from sourceborn import sbx
+    r = sbx.review()
+    p = next(x for x in r["passed"] if x["id"] == "SPLIT-01")
+    assert p["source_rows"] == 3204
+    assert p["parents_split"] == 275
+    assert p["children_from_split_parents"] == 554
+    assert p["arithmetic"] == "3204 source + 279 gained by splitting = 3483"
+    assert "SPLIT-01" not in r["blocking"]
+
+
+def test_the_review_reports_the_row_shortfall_without_deciding_it():
+    """His rule is 40 rows per container; most have fewer, because splitting a
+    parent DIVIDED its 40 among its children instead of giving each 40. The
+    review states the number and refuses to invent the names."""
+    from sourceborn import sbx
+    f = next(x for x in sbx.review()["findings"] if x["id"] == "SPLIT-02")
+    assert f["containers_under"] + f["containers_at_or_over"] == 183
+    assert f["shortfall_to_40_each"] > 3000
+    assert "will not decide it" in f["what_would_close_it"]
+    assert f["thinnest"] and f["thinnest"][0]["rows"] == 1
+
+
+def test_the_review_catches_the_split_repeating_its_own_defect():
+    """Two children of two different parents landed on the same bare name —
+    `Ownership` from body-schema and `Ownership` from agency; `Gesture` from
+    tool-use and `Gesture` from prosody. That is the multi-meaning problem
+    reappearing one level down, and it is reported, not renamed."""
+    from sourceborn import sbx
+    f = next(x for x in sbx.review()["findings"] if x["id"] == "SPLIT-04")
+    assert set(f["duplicates"]) == {"Ownership", "Gesture"}
+    for name, group in f["duplicates"].items():
+        assert len({g["id"] for g in group}) == len(group) > 1
+        assert len({g["from"] for g in group}) == len(group), \
+            "the duplicates must come from DIFFERENT parents to be a real seam"
+    assert "never renames" in f["what_would_close_it"]
+
+
+def test_the_review_catches_a_layer_member_counted_but_never_placed():
+    """SPLIT-09. Every layer member is supposed to sit at the step where it
+    acts. The rubric layer declares 67 and places 66 distinct across 70
+    placements — four rubrics act at two steps each, and one is counted
+    without appearing anywhere in the work."""
+    from sourceborn import sbx
+    f = next(x for x in sbx.review()["findings"] if x["id"] == "SPLIT-09")
+    rub = next(l for l in f["layers"] if l["layer"] == "rubrics")
+    assert rub["declared"] == 67 and rub["placed_on_spine"] == 66
+    assert rub["difference"] == 1
+    assert "reported rather than guessed at" in f["note"]
+
+
+def test_the_review_route_is_reachable():
+    src = open("src/sourceborn/server.py").read()
+    assert '"/sbx/review"' in src and "sbx.review()" in src
+
+
+# ---------------------------------------------------------------------------
+# HIS DISPLAY LAW — NEW PARAMETERS IN FRONT, OLD IN BACK
+# ---------------------------------------------------------------------------
+
+def test_new_parameters_in_front_and_old_in_back():
+    """His words, given with the ruling that the source is never deleted:
+    *use new parameters in front n old in back*. Both halves hold — the old
+    bank stays whole, and the new reading leads, because a reader who meets
+    the old id first is being shown the superseded address as the current one."""
+    from sourceborn import sbx
+    r = sbx.place_on_spine("a man is stealing money from a shop")
+    assert r["hits"], "nothing reached — the convention has nothing to prove on"
+    for h in r["hits"]:
+        keys = list(h)
+        # the split id and name lead; every source field sits under `from`
+        assert keys[0] == "id" and keys[1] == "row"
+        assert h["id"].startswith("SBX-CON-"), h["id"]
+        assert h["container"].startswith("SBX-CON-")
+        assert h["segment"].startswith("SBX-SEG-")
+        assert keys.index("from") > keys.index("id")
+        assert keys.index("from") > keys.index("container")
+        assert h["from"]["id"].startswith("SB-HFR-P")
+        assert h["from"]["container"].startswith("CON-")
+        assert "untouched" in h["from"]["bank"]
+    assert "new parameters in front" in sbx.FRONT_BACK_LAW
+
+
+def test_every_reached_row_resolves_to_a_split_row():
+    """The convention is only real if the new id actually exists for every
+    row reached. Measured across eight of his asks: 71 hits, 71 resolved."""
+    from sourceborn import sbx
+    total = resolved = 0
+    for text in ("a man is stealing money from a shop",
+                 "he bet everything he had to win it all back and lost what "
+                 "he could never recover",
+                 "diamond cut diamond",
+                 "i study late at night but i keep thinking about tomorrow",
+                 "the father was standing at the door and pointed it in the air",
+                 "he gave everything and got nothing in return",
+                 "i heard from someone that he took the money, we should fire "
+                 "him today"):
+        for h in sbx.place_on_spine(text)["hits"]:
+            total += 1
+            resolved += bool(h["id"])
+    assert total > 50 and resolved == total, (resolved, total)
+
+
+def test_the_source_bank_is_still_whole_behind_the_new_front():
+    """Putting the new in front must not have moved the old. His registry
+    still reads 3,204 rows and 80 containers."""
+    from sourceborn import human_registry as hr
+    assert len(hr.parameters()) == 3204
+    assert len(hr.containers()) == 80
+
+
+# ---------------------------------------------------------------------------
+# THE NODE BRAIN, IN THE ARCHITECTURE
+# ---------------------------------------------------------------------------
+
+def test_his_node_structure_is_placed_on_his_spine():
+    """His ask: *Node brain structure added*. The structure was locked in
+    Phase A and stood BESIDE the architecture; every other layer is placed at
+    the step where it acts. All twelve types now are."""
+    from sourceborn import sbx, nodebrain as N
+    nb = sbx.node_brain()
+    assert nb["node_type_count"] == 12
+    assert nb["field_count"] == 16 and nb["link_type_count"] == 10
+    assert len(nb["memory_kinds"]) == 11 and len(nb["statuses"]) == 4
+    assert len(nb["write_conditions"]) == 5 and len(nb["read_conditions"]) == 6
+    # the fingerprint travels with it, so a silent schema change is caught
+    assert nb["fingerprint"] == N.fingerprint()
+    placed = sbx.node_types()
+    assert len(placed) == 12
+    steps = {s["step"] for s in sbx.spine()}
+    for t in placed:
+        assert t["step"] in steps, t["type"]
+        assert t["step_name"] and t["order"]
+        # his structure, this side's placement — and every row says which
+        assert t["by"].startswith("HIS")
+        assert t["placed_by"].startswith("DERIVED")
+        assert t["why"] and t["correctable"] is True
+    # the ones his own law fixes: a contradiction is the HALT
+    by = {t["type"]: t for t in placed}
+    assert by["CONTRADICTION"]["step_name"] == "HALT"
+    assert by["EVENT"]["step_name"] == "PRESSURE"
+    assert by["INTENT"]["step_name"] == "WITNESS"
+    assert by["PATTERN"]["step_name"] == "CONSOLIDATION"
+
+
+def test_the_node_namespace_collisions_are_carried_not_settled():
+    """Five node-type names collide with growth series names. The two
+    namespaces are NOT merged — his standing ruling — and the architecture
+    carries the seam rather than quietly settling it."""
+    from sourceborn import sbx
+    nb = sbx.node_brain()
+    c = nb["collisions"]
+    assert c["count"] == 5
+    assert set(c["shared_names"]) == {"EVENT", "INTENT", "PATTERN", "RULE", "STATE"}
+    assert nb["not_settled"]
+    assert "NOT merged" in nb["not_settled"]
+
+
+def test_the_steps_no_node_type_reaches_are_reported():
+    """LOOP, ALIENATION and COLLISION have no node type of their own. That is
+    an absence, and an absence is reported rather than filled."""
+    from sourceborn import sbx
+    nb = sbx.node_brain()
+    assert nb["steps_unused"] == [8, 10, 11]
+    assert set(nb["steps_used"]) | set(nb["steps_unused"]) == \
+        {s["step"] for s in sbx.spine()}
+
+
+# ---------------------------------------------------------------------------
+# HIS THIRD COLUMN — THE OPERATIONAL TRIGGER / STATE VECTOR
+# ---------------------------------------------------------------------------
+
+def test_his_trigger_table_is_carried_verbatim():
+    """His ten segments and forty-eight rows, his wording intact — his LaTeX
+    and his spelling included. The table is his source; it is never rewritten."""
+    from sourceborn import trigger as T
+    assert len(T.HIS_TABLE) == 10
+    rows = T.his_rows()
+    assert len(rows) == 48
+    for r in rows:
+        assert r["bio"] and r["engine"] and r["trigger"], r["his_id"]
+        assert r["his_id"].startswith("HIS-CON-")
+    # his LaTeX survives byte-for-byte
+    salience = next(r for r in rows if r["name"] == "Salience Detection")
+    assert salience["trigger"] == \
+        "Input amplitude > baseline moving average + $3\\sigma$."
+    sleep = next(r for r in rows if r["name"] == "Sleep Architecture")
+    assert sleep["trigger"] == "Idle timer > Threshold triggers ACPI S3/S4 state."
+
+
+def test_a_container_may_serve_more_than_one_segment():
+    """HIS OWN LAW, stated before the table: *below more may be repated*.
+    Four of his container numbers carry a different container under a different
+    segment, and that is recorded as a repeat, never resolved as a collision."""
+    from sourceborn import trigger as T
+    rep = T.repeats()
+    assert rep["his_words"] == "below more may be repated"
+    assert rep["repeated_count"] == 4
+    assert set(rep["repeated_ids"]) == {"HIS-CON-018", "HIS-CON-023",
+                                        "HIS-CON-024", "HIS-CON-026"}
+    # HIS-CON-018 is Auditory Processing in one segment and Threat Detection
+    # in another — both kept, neither preferred
+    names = {x["name"] for x in rep["repeated_ids"]["HIS-CON-018"]}
+    assert names == {"Auditory Processing", "Threat Detection"}
+    # and placements returns a LIST, never one value
+    assert isinstance(T.placements("SBX-CON-023"), list)
+
+
+def test_the_three_numberings_are_never_merged_on_the_numerals():
+    """His table, the live registry and the split all number from CON-001 and
+    are three different numberings. His standing ruling covers exactly this:
+    do not silently merge namespaces. Matching is by NAME; whether his number
+    agrees is recorded beside and decides nothing."""
+    from sourceborn import trigger as T, human_registry as hr
+    # the proof they differ: his CON-064 is Episodic Memory, the registry's is
+    # Motive, Needs, Values and Priority Structure
+    reg = {c["id"]: c["name"] for c in hr.containers()}
+    his = {r["his_id"]: r["name"] for r in T.his_rows()}
+    assert his["HIS-CON-064"] == "Episodic Memory"
+    assert reg["CON-064"] == "Motive, Needs, Values and Priority Structure"
+    seams = T.seams()
+    assert len(seams) >= 5
+    for s in seams:
+        assert s["resolved"] is False and s["his_call"] is True
+        assert s["name_places_it_at"]["id"] != s["number_would_place_it_at"]["id"]
+    # his Theory of Mind by name; his number would have given Body Schema
+    tom = next(s for s in seams if s["his_name"] == "Theory of Mind")
+    assert tom["name_places_it_at"]["name"] == "Theory of Mind"
+    assert tom["number_would_place_it_at"]["name"] == "Body Schema"
+
+
+def test_a_weak_match_is_proposed_and_never_placed():
+    """Measured: of three single-distinctive-token matches, `circadian` and
+    `chemical` were right and `behavioral` put his safety-guardrail row onto
+    Group Behaviour. A weak match that placed would carry his trigger to the
+    wrong container, so it waits for his word."""
+    from sourceborn import trigger as T
+    m = T.match()
+    assert m["placed_count"] + m["proposed_count"] + m["held_count"] == 48
+    assert m["proposed_count"] >= 1
+    for p in m["proposed"]:
+        assert p["his_call"] is True and "proposal" in p and "matched" not in p
+        assert p["grade"].startswith("SHARED DISTINCTIVE TOKEN")
+    # nothing proposed reaches a container's trigger
+    proposed_ids = {p["proposal"]["id"] for p in m["proposed"]}
+    for t in T.triggers():
+        if t["id"] in proposed_ids:
+            assert t["by"] == "DERIVED", \
+                "%s took a proposed match without his word" % t["id"]
+    # and an unmatchable row is HELD whole, never dropped
+    assert m["held_count"] >= 1
+    for h in m["held"]:
+        assert h["his_name"] and h["grade"] in ("UNMATCHED",) or \
+            h["grade"].startswith("AMBIGUOUS")
+
+
+def test_every_container_carries_a_trigger_and_says_whose_it_is():
+    """All 183 filled — no empty slot. HIS and DERIVED counted apart, because
+    a page that cannot say which triggers are his cannot be corrected by him."""
+    from sourceborn import trigger as T
+    ts = T.triggers()
+    assert len(ts) == 183
+    for t in ts:
+        assert t["trigger"], t["id"]
+        assert t["by"] in ("HIS", "DERIVED")
+        assert t["kind"] in {k for k, _ in T.SHAPE.values()}
+        assert t["correctable"] is True
+        if t["by"] == "DERIVED":
+            # never invented from nowhere — it names its two real sources
+            assert t["from"]["machine_column"] is not None
+            assert t["from"]["step"] == t["step"]
+    his = [t for t in ts if t["by"] == "HIS"]
+    assert len(his) == T.stats()["trigger_by_him"] == 36
+    assert T.stats()["trigger_derived"] == 183 - 36
+
+
+def test_the_trigger_shape_comes_from_his_spine():
+    """A trigger is not free text. Where a container sits on his spine fixes
+    the SHAPE of its firing: GROUND reads a baseline, PRESSURE crosses a
+    threshold, HALT raises a fault."""
+    from sourceborn import trigger as T
+    assert T.SHAPE[1][0] == "BASELINE READ"
+    assert T.SHAPE[2][0] == "THRESHOLD CROSSED"
+    assert T.SHAPE[7][0] == "FAULT RAISED"
+    assert T.SHAPE[8][0] == "COMMIT / RELOAD"
+    for t in T.triggers():
+        if t["by"] == "DERIVED":
+            assert t["kind"] == T.SHAPE[t["step"]][0], t["id"]
+
+
+def test_an_ask_is_read_as_firing_conditions_and_concludes_nothing():
+    from sourceborn import trigger as T
+    r = T.fires_on("a man is stealing money from a shop")
+    assert r["containers_lit"] > 0
+    assert r["his_triggers_lit"] + r["derived_triggers_lit"] == r["containers_lit"]
+    assert r["concluded"] is None
+    for t in r["triggers"]:
+        assert t["trigger"] and t["by"] in ("HIS", "DERIVED")
+        assert t["reached_by"] in ("WORDS", "ARCHETYPE")
+
+
+def test_the_trigger_routes_are_reachable():
+    src = open("src/sourceborn/server.py").read()
+    for route in ('"/trigger"', '"/trigger/placements"', '"/trigger/run"'):
+        assert route in src, route
+    assert "trigger.fires_on(" in src and "trigger.seams()" in src
+
+
+# ---------------------------------------------------------------------------
+# THE PEN — it rewrites its own code, full auto on his word (2026-09-03)
+# ---------------------------------------------------------------------------
+
+class _PenModel:
+    """A drafter for tests: hands back scripted replies and records prompts."""
+    def __init__(self, *replies, name="testpen"):
+        self.replies, self.name, self.calls, self.prompts = list(replies), name, 0, []
+    def complete(self, system, prompt, max_tokens=4000):
+        self.calls += 1
+        self.prompts.append(prompt)
+        return self.replies.pop(0) if self.replies else ""
+
+
+class _PenTransport:
+    """A GitHub for tests: records every call, answers like the git-data API."""
+    def __init__(self, fail_on_ref=False):
+        self.calls, self.fail_on_ref = [], fail_on_ref
+    def __call__(self, method, url, payload, token):
+        self.calls.append({"method": method, "url": url, "payload": payload})
+        if method == "PATCH" and self.fail_on_ref:
+            raise RuntimeError("GitHub PATCH /git/refs -> 422 not a fast forward")
+        if method == "GET" and "/git/ref/" in url:
+            return {"object": {"sha": "headsha00"}}
+        if method == "GET" and "/git/commits/" in url:
+            return {"tree": {"sha": "treesha00"}}
+        if url.endswith("/git/blobs"):
+            return {"sha": "blob%02d" % len(self.calls)}
+        if url.endswith("/git/trees"):
+            return {"sha": "newtree00"}
+        if url.endswith("/git/commits"):
+            return {"sha": "pencommit%02d" % len(self.calls)}
+        return {"ok": True}
+
+
+def _pen_env(extra):
+    """Set/unset env keys for one pen test; returns the restore function."""
+    old = {}
+    for k, v in extra.items():
+        old[k] = os.environ.get(k)
+        if v is None:
+            os.environ.pop(k, None)
+        else:
+            os.environ[k] = v
+    def restore():
+        for k, v in old.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
+    return restore
+
+
+def _pen_reply(path, content, why="carries his teaching into the code"):
+    return ("<<<WHY>>>%s<<<END WHY>>>\n<<<FILE %s>>>\n%s\n<<<END FILE>>>"
+            % (why, path, content))
+
+
+def test_the_pen_field_is_default_deny_and_the_core_is_unreachable():
+    """His rule 2 surviving full auto is a property of allowed(), not a
+    promise: the core — his words, his banks, the suite, the orders — is
+    refused before anything runs, and the refusal carries the reason."""
+    from sourceborn import selfpatch as SP
+    for p in ("docs/method/canon/THE_SELF_REWRITE.md", "data/human_registry.json",
+              "adopted/C-SB/README.md", "tests/test_engine.py", "CLAUDE.md",
+              "render.yaml", "app.py", ".github/workflows/ci.yml",
+              "seed_corpus/raw_thoughts/x.txt", ".sourceborn/growth/ledger.jsonl"):
+        ok, why = SP.allowed(p)
+        assert not ok and why, p
+    for held in SP.HELD_FROM_THE_PEN:
+        ok, why = SP.allowed("src/sourceborn/" + held)
+        assert not ok and why == SP.HELD_FROM_THE_PEN[held], held
+    for p in ("src/sourceborn/micro.py", "README.md"):
+        ok, _ = SP.allowed(p)
+        assert ok, p
+    # outside the field even inside the tree: not-.py, nested, other dirs
+    for p in ("src/sourceborn/data/human_registry.json", "src/sourceborn/a/b.py",
+              "tools/docx2txt.py", "docs/x.py", "somefile.py"):
+        assert not SP.allowed(p)[0], p
+
+
+def test_a_path_that_climbs_out_of_the_tree_is_refused():
+    from sourceborn import selfpatch as SP
+    for p in ("../CLAUDE.md", "/etc/passwd", "~/x.py",
+              "src/sourceborn/../../CLAUDE.md",
+              "src/sourceborn/../../../outside.py", ""):
+        assert not SP.allowed(p)[0], p
+
+
+def test_the_door_law_holds_the_pen_until_his_password_exists():
+    """The pen writes into HIS GitHub with HIS token — an open door would
+    hand it to anyone with the URL. The knock is FILED, never dropped."""
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": None})
+    root = tempfile.mkdtemp()
+    try:
+        m = _PenModel(_pen_reply("src/sourceborn/micro.py", "x = 1"))
+        tr = _PenTransport()
+        row = SP.teach("teach me something", root=root, model=m, transport=tr)
+        assert row["stage"] == "REFUSED-DOOR-OPEN"
+        assert m.calls == 0, "the drafter must not run at an open door"
+        assert tr.calls == []
+        assert SP.load(root)[0]["teaching"] == "teach me something"
+    finally:
+        restore()
+
+
+def test_the_offline_echo_can_never_become_a_patch():
+    from sourceborn import selfpatch as SP
+    from sourceborn import llm
+    restore = _pen_env({"SB_ACCESS_PASS": "pw"})
+    root = tempfile.mkdtemp()
+    try:
+        tr = _PenTransport()
+        row = SP.teach("teach", root=root, model=llm.RuleBasedModel(),
+                       transport=tr)
+        assert row["stage"] == "REFUSED-NO-MODEL"
+        assert tr.calls == []
+    finally:
+        restore()
+
+
+def test_a_reply_that_is_not_a_patch_is_filed_refused():
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw"})
+    root = tempfile.mkdtemp()
+    try:
+        row = SP.teach("teach", root=root,
+                       model=_PenModel("here is my patch: change everything"),
+                       transport=_PenTransport())
+        assert row["stage"] == "REFUSED-MALFORMED"
+        assert "files" not in row, "nothing parsed means nothing staged"
+    finally:
+        restore()
+
+
+def test_a_patch_reaching_held_ground_is_refused_before_anything_runs():
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw"})
+    try:
+        for path in ("CLAUDE.md", "src/sourceborn/selfpatch.py",
+                     "tests/test_engine.py", "docs/method/01A_INTENT.md"):
+            root = tempfile.mkdtemp()
+            tr = _PenTransport()
+            row = SP.teach("teach", root=root,
+                           model=_PenModel(_pen_reply(path, "# taken over")),
+                           transport=tr)
+            assert row["stage"] == "REFUSED-HELD", path
+            assert not any(s["stage"].startswith("SHADOW")
+                           for s in row["stages"]), "held is refused unrun"
+            assert tr.calls == []
+    finally:
+        restore()
+
+
+def test_python_that_does_not_compile_never_reaches_the_suite():
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw"})
+    root = tempfile.mkdtemp()
+    try:
+        row = SP.teach("teach", root=root,
+                       model=_PenModel(_pen_reply("src/sourceborn/micro.py",
+                                                  "def broken(:")),
+                       transport=_PenTransport())
+        assert row["stage"] == "REFUSED-MALFORMED"
+        assert "does not compile" in row["stages"][-1]["why"]
+    finally:
+        restore()
+
+
+def test_the_parse_caps_bite_and_report():
+    from sourceborn import selfpatch as SP
+    four = "\n".join(_pen_reply("src/sourceborn/micro.py", "x=%d" % i)
+                     for i in range(4))
+    assert "cap is 3" in SP.parse_reply(four)["refused"]
+    big = _pen_reply("src/sourceborn/micro.py", "# " + "a" * 210_000)
+    assert "bytes" in SP.parse_reply(big)["refused"]
+
+
+def test_the_shadow_runs_the_patch_against_a_copy_never_the_tree():
+    """The gate's mechanics, on a mini suite: green reads green, red reads red
+    with the failure kept — and the working tree is untouched by both."""
+    if os.environ.get("SB_SELFPATCH_SHADOW"):
+        return  # a shadow may not open another shadow
+    from sourceborn import selfpatch as SP
+    real = open("src/sourceborn/witnesses.py", encoding="utf-8").read()
+    ok = SP._shadow({"tests/mini_ok.py": "print('1/1 tests passed')\n"},
+                    suite="tests/mini_ok.py")
+    assert ok["green"] and ok["tests"] == "1/1 tests passed"
+    red = SP._shadow({"src/sourceborn/witnesses.py":
+                      "raise RuntimeError('broken on purpose')\n",
+                      "tests/mini_red.py":
+                      "import sys; sys.path.insert(0, 'src'); "
+                      "import sourceborn.witnesses\n"},
+                     suite="tests/mini_red.py")
+    assert not red["green"]
+    assert "broken on purpose" in red["tail"]
+    assert open("src/sourceborn/witnesses.py",
+                encoding="utf-8").read() == real, "the tree must be untouched"
+    assert not os.path.exists("tests/mini_ok.py"), "the shadow is a copy"
+
+
+def test_a_green_patch_pushes_straight_to_the_deploy_branch():
+    """His choice end to end, against the REAL suite: teach -> draft ->
+    the full suite green in shadow -> commit through the git-data API with
+    no approval step. This is the one test that pays the whole shadow run."""
+    if os.environ.get("SB_SELFPATCH_SHADOW"):
+        return  # a shadow may not open another shadow
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw", "SB_GITHUB_TOKEN": "tkn",
+                        "SB_REPO": "owner/name", "SB_BRANCH": None})
+    root = tempfile.mkdtemp()
+    try:
+        real = open("src/sourceborn/witnesses.py", encoding="utf-8").read()
+        content = real + "\n# the pen wrote here\n"
+        tr = _PenTransport()
+        row = SP.teach("when two witnesses differ, keep both — a comment to "
+                       "prove the loop", root=root,
+                       model=_PenModel(_pen_reply("src/sourceborn/witnesses.py",
+                                                  content)),
+                       transport=tr)
+        assert row["stage"] == "PUSHED", row["stages"]
+        assert any(s["stage"] == "SHADOW-GREEN" and s.get("tests")
+                   and "tests passed" in s["tests"] for s in row["stages"])
+        assert row["sha"].startswith("pencommit")
+        methods = [c["method"] for c in tr.calls]
+        assert methods == ["GET", "GET", "POST", "POST", "POST", "PATCH"]
+        commit = next(c for c in tr.calls if c["url"].endswith("/git/commits")
+                      and c["method"] == "POST")
+        msg = commit["payload"]["message"]
+        assert msg.startswith("SELF-PATCH SB-PATCH-0001:")
+        assert "when two witnesses differ" in msg
+        ref = tr.calls[-1]["payload"]
+        assert ref == {"sha": row["sha"], "force": False}
+        kept = SP.load(root)[0]
+        assert kept["was"]["src/sourceborn/witnesses.py"] == real, \
+            "the before is the real file, kept whole"
+        assert kept["now"]["src/sourceborn/witnesses.py"].rstrip(
+               ).endswith("# the pen wrote here")
+    finally:
+        restore()
+
+
+def test_a_red_suite_files_the_patch_and_pushes_nothing():
+    if os.environ.get("SB_SELFPATCH_SHADOW"):
+        return
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw", "SB_GITHUB_TOKEN": "tkn",
+                        "SB_REPO": "owner/name"})
+    root = tempfile.mkdtemp()
+    try:
+        tr = _PenTransport()
+        row = SP.teach("teach", root=root,
+                       model=_PenModel(_pen_reply("src/sourceborn/micro.py",
+                                                  "x = 1")),
+                       transport=tr, suite="tests/no_such_suite.py")
+        assert row["stage"] == "SHADOW-RED"
+        assert tr.calls == [], "red never pushes"
+        assert SP.load(root)[0]["stage"] == "SHADOW-RED", "and it is filed"
+    finally:
+        restore()
+
+
+def test_an_unarmed_green_patch_is_held_with_the_whole_patch_kept():
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw", "SB_GITHUB_TOKEN": None,
+                        "SB_REPO": None})
+    root = tempfile.mkdtemp()
+    try:
+        tr = _PenTransport()
+        row = SP.teach("teach", root=root,
+                       model=_PenModel(_pen_reply("src/sourceborn/micro.py",
+                                                  "x = 1")),
+                       transport=tr, shadow=False)
+        assert row["stage"] == "HELD-UNARMED"
+        assert tr.calls == []
+        assert SP.load(root)[0]["now"] == {"src/sourceborn/micro.py": "x = 1\n"}
+    finally:
+        restore()
+
+
+def test_a_race_on_the_branch_head_is_refused_never_forced():
+    """force is never sent true: if the head moved underneath, the ref update
+    fails and the teach is FILED, not clobbered over someone's commit."""
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw", "SB_GITHUB_TOKEN": "tkn",
+                        "SB_REPO": "owner/name"})
+    root = tempfile.mkdtemp()
+    try:
+        tr = _PenTransport(fail_on_ref=True)
+        row = SP.teach("teach", root=root,
+                       model=_PenModel(_pen_reply("src/sourceborn/micro.py",
+                                                  "x = 1")),
+                       transport=tr, shadow=False)
+        assert row["stage"] == "REFUSED-PUSH"
+        assert "not a fast forward" in row["stages"][-1]["why"]
+        for c in tr.calls:
+            if isinstance(c["payload"], dict) and "force" in c["payload"]:
+                assert c["payload"]["force"] is False
+    finally:
+        restore()
+
+
+def test_revert_is_a_new_commit_and_the_ledger_keeps_everything():
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw", "SB_GITHUB_TOKEN": "tkn",
+                        "SB_REPO": "owner/name"})
+    root = tempfile.mkdtemp()
+    try:
+        # a patch that CREATES a file: its revert must delete it — as a tree
+        # entry in a NEW commit, never an erasure of history
+        row = SP.teach("teach", root=root,
+                       model=_PenModel(_pen_reply(
+                           "src/sourceborn/pen_test_mod.py", "x = 1")),
+                       transport=_PenTransport(), shadow=False)
+        assert row["stage"] == "PUSHED"
+        tr2 = _PenTransport()
+        rev = SP.revert(row["id"], root=root, transport=tr2)
+        assert rev["kind"] == "REVERT" and rev["of"] == row["id"]
+        tree = next(c for c in tr2.calls if c["url"].endswith("/git/trees"))
+        entry = tree["payload"]["tree"][0]
+        assert entry["path"] == "src/sourceborn/pen_test_mod.py"
+        assert entry["sha"] is None, "a created file reverts to absent"
+        rows = SP.load(root)
+        assert [r["kind"] for r in rows] == ["PATCH", "REVERT"]
+        assert rows[0]["stage"] == "PUSHED", "the patch row stands untouched"
+        # and only a PUSHED row can be reverted
+        assert "refused" in SP.revert("SB-PATCH-9999", root=root,
+                                      transport=tr2)
+    finally:
+        restore()
+
+
+def test_the_pen_ledger_is_append_only_and_the_scratch_is_scoped():
+    """growth.py's law, applied to the pen: no removal path anywhere near the
+    ledger. The one rmtree in the module deletes the SHADOW SCRATCH copy —
+    45MB per teach would otherwise eat the disk — and lives only in _shadow."""
+    import inspect
+    import re as _re
+    from sourceborn import selfpatch as SP
+    src = inspect.getsource(SP)
+    # call-shaped patterns only: the drafter's LAW TEXT must be allowed to
+    # SAY "no delete/pop/truncate paths" without this scan reading the law
+    # as a violation — the same self-reference trap the earlier guards hit.
+    for bad in (".pop(", ".truncate(", "os.remove(", "os.unlink("):
+        assert bad not in src, bad
+    assert not _re.search(r"\bdel\b", src)
+    assert '"a"' in inspect.getsource(SP._append)
+    for chunk in src.split("\ndef "):
+        if "rmtree" in chunk:
+            assert chunk.startswith("_shadow"), "rmtree outside the scratch"
+    assert "rmtree" in inspect.getsource(SP._shadow)
+
+
+def test_no_secret_value_ever_leaves_the_environment():
+    import json
+    from sourceborn import selfpatch as SP
+    restore = _pen_env({"SB_ACCESS_PASS": "pw-sekrit-77",
+                        "SB_GITHUB_TOKEN": "tok-sekrit-88",
+                        "SB_REPO": "owner/name"})
+    try:
+        blob = json.dumps(SP.state(tempfile.mkdtemp()))
+        assert "sekrit" not in blob
+        assert '"SB_GITHUB_TOKEN": true' in blob
+    finally:
+        restore()
+
+
+def test_nothing_pushed_carries_a_models_name():
+    from sourceborn import selfpatch as SP
+    msg = SP._commit_message(
+        "SB-PATCH-0001", "his teaching",
+        "As Claude, I used GPT-5 and Grok via Anthropic and OpenAI APIs.",
+        "478/478 tests passed")
+    low = msg.lower()
+    for word in ("claude", "gpt", "grok", "anthropic", "openai"):
+        assert word not in low, word
+    assert msg.startswith("SELF-PATCH SB-PATCH-0001: his teaching")
+
+
+def test_the_drafter_may_ask_to_read_once_and_only_once():
+    from sourceborn import selfpatch as SP
+    m = _PenModel("<<<NEED>>>micro.py<<<END NEED>>>",
+                  "<<<NEED>>>patterns.py<<<END NEED>>>")
+    d = SP._draft("teach", "", m)
+    assert m.calls == 2
+    assert "one NEED round" in d["refused"]
+    m2 = _PenModel("<<<NEED>>>micro.py<<<END NEED>>>",
+                   _pen_reply("src/sourceborn/micro.py", "x = 1"))
+    d2 = SP._draft("teach", "", m2)
+    assert "files" in d2
+    assert "CURRENT SOURCE OF micro.py" in m2.prompts[1]
+
+
+def test_a_named_target_hands_its_real_source_to_the_drafter():
+    from sourceborn import selfpatch as SP
+    m = _PenModel("junk")
+    SP._draft("teach", "micro", m)
+    assert "CURRENT SOURCE OF micro" in m.prompts[0]
+    assert "micro-sequence" in m.prompts[0].lower() or "def " in m.prompts[0]
+
+
+def test_the_home_is_the_rewrite_and_nothing_was_removed_for_it():
+    """'not what we have' meant replaced at /, not deleted: the reactor
+    stands whole at /reactor, the desk at /desk, and the new page escapes
+    everything it renders — ledger rows are untrusted input."""
+    from sourceborn import selfhome, homepage
+    src = open("src/sourceborn/server.py", encoding="utf-8").read()
+    assert "selfhome.PAGE" in src and '"/reactor"' in src
+    assert "homepage.PAGE" in src and '"/desk"' in src
+    assert len(homepage.PAGE) > 10_000, "the reactor page stands whole"
+    for term in ("THE REWRITE", "TEACH THE MACHINE", "revert", "esc("):
+        assert term in selfhome.PAGE, term
+    readme = open("README.md", encoding="utf-8").read()
+    for route in ("/selfpatch/teach", "/selfpatch/revert", "/reactor"):
+        assert route in readme, route
+
+
+def test_the_pen_appears_in_every_map():
+    from sourceborn import sysmap
+    got = sysmap.where("the pen")
+    assert got["module"] == "selfpatch.py" and got["route"]
+    chart = sysmap.arrow_chart()
+    assert "THE PEN" in chart and "FULL AUTO" in chart
+    from sourceborn import selfpatch as SP
+    st = SP.state(tempfile.mkdtemp())
+    assert st["field"]["modules"] > 70
+    assert len(st["field"]["held"]) == 5
+    assert st["door"]["law"] and st["laws"]
 
 
 def _run_all():

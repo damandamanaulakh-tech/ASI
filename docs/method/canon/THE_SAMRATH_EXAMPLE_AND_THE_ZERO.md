@@ -1,4 +1,4 @@
-# THE SAMRATH TEST — AND THE ZERO IT SCORED
+# THE SAMRATH EXAMPLE — AND THE ZERO IT SCORED
 
 **Filed 2026-08-13. His test, verbatim. The machine's honest score. Nothing dressed up.**
 

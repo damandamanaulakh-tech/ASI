@@ -1,0 +1,8 @@
+Level	Exact label	Full meaning	Review status	User decision	User notes
+H0	Unknown	No useful evidence	PENDING USER REVIEW	PENDING
+H1	Possible	Plausible but weakly supported	PENDING USER REVIEW	PENDING
+H2	Indicated	Several cues point toward it	PENDING USER REVIEW	PENDING
+H3	Probable	Strong converging evidence	PENDING USER REVIEW	PENDING
+H4	Self-reported	The human directly states it	PENDING USER REVIEW	PENDING
+H5	Behaviourally demonstrated	Repeated action supports it	PENDING USER REVIEW	PENDING
+H6	Contextually verified	Statement, behaviour and conditions converge	PENDING USER REVIEW	PENDING

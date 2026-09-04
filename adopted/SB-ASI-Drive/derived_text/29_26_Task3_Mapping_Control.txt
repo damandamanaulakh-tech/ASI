@@ -1,0 +1,17 @@
+Control item	Count / range	Treatment	Exact node-link meaning	Canonical source
+Human universe	HUMAN-ROOT	ACTIVE	SYS-001 CONTAINS HUMAN-ROOT	16 ASI Connection Core
+AI universe	AI-ROOT	ACTIVE	SYS-001 CONTAINS AI-ROOT	16 ASI Connection Core
+ASI connection	ASI-CONNECTION	ACTIVE	HUMAN-ROOT SYNCHRONISES_WITH AI-ROOT	16 ASI Connection Core
+Human segments	SEG-01…SEG-10	ACTIVE	HUMAN-ROOT CONTAINS each SEG node	03 Segments 10
+Human containers	CON-001…CON-080	ACTIVE	Each SEG node CONTAINS its 8 CON nodes	04 Containers 80
+Human parameters	SB-ASI-P0001…SB-ASI-P2560	ACTIVE	Each CON node CONTAINS its registered parameters	05 Brain Parameters 2560
+AI segments	AI-SEG-01…AI-SEG-10	ACTIVE BY REFERENCE	AI-ROOT CONTAINS AI segment IDs	02 AI Parameter Registry Control
+AI containers	AI-CON-001…AI-CON-080	ACTIVE BY REFERENCE	AI segment CONTAINS AI container IDs	02 AI Parameter Registry Control
+AI aligned parameters	2,514 AI-P nodes	ACTIVE BY REFERENCE	Human parameter↔AI parameter edges live in canonical Task 3 raw workbook	ASI-Brain_Task3_Human_AI_Parallel_v0_3.xlsx
+Human-only unmatched	46	SEPARATE	HUMAN-ROOT HAS_UNMATCHED_SET HUMAN-UNMATCHED-SET	Task 3 control
+AI-only unmatched	64	SEPARATE	AI-ROOT HAS_AI_ONLY_SET AI-ONLY-SET	Task 3 control
+Capabilities	AI-CAP-001…AI-CAP-074	EVIDENCE	AI-ROOT SUPPORTED_BY AI-CAPABILITY-SET	Task 3 control
+Benchmarks	700 events	EVIDENCE	AI-CAPABILITY-SET MEASURED_BY BENCHMARK-SET	Four-model forensic master
+Equivalence rule	None by ID alone	LOCKED	Relation type + evidence + mechanism note determine meaning	AI Parameter Universe
+No forced match	46 Human-only remain unmatched	LOCKED	Do not fabricate AI nodes	Task 3 control
+No forced placement	64 AI-only remain separate	LOCKED	Possible parent is not activated parent	Task 3 control

@@ -1,0 +1,186 @@
+{
+ "adoption": "SB-ASI Drive master workbook",
+ "his_word": "this file too for review and adoption",
+ "date": "2026-08-27",
+ "origin": "his upload (session file ccfa2863) — the SB-ASI Google Drive project's ASI-Brain_Task3_Approved_Final_v1_0; the workbook's own sheet '29 Source Preservation' records its Drive lineage (Task2 v0_1, Sync v0_4, Task3 control, benchmark master, worldwide registry).",
+ "source_file": {
+  "path": "adopted/SB-ASI-Drive/ASI-Brain_Task3_Approved_Final_v1_0.xlsx",
+  "sha256": "b3ffec6fce07beb5b81607c4826e89a3428a814ad7ba5ad3c85dc685c754c6ca",
+  "bytes": 1228736,
+  "rule": "byte-identical copy of his upload; never edited"
+ },
+ "derived_note": "derived_text/ holds one tab-separated text file per sheet, produced mechanically (cell values only, trailing-empty cells trimmed) so the binary workbook is reviewable and machine-readable inside the repo. DERIVED, not source — the .xlsx is the source; on any disagreement the .xlsx wins.",
+ "derived_files": [
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/00_00_Dashboard.txt",
+   "sha256": "3ffb3bad44b1e3de2260265d1dc27e4c279becfeed586e6f9f6bced5c83baafa",
+   "bytes": 2656
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/01_01_User_Control.txt",
+   "sha256": "1503ff78c19f3b4b0046ecad7d76d9178e22d312788cf624216b3ca82f7a4b64",
+   "bytes": 3379
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/02_02_Hierarchy.txt",
+   "sha256": "950346f990dfa778b47e05e8f9cee39443bd3e010927d7da8af5e427d537c754",
+   "bytes": 963
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/03_03_Segments_10.txt",
+   "sha256": "e71e3f8e30c4417fcf6a768ee60036a1b81b693fe24d27930adf652fcd8e1f55",
+   "bytes": 3577
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/04_04_Containers_80.txt",
+   "sha256": "53a8c7b198a3cad3fa6fbf4ae502a273f884d01d2cd169aee8d7c1c9094e99e0",
+   "bytes": 33470
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/05_05_Brain_Parameters_2560.txt",
+   "sha256": "1b03eaab254efb6f32d3275deb614475dc59dbfa9a0236ae6c6c95f190ac823a",
+   "bytes": 3117294
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/06_06_Held_Reserve_650.txt",
+   "sha256": "97b19a796e1906ebb47463d4206db3110f3b09ba21d92915748d716ee3e779a1",
+   "bytes": 278855
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/07_07_Filters_40.txt",
+   "sha256": "480a90134d281d830ccdb95943663a73aba9d69885c2cdfbbc6dc010e665b3f0",
+   "bytes": 4193
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/08_08_States_12.txt",
+   "sha256": "42ee8df5588b9d144293ab29b595d2d7f3ac4e6c6ddff24da8acdaa3ed882c00",
+   "bytes": 1088
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/09_09_Evidence_6_plus_Unknown.txt",
+   "sha256": "4b235faeec4fb396033e35d2561147b35051b480b17d5eceda6c0d4b12a59788",
+   "bytes": 594
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/10_10_Failures_20.txt",
+   "sha256": "a9236332b92d37a3c37bdc5bdfdfe09735d8a9b194a95fcf000797d1ca41e622",
+   "bytes": 1995
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/11_11_Operating_Chain_30.txt",
+   "sha256": "84dd52d155b785f7cde659108714e5da47e9ea2167c5940dfc27cb7a6f4ab42b",
+   "bytes": 1852
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/12_12_Source_Lineage.txt",
+   "sha256": "bf25a5d87d8e82605707aaaf372d2289e88a911bda104679014d101de85b637d",
+   "bytes": 1180
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/13_13_Change_Log.txt",
+   "sha256": "8a48cde80cda484addfc4fa1f570569fca8649ff5c107b7766c746b6788d2e4c",
+   "bytes": 1189
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/14_14_Review_Instructions.txt",
+   "sha256": "9ebaeb4502822f4f03d0237b68b3ed394e3e42746bcc450c7f9f80943cbf4624",
+   "bytes": 1472
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/15_15_Atomic_Source.txt",
+   "sha256": "460b1d07fcc4a17caa2286824d0db0f0bb8372c6bbfacf9966873080a06c1ba5",
+   "bytes": 139719
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/16_16_ASI_Connection_Core.txt",
+   "sha256": "fb84868acbbc06f7835af64d7cfb1df26008411aad6df2964019d714ba09f07c",
+   "bytes": 1968
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/17_17_Context_Decision_Filters.txt",
+   "sha256": "6d7d92598e1714baf95461f140270025bf0d649edae16d30201c7bfc61e1b036",
+   "bytes": 12990
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/18_BT_001_Hunger_Fatigue_Work.txt",
+   "sha256": "6401ccb8ae6cc782bf43d3cb3363cee0edc95215bf08bab7fd2c3d3cb10ac7de",
+   "bytes": 4235
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/19_BT_002_Coworker_Help_Deadline.txt",
+   "sha256": "62a9830dafb27301c5265ed239698b0e4bab21fd2d6c3d1371ea077f957e4b5f",
+   "bytes": 8631
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/20_BT_003_Authority_vs_Verified_Pr.txt",
+   "sha256": "bce56386728a71f8851d50d9aab4a3a2e57d8bf307488be4a6c8a5869b8d2c3b",
+   "bytes": 10014
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/21_BT_004_False_Manipulated_Eviden.txt",
+   "sha256": "31b23943050d94ea5499fb061c4258e70462eab2755e7953a070e527cb17f3fd",
+   "bytes": 13896
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/22_19_Fact_Check_Register.txt",
+   "sha256": "423d39cced74734541b449f8ab7d2825ae120e47da17e23f6c3b6afb8d306ef9",
+   "bytes": 9014
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/23_20_Node_Sync_Change_Log.txt",
+   "sha256": "24de971bcf373284377a2cfc9dda9e9f9e511f0f08cc040edc11ec4154f8c3dc",
+   "bytes": 4462
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/24_21_Repo_Transfer_Contract.txt",
+   "sha256": "bef5b8653b44e81ede2190ad83ecc7c075c44a474ba80957bbf766cafd404fd6",
+   "bytes": 9701
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/25_22_Holy_Books_Source_Ledger.txt",
+   "sha256": "365c3cc299a0b8c45611fceaff7e7909efbe2e5e22a93b0cbbdd87173085f01b",
+   "bytes": 3777
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/26_23_Task3_Approval.txt",
+   "sha256": "6a995ce136dd8857452dc976413a1303350939ae42a8f76cacad274c8f6827ad",
+   "bytes": 1828
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/27_24_Node_Registry.txt",
+   "sha256": "b3e946670681fc4da6784b4f2189293cca45f2723c0b801deefb89bd66c10c2d",
+   "bytes": 1780075
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/28_25_Link_Registry.txt",
+   "sha256": "fc623f00b2808b8f3a8c2ce066f110f4b816988841fa4df38f674e306b02f02a",
+   "bytes": 458393
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/29_26_Task3_Mapping_Control.txt",
+   "sha256": "e016496897b32bcadddbafa55d092f2fa4c5b47b316d713569290fe0ab920d84",
+   "bytes": 1777
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/30_27_Human_only_Unmatched.txt",
+   "sha256": "822968716a99ab5efa3cc230354446efb1a40795bed6caded3a6e24d80b492c1",
+   "bytes": 540
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/31_28_AI_only_Unmatched.txt",
+   "sha256": "201b9612e86bc3d66f81cfae5c20bca56b90b1b3bd551fbebab85fa4336c8398",
+   "bytes": 12796
+  },
+  {
+   "path": "adopted/SB-ASI-Drive/derived_text/32_29_Source_Preservation.txt",
+   "sha256": "ce82fa216217b5a57af0496b30f6bd5139cb464bd9b562e34d0efa4fcadd9570",
+   "bytes": 1723
+  }
+ ],
+ "wired_into_engine_behavior": false,
+ "extraction_totals": {
+  "sheets": 33,
+  "filled_cells": 141113,
+  "words": 710008
+ }
+}

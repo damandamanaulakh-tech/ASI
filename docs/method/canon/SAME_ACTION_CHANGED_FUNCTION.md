@@ -1,6 +1,6 @@
 # SAME ACTION / CHANGED FUNCTION — and the MASK by OBSERVER POSITION
 
-**Provenance.** Owner, 2026-08-13, from his fictional father/door test. He chose
+**Provenance.** Owner, 2026-08-13, from his fictional father/door example. He chose
 these two himself: *"go for 1 & 3"*. Filed with his source untouched.
 
 **HIS RAW SOURCE — `SRC-001`, immutable:**

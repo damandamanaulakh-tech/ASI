@@ -55,10 +55,9 @@ Canon: docs/method/canon/THE_GENERATION_SAME_PERSON_MANY_BRAINS.md
 from __future__ import annotations
 
 import re
-from functools import lru_cache
 
 from . import human_registry as hr
-from .asi_pyramid import HELD, INFERRED, SOURCE_GROUNDED, container_span, param
+from .asi_pyramid import container_span
 
 # ---------------------------------------------------------------------------
 # HIS 25 UNIVERSAL DIMENSIONS — extracted verbatim from his PARAMETER_BANK.

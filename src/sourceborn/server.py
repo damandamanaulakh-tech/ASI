@@ -40,9 +40,22 @@ from . import asipage
 from . import generationpage
 from . import growth
 from . import filemap, growing, intent_ledger, intents, selfmake
+from . import sbx
+from . import archetype
+from . import trigger
+from . import link
+from . import readings
+from . import scale
+from . import reread
+from . import angles
+from . import macro
+from . import naming
+from . import rubrics
+from . import meaning
 from . import artifact
 from . import discovery
 from . import expected
+from . import adopted
 from . import autoloop
 from . import combine
 from . import maturity
@@ -56,6 +69,8 @@ from . import statepacks
 from . import weighting
 from . import enginepage
 from . import homepage
+from . import selfhome
+from . import selfpatch
 from . import exists
 from . import ladder
 from . import mypage
@@ -1355,10 +1370,31 @@ class Handler(BaseHTTPRequestHandler):
         route = urlparse(self.path)
         path, qs = route.path, parse_qs(route.query)
         if path in ("/", "/index.html"):
-            # THE GLASS REACTOR — his chosen home page (A + B blended, on
-            # light). The old dashboard is NOT removed: it lives at /desk.
+            # THE REWRITE — the dashboard prepared around his choice
+            # ("Self-patch, full auto"): teach -> the pen writes -> the suite
+            # in shadow -> green deploys, and every patch stands in the feed
+            # with one-click revert. Nothing is removed: the reactor lives
+            # whole at /reactor, the old dashboard at /desk.
+            self._send(200, selfhome.PAGE.encode("utf-8"),
+                       "text/html; charset=utf-8")
+        elif path == "/reactor":
+            # THE GLASS REACTOR — his previous home page (A + B blended, on
+            # light), kept whole.
             self._send(200, homepage.PAGE.encode("utf-8"),
                        "text/html; charset=utf-8")
+        elif path == "/selfpatch":
+            # the pen's state and its whole feed — arming (presence only,
+            # never a value), the door, the field, every patch row with its
+            # real diffs computed from the row's own before/after
+            try:
+                self._send(200, json.dumps({
+                    "state": selfpatch.state(SB_ROOT),
+                    "report": selfpatch.report(SB_ROOT),
+                    "modules": selfpatch.field(),
+                }).encode(), "application/json")
+            except Exception as exc:
+                self._send(500, json.dumps({"error": str(exc)}).encode(),
+                           "application/json")
         elif path == "/desk":
             self._send(200, PAGE.encode("utf-8"), "text/html; charset=utf-8")
         elif path == "/api/hud":
@@ -1383,6 +1419,17 @@ class Handler(BaseHTTPRequestHandler):
                     "stages_run": a["counts"].get("RUNS", 0),
                     "stages": sum(a["counts"].values()),
                     "loops_triggered": 9,
+                    # the split and the layers standing on it, all live
+                    "split_containers": len(sbx.containers()),
+                    "split_rows": len(sbx.rows()),
+                    "layers_wired": len(sbx.wiring()["wired"]),
+                    "layers_total": len(sbx.layers()),
+                    "archetypes": len(archetype.archetypes()),
+                    "links": link.stats()["links"],
+                    "bands_in_force": len(scale.active()),
+                    "bands_total": len(scale.bands()),
+                    "readings": len(readings.TYPES),
+                    "triggers_his": trigger.stats()["trigger_by_him"],
                 }).encode(), "application/json")
             except Exception as exc:
                 self._send(500, json.dumps({"error": str(exc)}).encode(),
@@ -1470,6 +1517,203 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, json.dumps(
                 {"stats": nodegraph.stats(SB_ROOT),
                  "queue": nodegraph.queue_for_him(SB_ROOT)}).encode(),
+                "application/json")
+        elif path == "/sbx":
+            # THE COMPLETE ARCHITECTURE — his split on his spine, both columns.
+            # The source bank is untouched; verify() proves it every call.
+            self._send(200, json.dumps(
+                {"stats": sbx.stats(),
+                 "verify": sbx.verify(),
+                 "pillars": sbx.pillars(),
+                 "spine": [{k: v for k, v in st.items() if k != "filters"}
+                           for st in sbx.spine()],
+                 "segments": sbx.segments(),
+                 "intent_types": sbx.intent_types(),
+                 "node_brain": sbx.node_brain(),
+                 "open_layers": sbx.open_layers()}).encode(),
+                "application/json")
+        elif path == "/rubrics":
+            # PHASE 8 — his 66, at the step each acts on. ADOPT-HALT-3 stays
+            # shut: R01-R52 is NOT merged with his 25.
+            self._send(200, json.dumps(
+                {"stats": rubrics.stats(), "catalogue": rubrics.catalogue(),
+                 "adopt_halt_3": rubrics.ADOPT_HALT_3}).encode(),
+                "application/json")
+        elif path == "/meaning":
+            # PHASE 0 — one sheet per example. his_meaning ships EMPTY.
+            self._send(200, json.dumps(
+                {"stats": meaning.stats(SB_ROOT), "sheets": meaning.sheets(),
+                 "blocked": meaning.blocked(SB_ROOT),
+                 "usable": meaning.usable(SB_ROOT)}).encode(),
+                "application/json")
+        elif path == "/naming":
+            # PHASE 3 — the rename table, the scan, and his proof that the
+            # example still reaches the same rows under its new name.
+            self._send(200, json.dumps(
+                {"stats": naming.stats(), "table": naming.table(),
+                 "scan": naming.scan(), "verify": naming.verify()}).encode(),
+                "application/json")
+        elif path == "/angles":
+            # PHASE 13 — a PROPERTY applied at generation, never a layer.
+            # No ids, all of them run, none chosen.
+            self._send(200, json.dumps(
+                {"stats": angles.stats(), "verify": angles.verify(),
+                 "angles": angles.angles()}).encode(), "application/json")
+        elif path == "/macro":
+            self._send(200, json.dumps(macro.stats()).encode(),
+                       "application/json")
+        elif path == "/reread":
+            # PHASE 15 — every example of his, read again under the new
+            # rulings. A report: it re-files nothing and corrects no canon.
+            eid = qs.get("id", [""])[0].strip().upper()
+            if eid:
+                self._send(200, json.dumps(reread.read_one(eid)).encode(),
+                           "application/json")
+            else:
+                self._send(200, json.dumps(
+                    {"stats": reread.stats(), "report": reread.report(),
+                     "rulings": reread.rulings()}).encode(),
+                    "application/json")
+        elif path == "/scale":
+            # PHASE 11 — the scale axis. HIS GATE STANDS: his four bands are in
+            # force; the five proposed are stored for his judgement, not
+            # applied. `id` returns one archetype at every band.
+            aid = qs.get("id", [""])[0].strip().upper()
+            if aid:
+                self._send(200, json.dumps(scale.of(aid)).encode(),
+                           "application/json")
+            else:
+                self._send(200, json.dumps(
+                    {"stats": scale.stats(), "gate": scale.gate(),
+                     "bands": scale.bands(), "in_force": scale.active(),
+                     "coverage": scale.coverage()}).encode(),
+                    "application/json")
+        elif path == "/readings":
+            # PHASE 12 — his nine intent types as READINGS, not labels. `id`
+            # returns one type whole.
+            tid = qs.get("id", [""])[0].strip().upper()
+            if tid:
+                self._send(200, json.dumps(readings.get(tid)).encode(),
+                           "application/json")
+            else:
+                self._send(200, json.dumps(
+                    {"stats": readings.stats(), "verify": readings.verify(),
+                     "types": readings.types(),
+                     "adopted_seam": readings.ADOPTED_HALT}).encode(),
+                    "application/json")
+        elif path == "/link":
+            # PHASE 10 — the link layer. `id` returns one link; `row` returns
+            # every link a row stands in; neither returns the whole 993 by
+            # accident, because a page that dumps them cannot be read.
+            lid = qs.get("id", [""])[0].strip().upper()
+            row = qs.get("row", [""])[0].strip()
+            if lid:
+                self._send(200, json.dumps(link.get(lid)).encode(),
+                           "application/json")
+            elif row:
+                self._send(200, json.dumps(
+                    {"row": row, "links": link.of(row)}).encode(),
+                    "application/json")
+            else:
+                self._send(200, json.dumps(
+                    {"stats": link.stats(), "verify": link.verify(),
+                     "types": link.TYPES, "his": link.his()}).encode(),
+                    "application/json")
+        elif path == "/words":
+            # HIS WORDS -> THE CODE THAT CARRIES THEM. 29 modules each defined
+            # annotations() and nothing called any of them until this route.
+            self._send(200, json.dumps(sysmap.his_words()).encode(),
+                       "application/json")
+        elif path == "/sbx/wiring":
+            # HIS ASK 5: your pending wiring. His own twelve-layer table,
+            # rendered against the LIVE data, plus the column his table could
+            # not have — whether a layer actually reaches an answer.
+            self._send(200, json.dumps(sbx.wiring()).encode(),
+                       "application/json")
+        elif path == "/sbx/review":
+            # HIS ASK: split review it again. Checks that can FAIL, run live
+            # over the data — findings, not assurances. Nothing is corrected.
+            self._send(200, json.dumps(sbx.review()).encode(),
+                       "application/json")
+        elif path == "/sbx/nodes":
+            # HIS NODE BRAIN, IN the architecture rather than beside it — the
+            # 12 types placed at the step each acts on. The structure is his
+            # and fingerprinted; the placement is this side's and says so.
+            self._send(200, json.dumps(sbx.node_brain()).encode(),
+                       "application/json")
+        elif path == "/sbx/step":
+            n = qs.get("n", ["1"])[0]
+            try:
+                self._send(200, json.dumps(sbx.step(int(n))).encode(),
+                           "application/json")
+            except ValueError:
+                self._send(400, json.dumps({"error": "n must be 1..12"}).encode(),
+                           "application/json")
+        elif path == "/sbx/container":
+            self._send(200, json.dumps(
+                sbx.container(qs.get("id", [""])[0])).encode(), "application/json")
+        elif path == "/trigger":
+            # HIS THIRD COLUMN — the Operational Trigger / State Vector on all
+            # 183 containers. `id` returns one; no id returns the whole layer
+            # with his table, the repeats, the match and the numbering seams.
+            cid = qs.get("id", [""])[0].strip().upper()
+            if cid:
+                self._send(200, json.dumps(trigger.of(cid)).encode(),
+                           "application/json")
+            else:
+                self._send(200, json.dumps(
+                    {"stats": trigger.stats(),
+                     "his_table": trigger.HIS_TABLE,
+                     "repeats": trigger.repeats(),
+                     "match": trigger.match(),
+                     "seams": trigger.seams(),
+                     "triggers": trigger.triggers()}).encode(),
+                    "application/json")
+        elif path == "/trigger/placements":
+            self._send(200, json.dumps(
+                {"container": qs.get("id", [""])[0].strip().upper(),
+                 "placements": trigger.placements(qs.get("id", [""])[0]),
+                 "law": trigger.repeats()["law"]}).encode(),
+                "application/json")
+        elif path == "/archetype":
+            # THE ARCHETYPE LAYER — the books as generative engines. One id
+            # returns that archetype whole; no id returns the set.
+            aid = qs.get("id", [""])[0].strip().upper()
+            if aid:
+                self._send(200, json.dumps(archetype.get(aid)).encode(),
+                           "application/json")
+            else:
+                self._send(200, json.dumps(
+                    {"stats": archetype.stats(),
+                     "ceiling": archetype.CEILING,
+                     "meaning_min": archetype.MEANING_MIN,
+                     "archetypes": [
+                         {k: v for k, v in a.items() if k != "triggers"}
+                         for a in archetype.archetypes()]}).encode(),
+                    "application/json")
+        elif path == "/adopted":
+            # the adoption from C-SB — byte-identical, verified, inert; every
+            # seam a HALT for him
+            self._send(200, json.dumps(
+                {"stats": adopted.stats(),
+                 "verify": adopted.verify(),
+                 "locks": adopted.locks()["count"],
+                 "intent_types": adopted.intent_types()["types"],
+                 "ai64": adopted.ai64()["records"],
+                 "engines": adopted.engines75()["engine_count"],
+                 "operational": adopted.operational(),
+                 "expansion": adopted.expansion32()["records"],
+                 "native2560": adopted.native2560()["records"],
+                 "nodes22": adopted.nodes22()["node_count"],
+                 "rubrics52": adopted.rubrics52()["count"],
+                 "wisdom": adopted.wisdom(),
+                 "his_examples": adopted.his_examples(),
+                 "halts": adopted.halts(),
+                 "workbook": {"stats": adopted.wb_stats(),
+                              "verify": adopted.wb_verify(),
+                              "bridge": adopted.the_bridge(),
+                              "findings": adopted.wb_findings(),
+                              "halts": adopted.wb_halts()}}).encode(),
                 "application/json")
         elif path == "/auto":
             # Phase E — the self-sustain scheduler: mode (MANUAL until his
@@ -1849,6 +2093,39 @@ class Handler(BaseHTTPRequestHandler):
             data = json.loads(self.rfile.read(n) or b"{}")
         except Exception:
             self._send(400, b'{"error":"bad json"}', "application/json")
+            return
+        if self.path == "/selfpatch/teach":
+            # THE PEN — his choice is full auto: draft -> shadow suite ->
+            # green pushes to the deploy branch with no approval step. Every
+            # outcome (refusals included) is a ledger row the page shows
+            # whole. teach() itself refuses while the front door is open,
+            # because the pen writes into HIS GitHub with HIS token.
+            text = (data.get("text") or "").strip()
+            if not text:
+                self._send(400, b'{"error":"empty teaching"}',
+                           "application/json")
+                return
+            try:
+                row = selfpatch.teach(text, target=str(data.get("target")
+                                                       or ""), root=SB_ROOT)
+                slim = {k: row.get(k) for k in ("id", "stage", "stages",
+                                                "files", "sha",
+                                                "why_the_pen_wrote_it")}
+                self._send(200, json.dumps(slim).encode(), "application/json")
+            except Exception as exc:
+                self._send(500, json.dumps({"error": str(exc)}).encode(),
+                           "application/json")
+            return
+        if self.path == "/selfpatch/revert":
+            # his after-the-fact authority: one NEW commit restoring what
+            # stood before the named patch. Nothing is erased anywhere.
+            try:
+                out = selfpatch.revert(str(data.get("id") or ""),
+                                       root=SB_ROOT)
+                self._send(200, json.dumps(out).encode(), "application/json")
+            except Exception as exc:
+                self._send(500, json.dumps({"error": str(exc)}).encode(),
+                           "application/json")
             return
         if self.path == "/engine/registry":
             saved = ladder.save_registry(SB_ROOT, data,
@@ -2409,6 +2686,112 @@ class Handler(BaseHTTPRequestHandler):
                 self._send(400, b'{"error":"empty prompt"}', "application/json")
                 return
             self._send(200, json.dumps(generate_image(prompt)).encode(), "application/json")
+            return
+        if self.path == "/sbx/place":
+            # the wiring: an ask seated as always, read through the split,
+            # landed on his spine. Nothing chosen, nothing concluded.
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(sbx.place_on_spine(text)).encode(),
+                       "application/json")
+            return
+        if self.path == "/rubrics/run":
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(rubrics.fires_on(text)).encode(),
+                       "application/json")
+            return
+        if self.path == "/meaning/sign":
+            # HIS ACTION. A signature without a meaning is refused.
+            self._send(200, json.dumps(meaning.sign(
+                SB_ROOT, str(data.get("example_id", "")).strip().upper(),
+                str(data.get("his_meaning", "")))).encode(),
+                "application/json")
+            return
+        if self.path == "/angles/run":
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(angles.apply(text)).encode(),
+                       "application/json")
+            return
+        if self.path == "/macro/run":
+            # PHASE 14 — the one line over everything, then the slabs, widest
+            # first, with the exact row said last. No floor on length.
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            out = macro.respond(text)
+            out["rendered"] = macro.render(text)
+            self._send(200, json.dumps(out).encode(), "application/json")
+            return
+        if self.path == "/scale/run":
+            # one arrangement, read at every size — his "one event of those
+            # books is used in 100 daily responses", made mechanical.
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(scale.spread(text)).encode(),
+                       "application/json")
+            return
+        if self.path == "/readings/run":
+            # the proof: all nine readings of one event, each naming what would
+            # confirm and what would refute it. None chosen, none chooseable.
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(readings.read(text)).encode(),
+                       "application/json")
+            return
+        if self.path == "/link/run":
+            # the proof: a reading that belongs to the MEETING of two rows and
+            # is stored in neither end.
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(link.fires_on(text)).encode(),
+                       "application/json")
+            return
+        if self.path == "/trigger/run":
+            # an ask read as a set of FIRING CONDITIONS rather than a list of
+            # nouns. Which condition actually held is not knowable from a
+            # sentence, so `concluded` is None.
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            self._send(200, json.dumps(trigger.fires_on(text)).encode(),
+                       "application/json")
+            return
+        if self.path == "/archetype/run":
+            # which archetypes land on this text, what rows they reach that the
+            # words alone could not, and the proof of the difference. Nothing
+            # is chosen — `concluded` is None on every run.
+            text = (data.get("text") or data.get("question") or "").strip()
+            if not text:
+                self._send(400, json.dumps({"error": "text is required"}).encode(),
+                           "application/json")
+                return
+            out = archetype.fires_on(text)
+            out["proof"] = archetype.compare(text)
+            self._send(200, json.dumps(out).encode(), "application/json")
             return
         if self.path != "/ask":
             self._send(404, b'{"error":"not found"}', "application/json")

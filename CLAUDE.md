@@ -240,7 +240,7 @@ this sentence **HUMAN BODY does not fire at all** — which is what he said shou
 happen, and is the proof the body/brain split holds.
 
 **SAME ACTION / CHANGED FUNCTION, AND THE MASK BY OBSERVER POSITION
-(2026-08-13) — `repetition.py`.** From his fictional father/door test; he chose
+(2026-08-13) — `repetition.py`.** From his fictional father/door example; he chose
 both himself ("go for 1 & 3"). Canon:
 `docs/method/canon/SAME_ACTION_CHANGED_FUNCTION.md`. **(1)** His principle
 *"identical physical action ≠ identical functional role"* — CHECK #1 acquires the
@@ -447,7 +447,14 @@ five loops, and `L1..L5 Adj.` being manual — and kept as findings, not correct
 reachability defects I had reported:** `weighting.py` was importable from nothing
 and now has `/weighting` + `POST /weighting/run`; and `engine.py` now imports
 `asi_pyramid` and `statepacks`, so the Pyramid is in the answer path instead of
-behind one page. 191 tests green, 143 WHAT EXISTS anchors resolve.
+behind one page. **[CORRECTED 2026-08-30 — the second half of that sentence was
+false when written.** The two modules were IMPORTED into `engine.py` and never
+called; an unused import satisfies a grep and puts nothing in an answer path.
+Ten more names were dead the same way, including `MATRIX`/`review_node` from the
+70×25 matrix his own decision had removed. `Engine.read()` now actually calls
+`asi_pyramid.activate()` and `statepacks.packs_index()` and returns both, so the
+claim is true; the dead links are gone. Found by the old-file wiring audit he
+asked for.] 191 tests green, 143 WHAT EXISTS anchors resolve.
 **Still missing and stated:** the killing step — nothing eliminates a fork on
 evidence. 40 routes come back as 40, seven frames as seven. His EVIDENCE_LEDGER,
 contradiction penalty and Falsifier columns are named in his workbook and empty.
@@ -1021,6 +1028,274 @@ growth series `SB-CORR-%04d`) carrying target/was/now — the registry document
 is never rewritten and a test proves the source row stays whole. HUD figures
 all live from `/api/hud`, none typed into markup. 357 tests green, all routes
 verified live over HTTP.
+
+**THE ADOPTION FROM C-SB (2026-08-24) — `adopted.py`, `/adopted`,
+`adopted/C-SB/**`.** His word: *"just adopt what is not here, do not touch and
+change anything in the C-SB repo / n lay off ur brain / just work under ASI
+instructions vague, big picture, anything if u tweak, ask me first."* Canon at
+`docs/method/canon/THE_ADOPTION_FROM_C_SB.md`. C-SB (private, 569 commits,
+the sibling build where Codex/GPT and Grok worked this same project) was
+reviewed read-only first; the old transcript claims all verified against the
+primary source — PR #2 real, exactly 37 files, the 14-stage brain/ tree real
+but an LLM-pipeline model on an UNMERGED branch that C-SB's own constitution
+later ruled against (`SOURCEBORN != LLM`), 7 tests real; the Grok-ASS branch
+is where the 2,560 native bank was written by hand. **The adoption: 42 files
+byte-identical** at commit `9e3f179`, each SHA-256 in
+`ADOPTION_CUSTODY.json`, `verify()` re-hashes all (42/42 intact), **C-SB
+untouched** (working tree checked clean). Adopted verbatim, statuses
+preserved: the Real-Time ASI Constitution + Growing-Phase Constitution + 30
+SEQ-LOCKs + system invariants + the EVENT-INTENT GROWTH CONTRACT (8 typed
+intents, UNKNOWN preferred over fabrication); the banks this core lacked —
+AI-only 64 + AI rubric, 75 engines + bindings, operational containers
+161–240 (80) + sub-parameters 2593–3072 (480), expansion band SB-ASI-
+P2561–P2592 (32), native 2,560 registry + 4 custody parts, container-index-80
+materialization; the 22-node ASI service registry + node-brain contracts;
+rubric registry R01–R52; the WHOLE wisdom pipeline (BG 2.47–2.50 source →
+claims → interpretations → counter-cases → candidates → objects, contracts
+and Mahabharata batch — 12 files, carrying C-SB's own scope: contextual,
+never doctrinal canon or action authority); his RAW originals (the true rain
+wording — "when i want to take my kids out…" — the father-door run, the
+source-sovereignty filter); and the five v2 lock CANDIDATES, kept candidates.
+**Nothing wired into behavior** — seating/runtime/combine/graph/scheduler
+unchanged, pinned by the suite; the module has no write path (source-scan
+test). NOT adopted: the 3,204 registry (this core's bank IS it), C-SB's
+rebuild tools and its own phase-2 proof history (ADOPT-HALT-7). **SEVEN
+ADOPT-HALTs stand for him, decided by nobody**: (1) the P2561 collision —
+SB-ASI-P2561 "Cardiac Salience Spike" vs SB-HFR-P2561, same numerals,
+different rows, kept apart; (2) three node vocabularies (22 service nodes ·
+12 node types · 95 brains); (3) R01–R52 vs his 25 dimensions; (4) wiring
+typed intent into events_in; (5) the wisdom objects into the scripture
+Wisdom Bank; (6) 75 engines + 240/3,072 beside 80/3,204 — bindings or
+never-summed banks; (7) mirroring C-SB's history. His mode instruction is
+recorded as standing law: adoption mechanical and verbatim, interpretation
+is a HALT. In the file divide the adopted tree is its own class — **ADOPTED:
+custody, not a role** — in neither the grows sum nor the grows-against sum
+and never on the harvest list, because SOURCE/EXAMPLE would wire C-SB
+material into the growing harvest and METHOD/BANK would answer ADOPT-HALTs
+3 and 6 by classification; a test pins that no `adopted/` path enters
+`readable()`. **A slip is on the record (canon §5):** the anchors commit
+was pushed with the suite RED — the 43 adopted paths were UNPLACED and the
+failure was masked by a `| tail -1` pipe, so that commit's message claimed
+a green suite falsely; fixed by this placement, and the suite's exit status
+is now checked unmasked before any green claim. 369 tests green after the
+fix, adoption verified byte-identical.
+
+**THE SECOND ADOPTION — THE SB-ASI DRIVE MASTER (2026-08-27), his word
+"this file too for review and adoption."** Canon at
+`docs/method/canon/THE_ADOPTION_OF_THE_ASI_BRAIN_MASTER.md`. The file:
+`ASI-Brain_Task3_Approved_Final_v1_0` — the SB-ASI Google Drive project's
+final Task-3 master (33 sheets · 141,113 cells · 710,008 words, extracted
+whole; Task 2 approved on his word "brain approved", Task 3 approved,
+Tasks 4–5 blocked by his gates; ASI defined by his SYNC-001 correction as
+*the verified evolving Human↔AI connection itself*). Filed at
+`adopted/SB-ASI-Drive/`: the `.xlsx` byte-identical (SHA-256 in the
+tree's own custody manifest) + 33 DERIVED tab-separated sheet texts (the
+`.xlsx` wins on any disagreement); `wb_verify()` re-hashes all 34 per
+call. **The load-bearing find — THE BRIDGE, his own file stating how the
+two banks relate:** `ASI_Claude_Parameters.docx` (the 3,204 this core's
+bank IS) supplied the names; **2,554 carried + 650 held in a NAMED
+reserve = 3,204**, and **2,554 + 6 visible reconstructions = 2,560**
+(P1303–P1308: Formal proof construction/verification, Counterexample
+generation, Defeasible/Non-monotonic/Modal reasoning — each flagged
+REQUIRES USER APPROVAL; the source holds 42 in Core Reasoning, which is
+exactly why the live CON-042 holds 42). `the_bridge()` COUNTS this from
+the sheets on every call and a test pins it — the two banks share 2,554
+rows by his file's own account, and nothing was joined. Also held whole:
+Task 3's node registry (2,749) and link registry (2,839 — 90
+PARALLEL_COMPARISON edges each stamped *"scaffold only; does not prove
+equivalence"*), the 2,514 aligned AI nodes in four mapping classes, 46
+Human-only + 64 AI-only kept unforced, 700 four-model measurement events
+(Gemini, GPT-5.6 Sol, Claude Fable 5, Grok 4.5), FLT-01..40, ST-01..12
+(**all twelve states named** where the Kings file named 6), H0–H6, the
+20 failures, the 30-step chain, BT-001..004, CTX-001..048, FC-001..021
+with real citations, the Holy Books Source Ledger (four anchors, the
+four-layer never-merge law) and the OpenAI Repository Transfer Contract.
+**Five findings reported, corrected nowhere** (`wb_findings`): P0001's
+wording is literally a placeholder while classified EXACT SOURCE WORDING;
+the Task-3 raw workbook (2,514 edges, 46 names, 64 wordings) is an OPEN
+SOURCE GAP by the file's own record; 2,560+650=3,210 explained (the
+target contains the 6); the 3,905 formulas are frozen Sheets imports; the
+918 external concepts are loaded 0 behind his Task-4 gate. **Five new
+seams stand as ADOPT-HALT-8..12**, decided by nobody: the bridge (and the
+six reconstructions), three filter vocabularies (FLT-40 · the registry's
+40 · the seven), the twelve states vs the registry's 12, the missing raw
+workbook against C-SB's `AI_ONLY_RECORDS_64` (which carries 64 WITH
+wording — surfaced as the likely closing of that gap, asserted by
+nobody), and three scripture surfaces (extends HALT-5). Nothing wired —
+the tree is ADOPTED in the file divide, never harvested; `/adopted` now
+serves the workbook block beside the C-SB block. 373 tests green.
+
+**THE COMPLETE ARCHITECTURE — HIS SPLIT, FILED AND WIRED (2026-08-29) —
+`sbx.py`, `data/sbx_architecture.json`, `docs/THE_COMPLETE_ARCHITECTURE.md`,
+`/sbx`.** His orders: *"rebuild it complete with all 183 containers and all
+rows"* then *"now file it in repo and wire it"*. He ruled the split — **every ID
+holding two or three meanings becomes separate IDs, all new IDs, no
+placeholders** — and 69 of the 80 containers carried more than one meaning (the
+widest, CON-040, carried five). Filed: **6 macro pillars · the 12-step spine ·
+27 segments · 183 containers · 3,483 rows · 175 filters · 12 states · 7 evidence
+levels · 20 failure classes · 34 chain steps · 67 rubrics · the 9 approved
+intent types IT-01..09** — each placed at the step where it acts, not merely
+listed. **HIS LOOP IS PRESERVED:** steps 1–8 are first order and **step 8 closes
+to step 1**; 9–12 (CONSOLIDATION · ALIENATION · COLLISION · METAMORPHOSIS) are
+the life of the loop across many cycles and 11–12 can fire at any step —
+recorded as `order` on every step so the closure is never lost. **THE SOURCE
+BANK IS REPLACED, NEVER DELETED** — his ruling on the reversal: the 3,204 rows
+and 80 containers of `human_registry.json` are untouched and still read 3,204,
+proved by a test. **BOTH COLUMNS AT EVERY NODE** — the human name he wrote and a
+computer parallel for all 183 (Working Memory → *RAM and CPU cache, context
+window, token budget, register file*; Forgetting → *TTL expiry, cache eviction,
+garbage collection*), because ASI is the verified Human↔AI connection and one
+column alone cannot link. **`place_on_spine()` is the wiring:** the seating is
+unchanged, it is now READ through the split and lands the ask on steps — his
+study sentence lights **STEP 1 GROUND** (7 sleep rows) and **STEP 2 PRESSURE**,
+8 of 8 seated rows mapped, `concluded: None`; a row finding no home is reported
+by the difference between `source_rows_seated` and `mapped_into_split`, never
+dropped. **Stated honestly and not hidden:** his dice-game sentence still seats
+**0 rows** — no route from those words to those rows — which is exactly what the
+ARCHETYPE layer is for. **ARCHETYPE · LINK · SCALE are declared with no ceiling
+and hold nothing yet** (his ruling: *"no count, its open to increase"*). Verified
+live over HTTP: `/sbx`, `/sbx/step?n=`, `/sbx/container?id=`, `POST /sbx/place`.
+381 tests green, 274 anchors, 0 missing.
+
+**THE LAYERS ON THE SPLIT — HIS SEVEN ASKS AND FOUR PHASES (2026-08-29).**
+`archetype.py` `/archetype` — the books as GENERATIVE ENGINES, his teaching
+(*one event of those books is used in 100 daily responses*). 11 archetypes
+reaching rows ACROSS containers, which is why it is a layer and not a row: THE
+RECOVERY STAKE touches 9 containers in 6 segments. **His three dead examples
+now reach the bank** — the dice game 0→12 rows, stealing 0→20, diamond cut
+diamond 0→10; on the spine the dice game lit 0 steps and now lights 7. Two
+routes, PHRASE and MEANING, the second gated by **his own IDF bar one storey
+up** (a word in several archetypes' vocabularies is weak evidence, so a firing
+needs 2 concept words of which ≥1 is DISTINCTIVE — `all everything` fires
+nothing). 7 of 7 of his examples fire; 8 of 8 ordinary sentences fire nothing.
+117 row ids re-verified against the live registry — **nine of the first twelve
+written for ARCH-011 were wrong from memory** and the test caught them.
+`trigger.py` `/trigger` — **HIS THIRD COLUMN**, the Operational Trigger / State
+Vector, given as ten four-column tables headed *"below more may be repated"*. A
+name is a noun; a trigger is a CONDITION, so it can be evaluated. His table
+verbatim (10 segments, 48 rows, his LaTeX and spelling intact, ids namespaced
+`HIS-`). **His repeat law is structural** — 4 ids carry a different container
+under a different segment, `placements()` returns a LIST. **MATCHED ON THE NAME,
+NEVER THE NUMBER**: his table, the registry and the split all number from
+CON-001 and are three numberings (his CON-064 is Episodic Memory, the
+registry's is Motive/Needs/Values), so his do-not-merge ruling applies to his
+own document; **7 seams surfaced**, sharpest being Theory of Mind, which his
+name places at SBX-CON-150 and his number at Body Schema. Graded: 36 placed, 3
+PROPOSED (a weak match may not carry his trigger — `behavioral` put his
+safety-guardrail row on Group Behaviour), 9 HELD. All 183 filled: 36 his, 147
+DERIVED from two real sources (the container's machine column + its spine step,
+which fixes the firing shape). `link.py` `/link` — **993 links, 992 COUNTED
+FROM THE SPLIT BANK** (his own note on the layer): SPLIT_SIBLING 284,
+SHARED_NAME 89, ARCHETYPE_REACH 619, and the one no sweep could find —
+SYMMETRIC_MEETING, his diamond, **both ends the SAME row** (P2550 Dominance
+motive on both parties), because the reading belongs to the MEETING and is
+stored in neither end. `scale.py` `/scale` — 9 bands; **HIS GATE IS ENFORCED**,
+only his four are in force and the five proposed (moment · household ·
+organisation · dynasty · civilisation) each cite the example OF HIS that
+demands it. `readings.py` `/readings` — his nine intent types as READINGS, not
+labels: **`a man is stealing the money` returns all nine, each naming what
+would CONFIRM and what would REFUTE it**, none chosen and none chooseable (a
+source-scan test proves no max/sort/selection path). Also his asks 2–5:
+**new parameters in front, old in back** (`front_back()`, one function so the
+convention cannot drift; 71 hits, 71 resolving); **the node brain placed on his
+spine** (CONTRADICTION at 7 HALT, EVENT at 2 PRESSURE, INTENT at 4 WITNESS —
+types his, steps DERIVED and correctable; steps 8/10/11 hold none and say so);
+**the split review**, nine checks that can fail — 5 pass, 4 findings, 0
+BLOCKING (open for him: 155 of 183 containers under 40 rows; `Ownership` and
+`Gesture` each naming two containers — the multi-meaning defect one level down,
+not renamed; 83 duplicate row names; one rubric counted but placed nowhere);
+and **his twelve-layer table live** — 8 met, 3 no-ceiling, **1 SHORT by exactly
+4,120**, his own figure, refused rather than filled with invented names.
+**ALL OF IT RUNS ON ONE ASK** — `place_on_spine` calls every layer, not one
+per page; `trigger.for_hits()` exists because that module calls
+`place_on_spine` and wiring it in with only `fires_on` would have recursed.
+The arrow chart, `sysmap.where()`, the growth seed (218→303 rows, **PARAM stays
+3**), the home-page HUD and the README all carry it. 430 tests green.
+
+**THE THREE WIRING AUDITS, ON HIS WORD (2026-08-30)** — *"is all new work
+connected with file or not"*, then *"now do the same check for old files"*, then
+*"now do the same check for docs"*. **NEW FILES: six of seven integration points
+were failing.** `trigger.py` and `readings.py` were importable only from
+`server.py` — behind their own routes, never touching an answer, the defect
+`weighting.py` had; `place_on_spine` now runs every layer on one ask (SEGMENT ·
+CONTAINER · SUB-PARAMETER · ARCHETYPE · TRIGGER · LINK · SCALE ·
+INTENT-READING), which needed `trigger.for_hits()` because that module calls
+`place_on_spine` and wiring it in with only `fires_on` would have recursed.
+The arrow chart showed NONE of it (nor `sbx` from the commit before);
+`sysmap.where()` had no entry; `growth.seed()` did not harvest them (218→303
+rows, **PARAM stays 3**); the home page knew nothing (7 live HUD cells added);
+README and CLAUDE.md stopped short. And **29 modules each defined
+`annotations()` mapping HIS WORDS to the code that carries them — nothing had
+ever called one**; `sysmap.his_words()` now collects all 169 and resolves each
+target, 169 of 169. **OLD FILES: a claim in this very file was false when
+written.** It said importing `asi_pyramid` and `statepacks` put the Pyramid "in
+the answer path" — an unused import satisfies a grep and nothing else; twelve
+names in `engine.py` were dead the same way, including `MATRIX`/`review_node`
+from the 70×25 his own decision had removed. `Engine.read()` now CALLS them
+(verified live: `POST /reading/ask` returns a `pyramid` block reading bank 3,204,
+and 16 state packs), the dead links are gone, and 25 dead imports across the package
+are now 0 — each checked for re-export first. `khalf.py` was an orphan declared
+in NO map at all; `rh_code`, `seq_kernel` and now `urr_matrix` join it as
+BUILT-NOT-WIRED, and the guard that enforces this **immediately caught that
+removing the `urr_matrix` import had created a new undeclared orphan**.
+**DOCS: 102 files.** 0 broken markdown links, 0 code symbols named that do not
+exist, 0 routes claimed that are not served (`/ask` and `/restore` were the only
+suspects — `/ask` is real, `/restore` was a wrong route NAME in a security
+finding whose real route is `POST /import`). The README told a reader to expect
+**25 tests** while the suite ran 443. Seven of 28 canon files were reachable
+from nothing — `docs/method/canon/00_INDEX.md` now names all 28 and a test
+enforces it. `THE_AUTO_PROPOSAL.md` proposed `links.py`/`nodemem.py`/`/links`
+and the work shipped as `nodegraph.py`/`/nodes` with nothing saying so — a
+landing table was added, nothing removed. And the method docs called
+`seq_kernel` **Binding** without saying it is **NOT WIRED**; both facts are now
+stated together in `00_READ_FIRST.md` and `01C_SEQUENCE_PROTOCOL.md`. Most
+"N tests green" figures across the docs are DATED BUILD RECORDS, not live
+claims, and were left alone — rewriting them would falsify history. **Ten
+guards were added so none of it can drift back**: no module imported and never
+used · the Pyramid must be called not imported · the removed matrix must stay
+unlinked · every orphan declared · README lists every served route · README's
+test count equals the real one · no doc names a missing symbol · no doc links to
+a missing file · the canon index names every canon file · a doc calling the
+kernel binding must also say it is unwired. 448 tests green.
+
+**THE PEN — IT REWRITES ITS OWN CODE, FULL AUTO ON HIS CHOICE (2026-09-03) —
+`selfpatch.py`, `selfhome.py`, `/` is THE REWRITE.** His goal, verbatim: *"as m
+feeding example and setting some rules in the system i want an app where i keep
+changing n it should rewrite its own code and make changes"* — and his order
+that the options be discussed first, *"and accordignly the dashboard will
+prepared not what we have."* Four paths were put to him by name (rules-as-data
+only · staged assembly · self-patch full auto · agent-outside requests), each
+with its trade stated, including that full auto *"collides with your rule 2
+unless you relax it."* **HE CHOSE: Self-patch, full auto** — teach → the pen
+drafts a real patch → the WHOLE suite runs against a shadow copy of the tree →
+green is committed straight to the deploy branch through the GitHub API and
+Render redeploys it, **no approval step**. Canon:
+`docs/method/canon/THE_SELF_REWRITE.md`. **How rule 2 survives, structurally
+not by discipline:** the pen's FIELD is `src/sourceborn/*.py` minus five held
+files (server.py the lock · selfpatch.py the pen itself · selfhome.py its
+witness · safety.py rule 10 · llm.py the keys) plus README.md, default-deny —
+`docs/`, `data/`, `adopted/`, `tests/`, `seed_corpus/`, CLAUDE.md and the
+deploy rails are refused before anything runs, so THE CORE (his words, his
+banks, the suite, the orders) is unreachable and the pen cannot lower the bar
+it must clear. **The gate that replaces his word is the suite itself**, run
+whole in shadow with exit checked; every pinned law binds every patch. **Append
+only:** each teach is a ledger row with his teaching verbatim, full
+before/after, verdict, sha; refusals filed (REFUSED-DOOR-OPEN · NO-MODEL ·
+MALFORMED · HELD · SHADOW-RED · REFUSED-PUSH on a branch race — never forced);
+`revert()` is a NEW commit and the reverted row stays whole. **The door:**
+teach/revert refuse while `SB_ACCESS_PASS` is unset — the pen pushes with HIS
+token into HIS GitHub, so the Phase-0 front door must be shut against strangers;
+it gates nothing for him. **Armed only by his own hand** in Render:
+`SB_GITHUB_TOKEN` + `SB_REPO` + a model key (`SB_PATCH_MODEL` picks the
+drafter); until then a green patch is HELD-UNARMED with the whole patch kept.
+The offline echo can never become a patch (it does not parse as one, tested).
+**The dashboard he asked for:** `/` is now THE REWRITE — teach box, arming
+panel (presence only, never a value), never-touched map, and the feed with real
+diffs and one-click revert; the reactor stands whole at `/reactor`, the desk at
+`/desk`, nothing removed. **NOT built, stated:** the pen does not teach itself —
+AUTO_SUSTAIN for code waits at his gate with the promotion question; and the
+bar is exactly as high as the suite is, since tests stay outside the pen's
+reach.
 
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding
