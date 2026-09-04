@@ -1295,7 +1295,15 @@ diffs and one-click revert; the reactor stands whole at `/reactor`, the desk at
 `/desk`, nothing removed. **NOT built, stated:** the pen does not teach itself —
 AUTO_SUSTAIN for code waits at his gate with the promotion question; and the
 bar is exactly as high as the suite is, since tests stay outside the pen's
-reach.
+reach. **HIS CORRECTION AFTER SEEING IT LIVE (2026-09-04): "dashboard also be
+one."** The first REWRITE page wore a header of six links — a lobby onto six
+page-shaped things. Corrected same day: `/` is ONE page and every view is a
+TAB inside it (the pen first, then reactor/engine/reading/split/exists/desk as
+lazy iframes); old routes still answer as the panels it shows, deep links
+small in the footer. `/health` gained a `pen` block of presence-only booleans
+(door/token/repo/drafter/armed) so his arming can be confirmed from outside
+after the door locks. PR #44 merged on his word (`59513b1`) — the pen is the
+deployed app; arming is his four env vars on the `sourceborn` Render service.
 
 **The 70×25 matrix is GONE, by the user's decision** — *"now we dont want 70-25
 there, but i want more filters and fact kind of"*. In its place every finding

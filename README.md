@@ -37,7 +37,7 @@ Status as of the current pass:
 ```bash
 python -m sourceborn.demo                 # full offline walkthrough
 python -m sourceborn "why does the small idea win? prove it"
-PYTHONPATH=src python3 tests/test_engine.py   # 499 tests
+PYTHONPATH=src python3 tests/test_engine.py   # 500 tests
 ```
 Set `ANTHROPIC_API_KEY` to swap the offline stub for real Claude reasoning.
 
@@ -138,8 +138,11 @@ adopted/, tests/ and CLAUDE.md are unreachable to it, structurally. Armed
 only by the owner's own env vars: `SB_GITHUB_TOKEN` (fine-grained, Contents
 read/write, one repo) + `SB_REPO` + a model key — and it refuses to move at
 all until `SB_ACCESS_PASS` locks the front door, because it writes into the
-owner's GitHub with the owner's token. The reactor home page stands whole at
-`GET /reactor`, the old dashboard at `GET /desk`.
+owner's GitHub with the owner's token. **The dashboard is ONE** (the owner's
+correction): `/` is a single page and every view — the reactor's ask/bank,
+the engine, the reading, the split, what-exists, the desk — is a tab inside
+it, loaded lazily; the old routes still answer as the panels it shows
+(`GET /reactor`, `GET /desk`, …), with small footer links to open one alone.
 
 ### Every route, generated from the server
 

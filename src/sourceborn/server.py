@@ -1930,9 +1930,18 @@ class Handler(BaseHTTPRequestHandler):
                 self._send(200, json.dumps(d).encode(), "application/json")
         elif path == "/health":
             wst = scheduler.status(SB_ROOT)
+            # the pen block is presence-only booleans, same charter as
+            # `models` — /health stays open for Render's probe, so it may
+            # say WHETHER a switch exists and never anything more
+            a = selfpatch.arming()
             body = json.dumps({"ok": True, "model": ENGINE.model.name,
                                "models": model_status(),
                                "brains": len(ENGINE.brains.all()),
+                               "pen": {"door_locked": selfpatch.door()["locked"],
+                                       "token": a["SB_GITHUB_TOKEN"],
+                                       "repo_named": bool(a["SB_REPO"]),
+                                       "drafter": a["model_armed"],
+                                       "armed": a["armed"]},
                                "weekly": wst,
                                "weekly_phrase": _weekly_phrase(wst)})
             self._send(200, body.encode(), "application/json")
